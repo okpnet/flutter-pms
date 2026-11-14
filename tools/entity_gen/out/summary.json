@@ -65,7 +65,7 @@
       {
         "key": "shipplan",
         "label": "出荷予定",
-        "first": ""
+        "first": "SP-001"
       }
     ],
     "shared_master": [

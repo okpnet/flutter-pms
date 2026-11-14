@@ -47,6 +47,7 @@
 
 
 
+
 ## 取得元(GraphQL 版)
 `lib/src/graphql/purchasing_repositories.dart` の `purchasingRepositories(GraphQLClient)` が、発注(`purchase`)・発注明細(`purdetail`)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
 1.  書き込み: 発注・発注明細は、登録・更新・削除(論理削除。`remove = true`)ができる。履歴ID+IDの参照(仕入先・品目)は、画面の ID から最新の履歴(`revision` が最大)を引いて送る。担当者(更新者)は送らない。必須・数値・日付の検証は取得元が行い、`EntityValidationException` で返す。キャンセル・停止・打ち切り・残など操作の DB 関数やビューで決まる項目は読み取り専用で、ここから書かない。

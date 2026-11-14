@@ -37,3 +37,4 @@ stakeholder:
   supplierLedger: Suppliers
   customerPick: Select a customer
   supplierPick: Select a supplier
+  carrierPick: Select a carrier

@@ -237,29 +237,24 @@
 })();
 
 /* 出荷管理（出荷予定台帳 + 出荷指示）と、引当予約。
-   - shipplan.wait は計算項目(kind "c")。明細の「出荷数量 × 進捗」から求める出荷待ちの割合（読み取り専用）。完了にチェックが入ると 0%。
+   - 出荷予定は DB の出荷オーダー(trans_shipping_order)、出荷指示は出荷オーダー明細(trans_shipping_order_detail)。
+     出荷オーダーは受注1件につき1件(DB の一意制約 trans_shipping_order_ix1)。
+     運送業者は利害関係者のうち運送業者のフラグ(is_logistics)がオンの行(別名 carrier)。梱包サイズ・品目は、受注明細の品目から分かるため持たない。
+     出荷の完了・進捗は、出荷実績(trans_shipping_order_detail_record)から求める値で、この画面案には持たない。
    - stockrez は 購買注文明細 / 生産計画 のどちらか一方と、引当元の在庫(OD_DATA.stock)を結ぶ。
    - 発注明細・生産計画の行には「引当予約」ボタン(action)を出す。 */
 (function () {
   const D = window.OD_DOMAINS;
-  const wait = (r) => {
-    if (r.done) return 0;
-    const L = (window.OD_DATA.g_shipline ?? []).filter((l) => l.shipplan === r.id);
-    const total = L.reduce((n, l) => n + (Number(l.qty) || 0), 0);
-    if (!total) return 100;
-    const sent = L.reduce((n, l) => n + ((Number(l.qty) || 0) * Math.min(100, Number(l.progress) || 0)) / 100, 0);
-    return Math.round(100 - (sent / total) * 100);
-  };
   D.entities.push(
     { key: "shipplan", label: "出荷予定",
-      fields: [["order", "受注", "r", { ref: "order" }], ["date", "予定日", "d"], ["carrier", "集荷業者", "r", { ref: "supplier" }], ["arrival", "到着予定日", "d", { after: "date" }],
-        ["done", "出荷状態（完了）", "b", { req: false }], ["wait", "出荷待ちの割合（%）", "c", { calc: wait }]],
-      rows: [["order1", "2026-11-08", "supplier1", "2026-11-10", ""], ["order1", "2026-11-12", "supplier1", "2026-11-14", "1"], ["order2", "2026-11-16", "supplier1", "2026-11-18", ""]] },
+      fields: [["order", "受注", "r", { ref: "order" }], ["code", "出荷予定コード"], ["date", "出荷予定日", "d"], ["arrival", "到着予定日", "d", { after: "date" }],
+        ["carrier", "運送業者", "r", { ref: "carrier", req: false }], ["remarks", "備考", "x", { req: false }]],
+      rows: [["order1", "SP-001", "2026-11-08", "2026-11-10", "carrier1", ""], ["order2", "SP-002", "2026-11-12", "2026-11-14", "carrier1", ""]] },
     { key: "shipline", label: "出荷指示", parent: { ent: "shipplan", key: "shipplan" },
-      fields: [["pack", "梱包サイズ", "r", { ref: "itempack" }], ["qty", "出荷数量", "n", { gt: 0 }], ["item", "出荷アイテム", "r", { ref: "item" }], ["date", "個別の予定日", "d"],
-        ["arrival", "個別の到着日", "d", { after: "date" }], ["progress", "進捗（%）", "n", { ge: 0, le: 100 }]],
-      rows: [["shipplan1", "itempack1", "100", "item1", "2026-11-08", "2026-11-09", "60"], ["shipplan1", "itempack1", "50", "item2", "2026-11-08", "2026-11-10", "20"],
-        ["shipplan2", "itempack1", "200", "item2", "2026-11-12", "2026-11-14", "100"], ["shipplan3", "itempack1", "30", "item1", "2026-11-16", "2026-11-18", "0"]] },
+      fields: [["orderdetail", "受注明細", "r", { ref: "orderdetail" }], ["qty", "出荷数量", "n", { gt: 0 }], ["date", "個別の予定日", "d", { req: false }],
+        ["arrival", "個別の到着日", "d", { req: false, after: "date" }], ["remarks", "備考", "x", { req: false }]],
+      rows: [["shipplan1", "orderdetail1", "100", "2026-11-08", "2026-11-09", ""], ["shipplan1", "orderdetail2", "50", "2026-11-08", "2026-11-10", ""],
+        ["shipplan2", "orderdetail3", "30", "2026-11-12", "2026-11-14", ""]] },
     { key: "stockrez", label: "引当予約",
       fields: [["purdetail", "購買注文明細", "r", { ref: "@srcPur:id:label", req: false, xor: "opsplan" }], ["opsplan", "生産計画", "r", { ref: "@srcOps:id:label", req: false, xor: "purdetail" }],
         ["stock", "引当元の在庫", "r", { ref: "@stock:id:label", setsLe: "qty", limitField: "avail",

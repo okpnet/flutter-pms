@@ -13,14 +13,12 @@ const Map<String, List<EntityRecord>> salesSeeds = {
       EntityRecord(id: '44b192d6-0000-4000-8000-000000000003', values: {'item_id': '9f3833e6-0000-4000-8000-000000000003', 'quantity': '150', 'unit_price': '30', 'price_adjustment': '30', 'fixed_price': '30', 'delivery_date': '2026-10-12', 'deadline': '2026-10-12', 'remarks': '', 'customer_property': 'はい', 'master_error_count': '0', 'cancel_quantity': '0', 'stop': '', 'remaining_quantity': '', 'open_quantity': '', 'cancel_closed': '', 'settlement_amount': ''}, parentId: '732c1097-0000-4000-8000-000000000002'),
     ],
     'shipplan': [
-      EntityRecord(id: '546f5b58-0000-4000-8000-000000000001', values: {'order': '732c1097-0000-4000-8000-000000000001', 'date': '2026-11-08', 'carrier': '9c2cec53-0000-4000-8000-000000000004', 'arrival': '2026-11-10', 'done': '', 'wait': ''}),
-      EntityRecord(id: '546f5b58-0000-4000-8000-000000000002', values: {'order': '732c1097-0000-4000-8000-000000000001', 'date': '2026-11-12', 'carrier': '9c2cec53-0000-4000-8000-000000000004', 'arrival': '2026-11-14', 'done': '1', 'wait': ''}),
-      EntityRecord(id: '546f5b58-0000-4000-8000-000000000003', values: {'order': '732c1097-0000-4000-8000-000000000002', 'date': '2026-11-16', 'carrier': '9c2cec53-0000-4000-8000-000000000004', 'arrival': '2026-11-18', 'done': '', 'wait': ''}),
+      EntityRecord(id: '546f5b58-0000-4000-8000-000000000001', values: {'order': '732c1097-0000-4000-8000-000000000001', 'code': 'SP-001', 'date': '2026-11-08', 'arrival': '2026-11-10', 'carrier': '9c2cec53-0000-4000-8000-000000000006', 'remarks': ''}),
+      EntityRecord(id: '546f5b58-0000-4000-8000-000000000002', values: {'order': '732c1097-0000-4000-8000-000000000002', 'code': 'SP-002', 'date': '2026-11-12', 'arrival': '2026-11-14', 'carrier': '9c2cec53-0000-4000-8000-000000000006', 'remarks': ''}),
     ],
     'shipline': [
-      EntityRecord(id: 'e3cef8dd-0000-4000-8000-000000000001', values: {'pack': 'bd06615f-0000-4000-8000-000000000001', 'qty': '100', 'item': '9f3833e6-0000-4000-8000-000000000001', 'date': '2026-11-08', 'arrival': '2026-11-09', 'progress': '60'}, parentId: '546f5b58-0000-4000-8000-000000000001'),
-      EntityRecord(id: 'e3cef8dd-0000-4000-8000-000000000002', values: {'pack': 'bd06615f-0000-4000-8000-000000000001', 'qty': '50', 'item': '9f3833e6-0000-4000-8000-000000000002', 'date': '2026-11-08', 'arrival': '2026-11-10', 'progress': '20'}, parentId: '546f5b58-0000-4000-8000-000000000001'),
-      EntityRecord(id: 'e3cef8dd-0000-4000-8000-000000000003', values: {'pack': 'bd06615f-0000-4000-8000-000000000001', 'qty': '200', 'item': '9f3833e6-0000-4000-8000-000000000002', 'date': '2026-11-12', 'arrival': '2026-11-14', 'progress': '100'}, parentId: '546f5b58-0000-4000-8000-000000000002'),
-      EntityRecord(id: 'e3cef8dd-0000-4000-8000-000000000004', values: {'pack': 'bd06615f-0000-4000-8000-000000000001', 'qty': '30', 'item': '9f3833e6-0000-4000-8000-000000000001', 'date': '2026-11-16', 'arrival': '2026-11-18', 'progress': '0'}, parentId: '546f5b58-0000-4000-8000-000000000003'),
+      EntityRecord(id: 'e3cef8dd-0000-4000-8000-000000000001', values: {'orderdetail': '44b192d6-0000-4000-8000-000000000001', 'qty': '100', 'date': '2026-11-08', 'arrival': '2026-11-09', 'remarks': ''}, parentId: '546f5b58-0000-4000-8000-000000000001'),
+      EntityRecord(id: 'e3cef8dd-0000-4000-8000-000000000002', values: {'orderdetail': '44b192d6-0000-4000-8000-000000000002', 'qty': '50', 'date': '2026-11-08', 'arrival': '2026-11-10', 'remarks': ''}, parentId: '546f5b58-0000-4000-8000-000000000001'),
+      EntityRecord(id: 'e3cef8dd-0000-4000-8000-000000000003', values: {'orderdetail': '44b192d6-0000-4000-8000-000000000003', 'qty': '30', 'date': '2026-11-12', 'arrival': '2026-11-14', 'remarks': ''}, parentId: '546f5b58-0000-4000-8000-000000000002'),
     ],
 };

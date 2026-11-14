@@ -1,0 +1,45 @@
+# shipping_order_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ShippingOrderPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ShippingOrderPageCreate(
+  $transOrderId: UUID
+  $estimatedShippingDate: Datetime!
+  $code: String!
+  $estimatedArrivalDate: Date!
+  $stakeholderHistoryId: UUID
+  $stakeholderId: UUID
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  createTransShippingOrder(
+    input: {
+      transShippingOrder: {
+        transOrderId: $transOrderId
+        estimatedShippingDate: $estimatedShippingDate
+        code: $code
+        estimatedArrivalDate: $estimatedArrivalDate
+        stakeholderHistoryId: $stakeholderHistoryId
+        stakeholderId: $stakeholderId
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    transShippingOrder {
+      transShippingOrderId
+      transOrderId
+      estimatedShippingDate
+      code
+      estimatedArrivalDate
+      stakeholderHistoryId
+      stakeholderId
+      remarks
+      updateUserId
+      updateUserHistoryId
+    }
+  }
+}

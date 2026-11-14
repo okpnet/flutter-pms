@@ -43,6 +43,7 @@ export 'src/graphql/order_page/order_page_rfe.graphql.dart';
 export 'src/graphql/sales_record_page/sales_record_page_read.graphql.dart';
 export 'src/graphql/schema.graphql.dart';
 export 'src/graphql/shipping_delivery_compliance_page/shipping_delivery_compliance_page_read.graphql.dart';
+export 'src/graphql/shipping_order_detail_page/shipping_order_detail_page_create.graphql.dart';
 export 'src/graphql/shipping_order_detail_page/shipping_order_detail_page_edit.graphql.dart';
 export 'src/graphql/shipping_order_detail_page/shipping_order_detail_page_read.graphql.dart';
 export 'src/graphql/shipping_order_detail_page/shipping_order_detail_page_remove.graphql.dart';
@@ -51,6 +52,7 @@ export 'src/graphql/shipping_order_detail_record_page/shipping_order_detail_reco
 export 'src/graphql/shipping_order_detail_record_page/shipping_order_detail_record_page_read.graphql.dart';
 export 'src/graphql/shipping_order_detail_record_page/shipping_order_detail_record_page_remove.graphql.dart';
 export 'src/graphql/shipping_order_detail_record_page/shipping_order_detail_record_page_rfe.graphql.dart';
+export 'src/graphql/shipping_order_page/shipping_order_page_create.graphql.dart';
 export 'src/graphql/shipping_order_page/shipping_order_page_edit.graphql.dart';
 export 'src/graphql/shipping_order_page/shipping_order_page_read.graphql.dart';
 export 'src/graphql/shipping_order_page/shipping_order_page_remove.graphql.dart';

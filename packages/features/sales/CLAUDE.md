@@ -35,8 +35,8 @@
 |---|---|---|---|---|
 | 受注 | `order` | テーブル構造 | 7 | `customer` |
 | 受注明細 | `orderdetail` | 子の台帳(親: 受注) | 16 | `item` |
-| 出荷予定 | `shipplan` | テーブル構造 | 6 | `order`, `supplier` |
-| 出荷指示 | `shipline` | 子の台帳(親: 出荷予定) | 6 | `itempack`, `item` |
+| 出荷予定 | `shipplan` | テーブル構造 | 6 | `order`, `carrier` |
+| 出荷指示 | `shipline` | 子の台帳(親: 出荷予定) | 5 | `orderdetail` |
 <!-- entity_gen:end -->
 
 
@@ -45,10 +45,11 @@
 
 
 
+
 ## 取得元(GraphQL 版)
-`lib/src/graphql/sales_repositories.dart` の `salesRepositories(GraphQLClient)` が、受注(`order`)・受注明細(`orderdetail`)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
+`lib/src/graphql/sales_repositories.dart` の `salesRepositories(GraphQLClient)` が、受注(`order`)・受注明細(`orderdetail`)・出荷予定(`shipplan`。DB の出荷オーダー)・出荷指示(`shipline`。出荷オーダー明細)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
 1.  書き込み: 受注・受注明細は、登録・更新・削除(論理削除。`remove = true`)ができる(`OrderPageCreate`・`OrderPageEdit`・`OrderPageRemove`、`OrderDetailPage*`)。顧客・品目の履歴ID+IDは、画面の ID から最新の履歴(`revision` が最大)を引いて送る。担当者(更新者)は送らない。必須・数値・日付の検証は取得元が行い、`EntityValidationException` で返す。キャンセル・停止・残など操作の DB 関数やビューで決まる項目は読み取り専用で、ここから書かない(操作は DB の関数。画面は別に作る)。
-1.  受注明細は、キャンセル数量・停止・顧客所有・残・受注残・全部キャンセル済み・精算額(DB のビュー `v_order_detail_balance` の列。画面で計算しない)を読み取り専用の項目で持つ。出荷予定・出荷指示(`shipplan`・`shipline`)は、DB に対応する表が無いため、サンプルのまま。
+1.  受注明細は、キャンセル数量・停止・顧客所有・残・受注残・全部キャンセル済み・精算額(DB のビュー `v_order_detail_balance` の列。画面で計算しない)を読み取り専用の項目で持つ。出荷予定の運送業者は、利害関係者のうち運送業者のフラグ(`is_logistics`)がオンの行(別名 `carrier`。`shared_master` が選択肢を登録する)。梱包サイズ・品目は、受注明細(出荷指示の `orderdetail`)の品目から分かるため持たない。出荷の完了・進捗は出荷実績(`trans_shipping_order_detail_record`)から求める値で、定義に無い。出荷オーダーは受注1件につき1件(DB の一意制約。論理削除した行も数える。`tools/docker/postgresql/issue/20261114_0002.md`)。日付は、時刻の変換(UTC)をせず、そのまま送る。
 1.  実体の定義(項目・表示名)は、DB に合わせて生成する(`tools/open-design/tools/gen-schema.js` が、`packages/model_providers` の YAML と `06_cteate_test.sql` から画面案を生成し、`tools/entity_gen/gen.js` が各機能の定義にする)。顧客・発注先・品目などの履歴ID+IDの参照は、IDの項目(`stakeholder_id`・`item_id`)として定義に入る。キャンセル数量・停止・打ち切り・残など、操作の DB 関数や DB のビューで決まる項目は、`gen.js` の `FIELD_ADDITIONS` が読み取り専用の項目として足す。生成物は直接編集しない。
 1.  生成された型は、この中だけで使い、外へ出さない。抽出条件・並び順は無視する(絞り込みと並べ替えはテーブル側)。言語コード `ja` の ID は、最初の1回だけ引く。
 ## example と多言語

@@ -141,7 +141,7 @@ abstract class _ReadOnlyRepository implements IEntityRepository {
   static String? isoDate(EntityRecord r, String key) {
     final v = str(r, key);
     if (v == null) return null;
-    return DateTime.tryParse(v)?.toUtc().toIso8601String();
+    return DateTime.tryParse(v)?.toIso8601String();
   }
 
   /// 必須の項目が空・数値・日付が不正なときは [EntityValidationException]。

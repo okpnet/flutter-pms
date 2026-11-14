@@ -54,7 +54,7 @@ const SKIP = new Set(['customer', 'custcontact', 'supplier', 'suppcontact', 'shi
 /** 利害関係者(stakeholder)。顧客・外部供給者は同じ mstr_stakeholder をフラグで見分けるだけなので、
  *  1つの実体にまとめる(shared_master)。他の実体からの参照のキー customer・supplier は、
  *  同じ利害関係者の行への別名(登録簿の lookup)として残す。 */
-const STAKEHOLDER_ALIASES = { customer: 'is_customer', supplier: 'is_supplier' };
+const STAKEHOLDER_ALIASES = { customer: 'is_customer', supplier: 'is_supplier', carrier: 'is_logistics' };
 const COLL = { employees: 'staff', locations: 'location', equipments: 'equipment', departments: 'department', stock: 'stockstatus', srcPur: 'purdetail', srcOps: 'opsplan' };
 
 /** 重複を認めない項目の組。範囲は、所有される実体なら同じ親の中、それ以外は全体。
@@ -328,7 +328,7 @@ const stakeholder = (() => {
   const base = fromHtml({ ...supp, key: 'stakeholder', label: '利害関係者', rows: [] });
   const flags = ['is_customer', 'is_supplier', 'is_logistics'];
   const rows = [];
-  const aliases = { customer: new Map(), supplier: new Map() };
+  const aliases = { customer: new Map(), supplier: new Map(), carrier: new Map() };
   const add = (src, alias, set) => {
     (src.rows ?? []).forEach((arr, i) => {
       const values = {};
@@ -344,6 +344,8 @@ const stakeholder = (() => {
   };
   add(cust, 'customer', ['is_customer']);
   add(supp, 'supplier', ['is_supplier']);
+  // 運送業者(画面案に専用の実体は無い)。外部供給者の見本の先頭1件を、運送業者として置き直す(コードは区別する)
+  add({ rows: (supp.rows ?? []).slice(0, 1).map((r) => [`${r[0]}-L`, ...r.slice(1)]) }, 'carrier', ['is_logistics']);
   const contact = fromHtml({ ...DOM.entities.find((e) => e.key === 'custcontact'), key: 'contact', label: '担当者', parent: { ent: 'stakeholder', key: 'stakeholder' }, rows: [] });
   return { entities: [{ ...base, rows, project: 'shared_master' }, { ...contact, project: 'shared_master' }], aliases };
 })();
@@ -372,7 +374,7 @@ for (const e of entities) {
   e.rows.forEach((r, i) => m.set(r.legacy, `${hex(fnv(e.key), 8)}-0000-4000-8000-${hex(i + 1, 12)}`));
   idMaps.set(e.key, m);
 }
-// 別名(customer・supplier)は、利害関係者の行の id を引く
+// 別名(customer・supplier・carrier)は、利害関係者の行の id を引く
 for (const [alias, legacyMap] of Object.entries(stakeholder.aliases)) {
   const own = idMaps.get('stakeholder');
   idMaps.set(alias, new Map([...legacyMap].map(([l, s]) => [l, own.get(s)])));

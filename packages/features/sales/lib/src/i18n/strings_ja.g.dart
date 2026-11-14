@@ -218,20 +218,20 @@ class SalesStrings$entity$shipplan$fields$ja {
 	/// ja: '受注'
 	String get f_order => '受注';
 
-	/// ja: '予定日'
-	String get f_date => '予定日';
+	/// ja: '出荷予定コード'
+	String get f_code => '出荷予定コード';
 
-	/// ja: '集荷業者'
-	String get f_carrier => '集荷業者';
+	/// ja: '出荷予定日'
+	String get f_date => '出荷予定日';
 
 	/// ja: '到着予定日'
 	String get f_arrival => '到着予定日';
 
-	/// ja: '出荷状態（完了）'
-	String get f_done => '出荷状態（完了）';
+	/// ja: '運送業者'
+	String get f_carrier => '運送業者';
 
-	/// ja: '出荷待ちの割合（%）'
-	String get f_wait => '出荷待ちの割合（%）';
+	/// ja: '備考'
+	String get f_remarks => '備考';
 }
 
 // Path: entity.shipline.fields
@@ -242,14 +242,11 @@ class SalesStrings$entity$shipline$fields$ja {
 
 	// Translations
 
-	/// ja: '梱包サイズ'
-	String get f_pack => '梱包サイズ';
+	/// ja: '受注明細'
+	String get f_orderdetail => '受注明細';
 
 	/// ja: '出荷数量'
 	String get f_qty => '出荷数量';
-
-	/// ja: '出荷アイテム'
-	String get f_item => '出荷アイテム';
 
 	/// ja: '個別の予定日'
 	String get f_date => '個別の予定日';
@@ -257,8 +254,8 @@ class SalesStrings$entity$shipline$fields$ja {
 	/// ja: '個別の到着日'
 	String get f_arrival => '個別の到着日';
 
-	/// ja: '進捗（%）'
-	String get f_progress => '進捗（%）';
+	/// ja: '備考'
+	String get f_remarks => '備考';
 }
 
 /// The flat map containing all translations for locale <ja>.
@@ -297,18 +294,17 @@ extension on SalesStrings {
 			'entity.orderdetail.fields.f_customer_property' => '製品顧客所有',
 			'entity.shipplan.title' => '出荷予定',
 			'entity.shipplan.fields.f_order' => '受注',
-			'entity.shipplan.fields.f_date' => '予定日',
-			'entity.shipplan.fields.f_carrier' => '集荷業者',
+			'entity.shipplan.fields.f_code' => '出荷予定コード',
+			'entity.shipplan.fields.f_date' => '出荷予定日',
 			'entity.shipplan.fields.f_arrival' => '到着予定日',
-			'entity.shipplan.fields.f_done' => '出荷状態（完了）',
-			'entity.shipplan.fields.f_wait' => '出荷待ちの割合（%）',
+			'entity.shipplan.fields.f_carrier' => '運送業者',
+			'entity.shipplan.fields.f_remarks' => '備考',
 			'entity.shipline.title' => '出荷指示',
-			'entity.shipline.fields.f_pack' => '梱包サイズ',
+			'entity.shipline.fields.f_orderdetail' => '受注明細',
 			'entity.shipline.fields.f_qty' => '出荷数量',
-			'entity.shipline.fields.f_item' => '出荷アイテム',
 			'entity.shipline.fields.f_date' => '個別の予定日',
 			'entity.shipline.fields.f_arrival' => '個別の到着日',
-			'entity.shipline.fields.f_progress' => '進捗（%）',
+			'entity.shipline.fields.f_remarks' => '備考',
 			_ => null,
 		};
 	}

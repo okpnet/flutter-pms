@@ -422,6 +422,14 @@ type CreateTransOrderPayload {
   transOrder: TransOrder
 }
 
+type CreateTransShippingOrderDetailPayload {
+  transShippingOrderDetail: TransShippingOrderDetail
+}
+
+type CreateTransShippingOrderPayload {
+  transShippingOrder: TransShippingOrder
+}
+
 type HistoryInfoStaff {
   historyId: UUID!
   infoStaffId: UUID!
@@ -502,6 +510,8 @@ type Mutation {
   createTransOrder(input: CreateTransOrderInput!): CreateTransOrderPayload
   createTransOrderDetail(input: CreateTransOrderDetailInput!): CreateTransOrderDetailPayload
   createTransOrderDetailSettlement(input: CreateTransOrderDetailSettlementInput!): CreateTransOrderDetailSettlementPayload
+  createTransShippingOrder(input: CreateTransShippingOrderInput!): CreateTransShippingOrderPayload
+  createTransShippingOrderDetail(input: CreateTransShippingOrderDetailInput!): CreateTransShippingOrderDetailPayload
   updateMstrStakeholderByMstrStakeholderId(input: UpdateMstrStakeholderByMstrStakeholderIdInput!): UpdateMstrStakeholderPayload
   updateTransOrderByTransOrderId(input: UpdateTransOrderByTransOrderIdInput!): UpdateTransOrderPayload
   updateTransOrderDetailByTransOrderDetailId(input: UpdateTransOrderDetailByTransOrderDetailIdInput!): UpdateTransOrderDetailPayload
@@ -967,6 +977,14 @@ input CreateTransOrderDetailSettlementInput {
 
 input CreateTransOrderInput {
   transOrder: TransOrderInput!
+}
+
+input CreateTransShippingOrderDetailInput {
+  transShippingOrderDetail: TransShippingOrderDetailInput!
+}
+
+input CreateTransShippingOrderInput {
+  transShippingOrder: TransShippingOrderInput!
 }
 
 input DateFilter {
@@ -2008,6 +2026,17 @@ input TransShippingOrderDetailFilter {
   not: TransShippingOrderDetailFilter
 }
 
+input TransShippingOrderDetailInput {
+  transShippingOrderId: UUID
+  transOrderDetailId: UUID
+  estimatedShippingDate: Datetime
+  estimatedArrivalDate: Date
+  shippingQuantity: BigFloat!
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
 input TransShippingOrderDetailPatch {
   transShippingOrderId: UUID
   transOrderDetailId: UUID
@@ -2069,6 +2098,18 @@ input TransShippingOrderFilter {
   and: [TransShippingOrderFilter!]
   or: [TransShippingOrderFilter!]
   not: TransShippingOrderFilter
+}
+
+input TransShippingOrderInput {
+  transOrderId: UUID
+  estimatedShippingDate: Datetime!
+  code: String!
+  estimatedArrivalDate: Date!
+  stakeholderHistoryId: UUID
+  stakeholderId: UUID
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
 }
 
 input TransShippingOrderPatch {

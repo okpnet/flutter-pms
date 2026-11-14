@@ -100,6 +100,7 @@ class _SharedMasterStrings$stakeholder$en extends SharedMasterStrings$stakeholde
 	@override String get supplierLedger => 'Suppliers';
 	@override String get customerPick => 'Select a customer';
 	@override String get supplierPick => 'Select a supplier';
+	@override String get carrierPick => 'Select a carrier';
 }
 
 // Path: shippingKind.columns
@@ -190,6 +191,7 @@ extension on SharedMasterStringsEn {
 			'stakeholder.supplierLedger' => 'Suppliers',
 			'stakeholder.customerPick' => 'Select a customer',
 			'stakeholder.supplierPick' => 'Select a supplier',
+			'stakeholder.carrierPick' => 'Select a carrier',
 			_ => null,
 		};
 	}

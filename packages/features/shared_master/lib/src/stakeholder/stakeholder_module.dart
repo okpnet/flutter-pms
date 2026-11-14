@@ -9,7 +9,7 @@ import 'stakeholder_destinations.dart';
 /// 利害関係者(顧客・外部供給者)と担当者の画面。台帳・編集は実体の定義から作る。
 ///
 /// 営業のメニューは顧客台帳、購買のメニューは外部供給者台帳として、同じ実体を役割で絞って開く。
-/// ほかの実体が顧客(`customer`)・外部供給者(`supplier`)を参照するときの選択肢は、
+/// ほかの実体が顧客(`customer`)・外部供給者(`supplier`)・運送業者(`carrier`)を参照するときの選択肢は、
 /// 同じ取得元から役割で絞って登録簿に登録する。
 class StakeholderModule extends SharedMasterEntityModule {
   const StakeholderModule();
@@ -17,6 +17,7 @@ class StakeholderModule extends SharedMasterEntityModule {
   static const _aliases = {
     'customer': 'is_customer',
     'supplier': 'is_supplier',
+    'carrier': 'is_logistics',
   };
 
   /// 顧客・外部供給者の選択は、利害関係者の台帳を役割で絞って開く(台帳の画面をそのまま使う)。
@@ -32,6 +33,7 @@ class StakeholderModule extends SharedMasterEntityModule {
     return switch (key) {
       'customer' => t.customerPick,
       'supplier' => t.supplierPick,
+      'carrier' => t.carrierPick,
       _ => null,
     };
   }

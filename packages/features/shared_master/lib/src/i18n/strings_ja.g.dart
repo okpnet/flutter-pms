@@ -135,6 +135,9 @@ class SharedMasterStrings$stakeholder$ja {
 
 	/// ja: 'サプライヤーの選択'
 	String get supplierPick => 'サプライヤーの選択';
+
+	/// ja: '運送業者の選択'
+	String get carrierPick => '運送業者の選択';
 }
 
 // Path: entity
@@ -369,6 +372,7 @@ extension on SharedMasterStrings {
 			'stakeholder.supplierLedger' => '外部供給者台帳',
 			'stakeholder.customerPick' => '顧客の選択',
 			'stakeholder.supplierPick' => 'サプライヤーの選択',
+			'stakeholder.carrierPick' => '運送業者の選択',
 			'entity.stakeholder.title' => '利害関係者',
 			'entity.stakeholder.fields.f_code' => '利害関係者コード',
 			'entity.stakeholder.fields.f_control_code' => '管理コード',

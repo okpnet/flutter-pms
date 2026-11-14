@@ -8,8 +8,8 @@ import '../entities/sales_definitions.dart';
 /// 営業の実体の取得元(GraphQL 版)。アプリが [GraphQLClient] を渡して組み立て、
 /// `entityRepositoryOverridesProvider` に渡すと、サンプル(メモリ上)の代わりに使われる。
 ///
-/// 対象は、DB に対応する実体だけ(受注・受注明細)。画面案にだけある実体(出荷予定・出荷指示)は、
-/// DB に対応する表が無いため、サンプルのまま。受注・受注明細は登録・更新・削除(論理削除)ができる。
+/// 対象は、DB に対応する実体(受注・受注明細・出荷予定(出荷オーダー)・出荷指示(出荷オーダー明細))。
+/// いずれも登録・更新・削除(論理削除)ができる。出荷予定の運送業者は、利害関係者のうち運送業者(`is_logistics`)。
 /// 履歴ID+IDの参照(顧客・品目)は、画面の ID から最新の履歴ID を引いて送る。担当者(更新者)は送らない。
 /// キャンセル・停止・残など、操作の DB 関数やビューで決まる項目は読み取り専用で、ここからは書かない。
 ///
@@ -24,6 +24,12 @@ List<IEntityRepository> salesRepositories(GraphQLClient client) {
   return [
     _OrderRepository(_orderDefinition, client, language),
     _OrderDetailRepository(_orderDetailDefinition, client, language),
+    _ShippingOrderRepository(_shippingOrderDefinition, client, language),
+    _ShippingOrderDetailRepository(
+      _shippingOrderDetailDefinition,
+      client,
+      language,
+    ),
   ];
 }
 
@@ -89,6 +95,20 @@ final EntityDefinition _orderDetailDefinition = _writableDefinition(
     'cancel_closed',
     'settlement_amount',
   },
+);
+
+/// 出荷予定(出荷オーダー)。運送業者は利害関係者(運送業者のフラグがオンの行)。
+final EntityDefinition _shippingOrderDefinition = _writableDefinition(
+  'shipplan',
+  {'order', 'code', 'date', 'arrival', 'carrier', 'remarks'},
+  const {},
+);
+
+/// 出荷指示(出荷オーダー明細)。品目・梱包サイズは、受注明細の品目から分かるため持たない。
+final EntityDefinition _shippingOrderDetailDefinition = _writableDefinition(
+  'shipline',
+  {'orderdetail', 'qty', 'date', 'arrival', 'remarks'},
+  const {},
 );
 
 FieldDefinition _readOnly(FieldDefinition f) => FieldDefinition(
@@ -179,7 +199,7 @@ abstract class _ReadOnlyRepository implements IEntityRepository {
     final v = str(r, key);
     if (v == null) return null;
     final d = DateTime.tryParse(v);
-    return d?.toUtc().toIso8601String();
+    return d?.toIso8601String();
   }
 
   static bool? yes(EntityRecord r, String key) {
@@ -528,6 +548,285 @@ class _OrderDetailRepository extends _ReadOnlyRepository {
       Options$Mutation$OrderDetailPageRemove(
         variables: Variables$Mutation$OrderDetailPageRemove(
           transOrderDetailId: id,
+          remove: true,
+        ),
+      ),
+    );
+    final e = result.exception;
+    if (e != null) throw e;
+  }
+}
+
+class _ShippingOrderRepository extends _ReadOnlyRepository {
+  _ShippingOrderRepository(super.definition, super.client, super.language);
+
+  EntityRecord _record(
+    Query$ShippingOrderPageRead$allTransShippingOrders$nodes n,
+  ) => EntityRecord(
+    id: n.transShippingOrderId,
+    values: {
+      'order': _ReadOnlyRepository.text(n.transOrderId),
+      'code': _ReadOnlyRepository.text(n.code),
+      'date': _ReadOnlyRepository.date(n.estimatedShippingDate),
+      'arrival': _ReadOnlyRepository.date(n.estimatedArrivalDate),
+      'carrier': _ReadOnlyRepository.text(n.stakeholderId),
+      'remarks': _ReadOnlyRepository.text(n.remarks),
+    },
+  );
+
+  Future<List<EntityRecord>> _read(
+    int first,
+    int offset,
+    Map<String, dynamic> filter,
+  ) async {
+    final result = await client.query$ShippingOrderPageRead(
+      Options$Query$ShippingOrderPageRead(
+        variables: Variables$Query$ShippingOrderPageRead.fromJson({
+          'first': first,
+          'offset': offset,
+          'languageCodeId': await language.id,
+          if (filter.isNotEmpty) 'filter': filter,
+        }),
+        fetchPolicy: FetchPolicy.noCache,
+      ),
+    );
+    final e = result.exception;
+    if (e != null) throw e;
+    return [
+      for (final n
+          in result.parsedData?.allTransShippingOrders?.nodes ??
+              const <
+                Query$ShippingOrderPageRead$allTransShippingOrders$nodes?
+              >[])
+        if (n != null) _record(n),
+    ];
+  }
+
+  @override
+  Future<List<EntityRecord>> find({
+    required int take,
+    int skip = 0,
+    Expression? predicate,
+    SortExpression? orders,
+  }) => _read(take, skip, const {});
+
+  @override
+  Future<EntityRecord?> findById(String id) async {
+    final rows = await _read(1, 0, {
+      'transShippingOrderId': {'equalTo': id},
+    });
+    return rows.isEmpty ? null : rows.first;
+  }
+
+  @override
+  Future<List<EntityRecord>> findByParent(String? parentId) async => const [];
+
+  @override
+  Future<EntityRecord> save(EntityRecord record) async {
+    validate(record);
+    final carrierId = _ReadOnlyRepository.str(record, 'carrier');
+    final vars = <String, dynamic>{
+      'transOrderId': _ReadOnlyRepository.str(record, 'order'),
+      'estimatedShippingDate': _ReadOnlyRepository.isoDate(record, 'date'),
+      'code': _ReadOnlyRepository.str(record, 'code'),
+      'estimatedArrivalDate': _ReadOnlyRepository.str(record, 'arrival'),
+      'stakeholderHistoryId': carrierId == null
+          ? null
+          : await stakeholderHistoryId(carrierId),
+      'stakeholderId': carrierId,
+      'remarks': _ReadOnlyRepository.str(record, 'remarks'),
+    };
+    String id;
+    if (record.id.isEmpty) {
+      final result = await client.mutate$ShippingOrderPageCreate(
+        Options$Mutation$ShippingOrderPageCreate(
+          variables: Variables$Mutation$ShippingOrderPageCreate.fromJson(vars),
+        ),
+      );
+      final e = result.exception;
+      if (e != null) throw e;
+      id = result
+          .parsedData!
+          .createTransShippingOrder!
+          .transShippingOrder!
+          .transShippingOrderId;
+    } else {
+      final result = await client.mutate$ShippingOrderPageEdit(
+        Options$Mutation$ShippingOrderPageEdit(
+          variables: Variables$Mutation$ShippingOrderPageEdit.fromJson({
+            ...vars,
+            'transShippingOrderId': record.id,
+          }),
+        ),
+      );
+      final e = result.exception;
+      if (e != null) throw e;
+      id = record.id;
+    }
+    return (await findById(id)) ?? record;
+  }
+
+  /// 論理削除(`remove = true`)。物理削除はしない。
+  @override
+  Future<void> remove(String id) async {
+    final result = await client.mutate$ShippingOrderPageRemove(
+      Options$Mutation$ShippingOrderPageRemove(
+        variables: Variables$Mutation$ShippingOrderPageRemove(
+          transShippingOrderId: id,
+          remove: true,
+        ),
+      ),
+    );
+    final e = result.exception;
+    if (e != null) throw e;
+  }
+}
+
+class _ShippingOrderDetailRepository extends _ReadOnlyRepository {
+  _ShippingOrderDetailRepository(
+    super.definition,
+    super.client,
+    super.language,
+  );
+
+  EntityRecord _record(
+    Query$ShippingOrderDetailPageRead$allTransShippingOrderDetails$nodes n,
+  ) => EntityRecord(
+    id: n.transShippingOrderDetailId,
+    parentId: n.transShippingOrderId,
+    values: {
+      'orderdetail': _ReadOnlyRepository.text(n.transOrderDetailId),
+      'qty': _ReadOnlyRepository.number(n.shippingQuantity),
+      'date': _ReadOnlyRepository.date(n.estimatedShippingDate),
+      'arrival': _ReadOnlyRepository.date(n.estimatedArrivalDate),
+      'remarks': _ReadOnlyRepository.text(n.remarks),
+    },
+  );
+
+  Future<List<EntityRecord>> _read(
+    String shippingOrderId,
+    int first,
+    int offset,
+    Map<String, dynamic> filter,
+  ) async {
+    final result = await client.query$ShippingOrderDetailPageRead(
+      Options$Query$ShippingOrderDetailPageRead(
+        variables: Variables$Query$ShippingOrderDetailPageRead.fromJson({
+          'first': first,
+          'offset': offset,
+          'languageCodeId': await language.id,
+          'transShippingOrderId': shippingOrderId,
+          if (filter.isNotEmpty) 'filter': filter,
+        }),
+        fetchPolicy: FetchPolicy.noCache,
+      ),
+    );
+    final e = result.exception;
+    if (e != null) throw e;
+    return [
+      for (final n
+          in result.parsedData?.allTransShippingOrderDetails?.nodes ??
+              const <
+                Query$ShippingOrderDetailPageRead$allTransShippingOrderDetails$nodes?
+              >[])
+        if (n != null) _record(n),
+    ];
+  }
+
+  /// 親(出荷予定)が決まらない一覧は、出荷予定ごとに引く(台帳の「表の中の表」は、親ごとに [findByParent] を使う)。
+  @override
+  Future<List<EntityRecord>> find({
+    required int take,
+    int skip = 0,
+    Expression? predicate,
+    SortExpression? orders,
+  }) async => const [];
+
+  @override
+  Future<EntityRecord?> findById(String id) async {
+    // 出荷指示は出荷予定の下でしか引けない(読み込みが出荷予定を必須にしている)ため、明細の ID から親を引く
+    final result = await client.query(
+      QueryOptions(
+        document: gql(
+          'query(\$id: UUID!) { transShippingOrderDetailByTransShippingOrderDetailId(transShippingOrderDetailId: \$id) { transShippingOrderId } }',
+        ),
+        variables: {'id': id},
+        fetchPolicy: FetchPolicy.noCache,
+      ),
+    );
+    final e = result.exception;
+    if (e != null) throw e;
+    final parentId =
+        (result.data?['transShippingOrderDetailByTransShippingOrderDetailId']
+                as Map?)?['transShippingOrderId']
+            as String?;
+    if (parentId == null) return null;
+    final rows = await _read(parentId, 1, 0, {
+      'transShippingOrderDetailId': {'equalTo': id},
+    });
+    return rows.isEmpty ? null : rows.first;
+  }
+
+  @override
+  Future<List<EntityRecord>> findByParent(String? parentId) async =>
+      parentId == null ? const [] : _read(parentId, 200, 0, const {});
+
+  @override
+  Future<EntityRecord> save(EntityRecord record) async {
+    validate(record);
+    final vars = <String, dynamic>{
+      'transOrderDetailId': _ReadOnlyRepository.str(record, 'orderdetail'),
+      'estimatedShippingDate': _ReadOnlyRepository.isoDate(record, 'date'),
+      'estimatedArrivalDate': _ReadOnlyRepository.str(record, 'arrival'),
+      'shippingQuantity': _ReadOnlyRepository.str(record, 'qty'),
+      'remarks': _ReadOnlyRepository.str(record, 'remarks'),
+    };
+    String id;
+    if (record.id.isEmpty) {
+      final parentId = record.parentId;
+      if (parentId == null) {
+        throw const EntityValidationException({
+          EntityValidationException.parentKey: EntityFieldError.required,
+        });
+      }
+      final result = await client.mutate$ShippingOrderDetailPageCreate(
+        Options$Mutation$ShippingOrderDetailPageCreate(
+          variables: Variables$Mutation$ShippingOrderDetailPageCreate.fromJson({
+            ...vars,
+            'transShippingOrderId': parentId,
+          }),
+        ),
+      );
+      final e = result.exception;
+      if (e != null) throw e;
+      id = result
+          .parsedData!
+          .createTransShippingOrderDetail!
+          .transShippingOrderDetail!
+          .transShippingOrderDetailId;
+    } else {
+      final result = await client.mutate$ShippingOrderDetailPageEdit(
+        Options$Mutation$ShippingOrderDetailPageEdit(
+          variables: Variables$Mutation$ShippingOrderDetailPageEdit.fromJson({
+            ...vars,
+            'transShippingOrderDetailId': record.id,
+          }),
+        ),
+      );
+      final e = result.exception;
+      if (e != null) throw e;
+      id = record.id;
+    }
+    return (await findById(id)) ?? record;
+  }
+
+  /// 論理削除(`remove = true`)。物理削除はしない。
+  @override
+  Future<void> remove(String id) async {
+    final result = await client.mutate$ShippingOrderDetailPageRemove(
+      Options$Mutation$ShippingOrderDetailPageRemove(
+        variables: Variables$Mutation$ShippingOrderDetailPageRemove(
+          transShippingOrderDetailId: id,
           remove: true,
         ),
       ),

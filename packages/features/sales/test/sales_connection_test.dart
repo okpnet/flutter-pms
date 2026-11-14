@@ -45,11 +45,11 @@ void main() {
     test('定義: 受注・受注明細は書き込める。残・キャンセル・停止などは読み取り専用', () async {
       // 通信しない(クライアントは使われない)
       final repos = salesRepositories(GraphQLClient(link: HttpLink('http://localhost:1'), cache: GraphQLCache()));
-      expect(repos.map((r) => r.definition.key), ['order', 'orderdetail']);
+      expect(repos.map((r) => r.definition.key), ['order', 'orderdetail', 'shipplan', 'shipline']);
       for (final r in repos) {
         expect(r.definition.viewOnly, isFalse);
       }
-      final detail = repos.last.definition;
+      final detail = repos.firstWhere((r) => r.definition.key == 'orderdetail').definition;
       for (final key in ['cancel_quantity', 'stop', 'remaining_quantity', 'open_quantity', 'cancel_closed', 'settlement_amount']) {
         expect(detail.fields.firstWhere((f) => f.key == key).readOnly, isTrue, reason: key);
       }
@@ -115,7 +115,80 @@ void main() {
         if (orderId != null) await order.remove(orderId);
       }
       // 論理削除後は、一覧に出ない
-      expect(await order.findById(orderId!), isNull);
+      expect(await order.findById(orderId), isNull);
+    });
+
+    serverTest('出荷予定と出荷指示を登録・更新・削除(論理削除)できる。後始末で削除する', (server) async {
+      final repos = salesRepositories(server.provider.client);
+      final order = repos.firstWhere((r) => r.definition.key == 'order');
+      final detail = repos.firstWhere((r) => r.definition.key == 'orderdetail');
+      final ship = repos.firstWhere((r) => r.definition.key == 'shipplan');
+      final shipLine = repos.firstWhere((r) => r.definition.key == 'shipline');
+      // 出荷オーダーは受注 1 件につき 1 件(論理削除した行も数える)ため、この試験用の受注を作る。
+      // 顧客(運送業者としても使う)・品目は既存を借りる
+      String? stakeholderId;
+      String? itemId;
+      for (final o in await order.find(take: 20)) {
+        if (o.valueOf('stakeholder_id').isEmpty) continue;
+        for (final d in await detail.findByParent(o.id)) {
+          if (d.valueOf('item_id').isNotEmpty) {
+            stakeholderId = o.valueOf('stakeholder_id');
+            itemId = d.valueOf('item_id');
+          }
+        }
+        if (itemId != null) break;
+      }
+      expect(itemId, isNotNull, reason: '顧客・品目が無い');
+
+      String? orderId;
+      String? orderDetailId;
+      String? shipId;
+      String? lineId;
+      try {
+        final o = await order.save(EntityRecord(id: '', values: {
+          'order_number': 'TEST-SHIP-${DateTime.now().millisecondsSinceEpoch}',
+          'stakeholder_id': stakeholderId!,
+        }));
+        orderId = o.id;
+        final d = await detail.save(EntityRecord(id: '', parentId: orderId, values: {
+          'item_id': itemId!,
+          'quantity': '10',
+          'unit_price': '100',
+        }));
+        orderDetailId = d.id;
+        final created = await ship.save(EntityRecord(id: '', values: {
+          'order': orderId,
+          'code': 'TEST-SHIP-${DateTime.now().millisecondsSinceEpoch}',
+          'date': '2026-12-01',
+          'arrival': '2026-12-03',
+          'carrier': stakeholderId,
+        }));
+        shipId = created.id;
+        expect(created.valueOf('date'), '2026-12-01');
+        expect(created.valueOf('arrival'), '2026-12-03');
+
+        final line = await shipLine.save(EntityRecord(id: '', parentId: shipId, values: {
+          'orderdetail': orderDetailId,
+          'qty': '5',
+        }));
+        lineId = line.id;
+        expect(line.parentId, shipId);
+        expect(line.valueOf('qty'), '5');
+
+        final changed = await shipLine.save(EntityRecord(id: lineId, parentId: shipId, values: {
+          ...line.values,
+          'qty': '7',
+          'arrival': '2026-12-04',
+        }));
+        expect(changed.valueOf('qty'), '7');
+        expect(changed.valueOf('arrival'), '2026-12-04');
+      } finally {
+        if (lineId != null) await shipLine.remove(lineId);
+        if (shipId != null) await ship.remove(shipId);
+        if (orderDetailId != null) await detail.remove(orderDetailId);
+        if (orderId != null) await order.remove(orderId);
+      }
+      expect(await ship.findById(shipId), isNull);
     });
   });
 }
