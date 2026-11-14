@@ -13,6 +13,7 @@ import 'package:purchasing/purchasing.dart' show purchasingRepositories;
 import 'package:item/item.dart' show itemRepositories;
 import 'package:organization/organization.dart' show organizationRepositories;
 import 'package:resource/resource.dart' show resourceRepositories;
+import 'package:production_process/production_process.dart' show productionProcessRepositories;
 import 'package:sales/sales.dart' show salesRepositories;
 import 'package:shared_master/shared_master.dart' show sharedMasterRepositories;
 import 'package:system/system.dart' show systemRepositories;
@@ -124,6 +125,8 @@ List<Override> graphqlOverrides() => [
       ...organizationRepositories(client),
       // 資源: 力量・資格・場所・設備(読み取り専用。場所のツリーは場所ツリーの親)
       ...resourceRepositories(client),
+      // 工程: 作業・工程運用(読み取り専用。作業のツリーは作業ツリーの親)
+      ...productionProcessRepositories(client),
     ];
   }),
 ];

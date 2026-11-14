@@ -51,6 +51,11 @@
 1.  ビジュアルテスト用に`example`(Windows 向け)を持つ。`flutter run -d windows`で起動し、`lib/main.dart`の`entries`に遷移先を足す(`packages/features/CLAUDE.md`の「機能プロジェクト共通」)。
 2.  表示する文字列は`lib/src/i18n`の言語ファイル(Yaml)に置く。画面を作るときに`slang.yaml`と言語ファイルを追加する(`sales`・`shared_master`を参考にする)。idは`String`(UUID)で扱う。
 
+## 取得元(GraphQL 版。読み取り専用)
+`lib/src/graphql/production_process_repositories.dart` の `productionProcessRepositories(GraphQLClient)` が、工程(`task`。ツリー)・工程運用(`operation`)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
+1.  読み取り専用: 実体を `viewOnly`・各項目 `readOnly` にし、保存・削除は `UnsupportedError`。名称・読み・略称は多言語の辞書、詳細は多言語の文章(先頭の文)で、言語コード `ja` の値を読む。工程の親は工程ツリーの親の工程 ID(親ごとの絞り込みはサーバー側に無く、取得した中から選ぶ)。標準時間は DB の間隔(`interval`)を分に直した値。ほかの実体(工程グループ・工程場所・工程の選択・適用品目・使える設備・外部委託)は、サンプルのまま。
+1.  **【入れ替え: 呼称の DB 関数】** 書き込みは、`doc/query/20261114_0002_appellation_functions.sql` の補助を使う工程・工程運用の関数を足して適用したら、`~PageCall` で `save` を入れ替え、`viewOnly` を外す(`issue/202611.md` の 2-1)。
+
 ## 規則/仕様
 1.  ディリクトリ/ファイル
     1.  生成結果のレポートは`doc/log`ディリクトリにファイル名`年月日_4桁ゼロ埋の番号.md`として保存する。
@@ -77,8 +82,8 @@
 
 ## テスト
 1.  共通の規則は`packages/features/CLAUDE.md`の「テスト」に従う。
-2.  現在はGraphQLで取得していないため、通信テストは無い。取得元の単体テストは`RecordingDataRepository`で差し替える。
-3.  GraphQLで取得するようにしたら、通信テスト(`test/xxx_connection_test.dart`)を追加し、`dart_test.yaml`に`server`タグを宣言する。
+2.  取得元(GraphQL 版)の通信テストは `test/production_process_connection_test.dart`(検証用サーバー。読み取りだけ。一般ユーザーの資格情報を渡して実行する。`packages/infra/data_test_harness/CLAUDE.md`)。`dart_test.yaml` に `server` タグを宣言してある。
+3.  サンプル(メモリ上)の取得元の単体テストは`RecordingDataRepository`で差し替える。
 
 
 ## 規則: プロジェクト間をまたぐ指示
