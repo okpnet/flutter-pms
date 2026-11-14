@@ -1,0 +1,50 @@
+# supply_detail_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #SupplyDetailPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation SupplyDetailPageCreate(
+  $transSupplyDetailId: UUID
+  $transSupplyId: UUID
+  $itemHistoryId: UUID
+  $itemId: UUID
+  $quantity: BigFloat!
+  $unitPrice: BigFloat
+  $scheduledAt: Datetime
+  $transOrderDetailId: UUID
+  $transPurchaseDetailId: UUID
+  $transResourcePlanId: UUID
+  $remarks: String
+) {
+  createTransSupplyDetail(
+    input: {
+      transSupplyDetail: {
+        transSupplyDetailId: $transSupplyDetailId
+        transSupplyId: $transSupplyId
+        itemHistoryId: $itemHistoryId
+        itemId: $itemId
+        quantity: $quantity
+        unitPrice: $unitPrice
+        scheduledAt: $scheduledAt
+        transOrderDetailId: $transOrderDetailId
+        transPurchaseDetailId: $transPurchaseDetailId
+        transResourcePlanId: $transResourcePlanId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transSupplyDetail {
+      transSupplyDetailId
+      transSupplyId
+      itemHistoryId
+      itemId
+      quantity
+      unitPrice
+      scheduledAt
+      transOrderDetailId
+      transPurchaseDetailId
+      transResourcePlanId
+      remarks
+    }
+  }
+}

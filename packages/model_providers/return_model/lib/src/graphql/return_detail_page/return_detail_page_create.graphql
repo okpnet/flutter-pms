@@ -1,0 +1,53 @@
+# return_detail_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ReturnDetailPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ReturnDetailPageCreate(
+  $transReturnDetailId: UUID
+  $transReturnId: UUID
+  $itemHistoryId: UUID
+  $itemId: UUID
+  $quantity: BigFloat!
+  $replacement: Boolean
+  $transOrderDetailId: UUID
+  $transShippingOrderDetailRecordId: UUID
+  $transPurchaseDetailId: UUID
+  $transPurchaseRecId: UUID
+  $originTransVisiterId: UUID
+  $remarks: String
+) {
+  createTransReturnDetail(
+    input: {
+      transReturnDetail: {
+        transReturnDetailId: $transReturnDetailId
+        transReturnId: $transReturnId
+        itemHistoryId: $itemHistoryId
+        itemId: $itemId
+        quantity: $quantity
+        replacement: $replacement
+        transOrderDetailId: $transOrderDetailId
+        transShippingOrderDetailRecordId: $transShippingOrderDetailRecordId
+        transPurchaseDetailId: $transPurchaseDetailId
+        transPurchaseRecId: $transPurchaseRecId
+        originTransVisiterId: $originTransVisiterId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transReturnDetail {
+      transReturnDetailId
+      transReturnId
+      itemHistoryId
+      itemId
+      quantity
+      replacement
+      transOrderDetailId
+      transShippingOrderDetailRecordId
+      transPurchaseDetailId
+      transPurchaseRecId
+      originTransVisiterId
+      remarks
+    }
+  }
+}

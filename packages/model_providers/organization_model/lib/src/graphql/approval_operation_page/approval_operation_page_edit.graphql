@@ -17,9 +17,9 @@ mutation ApprovalOperationPageEdit(
   $nicknameSharedDictionaryId: UUID!
   $nicknameJa: String!
   $nicknameEn: String!
-  $patternDetailUpdate: [MstrApprovalPatternDetailOnMstrApprovalPatternDetailForMstrApprovalPatternDetailFk1UsingMstrApprovalPatternDetailPkcUpdate!]
+  $patternDetailUpdate: [MstrApprovalPatternDetailOnMstrApprovalPatternDetailForMstrApprovalPatternDetailFk1UsingMstrApprovalPatternDetailPkUpdate!]
   $patternDetailCreate: [MstrApprovalPatternDetailFk1MstrApprovalPatternDetailCreateInput!]
-  $patternDetailDelete: [MstrApprovalPatternDetailMstrApprovalPatternDetailPkcDelete!]
+  $patternDetailDelete: [MstrApprovalPatternDetailMstrApprovalPatternDetailPkDelete!]
   $remarks: String
   $patternDetailFirst: Int = 30
   $patternDetailOrderBy: [MstrApprovalPatternDetailsOrderBy!]

@@ -103,9 +103,9 @@ mutation DepartmentPageEdit(
   $phone: String
   $faxNumber: String
   $remarks: String
-  $departmentKindsUpdate: [InfoDepartmentKindOnInfoDepartmentKindForInfoDepartmentKindFk2UsingInfoDepartmentKindPkcUpdate!]
+  $departmentKindsUpdate: [InfoDepartmentKindOnInfoDepartmentKindForInfoDepartmentKindFk2UsingInfoDepartmentKindPkUpdate!]
   $departmentKindsCreate: [InfoDepartmentKindFk2InfoDepartmentKindCreateInput!]
-  $departmentKindsDelete: [InfoDepartmentKindInfoDepartmentKindPkcDelete!]
+  $departmentKindsDelete: [InfoDepartmentKindInfoDepartmentKindPkDelete!]
   $departmentKindsFirst: Int = 30
   $departmentKindsOrderBy: [InfoDepartmentKindsOrderBy!]
 ) {

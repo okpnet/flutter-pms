@@ -1,0 +1,23 @@
+# order_detail_stop_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #OrderDetailStopPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation OrderDetailStopPageEdit(
+  $transOrderDetailId: UUID!
+  $stop: Boolean
+) {
+  updateTransOrderDetailByTransOrderDetailId(
+    input: {
+      transOrderDetailId: $transOrderDetailId
+      transOrderDetailPatch: {
+        stop: $stop
+      }
+    }
+  ) {
+    transOrderDetail {
+      transOrderDetailId
+      stop
+    }
+  }
+}

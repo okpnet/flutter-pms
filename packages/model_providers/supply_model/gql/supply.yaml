@@ -94,3 +94,85 @@ SupplyDetailBalancePage:
     - linked_issue_quantity
     - remaining_quantity
     - current_quantity
+
+# ---- 登録(kind: create。追記のみ) ----
+# receive・counterpart_owns・company_owns は「場面」の選択から決める(場面は画面の選択肢だけに使い、DB・Dart には持たない)。
+# counterpart_owns と company_owns は両方 true にできない(DB の CHECK)。
+# 支給の伝票。受注側(trans_order_id)か発注側(trans_purchase_id)のどちらか
+SupplyPageCreate:
+  kind: create
+  from: trans_supply
+  columns:
+    - trans_supply_id
+    - code
+    - supply_at
+    - stakeholder_history_id
+    - stakeholder_id
+    - receive
+    - counterpart_owns
+    - company_owns
+    - trans_order_id
+    - trans_purchase_id
+    - trans_plan_change_id
+    - trans_complaint_id
+    - reason
+    - staff_history_id
+    - staff_id
+    - remarks
+
+# 支給明細(予定を含む)。trans_resource_plan_id は充てる資材計画(受注の時点では空でよい)
+SupplyDetailPageCreate:
+  kind: create
+  from: trans_supply_detail
+  columns:
+    - trans_supply_detail_id
+    - trans_supply_id
+    - item_history_id
+    - item_id
+    - quantity
+    - unit_price
+    - scheduled_at
+    - trans_order_detail_id
+    - trans_purchase_detail_id
+    - trans_resource_plan_id
+    - remarks
+
+# 支給とロット(棚ビジター)のつなぎ。数量は棚ビジターの行が持つ
+SupplyVisiterPageCreate:
+  kind: create
+  from: trans_supply_visiter
+  columns:
+    - trans_supply_visiter_id
+    - trans_supply_detail_id
+    - trans_visiter_id
+    - remarks
+
+# 支給の取り消し(remove だけを書く。~PageRemove を生成する)
+SupplyPageEdit:
+  kind: edit
+  from: trans_supply
+  requiredWhere:
+    - trans_supply_id
+  columns:
+    - trans_supply_id
+    - remarks
+
+# 支給明細の取り消し。自社手配へ切り替えるときは、その品目の支給明細を取り消して再MRP する
+SupplyDetailPageEdit:
+  kind: edit
+  from: trans_supply_detail
+  requiredWhere:
+    - trans_supply_detail_id
+  columns:
+    - trans_supply_detail_id
+    - remarks
+
+# 支給のつなぎの取り消し
+SupplyVisiterPageEdit:
+  kind: edit
+  from: trans_supply_visiter
+  requiredWhere:
+    - trans_supply_visiter_id
+  columns:
+    - trans_supply_visiter_id
+    - remarks

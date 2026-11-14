@@ -41,6 +41,8 @@ class ScanFound {
     this.doneQuantity = 0,
     this.started = false,
     this.locationId,
+    this.stopped = false,
+    this.closed = false,
   });
 
   final ScanFoundKind kind;
@@ -64,6 +66,12 @@ class ScanFound {
 
   /// 棚の場所の id。
   final String? locationId;
+
+  /// 停止中(作業指示は、生産計画または受注明細の停止。発注明細は停止)。登録できない。
+  final bool stopped;
+
+  /// 終わっている(作業指示は、生産計画の打ち切りまたは受注明細の全部キャンセル。発注明細は全部キャンセル)。登録できない。
+  final bool closed;
 }
 
 class ScanClient {
@@ -172,6 +180,10 @@ class ScanClient {
       quantity: _int(plan?['quantity']),
       doneQuantity: done,
       started: records.isNotEmpty,
+      stopped: plan?['stop'] == true || (resource?['orderDetail'] as Map?)?['stop'] == true,
+      closed:
+          plan?['discontinue'] == true ||
+          ((resource?['orderDetail'] as Map?)?['balance'] as Map?)?['cancelClosed'] == true,
     );
   }
 
@@ -208,8 +220,11 @@ class ScanClient {
       id: id,
       symbol: r['symbol'] as String? ?? symbol,
       itemName: await _itemName(r['itemId'] as String?),
-      quantity: _int(r['quantity']),
+      // 発注数量は書き換えず、キャンセル数量を引いたものを「受け入れる数量」とする
+      quantity: _int(r['quantity']) - _int(r['cancelQuantity']),
       doneQuantity: recs.fold<int>(0, (sum, x) => sum + _int(x['quantity'])),
+      stopped: r['stop'] == true,
+      closed: _int(r['quantity']) > 0 && _int(r['cancelQuantity']) >= _int(r['quantity']),
     );
   }
 

@@ -1,0 +1,21 @@
+# supply_detail_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #SupplyDetailPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation SupplyDetailPageRemove(
+  $transSupplyDetailId: UUID!
+  $remove: Boolean!
+) {
+  updateTransSupplyDetailByTransSupplyDetailId(
+    input: {
+      transSupplyDetailId: $transSupplyDetailId
+      transSupplyDetailPatch: { remove: $remove }
+    }
+  ) {
+    transSupplyDetail {
+      transSupplyDetailId
+      remove
+    }
+  }
+}

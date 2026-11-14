@@ -1,0 +1,23 @@
+# return_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #ReturnPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ReturnPageEdit(
+  $transReturnId: UUID!
+  $remarks: String
+) {
+  updateTransReturnByTransReturnId(
+    input: {
+      transReturnId: $transReturnId
+      transReturnPatch: {
+        remarks: $remarks
+      }
+    }
+  ) {
+    transReturn {
+      transReturnId
+      remarks
+    }
+  }
+}

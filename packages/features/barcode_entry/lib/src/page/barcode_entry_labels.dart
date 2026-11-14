@@ -84,6 +84,8 @@ extension BarcodeEntryLabels on BarcodeEntryStrings {
       ),
       NoticeKind.workDone => notice.workDone,
       NoticeKind.purchaseDone => notice.purchaseDone,
+      NoticeKind.workBlocked => a['stopped'] == true ? notice.workStopped : notice.workClosed,
+      NoticeKind.purchaseBlocked => a['stopped'] == true ? notice.purchaseStopped : notice.purchaseClosed,
       NoticeKind.canceled => notice.canceled,
       NoticeKind.notStarted => notice.notStarted,
       NoticeKind.started => notice.started(shelf: a['shelf']!),
@@ -107,6 +109,8 @@ extension BarcodeEntryLabels on BarcodeEntryStrings {
         sym: a['sym']!,
         item: a['item']!,
       ),
+      LogKind.workBlocked => log.workBlocked(sym: a['sym']!, item: a['item']!, task: a['task']!),
+      LogKind.purchaseBlocked => log.purchaseBlocked(sym: a['sym']!, item: a['item']!),
       LogKind.canceled => log.canceled,
       LogKind.notStarted => log.notStarted(sym: a['sym']!),
       LogKind.started => log.started(

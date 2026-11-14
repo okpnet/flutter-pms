@@ -1,0 +1,23 @@
+# supply_visiter_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #SupplyVisiterPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation SupplyVisiterPageEdit(
+  $transSupplyVisiterId: UUID!
+  $remarks: String
+) {
+  updateTransSupplyVisiterByTransSupplyVisiterId(
+    input: {
+      transSupplyVisiterId: $transSupplyVisiterId
+      transSupplyVisiterPatch: {
+        remarks: $remarks
+      }
+    }
+  ) {
+    transSupplyVisiter {
+      transSupplyVisiterId
+      remarks
+    }
+  }
+}

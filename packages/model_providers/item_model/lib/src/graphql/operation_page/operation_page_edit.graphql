@@ -21,9 +21,9 @@ mutation OperationPageEdit(
   $detailTextsSharedTextId: UUID!
   $detailTextsJa: String!
   $detailTextsEn: String!
-  $operationTasksUpdate: [MstrOperationTaskOnMstrOperationTaskForMstrOperationTaskFk3UsingMstrOperationTaskPkcUpdate!]
+  $operationTasksUpdate: [MstrOperationTaskOnMstrOperationTaskForMstrOperationTaskFk3UsingMstrOperationTaskPkUpdate!]
   $operationTasksCreate: [MstrOperationTaskFk3MstrOperationTaskCreateInput!]
-  $operationTasksDelete: [MstrOperationTaskMstrOperationTaskPkcDelete!]
+  $operationTasksDelete: [MstrOperationTaskMstrOperationTaskPkDelete!]
   $remarks: String
   $operationTasksFirst: Int = 30
   $operationTasksOrderBy: [MstrOperationTasksOrderBy!] = [SEQUENCE_ASC]

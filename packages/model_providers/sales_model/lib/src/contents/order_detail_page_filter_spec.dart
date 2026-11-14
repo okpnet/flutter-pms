@@ -22,6 +22,7 @@ abstract class OrderDetailPageFilterSpec {
     'cancelQuantity': FlatFilterPath([], 'cancelQuantity'),
     'stop': FlatFilterPath([], 'stop'),
     'customerProperty': FlatFilterPath([], 'customerProperty'),
+    'balance||transOrderDetailId': FlatFilterPath([FilterStep('vOrderDetailBalanceByTransOrderDetailId')], 'transOrderDetailId'),
     'masterErrorCount': FlatFilterPath([], 'masterErrorCount'),
     'shipping_order_detail_count||transOrderDetailId': FlatFilterPath([FilterStep('vOrderDetailShippingOrderDetailCountByTransOrderDetailId')], 'transOrderDetailId'),
     'order_detail_risk_count||transOrderDetailId': FlatFilterPath([FilterStep('vOrderDetailOrderDetailRiskCountByTransOrderDetailId')], 'transOrderDetailId'),

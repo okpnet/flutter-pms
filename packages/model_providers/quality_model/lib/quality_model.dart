@@ -84,7 +84,10 @@ export 'src/graphql/complaint_stakeholder_page/complaint_stakeholder_page_edit.g
 export 'src/graphql/complaint_stakeholder_page/complaint_stakeholder_page_read.graphql.dart';
 export 'src/graphql/complaint_stakeholder_page/complaint_stakeholder_page_remove.graphql.dart';
 export 'src/graphql/complaint_stakeholder_page/complaint_stakeholder_page_rfe.graphql.dart';
+export 'src/graphql/complaint_supply_page/complaint_supply_page_create.graphql.dart';
+export 'src/graphql/complaint_supply_page/complaint_supply_page_edit.graphql.dart';
 export 'src/graphql/complaint_supply_page/complaint_supply_page_read.graphql.dart';
+export 'src/graphql/complaint_supply_page/complaint_supply_page_remove.graphql.dart';
 export 'src/graphql/complaint_target_page/complaint_target_page_read.graphql.dart';
 export 'src/graphql/complaint_target_visiter_page/complaint_target_visiter_page_read.graphql.dart';
 export 'src/graphql/complaint_text_page/complaint_text_page_create.graphql.dart';

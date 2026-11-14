@@ -1,0 +1,65 @@
+# supply_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #SupplyPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation SupplyPageCreate(
+  $transSupplyId: UUID
+  $code: String
+  $supplyAt: Datetime
+  $stakeholderHistoryId: UUID
+  $stakeholderId: UUID
+  $receive: Boolean
+  $counterpartOwns: Boolean
+  $companyOwns: Boolean
+  $transOrderId: UUID
+  $transPurchaseId: UUID
+  $transPlanChangeId: UUID
+  $transComplaintId: UUID
+  $reason: String
+  $staffHistoryId: UUID
+  $staffId: UUID
+  $remarks: String
+) {
+  createTransSupply(
+    input: {
+      transSupply: {
+        transSupplyId: $transSupplyId
+        code: $code
+        supplyAt: $supplyAt
+        stakeholderHistoryId: $stakeholderHistoryId
+        stakeholderId: $stakeholderId
+        receive: $receive
+        counterpartOwns: $counterpartOwns
+        companyOwns: $companyOwns
+        transOrderId: $transOrderId
+        transPurchaseId: $transPurchaseId
+        transPlanChangeId: $transPlanChangeId
+        transComplaintId: $transComplaintId
+        reason: $reason
+        staffHistoryId: $staffHistoryId
+        staffId: $staffId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transSupply {
+      transSupplyId
+      code
+      supplyAt
+      stakeholderHistoryId
+      stakeholderId
+      receive
+      counterpartOwns
+      companyOwns
+      transOrderId
+      transPurchaseId
+      transPlanChangeId
+      transComplaintId
+      reason
+      staffHistoryId
+      staffId
+      remarks
+    }
+  }
+}

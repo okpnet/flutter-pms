@@ -1,0 +1,53 @@
+# order_detail_settlement_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #OrderDetailSettlementPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation OrderDetailSettlementPageCreate(
+  $transOrderDetailSettlementId: UUID
+  $transOrderDetailId: UUID
+  $settlementKindHistoryId: UUID
+  $settlementKindId: UUID
+  $settleAt: Datetime
+  $quantity: BigFloat
+  $amount: BigFloat!
+  $transPlanChangeId: UUID
+  $reason: String
+  $staffHistoryId: UUID
+  $staffId: UUID
+  $remarks: String
+) {
+  createTransOrderDetailSettlement(
+    input: {
+      transOrderDetailSettlement: {
+        transOrderDetailSettlementId: $transOrderDetailSettlementId
+        transOrderDetailId: $transOrderDetailId
+        settlementKindHistoryId: $settlementKindHistoryId
+        settlementKindId: $settlementKindId
+        settleAt: $settleAt
+        quantity: $quantity
+        amount: $amount
+        transPlanChangeId: $transPlanChangeId
+        reason: $reason
+        staffHistoryId: $staffHistoryId
+        staffId: $staffId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transOrderDetailSettlement {
+      transOrderDetailSettlementId
+      transOrderDetailId
+      settlementKindHistoryId
+      settlementKindId
+      settleAt
+      quantity
+      amount
+      transPlanChangeId
+      reason
+      staffHistoryId
+      staffId
+      remarks
+    }
+  }
+}

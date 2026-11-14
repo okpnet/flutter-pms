@@ -14,6 +14,7 @@ mutation OrderDetailPageEdit(
   $fixedPrice: BigFloat
   $deliveryDate: Datetime
   $deadline: Datetime
+  $customerProperty: Boolean
   $remarks: String
 ) {
   updateTransOrderDetailByTransOrderDetailId(
@@ -29,6 +30,7 @@ mutation OrderDetailPageEdit(
         fixedPrice: $fixedPrice
         deliveryDate: $deliveryDate
         deadline: $deadline
+        customerProperty: $customerProperty
         remarks: $remarks
       }
     }
@@ -44,6 +46,7 @@ mutation OrderDetailPageEdit(
       fixedPrice
       deliveryDate
       deadline
+      customerProperty
       remarks
     }
   }

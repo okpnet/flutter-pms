@@ -10,6 +10,8 @@ abstract class ScanPurchaseDetailPageFilterSpec {
     'transPurchaseDetailId': FlatFilterPath([], 'transPurchaseDetailId'),
     'symbol': FlatFilterPath([], 'symbol'),
     'quantity': FlatFilterPath([], 'quantity'),
+    'cancelQuantity': FlatFilterPath([], 'cancelQuantity'),
+    'stop': FlatFilterPath([], 'stop'),
     'itemId': FlatFilterPath([], 'itemId'),
     'itemHistoryId': FlatFilterPath([], 'itemHistoryId'),
   });

@@ -1,0 +1,23 @@
+# operations_plan_stop_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #OperationsPlanStopPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation OperationsPlanStopPageEdit(
+  $transOperationsPlanId: UUID!
+  $stop: Boolean
+) {
+  updateTransOperationsPlanByTransOperationsPlanId(
+    input: {
+      transOperationsPlanId: $transOperationsPlanId
+      transOperationsPlanPatch: {
+        stop: $stop
+      }
+    }
+  ) {
+    transOperationsPlan {
+      transOperationsPlanId
+      stop
+    }
+  }
+}

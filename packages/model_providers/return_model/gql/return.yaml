@@ -65,3 +65,84 @@ ReturnVisiterPage:
     - symbol
     - remarks
     - update_at
+
+# ---- 登録(kind: create。追記のみ) ----
+
+# 返品の伝票。顧客からは receive = true の返品区分、仕入先・外注先へは false の区分を選ぶ
+ReturnPageCreate:
+  kind: create
+  from: trans_return
+  columns:
+    - trans_return_id
+    - code
+    - return_kind_history_id
+    - return_kind_id
+    - return_at
+    - stakeholder_history_id
+    - stakeholder_id
+    - trans_order_id
+    - trans_purchase_id
+    - trans_plan_change_id
+    - trans_complaint_id
+    - reason
+    - staff_history_id
+    - staff_id
+    - remarks
+
+# 返品明細。受注側(trans_order_detail_id・trans_shipping_order_detail_record_id)と発注側(trans_purchase_detail_id・trans_purchase_rec_id)は混ぜない
+ReturnDetailPageCreate:
+  kind: create
+  from: trans_return_detail
+  columns:
+    - trans_return_detail_id
+    - trans_return_id
+    - item_history_id
+    - item_id
+    - quantity
+    - replacement
+    - trans_order_detail_id
+    - trans_shipping_order_detail_record_id
+    - trans_purchase_detail_id
+    - trans_purchase_rec_id
+    - origin_trans_visiter_id
+    - remarks
+
+# 返品とロット(棚ビジター)のつなぎ。数量は棚ビジターの行が持つ
+ReturnVisiterPageCreate:
+  kind: create
+  from: trans_return_visiter
+  columns:
+    - trans_return_visiter_id
+    - trans_return_detail_id
+    - trans_visiter_id
+    - remarks
+
+# 返品の取り消し(remove だけを書く。~PageRemove を生成する)
+ReturnPageEdit:
+  kind: edit
+  from: trans_return
+  requiredWhere:
+    - trans_return_id
+  columns:
+    - trans_return_id
+    - remarks
+
+# 返品明細の取り消し
+ReturnDetailPageEdit:
+  kind: edit
+  from: trans_return_detail
+  requiredWhere:
+    - trans_return_detail_id
+  columns:
+    - trans_return_detail_id
+    - remarks
+
+# 返品のつなぎの取り消し
+ReturnVisiterPageEdit:
+  kind: edit
+  from: trans_return_visiter
+  requiredWhere:
+    - trans_return_visiter_id
+  columns:
+    - trans_return_visiter_id
+    - remarks

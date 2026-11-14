@@ -63,3 +63,25 @@ ComplaintSupplyPage:
     - symbol
     - remarks
     - update_at
+
+# ---- 登録(kind: create。追記のみ) ----
+# 支給異常の登録(取り消しは remove)
+ComplaintSupplyPageCreate:
+  kind: create
+  from: trans_complaint_supply
+  columns:
+    - trans_complaint_supply_id
+    - trans_complaint_id
+    - trans_supply_detail_id
+    - quantity
+    - remarks
+
+# 支給異常の取り消し(remove だけを書く。~PageRemove を生成する)
+ComplaintSupplyPageEdit:
+  kind: edit
+  from: trans_complaint_supply
+  requiredWhere:
+    - trans_complaint_supply_id
+  columns:
+    - trans_complaint_supply_id
+    - remarks

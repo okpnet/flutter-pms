@@ -1,0 +1,23 @@
+# plan_change_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #PlanChangePageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation PlanChangePageEdit(
+  $transPlanChangeId: UUID!
+  $remarks: String
+) {
+  updateTransPlanChangeByTransPlanChangeId(
+    input: {
+      transPlanChangeId: $transPlanChangeId
+      transPlanChangePatch: {
+        remarks: $remarks
+      }
+    }
+  ) {
+    transPlanChange {
+      transPlanChangeId
+      remarks
+    }
+  }
+}

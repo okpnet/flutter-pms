@@ -97,6 +97,19 @@ PurchaseDetailPage: &PurchaseDetailPage
     # キャンセル・停止(残は PurchaseDetailBalancePage を使う)
     - cancel_quantity
     - stop
+    # 残・状態(DBのビュー v_purchase_detail_balance。停止中は open_quantity が 0、全部キャンセルは cancel_closed)
+    - name: balance
+      arrayType: toFirstOne
+      as: balance
+      using: trans_purchase_detail_id
+      from: v_purchase_detail_balance
+      pick:
+        - remaining_quantity
+        - open_quantity
+        - cancel_closed
+        - received_quantity
+        - returned_quantity
+        - replacement_quantity
     # 子のレコード数(要件0056。DBのビュー 2本)
     - name: purchase_rez_count
       arrayType: toFirstOne

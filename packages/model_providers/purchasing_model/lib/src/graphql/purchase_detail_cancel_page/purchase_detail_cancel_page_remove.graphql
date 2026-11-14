@@ -1,0 +1,21 @@
+# purchase_detail_cancel_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #PurchaseDetailCancelPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation PurchaseDetailCancelPageRemove(
+  $transPurchaseDetailId: UUID!
+  $remove: Boolean!
+) {
+  updateTransPurchaseDetailByTransPurchaseDetailId(
+    input: {
+      transPurchaseDetailId: $transPurchaseDetailId
+      transPurchaseDetailPatch: { remove: $remove }
+    }
+  ) {
+    transPurchaseDetail {
+      transPurchaseDetailId
+      remove
+    }
+  }
+}

@@ -17,6 +17,7 @@ query OrderDetailPageRfe(
     fixedPrice
     deliveryDate
     deadline
+    customerProperty
     remarks
     updateUserId
     updateUserHistoryId

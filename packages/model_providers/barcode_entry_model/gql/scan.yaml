@@ -47,6 +47,9 @@ ScanWorkPlanPage:
       columns:
         - trans_operations_plan_id
         - quantity
+        # 停止・打ち切り(登録を止める判定は boolean のままで持つ)
+        - stop
+        - discontinue
         - trans_resource_plan_id
         - name: resource_plan
           as: resource_plan
@@ -58,6 +61,25 @@ ScanWorkPlanPage:
             - trans_resource_plan_id
             - item_id
             - item_history_id
+            # 受注から直接つながる計画だけ受注明細が分かる(子の計画は DB の判定ビューができてから。issue 20261114_0001)
+            - trans_order_detail_id
+            - name: order_detail
+              as: order_detail
+              arrayType: toFirstOne
+              using: trans_order_detail_id
+              kind: read
+              from: trans_order_detail
+              columns:
+                - trans_order_detail_id
+                - stop
+                - name: balance
+                  as: balance
+                  arrayType: toFirstOne
+                  using: trans_order_detail_id
+                  from: v_order_detail_balance
+                  pick:
+                    - cancel_closed
+                    - open_quantity
 
 # 作業指示ごとの作業実績(完了数量・開始の判定)
 ScanWorkRecordPage:
@@ -139,6 +161,9 @@ ScanPurchaseDetailPage:
     - trans_purchase_detail_id
     - symbol
     - quantity
+    # キャンセル・停止(数量は書き換わらない。受入できる残は quantity − cancel_quantity − 受入済み)
+    - cancel_quantity
+    - stop
     - item_id
     - item_history_id
 

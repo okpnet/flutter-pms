@@ -1,0 +1,21 @@
+# order_detail_settlement_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #OrderDetailSettlementPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation OrderDetailSettlementPageRemove(
+  $transOrderDetailSettlementId: UUID!
+  $remove: Boolean!
+) {
+  updateTransOrderDetailSettlementByTransOrderDetailSettlementId(
+    input: {
+      transOrderDetailSettlementId: $transOrderDetailSettlementId
+      transOrderDetailSettlementPatch: { remove: $remove }
+    }
+  ) {
+    transOrderDetailSettlement {
+      transOrderDetailSettlementId
+      remove
+    }
+  }
+}

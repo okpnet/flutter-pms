@@ -1,0 +1,62 @@
+# return_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ReturnPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ReturnPageCreate(
+  $transReturnId: UUID
+  $code: String
+  $returnKindHistoryId: UUID
+  $returnKindId: UUID
+  $returnAt: Datetime
+  $stakeholderHistoryId: UUID
+  $stakeholderId: UUID
+  $transOrderId: UUID
+  $transPurchaseId: UUID
+  $transPlanChangeId: UUID
+  $transComplaintId: UUID
+  $reason: String
+  $staffHistoryId: UUID
+  $staffId: UUID
+  $remarks: String
+) {
+  createTransReturn(
+    input: {
+      transReturn: {
+        transReturnId: $transReturnId
+        code: $code
+        returnKindHistoryId: $returnKindHistoryId
+        returnKindId: $returnKindId
+        returnAt: $returnAt
+        stakeholderHistoryId: $stakeholderHistoryId
+        stakeholderId: $stakeholderId
+        transOrderId: $transOrderId
+        transPurchaseId: $transPurchaseId
+        transPlanChangeId: $transPlanChangeId
+        transComplaintId: $transComplaintId
+        reason: $reason
+        staffHistoryId: $staffHistoryId
+        staffId: $staffId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transReturn {
+      transReturnId
+      code
+      returnKindHistoryId
+      returnKindId
+      returnAt
+      stakeholderHistoryId
+      stakeholderId
+      transOrderId
+      transPurchaseId
+      transPlanChangeId
+      transComplaintId
+      reason
+      staffHistoryId
+      staffId
+      remarks
+    }
+  }
+}

@@ -42,6 +42,10 @@ query PurchaseDetailPageRead(
       cancelQuantity
       stop
 
+      balance: vPurchaseDetailBalanceByTransPurchaseDetailId {
+        transPurchaseDetailId
+      }
+
       purchase_rez_count: vPurchaseDetailPurchaseRezCountByTransPurchaseDetailId {
         transPurchaseDetailId
       }

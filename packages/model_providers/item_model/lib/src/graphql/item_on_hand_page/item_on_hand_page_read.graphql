@@ -27,6 +27,8 @@ query ItemOnHandPageRead(
       availableQuantity
       visiterCount
       heldVisiterCount
+      externalQuantity
+      externalVisiterCount
     }
   }
 }

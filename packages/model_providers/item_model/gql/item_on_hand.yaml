@@ -12,3 +12,6 @@ ItemOnHandPage:
     - available_quantity
     - visiter_count
     - held_visiter_count
+    # 社外の所有物(顧客・発注先)。available_quantity には含まれない
+    - external_quantity
+    - external_visiter_count

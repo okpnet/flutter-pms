@@ -3,6 +3,7 @@
 
 schema {
   query: Query
+  mutation: Mutation
 }
 
 scalar BigFloat
@@ -171,6 +172,27 @@ enum VSupplyDetailBalancesOrderBy {
   PRIMARY_KEY_DESC
 }
 
+type CreateTransSupplyDetailPayload {
+  transSupplyDetail: TransSupplyDetail
+}
+
+type CreateTransSupplyPayload {
+  transSupply: TransSupply
+}
+
+type CreateTransSupplyVisiterPayload {
+  transSupplyVisiter: TransSupplyVisiter
+}
+
+type Mutation {
+  createTransSupply(input: CreateTransSupplyInput!): CreateTransSupplyPayload
+  createTransSupplyDetail(input: CreateTransSupplyDetailInput!): CreateTransSupplyDetailPayload
+  createTransSupplyVisiter(input: CreateTransSupplyVisiterInput!): CreateTransSupplyVisiterPayload
+  updateTransSupplyByTransSupplyId(input: UpdateTransSupplyByTransSupplyIdInput!): UpdateTransSupplyPayload
+  updateTransSupplyDetailByTransSupplyDetailId(input: UpdateTransSupplyDetailByTransSupplyDetailIdInput!): UpdateTransSupplyDetailPayload
+  updateTransSupplyVisiterByTransSupplyVisiterId(input: UpdateTransSupplyVisiterByTransSupplyVisiterIdInput!): UpdateTransSupplyVisiterPayload
+}
+
 type PageInfo {
   hasNextPage: Boolean!
   endCursor: Cursor
@@ -193,6 +215,7 @@ type TransSupply {
   transSupplyId: UUID!
   code: String
   supplyAt: Datetime
+  stakeholderHistoryId: UUID!
   stakeholderId: UUID!
   receive: Boolean
   counterpartOwns: Boolean
@@ -202,6 +225,7 @@ type TransSupply {
   transPlanChangeId: UUID
   transComplaintId: UUID
   reason: String
+  staffHistoryId: UUID!
   staffId: UUID!
   symbol: String
   remarks: String
@@ -212,6 +236,7 @@ type TransSupply {
 type TransSupplyDetail {
   transSupplyDetailId: UUID!
   transSupplyId: UUID!
+  itemHistoryId: UUID!
   itemId: UUID!
   quantity: BigFloat!
   unitPrice: BigFloat
@@ -245,6 +270,18 @@ type TransSupplyVisitersConnection {
   nodes: [TransSupplyVisiter]!
   pageInfo: PageInfo!
   totalCount: Int!
+}
+
+type UpdateTransSupplyDetailPayload {
+  transSupplyDetail: TransSupplyDetail
+}
+
+type UpdateTransSupplyPayload {
+  transSupply: TransSupply
+}
+
+type UpdateTransSupplyVisiterPayload {
+  transSupplyVisiter: TransSupplyVisiter
 }
 
 type VSupplyDetailBalance {
@@ -303,6 +340,18 @@ input BooleanFilter {
   lessThanOrEqualTo: Boolean
   greaterThan: Boolean
   greaterThanOrEqualTo: Boolean
+}
+
+input CreateTransSupplyDetailInput {
+  transSupplyDetail: TransSupplyDetailInput!
+}
+
+input CreateTransSupplyInput {
+  transSupply: TransSupplyInput!
+}
+
+input CreateTransSupplyVisiterInput {
+  transSupplyVisiter: TransSupplyVisiterInput!
 }
 
 input DatetimeFilter {
@@ -393,6 +442,25 @@ input TransSupplyDetailFilter {
   not: TransSupplyDetailFilter
 }
 
+input TransSupplyDetailInput {
+  transSupplyDetailId: UUID
+  transSupplyId: UUID
+  itemHistoryId: UUID
+  itemId: UUID
+  quantity: BigFloat!
+  unitPrice: BigFloat
+  scheduledAt: Datetime
+  transOrderDetailId: UUID
+  transPurchaseDetailId: UUID
+  transResourcePlanId: UUID
+  remarks: String
+}
+
+input TransSupplyDetailPatch {
+  remarks: String
+  remove: Boolean
+}
+
 input TransSupplyFilter {
   transSupplyId: UUIDFilter
   code: StringFilter
@@ -427,6 +495,30 @@ input TransSupplyFilter {
   not: TransSupplyFilter
 }
 
+input TransSupplyInput {
+  transSupplyId: UUID
+  code: String
+  supplyAt: Datetime
+  stakeholderHistoryId: UUID
+  stakeholderId: UUID
+  receive: Boolean
+  counterpartOwns: Boolean
+  companyOwns: Boolean
+  transOrderId: UUID
+  transPurchaseId: UUID
+  transPlanChangeId: UUID
+  transComplaintId: UUID
+  reason: String
+  staffHistoryId: UUID
+  staffId: UUID
+  remarks: String
+}
+
+input TransSupplyPatch {
+  remarks: String
+  remove: Boolean
+}
+
 input TransSupplyVisiterFilter {
   transSupplyVisiterId: UUIDFilter
   transSupplyDetailId: UUIDFilter
@@ -443,6 +535,18 @@ input TransSupplyVisiterFilter {
   not: TransSupplyVisiterFilter
 }
 
+input TransSupplyVisiterInput {
+  transSupplyVisiterId: UUID
+  transSupplyDetailId: UUID
+  transVisiterId: UUID
+  remarks: String
+}
+
+input TransSupplyVisiterPatch {
+  remarks: String
+  remove: Boolean
+}
+
 input UUIDFilter {
   isNull: Boolean
   equalTo: UUID
@@ -455,6 +559,21 @@ input UUIDFilter {
   lessThanOrEqualTo: UUID
   greaterThan: UUID
   greaterThanOrEqualTo: UUID
+}
+
+input UpdateTransSupplyByTransSupplyIdInput {
+  transSupplyPatch: TransSupplyPatch!
+  transSupplyId: UUID!
+}
+
+input UpdateTransSupplyDetailByTransSupplyDetailIdInput {
+  transSupplyDetailPatch: TransSupplyDetailPatch!
+  transSupplyDetailId: UUID!
+}
+
+input UpdateTransSupplyVisiterByTransSupplyVisiterIdInput {
+  transSupplyVisiterPatch: TransSupplyVisiterPatch!
+  transSupplyVisiterId: UUID!
 }
 
 input VSupplyDetailBalanceFilter {

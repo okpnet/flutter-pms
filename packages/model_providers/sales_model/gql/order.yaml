@@ -126,6 +126,20 @@ OrderDetailPage: &OrderDetailPage
     - cancel_quantity
     - stop
     - customer_property
+    # 残・状態(DBのビュー v_order_detail_balance。停止中は open_quantity が 0、全部キャンセルは cancel_closed)
+    - name: balance
+      arrayType: toFirstOne
+      as: balance
+      using: trans_order_detail_id
+      from: v_order_detail_balance
+      pick:
+        - remaining_quantity
+        - open_quantity
+        - cancel_closed
+        - shipped_quantity
+        - returned_quantity
+        - replacement_quantity
+        - settlement_amount
     # MRP用のマスタ不備の件数(計算列)
     - master_error_count
     # 子のレコード数(要件0056。DBのビュー 2本)
@@ -172,6 +186,7 @@ OrderDetailPageEdit:
     - fixed_price
     - delivery_date
     - deadline
+    - customer_property
     - remarks
     - update_user_id
     - update_user_history_id

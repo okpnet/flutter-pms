@@ -3,6 +3,7 @@
 
 schema {
   query: Query
+  mutation: Mutation
 }
 
 scalar BigFloat
@@ -123,6 +124,27 @@ enum TransReturnsOrderBy {
   PRIMARY_KEY_DESC
 }
 
+type CreateTransReturnDetailPayload {
+  transReturnDetail: TransReturnDetail
+}
+
+type CreateTransReturnPayload {
+  transReturn: TransReturn
+}
+
+type CreateTransReturnVisiterPayload {
+  transReturnVisiter: TransReturnVisiter
+}
+
+type Mutation {
+  createTransReturn(input: CreateTransReturnInput!): CreateTransReturnPayload
+  createTransReturnDetail(input: CreateTransReturnDetailInput!): CreateTransReturnDetailPayload
+  createTransReturnVisiter(input: CreateTransReturnVisiterInput!): CreateTransReturnVisiterPayload
+  updateTransReturnByTransReturnId(input: UpdateTransReturnByTransReturnIdInput!): UpdateTransReturnPayload
+  updateTransReturnDetailByTransReturnDetailId(input: UpdateTransReturnDetailByTransReturnDetailIdInput!): UpdateTransReturnDetailPayload
+  updateTransReturnVisiterByTransReturnVisiterId(input: UpdateTransReturnVisiterByTransReturnVisiterIdInput!): UpdateTransReturnVisiterPayload
+}
+
 type PageInfo {
   hasNextPage: Boolean!
   endCursor: Cursor
@@ -137,14 +159,17 @@ type Query {
 type TransReturn {
   transReturnId: UUID!
   code: String
+  returnKindHistoryId: UUID!
   returnKindId: UUID!
   returnAt: Datetime
+  stakeholderHistoryId: UUID!
   stakeholderId: UUID!
   transOrderId: UUID
   transPurchaseId: UUID
   transPlanChangeId: UUID
   transComplaintId: UUID
   reason: String
+  staffHistoryId: UUID!
   staffId: UUID!
   symbol: String
   remarks: String
@@ -155,6 +180,7 @@ type TransReturn {
 type TransReturnDetail {
   transReturnDetailId: UUID!
   transReturnId: UUID!
+  itemHistoryId: UUID!
   itemId: UUID!
   quantity: BigFloat!
   replacement: Boolean
@@ -197,6 +223,18 @@ type TransReturnsConnection {
   totalCount: Int!
 }
 
+type UpdateTransReturnDetailPayload {
+  transReturnDetail: TransReturnDetail
+}
+
+type UpdateTransReturnPayload {
+  transReturn: TransReturn
+}
+
+type UpdateTransReturnVisiterPayload {
+  transReturnVisiter: TransReturnVisiter
+}
+
 input BigFloatFilter {
   isNull: Boolean
   equalTo: BigFloat
@@ -223,6 +261,18 @@ input BooleanFilter {
   lessThanOrEqualTo: Boolean
   greaterThan: Boolean
   greaterThanOrEqualTo: Boolean
+}
+
+input CreateTransReturnDetailInput {
+  transReturnDetail: TransReturnDetailInput!
+}
+
+input CreateTransReturnInput {
+  transReturn: TransReturnInput!
+}
+
+input CreateTransReturnVisiterInput {
+  transReturnVisiter: TransReturnVisiterInput!
 }
 
 input DatetimeFilter {
@@ -309,6 +359,26 @@ input TransReturnDetailFilter {
   not: TransReturnDetailFilter
 }
 
+input TransReturnDetailInput {
+  transReturnDetailId: UUID
+  transReturnId: UUID
+  itemHistoryId: UUID
+  itemId: UUID
+  quantity: BigFloat!
+  replacement: Boolean
+  transOrderDetailId: UUID
+  transShippingOrderDetailRecordId: UUID
+  transPurchaseDetailId: UUID
+  transPurchaseRecId: UUID
+  originTransVisiterId: UUID
+  remarks: String
+}
+
+input TransReturnDetailPatch {
+  remarks: String
+  remove: Boolean
+}
+
 input TransReturnFilter {
   transReturnId: UUIDFilter
   code: StringFilter
@@ -341,6 +411,29 @@ input TransReturnFilter {
   not: TransReturnFilter
 }
 
+input TransReturnInput {
+  transReturnId: UUID
+  code: String
+  returnKindHistoryId: UUID
+  returnKindId: UUID
+  returnAt: Datetime
+  stakeholderHistoryId: UUID
+  stakeholderId: UUID
+  transOrderId: UUID
+  transPurchaseId: UUID
+  transPlanChangeId: UUID
+  transComplaintId: UUID
+  reason: String
+  staffHistoryId: UUID
+  staffId: UUID
+  remarks: String
+}
+
+input TransReturnPatch {
+  remarks: String
+  remove: Boolean
+}
+
 input TransReturnVisiterFilter {
   transReturnVisiterId: UUIDFilter
   transReturnDetailId: UUIDFilter
@@ -357,6 +450,18 @@ input TransReturnVisiterFilter {
   not: TransReturnVisiterFilter
 }
 
+input TransReturnVisiterInput {
+  transReturnVisiterId: UUID
+  transReturnDetailId: UUID
+  transVisiterId: UUID
+  remarks: String
+}
+
+input TransReturnVisiterPatch {
+  remarks: String
+  remove: Boolean
+}
+
 input UUIDFilter {
   isNull: Boolean
   equalTo: UUID
@@ -369,4 +474,19 @@ input UUIDFilter {
   lessThanOrEqualTo: UUID
   greaterThan: UUID
   greaterThanOrEqualTo: UUID
+}
+
+input UpdateTransReturnByTransReturnIdInput {
+  transReturnPatch: TransReturnPatch!
+  transReturnId: UUID!
+}
+
+input UpdateTransReturnDetailByTransReturnDetailIdInput {
+  transReturnDetailPatch: TransReturnDetailPatch!
+  transReturnDetailId: UUID!
+}
+
+input UpdateTransReturnVisiterByTransReturnVisiterIdInput {
+  transReturnVisiterPatch: TransReturnVisiterPatch!
+  transReturnVisiterId: UUID!
 }

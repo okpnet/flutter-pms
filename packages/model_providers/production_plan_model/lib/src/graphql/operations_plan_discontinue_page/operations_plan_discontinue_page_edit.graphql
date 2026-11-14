@@ -1,0 +1,23 @@
+# operations_plan_discontinue_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #OperationsPlanDiscontinuePageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation OperationsPlanDiscontinuePageEdit(
+  $transOperationsPlanId: UUID!
+  $discontinue: Boolean
+) {
+  updateTransOperationsPlanByTransOperationsPlanId(
+    input: {
+      transOperationsPlanId: $transOperationsPlanId
+      transOperationsPlanPatch: {
+        discontinue: $discontinue
+      }
+    }
+  ) {
+    transOperationsPlan {
+      transOperationsPlanId
+      discontinue
+    }
+  }
+}

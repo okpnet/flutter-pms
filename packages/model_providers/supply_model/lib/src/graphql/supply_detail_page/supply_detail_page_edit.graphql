@@ -1,0 +1,23 @@
+# supply_detail_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #SupplyDetailPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation SupplyDetailPageEdit(
+  $transSupplyDetailId: UUID!
+  $remarks: String
+) {
+  updateTransSupplyDetailByTransSupplyDetailId(
+    input: {
+      transSupplyDetailId: $transSupplyDetailId
+      transSupplyDetailPatch: {
+        remarks: $remarks
+      }
+    }
+  ) {
+    transSupplyDetail {
+      transSupplyDetailId
+      remarks
+    }
+  }
+}

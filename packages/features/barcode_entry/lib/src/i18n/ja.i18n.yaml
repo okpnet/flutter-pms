@@ -82,6 +82,10 @@ notice:
   qtyOverPurchase: 発注数量の残りは{remain}{unit}です。それ以下の数量を入力してください。
   workDone: この作業指示は、指示数量まで完了しています。次のバーコードを読み取ってください。
   purchaseDone: この購入品は、発注数量まで受け入れ済みです。次のバーコードを読み取ってください。
+  workStopped: この作業指示は停止中です。停止を解除してから登録してください。次のバーコードを読み取ってください。
+  workClosed: この作業指示は、打ち切りまたは受注のキャンセルで終了しています。登録できません。次のバーコードを読み取ってください。
+  purchaseStopped: この発注明細は停止中です。停止を解除してから登録してください。次のバーコードを読み取ってください。
+  purchaseClosed: この発注明細は全部キャンセル済みです。登録できません。次のバーコードを読み取ってください。
   canceled: 取り消しました。最初から読み取ってください。
   notStarted: 開始しませんでした。次のバーコードを読み取ってください。
   started: '{shelf}から出庫し、作業を開始しました。次のバーコードを読み取ってください。'
@@ -94,6 +98,8 @@ log:
   unknown: '読み取れないバーコード: {value}'
   workDone: '{sym} {item}／{task}: 指示数量が完了しています'
   purchaseDone: '{sym} {item}: 受入が完了しています'
+  workBlocked: '{sym} {item}／{task}: 停止中、または終了しているため登録できません'
+  purchaseBlocked: '{sym} {item}: 停止中、または全部キャンセル済みのため登録できません'
   canceled: 取り消しました
   notStarted: '{sym}: 開始しませんでした'
   started: '{sym} {item}／{task}: {shelf}から材料を出庫し、作業を開始'

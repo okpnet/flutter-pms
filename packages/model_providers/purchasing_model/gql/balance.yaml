@@ -22,3 +22,29 @@ PurchaseDetailBalancePage:
     - remaining_quantity
     - open_quantity
     - cancel_closed
+
+# ---- 更新(キャンセル・停止。計画変更の登録と一緒に行う。数量そのものは書き換えない) ----
+
+# 発注明細のキャンセル数量(累計。0 ≤ cancel_quantity ≤ quantity)
+PurchaseDetailCancelPageEdit:
+  kind: edit
+  from: trans_purchase_detail
+  requiredWhere:
+    - trans_purchase_detail_id
+  columns:
+    - trans_purchase_detail_id
+    - cancel_quantity
+    - update_user_id
+    - update_user_history_id
+
+# 発注明細の停止・再開
+PurchaseDetailStopPageEdit:
+  kind: edit
+  from: trans_purchase_detail
+  requiredWhere:
+    - trans_purchase_detail_id
+  columns:
+    - trans_purchase_detail_id
+    - stop
+    - update_user_id
+    - update_user_history_id

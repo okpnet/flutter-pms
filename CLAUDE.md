@@ -125,7 +125,140 @@ DB(`tools/docker/postgresql/script`、スキーマ `tests`)の仕様。正は DD
 13 の関数のオーナーは `APP_OWNER_ID`。`visiter_owner_refresh` は一般ユーザー・管理者、`visiter_owner_rebuild` は管理者だけが実行できる。一般ユーザー(`APP_USER_ID`)は `SELECT, INSERT, UPDATE, DELETE`(05・09)で、登録・`visiter_move`・`mrp_run`・`mrp_execute` が使える。管理者は ALL。ただし `trans_visiter_owner` は一般ユーザー・管理者とも読み取りだけ(13 で REVOKE)。
 
 ### 未決・未作成
-`v_cancel_open_item`(未処置一覧)、キャンセル・停止・保管・返品・支給の操作をまとめる DB 関数(1トランザクションで計画変更と処置を登録)、`v_plan_change`(計画変更の表示用の文字)、受注金額のビュー(`v_sales_record`・`v_shipping_order_status` ほか)への精算額の追加、原価計算のビュー。
+`v_cancel_open_item`(未処置一覧)、`v_plan_change`(計画変更の表示用の文字)、受注金額のビュー(`v_sales_record`・`v_shipping_order_status` ほか)への精算額の追加、原価計算のビューは、DB に無い。操作をまとめる DB 関数と、登録できる作業指示の判定のビュー(`v_work_plan_registrable`)は、SQL の案を `doc/query/` に置いた(DB への適用はレビューのあと。下の「操作の DB 関数」)。
+
+## 受注・発注まわりの GraphQL モデルと画面の仕様(キャンセル・停止・返品・精算・支給・所有)
+
+画面ごとの `.graphql`(`packages/model_providers`)と、画面(`packages/features`)を作るときの決定事項。DB の正は `06_cteate_test.sql`・`08`(MRP)・`12`・`13` で、PostGraphile v4 が生成する型をそのまま使い、独自のスキーマプラグインは使わない。業務の決定事項は上の「受注・発注まわりの仕様」。
+
+### 守るルール
+| # | ルール | モデル・画面での意味 |
+|---|---|---|
+| R1 | 状態・区分をコード値で持たない・判定しない | Dart に状態の enum を作らない。マスタの `code` で分岐しない。判定は boolean 列とビューの列(`cancelClosed`・`openQuantity` など)で行う |
+| R2 | 表示用の文字(「キャンセル」「停止」など)はビューで1か所だけ定義する | 画面で boolean から文字を組み立てない。`v_plan_change`(未作成)を使う |
+| R3 | 記録は追記のみ | 計画変更・支給・返品・精算は **create だけ**。画面に「編集」「削除」を出さない。取り消しは `remove = true` の更新(`~PageRemove`)だけ、または打ち消しの記録を1件追加 |
+| R4 | マスタは履歴ID+IDの組で参照する | create の入力に `xxxHistoryId` と `xxxId` の両方を入れる(担当者も同じ) |
+| R5 | 数量は棚ビジターだけが持つ | 中間テーブル(返品ビジター・支給ビジター)に数量の入力欄を作らない。数量は棚ビジターの行と関数(`visiterMove`・`visiterIssue`)で決まる |
+| R6 | `symbol` はトリガーが採番する | create で送らない。一覧・検索・バーコードのキーに使う |
+| R7 | 所有者(`trans_visiter_owner`)はトリガーだけが書く | 読み取り専用のモデル。create・update・delete の mutation を使わない(DB 側で `@omit` を付ける) |
+
+### GraphQL の名前(PostGraphile v4)
+| DB | GraphQL |
+|---|---|
+| テーブル `trans_plan_change` | 型 `TransPlanChange`、一覧 `allTransPlanChanges`、1件 `transPlanChangeByTransPlanChangeId` |
+| 列 `cancel_quantity` | `cancelQuantity`(`numeric` は `BigFloat`(文字列)、`timestamp` は `Datetime`、`uuid` は `UUID`) |
+| FK `trans_order_detail_id` | 親 `transOrderDetailByTransOrderDetailId`、子の一覧 `transPlanChangesByTransOrderDetailId` |
+| 登録 | `createTransPlanChange(input: { transPlanChange: {...} })` |
+| 更新 | `updateTransOrderDetailByTransOrderDetailId(input: { transOrderDetailId, transOrderDetailPatch: {...} })` |
+| ビュー `v_order_detail_balance` | 型 `VOrderDetailBalance`、一覧 `allVOrderDetailBalances`。`COMMENT ON VIEW` の `@primaryKey`・`@foreignKey` で、明細から `vOrderDetailBalanceByTransOrderDetailId` のようにたどれる(タグは `COMMENT` で付ける。`postgraphile.tags.json5` は無い) |
+| VOLATILE 関数 `visiter_move` | mutation `visiterMove(input: {...})`(STABLE の関数は query) |
+
+### 型
+既存の型の追加フィールド: `TransOrderDetail`(`cancelQuantity`・`stop`・`customerProperty`)、`TransPurchaseDetail`(`cancelQuantity`・`stop`)、`TransOperationsPlan`(`stop`・`discontinue`。打ち切りは戻さない)、`TransMrpPegging`(`transSupplyDetailId`)。検証は DB の CHECK と同じ(`0 ≤ cancelQuantity ≤ quantity`)ものを画面でも先に行う。
+
+マスタ(判定用の boolean を持つ。`history_*` も同じ名前で生成される): `MstrChangeReason`(`customerCause`・`supplierCause`・`qualityCause`。`qualityCause` が true なら異常の登録を促す)、`MstrReturnKind`(`receive`。顧客からは true、仕入先・外注先へは false の区分だけを出す)、`MstrSettlementKind`(`delivery`。true の区分を選んだら品物の引き渡しも登録する)。
+
+トランザクション(`!` は必須。共通列は省く):
+| 型 | 主なフィールド |
+|---|---|
+| `TransPlanChange`(create のみ) | キー・起点(`parentTransPlanChangeId`・`changeAt`)、対象は**どれか1つだけ**(`transOrderDetailId`・`transPurchaseDetailId`・`transOperationsPlanId`・`transInventoryRequestId`・`transVisiterId`・`transShippingOrderDetailId`)、数量・日付(`oldQuantity`・`newQuantity`・`cancelQuantity`≥0・`oldDate`・`newDate`)、停止(`oldStop`・`newStop`)、処置の boolean(`discontinue`・`release`・`hold`・`scrap`・`deliver`)、`transContainerId`(**`hold` のとき必須**)、`transOrderDetailSettlementId`、理由(`changeReasonHistoryId`+`changeReasonId`・`reason`)、相手(`stakeholderHistoryId`+`stakeholderId`)、担当(`staffHistoryId!`+`staffId!`)。`transMrpSuggestionId`・`reflectedTransMrpRunId` は MRP の関数が入れる(画面は送らない) |
+| `TransOrderDetailSettlement` | `transOrderDetailId!`、`settlementKindHistoryId!`+`settlementKindId!`、`settleAt`、`quantity`、`amount!`(請求書1行)、`transPlanChangeId`、`reason`、担当 |
+| `TransReturn` / `TransReturnDetail` / `TransReturnVisiter` | 伝票(`code`・`returnKind…!`・`returnAt`・`stakeholder…!`・`transOrderId` または `transPurchaseId`・`transPlanChangeId`・`transComplaintId`・担当)、明細(`itemHistoryId!`+`itemId!`・`quantity!`>0・`replacement`(代品あり)、受注側(`transOrderDetailId`・`transShippingOrderDetailRecordId`)**または**発注側(`transPurchaseDetailId`・`transPurchaseRecId`)・`originTransVisiterId`)、ロットのつなぎ(`transVisiterId!`。数量なし) |
+| `TransSupply` / `TransSupplyDetail` / `TransSupplyVisiter` | 伝票(`stakeholder…!`・`receive`・`counterpartOwns`・`companyOwns`(**両方 true は不可**)・`transOrderId` **または** `transPurchaseId`・`transPlanChangeId`・`transComplaintId`・担当)、明細(`itemHistoryId!`+`itemId!`・`quantity!`>0・`unitPrice`・`scheduledAt`・`transOrderDetailId` **または** `transPurchaseDetailId`・`transResourcePlanId`)、ロットのつなぎ |
+| `TransComplaintSupply` | `transComplaintId!`、`transSupplyDetailId!`、`quantity`(既定 1)。create(取り消しは `remove`) |
+| `TransVisiterOwner`(読み取りのみ) | `transVisiterId!`(一意)、`ownerStakeholderHistoryId`+`ownerStakeholderId`(**null = 自社**)、`transSupplyDetailId`(支給で決まった)、`transOrderDetailId`(受注明細の顧客所有で決まった)、`effectiveAt`。行が無いロットも自社 |
+
+支給の3つの boolean の組み合わせ(画面は「場面」を選ばせ、値はこの表から入れる。「場面」は画面の選択肢にだけ使い、DB・Dart には持たない):
+| 場面 | receive | counterpartOwns | companyOwns | 相手 | つなぐロット |
+|---|---|---|---|---|---|
+| 顧客から支給を受ける(予定・受入) | true | true | false | 受注 | 受け入れた+の行(仮止め) |
+| 顧客へ返す | false | false | false | 受注 | `visiterIssue` の−の行 |
+| 返却不要(譲渡) | false | false | true | 受注 | 今あるロット |
+| 発注先へ無償で渡す | false | false | false | 発注 | 選んだコンテナへ移した+の行 |
+| 発注先から戻る | true | false | false | 発注 | 自社の棚へ戻した+の行 |
+| 発注先へ有償で渡す | false | true | false | 発注 | 移した+の行(明細に単価) |
+| 無償 → 有償の切り替え | false | true | false | 発注 | 発注先にあるロット(`transComplaintId` を入れる) |
+
+### ビュー・関数
+| ビュー(一覧) | 主な列・使い方 |
+|---|---|
+| `VOrderDetailBalance` | `stop`・`customerProperty`・`quantity`・`cancelQuantity`・`shippedQuantity`・`returnedQuantity`・`replacementQuantity`・`remainingQuantity`(残)・`openQuantity`(停止中は 0)・`cancelClosed`・`settlementAmount`。**残を画面で計算しない** |
+| `VPurchaseDetailBalance` | 発注明細の残・状態(`receivedQuantity`・`returnedQuantity`・`isOutsource` ほか) |
+| `VPlanChangeUnreflected` | MRP に未反映の計画変更(`transOrderDetailId`・`transPurchaseDetailId`・`transOperationsPlanId`)。再MRP の対象を選ぶ |
+| `VSupplyDetailBalance` | 支給明細ごとの予定・つないだ数量・`remainingQuantity`(未受入・未払出)・`currentQuantity`(今の数量)・`paidSupply`・`paidBySwitch`・`paidAmount` |
+| `VExternalProperty` | 社外の所有物(顧客・発注先)の一覧。ISO 9001 8.5.3 |
+| `VItemOnHand` | `externalQuantity`・`externalVisiterCount` を追加。**`availableQuantity` は社外の物を含まない** |
+| `VWorkPlanRegistrable`(案。`doc/query/`) | 作業指示ごとに `registrable`・`stopped`・`closed`(生産計画の連なりと最上位の受注明細の停止・打ち切り・全部キャンセルの判定) |
+
+関数: `visiterMove`(移動・保管・隔離・仮止め)・`visiterIssue`(払出・廃棄・返す)・`visiterAdjust`(棚卸し)・`mrpRun`/`mrpExecute`(`pMode` は MRP の関数に渡すだけで、状態の判定には使わない)・`mrpCommit`/`mrpDiscard`・`visiterOwnerRebuild`(**管理者だけ**。受注明細の顧客所有・受注の顧客を後から変えたとき)。
+
+### 操作の DB 関数(1回の呼び出し = 1トランザクション)
+**PostGraphile v4 は、1つのドキュメントの複数の mutation を1つのトランザクションにしない**(実測: 1つ目が成功し、2つ目が CHECK 違反で失敗すると、1つ目は残り、応答は部分成功になる)。「本体の更新 + 計画変更の記録」をクライアントの複数の mutation で行わない。次の操作は DB 関数で行う(SQL の案は `doc/query/20261114_0001_operation_functions.sql`。DB へ適用するまでは、操作の画面を作らない)。
+| 操作 | 関数(スキーマ `tests`) |
+|---|---|
+| 受注明細のキャンセル・停止・納期数量の変更 | `order_detail_cancel`・`order_detail_set_stop`・`order_detail_change` |
+| 発注明細のキャンセル・停止・納期数量の変更 | `purchase_detail_cancel`・`purchase_detail_set_stop`・`purchase_detail_change` |
+| 生産計画の停止・打ち切り | `operations_plan_set_stop`・`operations_plan_discontinue` |
+| 引当予約の解除・保管 | `inventory_request_release`・`inventory_request_hold` |
+| キャンセル後の品物の処置 | `lot_release`(在庫にする)・`lot_hold`(押さえる)・`lot_scrap`(廃棄)・`lot_deliver`(引き渡す) |
+| 精算・返品・支給 | `order_detail_settle`・`return_register`・`supply_register`(明細は `jsonb` の配列) |
+- 担当者は引数、省略時は JWT の `staff_id`。理由・相手先・精算区分は ID で渡し、履歴ID は関数が引く。戻り値は作った計画変更(または精算・伝票)。
+- エラーは errcode で判定する: `OPR00` 担当者・マスタが無い、`OPR01` 対象が無い、`OPR02` 数量・引数が不正、`OPR03` 今の状態では実行できない(すでに停止・打ち切り・キャンセル済み、など)。ロットを動かす関数の `VIS05`(棚に場所が無い)は `p_location_id` で場所を渡す。
+- 関数ができたら、`kind: function` で呼び、複数の mutation を1本にする。
+
+### 操作ごとの手順(関数にまとめる内容)
+| 操作 | 本体 | 計画変更 | 後続 |
+|---|---|---|---|
+| 受注・発注明細のキャンセル(一部・全部) | `cancelQuantity` を加算(`0 < q ≤ remainingQuantity`)。数量は書き換えない | `cancelQuantity = q`・理由・相手 | 再MRP(`pOrderDetailIds` = この明細)、生産計画の処置、品物の処置、精算 |
+| 停止・再開(受注明細・発注明細・生産計画) | `stop` を反転 | `oldStop`・`newStop` | MRP は停止中を凍結する(受注明細を止めると下の生産計画・資材計画も凍結) |
+| 納期・数量の変更 | 本体を変える | 新旧 | 再MRP |
+| 生産計画の打ち切り | `discontinue = true`(戻さない) | `discontinue` | 仕掛品の処置。途中の請求は精算 |
+| 完了まで続ける | 変えない | 記録しない | 受注明細に残す。差額は精算 |
+| 引当予約の解除・保管 | 予約を取り消す/コンテナへ `visiterMove(pHold: true)` | `release` / `hold`+コンテナ | — |
+| キャンセル後の品物 | 在庫にする(記録だけ)/押さえる(`visiterMove(pHold: true)`)/引き渡す(精算 → `visiterIssue`)/廃棄(`visiterIssue`)/材料に戻す(`visiterIssue` → 材料品目で入庫) | `release`/`hold`/`deliver`/`scrap`/`release` | 起点の計画変更があれば `parentTransPlanChangeId` |
+| 精算 | `TransOrderDetailSettlement` を登録 | 起因があれば `transPlanChangeId` | 精算区分の `delivery = true` なら品物の引き渡しも。受注金額 = 数量 × 単価 + `settlementAmount` |
+| 返品 | 顧客から: 入庫の+の行を作り `TransReturnVisiter` でつなぐ/仕入先へ: `visiterIssue` の−の行をつなぐ | — | 代品あり(`replacement`)は受注残・発注残に戻る。1つの明細に受注側と発注側を混ぜない |
+| 顧客支給 | 支給予定(受注のとき)→ 受け入れ(仮止めの+の行)→ 検品(異常は `TransComplaint`+`TransComplaintSupply`、合格で仮止めを外す)→ 使う | — | 足りなければ MRP が `SUPPLY_REQUEST`。自社手配へ切り替えるなら、その品目の支給明細を `remove` して再MRP。取り決めの変更はその受注明細の再MRP |
+| 発注先への支給 | 資材計画に引当 → コンテナへ `visiterMove` → 支給(明細に発注明細)とつなぐ。戻りは自社の棚へ。有償は `unitPrice`。無償 → 有償は支給を1件追加 | — | 発注先にある量は `VSupplyDetailBalance.currentQuantity` |
+- ID はクライアントで作れる(主キーは uuid)。FK は `DEFERRABLE INITIALLY DEFERRED`。
+- 担当者は `staffId` と `staffHistoryId`(その担当者の最新の履歴)を、ログイン中の担当者から入れる(関数にまとめたあとは関数が引く)。
+
+### 画面ごとの仕様
+特に書いていない操作は、一般ユーザー・管理者の両方ができる。
+| 画面 | 使うデータ | 内容 |
+|---|---|---|
+| 受注明細(既存) | `TransOrderDetail` + `VOrderDetailBalance` + `VPlanChangeUnreflected` | 列の追加: キャンセル数量・残・停止・キャンセル済み・顧客所有・精算額・MRP 未反映。入力の追加: 顧客所有(登録後に変えたら管理者に `visiterOwnerRebuild` を依頼する旨を表示)。操作: キャンセル・停止/再開・納期数量の変更・精算・支給予定・再MRP。条件: キャンセルは `remainingQuantity > 0`、再開は `stop = true`、停止は `stop = false` かつ `cancelClosed = false`。子の表示: 計画変更の履歴・精算・支給予定と受入状況 |
+| 発注明細(既存) | `TransPurchaseDetail` + `VPurchaseDetailBalance` | 列の追加: キャンセル数量・受入・返品・残・停止・キャンセル済み・外注か。操作: キャンセル・停止/再開・納期の変更・仕入先への返品・外注なら支給。**発注数量を書き換えてキャンセルしない** |
+| 生産計画(既存) | `TransOperationsPlan` | 列の追加: 停止・打ち切り。操作: 停止/再開・打ち切り(確認ダイアログ。戻せない)・打ち切り後に仕掛品の処置へ。停止・打ち切りの計画は工程負荷に積まれない |
+| 引当予約(既存) | `TransInventoryRequest` | 操作に「解除」「保管(コンテナを選ぶ)」を追加 |
+| キャンセル後の品物の処置(新規) | 対象の受注明細・生産計画にひもづく棚ビジターと所有者 | 在庫にする・押さえる・引き渡す・廃棄・材料に戻す。入口は受注のキャンセル・生産の打ち切りのあと、または未処置一覧 |
+| 計画変更の履歴(新規) | `TransPlanChange`(`parentTransPlanChangeId` でツリー)・`VPlanChangeUnreflected` | 表示の文字は `v_plan_change` ができるまで、列の値をそのまま並べる(文字を画面で組み立てない)。絞り込み: 対象・期間・MRP 未反映のみ。未反映の受注明細を選んで再MRP |
+| 返品(新規) | 伝票・明細・ロット | 返品区分(`receive`)で、受注側か発注側かの入力欄を切り替える |
+| 支給(新規) | `VSupplyDetailBalance` | 一覧: 相手先・受注/発注・品目・予定・未受入・今の数量・有償・切り替え・請求額。登録: 「場面」(7つ)を選ぶと boolean と相手が決まる。受け入れ(仮止め)→ 検品 → 解除。有償の請求は `paidAmount` を請求書1行に |
+| 支給の検品(新規) | `TransComplaintSupply` | 既存の受入検品と同じ形。異常のあるロットは仮止めのまま |
+| 社外の所有物(新規) | `VExternalProperty` | 所有者(顧客・発注先)ごとに、品目・棚・場所・数量・仮止め・未完了の異常の件数 |
+| 在庫(既存) | `VItemOnHand`・`TransVisiterOwner` | 社外の数量を別の列で出す。ロットの一覧に所有者(無ければ自社)を出す |
+| MRP の結果(既存) | `TransMrpSuggestion`・`TransMrpPegging` | `SUPPLY_REQUEST` は要判断。「顧客に支給を依頼」と表示し、発注・生産には変換しない。操作は「支給予定を登録する」または「自社手配に切り替える(支給明細を取り消して再MRP)」。供給が支給予定のペギングは `transSupplyDetailId` を表示。確定後、発注の取消はキャンセル数量、着手済みの生産の取消は打ち切りになり、計画変更が自動で記録される |
+| バーコード実績登録(`barcode_entry`) | `ScanWorkPlanPage`・`ScanPurchaseDetailPage` | 停止中・打ち切り・全部キャンセルの作業指示・発注明細に、実績を登録させない(判定は boolean)。受け入れる数量は `quantity − cancelQuantity − 受入済み`。子の生産計画は `VWorkPlanRegistrable` ができてから、その列で判定する |
+
+### モデル・クエリの作り方
+1. `.graphql` は画面ごとに必要なものだけを書き、`model_providers` の画面単位のパッケージで生成する。
+1. 残・キャンセル済み・停止中の表示は、ビューの列をそのまま使う。Dart で残を計算しない。
+1. 状態の enum を作らない。boolean をそのまま持ち、表示の文字はビューから取る。
+1. 「場面」(支給の7つ、品物の処置の5つ)は登録画面の選択肢だけに使い、送るのは boolean。
+1. 追記のみの表(計画変更・精算・返品・支給)は create の mutation だけを生成する。update は `remove` 用の1本だけ(`kind: edit` で `remarks` だけを持つ定義が `~PageRemove` を生成する)。
+1. `TransVisiterOwner` は query だけ。
+1. 1つの操作で複数の表に登録するものは、DB 関数にする(上の「操作の DB 関数」)。
+1. 一覧(`flgtable_lib`)は、ビューの列(フラット)を主に使い、ネストは親の名称程度にする。
+
+### 受け入れ基準
+1. 状態・区分をコード値で判定していない(Dart の enum・`code` での分岐が無い)。
+1. 残・キャンセル済み・停止中の判定に、ビューの列を使っている。
+1. 計画変更・精算・返品・支給に、編集・物理削除の操作が無い。
+1. `TransVisiterOwner` を書き込む mutation が無い。一般ユーザーで create が権限エラーになる。
+1. 一般ユーザーで、キャンセル・停止・支給・返品・再MRP の操作ができる。
+1. 顧客支給を 0円発注で扱う処理が無い。
+1. 組立品で、支給明細のある部品だけが支給依頼になり、ほかの部品は通常の生産・発注の提案になる。
 
 ## バージョン管理
 

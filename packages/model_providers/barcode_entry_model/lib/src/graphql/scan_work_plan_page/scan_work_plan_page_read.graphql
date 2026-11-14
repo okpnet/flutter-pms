@@ -51,12 +51,24 @@ query ScanWorkPlanPageRead(
       operations_plan: transOperationsPlanByTransOperationsPlanId {
         transOperationsPlanId
         quantity
+        stop
+        discontinue
         transResourcePlanId
 
         resource_plan: transResourcePlanByTransResourcePlanId {
           transResourcePlanId
           itemId
           itemHistoryId
+          transOrderDetailId
+
+          order_detail: transOrderDetailByTransOrderDetailId {
+            transOrderDetailId
+            stop
+
+            balance: vOrderDetailBalanceByTransOrderDetailId {
+              transOrderDetailId
+            }
+          }
         }
       }
     }

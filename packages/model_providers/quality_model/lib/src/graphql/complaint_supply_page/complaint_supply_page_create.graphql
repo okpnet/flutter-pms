@@ -1,0 +1,32 @@
+# complaint_supply_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ComplaintSupplyPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ComplaintSupplyPageCreate(
+  $transComplaintSupplyId: UUID
+  $transComplaintId: UUID
+  $transSupplyDetailId: UUID
+  $quantity: BigFloat
+  $remarks: String
+) {
+  createTransComplaintSupply(
+    input: {
+      transComplaintSupply: {
+        transComplaintSupplyId: $transComplaintSupplyId
+        transComplaintId: $transComplaintId
+        transSupplyDetailId: $transSupplyDetailId
+        quantity: $quantity
+        remarks: $remarks
+      }
+    }
+  ) {
+    transComplaintSupply {
+      transComplaintSupplyId
+      transComplaintId
+      transSupplyDetailId
+      quantity
+      remarks
+    }
+  }
+}

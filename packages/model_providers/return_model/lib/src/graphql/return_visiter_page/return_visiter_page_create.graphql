@@ -1,0 +1,29 @@
+# return_visiter_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ReturnVisiterPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ReturnVisiterPageCreate(
+  $transReturnVisiterId: UUID
+  $transReturnDetailId: UUID
+  $transVisiterId: UUID
+  $remarks: String
+) {
+  createTransReturnVisiter(
+    input: {
+      transReturnVisiter: {
+        transReturnVisiterId: $transReturnVisiterId
+        transReturnDetailId: $transReturnDetailId
+        transVisiterId: $transVisiterId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transReturnVisiter {
+      transReturnVisiterId
+      transReturnDetailId
+      transVisiterId
+      remarks
+    }
+  }
+}

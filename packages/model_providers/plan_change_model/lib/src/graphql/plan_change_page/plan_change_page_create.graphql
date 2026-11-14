@@ -1,0 +1,110 @@
+# plan_change_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #PlanChangePageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation PlanChangePageCreate(
+  $transPlanChangeId: UUID
+  $parentTransPlanChangeId: UUID
+  $changeAt: Datetime
+  $transOrderDetailId: UUID
+  $transPurchaseDetailId: UUID
+  $transOperationsPlanId: UUID
+  $transInventoryRequestId: UUID
+  $transVisiterId: UUID
+  $transShippingOrderDetailId: UUID
+  $oldQuantity: BigFloat
+  $newQuantity: BigFloat
+  $cancelQuantity: BigFloat
+  $oldDate: Datetime
+  $newDate: Datetime
+  $oldStop: Boolean
+  $newStop: Boolean
+  $discontinue: Boolean
+  $release: Boolean
+  $hold: Boolean
+  $scrap: Boolean
+  $deliver: Boolean
+  $transContainerId: UUID
+  $transOrderDetailSettlementId: UUID
+  $changeReasonHistoryId: UUID
+  $changeReasonId: UUID
+  $reason: String
+  $stakeholderHistoryId: UUID
+  $stakeholderId: UUID
+  $staffHistoryId: UUID
+  $staffId: UUID
+  $remarks: String
+) {
+  createTransPlanChange(
+    input: {
+      transPlanChange: {
+        transPlanChangeId: $transPlanChangeId
+        parentTransPlanChangeId: $parentTransPlanChangeId
+        changeAt: $changeAt
+        transOrderDetailId: $transOrderDetailId
+        transPurchaseDetailId: $transPurchaseDetailId
+        transOperationsPlanId: $transOperationsPlanId
+        transInventoryRequestId: $transInventoryRequestId
+        transVisiterId: $transVisiterId
+        transShippingOrderDetailId: $transShippingOrderDetailId
+        oldQuantity: $oldQuantity
+        newQuantity: $newQuantity
+        cancelQuantity: $cancelQuantity
+        oldDate: $oldDate
+        newDate: $newDate
+        oldStop: $oldStop
+        newStop: $newStop
+        discontinue: $discontinue
+        release: $release
+        hold: $hold
+        scrap: $scrap
+        deliver: $deliver
+        transContainerId: $transContainerId
+        transOrderDetailSettlementId: $transOrderDetailSettlementId
+        changeReasonHistoryId: $changeReasonHistoryId
+        changeReasonId: $changeReasonId
+        reason: $reason
+        stakeholderHistoryId: $stakeholderHistoryId
+        stakeholderId: $stakeholderId
+        staffHistoryId: $staffHistoryId
+        staffId: $staffId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transPlanChange {
+      transPlanChangeId
+      parentTransPlanChangeId
+      changeAt
+      transOrderDetailId
+      transPurchaseDetailId
+      transOperationsPlanId
+      transInventoryRequestId
+      transVisiterId
+      transShippingOrderDetailId
+      oldQuantity
+      newQuantity
+      cancelQuantity
+      oldDate
+      newDate
+      oldStop
+      newStop
+      discontinue
+      release
+      hold
+      scrap
+      deliver
+      transContainerId
+      transOrderDetailSettlementId
+      changeReasonHistoryId
+      changeReasonId
+      reason
+      stakeholderHistoryId
+      stakeholderId
+      staffHistoryId
+      staffId
+      remarks
+    }
+  }
+}

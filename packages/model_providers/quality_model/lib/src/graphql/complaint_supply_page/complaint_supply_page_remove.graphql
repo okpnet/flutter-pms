@@ -1,0 +1,21 @@
+# complaint_supply_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ComplaintSupplyPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ComplaintSupplyPageRemove(
+  $transComplaintSupplyId: UUID!
+  $remove: Boolean!
+) {
+  updateTransComplaintSupplyByTransComplaintSupplyId(
+    input: {
+      transComplaintSupplyId: $transComplaintSupplyId
+      transComplaintSupplyPatch: { remove: $remove }
+    }
+  ) {
+    transComplaintSupply {
+      transComplaintSupplyId
+      remove
+    }
+  }
+}

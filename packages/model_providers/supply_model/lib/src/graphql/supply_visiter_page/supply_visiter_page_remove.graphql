@@ -1,0 +1,21 @@
+# supply_visiter_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #SupplyVisiterPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation SupplyVisiterPageRemove(
+  $transSupplyVisiterId: UUID!
+  $remove: Boolean!
+) {
+  updateTransSupplyVisiterByTransSupplyVisiterId(
+    input: {
+      transSupplyVisiterId: $transSupplyVisiterId
+      transSupplyVisiterPatch: { remove: $remove }
+    }
+  ) {
+    transSupplyVisiter {
+      transSupplyVisiterId
+      remove
+    }
+  }
+}

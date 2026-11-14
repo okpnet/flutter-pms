@@ -1,0 +1,29 @@
+# supply_visiter_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #SupplyVisiterPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation SupplyVisiterPageCreate(
+  $transSupplyVisiterId: UUID
+  $transSupplyDetailId: UUID
+  $transVisiterId: UUID
+  $remarks: String
+) {
+  createTransSupplyVisiter(
+    input: {
+      transSupplyVisiter: {
+        transSupplyVisiterId: $transSupplyVisiterId
+        transSupplyDetailId: $transSupplyDetailId
+        transVisiterId: $transVisiterId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transSupplyVisiter {
+      transSupplyVisiterId
+      transSupplyDetailId
+      transVisiterId
+      remarks
+    }
+  }
+}

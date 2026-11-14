@@ -50,6 +50,8 @@ final class WorkOrderTarget extends ScanTarget {
     required this.unit,
     required this.state,
     this.outsourced = false,
+    this.stopped = false,
+    this.closed = false,
   });
 
   @override
@@ -61,6 +63,12 @@ final class WorkOrderTarget extends ScanTarget {
   final String unit;
   final WorkState state;
   final bool outsourced;
+
+  /// 停止中・終わっている(打ち切り・キャンセル)。実績を登録できない。
+  final bool stopped;
+  final bool closed;
+
+  bool get blocked => stopped || closed;
 
   int get remaining => quantity > doneQuantity ? quantity - doneQuantity : 0;
 
@@ -88,6 +96,8 @@ final class PurchaseTarget extends ScanTarget {
     required this.quantity,
     required this.receivedQuantity,
     required this.unit,
+    this.stopped = false,
+    this.closed = false,
   });
 
   @override
@@ -96,6 +106,12 @@ final class PurchaseTarget extends ScanTarget {
   final int quantity;
   final int receivedQuantity;
   final String unit;
+
+  /// 停止中・全部キャンセル済み。受け入れを登録できない。
+  final bool stopped;
+  final bool closed;
+
+  bool get blocked => stopped || closed;
 
   int get remaining =>
       quantity > receivedQuantity ? quantity - receivedQuantity : 0;

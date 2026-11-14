@@ -39,6 +39,11 @@ query OrderDetailPageRead(
       cancelQuantity
       stop
       customerProperty
+
+      balance: vOrderDetailBalanceByTransOrderDetailId {
+        transOrderDetailId
+      }
+
       masterErrorCount
 
       shipping_order_detail_count: vOrderDetailShippingOrderDetailCountByTransOrderDetailId {

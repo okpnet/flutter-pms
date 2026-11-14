@@ -1,0 +1,21 @@
+# return_detail_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ReturnDetailPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ReturnDetailPageRemove(
+  $transReturnDetailId: UUID!
+  $remove: Boolean!
+) {
+  updateTransReturnDetailByTransReturnDetailId(
+    input: {
+      transReturnDetailId: $transReturnDetailId
+      transReturnDetailPatch: { remove: $remove }
+    }
+  ) {
+    transReturnDetail {
+      transReturnDetailId
+      remove
+    }
+  }
+}

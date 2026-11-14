@@ -1,0 +1,23 @@
+# return_detail_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #ReturnDetailPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ReturnDetailPageEdit(
+  $transReturnDetailId: UUID!
+  $remarks: String
+) {
+  updateTransReturnDetailByTransReturnDetailId(
+    input: {
+      transReturnDetailId: $transReturnDetailId
+      transReturnDetailPatch: {
+        remarks: $remarks
+      }
+    }
+  ) {
+    transReturnDetail {
+      transReturnDetailId
+      remarks
+    }
+  }
+}

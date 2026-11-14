@@ -1,0 +1,23 @@
+# purchase_detail_stop_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #PurchaseDetailStopPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation PurchaseDetailStopPageEdit(
+  $transPurchaseDetailId: UUID!
+  $stop: Boolean
+) {
+  updateTransPurchaseDetailByTransPurchaseDetailId(
+    input: {
+      transPurchaseDetailId: $transPurchaseDetailId
+      transPurchaseDetailPatch: {
+        stop: $stop
+      }
+    }
+  ) {
+    transPurchaseDetail {
+      transPurchaseDetailId
+      stop
+    }
+  }
+}

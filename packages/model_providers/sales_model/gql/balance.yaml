@@ -45,3 +45,59 @@ OrderDetailSettlementPage:
     - symbol
     - remarks
     - update_at
+
+# ---- 更新(キャンセル・停止。計画変更の登録と一緒に行う。数量そのものは書き換えない) ----
+
+# 受注明細のキャンセル数量(累計。0 ≤ cancel_quantity ≤ quantity。DB の CHECK と同じ)
+OrderDetailCancelPageEdit:
+  kind: edit
+  from: trans_order_detail
+  requiredWhere:
+    - trans_order_detail_id
+  columns:
+    - trans_order_detail_id
+    - cancel_quantity
+    - update_user_id
+    - update_user_history_id
+
+# 受注明細の停止・再開(MRP は停止中を凍結する)
+OrderDetailStopPageEdit:
+  kind: edit
+  from: trans_order_detail
+  requiredWhere:
+    - trans_order_detail_id
+  columns:
+    - trans_order_detail_id
+    - stop
+    - update_user_id
+    - update_user_history_id
+
+# ---- 登録(kind: create。追記のみ。symbol はトリガーが採番するので送らない) ----
+
+# 受注明細精算の登録(精算1件 = 請求書1行)
+OrderDetailSettlementPageCreate:
+  kind: create
+  from: trans_order_detail_settlement
+  columns:
+    - trans_order_detail_settlement_id
+    - trans_order_detail_id
+    - settlement_kind_history_id
+    - settlement_kind_id
+    - settle_at
+    - quantity
+    - amount
+    - trans_plan_change_id
+    - reason
+    - staff_history_id
+    - staff_id
+    - remarks
+
+# 受注明細精算の取り消し(remove だけを書く。~PageRemove を生成する)
+OrderDetailSettlementPageEdit:
+  kind: edit
+  from: trans_order_detail_settlement
+  requiredWhere:
+    - trans_order_detail_settlement_id
+  columns:
+    - trans_order_detail_settlement_id
+    - remarks

@@ -25,6 +25,8 @@ query ScanPurchaseDetailPageRead(
       transPurchaseDetailId
       symbol
       quantity
+      cancelQuantity
+      stop
       itemId
       itemHistoryId
     }

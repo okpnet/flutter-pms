@@ -1,0 +1,23 @@
+# order_detail_cancel_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #OrderDetailCancelPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation OrderDetailCancelPageEdit(
+  $transOrderDetailId: UUID!
+  $cancelQuantity: BigFloat
+) {
+  updateTransOrderDetailByTransOrderDetailId(
+    input: {
+      transOrderDetailId: $transOrderDetailId
+      transOrderDetailPatch: {
+        cancelQuantity: $cancelQuantity
+      }
+    }
+  ) {
+    transOrderDetail {
+      transOrderDetailId
+      cancelQuantity
+    }
+  }
+}

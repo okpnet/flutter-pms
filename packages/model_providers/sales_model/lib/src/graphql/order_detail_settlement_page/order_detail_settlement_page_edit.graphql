@@ -1,0 +1,23 @@
+# order_detail_settlement_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #OrderDetailSettlementPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation OrderDetailSettlementPageEdit(
+  $transOrderDetailSettlementId: UUID!
+  $remarks: String
+) {
+  updateTransOrderDetailSettlementByTransOrderDetailSettlementId(
+    input: {
+      transOrderDetailSettlementId: $transOrderDetailSettlementId
+      transOrderDetailSettlementPatch: {
+        remarks: $remarks
+      }
+    }
+  ) {
+    transOrderDetailSettlement {
+      transOrderDetailSettlementId
+      remarks
+    }
+  }
+}

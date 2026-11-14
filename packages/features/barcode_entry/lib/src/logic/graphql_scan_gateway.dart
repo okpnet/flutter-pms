@@ -47,6 +47,8 @@ class GraphqlScanGateway implements IScanGateway {
         quantity: f.quantity,
         doneQuantity: f.doneQuantity,
         unit: '',
+        stopped: f.stopped,
+        closed: f.closed,
         state: f.quantity > 0 && f.doneQuantity >= f.quantity
             ? WorkState.done
             : f.started
@@ -63,6 +65,8 @@ class GraphqlScanGateway implements IScanGateway {
         quantity: f.quantity,
         receivedQuantity: f.doneQuantity,
         unit: '',
+        stopped: f.stopped,
+        closed: f.closed,
       ),
       ScanFoundKind.item => ItemTarget(
         symbol: f.symbol,

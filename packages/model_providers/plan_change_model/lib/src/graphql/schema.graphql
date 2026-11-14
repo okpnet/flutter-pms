@@ -3,6 +3,7 @@
 
 schema {
   query: Query
+  mutation: Mutation
 }
 
 scalar BigFloat
@@ -115,6 +116,15 @@ enum VPlanChangeUnreflectedsOrderBy {
   PRIMARY_KEY_DESC
 }
 
+type CreateTransPlanChangePayload {
+  transPlanChange: TransPlanChange
+}
+
+type Mutation {
+  createTransPlanChange(input: CreateTransPlanChangeInput!): CreateTransPlanChangePayload
+  updateTransPlanChangeByTransPlanChangeId(input: UpdateTransPlanChangeByTransPlanChangeIdInput!): UpdateTransPlanChangePayload
+}
+
 type PageInfo {
   hasNextPage: Boolean!
   endCursor: Cursor
@@ -149,9 +159,12 @@ type TransPlanChange {
   deliver: Boolean
   transContainerId: UUID
   transOrderDetailSettlementId: UUID
+  changeReasonHistoryId: UUID
   changeReasonId: UUID
   reason: String
+  stakeholderHistoryId: UUID
   stakeholderId: UUID
+  staffHistoryId: UUID!
   staffId: UUID!
   transMrpSuggestionId: UUID
   reflectedTransMrpRunId: UUID
@@ -165,6 +178,10 @@ type TransPlanChangesConnection {
   nodes: [TransPlanChange]!
   pageInfo: PageInfo!
   totalCount: Int!
+}
+
+type UpdateTransPlanChangePayload {
+  transPlanChange: TransPlanChange
 }
 
 type VPlanChangeUnreflected {
@@ -209,6 +226,10 @@ input BooleanFilter {
   lessThanOrEqualTo: Boolean
   greaterThan: Boolean
   greaterThanOrEqualTo: Boolean
+}
+
+input CreateTransPlanChangeInput {
+  transPlanChange: TransPlanChangeInput!
 }
 
 input DatetimeFilter {
@@ -304,10 +325,10 @@ input TransPlanChangeFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
-  transSuppliesByTransPlanChangeIdExist: Boolean
-  transReturnsByTransPlanChangeIdExist: Boolean
   transOrderDetailSettlementsByTransPlanChangeIdExist: Boolean
   transPlanChangesByParentTransPlanChangeIdExist: Boolean
+  transSuppliesByTransPlanChangeIdExist: Boolean
+  transReturnsByTransPlanChangeIdExist: Boolean
   vPlanChangeUnreflectedByTransPlanChangeIdExists: Boolean
   transPlanChangeByParentTransPlanChangeIdExists: Boolean
   transOrderDetailByTransOrderDetailIdExists: Boolean
@@ -328,6 +349,45 @@ input TransPlanChangeFilter {
   not: TransPlanChangeFilter
 }
 
+input TransPlanChangeInput {
+  transPlanChangeId: UUID
+  parentTransPlanChangeId: UUID
+  changeAt: Datetime
+  transOrderDetailId: UUID
+  transPurchaseDetailId: UUID
+  transOperationsPlanId: UUID
+  transInventoryRequestId: UUID
+  transVisiterId: UUID
+  transShippingOrderDetailId: UUID
+  oldQuantity: BigFloat
+  newQuantity: BigFloat
+  cancelQuantity: BigFloat
+  oldDate: Datetime
+  newDate: Datetime
+  oldStop: Boolean
+  newStop: Boolean
+  discontinue: Boolean
+  release: Boolean
+  hold: Boolean
+  scrap: Boolean
+  deliver: Boolean
+  transContainerId: UUID
+  transOrderDetailSettlementId: UUID
+  changeReasonHistoryId: UUID
+  changeReasonId: UUID
+  reason: String
+  stakeholderHistoryId: UUID
+  stakeholderId: UUID
+  staffHistoryId: UUID
+  staffId: UUID
+  remarks: String
+}
+
+input TransPlanChangePatch {
+  remarks: String
+  remove: Boolean
+}
+
 input UUIDFilter {
   isNull: Boolean
   equalTo: UUID
@@ -340,6 +400,11 @@ input UUIDFilter {
   lessThanOrEqualTo: UUID
   greaterThan: UUID
   greaterThanOrEqualTo: UUID
+}
+
+input UpdateTransPlanChangeByTransPlanChangeIdInput {
+  transPlanChangePatch: TransPlanChangePatch!
+  transPlanChangeId: UUID!
 }
 
 input VPlanChangeUnreflectedFilter {

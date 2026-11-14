@@ -294,6 +294,18 @@ class BarcodeEntryStrings$notice$ja {
 	/// ja: 'この購入品は、発注数量まで受け入れ済みです。次のバーコードを読み取ってください。'
 	String get purchaseDone => 'この購入品は、発注数量まで受け入れ済みです。次のバーコードを読み取ってください。';
 
+	/// ja: 'この作業指示は停止中です。停止を解除してから登録してください。次のバーコードを読み取ってください。'
+	String get workStopped => 'この作業指示は停止中です。停止を解除してから登録してください。次のバーコードを読み取ってください。';
+
+	/// ja: 'この作業指示は、打ち切りまたは受注のキャンセルで終了しています。登録できません。次のバーコードを読み取ってください。'
+	String get workClosed => 'この作業指示は、打ち切りまたは受注のキャンセルで終了しています。登録できません。次のバーコードを読み取ってください。';
+
+	/// ja: 'この発注明細は停止中です。停止を解除してから登録してください。次のバーコードを読み取ってください。'
+	String get purchaseStopped => 'この発注明細は停止中です。停止を解除してから登録してください。次のバーコードを読み取ってください。';
+
+	/// ja: 'この発注明細は全部キャンセル済みです。登録できません。次のバーコードを読み取ってください。'
+	String get purchaseClosed => 'この発注明細は全部キャンセル済みです。登録できません。次のバーコードを読み取ってください。';
+
 	/// ja: '取り消しました。最初から読み取ってください。'
 	String get canceled => '取り消しました。最初から読み取ってください。';
 
@@ -335,6 +347,12 @@ class BarcodeEntryStrings$log$ja {
 
 	/// ja: '{sym} {item}: 受入が完了しています'
 	String purchaseDone({required Object sym, required Object item}) => '${sym} ${item}: 受入が完了しています';
+
+	/// ja: '{sym} {item}／{task}: 停止中、または終了しているため登録できません'
+	String workBlocked({required Object sym, required Object item, required Object task}) => '${sym} ${item}／${task}: 停止中、または終了しているため登録できません';
+
+	/// ja: '{sym} {item}: 停止中、または全部キャンセル済みのため登録できません'
+	String purchaseBlocked({required Object sym, required Object item}) => '${sym} ${item}: 停止中、または全部キャンセル済みのため登録できません';
 
 	/// ja: '取り消しました'
 	String get canceled => '取り消しました';
@@ -524,6 +542,10 @@ extension on BarcodeEntryStrings {
 			'notice.qtyOverPurchase' => ({required Object remain, required Object unit}) => '発注数量の残りは${remain}${unit}です。それ以下の数量を入力してください。',
 			'notice.workDone' => 'この作業指示は、指示数量まで完了しています。次のバーコードを読み取ってください。',
 			'notice.purchaseDone' => 'この購入品は、発注数量まで受け入れ済みです。次のバーコードを読み取ってください。',
+			'notice.workStopped' => 'この作業指示は停止中です。停止を解除してから登録してください。次のバーコードを読み取ってください。',
+			'notice.workClosed' => 'この作業指示は、打ち切りまたは受注のキャンセルで終了しています。登録できません。次のバーコードを読み取ってください。',
+			'notice.purchaseStopped' => 'この発注明細は停止中です。停止を解除してから登録してください。次のバーコードを読み取ってください。',
+			'notice.purchaseClosed' => 'この発注明細は全部キャンセル済みです。登録できません。次のバーコードを読み取ってください。',
 			'notice.canceled' => '取り消しました。最初から読み取ってください。',
 			'notice.notStarted' => '開始しませんでした。次のバーコードを読み取ってください。',
 			'notice.started' => ({required Object shelf}) => '${shelf}から出庫し、作業を開始しました。次のバーコードを読み取ってください。',
@@ -535,6 +557,8 @@ extension on BarcodeEntryStrings {
 			'log.unknown' => ({required Object value}) => '読み取れないバーコード: ${value}',
 			'log.workDone' => ({required Object sym, required Object item, required Object task}) => '${sym} ${item}／${task}: 指示数量が完了しています',
 			'log.purchaseDone' => ({required Object sym, required Object item}) => '${sym} ${item}: 受入が完了しています',
+			'log.workBlocked' => ({required Object sym, required Object item, required Object task}) => '${sym} ${item}／${task}: 停止中、または終了しているため登録できません',
+			'log.purchaseBlocked' => ({required Object sym, required Object item}) => '${sym} ${item}: 停止中、または全部キャンセル済みのため登録できません',
 			'log.canceled' => '取り消しました',
 			'log.notStarted' => ({required Object sym}) => '${sym}: 開始しませんでした',
 			'log.started' => ({required Object sym, required Object item, required Object task, required Object shelf}) => '${sym} ${item}／${task}: ${shelf}から材料を出庫し、作業を開始',

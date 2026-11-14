@@ -1,0 +1,21 @@
+# order_detail_stop_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #OrderDetailStopPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation OrderDetailStopPageRemove(
+  $transOrderDetailId: UUID!
+  $remove: Boolean!
+) {
+  updateTransOrderDetailByTransOrderDetailId(
+    input: {
+      transOrderDetailId: $transOrderDetailId
+      transOrderDetailPatch: { remove: $remove }
+    }
+  ) {
+    transOrderDetail {
+      transOrderDetailId
+      remove
+    }
+  }
+}

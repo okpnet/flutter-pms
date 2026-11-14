@@ -13,5 +13,7 @@ abstract class ItemOnHandPageFilterSpec {
     'availableQuantity': FlatFilterPath([], 'availableQuantity'),
     'visiterCount': FlatFilterPath([], 'visiterCount'),
     'heldVisiterCount': FlatFilterPath([], 'heldVisiterCount'),
+    'externalQuantity': FlatFilterPath([], 'externalQuantity'),
+    'externalVisiterCount': FlatFilterPath([], 'externalVisiterCount'),
   });
 }

@@ -45,6 +45,8 @@ enum NoticeKind {
   qtyOverPurchase,
   workDone,
   purchaseDone,
+  workBlocked,
+  purchaseBlocked,
   canceled,
   notStarted,
   started,
@@ -67,6 +69,8 @@ enum LogKind {
   unknown,
   workDone,
   purchaseDone,
+  workBlocked,
+  purchaseBlocked,
   canceled,
   notStarted,
   started,
@@ -383,6 +387,19 @@ class ScanFlow extends Notifier<ScanState> {
     }
     switch (target) {
       case WorkOrderTarget():
+        if (target.blocked) {
+          _log(
+            LogKind.workBlocked,
+            args: {
+              'sym': target.symbol,
+              'item': target.itemName,
+              'task': target.taskName,
+            },
+          );
+          return _reset(
+            ScanNotice(NoticeKind.workBlocked, isError: true, args: {'stopped': target.stopped}),
+          );
+        }
         if (target.state == WorkState.done || target.remaining == 0) {
           _log(
             LogKind.workDone,
@@ -401,6 +418,15 @@ class ScanFlow extends Notifier<ScanState> {
       case ShelfTarget():
         _go(ScanStep.stockItem, ScanContext(shelf: target));
       case PurchaseTarget():
+        if (target.blocked) {
+          _log(
+            LogKind.purchaseBlocked,
+            args: {'sym': target.symbol, 'item': target.itemName},
+          );
+          return _reset(
+            ScanNotice(NoticeKind.purchaseBlocked, isError: true, args: {'stopped': target.stopped}),
+          );
+        }
         if (target.remaining == 0) {
           _log(
             LogKind.purchaseDone,

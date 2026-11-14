@@ -64,9 +64,9 @@ mutation CompanyPageEdit(
   $ceoNicknameSharedDictionaryId: UUID!
   $ceoNicknameJa: String!
   $ceoNicknameEn: String!
-  $provisionUpdate: [InfoProvisionOnInfoProvisionForInfoProvisionFk3UsingInfoProvisionPkcUpdate!]
+  $provisionUpdate: [InfoProvisionOnInfoProvisionForInfoProvisionFk3UsingInfoProvisionPkUpdate!]
   $provisionCreate: [InfoProvisionFk3InfoProvisionCreateInput!]
-  $provisionDelete: [InfoProvisionInfoProvisionPkcDelete!]
+  $provisionDelete: [InfoProvisionInfoProvisionPkDelete!]
   $provisionsFirst: Int = 30
   $provisionsOrderBy: [InfoProvisionsOrderBy!]
 ) {
