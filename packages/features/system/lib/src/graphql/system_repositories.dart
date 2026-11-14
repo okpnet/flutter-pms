@@ -8,6 +8,9 @@ import '../entities/system_definitions.dart';
 /// システムの実体の取得元(GraphQL 版。読み取り専用)。アプリが [GraphQLClient] を渡して組み立て、
 /// `entityRepositoryOverridesProvider` に渡すと、サンプル(メモリ上)の代わりに使われる。
 ///
+/// 【入れ替え: 呼称の DB 関数】 書き込みは `doc/query/20261114_0002_appellation_functions.sql` の `unit_save` を適用したら、
+/// `~PageCall` を足して `save` を入れ替え、`viewOnly` を外す(`issue/202611.md` の 2-1)。
+///
 /// 対象は単位(`unit`)。名称・読み・略称は多言語の辞書(`shared_appellation`)、詳細は多言語の文章(`shared_text`)で、
 /// 言語コード `ja` の値を読む。これらの書き込みは、辞書・呼称を複数の表へ登録する必要があり、途中で失敗すると孤児が残るため、
 /// DB の関数にまとめてから行う(`tools/docker/postgresql/issue/20261103_0002.md` の案)。それまで、実体を読み取り専用

@@ -6,12 +6,14 @@ DB(PostgreSQL `tests` スキーマ)へ適用する SQL の「案」を置く。`
 |---|---|---|
 | `20261114_0001_operation_functions.sql` | 操作の DB 関数(受注・発注明細のキャンセル・停止・変更、生産計画の停止・打ち切り、引当予約・品物の処置、精算、返品・支給の登録)。1回の呼び出し = 1トランザクション | 案。検証用 DB で、トランザクション内で実行して ROLLBACK し、動作を確認済み |
 | `20261114_0001_v_work_plan_registrable.sql` | 登録できる作業指示かの判定のビュー(`v_work_plan_registrable`)。生産計画の連なりと最上位の受注明細の、停止・打ち切り・全部キャンセルを判定する | 案。同上 |
+| `20261114_0002_appellation_functions.sql` | 呼称(多言語の辞書)を持つマスタの登録・更新の DB 関数(単位 `unit_save`・利害関係者 `stakeholder_save` と、補助 `ap_*`)。1回の呼び出し = 1トランザクション。**入れ替えの印**: 適用するまで、該当の取得元は読み取り専用 | 案。検証用 DB で、トランザクション内で実行して ROLLBACK し、動作を確認済み(下) |
 
 ## 適用
 スキーマ `tests` に、psql で1回ずつ流す(何度流しても同じ。`CREATE OR REPLACE`)。
 ```
 psql -d test_avocado -f 20261114_0001_operation_functions.sql
 psql -d test_avocado -f 20261114_0001_v_work_plan_registrable.sql
+psql -d test_avocado -f 20261114_0002_appellation_functions.sql
 ```
 適用したら、`melos run gql:schema` → `melos run gql`(新しい関数は `kind: function`、ビューは `kind: read` で `model_providers` に足す)。
 
@@ -56,3 +58,10 @@ psql -d test_avocado -f 20261114_0001_v_work_plan_registrable.sql
 | 受注明細の数量は、出荷済みより小さくできる | `order_detail_change` は、キャンセル数量 + 出荷済みより小さい数量を `OPR02`。発注も、キャンセル数量 + 受入済み | 数量を下げる試験は `OPR02`(出荷済みのデータは無く、キャンセル数量で確認) |
 - 検証用 DB の棚には場所が無く、`visiter_move` は移動元の棚の場所を要する(`VIS05`)。試験では、トランザクション内で場所を作って棚に付けて確認した(DB は変わっていない)。
 - `pms_test.pero` に反映した(`order_detail_change`・`purchase_detail_set_stop`・`purchase_detail_change`・`supply_register`。依存の ID も更新)。**PERO で `06_cteate_test.sql` を出力し直す**(コミットした 06 は、この4関数が前の版)。
+
+## 呼称の関数の検証(2026-11-14、検証用サーバー。DB は変わっていない)
+- 作成・単位の新規と読み戻し(名称 ja・en、読み、詳細の先頭の文と文字数)・更新(渡した言語だけ入れ替え、残す言語はそのまま。リビジョンが進む)。
+- 利害関係者の新規・更新(履歴の行とリビジョンが1つずつ増える)。
+- エラー: 名称(ja)なし `APL02`、存在しない言語 `APL00`、存在しない ID `APL01`、存在しない担当者 `APL00`、コード重複 `APL03`、コードなし `APL02`。
+- 遅延された外部キーを `SET CONSTRAINTS ALL IMMEDIATE` で検査して、違反なし。`ON CONFLICT` は履歴のトリガーが使われない ID の履歴を作るため使っていない(先に UPDATE、無ければ INSERT)。
+- 試していない: 他の呼称ありのマスタ(品目・事業所・資源など)の関数(同じ補助 `ap_appellation_set`・`ap_text_set` を使って、マスタごとに足す)。
