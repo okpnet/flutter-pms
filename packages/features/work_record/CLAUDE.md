@@ -54,6 +54,12 @@ MRP のビジター品目(`mrpvisiter`、`v_mrp_visiter_item`)は、読み取り
 1.  ビジュアルテスト用に`example`(Windows 向け)を持つ。`flutter run -d windows`で起動し、`lib/main.dart`の`entries`に遷移先を足す(`packages/features/CLAUDE.md`の「機能プロジェクト共通」)。
 2.  表示する文字列は`lib/src/i18n`の言語ファイル(Yaml)に置く。画面を作るときに`slang.yaml`と言語ファイルを追加する(`sales`・`shared_master`を参考にする)。idは`String`(UUID)で扱う。
 
+## 取得元(GraphQL 版。読み取り専用)
+`lib/src/graphql/work_record_repositories.dart` の `workRecordRepositories(GraphQLClient)` が、コンテナ(`container`)・成績書(`certificate`)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
+1.  読み取り専用: 実体を `viewOnly`・各項目 `readOnly` にし、保存・削除は `UnsupportedError`。名称は多言語のラベル(`trans_label`)で、言語コード `ja` の値を読む。コンテナは、DB に親子の列が無いため、すべてトップに並べる。作業実績(`workrec`。読み込みが作業指示を必須にしている)・在庫の状況(`stockstatus`。DB のビューの列が画面案の項目と合わない)・引当申請・引当要求・ビジター品目は、サンプルのまま。
+1.  **【入れ替え: 呼称の DB 関数】** 書き込みは、ラベル(`trans_label`・`trans_label_value`)を複数の表へ登録する関数を足して適用したら、`~PageCall` で `save` を入れ替え、`viewOnly` を外す(`issue/202611.md` の 2-1。`doc/query/20261114_0002` の補助は辞書用で、ラベルは別の表のため、同じ方式の補助を足す)。
+1.  検証用 DB には、コンテナ 2 件(名称のラベルは `ja` の値が無く空)・成績書 0 件。
+
 ## 規則/仕様
 1.  ディリクトリ/ファイル
     1.  生成結果のレポートは`doc/log`ディリクトリにファイル名`年月日_4桁ゼロ埋の番号.md`として保存する。
@@ -80,8 +86,8 @@ MRP のビジター品目(`mrpvisiter`、`v_mrp_visiter_item`)は、読み取り
 
 ## テスト
 1.  共通の規則は`packages/features/CLAUDE.md`の「テスト」に従う。
-2.  現在はGraphQLで取得していないため、通信テストは無い。取得元の単体テストは`RecordingDataRepository`で差し替える。
-3.  GraphQLで取得するようにしたら、通信テスト(`test/xxx_connection_test.dart`)を追加し、`dart_test.yaml`に`server`タグを宣言する。
+2.  取得元(GraphQL 版)の通信テストは `test/work_record_connection_test.dart`(検証用サーバー。読み取りだけ。一般ユーザーの資格情報を渡して実行する。`packages/infra/data_test_harness/CLAUDE.md`)。`dart_test.yaml` に `server` タグを宣言してある。
+3.  サンプル(メモリ上)の取得元の単体テストは`RecordingDataRepository`で差し替える。
 
 
 ## 規則: プロジェクト間をまたぐ指示
