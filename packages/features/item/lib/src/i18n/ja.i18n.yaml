@@ -31,10 +31,10 @@ entity:
       f_pronunciation: "読み"
       f_nickname: "略称"
       f_mstr_item_kind_id: "品目種類"
+      f_catalog_item: "購入品"
       f_detail: "詳細"
       f_shared_unit_id: "個別単位"
       f_remarks: "備考"
-      f_catalog_item: "購入品"
     reverse:
       itemoptask: "品目工程運用明細"
       opapply: "適用する品目の工程計画"

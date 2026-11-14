@@ -85,33 +85,6 @@ const UNIQUE = {
 };
 
 /** この実体を参照している一覧(保持者など)。編集画面の下に読み取り専用で出す。 */
-// GraphQL 版の取得元(読み取り専用)だけが持つ項目の表示名。DB にあって、画面案(domains)の実体に無い項目(キャンセル・停止・残など)。
-// 実体のキー → 項目のキー → 表示名。定義(FieldDefinition)は、各機能の lib/src/graphql の取得元が持つ。
-// 項目名は DB のコメント・仕様(CLAUDE.md「受注・発注まわりの仕様」)に合わせる。
-const GRAPHQL_EXTRA_LABELS = {
-  orderdetail: {
-    cancel_quantity: 'キャンセル数量',
-    stop: '停止',
-    customer_property: '顧客所有',
-    remaining_quantity: '残',
-    open_quantity: '受注残(停止中は0)',
-    cancel_closed: '全部キャンセル済み',
-    settlement_amount: '精算額',
-  },
-  purdetail: {
-    cancel_quantity: 'キャンセル数量',
-    stop: '停止',
-    received_quantity: '受入済み',
-    remaining_quantity: '残',
-    open_quantity: '発注残(停止中は0)',
-    cancel_closed: '全部キャンセル済み',
-  },
-  opsplan: {
-    stop: '停止',
-    discontinue: '打ち切り',
-  },
-};
-
 const REVERSE = {
   capability: [{ entity: 'staffcapability', field: 'capability', label: '保持者' }],
   license: [{ entity: 'stafflicense', field: 'license', label: '保持者' }],
@@ -214,6 +187,12 @@ for (const e of htmlEntities) {
   for (const [from, to] of Object.entries(FIELD_RENAMES[e.key] ?? {})) {
     const fl = e.fields.find((x) => x.key === from);
     if (!fl) continue;
+    // DB から生成した定義に、改名後の項目がすでにあるときは、画面案の古い項目を外す(同じ項目が二重にならないように)
+    if (e.fields.some((x) => x !== fl && x.key === to)) {
+      e.fields.splice(e.fields.indexOf(fl), 1);
+      for (const r of e.rows) delete r.values[from];
+      continue;
+    }
     fl.key = to;
     for (const r of e.rows) { r.values[to] = r.values[from]; delete r.values[from]; }
   }
@@ -239,7 +218,12 @@ const FIELD_ADDITIONS = {
   ],
   /* model_providers の 20261029_0001: trans_operations_plan.quantity、trans_work_plan.sequence、
      trans_resource_plan.parent_trans_operations_plan_id、trans_inventory_request.trans_resource_plan_id */
-  opsplan: [{ after: 'deadline', field: { key: 'quantity', label: '数量', kind: 'number', required: false }, sample: empty }],
+  opsplan: [
+    { after: 'deadline', field: { key: 'quantity', label: '数量', kind: 'number', required: false }, sample: empty },
+    /* 停止・打ち切りは、操作の DB 関数(operations_plan_set_stop・operations_plan_discontinue)で変える */
+    { after: 'quantity', field: { key: 'stop', label: '停止', kind: 'flag', required: false, readOnly: true }, sample: empty },
+    { after: 'stop', field: { key: 'discontinue', label: '打ち切り', kind: 'flag', required: false, readOnly: true }, sample: empty },
+  ],
   workplan: [{ after: 'mstr_task_id', field: { key: 'sequence', label: '順', kind: 'number', required: false }, sample: empty }],
   resplan: [{ after: 'trans_unrecognized_detail_id', field: { key: 'item', label: '品目', kind: 'reference', required: false, ref: 'item' }, sample: (i) => 'item' + (i % 2 + 1) }, { after: 'item', field: { key: 'parent_trans_operations_plan_id', label: '親の生産計画', kind: 'reference', required: false, ref: 'opsplan' }, sample: empty }],
   invreq: [{ after: '', field: { key: 'trans_resource_plan_id', label: '資材計画', kind: 'reference', required: false, ref: 'resplan' }, sample: empty }],
@@ -250,6 +234,22 @@ const FIELD_ADDITIONS = {
     { after: 'price_adjustment', field: { key: 'fixed_price', label: '固定価格', kind: 'number', required: false }, sample: empty },
     /* trans_order_detail.master_error_count: MRP 用のマスタ不備の件数(計算列。読み取り専用) */
     { after: 'fixed_price', field: { key: 'master_error_count', label: 'マスタ不備件数', kind: 'number', required: false, readOnly: true }, sample: () => '0' },
+    /* キャンセル・停止は、操作の DB 関数(order_detail_cancel・order_detail_set_stop)で変える。残は DB のビュー(v_order_detail_balance)の列(画面で計算しない) */
+    { after: 'master_error_count', field: { key: 'cancel_quantity', label: 'キャンセル数量', kind: 'number', required: false, readOnly: true }, sample: () => '0' },
+    { after: 'cancel_quantity', field: { key: 'stop', label: '停止', kind: 'flag', required: false, readOnly: true }, sample: empty },
+    { after: 'stop', field: { key: 'remaining_quantity', label: '残', kind: 'number', required: false, readOnly: true }, sample: empty },
+    { after: 'remaining_quantity', field: { key: 'open_quantity', label: '受注残(停止中は0)', kind: 'number', required: false, readOnly: true }, sample: empty },
+    { after: 'open_quantity', field: { key: 'cancel_closed', label: '全部キャンセル済み', kind: 'flag', required: false, readOnly: true }, sample: empty },
+    { after: 'cancel_closed', field: { key: 'settlement_amount', label: '精算額', kind: 'number', required: false, readOnly: true }, sample: empty },
+  ],
+  /* 発注明細: キャンセル・停止は操作の DB 関数(purchase_detail_cancel・purchase_detail_set_stop)。残は v_purchase_detail_balance の列 */
+  purdetail: [
+    { after: 'remarks', field: { key: 'cancel_quantity', label: 'キャンセル数量', kind: 'number', required: false, readOnly: true }, sample: () => '0' },
+    { after: 'cancel_quantity', field: { key: 'stop', label: '停止', kind: 'flag', required: false, readOnly: true }, sample: empty },
+    { after: 'stop', field: { key: 'received_quantity', label: '受入済み', kind: 'number', required: false, readOnly: true }, sample: empty },
+    { after: 'received_quantity', field: { key: 'remaining_quantity', label: '残', kind: 'number', required: false, readOnly: true }, sample: empty },
+    { after: 'remaining_quantity', field: { key: 'open_quantity', label: '発注残(停止中は0)', kind: 'number', required: false, readOnly: true }, sample: empty },
+    { after: 'open_quantity', field: { key: 'cancel_closed', label: '全部キャンセル済み', kind: 'flag', required: false, readOnly: true }, sample: empty },
   ],
   unrecdetail: [
     { after: 'unit_price', field: { key: 'price_adjustment', label: '価格調整', kind: 'number', required: false }, sample: empty },
@@ -525,7 +525,6 @@ function yamlJa(pkg, list, file) {
       if (flag) lines.push(`      f_${fl.key}__off: ${y(flag.label.replace(/区分$/, '') + '（都度確認）')}`);
     }
     for (const r of e.rowActions ?? []) lines.push(`      f_${r.key}: ${y(r.label)}`);
-    for (const [k, v] of Object.entries(GRAPHQL_EXTRA_LABELS[e.key] ?? {})) lines.push(`      f_${k}: ${y(v)}`);
     if (REVERSE[e.key]) {
       lines.push('    reverse:');
       for (const r of REVERSE[e.key]) lines.push(`      ${r.entity}: ${y(r.label)}`);

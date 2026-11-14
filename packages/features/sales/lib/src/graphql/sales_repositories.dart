@@ -29,70 +29,52 @@ List<IEntityRepository> salesRepositories(GraphQLClient client) {
 EntityDefinition _definition(String key) =>
     salesDefinitions.firstWhere((d) => d.key == key);
 
-/// 受注: 画面案の定義のうち DB の列に対応する項目をそのまま使い、読み取り専用にする。
-final EntityDefinition _orderDefinition = () {
-  final d = _definition('order');
-  return EntityDefinition(
-    key: d.key,
-    fields: [for (final f in d.fields) _readOnly(f)],
-    viewOnly: true,
-  );
-}();
-
-/// 受注明細: 画面案の定義に、DB にある項目(キャンセル・停止・顧客所有・残・精算額)を足し、読み取り専用にする。
-final EntityDefinition _orderDetailDefinition = () {
-  final d = _definition('orderdetail');
+/// 生成された定義(DB に合わせた項目・読み取り専用の項目を含む)から、この取得元が値を返す項目だけを、
+/// 読み取り専用にして使う(台帳に「新規」を出さず、保存・削除を出さない)。
+EntityDefinition _readOnlyDefinition(String key, Set<String> supplied) {
+  final d = _definition(key);
   return EntityDefinition(
     key: d.key,
     owner: d.owner,
     fields: [
-      for (final f in d.fields) _readOnly(f),
-      const FieldDefinition(
-        key: 'cancel_quantity',
-        kind: FieldKind.number,
-        required: false,
-        readOnly: true,
-      ),
-      const FieldDefinition(
-        key: 'stop',
-        kind: FieldKind.flag,
-        required: false,
-        readOnly: true,
-      ),
-      const FieldDefinition(
-        key: 'customer_property',
-        kind: FieldKind.flag,
-        required: false,
-        readOnly: true,
-      ),
-      const FieldDefinition(
-        key: 'remaining_quantity',
-        kind: FieldKind.number,
-        required: false,
-        readOnly: true,
-      ),
-      const FieldDefinition(
-        key: 'open_quantity',
-        kind: FieldKind.number,
-        required: false,
-        readOnly: true,
-      ),
-      const FieldDefinition(
-        key: 'cancel_closed',
-        kind: FieldKind.flag,
-        required: false,
-        readOnly: true,
-      ),
-      const FieldDefinition(
-        key: 'settlement_amount',
-        kind: FieldKind.number,
-        required: false,
-        readOnly: true,
-      ),
+      for (final f in d.fields)
+        if (supplied.contains(f.key)) _readOnly(f),
     ],
     viewOnly: true,
   );
-}();
+}
+
+/// 受注: 取得元が値を返す項目。顧客は `stakeholder_id`(利害関係者の ID)。
+final EntityDefinition _orderDefinition = _readOnlyDefinition('order', {
+  'order_number',
+  'customer_order_number',
+  'stakeholder_id',
+  'order_processing_date',
+  'delivery_date',
+  'deadline',
+  'remarks',
+});
+
+/// 受注明細: 取得元が値を返す項目。キャンセル数量・停止・残・精算額は、DB のビューの列(読み取り専用)。
+final EntityDefinition _orderDetailDefinition =
+    _readOnlyDefinition('orderdetail', {
+      'item_id',
+      'quantity',
+      'unit_price',
+      'price_adjustment',
+      'fixed_price',
+      'master_error_count',
+      'delivery_date',
+      'deadline',
+      'customer_property',
+      'remarks',
+      'cancel_quantity',
+      'stop',
+      'remaining_quantity',
+      'open_quantity',
+      'cancel_closed',
+      'settlement_amount',
+    });
 
 FieldDefinition _readOnly(FieldDefinition f) => FieldDefinition(
   key: f.key,
@@ -169,6 +151,9 @@ abstract class _ReadOnlyRepository implements IEntityRepository {
   }
 
   static String flag(bool? v) => v == true ? flagOn : '';
+
+  /// 画面の選択(はい/いいえ)の値。
+  static String yesNo(bool? v) => v == null ? '' : (v ? 'はい' : 'いいえ');
 }
 
 class _OrderRepository extends _ReadOnlyRepository {
@@ -182,6 +167,7 @@ class _OrderRepository extends _ReadOnlyRepository {
           'customer_order_number': _ReadOnlyRepository.text(
             n.customerOrderNumber,
           ),
+          'stakeholder_id': _ReadOnlyRepository.text(n.stakeholderId),
           'order_processing_date': _ReadOnlyRepository.date(
             n.orderProcessingDate,
           ),
@@ -248,6 +234,7 @@ class _OrderDetailRepository extends _ReadOnlyRepository {
       id: n.transOrderDetailId,
       parentId: n.transOrderId,
       values: {
+        'item_id': _ReadOnlyRepository.text(n.itemId),
         'quantity': _ReadOnlyRepository.number(n.quantity),
         'unit_price': _ReadOnlyRepository.number(n.unitPrice),
         'price_adjustment': _ReadOnlyRepository.number(n.priceAdjustment),
@@ -258,7 +245,7 @@ class _OrderDetailRepository extends _ReadOnlyRepository {
         'remarks': _ReadOnlyRepository.text(n.remarks),
         'cancel_quantity': _ReadOnlyRepository.number(n.cancelQuantity),
         'stop': _ReadOnlyRepository.flag(n.stop),
-        'customer_property': _ReadOnlyRepository.flag(n.customerProperty),
+        'customer_property': _ReadOnlyRepository.yesNo(n.customerProperty),
         // 残・全部キャンセル済みは、DB のビュー(v_order_detail_balance)の列。画面で計算しない
         'remaining_quantity': _ReadOnlyRepository.number(b?.remainingQuantity),
         'open_quantity': _ReadOnlyRepository.number(b?.openQuantity),

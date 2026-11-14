@@ -407,8 +407,8 @@ class QualityStrings$entity$complaint$fields$ja {
 	/// ja: '詳細'
 	String get f_detail => '詳細';
 
-	/// ja: '承認'
-	String get f_approvals => '承認';
+	/// ja: '報告者'
+	String get f_reporter_staff_id => '報告者';
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
@@ -425,6 +425,9 @@ class QualityStrings$entity$compreceive$fields$ja {
 	/// ja: '受領日'
 	String get f_receive_at => '受領日';
 
+	/// ja: '受領者'
+	String get f_receive_staff_id => '受領者';
+
 	/// ja: '詳細'
 	String get f_detail => '詳細';
 
@@ -439,6 +442,9 @@ class QualityStrings$entity$compstake$fields$ja {
 	final QualityStrings _root; // ignore: unused_field
 
 	// Translations
+
+	/// ja: '利害関係者'
+	String get f_stakeholder_id => '利害関係者';
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
@@ -713,8 +719,14 @@ class QualityStrings$entity$auditor$fields$ja {
 
 	// Translations
 
+	/// ja: '監査標準'
+	String get f_audit_std_id => '監査標準';
+
 	/// ja: 'メンバー区分'
 	String get f_ccategory => 'メンバー区分';
+
+	/// ja: '監査メンバー'
+	String get f_staff_id => '監査メンバー';
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
@@ -727,6 +739,12 @@ class QualityStrings$entity$audit$fields$ja {
 	final QualityStrings _root; // ignore: unused_field
 
 	// Translations
+
+	/// ja: '監査標準'
+	String get f_audit_std_id => '監査標準';
+
+	/// ja: '監査責任者'
+	String get f_staff_id => '監査責任者';
 
 	/// ja: '開始予定日'
 	String get f_scheduled_start_date => '開始予定日';
@@ -790,13 +808,15 @@ extension on QualityStrings {
 			'entity.complaint.fields.f_occurent_at' => '発生年月日',
 			'entity.complaint.fields.f_title' => '件名',
 			'entity.complaint.fields.f_detail' => '詳細',
-			'entity.complaint.fields.f_approvals' => '承認',
+			'entity.complaint.fields.f_reporter_staff_id' => '報告者',
 			'entity.complaint.fields.f_remarks' => '備考',
 			'entity.compreceive.title' => '異常報告受領',
 			'entity.compreceive.fields.f_receive_at' => '受領日',
+			'entity.compreceive.fields.f_receive_staff_id' => '受領者',
 			'entity.compreceive.fields.f_detail' => '詳細',
 			'entity.compreceive.fields.f_remarks' => '備考',
 			'entity.compstake.title' => '利害関係者苦情',
+			'entity.compstake.fields.f_stakeholder_id' => '利害関係者',
 			'entity.compstake.fields.f_remarks' => '備考',
 			'entity.compfile.title' => '異常報告ファイル',
 			'entity.compfile.fields.f_fname' => 'ファイル名',
@@ -856,9 +876,13 @@ extension on QualityStrings {
 			'entity.auditteam.fields.f_trans_audit_id' => '監査',
 			'entity.auditteam.fields.f_remarks' => '備考',
 			'entity.auditor.title' => '監査員',
+			'entity.auditor.fields.f_audit_std_id' => '監査標準',
 			'entity.auditor.fields.f_ccategory' => 'メンバー区分',
+			'entity.auditor.fields.f_staff_id' => '監査メンバー',
 			'entity.auditor.fields.f_remarks' => '備考',
 			'entity.audit.title' => '監査',
+			'entity.audit.fields.f_audit_std_id' => '監査標準',
+			'entity.audit.fields.f_staff_id' => '監査責任者',
 			'entity.audit.fields.f_scheduled_start_date' => '開始予定日',
 			'entity.audit.fields.f_expected_end_date' => '終了予定日',
 			'entity.audit.fields.f_title' => '件名',

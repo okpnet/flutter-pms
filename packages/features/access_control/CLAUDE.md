@@ -39,6 +39,7 @@
 | 担当者の実効アクセスパス | `effectiveaccesspath` | テーブル構造 | 5 | `staff`, `accesspath` |
 <!-- entity_gen:end -->
 
+
 ## example と多言語
 1.  ビジュアルテスト用に`example`(Windows 向け)を持つ。`flutter run -d windows`で起動し、`lib/main.dart`の`entries`に遷移先を足す。
 2.  表示する文字列は`lib/src/i18n`の言語ファイル(Yaml)に置く。idは`String`(UUID)で扱う。

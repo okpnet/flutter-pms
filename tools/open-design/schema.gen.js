@@ -287,6 +287,18 @@ window.OD_SCHEMA = {
     }
    ],
    [
+    "catalog_item",
+    "購入品",
+    "s",
+    {
+     "req": false,
+     "opts": [
+      "はい",
+      "いいえ"
+     ]
+    }
+   ],
+   [
     "detail",
     "詳細",
     "x",
@@ -322,6 +334,7 @@ window.OD_SCHEMA = {
     "ユニットエー",
     "",
     "itemkind1",
+    "はい",
     "",
     "unit4",
     "",
@@ -336,6 +349,7 @@ window.OD_SCHEMA = {
     "ブラケット",
     "",
     "itemkind2",
+    "いいえ",
     "",
     "unit4",
     "",
@@ -350,6 +364,7 @@ window.OD_SCHEMA = {
     "シャフト",
     "",
     "itemkind2",
+    "はい",
     "",
     "unit4",
     "",
@@ -364,6 +379,7 @@ window.OD_SCHEMA = {
     "マルボウ エスエス400",
     "",
     "itemkind3",
+    "いいえ",
     "",
     "unit1",
     "",
@@ -378,6 +394,7 @@ window.OD_SCHEMA = {
     "ボルト エム8×20",
     "",
     "itemkind4",
+    "はい",
     "",
     "unit4",
     "",
@@ -711,12 +728,11 @@ window.OD_SCHEMA = {
     }
    ],
    [
-    "mstr_stakeholder_id",
-    "利害関係者",
-    "r",
+    "priority",
+    "優先順位",
+    "n",
     {
-     "req": false,
-     "ref": "customer"
+     "req": false
     }
    ],
    [
@@ -732,13 +748,13 @@ window.OD_SCHEMA = {
    [
     "task2",
     "",
-    "customer1",
+    "10",
     ""
    ],
    [
     "task3",
     "",
-    "customer1",
+    "20",
     ""
    ]
   ]
@@ -1044,6 +1060,15 @@ window.OD_SCHEMA = {
     }
    ],
    [
+    "stakeholder_id",
+    "顧客",
+    "r",
+    {
+     "req": false,
+     "ref": "customer"
+    }
+   ],
+   [
     "order_processing_date",
     "受注日",
     "d",
@@ -1080,6 +1105,7 @@ window.OD_SCHEMA = {
    [
     "SO-2610-001",
     "ORD-001",
+    "customer1",
     "2026-10-02",
     "2026-11-10",
     "2026-10-10",
@@ -1088,6 +1114,7 @@ window.OD_SCHEMA = {
    [
     "SO-2610-002",
     "ORD-002",
+    "customer2",
     "2026-10-08",
     "2026-11-20",
     "2026-10-11",
@@ -1099,6 +1126,14 @@ window.OD_SCHEMA = {
   "label": "受注明細",
   "fields": [
    [
+    "item_id",
+    "品目",
+    "r",
+    {
+     "ref": "item"
+    }
+   ],
+   [
     "quantity",
     "数量",
     "n",
@@ -1107,8 +1142,22 @@ window.OD_SCHEMA = {
     }
    ],
    [
-    "cost",
+    "unit_price",
     "単価",
+    "n",
+    {}
+   ],
+   [
+    "price_adjustment",
+    "価格調整",
+    "n",
+    {
+     "req": false
+    }
+   ],
+   [
+    "fixed_price",
+    "確定単価",
     "n",
     {
      "req": false
@@ -1137,32 +1186,56 @@ window.OD_SCHEMA = {
     {
      "req": false
     }
+   ],
+   [
+    "customer_property",
+    "製品顧客所有",
+    "s",
+    {
+     "req": false,
+     "opts": [
+      "はい",
+      "いいえ"
+     ]
+    }
    ]
   ],
   "rows": [
    [
     "order1",
+    "item1",
     "200",
+    "10",
+    "10",
     "10",
     "2026-10-10",
     "2026-10-10",
-    ""
+    "",
+    "はい"
    ],
    [
     "order1",
+    "item2",
     "400",
+    "20",
+    "20",
     "20",
     "2026-10-11",
     "2026-10-11",
-    ""
+    "",
+    "いいえ"
    ],
    [
     "order2",
+    "item3",
     "150",
+    "30",
+    "30",
     "30",
     "2026-10-12",
     "2026-10-12",
-    ""
+    "",
+    "はい"
    ]
   ]
  },
@@ -1362,11 +1435,49 @@ window.OD_SCHEMA = {
     }
    ],
    [
-    "cost",
+    "unit_price",
     "単価",
+    "n",
+    {}
+   ],
+   [
+    "price_adjustment",
+    "価格調整",
     "n",
     {
      "req": false
+    }
+   ],
+   [
+    "fixed_price",
+    "確定単価",
+    "n",
+    {
+     "req": false
+    }
+   ],
+   [
+    "material_supply",
+    "資材支給区分",
+    "s",
+    {
+     "req": false,
+     "opts": [
+      "はい",
+      "いいえ"
+     ]
+    }
+   ],
+   [
+    "paid_supply",
+    "有償支給区分",
+    "s",
+    {
+     "req": false,
+     "opts": [
+      "はい",
+      "いいえ"
+     ]
     }
    ],
    [
@@ -1375,6 +1486,14 @@ window.OD_SCHEMA = {
     "d",
     {
      "req": false
+    }
+   ],
+   [
+    "item_id",
+    "品目",
+    "r",
+    {
+     "ref": "item"
     }
    ],
    [
@@ -1391,7 +1510,12 @@ window.OD_SCHEMA = {
     "unrec1",
     "50",
     "10",
+    "10",
+    "10",
+    "はい",
+    "はい",
     "2026-10-10",
+    "item5",
     ""
    ]
   ]
@@ -1399,6 +1523,14 @@ window.OD_SCHEMA = {
  "purchase": {
   "label": "発注",
   "fields": [
+   [
+    "stakeholder_id",
+    "発注先",
+    "r",
+    {
+     "ref": "supplier"
+    }
+   ],
    [
     "register_at",
     "登録日",
@@ -1434,12 +1566,14 @@ window.OD_SCHEMA = {
   ],
   "rows": [
    [
+    "supplier1",
     "2026-10-06",
     "2026-10-20",
     "2026-10-10",
     ""
    ],
    [
+    "supplier2",
     "2026-10-09",
     "2026-10-28",
     "2026-10-11",
@@ -1480,11 +1614,65 @@ window.OD_SCHEMA = {
     }
    ],
    [
+    "unit_price",
+    "単価",
+    "n",
+    {}
+   ],
+   [
+    "price_adjustment",
+    "価格調整",
+    "n",
+    {
+     "req": false
+    }
+   ],
+   [
+    "fixed_price",
+    "確定単価",
+    "n",
+    {
+     "req": false
+    }
+   ],
+   [
+    "material_supply",
+    "資材支給区分",
+    "s",
+    {
+     "req": false,
+     "opts": [
+      "はい",
+      "いいえ"
+     ]
+    }
+   ],
+   [
+    "paid_supply",
+    "有償支給区分",
+    "s",
+    {
+     "req": false,
+     "opts": [
+      "はい",
+      "いいえ"
+     ]
+    }
+   ],
+   [
     "period",
     "納期",
     "d",
     {
      "req": false
+    }
+   ],
+   [
+    "item_id",
+    "品目",
+    "r",
+    {
+     "ref": "item"
     }
    ],
    [
@@ -1502,7 +1690,13 @@ window.OD_SCHEMA = {
     "resplan1",
     "はい",
     "2000",
+    "12",
+    "10",
+    "10",
+    "はい",
+    "はい",
     "2026-10-10",
+    "item5",
     ""
    ],
    [
@@ -1510,7 +1704,13 @@ window.OD_SCHEMA = {
     "resplan1",
     "いいえ",
     "800",
+    "180",
+    "20",
+    "20",
+    "いいえ",
+    "いいえ",
     "2026-10-11",
+    "item4",
     ""
    ]
   ]
@@ -1610,6 +1810,15 @@ window.OD_SCHEMA = {
     }
    ],
    [
+    "parent_trans_operations_plan_id",
+    "親生産計画",
+    "r",
+    {
+     "req": false,
+     "ref": "opsplan"
+    }
+   ],
+   [
     "register_at",
     "登録日時",
     "d",
@@ -1642,6 +1851,14 @@ window.OD_SCHEMA = {
     }
    ],
    [
+    "item_id",
+    "品目",
+    "r",
+    {
+     "ref": "item"
+    }
+   ],
+   [
     "remarks",
     "備考",
     "x",
@@ -1654,19 +1871,23 @@ window.OD_SCHEMA = {
    [
     "orderdetail1",
     "unrecdetail1",
+    "opsplan1",
     "2026-10-01",
     "10",
     "10",
     "2026-10-10",
+    "item1",
     ""
    ],
    [
     "orderdetail1",
     "unrecdetail1",
+    "opsplan1",
     "2026-11-01",
     "20",
     "20",
     "2026-10-11",
+    "item1",
     ""
    ]
   ]
@@ -1674,6 +1895,14 @@ window.OD_SCHEMA = {
  "opsplan": {
   "label": "生産計画",
   "fields": [
+   [
+    "quantity",
+    "生産数量",
+    "n",
+    {
+     "req": false
+    }
+   ],
    [
     "deadline",
     "完了期限",
@@ -1694,11 +1923,13 @@ window.OD_SCHEMA = {
   "rows": [
    [
     "resplan1",
+    "200",
     "2026-11-10",
     ""
    ],
    [
     "resplan1",
+    "400",
     "2026-11-05",
     ""
    ]
@@ -1713,6 +1944,23 @@ window.OD_SCHEMA = {
     "r",
     {
      "ref": "task"
+    }
+   ],
+   [
+    "sequence",
+    "工程順",
+    "n",
+    {
+     "req": false
+    }
+   ],
+   [
+    "trans_purchase_detail_id",
+    "発注明細",
+    "r",
+    {
+     "req": false,
+     "ref": "purdetail"
     }
    ],
    [
@@ -1753,6 +2001,8 @@ window.OD_SCHEMA = {
     "opsplan1",
     "task2",
     "10",
+    "purdetail1",
+    "10",
     "2026-10-21",
     "2026-10-25",
     ""
@@ -1760,6 +2010,8 @@ window.OD_SCHEMA = {
    [
     "opsplan1",
     "task4",
+    "20",
+    "purdetail1",
     "20",
     "2026-10-26",
     "2026-10-30",
@@ -1779,14 +2031,6 @@ window.OD_SCHEMA = {
     }
    ],
    [
-    "quantity",
-    "引当数量",
-    "n",
-    {
-     "req": false
-    }
-   ],
-   [
     "remarks",
     "備考",
     "x",
@@ -1798,7 +2042,6 @@ window.OD_SCHEMA = {
   "rows": [
    [
     "workplan1",
-    "200",
     ""
    ]
   ]
@@ -1815,14 +2058,6 @@ window.OD_SCHEMA = {
     }
    ],
    [
-    "quantity",
-    "引当数量",
-    "n",
-    {
-     "req": false
-    }
-   ],
-   [
     "remarks",
     "備考",
     "x",
@@ -1834,7 +2069,6 @@ window.OD_SCHEMA = {
   "rows": [
    [
     "purdetail1",
-    "800",
     ""
    ]
   ]
@@ -1965,6 +2199,14 @@ window.OD_SCHEMA = {
     }
    ],
    [
+    "staff_id",
+    "作業担当者",
+    "r",
+    {
+     "ref": "@employees:no:name"
+    }
+   ],
+   [
     "remarks",
     "備考",
     "x",
@@ -1977,6 +2219,7 @@ window.OD_SCHEMA = {
    [
     "2026-10-20",
     "invreq1",
+    "E-0101",
     ""
    ]
   ]
@@ -2019,11 +2262,28 @@ window.OD_SCHEMA = {
     }
    ],
    [
+    "trans_resource_plan_id",
+    "資材計画",
+    "r",
+    {
+     "req": false,
+     "ref": "resplan"
+    }
+   ],
+   [
     "quantity",
     "引当数量",
     "n",
     {
      "req": false
+    }
+   ],
+   [
+    "staff_id",
+    "作業担当者",
+    "r",
+    {
+     "ref": "@employees:no:name"
     }
    ],
    [
@@ -2041,7 +2301,9 @@ window.OD_SCHEMA = {
     "2026-10-10",
     "purrez1",
     "prodrez1",
+    "resplan1",
     "300",
+    "E-0101",
     ""
    ]
   ]
@@ -2133,6 +2395,15 @@ window.OD_SCHEMA = {
     }
    ],
    [
+    "staff_id",
+    "作業担当者",
+    "r",
+    {
+     "req": false,
+     "ref": "@employees:no:name"
+    }
+   ],
+   [
     "remarks",
     "備考",
     "x",
@@ -2148,6 +2419,7 @@ window.OD_SCHEMA = {
     "2026-10-21",
     "2026-10-10",
     "10",
+    "E-0101",
     ""
    ]
   ]
@@ -2214,19 +2486,27 @@ window.OD_SCHEMA = {
     }
    ],
    [
-    "approvals",
-    "承認",
-    "t",
-    {
-     "req": false
-    }
-   ],
-   [
     "approval_at",
     "承認日",
     "d",
     {
      "req": false
+    }
+   ],
+   [
+    "department_id",
+    "処置組織",
+    "r",
+    {
+     "ref": "@departments:id:name"
+    }
+   ],
+   [
+    "operation_staff_id",
+    "処置担当者",
+    "r",
+    {
+     "ref": "@employees:no:name"
     }
    ],
    [
@@ -2244,8 +2524,9 @@ window.OD_SCHEMA = {
     "2026-10-12",
     "寸法不良品の選別",
     "",
-    "",
     "2026-10-10",
+    "",
+    "E-0101",
     ""
    ]
   ]
@@ -2270,14 +2551,6 @@ window.OD_SCHEMA = {
     }
    ],
    [
-    "approvals",
-    "承認",
-    "t",
-    {
-     "req": false
-    }
-   ],
-   [
     "title",
     "件名",
     "t",
@@ -2289,6 +2562,14 @@ window.OD_SCHEMA = {
     "x",
     {
      "req": false
+    }
+   ],
+   [
+    "operation_staff_id",
+    "実施担当者",
+    "r",
+    {
+     "ref": "@employees:no:name"
     }
    ],
    [
@@ -2304,9 +2585,9 @@ window.OD_SCHEMA = {
    [
     "disposal1",
     "2026-10-14",
-    "",
     "測定手順の見直し",
     "",
+    "E-0145",
     ""
    ]
   ]
@@ -2343,6 +2624,15 @@ window.OD_SCHEMA = {
     }
    ],
    [
+    "observer_staff_id",
+    "監視測定者",
+    "r",
+    {
+     "req": false,
+     "ref": "@employees:no:name"
+    }
+   ],
+   [
     "remarks",
     "備考",
     "x",
@@ -2356,6 +2646,7 @@ window.OD_SCHEMA = {
     "はい",
     "2026-10-20",
     "2026-10-10",
+    "E-0101",
     ""
    ]
   ]
@@ -2725,6 +3016,12 @@ window.OD_SCHEMA = {
     {}
    ],
    [
+    "identifier",
+    "管理番号識別子",
+    "t",
+    {}
+   ],
+   [
     "name",
     "名前",
     "t",
@@ -2772,6 +3069,7 @@ window.OD_SCHEMA = {
   "rows": [
    [
     "DOC-001",
+    "DOC-001",
     "品質マニュアル",
     "ヒンシツマニュアル",
     "",
@@ -2781,6 +3079,7 @@ window.OD_SCHEMA = {
    ],
    [
     "DOC-002",
+    "DOC-002",
     "規程",
     "キテイ",
     "",
@@ -2789,6 +3088,7 @@ window.OD_SCHEMA = {
     ""
    ],
    [
+    "DOC-003",
     "DOC-003",
     "手順書",
     "テジュンショ",
@@ -3089,11 +3389,11 @@ window.OD_SCHEMA = {
     }
    ],
    [
-    "approvals",
-    "承認",
-    "t",
+    "reporter_staff_id",
+    "報告者",
+    "r",
     {
-     "req": false
+     "ref": "@employees:no:name"
     }
    ],
    [
@@ -3110,14 +3410,14 @@ window.OD_SCHEMA = {
     "2026-10-12",
     "寸法公差の外れ",
     "",
-    "",
+    "E-0101",
     ""
    ],
    [
     "2026-10-15",
     "納入品の傷",
     "",
-    "",
+    "E-0101",
     ""
    ]
   ]
@@ -3131,6 +3431,14 @@ window.OD_SCHEMA = {
     "d",
     {
      "req": false
+    }
+   ],
+   [
+    "receive_staff_id",
+    "受領者",
+    "r",
+    {
+     "ref": "@employees:no:name"
     }
    ],
    [
@@ -3154,6 +3462,7 @@ window.OD_SCHEMA = {
    [
     "complaint1",
     "2026-10-12",
+    "E-0034",
     "",
     ""
    ]
@@ -3162,6 +3471,14 @@ window.OD_SCHEMA = {
  "compstake": {
   "label": "利害関係者苦情",
   "fields": [
+   [
+    "stakeholder_id",
+    "利害関係者",
+    "r",
+    {
+     "ref": "customer"
+    }
+   ],
    [
     "remarks",
     "備考",
@@ -3174,6 +3491,7 @@ window.OD_SCHEMA = {
   "rows": [
    [
     "complaint1",
+    "customer1",
     ""
    ]
   ]
@@ -3507,11 +3825,27 @@ window.OD_SCHEMA = {
   "label": "監査員",
   "fields": [
    [
+    "audit_std_id",
+    "監査標準",
+    "r",
+    {
+     "ref": "auditstd"
+    }
+   ],
+   [
     "ccategory",
     "メンバー区分",
     "n",
     {
      "req": false
+    }
+   ],
+   [
+    "staff_id",
+    "監査メンバー",
+    "r",
+    {
+     "ref": "@employees:no:name"
     }
    ],
    [
@@ -3526,12 +3860,16 @@ window.OD_SCHEMA = {
   "rows": [
    [
     "auditteam1",
+    "auditstd1",
     "10",
+    "E-0012",
     ""
    ],
    [
     "auditteam1",
+    "auditstd1",
     "20",
+    "E-0034",
     ""
    ]
   ]
@@ -3539,6 +3877,22 @@ window.OD_SCHEMA = {
  "audit": {
   "label": "監査",
   "fields": [
+   [
+    "audit_std_id",
+    "監査標準",
+    "r",
+    {
+     "ref": "auditstd"
+    }
+   ],
+   [
+    "staff_id",
+    "監査責任者",
+    "r",
+    {
+     "ref": "@employees:no:name"
+    }
+   ],
    [
     "scheduled_start_date",
     "開始予定日",
@@ -3598,6 +3952,8 @@ window.OD_SCHEMA = {
   ],
   "rows": [
    [
+    "auditstd1",
+    "E-0101",
     "2026-11-12",
     "2026-10-10",
     "件名1",

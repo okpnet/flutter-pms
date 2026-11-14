@@ -8,6 +8,7 @@ entity:
     title: "文書階層"
     fields:
       f_code: "コード"
+      f_identifier: "管理番号識別子"
       f_name: "名前"
       f_pronunciation: "読み"
       f_nickname: "略称"

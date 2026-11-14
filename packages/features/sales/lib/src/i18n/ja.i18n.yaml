@@ -9,6 +9,7 @@ entity:
     fields:
       f_order_number: "注文番号"
       f_customer_order_number: "顧客発注番号"
+      f_stakeholder_id: "顧客"
       f_order_processing_date: "受注日"
       f_delivery_date: "納期"
       f_deadline: "完了期限"
@@ -16,21 +17,22 @@ entity:
   orderdetail:
     title: "受注明細"
     fields:
+      f_item_id: "品目"
       f_quantity: "数量"
       f_unit_price: "単価"
       f_price_adjustment: "価格調整"
-      f_fixed_price: "固定価格"
+      f_fixed_price: "確定単価"
       f_master_error_count: "マスタ不備件数"
-      f_delivery_date: "個別納期"
-      f_deadline: "個別完了期限"
-      f_remarks: "備考"
       f_cancel_quantity: "キャンセル数量"
       f_stop: "停止"
-      f_customer_property: "顧客所有"
       f_remaining_quantity: "残"
       f_open_quantity: "受注残(停止中は0)"
       f_cancel_closed: "全部キャンセル済み"
       f_settlement_amount: "精算額"
+      f_delivery_date: "個別納期"
+      f_deadline: "個別完了期限"
+      f_remarks: "備考"
+      f_customer_property: "製品顧客所有"
   shipplan:
     title: "出荷予定"
     fields:

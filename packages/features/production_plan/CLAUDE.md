@@ -38,11 +38,11 @@
 
 | 実体 | キー | 構造 | 項目数 | 参照先 |
 |---|---|---|---|---|
-| 資材計画 | `resplan` | テーブル構造 | 9 | `orderdetail`, `unrecdetail`, `item`, `opsplan` |
-| 生産計画 | `opsplan` | 子の台帳(親: 資材計画) | 3 |  |
-| 生産計画明細 | `workplan` | 子の台帳(親: 生産計画) | 6 | `task` |
-| 生産引き当て予約 | `prodrez` | テーブル構造 | 3 | `workplan` |
-| 購買引き当て予約 | `purrez` | テーブル構造 | 3 | `purdetail` |
+| 資材計画 | `resplan` | テーブル構造 | 10 | `orderdetail`, `unrecdetail`, `item`, `opsplan` |
+| 生産計画 | `opsplan` | 子の台帳(親: 資材計画) | 5 |  |
+| 生産計画明細 | `workplan` | 子の台帳(親: 生産計画) | 7 | `task`, `purdetail` |
+| 生産引き当て予約 | `prodrez` | テーブル構造 | 2 | `workplan` |
+| 購買引き当て予約 | `purrez` | テーブル構造 | 2 | `purdetail` |
 | 要判断の提案 | `mrppending` | テーブル構造 | 9 | `item` |
 | 発注予定 | `mrppurchase` | テーブル構造 | 8 | `supplier` |
 | マスタ不備 | `mrpissue` | テーブル構造 | 5 | `item` |
@@ -58,11 +58,12 @@
 
 
 
+
 ## 取得元(GraphQL 版。読み取り専用)
 `lib/src/graphql/production_plan_repositories.dart` の `productionPlanRepositories(GraphQLClient)` が、資材計画(`resplan`)・生産計画(`opsplan`)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
 1.  読み取り専用: 実体の定義を、DB の列に対応する項目だけにして、`viewOnly`・各項目 `readOnly` にする(台帳に「新規」を出さず、保存・削除を出さない)。保存・削除は `UnsupportedError`。書き込みは、画面案(`tools/open-design`)の定義を DB に合わせてから足す(定義に DB の必須項目が無く、登録できないため)。
 1.  生産計画は、停止・打ち切りを読み取り専用の項目で持つ。停止・打ち切りの操作は、DB の関数(`operations_plan_set_stop`・`operations_plan_discontinue`)で行い、画面は別に作る。
-1.  DB にあって画面案に無い項目の表示名は、生成元(`tools/entity_gen/gen.js` の `GRAPHQL_EXTRA_LABELS`)に持つ(生成物の言語ファイルは直接編集しない)。
+1.  実体の定義(項目・表示名)は、DB に合わせて生成する(`tools/open-design/tools/gen-schema.js` が、`packages/model_providers` の YAML と `06_cteate_test.sql` から画面案を生成し、`tools/entity_gen/gen.js` が各機能の定義にする)。顧客・発注先・品目などの履歴ID+IDの参照は、IDの項目(`stakeholder_id`・`item_id`)として定義に入る。キャンセル数量・停止・打ち切り・残など、操作の DB 関数や DB のビューで決まる項目は、`gen.js` の `FIELD_ADDITIONS` が読み取り専用の項目として足す。生成物は直接編集しない。
 1.  生成された型は、この中だけで使い、外へ出さない。抽出条件・並び順は無視する(絞り込みと並べ替えはテーブル側)。言語コード `ja` の ID は、最初の1回だけ引く。
 ## example と多言語
 1.  ビジュアルテスト用に`example`(Windows 向け)を持つ。`flutter run -d windows`で起動し、`lib/main.dart`の`entries`に遷移先を足す(`packages/features/CLAUDE.md`の「機能プロジェクト共通」)。

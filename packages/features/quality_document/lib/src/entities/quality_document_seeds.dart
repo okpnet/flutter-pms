@@ -4,9 +4,9 @@ import 'package:entity_screens/entity_screens.dart';
 /// 品質管理文書のサンプルデータ(架空の値)。参照は参照先の id(UUID の文字列)。
 const Map<String, List<EntityRecord>> qualityDocumentSeeds = {
     'doctier': [
-      EntityRecord(id: '737c2019-0000-4000-8000-000000000001', values: {'code': 'DOC-001', 'name': '品質マニュアル', 'pronunciation': 'ヒンシツマニュアル', 'nickname': '', 'attributive_noun': '限定名詞1', 'tier_number': '10', 'remarks': ''}),
-      EntityRecord(id: '737c2019-0000-4000-8000-000000000002', values: {'code': 'DOC-002', 'name': '規程', 'pronunciation': 'キテイ', 'nickname': '', 'attributive_noun': '限定名詞2', 'tier_number': '20', 'remarks': ''}),
-      EntityRecord(id: '737c2019-0000-4000-8000-000000000003', values: {'code': 'DOC-003', 'name': '手順書', 'pronunciation': 'テジュンショ', 'nickname': '', 'attributive_noun': '限定名詞3', 'tier_number': '30', 'remarks': ''}),
+      EntityRecord(id: '737c2019-0000-4000-8000-000000000001', values: {'code': 'DOC-001', 'identifier': 'DOC-001', 'name': '品質マニュアル', 'pronunciation': 'ヒンシツマニュアル', 'nickname': '', 'attributive_noun': '限定名詞1', 'tier_number': '10', 'remarks': ''}),
+      EntityRecord(id: '737c2019-0000-4000-8000-000000000002', values: {'code': 'DOC-002', 'identifier': 'DOC-002', 'name': '規程', 'pronunciation': 'キテイ', 'nickname': '', 'attributive_noun': '限定名詞2', 'tier_number': '20', 'remarks': ''}),
+      EntityRecord(id: '737c2019-0000-4000-8000-000000000003', values: {'code': 'DOC-003', 'identifier': 'DOC-003', 'name': '手順書', 'pronunciation': 'テジュンショ', 'nickname': '', 'attributive_noun': '限定名詞3', 'tier_number': '30', 'remarks': ''}),
     ],
     'doc': [
       EntityRecord(id: 'ea68c355-0000-4000-8000-000000000001', values: {'code': 'QM-01', 'control_number': 'DOC-001', 'version_code': 'DOC-001', 'name': '品質マニュアル', 'pronunciation': 'ヒンシツマニュアル', 'nickname': '', 'mstr_document_tier_id': '737c2019-0000-4000-8000-000000000001', 'remarks': ''}),

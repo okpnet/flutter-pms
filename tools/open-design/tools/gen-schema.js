@@ -6,8 +6,12 @@ const fs = require("fs"), path = require("path");
 let yaml;
 try { yaml = require("js-yaml"); } catch { yaml = require(path.join(process.env.APPDATA || "", "npm/node_modules/node-red/node_modules/js-yaml")); }
 const REPO = path.resolve(__dirname, "../../..");
-const VIEWS = path.join(REPO, "packages/infra/graphql_provider_lib/source/views");
-const SQL = path.join(REPO, "tools/docker/postgresql/scripts/06_cteate_test.sql");
+/* 画面ごとの読み込み(YAML)。共有の部品(gql_shared)を先に、各モデルパッケージの gql/*.yaml を続ける。 */
+const MODELS = path.join(REPO, "packages/model_providers");
+const VIEW_DIRS = [path.join(MODELS, "gql_shared", "gql"), ...fs.readdirSync(MODELS).filter((d) => /_model$/.test(d)).map((d) => path.join(MODELS, d, "gql"))].filter((d) => fs.existsSync(d));
+const SQL = path.join(REPO, "tools/docker/postgresql/script/06_cteate_test.sql");
+/* 操作の DB 関数で変える列。編集項目にせず、gen.js が読み取り専用の項目として足す(tools/entity_gen/gen.js の GRAPHQL_READONLY_FIELDS) */
+const OPERATION_COLS = new Set(["cancel_quantity", "stop", "discontinue"]);
 const HERE = path.resolve(__dirname, "..");
 const log = [];
 const L = (lvl, ent, msg) => log.push({ lvl, ent, msg });
@@ -15,9 +19,10 @@ const L = (lvl, ent, msg) => log.push({ lvl, ent, msg });
 /* ---------- YAML: 全ファイルを依存順に連結して読む（アンカーはファイルをまたぐ） ---------- */
 function loadViews() {
   const blocks = [];
-  for (const d of fs.readdirSync(VIEWS)) {
-    for (const f of fs.readdirSync(path.join(VIEWS, d))) {
-      const txt = fs.readFileSync(path.join(VIEWS, d, f), "utf8").replace(/\r\n/g, "\n");
+  for (const dir of VIEW_DIRS) {
+    const d = path.basename(path.dirname(dir));
+    for (const f of fs.readdirSync(dir).filter((x) => /\.ya?ml$/.test(x))) {
+      const txt = fs.readFileSync(path.join(dir, f), "utf8").replace(/\r\n/g, "\n");
       for (const p of txt.split(/\n(?=[A-Za-z_][A-Za-z0-9_]*:)/)) {
         const m = p.match(/^([A-Za-z_][A-Za-z0-9_]*):/);
         if (!m) continue;
@@ -57,9 +62,13 @@ function loadSql() {
     }
     T[m[1]] = { comment: "", cols, fks: {} };
   }
-  for (const m of sql.matchAll(/comment on table tests\.(\w+) is '([^']*)'/g)) if (T[m[1]]) T[m[1]].comment = m[2];
-  for (const m of sql.matchAll(/comment on column tests\.(\w+)\.(\w+) is '([^']*)'/g)) if (T[m[1]]?.cols[m[2]]) T[m[1]].cols[m[2]].comment = m[3];
+  for (const m of sql.matchAll(/comment on table tests\.(\w+) is '([^']*)'/gi)) if (T[m[1]]) T[m[1]].comment = m[2];
+  for (const m of sql.matchAll(/comment on column tests\.(\w+)\.(\w+) is '([^']*)'/gi)) if (T[m[1]]?.cols[m[2]]) T[m[1]].cols[m[2]].comment = m[3];
   for (const m of sql.matchAll(/alter table tests\.(\w+) add constraint \w+ foreign key \((\w+)\) references tests\.(\w+)/gi)) if (T[m[1]]) T[m[1]].fks[m[2]] = m[3];
+  // 履歴ID + ID の組(参照先は history_<表>)。ID の列に、元の表(mstr_stakeholder など)を結び付ける
+  for (const m of sql.matchAll(/alter table tests\.(\w+) add constraint \w+ foreign key \((\w+),\s*(\w+)\) references tests\.history_(\w+)/gi)) {
+    if (T[m[1]]) T[m[1]].fks[m[3]] = m[4];
+  }
   return T;
 }
 
@@ -120,6 +129,7 @@ function main() {
     const fields = [];
     const add = (f) => { if (f.kind === "r" && e.parent && f.ref === e.parent.ent) return; if (!fields.some((x) => x.id === f.id || (x.label === f.label && x.kind === f.kind))) fields.push(f); };
     for (const c of pg.columns) {
+      if (typeof c === "string" && OPERATION_COLS.has(c)) continue;
       if (typeof c === "string") {
         if (c === "update_at" || /_history_id$/.test(c) || /^update_/.test(c) || c === "remove" || c === "revision") continue;
         if (c === "symbol" && e.key !== "unit") { continue; }

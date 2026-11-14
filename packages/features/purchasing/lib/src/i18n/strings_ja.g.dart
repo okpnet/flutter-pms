@@ -206,17 +206,20 @@ class PurchasingStrings$entity$unrecdetail$fields$ja {
 	/// ja: '価格調整'
 	String get f_price_adjustment => '価格調整';
 
-	/// ja: '固定価格'
-	String get f_fixed_price => '固定価格';
+	/// ja: '確定単価'
+	String get f_fixed_price => '確定単価';
+
+	/// ja: '資材支給区分'
+	String get f_material_supply => '資材支給区分';
+
+	/// ja: '有償支給区分'
+	String get f_paid_supply => '有償支給区分';
 
 	/// ja: '個別納期'
 	String get f_deadline => '個別納期';
 
-	/// ja: '材料支給'
-	String get f_material_supply => '材料支給';
-
-	/// ja: '有償支給'
-	String get f_paid_supply => '有償支給';
+	/// ja: '品目'
+	String get f_item_id => '品目';
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
@@ -229,6 +232,9 @@ class PurchasingStrings$entity$purchase$fields$ja {
 	final PurchasingStrings _root; // ignore: unused_field
 
 	// Translations
+
+	/// ja: '発注先'
+	String get f_stakeholder_id => '発注先';
 
 	/// ja: '登録日'
 	String get f_register_at => '登録日';
@@ -260,9 +266,6 @@ class PurchasingStrings$entity$purdetail$fields$ja {
 	/// ja: '資材計画'
 	String get f_trans_resource_plan_id => '資材計画';
 
-	/// ja: '品目'
-	String get f_item => '品目';
-
 	/// ja: '在庫発注'
 	String get f_restocking_purchase => '在庫発注';
 
@@ -275,23 +278,23 @@ class PurchasingStrings$entity$purdetail$fields$ja {
 	/// ja: '価格調整'
 	String get f_price_adjustment => '価格調整';
 
-	/// ja: '固定価格'
-	String get f_fixed_price => '固定価格';
+	/// ja: '確定単価'
+	String get f_fixed_price => '確定単価';
+
+	/// ja: '資材支給区分'
+	String get f_material_supply => '資材支給区分';
+
+	/// ja: '有償支給区分'
+	String get f_paid_supply => '有償支給区分';
 
 	/// ja: '納期'
 	String get f_period => '納期';
 
-	/// ja: '材料支給'
-	String get f_material_supply => '材料支給';
-
-	/// ja: '有償支給'
-	String get f_paid_supply => '有償支給';
+	/// ja: '品目'
+	String get f_item_id => '品目';
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
-
-	/// ja: '引当予約'
-	String get f_reserve => '引当予約';
 
 	/// ja: 'キャンセル数量'
 	String get f_cancel_quantity => 'キャンセル数量';
@@ -310,6 +313,9 @@ class PurchasingStrings$entity$purdetail$fields$ja {
 
 	/// ja: '全部キャンセル済み'
 	String get f_cancel_closed => '全部キャンセル済み';
+
+	/// ja: '引当予約'
+	String get f_reserve => '引当予約';
 }
 
 // Path: entity.purchaserec.fields
@@ -385,12 +391,14 @@ extension on PurchasingStrings {
 			'entity.unrecdetail.fields.f_quantity' => '数量',
 			'entity.unrecdetail.fields.f_unit_price' => '単価',
 			'entity.unrecdetail.fields.f_price_adjustment' => '価格調整',
-			'entity.unrecdetail.fields.f_fixed_price' => '固定価格',
+			'entity.unrecdetail.fields.f_fixed_price' => '確定単価',
+			'entity.unrecdetail.fields.f_material_supply' => '資材支給区分',
+			'entity.unrecdetail.fields.f_paid_supply' => '有償支給区分',
 			'entity.unrecdetail.fields.f_deadline' => '個別納期',
-			'entity.unrecdetail.fields.f_material_supply' => '材料支給',
-			'entity.unrecdetail.fields.f_paid_supply' => '有償支給',
+			'entity.unrecdetail.fields.f_item_id' => '品目',
 			'entity.unrecdetail.fields.f_remarks' => '備考',
 			'entity.purchase.title' => '発注',
+			'entity.purchase.fields.f_stakeholder_id' => '発注先',
 			'entity.purchase.fields.f_register_at' => '登録日',
 			'entity.purchase.fields.f_purchase_order_date' => '発注日',
 			'entity.purchase.fields.f_deadline' => '発注期限',
@@ -399,23 +407,23 @@ extension on PurchasingStrings {
 			'entity.purchase.fields.f_remarks' => '備考',
 			'entity.purdetail.title' => '発注明細',
 			'entity.purdetail.fields.f_trans_resource_plan_id' => '資材計画',
-			'entity.purdetail.fields.f_item' => '品目',
 			'entity.purdetail.fields.f_restocking_purchase' => '在庫発注',
 			'entity.purdetail.fields.f_quantity' => '数量',
 			'entity.purdetail.fields.f_unit_price' => '単価',
 			'entity.purdetail.fields.f_price_adjustment' => '価格調整',
-			'entity.purdetail.fields.f_fixed_price' => '固定価格',
+			'entity.purdetail.fields.f_fixed_price' => '確定単価',
+			'entity.purdetail.fields.f_material_supply' => '資材支給区分',
+			'entity.purdetail.fields.f_paid_supply' => '有償支給区分',
 			'entity.purdetail.fields.f_period' => '納期',
-			'entity.purdetail.fields.f_material_supply' => '材料支給',
-			'entity.purdetail.fields.f_paid_supply' => '有償支給',
+			'entity.purdetail.fields.f_item_id' => '品目',
 			'entity.purdetail.fields.f_remarks' => '備考',
-			'entity.purdetail.fields.f_reserve' => '引当予約',
 			'entity.purdetail.fields.f_cancel_quantity' => 'キャンセル数量',
 			'entity.purdetail.fields.f_stop' => '停止',
 			'entity.purdetail.fields.f_received_quantity' => '受入済み',
 			'entity.purdetail.fields.f_remaining_quantity' => '残',
 			'entity.purdetail.fields.f_open_quantity' => '発注残(停止中は0)',
 			'entity.purdetail.fields.f_cancel_closed' => '全部キャンセル済み',
+			'entity.purdetail.fields.f_reserve' => '引当予約',
 			'entity.purchaserec.title' => '受入実績',
 			'entity.purchaserec.fields.f_trans_purchase_detail_id' => '発注明細',
 			'entity.purchaserec.fields.f_receive_at' => '受入日時',

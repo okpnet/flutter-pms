@@ -134,6 +134,9 @@ class SalesStrings$entity$order$fields$ja {
 	/// ja: '顧客発注番号'
 	String get f_customer_order_number => '顧客発注番号';
 
+	/// ja: '顧客'
+	String get f_stakeholder_id => '顧客';
+
 	/// ja: '受注日'
 	String get f_order_processing_date => '受注日';
 
@@ -155,6 +158,9 @@ class SalesStrings$entity$orderdetail$fields$ja {
 
 	// Translations
 
+	/// ja: '品目'
+	String get f_item_id => '品目';
+
 	/// ja: '数量'
 	String get f_quantity => '数量';
 
@@ -164,29 +170,17 @@ class SalesStrings$entity$orderdetail$fields$ja {
 	/// ja: '価格調整'
 	String get f_price_adjustment => '価格調整';
 
-	/// ja: '固定価格'
-	String get f_fixed_price => '固定価格';
+	/// ja: '確定単価'
+	String get f_fixed_price => '確定単価';
 
 	/// ja: 'マスタ不備件数'
 	String get f_master_error_count => 'マスタ不備件数';
-
-	/// ja: '個別納期'
-	String get f_delivery_date => '個別納期';
-
-	/// ja: '個別完了期限'
-	String get f_deadline => '個別完了期限';
-
-	/// ja: '備考'
-	String get f_remarks => '備考';
 
 	/// ja: 'キャンセル数量'
 	String get f_cancel_quantity => 'キャンセル数量';
 
 	/// ja: '停止'
 	String get f_stop => '停止';
-
-	/// ja: '顧客所有'
-	String get f_customer_property => '顧客所有';
 
 	/// ja: '残'
 	String get f_remaining_quantity => '残';
@@ -199,6 +193,18 @@ class SalesStrings$entity$orderdetail$fields$ja {
 
 	/// ja: '精算額'
 	String get f_settlement_amount => '精算額';
+
+	/// ja: '個別納期'
+	String get f_delivery_date => '個別納期';
+
+	/// ja: '個別完了期限'
+	String get f_deadline => '個別完了期限';
+
+	/// ja: '備考'
+	String get f_remarks => '備考';
+
+	/// ja: '製品顧客所有'
+	String get f_customer_property => '製品顧客所有';
 }
 
 // Path: entity.shipplan.fields
@@ -267,26 +273,28 @@ extension on SalesStrings {
 			'entity.order.title' => '受注',
 			'entity.order.fields.f_order_number' => '注文番号',
 			'entity.order.fields.f_customer_order_number' => '顧客発注番号',
+			'entity.order.fields.f_stakeholder_id' => '顧客',
 			'entity.order.fields.f_order_processing_date' => '受注日',
 			'entity.order.fields.f_delivery_date' => '納期',
 			'entity.order.fields.f_deadline' => '完了期限',
 			'entity.order.fields.f_remarks' => '備考',
 			'entity.orderdetail.title' => '受注明細',
+			'entity.orderdetail.fields.f_item_id' => '品目',
 			'entity.orderdetail.fields.f_quantity' => '数量',
 			'entity.orderdetail.fields.f_unit_price' => '単価',
 			'entity.orderdetail.fields.f_price_adjustment' => '価格調整',
-			'entity.orderdetail.fields.f_fixed_price' => '固定価格',
+			'entity.orderdetail.fields.f_fixed_price' => '確定単価',
 			'entity.orderdetail.fields.f_master_error_count' => 'マスタ不備件数',
-			'entity.orderdetail.fields.f_delivery_date' => '個別納期',
-			'entity.orderdetail.fields.f_deadline' => '個別完了期限',
-			'entity.orderdetail.fields.f_remarks' => '備考',
 			'entity.orderdetail.fields.f_cancel_quantity' => 'キャンセル数量',
 			'entity.orderdetail.fields.f_stop' => '停止',
-			'entity.orderdetail.fields.f_customer_property' => '顧客所有',
 			'entity.orderdetail.fields.f_remaining_quantity' => '残',
 			'entity.orderdetail.fields.f_open_quantity' => '受注残(停止中は0)',
 			'entity.orderdetail.fields.f_cancel_closed' => '全部キャンセル済み',
 			'entity.orderdetail.fields.f_settlement_amount' => '精算額',
+			'entity.orderdetail.fields.f_delivery_date' => '個別納期',
+			'entity.orderdetail.fields.f_deadline' => '個別完了期限',
+			'entity.orderdetail.fields.f_remarks' => '備考',
+			'entity.orderdetail.fields.f_customer_property' => '製品顧客所有',
 			'entity.shipplan.title' => '出荷予定',
 			'entity.shipplan.fields.f_order' => '受注',
 			'entity.shipplan.fields.f_date' => '予定日',

@@ -538,8 +538,8 @@ class ProductionPlanStrings$entity$resplan$fields$ja {
 	/// ja: '品目'
 	String get f_item => '品目';
 
-	/// ja: '親の生産計画'
-	String get f_parent_trans_operations_plan_id => '親の生産計画';
+	/// ja: '親生産計画'
+	String get f_parent_trans_operations_plan_id => '親生産計画';
 
 	/// ja: '登録日時'
 	String get f_register_at => '登録日時';
@@ -553,6 +553,9 @@ class ProductionPlanStrings$entity$resplan$fields$ja {
 	/// ja: '期限'
 	String get f_deadline => '期限';
 
+	/// ja: '品目'
+	String get f_item_id => '品目';
+
 	/// ja: '備考'
 	String get f_remarks => '備考';
 }
@@ -565,23 +568,23 @@ class ProductionPlanStrings$entity$opsplan$fields$ja {
 
 	// Translations
 
-	/// ja: '完了期限'
-	String get f_deadline => '完了期限';
-
-	/// ja: '数量'
-	String get f_quantity => '数量';
-
-	/// ja: '備考'
-	String get f_remarks => '備考';
-
-	/// ja: '引当予約'
-	String get f_reserve => '引当予約';
+	/// ja: '生産数量'
+	String get f_quantity => '生産数量';
 
 	/// ja: '停止'
 	String get f_stop => '停止';
 
 	/// ja: '打ち切り'
 	String get f_discontinue => '打ち切り';
+
+	/// ja: '完了期限'
+	String get f_deadline => '完了期限';
+
+	/// ja: '備考'
+	String get f_remarks => '備考';
+
+	/// ja: '引当予約'
+	String get f_reserve => '引当予約';
 }
 
 // Path: entity.workplan.fields
@@ -595,8 +598,11 @@ class ProductionPlanStrings$entity$workplan$fields$ja {
 	/// ja: '工程'
 	String get f_mstr_task_id => '工程';
 
-	/// ja: '順'
-	String get f_sequence => '順';
+	/// ja: '工程順'
+	String get f_sequence => '工程順';
+
+	/// ja: '発注明細'
+	String get f_trans_purchase_detail_id => '発注明細';
 
 	/// ja: '予定作業時間'
 	String get f_interval_plan => '予定作業時間';
@@ -622,9 +628,6 @@ class ProductionPlanStrings$entity$prodrez$fields$ja {
 	/// ja: '生産計画詳細'
 	String get f_trans_work_plan_id => '生産計画詳細';
 
-	/// ja: '引当数量'
-	String get f_quantity => '引当数量';
-
 	/// ja: '備考'
 	String get f_remarks => '備考';
 }
@@ -639,9 +642,6 @@ class ProductionPlanStrings$entity$purrez$fields$ja {
 
 	/// ja: '発注明細'
 	String get f_trans_purchase_detail_id => '発注明細';
-
-	/// ja: '引当数量'
-	String get f_quantity => '引当数量';
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
@@ -883,33 +883,33 @@ extension on ProductionPlanStrings {
 			'entity.resplan.fields.f_trans_order_detail_id' => '受注明細',
 			'entity.resplan.fields.f_trans_unrecognized_detail_id' => '非計上明細',
 			'entity.resplan.fields.f_item' => '品目',
-			'entity.resplan.fields.f_parent_trans_operations_plan_id' => '親の生産計画',
+			'entity.resplan.fields.f_parent_trans_operations_plan_id' => '親生産計画',
 			'entity.resplan.fields.f_register_at' => '登録日時',
 			'entity.resplan.fields.f_quantity' => '数量',
 			'entity.resplan.fields.f_inventory_resavation' => '在庫数量',
 			'entity.resplan.fields.f_deadline' => '期限',
+			'entity.resplan.fields.f_item_id' => '品目',
 			'entity.resplan.fields.f_remarks' => '備考',
 			'entity.opsplan.title' => '生産計画',
-			'entity.opsplan.fields.f_deadline' => '完了期限',
-			'entity.opsplan.fields.f_quantity' => '数量',
-			'entity.opsplan.fields.f_remarks' => '備考',
-			'entity.opsplan.fields.f_reserve' => '引当予約',
+			'entity.opsplan.fields.f_quantity' => '生産数量',
 			'entity.opsplan.fields.f_stop' => '停止',
 			'entity.opsplan.fields.f_discontinue' => '打ち切り',
+			'entity.opsplan.fields.f_deadline' => '完了期限',
+			'entity.opsplan.fields.f_remarks' => '備考',
+			'entity.opsplan.fields.f_reserve' => '引当予約',
 			'entity.workplan.title' => '生産計画明細',
 			'entity.workplan.fields.f_mstr_task_id' => '工程',
-			'entity.workplan.fields.f_sequence' => '順',
+			'entity.workplan.fields.f_sequence' => '工程順',
+			'entity.workplan.fields.f_trans_purchase_detail_id' => '発注明細',
 			'entity.workplan.fields.f_interval_plan' => '予定作業時間',
 			'entity.workplan.fields.f_start_at' => '開始予定',
 			'entity.workplan.fields.f_completion_at' => '完了予定',
 			'entity.workplan.fields.f_remarks' => '備考',
 			'entity.prodrez.title' => '生産引き当て予約',
 			'entity.prodrez.fields.f_trans_work_plan_id' => '生産計画詳細',
-			'entity.prodrez.fields.f_quantity' => '引当数量',
 			'entity.prodrez.fields.f_remarks' => '備考',
 			'entity.purrez.title' => '購買引き当て予約',
 			'entity.purrez.fields.f_trans_purchase_detail_id' => '発注明細',
-			'entity.purrez.fields.f_quantity' => '引当数量',
 			'entity.purrez.fields.f_remarks' => '備考',
 			'entity.mrppending.title' => '要判断の提案',
 			'entity.mrppending.fields.f_kind' => '提案種別',

@@ -2,6 +2,7 @@ import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:logger_provider/logger_provider.dart';
 import 'package:item/item.dart';
+import 'package:organization/organization.dart';
 import 'package:production_plan/production_plan.dart';
 import 'package:resource/resource.dart';
 import 'package:work_record/work_record.dart';
@@ -25,7 +26,7 @@ class ExampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => FeatureHost(
     title: '作業実績 (example)',
-    modules: const [WorkRecordModule(), ItemModule(), ProductionPlanModule(), ResourceModule()],
+    modules: const [WorkRecordModule(), ItemModule(), OrganizationModule(), ProductionPlanModule(), ResourceModule()],
     entries: const [FeatureHostEntry('コンテナ', EntityListDestination('container')), FeatureHostEntry('引き当て', EntityListDestination('invapply')), FeatureHostEntry('引き当て予約', EntityListDestination('invreq')), FeatureHostEntry('成績書', EntityListDestination('certificate')), FeatureHostEntry('作業実績', EntityListDestination('workrec')), FeatureHostEntry('ビジター品目', EntityListDestination('mrpvisiter')), FeatureHostEntry('在庫状況', EntityListDestination('stockstatus'))],
     logger: logger,
     // flgtable_lib / theme_lib が使うテーマ側のロガー

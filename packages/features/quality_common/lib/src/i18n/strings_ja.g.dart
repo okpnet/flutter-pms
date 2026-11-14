@@ -200,11 +200,14 @@ class QualityCommonStrings$entity$disposal$fields$ja {
 	/// ja: '詳細'
 	String get f_detail => '詳細';
 
-	/// ja: '承認'
-	String get f_approvals => '承認';
-
 	/// ja: '承認日'
 	String get f_approval_at => '承認日';
+
+	/// ja: '処置組織'
+	String get f_department_id => '処置組織';
+
+	/// ja: '処置担当者'
+	String get f_operation_staff_id => '処置担当者';
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
@@ -224,14 +227,14 @@ class QualityCommonStrings$entity$recur$fields$ja {
 	/// ja: '発生年月日'
 	String get f_occurent_at => '発生年月日';
 
-	/// ja: '承認'
-	String get f_approvals => '承認';
-
 	/// ja: '件名'
 	String get f_title => '件名';
 
 	/// ja: '詳細'
 	String get f_detail => '詳細';
+
+	/// ja: '実施担当者'
+	String get f_operation_staff_id => '実施担当者';
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
@@ -253,6 +256,9 @@ class QualityCommonStrings$entity$obsdisp$fields$ja {
 
 	/// ja: '監視測定日'
 	String get f_observe_at => '監視測定日';
+
+	/// ja: '監視測定者'
+	String get f_observer_staff_id => '監視測定者';
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
@@ -416,20 +422,22 @@ extension on QualityCommonStrings {
 			'entity.disposal.fields.f_disposal_at' => '処置年月日',
 			'entity.disposal.fields.f_title' => '件名',
 			'entity.disposal.fields.f_detail' => '詳細',
-			'entity.disposal.fields.f_approvals' => '承認',
 			'entity.disposal.fields.f_approval_at' => '承認日',
+			'entity.disposal.fields.f_department_id' => '処置組織',
+			'entity.disposal.fields.f_operation_staff_id' => '処置担当者',
 			'entity.disposal.fields.f_remarks' => '備考',
 			'entity.recur.title' => '再発防止処置',
 			'entity.recur.fields.f_trans_disposal_id' => '異常処置',
 			'entity.recur.fields.f_occurent_at' => '発生年月日',
-			'entity.recur.fields.f_approvals' => '承認',
 			'entity.recur.fields.f_title' => '件名',
 			'entity.recur.fields.f_detail' => '詳細',
+			'entity.recur.fields.f_operation_staff_id' => '実施担当者',
 			'entity.recur.fields.f_remarks' => '備考',
 			'entity.obsdisp.title' => '処置監視',
 			'entity.obsdisp.fields.f_enable' => '有効性',
 			'entity.obsdisp.fields.f_observe_schedule' => '監視測定予定日',
 			'entity.obsdisp.fields.f_observe_at' => '監視測定日',
+			'entity.obsdisp.fields.f_observer_staff_id' => '監視測定者',
 			'entity.obsdisp.fields.f_remarks' => '備考',
 			'entity.obsprev.title' => '再発防止監視',
 			'entity.obsprev.fields.f_trans_observer_disposal_id' => '監視',

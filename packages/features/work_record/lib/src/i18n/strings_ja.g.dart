@@ -212,6 +212,9 @@ class WorkRecordStrings$entity$invapply$fields$ja {
 	/// ja: '引当予約'
 	String get f_trans_inventory_request_id => '引当予約';
 
+	/// ja: '作業担当者'
+	String get f_staff_id => '作業担当者';
+
 	/// ja: '備考'
 	String get f_remarks => '備考';
 }
@@ -236,14 +239,17 @@ class WorkRecordStrings$entity$invreq$fields$ja {
 	/// ja: '生産引き当て'
 	String get f_trans_product_rez_id => '生産引き当て';
 
+	/// ja: '資材計画'
+	String get f_trans_resource_plan_id => '資材計画';
+
 	/// ja: '引当数量'
 	String get f_quantity => '引当数量';
 
+	/// ja: '作業担当者'
+	String get f_staff_id => '作業担当者';
+
 	/// ja: '備考'
 	String get f_remarks => '備考';
-
-	/// ja: '資材計画'
-	String get f_trans_resource_plan_id => '資材計画';
 }
 
 // Path: entity.certificate.fields
@@ -289,6 +295,9 @@ class WorkRecordStrings$entity$workrec$fields$ja {
 
 	/// ja: '作業数量'
 	String get f_qty => '作業数量';
+
+	/// ja: '作業担当者'
+	String get f_staff_id => '作業担当者';
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
@@ -379,15 +388,17 @@ extension on WorkRecordStrings {
 			'entity.invapply.title' => '引き当て',
 			'entity.invapply.fields.f_register_at' => '引当日',
 			'entity.invapply.fields.f_trans_inventory_request_id' => '引当予約',
+			'entity.invapply.fields.f_staff_id' => '作業担当者',
 			'entity.invapply.fields.f_remarks' => '備考',
 			'entity.invreq.title' => '引き当て予約',
 			'entity.invreq.fields.f_register_at' => '引当予約日',
 			'entity.invreq.fields.f_register_plan_at' => '引当予定日',
 			'entity.invreq.fields.f_trans_purchase_rez_id' => '購買引き当て',
 			'entity.invreq.fields.f_trans_product_rez_id' => '生産引き当て',
-			'entity.invreq.fields.f_quantity' => '引当数量',
-			'entity.invreq.fields.f_remarks' => '備考',
 			'entity.invreq.fields.f_trans_resource_plan_id' => '資材計画',
+			'entity.invreq.fields.f_quantity' => '引当数量',
+			'entity.invreq.fields.f_staff_id' => '作業担当者',
+			'entity.invreq.fields.f_remarks' => '備考',
 			'entity.certificate.title' => '成績書',
 			'entity.certificate.fields.f_serial' => 'シリアル番号',
 			'entity.certificate.fields.f_title' => '件名',
@@ -399,6 +410,7 @@ extension on WorkRecordStrings {
 			'entity.workrec.fields.f_start_at' => '開始',
 			'entity.workrec.fields.f_stop_at' => '終了',
 			'entity.workrec.fields.f_qty' => '作業数量',
+			'entity.workrec.fields.f_staff_id' => '作業担当者',
 			'entity.workrec.fields.f_remarks' => '備考',
 			'entity.wrcert.title' => '作業成績書',
 			'entity.wrcert.fields.f_trans_certificate_id' => '成績書',

@@ -8,6 +8,7 @@ const List<EntityDefinition> salesDefinitions = [
       fields: [
         FieldDefinition(key: 'order_number'),
         FieldDefinition(key: 'customer_order_number', required: false),
+        FieldDefinition(key: 'stakeholder_id', kind: FieldKind.reference, required: false, reference: 'customer'),
         FieldDefinition(key: 'order_processing_date', kind: FieldKind.date, required: false),
         FieldDefinition(key: 'delivery_date', kind: FieldKind.date, required: false),
         FieldDefinition(key: 'deadline', kind: FieldKind.date, required: false),
@@ -17,14 +18,22 @@ const List<EntityDefinition> salesDefinitions = [
     EntityDefinition(
       key: 'orderdetail', owner: 'order',
       fields: [
+        FieldDefinition(key: 'item_id', kind: FieldKind.reference, reference: 'item'),
         FieldDefinition(key: 'quantity', kind: FieldKind.number, required: false),
-        FieldDefinition(key: 'unit_price', kind: FieldKind.number, required: false),
+        FieldDefinition(key: 'unit_price', kind: FieldKind.number),
         FieldDefinition(key: 'price_adjustment', kind: FieldKind.number, required: false),
         FieldDefinition(key: 'fixed_price', kind: FieldKind.number, required: false),
         FieldDefinition(key: 'master_error_count', kind: FieldKind.number, required: false, readOnly: true),
+        FieldDefinition(key: 'cancel_quantity', kind: FieldKind.number, required: false, readOnly: true),
+        FieldDefinition(key: 'stop', kind: FieldKind.flag, required: false, readOnly: true),
+        FieldDefinition(key: 'remaining_quantity', kind: FieldKind.number, required: false, readOnly: true),
+        FieldDefinition(key: 'open_quantity', kind: FieldKind.number, required: false, readOnly: true),
+        FieldDefinition(key: 'cancel_closed', kind: FieldKind.flag, required: false, readOnly: true),
+        FieldDefinition(key: 'settlement_amount', kind: FieldKind.number, required: false, readOnly: true),
         FieldDefinition(key: 'delivery_date', kind: FieldKind.date, required: false),
         FieldDefinition(key: 'deadline', kind: FieldKind.date, required: false),
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
+        FieldDefinition(key: 'customer_property', kind: FieldKind.choice, required: false, options: ['はい', 'いいえ']),
       ],
     ),
     EntityDefinition(

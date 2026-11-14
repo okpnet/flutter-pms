@@ -84,7 +84,7 @@
       {
         "key": "purchase",
         "label": "発注",
-        "first": "2400000"
+        "first": "24000"
       },
       {
         "key": "purchaserec",
@@ -101,12 +101,12 @@
       {
         "key": "prodrez",
         "label": "生産引き当て予約",
-        "first": "200"
+        "first": ""
       },
       {
         "key": "purrez",
         "label": "購買引き当て予約",
-        "first": "800"
+        "first": ""
       },
       {
         "key": "mrppending",
@@ -180,7 +180,7 @@
       {
         "key": "recur",
         "label": "再発防止処置",
-        "first": ""
+        "first": "測定手順の見直し"
       },
       {
         "key": "obsdisp",
@@ -405,6 +405,7 @@
     "purchasing": [
       "item",
       "production_plan",
+      "shared_master",
       "system",
       "work_record"
     ],
@@ -418,6 +419,7 @@
     ],
     "work_record": [
       "item",
+      "organization",
       "production_plan",
       "resource"
     ],
@@ -445,6 +447,7 @@
     ]
   },
   "warnings": [
+    "補完: disposal.department_id の空を department の先頭で補った",
     "補完: preventiondetail.info_department_id の空を department の先頭で補った"
   ]
 }

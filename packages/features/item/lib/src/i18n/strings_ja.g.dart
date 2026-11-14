@@ -336,6 +336,9 @@ class ItemStrings$entity$item$fields$ja {
 	/// ja: '品目種類'
 	String get f_mstr_item_kind_id => '品目種類';
 
+	/// ja: '購入品'
+	String get f_catalog_item => '購入品';
+
 	/// ja: '詳細'
 	String get f_detail => '詳細';
 
@@ -344,9 +347,6 @@ class ItemStrings$entity$item$fields$ja {
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
-
-	/// ja: '購入品'
-	String get f_catalog_item => '購入品';
 }
 
 // Path: entity.item.reverse
@@ -610,10 +610,10 @@ extension on ItemStrings {
 			'entity.item.fields.f_pronunciation' => '読み',
 			'entity.item.fields.f_nickname' => '略称',
 			'entity.item.fields.f_mstr_item_kind_id' => '品目種類',
+			'entity.item.fields.f_catalog_item' => '購入品',
 			'entity.item.fields.f_detail' => '詳細',
 			'entity.item.fields.f_shared_unit_id' => '個別単位',
 			'entity.item.fields.f_remarks' => '備考',
-			'entity.item.fields.f_catalog_item' => '購入品',
 			'entity.item.reverse.itemoptask' => '品目工程運用明細',
 			'entity.item.reverse.opapply' => '適用する品目の工程計画',
 			'entity.item.reverse.purchaseline' => '受入明細',

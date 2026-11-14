@@ -28,6 +28,9 @@ dependencies:
   resource:
     path: ../../resource
 
+  organization:
+    path: ../../organization
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

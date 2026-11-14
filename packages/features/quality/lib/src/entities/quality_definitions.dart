@@ -9,7 +9,7 @@ const List<EntityDefinition> qualityDefinitions = [
         FieldDefinition(key: 'occurent_at', kind: FieldKind.date, required: false),
         FieldDefinition(key: 'title'),
         FieldDefinition(key: 'detail', kind: FieldKind.multiline, required: false),
-        FieldDefinition(key: 'approvals', required: false),
+        FieldDefinition(key: 'reporter_staff_id', kind: FieldKind.reference, reference: 'staff'),
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
       ],
     ),
@@ -17,6 +17,7 @@ const List<EntityDefinition> qualityDefinitions = [
       key: 'compreceive', owner: 'complaint',
       fields: [
         FieldDefinition(key: 'receive_at', kind: FieldKind.date, required: false),
+        FieldDefinition(key: 'receive_staff_id', kind: FieldKind.reference, reference: 'staff'),
         FieldDefinition(key: 'detail', kind: FieldKind.multiline, required: false),
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
       ],
@@ -24,6 +25,7 @@ const List<EntityDefinition> qualityDefinitions = [
     EntityDefinition(
       key: 'compstake', owner: 'complaint',
       fields: [
+        FieldDefinition(key: 'stakeholder_id', kind: FieldKind.reference, reference: 'customer'),
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
       ],
     ),
@@ -147,13 +149,17 @@ const List<EntityDefinition> qualityDefinitions = [
     EntityDefinition(
       key: 'auditor', owner: 'auditteam',
       fields: [
+        FieldDefinition(key: 'audit_std_id', kind: FieldKind.reference, reference: 'auditstd'),
         FieldDefinition(key: 'ccategory', kind: FieldKind.number, required: false),
+        FieldDefinition(key: 'staff_id', kind: FieldKind.reference, reference: 'staff'),
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
       ],
     ),
     EntityDefinition(
       key: 'audit',
       fields: [
+        FieldDefinition(key: 'audit_std_id', kind: FieldKind.reference, reference: 'auditstd'),
+        FieldDefinition(key: 'staff_id', kind: FieldKind.reference, reference: 'staff'),
         FieldDefinition(key: 'scheduled_start_date', kind: FieldKind.date, required: false),
         FieldDefinition(key: 'expected_end_date', kind: FieldKind.date, required: false),
         FieldDefinition(key: 'title'),

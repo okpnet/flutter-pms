@@ -7,6 +7,7 @@ const List<EntityDefinition> qualityDocumentDefinitions = [
       key: 'doctier',
       fields: [
         FieldDefinition(key: 'code'),
+        FieldDefinition(key: 'identifier'),
         FieldDefinition(key: 'name'),
         FieldDefinition(key: 'pronunciation', required: false),
         FieldDefinition(key: 'nickname', required: false),

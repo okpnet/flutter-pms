@@ -27,40 +27,44 @@ List<IEntityRepository> productionPlanRepositories(GraphQLClient client) {
 EntityDefinition _definition(String key) =>
     productionPlanDefinitions.firstWhere((d) => d.key == key);
 
-/// 資材計画: 画面案の定義のうち DB の列に対応する項目をそのまま使い、読み取り専用にする。
-final EntityDefinition _resourcePlanDefinition = () {
-  final d = _definition('resplan');
-  return EntityDefinition(
-    key: d.key,
-    fields: [for (final f in d.fields) _readOnly(f)],
-    viewOnly: true,
-  );
-}();
-
-/// 生産計画: 画面案の定義に、停止・打ち切りを足し、読み取り専用にする。行のボタン(引当予約)は、書き込みの画面を開くため出さない。
-final EntityDefinition _operationsPlanDefinition = () {
-  final d = _definition('opsplan');
+/// 生成された定義(DB に合わせた項目・読み取り専用の項目を含む)から、この取得元が値を返す項目だけを、
+/// 読み取り専用にして使う(台帳に「新規」を出さず、保存・削除を出さない)。
+EntityDefinition _readOnlyDefinition(String key, Set<String> supplied) {
+  final d = _definition(key);
   return EntityDefinition(
     key: d.key,
     owner: d.owner,
     fields: [
-      for (final f in d.fields) _readOnly(f),
-      const FieldDefinition(
-        key: 'stop',
-        kind: FieldKind.flag,
-        required: false,
-        readOnly: true,
-      ),
-      const FieldDefinition(
-        key: 'discontinue',
-        kind: FieldKind.flag,
-        required: false,
-        readOnly: true,
-      ),
+      for (final f in d.fields)
+        if (supplied.contains(f.key)) _readOnly(f),
     ],
     viewOnly: true,
   );
-}();
+}
+
+/// 資材計画: 取得元が値を返す項目。
+final EntityDefinition _resourcePlanDefinition =
+    _readOnlyDefinition('resplan', {
+      'trans_order_detail_id',
+      'trans_unrecognized_detail_id',
+      'item_id',
+      'parent_trans_operations_plan_id',
+      'register_at',
+      'quantity',
+      'inventory_resavation',
+      'deadline',
+      'remarks',
+    });
+
+/// 生産計画: 取得元が値を返す項目。停止・打ち切りは読み取り専用(操作は DB の関数)。
+final EntityDefinition _operationsPlanDefinition =
+    _readOnlyDefinition('opsplan', {
+      'deadline',
+      'quantity',
+      'stop',
+      'discontinue',
+      'remarks',
+    });
 
 FieldDefinition _readOnly(FieldDefinition f) => FieldDefinition(
   key: f.key,
@@ -151,7 +155,7 @@ class _ResourcePlanRepository extends _ReadOnlyRepository {
       'trans_unrecognized_detail_id': _ReadOnlyRepository.text(
         n.transUnrecognizedDetailId,
       ),
-      'item': _ReadOnlyRepository.text(n.itemId),
+      'item_id': _ReadOnlyRepository.text(n.itemId),
       'parent_trans_operations_plan_id': _ReadOnlyRepository.text(
         n.parentTransOperationsPlanId,
       ),

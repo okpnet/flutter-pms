@@ -14,14 +14,17 @@ const List<EntityDefinition> productionPlanDefinitions = [
         FieldDefinition(key: 'quantity', kind: FieldKind.number, required: false),
         FieldDefinition(key: 'inventory_resavation', kind: FieldKind.number, required: false),
         FieldDefinition(key: 'deadline', kind: FieldKind.date, required: false),
+        FieldDefinition(key: 'item_id', kind: FieldKind.reference, reference: 'item'),
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
       ],
     ),
     EntityDefinition(
       key: 'opsplan', owner: 'resplan', rowActions: [RowAction(key: 'reserve', target: 'stockrez', initialValues: {'opsplan': RowAction.idSource})],
       fields: [
-        FieldDefinition(key: 'deadline', kind: FieldKind.date, required: false),
         FieldDefinition(key: 'quantity', kind: FieldKind.number, required: false),
+        FieldDefinition(key: 'stop', kind: FieldKind.flag, required: false, readOnly: true),
+        FieldDefinition(key: 'discontinue', kind: FieldKind.flag, required: false, readOnly: true),
+        FieldDefinition(key: 'deadline', kind: FieldKind.date, required: false),
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
       ],
     ),
@@ -30,6 +33,7 @@ const List<EntityDefinition> productionPlanDefinitions = [
       fields: [
         FieldDefinition(key: 'mstr_task_id', kind: FieldKind.reference, reference: 'task'),
         FieldDefinition(key: 'sequence', kind: FieldKind.number, required: false),
+        FieldDefinition(key: 'trans_purchase_detail_id', kind: FieldKind.reference, required: false, reference: 'purdetail'),
         FieldDefinition(key: 'interval_plan', kind: FieldKind.number, required: false),
         FieldDefinition(key: 'start_at', kind: FieldKind.date, required: false),
         FieldDefinition(key: 'completion_at', kind: FieldKind.date, required: false),
@@ -40,7 +44,6 @@ const List<EntityDefinition> productionPlanDefinitions = [
       key: 'prodrez',
       fields: [
         FieldDefinition(key: 'trans_work_plan_id', kind: FieldKind.reference, reference: 'workplan'),
-        FieldDefinition(key: 'quantity', kind: FieldKind.number, required: false),
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
       ],
     ),
@@ -48,7 +51,6 @@ const List<EntityDefinition> productionPlanDefinitions = [
       key: 'purrez',
       fields: [
         FieldDefinition(key: 'trans_purchase_detail_id', kind: FieldKind.reference, reference: 'purdetail'),
-        FieldDefinition(key: 'quantity', kind: FieldKind.number, required: false),
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
       ],
     ),

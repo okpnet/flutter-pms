@@ -28,15 +28,16 @@
 
 | 実体 | キー | 構造 | 項目数 | 参照先 |
 |---|---|---|---|---|
-| 異常処置 | `disposal` | テーブル構造 | 7 | `complaint` |
-| 再発防止処置 | `recur` | テーブル構造 | 6 | `disposal` |
-| 処置監視 | `obsdisp` | テーブル構造 | 4 |  |
+| 異常処置 | `disposal` | テーブル構造 | 8 | `complaint`, `department`, `staff` |
+| 再発防止処置 | `recur` | テーブル構造 | 6 | `disposal`, `staff` |
+| 処置監視 | `obsdisp` | テーブル構造 | 5 | `staff` |
 | 再発防止監視 | `obsprev` | テーブル構造 | 3 | `obsdisp`, `recur` |
 | リスク | `risk` | テーブル構造 | 7 | `risk` |
 | 未然防止 | `prevention` | 子の台帳(親: リスク) | 4 |  |
 | 未然防止処置 | `preventiondetail` | 子の台帳(親: 未然防止) | 8 | `risk`, `department` |
 | 監査標準項目 | `auditstdcheck` | テーブル構造 | 11 | `auditstd` |
 <!-- entity_gen:end -->
+
 
 
 

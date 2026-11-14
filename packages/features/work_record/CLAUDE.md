@@ -34,10 +34,10 @@ MRP のビジター品目(`mrpvisiter`、`v_mrp_visiter_item`)は、読み取り
 | 実体 | キー | 構造 | 項目数 | 参照先 |
 |---|---|---|---|---|
 | コンテナ | `container` | ツリー構造 | 3 |  |
-| 引き当て | `invapply` | テーブル構造 | 3 | `invreq` |
-| 引き当て予約 | `invreq` | テーブル構造 | 7 | `purrez`, `prodrez`, `resplan` |
+| 引き当て | `invapply` | テーブル構造 | 4 | `invreq`, `staff` |
+| 引き当て予約 | `invreq` | テーブル構造 | 8 | `purrez`, `prodrez`, `resplan`, `staff` |
 | 成績書 | `certificate` | テーブル構造 | 4 |  |
-| 作業実績 | `workrec` | テーブル構造 | 6 | `workplan` |
+| 作業実績 | `workrec` | テーブル構造 | 7 | `workplan`, `staff` |
 | 作業成績書 | `wrcert` | 子の台帳(親: 作業実績) | 2 | `certificate` |
 | ビジター品目 | `mrpvisiter` | テーブル構造 | 4 | `item` |
 | 在庫状況 | `stockstatus` | テーブル構造 | 7 | `location`, `container`, `item` |

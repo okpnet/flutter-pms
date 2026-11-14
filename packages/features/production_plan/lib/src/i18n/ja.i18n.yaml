@@ -91,26 +91,28 @@ entity:
       f_trans_order_detail_id: "受注明細"
       f_trans_unrecognized_detail_id: "非計上明細"
       f_item: "品目"
-      f_parent_trans_operations_plan_id: "親の生産計画"
+      f_parent_trans_operations_plan_id: "親生産計画"
       f_register_at: "登録日時"
       f_quantity: "数量"
       f_inventory_resavation: "在庫数量"
       f_deadline: "期限"
+      f_item_id: "品目"
       f_remarks: "備考"
   opsplan:
     title: "生産計画"
     fields:
-      f_deadline: "完了期限"
-      f_quantity: "数量"
-      f_remarks: "備考"
-      f_reserve: "引当予約"
+      f_quantity: "生産数量"
       f_stop: "停止"
       f_discontinue: "打ち切り"
+      f_deadline: "完了期限"
+      f_remarks: "備考"
+      f_reserve: "引当予約"
   workplan:
     title: "生産計画明細"
     fields:
       f_mstr_task_id: "工程"
-      f_sequence: "順"
+      f_sequence: "工程順"
+      f_trans_purchase_detail_id: "発注明細"
       f_interval_plan: "予定作業時間"
       f_start_at: "開始予定"
       f_completion_at: "完了予定"
@@ -119,13 +121,11 @@ entity:
     title: "生産引き当て予約"
     fields:
       f_trans_work_plan_id: "生産計画詳細"
-      f_quantity: "引当数量"
       f_remarks: "備考"
   purrez:
     title: "購買引き当て予約"
     fields:
       f_trans_purchase_detail_id: "発注明細"
-      f_quantity: "引当数量"
       f_remarks: "備考"
   mrppending:
     title: "要判断の提案"

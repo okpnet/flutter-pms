@@ -33,10 +33,10 @@ const List<EntityDefinition> itemDefinitions = [
         FieldDefinition(key: 'pronunciation', required: false),
         FieldDefinition(key: 'nickname', required: false),
         FieldDefinition(key: 'mstr_item_kind_id', kind: FieldKind.reference, reference: 'itemkind'),
+        FieldDefinition(key: 'catalog_item', kind: FieldKind.choice, required: false, options: ['はい', 'いいえ']),
         FieldDefinition(key: 'detail', kind: FieldKind.multiline, required: false),
         FieldDefinition(key: 'shared_unit_id', kind: FieldKind.reference, required: false, reference: 'unit'),
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
-        FieldDefinition(key: 'catalog_item', kind: FieldKind.flag, required: false, lockedBy: 'itemsupplier'),
       ],
     ),
     EntityDefinition(

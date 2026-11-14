@@ -29,41 +29,51 @@ List<IEntityRepository> purchasingRepositories(GraphQLClient client) {
 EntityDefinition _definition(String key) =>
     purchasingDefinitions.firstWhere((d) => d.key == key);
 
-/// 発注: 画面案の定義のうち、この読み込みにある項目だけを、読み取り専用にする。
-final EntityDefinition _purchaseDefinition = () {
-  final d = _definition('purchase');
-  const keys = {'register_at', 'purchase_order_date', 'deadline', 'remarks'};
-  return EntityDefinition(
-    key: d.key,
-    fields: [
-      for (final f in d.fields)
-        if (keys.contains(f.key)) _readOnly(f),
-    ],
-    viewOnly: true,
-  );
-}();
-
-/// 発注明細: 画面案の定義に、DB にある項目(キャンセル・停止・受入済み・残)を足し、読み取り専用にする。
-/// 行のボタン(引当予約)は、書き込みの画面を開くため出さない。
-final EntityDefinition _purchaseDetailDefinition = () {
-  final d = _definition('purdetail');
-  FieldDefinition extra(String key, FieldKind kind) =>
-      FieldDefinition(key: key, kind: kind, required: false, readOnly: true);
+/// 生成された定義(DB に合わせた項目・読み取り専用の項目を含む)から、この取得元が値を返す項目だけを、
+/// 読み取り専用にして使う(台帳に「新規」を出さず、保存・削除を出さない)。
+EntityDefinition _readOnlyDefinition(String key, Set<String> supplied) {
+  final d = _definition(key);
   return EntityDefinition(
     key: d.key,
     owner: d.owner,
     fields: [
-      for (final f in d.fields) _readOnly(f),
-      extra('cancel_quantity', FieldKind.number),
-      extra('stop', FieldKind.flag),
-      extra('received_quantity', FieldKind.number),
-      extra('remaining_quantity', FieldKind.number),
-      extra('open_quantity', FieldKind.number),
-      extra('cancel_closed', FieldKind.flag),
+      for (final f in d.fields)
+        if (supplied.contains(f.key)) _readOnly(f),
     ],
     viewOnly: true,
   );
-}();
+}
+
+/// 発注: 取得元が値を返す項目。発注先は `stakeholder_id`(利害関係者の ID)。発注の金額は別のビュー(v_purchase_amount)の集計で、この読み込みには無い。
+final EntityDefinition _purchaseDefinition = _readOnlyDefinition('purchase', {
+  'stakeholder_id',
+  'register_at',
+  'purchase_order_date',
+  'deadline',
+  'remarks',
+});
+
+/// 発注明細: 取得元が値を返す項目。キャンセル数量・停止・受入済み・残は、DB のビューの列(読み取り専用)。
+final EntityDefinition _purchaseDetailDefinition =
+    _readOnlyDefinition('purdetail', {
+      'trans_resource_plan_id',
+      'item_id',
+      'restocking_purchase',
+      'quantity',
+      'unit_price',
+      'price_adjustment',
+      'fixed_price',
+      'material_supply',
+      'paid_supply',
+      'period',
+      'remarks',
+      'cancel_quantity',
+      'stop',
+      'received_quantity',
+      'remaining_quantity',
+      'open_quantity',
+      'cancel_closed',
+    });
 
 FieldDefinition _readOnly(FieldDefinition f) => FieldDefinition(
   key: f.key,
@@ -140,6 +150,9 @@ abstract class _ReadOnlyRepository implements IEntityRepository {
   }
 
   static String flag(bool? v) => v == true ? flagOn : '';
+
+  /// 画面の選択(はい/いいえ)の値。
+  static String yesNo(bool? v) => v == null ? '' : (v ? 'はい' : 'いいえ');
 }
 
 class _PurchaseRepository extends _ReadOnlyRepository {
@@ -149,6 +162,7 @@ class _PurchaseRepository extends _ReadOnlyRepository {
       EntityRecord(
         id: n.transPurchaseId,
         values: {
+          'stakeholder_id': _ReadOnlyRepository.text(n.stakeholderId),
           'register_at': _ReadOnlyRepository.date(n.registerAt),
           'purchase_order_date': _ReadOnlyRepository.date(n.purchaseOrderDate),
           'deadline': _ReadOnlyRepository.date(n.deadline),
@@ -217,7 +231,7 @@ class _PurchaseDetailRepository extends _ReadOnlyRepository {
         'trans_resource_plan_id': _ReadOnlyRepository.text(
           n.transResourcePlanId,
         ),
-        'item': _ReadOnlyRepository.text(n.itemId),
+        'item_id': _ReadOnlyRepository.text(n.itemId),
         'restocking_purchase': restocking == null
             ? ''
             : (restocking ? 'はい' : 'いいえ'),
@@ -226,8 +240,8 @@ class _PurchaseDetailRepository extends _ReadOnlyRepository {
         'price_adjustment': _ReadOnlyRepository.number(n.priceAdjustment),
         'fixed_price': _ReadOnlyRepository.number(n.fixedPrice),
         'period': _ReadOnlyRepository.date(n.period),
-        'material_supply': _ReadOnlyRepository.flag(n.materialSupply),
-        'paid_supply': _ReadOnlyRepository.flag(n.paidSupply),
+        'material_supply': _ReadOnlyRepository.yesNo(n.materialSupply),
+        'paid_supply': _ReadOnlyRepository.yesNo(n.paidSupply),
         'remarks': _ReadOnlyRepository.text(n.remarks),
         'cancel_quantity': _ReadOnlyRepository.number(n.cancelQuantity),
         'stop': _ReadOnlyRepository.flag(n.stop),

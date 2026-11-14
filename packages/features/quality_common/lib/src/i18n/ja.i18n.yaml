@@ -11,17 +11,18 @@ entity:
       f_disposal_at: "処置年月日"
       f_title: "件名"
       f_detail: "詳細"
-      f_approvals: "承認"
       f_approval_at: "承認日"
+      f_department_id: "処置組織"
+      f_operation_staff_id: "処置担当者"
       f_remarks: "備考"
   recur:
     title: "再発防止処置"
     fields:
       f_trans_disposal_id: "異常処置"
       f_occurent_at: "発生年月日"
-      f_approvals: "承認"
       f_title: "件名"
       f_detail: "詳細"
+      f_operation_staff_id: "実施担当者"
       f_remarks: "備考"
   obsdisp:
     title: "処置監視"
@@ -29,6 +30,7 @@ entity:
       f_enable: "有効性"
       f_observe_schedule: "監視測定予定日"
       f_observe_at: "監視測定日"
+      f_observer_staff_id: "監視測定者"
       f_remarks: "備考"
   obsprev:
     title: "再発防止監視"

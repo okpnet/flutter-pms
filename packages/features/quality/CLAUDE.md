@@ -28,9 +28,9 @@
 
 | 実体 | キー | 構造 | 項目数 | 参照先 |
 |---|---|---|---|---|
-| 異常 | `complaint` | テーブル構造 | 5 |  |
-| 異常報告受領 | `compreceive` | 子の台帳(親: 異常) | 3 |  |
-| 利害関係者苦情 | `compstake` | 子の台帳(親: 異常) | 1 |  |
+| 異常 | `complaint` | テーブル構造 | 5 | `staff` |
+| 異常報告受領 | `compreceive` | 子の台帳(親: 異常) | 4 | `staff` |
+| 利害関係者苦情 | `compstake` | 子の台帳(親: 異常) | 2 | `customer` |
 | 異常報告ファイル | `compfile` | 子の台帳(親: 異常) | 2 |  |
 | 注文苦情 | `corder` | テーブル構造 | 3 | `complaint`, `order` |
 | 取込 | `corderimp` | 子の台帳(親: 注文苦情) | 3 |  |
@@ -46,11 +46,12 @@
 | 監査標準 | `auditstd` | テーブル構造 | 8 |  |
 | 取込：監査標準項目 | `auditstdimp` | 子の台帳(親: 監査標準) | 1 | `auditstdcheck` |
 | 監査チーム | `auditteam` | テーブル構造 | 3 | `audit` |
-| 監査員 | `auditor` | 子の台帳(親: 監査チーム) | 2 |  |
-| 監査 | `audit` | テーブル構造 | 7 | `department`, `customer` |
+| 監査員 | `auditor` | 子の台帳(親: 監査チーム) | 4 | `auditstd`, `staff` |
+| 監査 | `audit` | テーブル構造 | 9 | `auditstd`, `staff`, `department`, `customer` |
 | 監査チーム | `auditteamlink` | 子の台帳(親: 監査) | 1 | `auditteam` |
 | 監査参加者 | `auditmember` | 子の台帳(親: 監査) | 2 |  |
 <!-- entity_gen:end -->
+
 
 
 

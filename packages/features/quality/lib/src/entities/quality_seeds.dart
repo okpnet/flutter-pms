@@ -4,14 +4,14 @@ import 'package:entity_screens/entity_screens.dart';
 /// 品質管理のサンプルデータ(架空の値)。参照は参照先の id(UUID の文字列)。
 const Map<String, List<EntityRecord>> qualitySeeds = {
     'complaint': [
-      EntityRecord(id: '67abbefa-0000-4000-8000-000000000001', values: {'occurent_at': '2026-10-12', 'title': '寸法公差の外れ', 'detail': '', 'approvals': '', 'remarks': ''}),
-      EntityRecord(id: '67abbefa-0000-4000-8000-000000000002', values: {'occurent_at': '2026-10-15', 'title': '納入品の傷', 'detail': '', 'approvals': '', 'remarks': ''}),
+      EntityRecord(id: '67abbefa-0000-4000-8000-000000000001', values: {'occurent_at': '2026-10-12', 'title': '寸法公差の外れ', 'detail': '', 'reporter_staff_id': '675ca4d1-0000-4000-8000-000000000003', 'remarks': ''}),
+      EntityRecord(id: '67abbefa-0000-4000-8000-000000000002', values: {'occurent_at': '2026-10-15', 'title': '納入品の傷', 'detail': '', 'reporter_staff_id': '675ca4d1-0000-4000-8000-000000000003', 'remarks': ''}),
     ],
     'compreceive': [
-      EntityRecord(id: '9782141f-0000-4000-8000-000000000001', values: {'receive_at': '2026-10-12', 'detail': '', 'remarks': ''}, parentId: '67abbefa-0000-4000-8000-000000000001'),
+      EntityRecord(id: '9782141f-0000-4000-8000-000000000001', values: {'receive_at': '2026-10-12', 'receive_staff_id': '675ca4d1-0000-4000-8000-000000000002', 'detail': '', 'remarks': ''}, parentId: '67abbefa-0000-4000-8000-000000000001'),
     ],
     'compstake': [
-      EntityRecord(id: '8b13dd18-0000-4000-8000-000000000001', values: {'remarks': ''}, parentId: '67abbefa-0000-4000-8000-000000000001'),
+      EntityRecord(id: '8b13dd18-0000-4000-8000-000000000001', values: {'stakeholder_id': '9c2cec53-0000-4000-8000-000000000001', 'remarks': ''}, parentId: '67abbefa-0000-4000-8000-000000000001'),
     ],
     'compfile': [
       EntityRecord(id: '416e43ec-0000-4000-8000-000000000001', values: {'fname': '写真_001.jpg', 'date': '2026-10-12'}, parentId: '67abbefa-0000-4000-8000-000000000001'),
@@ -61,11 +61,11 @@ const Map<String, List<EntityRecord>> qualitySeeds = {
       EntityRecord(id: '4464ecd1-0000-4000-8000-000000000002', values: {'name': '製造監査チームB', 'trans_audit_id': 'f5615aa8-0000-4000-8000-000000000001', 'remarks': ''}),
     ],
     'auditor': [
-      EntityRecord(id: '3bbefb95-0000-4000-8000-000000000001', values: {'ccategory': '10', 'remarks': ''}, parentId: '4464ecd1-0000-4000-8000-000000000001'),
-      EntityRecord(id: '3bbefb95-0000-4000-8000-000000000002', values: {'ccategory': '20', 'remarks': ''}, parentId: '4464ecd1-0000-4000-8000-000000000001'),
+      EntityRecord(id: '3bbefb95-0000-4000-8000-000000000001', values: {'audit_std_id': '74b064d1-0000-4000-8000-000000000001', 'ccategory': '10', 'staff_id': '675ca4d1-0000-4000-8000-000000000001', 'remarks': ''}, parentId: '4464ecd1-0000-4000-8000-000000000001'),
+      EntityRecord(id: '3bbefb95-0000-4000-8000-000000000002', values: {'audit_std_id': '74b064d1-0000-4000-8000-000000000001', 'ccategory': '20', 'staff_id': '675ca4d1-0000-4000-8000-000000000002', 'remarks': ''}, parentId: '4464ecd1-0000-4000-8000-000000000001'),
     ],
     'audit': [
-      EntityRecord(id: 'f5615aa8-0000-4000-8000-000000000001', values: {'scheduled_start_date': '2026-11-12', 'expected_end_date': '2026-10-10', 'title': '件名1', 'detail': '', 'info_department_id': '', 'mstr_stakeholder_id': '9c2cec53-0000-4000-8000-000000000001', 'remarks': ''}),
+      EntityRecord(id: 'f5615aa8-0000-4000-8000-000000000001', values: {'audit_std_id': '74b064d1-0000-4000-8000-000000000001', 'staff_id': '675ca4d1-0000-4000-8000-000000000003', 'scheduled_start_date': '2026-11-12', 'expected_end_date': '2026-10-10', 'title': '件名1', 'detail': '', 'info_department_id': '', 'mstr_stakeholder_id': '9c2cec53-0000-4000-8000-000000000001', 'remarks': ''}),
     ],
     'auditteamlink': [
       EntityRecord(id: 'a7855ca5-0000-4000-8000-000000000001', values: {'team': '4464ecd1-0000-4000-8000-000000000001'}, parentId: 'f5615aa8-0000-4000-8000-000000000001'),

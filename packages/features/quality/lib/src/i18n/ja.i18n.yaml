@@ -10,17 +10,19 @@ entity:
       f_occurent_at: "発生年月日"
       f_title: "件名"
       f_detail: "詳細"
-      f_approvals: "承認"
+      f_reporter_staff_id: "報告者"
       f_remarks: "備考"
   compreceive:
     title: "異常報告受領"
     fields:
       f_receive_at: "受領日"
+      f_receive_staff_id: "受領者"
       f_detail: "詳細"
       f_remarks: "備考"
   compstake:
     title: "利害関係者苦情"
     fields:
+      f_stakeholder_id: "利害関係者"
       f_remarks: "備考"
   compfile:
     title: "異常報告ファイル"
@@ -112,11 +114,15 @@ entity:
   auditor:
     title: "監査員"
     fields:
+      f_audit_std_id: "監査標準"
       f_ccategory: "メンバー区分"
+      f_staff_id: "監査メンバー"
       f_remarks: "備考"
   audit:
     title: "監査"
     fields:
+      f_audit_std_id: "監査標準"
+      f_staff_id: "監査責任者"
       f_scheduled_start_date: "開始予定日"
       f_expected_end_date: "終了予定日"
       f_title: "件名"

@@ -131,6 +131,9 @@ class QualityDocumentStrings$entity$doctier$fields$ja {
 	/// ja: 'コード'
 	String get f_code => 'コード';
 
+	/// ja: '管理番号識別子'
+	String get f_identifier => '管理番号識別子';
+
 	/// ja: '名前'
 	String get f_name => '名前';
 
@@ -257,6 +260,7 @@ extension on QualityDocumentStrings {
 			'menu.group' => '品質管理文書',
 			'entity.doctier.title' => '文書階層',
 			'entity.doctier.fields.f_code' => 'コード',
+			'entity.doctier.fields.f_identifier' => '管理番号識別子',
 			'entity.doctier.fields.f_name' => '名前',
 			'entity.doctier.fields.f_pronunciation' => '読み',
 			'entity.doctier.fields.f_nickname' => '略称',

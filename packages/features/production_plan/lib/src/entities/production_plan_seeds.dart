@@ -4,22 +4,22 @@ import 'package:entity_screens/entity_screens.dart';
 /// 生産計画のサンプルデータ(架空の値)。参照は参照先の id(UUID の文字列)。
 const Map<String, List<EntityRecord>> productionPlanSeeds = {
     'resplan': [
-      EntityRecord(id: '5518c986-0000-4000-8000-000000000001', values: {'trans_order_detail_id': '44b192d6-0000-4000-8000-000000000001', 'trans_unrecognized_detail_id': 'a1bcd19d-0000-4000-8000-000000000001', 'register_at': '2026-10-01', 'quantity': '10', 'inventory_resavation': '10', 'deadline': '2026-10-10', 'remarks': '', 'item': '9f3833e6-0000-4000-8000-000000000001', 'parent_trans_operations_plan_id': ''}),
-      EntityRecord(id: '5518c986-0000-4000-8000-000000000002', values: {'trans_order_detail_id': '44b192d6-0000-4000-8000-000000000001', 'trans_unrecognized_detail_id': 'a1bcd19d-0000-4000-8000-000000000001', 'register_at': '2026-11-01', 'quantity': '20', 'inventory_resavation': '20', 'deadline': '2026-10-11', 'remarks': '', 'item': '9f3833e6-0000-4000-8000-000000000002', 'parent_trans_operations_plan_id': ''}),
+      EntityRecord(id: '5518c986-0000-4000-8000-000000000001', values: {'trans_order_detail_id': '44b192d6-0000-4000-8000-000000000001', 'trans_unrecognized_detail_id': 'a1bcd19d-0000-4000-8000-000000000001', 'parent_trans_operations_plan_id': 'c32b4dd4-0000-4000-8000-000000000001', 'register_at': '2026-10-01', 'quantity': '10', 'inventory_resavation': '10', 'deadline': '2026-10-10', 'item_id': '9f3833e6-0000-4000-8000-000000000001', 'remarks': '', 'item': '9f3833e6-0000-4000-8000-000000000001'}),
+      EntityRecord(id: '5518c986-0000-4000-8000-000000000002', values: {'trans_order_detail_id': '44b192d6-0000-4000-8000-000000000001', 'trans_unrecognized_detail_id': 'a1bcd19d-0000-4000-8000-000000000001', 'parent_trans_operations_plan_id': 'c32b4dd4-0000-4000-8000-000000000001', 'register_at': '2026-11-01', 'quantity': '20', 'inventory_resavation': '20', 'deadline': '2026-10-11', 'item_id': '9f3833e6-0000-4000-8000-000000000001', 'remarks': '', 'item': '9f3833e6-0000-4000-8000-000000000002'}),
     ],
     'opsplan': [
-      EntityRecord(id: 'c32b4dd4-0000-4000-8000-000000000001', values: {'deadline': '2026-11-10', 'remarks': '', 'quantity': ''}, parentId: '5518c986-0000-4000-8000-000000000001'),
-      EntityRecord(id: 'c32b4dd4-0000-4000-8000-000000000002', values: {'deadline': '2026-11-05', 'remarks': '', 'quantity': ''}, parentId: '5518c986-0000-4000-8000-000000000001'),
+      EntityRecord(id: 'c32b4dd4-0000-4000-8000-000000000001', values: {'quantity': '200', 'deadline': '2026-11-10', 'remarks': '', 'stop': '', 'discontinue': ''}, parentId: '5518c986-0000-4000-8000-000000000001'),
+      EntityRecord(id: 'c32b4dd4-0000-4000-8000-000000000002', values: {'quantity': '400', 'deadline': '2026-11-05', 'remarks': '', 'stop': '', 'discontinue': ''}, parentId: '5518c986-0000-4000-8000-000000000001'),
     ],
     'workplan': [
-      EntityRecord(id: '92f13413-0000-4000-8000-000000000001', values: {'mstr_task_id': 'f448886c-0000-4000-8000-000000000002', 'interval_plan': '10', 'start_at': '2026-10-21', 'completion_at': '2026-10-25', 'remarks': '', 'sequence': ''}, parentId: 'c32b4dd4-0000-4000-8000-000000000001'),
-      EntityRecord(id: '92f13413-0000-4000-8000-000000000002', values: {'mstr_task_id': 'f448886c-0000-4000-8000-000000000004', 'interval_plan': '20', 'start_at': '2026-10-26', 'completion_at': '2026-10-30', 'remarks': '', 'sequence': ''}, parentId: 'c32b4dd4-0000-4000-8000-000000000001'),
+      EntityRecord(id: '92f13413-0000-4000-8000-000000000001', values: {'mstr_task_id': 'f448886c-0000-4000-8000-000000000002', 'sequence': '10', 'trans_purchase_detail_id': 'e66a7505-0000-4000-8000-000000000001', 'interval_plan': '10', 'start_at': '2026-10-21', 'completion_at': '2026-10-25', 'remarks': ''}, parentId: 'c32b4dd4-0000-4000-8000-000000000001'),
+      EntityRecord(id: '92f13413-0000-4000-8000-000000000002', values: {'mstr_task_id': 'f448886c-0000-4000-8000-000000000004', 'sequence': '20', 'trans_purchase_detail_id': 'e66a7505-0000-4000-8000-000000000001', 'interval_plan': '20', 'start_at': '2026-10-26', 'completion_at': '2026-10-30', 'remarks': ''}, parentId: 'c32b4dd4-0000-4000-8000-000000000001'),
     ],
     'prodrez': [
-      EntityRecord(id: '1402345d-0000-4000-8000-000000000001', values: {'trans_work_plan_id': '92f13413-0000-4000-8000-000000000001', 'quantity': '200', 'remarks': ''}),
+      EntityRecord(id: '1402345d-0000-4000-8000-000000000001', values: {'trans_work_plan_id': '92f13413-0000-4000-8000-000000000001', 'remarks': ''}),
     ],
     'purrez': [
-      EntityRecord(id: '95407e7d-0000-4000-8000-000000000001', values: {'trans_purchase_detail_id': 'e66a7505-0000-4000-8000-000000000001', 'quantity': '800', 'remarks': ''}),
+      EntityRecord(id: '95407e7d-0000-4000-8000-000000000001', values: {'trans_purchase_detail_id': 'e66a7505-0000-4000-8000-000000000001', 'remarks': ''}),
     ],
     'mrppending': [
       EntityRecord(id: '1f9d538d-0000-4000-8000-000000000001', values: {'kind': 'PURCHASE_NEW', 'item': '9f3833e6-0000-4000-8000-000000000001', 'quantity': '100', 'need_at': '2026-11-10', 'release_at': '2026-10-30', 'due_at': '2026-11-12', 'late': '1', 'message': '納期が必要日に間に合いません', 'symbol': 'PS-0001'}),

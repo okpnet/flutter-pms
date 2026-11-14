@@ -16,6 +16,7 @@ const List<EntityDefinition> workRecordDefinitions = [
       fields: [
         FieldDefinition(key: 'register_at', kind: FieldKind.date, required: false),
         FieldDefinition(key: 'trans_inventory_request_id', kind: FieldKind.reference, required: false, reference: 'invreq'),
+        FieldDefinition(key: 'staff_id', kind: FieldKind.reference, reference: 'staff'),
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
       ],
     ),
@@ -26,9 +27,10 @@ const List<EntityDefinition> workRecordDefinitions = [
         FieldDefinition(key: 'register_plan_at', kind: FieldKind.date, required: false),
         FieldDefinition(key: 'trans_purchase_rez_id', kind: FieldKind.reference, required: false, reference: 'purrez'),
         FieldDefinition(key: 'trans_product_rez_id', kind: FieldKind.reference, required: false, reference: 'prodrez'),
-        FieldDefinition(key: 'quantity', kind: FieldKind.number, required: false),
-        FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
         FieldDefinition(key: 'trans_resource_plan_id', kind: FieldKind.reference, required: false, reference: 'resplan'),
+        FieldDefinition(key: 'quantity', kind: FieldKind.number, required: false),
+        FieldDefinition(key: 'staff_id', kind: FieldKind.reference, reference: 'staff'),
+        FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
       ],
     ),
     EntityDefinition(
@@ -48,6 +50,7 @@ const List<EntityDefinition> workRecordDefinitions = [
         FieldDefinition(key: 'start_at', kind: FieldKind.date, required: false),
         FieldDefinition(key: 'stop_at', kind: FieldKind.date, required: false),
         FieldDefinition(key: 'qty', kind: FieldKind.number, required: false),
+        FieldDefinition(key: 'staff_id', kind: FieldKind.reference, required: false, reference: 'staff'),
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
       ],
     ),
