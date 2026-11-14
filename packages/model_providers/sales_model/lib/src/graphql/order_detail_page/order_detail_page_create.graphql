@@ -1,0 +1,57 @@
+# order_detail_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #OrderDetailPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation OrderDetailPageCreate(
+  $transOrderId: UUID
+  $itemHistoryId: UUID
+  $itemId: UUID
+  $quantity: BigFloat
+  $unitPrice: BigFloat!
+  $priceAdjustment: BigFloat
+  $fixedPrice: BigFloat
+  $deliveryDate: Datetime
+  $deadline: Datetime
+  $customerProperty: Boolean
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  createTransOrderDetail(
+    input: {
+      transOrderDetail: {
+        transOrderId: $transOrderId
+        itemHistoryId: $itemHistoryId
+        itemId: $itemId
+        quantity: $quantity
+        unitPrice: $unitPrice
+        priceAdjustment: $priceAdjustment
+        fixedPrice: $fixedPrice
+        deliveryDate: $deliveryDate
+        deadline: $deadline
+        customerProperty: $customerProperty
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    transOrderDetail {
+      transOrderDetailId
+      transOrderId
+      itemHistoryId
+      itemId
+      quantity
+      unitPrice
+      priceAdjustment
+      fixedPrice
+      deliveryDate
+      deadline
+      customerProperty
+      remarks
+      updateUserId
+      updateUserHistoryId
+    }
+  }
+}

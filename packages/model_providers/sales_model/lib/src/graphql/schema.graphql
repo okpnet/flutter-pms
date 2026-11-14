@@ -410,8 +410,16 @@ enum VShippingOrderStatusesOrderBy {
   SHIPPED_AMOUNT_DESC
 }
 
+type CreateTransOrderDetailPayload {
+  transOrderDetail: TransOrderDetail
+}
+
 type CreateTransOrderDetailSettlementPayload {
   transOrderDetailSettlement: TransOrderDetailSettlement
+}
+
+type CreateTransOrderPayload {
+  transOrder: TransOrder
 }
 
 type HistoryInfoStaff {
@@ -491,6 +499,8 @@ type MstrStakeholdersConnection {
 }
 
 type Mutation {
+  createTransOrder(input: CreateTransOrderInput!): CreateTransOrderPayload
+  createTransOrderDetail(input: CreateTransOrderDetailInput!): CreateTransOrderDetailPayload
   createTransOrderDetailSettlement(input: CreateTransOrderDetailSettlementInput!): CreateTransOrderDetailSettlementPayload
   updateMstrStakeholderByMstrStakeholderId(input: UpdateMstrStakeholderByMstrStakeholderIdInput!): UpdateMstrStakeholderPayload
   updateTransOrderByTransOrderId(input: UpdateTransOrderByTransOrderIdInput!): UpdateTransOrderPayload
@@ -947,8 +957,16 @@ input BooleanFilter {
   greaterThanOrEqualTo: Boolean
 }
 
+input CreateTransOrderDetailInput {
+  transOrderDetail: TransOrderDetailInput!
+}
+
 input CreateTransOrderDetailSettlementInput {
   transOrderDetailSettlement: TransOrderDetailSettlementInput!
+}
+
+input CreateTransOrderInput {
+  transOrder: TransOrderInput!
 }
 
 input DateFilter {
@@ -1813,6 +1831,22 @@ input TransOrderDetailFilter {
   not: TransOrderDetailFilter
 }
 
+input TransOrderDetailInput {
+  transOrderId: UUID
+  itemHistoryId: UUID
+  itemId: UUID
+  quantity: BigFloat
+  unitPrice: BigFloat!
+  priceAdjustment: BigFloat
+  fixedPrice: BigFloat
+  deliveryDate: Datetime
+  deadline: Datetime
+  customerProperty: Boolean
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
 input TransOrderDetailPatch {
   transOrderId: UUID
   itemHistoryId: UUID
@@ -1918,6 +1952,19 @@ input TransOrderFilter {
   and: [TransOrderFilter!]
   or: [TransOrderFilter!]
   not: TransOrderFilter
+}
+
+input TransOrderInput {
+  orderNumber: String!
+  customerOrderNumber: String
+  stakeholderHistoryId: UUID
+  stakeholderId: UUID
+  orderProcessingDate: Datetime
+  deliveryDate: Datetime
+  deadline: Datetime
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
 }
 
 input TransOrderPatch {

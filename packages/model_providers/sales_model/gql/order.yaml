@@ -193,3 +193,40 @@ OrderDetailPageEdit:
     - update_user_history_id
     - remove
 
+
+# ---- 登録(kind: create)。営業の取得元(GraphQL 版)の「新規」で使う ----
+
+# trans_orderの登録(ID・symbol はトリガーが採番する)
+OrderPageCreate:
+  kind: create
+  from: trans_order
+  columns:
+    - order_number
+    - customer_order_number
+    - stakeholder_history_id
+    - stakeholder_id
+    - order_processing_date
+    - delivery_date
+    - deadline
+    - remarks
+    - update_user_id
+    - update_user_history_id
+
+# trans_order_detailの登録(キャンセル数量・停止は既定値。操作の DB 関数で変える)
+OrderDetailPageCreate:
+  kind: create
+  from: trans_order_detail
+  columns:
+    - trans_order_id
+    - item_history_id
+    - item_id
+    - quantity
+    - unit_price
+    - price_adjustment
+    - fixed_price
+    - delivery_date
+    - deadline
+    - customer_property
+    - remarks
+    - update_user_id
+    - update_user_history_id

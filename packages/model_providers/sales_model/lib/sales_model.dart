@@ -22,6 +22,7 @@ export 'src/graphql/order_detail_cancel_page/order_detail_cancel_page_call.graph
 export 'src/graphql/order_detail_cancel_page/order_detail_cancel_page_edit.graphql.dart';
 export 'src/graphql/order_detail_cancel_page/order_detail_cancel_page_remove.graphql.dart';
 export 'src/graphql/order_detail_change_page/order_detail_change_page_call.graphql.dart';
+export 'src/graphql/order_detail_page/order_detail_page_create.graphql.dart';
 export 'src/graphql/order_detail_page/order_detail_page_edit.graphql.dart';
 export 'src/graphql/order_detail_page/order_detail_page_read.graphql.dart';
 export 'src/graphql/order_detail_page/order_detail_page_remove.graphql.dart';
@@ -34,6 +35,7 @@ export 'src/graphql/order_detail_settlement_page/order_detail_settlement_page_re
 export 'src/graphql/order_detail_settlement_page/order_detail_settlement_page_remove.graphql.dart';
 export 'src/graphql/order_detail_stop_page/order_detail_stop_page_edit.graphql.dart';
 export 'src/graphql/order_detail_stop_page/order_detail_stop_page_remove.graphql.dart';
+export 'src/graphql/order_page/order_page_create.graphql.dart';
 export 'src/graphql/order_page/order_page_edit.graphql.dart';
 export 'src/graphql/order_page/order_page_read.graphql.dart';
 export 'src/graphql/order_page/order_page_remove.graphql.dart';
