@@ -17,6 +17,7 @@ import 'package:production_process/production_process.dart' show productionProce
 import 'package:work_record/work_record.dart' show workRecordRepositories;
 import 'package:quality_document/quality_document.dart' show qualityDocumentRepositories;
 import 'package:quality_common/quality_common.dart' show qualityCommonRepositories;
+import 'package:quality/quality.dart' show qualityRepositories;
 import 'package:sales/sales.dart' show salesRepositories;
 import 'package:shared_master/shared_master.dart' show sharedMasterRepositories;
 import 'package:system/system.dart' show systemRepositories;
@@ -136,6 +137,8 @@ List<Override> graphqlOverrides() => [
       ...qualityDocumentRepositories(client),
       // 品質共通: リスク(読み取り専用)
       ...qualityCommonRepositories(client),
+      // 品質管理: 苦情・監査・監査基準(読み取り専用)
+      ...qualityRepositories(client),
     ];
   }),
 ];

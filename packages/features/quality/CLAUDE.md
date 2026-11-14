@@ -60,6 +60,12 @@
 1.  ビジュアルテスト用に`example`(Windows 向け)を持つ。`flutter run -d windows`で起動し、`lib/main.dart`の`entries`に遷移先を足す(`packages/features/CLAUDE.md`の「機能プロジェクト共通」)。
 2.  表示する文字列は`lib/src/i18n`の言語ファイル(Yaml)に置く。画面を作るときに`slang.yaml`と言語ファイルを追加する(`sales`・`shared_master`を参考にする)。idは`String`(UUID)で扱う。
 
+## 取得元(GraphQL 版。読み取り専用)
+`lib/src/graphql/quality_repositories.dart` の `qualityRepositories(GraphQLClient)` が、苦情(`complaint`)・監査(`audit`)・監査基準(`auditstd`)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
+1.  読み取り専用: 実体を `viewOnly`・各項目 `readOnly` にし、保存・削除は `UnsupportedError`。苦情・監査の題名は多言語のラベル(`trans_label`)、詳細は多言語の文章(`trans_text`。先頭の文)、監査基準の名称・読み・略称は多言語の辞書、詳細は文章(`shared_text`)で、言語コード `ja` の値を読む。ほかの実体は、サンプルのまま: 親の ID を必須にする読み込みの実体(苦情の子の受入・関係者・ファイル・受注・工程・設備、受注リスク・工程リスク、監査チーム・監査員など)、帳票。
+1.  **【入れ替え: 呼称の DB 関数】** 書き込みは、ラベル・文章(`trans_label`・`trans_text` と値の表)・辞書を複数の表へ登録する関数を足して適用したら、`~PageCall` で `save` を入れ替え、`viewOnly` を外す(`issue/202611.md` の 2-1。`doc/query/20261114_0002` の補助は辞書・文章(`shared_*`)用で、`trans_*` のラベル・文章は別の表のため、同じ方式の補助を足す)。
+1.  検証用 DB には苦情が 1 件あり、題名・詳細・日付・報告者の値が取得できることを確認した。監査・監査基準は 0 件で、取得できる(空)ことだけを確認した。
+
 ## 規則/仕様
 1.  ディリクトリ/ファイル
     1.  生成結果のレポートは`doc/log`ディリクトリにファイル名`年月日_4桁ゼロ埋の番号.md`として保存する。
@@ -86,8 +92,8 @@
 
 ## テスト
 1.  共通の規則は`packages/features/CLAUDE.md`の「テスト」に従う。
-2.  現在はGraphQLで取得していないため、通信テストは無い。取得元の単体テストは`RecordingDataRepository`で差し替える。
-3.  GraphQLで取得するようにしたら、通信テスト(`test/xxx_connection_test.dart`)を追加し、`dart_test.yaml`に`server`タグを宣言する。
+2.  取得元(GraphQL 版)の通信テストは `test/quality_connection_test.dart`(検証用サーバー。読み取りだけ。一般ユーザーの資格情報を渡して実行する。`packages/infra/data_test_harness/CLAUDE.md`)。`dart_test.yaml` に `server` タグを宣言してある。
+3.  サンプル(メモリ上)の取得元の単体テストは`RecordingDataRepository`で差し替える。
 
 
 ## 規則: プロジェクト間をまたぐ指示
