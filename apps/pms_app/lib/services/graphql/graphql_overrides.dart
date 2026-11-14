@@ -10,6 +10,7 @@ import 'package:pbapi/pbapi.dart';
 import 'package:pms_graphql/pms_graphql.dart' show SessionUnavailableException;
 import 'package:production_plan/production_plan.dart' show productionPlanRepositories;
 import 'package:purchasing/purchasing.dart' show purchasingRepositories;
+import 'package:item/item.dart' show itemRepositories;
 import 'package:sales/sales.dart' show salesRepositories;
 import 'package:shared_master/shared_master.dart' show sharedMasterRepositories;
 import 'package:system/system.dart' show systemRepositories;
@@ -115,6 +116,8 @@ List<Override> graphqlOverrides() => [
       ...systemRepositories(client),
       // 共有マスタ: 利害関係者(読み取り専用。顧客・外部供給者・運送業者はフラグで見分ける)
       ...sharedMasterRepositories(client),
+      // 品目: 品目区分・品目(読み取り専用。ツリーは品目ツリーの親)
+      ...itemRepositories(client),
     ];
   }),
 ];
