@@ -11,6 +11,7 @@ import 'package:pms_graphql/pms_graphql.dart' show SessionUnavailableException;
 import 'package:production_plan/production_plan.dart' show productionPlanRepositories;
 import 'package:purchasing/purchasing.dart' show purchasingRepositories;
 import 'package:sales/sales.dart' show salesRepositories;
+import 'package:system/system.dart' show systemRepositories;
 
 import '../pocketbase/pocketbase_overrides.dart';
 import '../router/root_router.dart' show rootRouterProvider;
@@ -109,6 +110,8 @@ List<Override> graphqlOverrides() => [
       ...purchasingRepositories(client),
       // 生産計画: 資材計画・生産計画(読み取り専用。停止・打ち切りも出る)
       ...productionPlanRepositories(client),
+      // システム: 単位(読み取り専用。名称・読み・略称は言語コード ja の値)
+      ...systemRepositories(client),
     ];
   }),
 ];
