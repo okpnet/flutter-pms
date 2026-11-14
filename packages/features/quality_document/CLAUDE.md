@@ -42,6 +42,12 @@
 1.  ビジュアルテスト用に`example`(Windows 向け)を持つ。`flutter run -d windows`で起動し、`lib/main.dart`の`entries`に遷移先を足す(`packages/features/CLAUDE.md`の「機能プロジェクト共通」)。
 2.  表示する文字列は`lib/src/i18n`の言語ファイル(Yaml)に置く。画面を作るときに`slang.yaml`と言語ファイルを追加する(`sales`・`shared_master`を参考にする)。idは`String`(UUID)で扱う。
 
+## 取得元(GraphQL 版。読み取り専用)
+`lib/src/graphql/quality_document_repositories.dart` の `qualityDocumentRepositories(GraphQLClient)` が、文書階層(`doctier`)・文書(`doc`。ツリー)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
+1.  読み取り専用: 実体を `viewOnly`・各項目 `readOnly` にし、保存・削除は `UnsupportedError`。名称(文書は題名)・読み・略称は多言語の辞書で、言語コード `ja` の値を読む。文書の親は文書ツリーの親の文書 ID(親ごとの絞り込みはサーバー側に無く、取得した中から選ぶ)。文書コンテンツ(読み込みが文書を必須にしている)・レポートは、サンプルのまま。
+1.  **【入れ替え: 呼称の DB 関数】** 書き込みは、`doc/query/20261114_0002_appellation_functions.sql` の補助を使う文書階層・文書の関数を足して適用したら、`~PageCall` で `save` を入れ替え、`viewOnly` を外す(`issue/202611.md` の 2-1)。
+1.  検証用 DB には文書階層・文書のデータが無い(0 件)。通信テストは取得できる(空)ことだけを確認する。値の対応は、データが入ってから確認する。
+
 ## 規則/仕様
 1.  ディリクトリ/ファイル
     1.  生成結果のレポートは`doc/log`ディリクトリにファイル名`年月日_4桁ゼロ埋の番号.md`として保存する。
@@ -68,8 +74,8 @@
 
 ## テスト
 1.  共通の規則は`packages/features/CLAUDE.md`の「テスト」に従う。
-2.  現在はGraphQLで取得していないため、通信テストは無い。取得元の単体テストは`RecordingDataRepository`で差し替える。
-3.  GraphQLで取得するようにしたら、通信テスト(`test/xxx_connection_test.dart`)を追加し、`dart_test.yaml`に`server`タグを宣言する。
+2.  取得元(GraphQL 版)の通信テストは `test/quality_document_connection_test.dart`(検証用サーバー。読み取りだけ。一般ユーザーの資格情報を渡して実行する。`packages/infra/data_test_harness/CLAUDE.md`)。`dart_test.yaml` に `server` タグを宣言してある。
+3.  サンプル(メモリ上)の取得元の単体テストは`RecordingDataRepository`で差し替える。
 
 
 ## 規則: プロジェクト間をまたぐ指示

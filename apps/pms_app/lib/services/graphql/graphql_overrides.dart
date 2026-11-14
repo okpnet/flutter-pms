@@ -15,6 +15,7 @@ import 'package:organization/organization.dart' show organizationRepositories;
 import 'package:resource/resource.dart' show resourceRepositories;
 import 'package:production_process/production_process.dart' show productionProcessRepositories;
 import 'package:work_record/work_record.dart' show workRecordRepositories;
+import 'package:quality_document/quality_document.dart' show qualityDocumentRepositories;
 import 'package:sales/sales.dart' show salesRepositories;
 import 'package:shared_master/shared_master.dart' show sharedMasterRepositories;
 import 'package:system/system.dart' show systemRepositories;
@@ -130,6 +131,8 @@ List<Override> graphqlOverrides() => [
       ...productionProcessRepositories(client),
       // 作業実績: コンテナ・成績書(読み取り専用)
       ...workRecordRepositories(client),
+      // 品質管理文書: 文書階層・文書(読み取り専用。文書のツリーは文書ツリーの親)
+      ...qualityDocumentRepositories(client),
     ];
   }),
 ];
