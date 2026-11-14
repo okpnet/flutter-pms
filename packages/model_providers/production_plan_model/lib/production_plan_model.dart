@@ -37,6 +37,7 @@ export 'src/graphql/mrp_suggestion_task_page/mrp_suggestion_task_page_read.graph
 export 'src/graphql/operations_plan_discontinue_page/operations_plan_discontinue_page_call.graphql.dart';
 export 'src/graphql/operations_plan_discontinue_page/operations_plan_discontinue_page_edit.graphql.dart';
 export 'src/graphql/operations_plan_discontinue_page/operations_plan_discontinue_page_remove.graphql.dart';
+export 'src/graphql/operations_plan_page/operations_plan_page_create.graphql.dart';
 export 'src/graphql/operations_plan_page/operations_plan_page_edit.graphql.dart';
 export 'src/graphql/operations_plan_page/operations_plan_page_read.graphql.dart';
 export 'src/graphql/operations_plan_page/operations_plan_page_remove.graphql.dart';
@@ -53,6 +54,7 @@ export 'src/graphql/purchase_rez_page/purchase_rez_page_read.graphql.dart';
 export 'src/graphql/purchase_rez_page/purchase_rez_page_remove.graphql.dart';
 export 'src/graphql/purchase_rez_page/purchase_rez_page_rfe.graphql.dart';
 export 'src/graphql/resource_plan_coverage_page/resource_plan_coverage_page_read.graphql.dart';
+export 'src/graphql/resource_plan_page/resource_plan_page_create.graphql.dart';
 export 'src/graphql/resource_plan_page/resource_plan_page_edit.graphql.dart';
 export 'src/graphql/resource_plan_page/resource_plan_page_read.graphql.dart';
 export 'src/graphql/resource_plan_page/resource_plan_page_remove.graphql.dart';

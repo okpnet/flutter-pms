@@ -384,6 +384,14 @@ type CreateTransComplaintPurchaseRecPayload {
   transComplaintPurchaseRec: TransComplaintPurchaseRec
 }
 
+type CreateTransPurchaseDetailPayload {
+  transPurchaseDetail: TransPurchaseDetail
+}
+
+type CreateTransPurchasePayload {
+  transPurchase: TransPurchase
+}
+
 type CreateTransPurchaseRecPayload {
   transPurchaseRec: TransPurchaseRec
 }
@@ -495,6 +503,8 @@ type MstrStakeholdersConnection {
 
 type Mutation {
   createTransComplaintPurchaseRec(input: CreateTransComplaintPurchaseRecInput!): CreateTransComplaintPurchaseRecPayload
+  createTransPurchase(input: CreateTransPurchaseInput!): CreateTransPurchasePayload
+  createTransPurchaseDetail(input: CreateTransPurchaseDetailInput!): CreateTransPurchaseDetailPayload
   createTransPurchaseRec(input: CreateTransPurchaseRecInput!): CreateTransPurchaseRecPayload
   createTransPurchaseRecVisiter(input: CreateTransPurchaseRecVisiterInput!): CreateTransPurchaseRecVisiterPayload
   updateMstrItemSupplierByMstrItemSupplierId(input: UpdateMstrItemSupplierByMstrItemSupplierIdInput!): UpdateMstrItemSupplierPayload
@@ -909,6 +919,14 @@ input BooleanFilter {
 
 input CreateTransComplaintPurchaseRecInput {
   transComplaintPurchaseRec: TransComplaintPurchaseRecInput!
+}
+
+input CreateTransPurchaseDetailInput {
+  transPurchaseDetail: TransPurchaseDetailInput!
+}
+
+input CreateTransPurchaseInput {
+  transPurchase: TransPurchaseInput!
 }
 
 input CreateTransPurchaseRecInput {
@@ -1799,6 +1817,24 @@ input TransPurchaseDetailFilter {
   not: TransPurchaseDetailFilter
 }
 
+input TransPurchaseDetailInput {
+  transPurchaseId: UUID
+  transResourcePlanId: UUID
+  restockingPurchase: Boolean
+  quantity: BigFloat
+  unitPrice: BigFloat!
+  priceAdjustment: BigFloat
+  fixedPrice: BigFloat
+  period: Datetime
+  itemHistoryId: UUID
+  itemId: UUID
+  materialSupply: Boolean
+  paidSupply: Boolean
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
 input TransPurchaseDetailPatch {
   transPurchaseId: UUID
   transResourcePlanId: UUID
@@ -1848,6 +1884,17 @@ input TransPurchaseFilter {
   and: [TransPurchaseFilter!]
   or: [TransPurchaseFilter!]
   not: TransPurchaseFilter
+}
+
+input TransPurchaseInput {
+  stakeholderHistoryId: UUID
+  stakeholderId: UUID
+  registerAt: Datetime
+  purchaseOrderDate: Datetime
+  deadline: Datetime
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
 }
 
 input TransPurchasePatch {

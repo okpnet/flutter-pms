@@ -23,6 +23,7 @@ export 'src/graphql/purchase_detail_cancel_page/purchase_detail_cancel_page_call
 export 'src/graphql/purchase_detail_cancel_page/purchase_detail_cancel_page_edit.graphql.dart';
 export 'src/graphql/purchase_detail_cancel_page/purchase_detail_cancel_page_remove.graphql.dart';
 export 'src/graphql/purchase_detail_change_page/purchase_detail_change_page_call.graphql.dart';
+export 'src/graphql/purchase_detail_page/purchase_detail_page_create.graphql.dart';
 export 'src/graphql/purchase_detail_page/purchase_detail_page_edit.graphql.dart';
 export 'src/graphql/purchase_detail_page/purchase_detail_page_read.graphql.dart';
 export 'src/graphql/purchase_detail_page/purchase_detail_page_remove.graphql.dart';
@@ -30,6 +31,7 @@ export 'src/graphql/purchase_detail_page/purchase_detail_page_rfe.graphql.dart';
 export 'src/graphql/purchase_detail_set_stop_page/purchase_detail_set_stop_page_call.graphql.dart';
 export 'src/graphql/purchase_detail_stop_page/purchase_detail_stop_page_edit.graphql.dart';
 export 'src/graphql/purchase_detail_stop_page/purchase_detail_stop_page_remove.graphql.dart';
+export 'src/graphql/purchase_page/purchase_page_create.graphql.dart';
 export 'src/graphql/purchase_page/purchase_page_edit.graphql.dart';
 export 'src/graphql/purchase_page/purchase_page_read.graphql.dart';
 export 'src/graphql/purchase_page/purchase_page_remove.graphql.dart';

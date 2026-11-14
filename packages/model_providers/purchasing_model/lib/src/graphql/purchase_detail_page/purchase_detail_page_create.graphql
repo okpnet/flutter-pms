@@ -1,0 +1,63 @@
+# purchase_detail_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #PurchaseDetailPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation PurchaseDetailPageCreate(
+  $transPurchaseId: UUID
+  $transResourcePlanId: UUID
+  $restockingPurchase: Boolean
+  $quantity: BigFloat
+  $unitPrice: BigFloat!
+  $priceAdjustment: BigFloat
+  $fixedPrice: BigFloat
+  $materialSupply: Boolean
+  $paidSupply: Boolean
+  $period: Datetime
+  $itemHistoryId: UUID
+  $itemId: UUID
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  createTransPurchaseDetail(
+    input: {
+      transPurchaseDetail: {
+        transPurchaseId: $transPurchaseId
+        transResourcePlanId: $transResourcePlanId
+        restockingPurchase: $restockingPurchase
+        quantity: $quantity
+        unitPrice: $unitPrice
+        priceAdjustment: $priceAdjustment
+        fixedPrice: $fixedPrice
+        materialSupply: $materialSupply
+        paidSupply: $paidSupply
+        period: $period
+        itemHistoryId: $itemHistoryId
+        itemId: $itemId
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    transPurchaseDetail {
+      transPurchaseDetailId
+      transPurchaseId
+      transResourcePlanId
+      restockingPurchase
+      quantity
+      unitPrice
+      priceAdjustment
+      fixedPrice
+      materialSupply
+      paidSupply
+      period
+      itemHistoryId
+      itemId
+      remarks
+      updateUserId
+      updateUserHistoryId
+    }
+  }
+}

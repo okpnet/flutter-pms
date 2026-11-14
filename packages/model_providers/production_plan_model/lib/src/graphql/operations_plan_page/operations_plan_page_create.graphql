@@ -1,0 +1,36 @@
+# operations_plan_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #OperationsPlanPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation OperationsPlanPageCreate(
+  $transResourcePlanId: UUID
+  $quantity: BigFloat
+  $deadline: Datetime
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  createTransOperationsPlan(
+    input: {
+      transOperationsPlan: {
+        transResourcePlanId: $transResourcePlanId
+        quantity: $quantity
+        deadline: $deadline
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    transOperationsPlan {
+      transOperationsPlanId
+      transResourcePlanId
+      quantity
+      deadline
+      remarks
+      updateUserId
+      updateUserHistoryId
+    }
+  }
+}

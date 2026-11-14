@@ -320,3 +320,36 @@ OperationsPlanDiscontinuePageCall:
     - deliver
     - trans_container_id
     - symbol
+
+
+# ---- 登録(kind: create)。生産計画の取得元(GraphQL 版)の「新規」で使う ----
+
+# trans_resource_planの登録(ID・symbol はトリガーが採番する)
+ResourcePlanPageCreate:
+  kind: create
+  from: trans_resource_plan
+  columns:
+    - trans_order_detail_id
+    - trans_unrecognized_detail_id
+    - parent_trans_operations_plan_id
+    - register_at
+    - quantity
+    - inventory_resavation
+    - deadline
+    - item_history_id
+    - item_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+
+# trans_operations_planの登録(停止・打ち切りは既定値。操作の DB 関数で変える)
+OperationsPlanPageCreate:
+  kind: create
+  from: trans_operations_plan
+  columns:
+    - trans_resource_plan_id
+    - quantity
+    - deadline
+    - remarks
+    - update_user_id
+    - update_user_history_id

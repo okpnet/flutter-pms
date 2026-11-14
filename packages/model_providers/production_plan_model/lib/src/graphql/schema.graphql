@@ -634,6 +634,14 @@ enum VWorkPlanDeliveryCompliancesOrderBy {
   PRIMARY_KEY_DESC
 }
 
+type CreateTransOperationsPlanPayload {
+  transOperationsPlan: TransOperationsPlan
+}
+
+type CreateTransResourcePlanPayload {
+  transResourcePlan: TransResourcePlan
+}
+
 type HistoryInfoStaff {
   historyId: UUID!
   infoStaffId: UUID!
@@ -786,6 +794,8 @@ type MstrTaskGroup {
 }
 
 type Mutation {
+  createTransOperationsPlan(input: CreateTransOperationsPlanInput!): CreateTransOperationsPlanPayload
+  createTransResourcePlan(input: CreateTransResourcePlanInput!): CreateTransResourcePlanPayload
   updateTransOperationsPlanByTransOperationsPlanId(input: UpdateTransOperationsPlanByTransOperationsPlanIdInput!): UpdateTransOperationsPlanPayload
   updateTransProductRezByTransProductRezId(input: UpdateTransProductRezByTransProductRezIdInput!): UpdateTransProductRezPayload
   updateTransPurchaseRezByTransPurchaseRezId(input: UpdateTransPurchaseRezByTransPurchaseRezIdInput!): UpdateTransPurchaseRezPayload
@@ -1398,6 +1408,14 @@ input BooleanFilter {
   lessThanOrEqualTo: Boolean
   greaterThan: Boolean
   greaterThanOrEqualTo: Boolean
+}
+
+input CreateTransOperationsPlanInput {
+  transOperationsPlan: TransOperationsPlanInput!
+}
+
+input CreateTransResourcePlanInput {
+  transResourcePlan: TransResourcePlanInput!
 }
 
 input DateFilter {
@@ -2652,6 +2670,15 @@ input TransOperationsPlanFilter {
   not: TransOperationsPlanFilter
 }
 
+input TransOperationsPlanInput {
+  transResourcePlanId: UUID
+  deadline: Datetime
+  quantity: BigFloat
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
 input TransOperationsPlanPatch {
   transResourcePlanId: UUID
   deadline: Datetime
@@ -2831,6 +2858,21 @@ input TransResourcePlanFilter {
   and: [TransResourcePlanFilter!]
   or: [TransResourcePlanFilter!]
   not: TransResourcePlanFilter
+}
+
+input TransResourcePlanInput {
+  parentTransOperationsPlanId: UUID
+  transOrderDetailId: UUID
+  transUnrecognizedDetailId: UUID
+  registerAt: Datetime
+  quantity: BigFloat
+  inventoryResavation: BigFloat
+  deadline: Datetime
+  itemHistoryId: UUID
+  itemId: UUID
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
 }
 
 input TransResourcePlanPatch {

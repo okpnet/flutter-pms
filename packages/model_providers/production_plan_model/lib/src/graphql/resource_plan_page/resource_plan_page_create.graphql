@@ -1,0 +1,54 @@
+# resource_plan_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ResourcePlanPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ResourcePlanPageCreate(
+  $transOrderDetailId: UUID
+  $transUnrecognizedDetailId: UUID
+  $parentTransOperationsPlanId: UUID
+  $registerAt: Datetime
+  $quantity: BigFloat
+  $inventoryResavation: BigFloat
+  $deadline: Datetime
+  $itemHistoryId: UUID
+  $itemId: UUID
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  createTransResourcePlan(
+    input: {
+      transResourcePlan: {
+        transOrderDetailId: $transOrderDetailId
+        transUnrecognizedDetailId: $transUnrecognizedDetailId
+        parentTransOperationsPlanId: $parentTransOperationsPlanId
+        registerAt: $registerAt
+        quantity: $quantity
+        inventoryResavation: $inventoryResavation
+        deadline: $deadline
+        itemHistoryId: $itemHistoryId
+        itemId: $itemId
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    transResourcePlan {
+      transResourcePlanId
+      transOrderDetailId
+      transUnrecognizedDetailId
+      parentTransOperationsPlanId
+      registerAt
+      quantity
+      inventoryResavation
+      deadline
+      itemHistoryId
+      itemId
+      remarks
+      updateUserId
+      updateUserHistoryId
+    }
+  }
+}

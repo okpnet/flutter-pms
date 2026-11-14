@@ -256,3 +256,41 @@ ComplaintPurchaseRecPageCreate:
     - trans_purchase_rec_id
     - quantity
     - remarks
+
+
+# ---- 登録(kind: create)。購買の取得元(GraphQL 版)の「新規」で使う ----
+
+# trans_purchaseの登録(ID・symbol はトリガーが採番する)
+PurchasePageCreate:
+  kind: create
+  from: trans_purchase
+  columns:
+    - stakeholder_history_id
+    - stakeholder_id
+    - register_at
+    - purchase_order_date
+    - deadline
+    - remarks
+    - update_user_id
+    - update_user_history_id
+
+# trans_purchase_detailの登録(キャンセル数量・停止は既定値。操作の DB 関数で変える)
+PurchaseDetailPageCreate:
+  kind: create
+  from: trans_purchase_detail
+  columns:
+    - trans_purchase_id
+    - trans_resource_plan_id
+    - restocking_purchase
+    - quantity
+    - unit_price
+    - price_adjustment
+    - fixed_price
+    - material_supply
+    - paid_supply
+    - period
+    - item_history_id
+    - item_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
