@@ -8,6 +8,9 @@ import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:graphql/client.dart';
 import 'package:pbapi/pbapi.dart';
 import 'package:pms_graphql/pms_graphql.dart' show SessionUnavailableException;
+import 'package:production_plan/production_plan.dart' show productionPlanRepositories;
+import 'package:purchasing/purchasing.dart' show purchasingRepositories;
+import 'package:sales/sales.dart' show salesRepositories;
 
 import '../pocketbase/pocketbase_overrides.dart';
 import '../router/root_router.dart' show rootRouterProvider;
@@ -100,6 +103,12 @@ List<Override> graphqlOverrides() => [
     return [
       // 取得元を GraphQL にした機能は、ここに足す
       ...accessControlRepositories(client),
+      // 営業: 受注・受注明細(読み取り専用。キャンセル・停止・残も出る)
+      ...salesRepositories(client),
+      // 購買: 発注・発注明細(読み取り専用。キャンセル・停止・受入済み・残も出る)
+      ...purchasingRepositories(client),
+      // 生産計画: 資材計画・生産計画(読み取り専用。停止・打ち切りも出る)
+      ...productionPlanRepositories(client),
     ];
   }),
 ];

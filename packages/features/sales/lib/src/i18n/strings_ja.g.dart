@@ -178,6 +178,27 @@ class SalesStrings$entity$orderdetail$fields$ja {
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
+
+	/// ja: 'キャンセル数量'
+	String get f_cancel_quantity => 'キャンセル数量';
+
+	/// ja: '停止'
+	String get f_stop => '停止';
+
+	/// ja: '顧客所有'
+	String get f_customer_property => '顧客所有';
+
+	/// ja: '残'
+	String get f_remaining_quantity => '残';
+
+	/// ja: '受注残(停止中は0)'
+	String get f_open_quantity => '受注残(停止中は0)';
+
+	/// ja: '全部キャンセル済み'
+	String get f_cancel_closed => '全部キャンセル済み';
+
+	/// ja: '精算額'
+	String get f_settlement_amount => '精算額';
 }
 
 // Path: entity.shipplan.fields
@@ -259,6 +280,13 @@ extension on SalesStrings {
 			'entity.orderdetail.fields.f_delivery_date' => '個別納期',
 			'entity.orderdetail.fields.f_deadline' => '個別完了期限',
 			'entity.orderdetail.fields.f_remarks' => '備考',
+			'entity.orderdetail.fields.f_cancel_quantity' => 'キャンセル数量',
+			'entity.orderdetail.fields.f_stop' => '停止',
+			'entity.orderdetail.fields.f_customer_property' => '顧客所有',
+			'entity.orderdetail.fields.f_remaining_quantity' => '残',
+			'entity.orderdetail.fields.f_open_quantity' => '受注残(停止中は0)',
+			'entity.orderdetail.fields.f_cancel_closed' => '全部キャンセル済み',
+			'entity.orderdetail.fields.f_settlement_amount' => '精算額',
 			'entity.shipplan.title' => '出荷予定',
 			'entity.shipplan.fields.f_order' => '受注',
 			'entity.shipplan.fields.f_date' => '予定日',

@@ -29,6 +29,9 @@ query ScanWorkPlanPageRead(
 
       registrable: vWorkPlanRegistrableByTransWorkPlanId {
         transWorkPlanId
+        registrable
+        stopped
+        closed
       }
 
       mstrTaskId

@@ -27,7 +27,8 @@ ScanWorkPlanPage:
       arrayType: toFirstOne
       using: trans_work_plan_id
       from: v_work_plan_registrable
-      pick:
+      columns:
+        - trans_work_plan_id
         - registrable
         - stopped
         - closed

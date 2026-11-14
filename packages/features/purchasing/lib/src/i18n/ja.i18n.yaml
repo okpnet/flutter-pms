@@ -47,6 +47,12 @@ entity:
       f_paid_supply: "有償支給"
       f_remarks: "備考"
       f_reserve: "引当予約"
+      f_cancel_quantity: "キャンセル数量"
+      f_stop: "停止"
+      f_received_quantity: "受入済み"
+      f_remaining_quantity: "残"
+      f_open_quantity: "発注残(停止中は0)"
+      f_cancel_closed: "全部キャンセル済み"
   purchaserec:
     title: "受入実績"
     fields:

@@ -292,6 +292,24 @@ class PurchasingStrings$entity$purdetail$fields$ja {
 
 	/// ja: '引当予約'
 	String get f_reserve => '引当予約';
+
+	/// ja: 'キャンセル数量'
+	String get f_cancel_quantity => 'キャンセル数量';
+
+	/// ja: '停止'
+	String get f_stop => '停止';
+
+	/// ja: '受入済み'
+	String get f_received_quantity => '受入済み';
+
+	/// ja: '残'
+	String get f_remaining_quantity => '残';
+
+	/// ja: '発注残(停止中は0)'
+	String get f_open_quantity => '発注残(停止中は0)';
+
+	/// ja: '全部キャンセル済み'
+	String get f_cancel_closed => '全部キャンセル済み';
 }
 
 // Path: entity.purchaserec.fields
@@ -392,6 +410,12 @@ extension on PurchasingStrings {
 			'entity.purdetail.fields.f_paid_supply' => '有償支給',
 			'entity.purdetail.fields.f_remarks' => '備考',
 			'entity.purdetail.fields.f_reserve' => '引当予約',
+			'entity.purdetail.fields.f_cancel_quantity' => 'キャンセル数量',
+			'entity.purdetail.fields.f_stop' => '停止',
+			'entity.purdetail.fields.f_received_quantity' => '受入済み',
+			'entity.purdetail.fields.f_remaining_quantity' => '残',
+			'entity.purdetail.fields.f_open_quantity' => '発注残(停止中は0)',
+			'entity.purdetail.fields.f_cancel_closed' => '全部キャンセル済み',
 			'entity.purchaserec.title' => '受入実績',
 			'entity.purchaserec.fields.f_trans_purchase_detail_id' => '発注明細',
 			'entity.purchaserec.fields.f_receive_at' => '受入日時',

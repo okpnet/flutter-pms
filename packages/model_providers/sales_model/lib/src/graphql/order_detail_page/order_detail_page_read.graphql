@@ -42,6 +42,13 @@ query OrderDetailPageRead(
 
       balance: vOrderDetailBalanceByTransOrderDetailId {
         transOrderDetailId
+        remainingQuantity
+        openQuantity
+        cancelClosed
+        shippedQuantity
+        returnedQuantity
+        replacementQuantity
+        settlementAmount
       }
 
       masterErrorCount

@@ -85,6 +85,33 @@ const UNIQUE = {
 };
 
 /** この実体を参照している一覧(保持者など)。編集画面の下に読み取り専用で出す。 */
+// GraphQL 版の取得元(読み取り専用)だけが持つ項目の表示名。DB にあって、画面案(domains)の実体に無い項目(キャンセル・停止・残など)。
+// 実体のキー → 項目のキー → 表示名。定義(FieldDefinition)は、各機能の lib/src/graphql の取得元が持つ。
+// 項目名は DB のコメント・仕様(CLAUDE.md「受注・発注まわりの仕様」)に合わせる。
+const GRAPHQL_EXTRA_LABELS = {
+  orderdetail: {
+    cancel_quantity: 'キャンセル数量',
+    stop: '停止',
+    customer_property: '顧客所有',
+    remaining_quantity: '残',
+    open_quantity: '受注残(停止中は0)',
+    cancel_closed: '全部キャンセル済み',
+    settlement_amount: '精算額',
+  },
+  purdetail: {
+    cancel_quantity: 'キャンセル数量',
+    stop: '停止',
+    received_quantity: '受入済み',
+    remaining_quantity: '残',
+    open_quantity: '発注残(停止中は0)',
+    cancel_closed: '全部キャンセル済み',
+  },
+  opsplan: {
+    stop: '停止',
+    discontinue: '打ち切り',
+  },
+};
+
 const REVERSE = {
   capability: [{ entity: 'staffcapability', field: 'capability', label: '保持者' }],
   license: [{ entity: 'stafflicense', field: 'license', label: '保持者' }],
@@ -498,6 +525,7 @@ function yamlJa(pkg, list, file) {
       if (flag) lines.push(`      f_${fl.key}__off: ${y(flag.label.replace(/区分$/, '') + '（都度確認）')}`);
     }
     for (const r of e.rowActions ?? []) lines.push(`      f_${r.key}: ${y(r.label)}`);
+    for (const [k, v] of Object.entries(GRAPHQL_EXTRA_LABELS[e.key] ?? {})) lines.push(`      f_${k}: ${y(v)}`);
     if (REVERSE[e.key]) {
       lines.push('    reverse:');
       for (const r of REVERSE[e.key]) lines.push(`      ${r.entity}: ${y(r.label)}`);

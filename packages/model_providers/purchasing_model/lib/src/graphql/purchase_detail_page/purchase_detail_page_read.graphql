@@ -44,6 +44,12 @@ query PurchaseDetailPageRead(
 
       balance: vPurchaseDetailBalanceByTransPurchaseDetailId {
         transPurchaseDetailId
+        remainingQuantity
+        openQuantity
+        cancelClosed
+        receivedQuantity
+        returnedQuantity
+        replacementQuantity
       }
 
       purchase_rez_count: vPurchaseDetailPurchaseRezCountByTransPurchaseDetailId {

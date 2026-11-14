@@ -44,6 +44,12 @@
 
 
 
+## 取得元(GraphQL 版。読み取り専用)
+`lib/src/graphql/sales_repositories.dart` の `salesRepositories(GraphQLClient)` が、受注(`order`)・受注明細(`orderdetail`)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
+1.  読み取り専用: 実体の定義を、DB の列に対応する項目だけにして、`viewOnly`・各項目 `readOnly` にする(台帳に「新規」を出さず、保存・削除を出さない)。保存・削除は `UnsupportedError`。書き込みは、画面案(`tools/open-design`)の定義を DB に合わせてから足す(定義に DB の必須項目が無く、登録できないため)。
+1.  受注明細は、キャンセル数量・停止・顧客所有・残・受注残・全部キャンセル済み・精算額(DB のビュー `v_order_detail_balance` の列。画面で計算しない)を読み取り専用の項目で持つ。出荷予定・出荷指示(`shipplan`・`shipline`)は、DB に対応する表が無いため、サンプルのまま。
+1.  DB にあって画面案に無い項目の表示名は、生成元(`tools/entity_gen/gen.js` の `GRAPHQL_EXTRA_LABELS`)に持つ(生成物の言語ファイルは直接編集しない)。
+1.  生成された型は、この中だけで使い、外へ出さない。抽出条件・並び順は無視する(絞り込みと並べ替えはテーブル側)。言語コード `ja` の ID は、最初の1回だけ引く。
 ## example と多言語
 1.  ビジュアルテスト用に`example`(Windows 向け)を持つ。`flutter run -d windows`で起動し、顧客台帳・顧客の選択を開く。画面を足したら`example/lib/main.dart`の`entries`に1行足す。
 2.  文字列は`lib/src/i18n`の言語ファイル(`ja.i18n.yaml`が基準、`en.i18n.yaml`)に置き、`slang.yaml`の`class_name: SalesStrings`で生成する(`dart run slang`)。`salesStringsProvider`が`feature_shared`の`localeProvider`に従って返す。
@@ -77,8 +83,8 @@
 
 ## テスト
 1.  共通の規則は`packages/features/CLAUDE.md`の「テスト」に従う。
-2.  現在はGraphQLで取得していないため、通信テストは無い。取得元の単体テストは`RecordingDataRepository`で差し替える。
-3.  GraphQLで取得するようにしたら、通信テスト(`test/xxx_connection_test.dart`)を追加し、`dart_test.yaml`に`server`タグを宣言する。
+2.  取得元(GraphQL 版)の通信テストは `test/sales_connection_test.dart`(検証用サーバー。読み取りだけ。一般ユーザーの資格情報を渡して実行する。`packages/infra/data_test_harness/CLAUDE.md`)。`dart_test.yaml` に `server` タグを宣言してある。
+3.  サンプル(メモリ上)の取得元の単体テストは `RecordingDataRepository` で差し替える。
 
 
 ## 規則: プロジェクト間をまたぐ指示

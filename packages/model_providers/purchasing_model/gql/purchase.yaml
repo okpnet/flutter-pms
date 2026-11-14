@@ -103,7 +103,8 @@ PurchaseDetailPage: &PurchaseDetailPage
       as: balance
       using: trans_purchase_detail_id
       from: v_purchase_detail_balance
-      pick:
+      columns:
+        - trans_purchase_detail_id
         - remaining_quantity
         - open_quantity
         - cancel_closed

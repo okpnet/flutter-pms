@@ -2,4 +2,5 @@
 /// 顧客は利害関係者として共有マスタ(`shared_master`)にある。
 library;
 
+export 'src/graphql/sales_repositories.dart' show salesRepositories;
 export 'src/sales_module.dart' show SalesModule;

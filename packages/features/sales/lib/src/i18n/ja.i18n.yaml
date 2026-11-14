@@ -24,6 +24,13 @@ entity:
       f_delivery_date: "個別納期"
       f_deadline: "個別完了期限"
       f_remarks: "備考"
+      f_cancel_quantity: "キャンセル数量"
+      f_stop: "停止"
+      f_customer_property: "顧客所有"
+      f_remaining_quantity: "残"
+      f_open_quantity: "受注残(停止中は0)"
+      f_cancel_closed: "全部キャンセル済み"
+      f_settlement_amount: "精算額"
   shipplan:
     title: "出荷予定"
     fields:

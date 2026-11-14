@@ -576,6 +576,12 @@ class ProductionPlanStrings$entity$opsplan$fields$ja {
 
 	/// ja: '引当予約'
 	String get f_reserve => '引当予約';
+
+	/// ja: '停止'
+	String get f_stop => '停止';
+
+	/// ja: '打ち切り'
+	String get f_discontinue => '打ち切り';
 }
 
 // Path: entity.workplan.fields
@@ -888,6 +894,8 @@ extension on ProductionPlanStrings {
 			'entity.opsplan.fields.f_quantity' => '数量',
 			'entity.opsplan.fields.f_remarks' => '備考',
 			'entity.opsplan.fields.f_reserve' => '引当予約',
+			'entity.opsplan.fields.f_stop' => '停止',
+			'entity.opsplan.fields.f_discontinue' => '打ち切り',
 			'entity.workplan.title' => '生産計画明細',
 			'entity.workplan.fields.f_mstr_task_id' => '工程',
 			'entity.workplan.fields.f_sequence' => '順',

@@ -104,6 +104,8 @@ entity:
       f_quantity: "数量"
       f_remarks: "備考"
       f_reserve: "引当予約"
+      f_stop: "停止"
+      f_discontinue: "打ち切り"
   workplan:
     title: "生産計画明細"
     fields:

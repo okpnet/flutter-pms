@@ -864,6 +864,9 @@ type TransWorkRecordsConnection {
 
 type VWorkPlanRegistrable {
   transWorkPlanId: UUID!
+  stopped: Boolean
+  closed: Boolean
+  registrable: Boolean
 }
 
 input BigFloatFilter {
