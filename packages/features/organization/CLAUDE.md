@@ -34,6 +34,12 @@
 1.  ビジュアルテスト用に`example`(Windows 向け)を持つ。`flutter run -d windows`で起動し、`lib/main.dart`の`entries`に遷移先を足す(`packages/features/CLAUDE.md`の「機能プロジェクト共通」)。
 2.  表示する文字列は`lib/src/i18n`の言語ファイル(Yaml)に置く。画面を作るときに`slang.yaml`と言語ファイルを追加する(`sales`・`shared_master`を参考にする)。idは`String`(UUID)で扱う。
 
+## 取得元(GraphQL 版。読み取り専用)
+`lib/src/graphql/organization_repositories.dart` の `organizationRepositories(GraphQLClient)` が、職員(`staff`)・事業所(`site`)・部署(`department`。ツリー)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
+1.  読み取り専用: 実体を `viewOnly`・各項目 `readOnly` にし、保存・削除は `UnsupportedError`。名称・読み・略称は多言語の辞書で、言語コード `ja` の値を読む。部署の親は部署ツリー(`info_department_tree`)の親の部署 ID(親ごとの絞り込みはサーバー側に無く、取得した中から選ぶ)。事業所の都道府県・市区町村は、住所の辞書の対応が未確認のため空。ほかの実体(会社・提供・役職・割当・部署区分・力量・資格・承認など)は、サンプルのまま。
+1.  **【入れ替え: 呼称の DB 関数】** 書き込みは、`doc/query/20261114_0002_appellation_functions.sql` の補助を使う職員・事業所・部署の関数を足して適用したら、`~PageCall` で `save` を入れ替え、`viewOnly` を外す(`issue/202611.md` の 2-1)。
+1.  検証用 DB には事業所・部署のデータが無いため、通信テストは職員の値を確認し、事業所・部署は取得できる(空)ことだけを確認する。事業所・部署の値の対応は、データが入ってから確認する。
+
 ## 規則/仕様
 1.  ディリクトリ/ファイル
     1.  生成結果のレポートは`doc/log`ディリクトリにファイル名`年月日_4桁ゼロ埋の番号.md`として保存する。

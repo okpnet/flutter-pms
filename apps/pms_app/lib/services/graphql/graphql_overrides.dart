@@ -11,6 +11,7 @@ import 'package:pms_graphql/pms_graphql.dart' show SessionUnavailableException;
 import 'package:production_plan/production_plan.dart' show productionPlanRepositories;
 import 'package:purchasing/purchasing.dart' show purchasingRepositories;
 import 'package:item/item.dart' show itemRepositories;
+import 'package:organization/organization.dart' show organizationRepositories;
 import 'package:sales/sales.dart' show salesRepositories;
 import 'package:shared_master/shared_master.dart' show sharedMasterRepositories;
 import 'package:system/system.dart' show systemRepositories;
@@ -118,6 +119,8 @@ List<Override> graphqlOverrides() => [
       ...sharedMasterRepositories(client),
       // 品目: 品目区分・品目(読み取り専用。ツリーは品目ツリーの親)
       ...itemRepositories(client),
+      // 組織: 職員・事業所・部署(読み取り専用。部署のツリーは部署ツリーの親)
+      ...organizationRepositories(client),
     ];
   }),
 ];
