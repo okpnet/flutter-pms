@@ -78,7 +78,7 @@ GraphQL(PostGraphile)には PocketBase が発行した短期の JWT(`SessionServ
 
 ## 受注・発注まわりの仕様(キャンセル・停止・返品・精算・支給・所有)
 
-DB(`tools/docker/postgresql/script`、スキーマ `tests`)の仕様。正は DDL(`06_cteate_test.sql`)と、`issue/change_request.md`(定義書・設計の資料の対応と決定事項の全文)。初期化スクリプトの順は `05_init_test` → `06_cteate_test` → `07_visiter_functions` → `08_mrp` → `09_grant_test` → `10_mrp_dummy` → `11_barcode_dummy` → `12_cancel_supply_constraints` → `13_visiter_owner` → `14_app_admin_dummy` → `15_user_dummy`(変えない)。
+DB(`tools/docker/postgresql/script`、スキーマ `tests`)の仕様。正は DDL(`06_cteate_test.sql`。ER ツール PERO のデータ `tools/database/ER/pms_test.pero` から出力する。棚ビジターの関数(旧 07)・MRP(旧 08)・操作の関数を含む)と、`issue/change_request.md`(定義書・設計の資料の対応と決定事項の全文)。初期化スクリプトの順は `05_init_test` → `06_cteate_test` → `09_grant_test` → `10_mrp_dummy` → `11_barcode_dummy` → `12_cancel_supply_constraints` → `13_visiter_owner` → `14_app_admin_dummy` → `15_user_dummy`(変えない。07・08 は 06 に取り込んだので、流さない)。関数の出力順は、PERO の関数の `dependsOnTableIds`(関数が使う表・ビューの ID。戻り値の表を含む)で決まり、空だと表より前に出力されて作成に失敗する。コメント(`@omit` など)は、関数の署名(`args`。引数の型)が空だと `関数名()` になり付かない(公開してはいけない補助関数が mutation として出る)。
 
 ### 設計の共通ルール
 1.  状態・区分をコード値(smallint・文字列の定数)で持たない・判定しない。はい/いいえは boolean 列、利用者が増やせる分類はサロゲートキーのマスタにし、マスタにも boolean を持たせる。アプリ・ビューは boolean で判定する(マスタの `code` で分岐しない)。コード値の enum をモデルに作らない。
@@ -118,7 +118,7 @@ DB(`tools/docker/postgresql/script`、スキーマ `tests`)の仕様。正は DD
 | `v_item_on_hand` | 社外の所有物を空き在庫に数えない |
 | `v_mrp_visiter_item`・`v_visiter_item`・`v_visiter_origin_check`・`v_complaint_target` ほか | 品目の経路に支給ビジター・返品ビジターを追加。異常の対象に支給異常を追加 |
 
-### MRP(`08_mrp.sql`)
+### MRP(`06_cteate_test.sql` の MRP の関数。旧 `08_mrp.sql`)
 受注の需要は `v_order_detail_balance`、発注残は `v_purchase_detail_balance` を使う。全部キャンセルは需要なし、`stop = true` は凍結(従属需要も)。確定: 発注の取消は数量を書き換えず残りを `cancel_quantity` にし、生産の取消は着手済みを打ち切り・未着手を削除し、いずれも計画変更を記録(MRP 提案付き)して未反映の計画変更に `reflected_trans_mrp_run_id` を入れる。ペギングに `trans_mrp_pegging.trans_supply_detail_id` を持つ。補助関数は `mrp_root_order_detail`・`mrp_op_frozen`・`mrp_cancel_purchase_detail`(`@omit`)。
 
 ### 権限
@@ -129,7 +129,7 @@ DB(`tools/docker/postgresql/script`、スキーマ `tests`)の仕様。正は DD
 
 ## 受注・発注まわりの GraphQL モデルと画面の仕様(キャンセル・停止・返品・精算・支給・所有)
 
-画面ごとの `.graphql`(`packages/model_providers`)と、画面(`packages/features`)を作るときの決定事項。DB の正は `06_cteate_test.sql`・`08`(MRP)・`12`・`13` で、PostGraphile v4 が生成する型をそのまま使い、独自のスキーマプラグインは使わない。業務の決定事項は上の「受注・発注まわりの仕様」。
+画面ごとの `.graphql`(`packages/model_providers`)と、画面(`packages/features`)を作るときの決定事項。DB の正は `06_cteate_test.sql`(MRP・棚ビジターの関数・操作の関数を含む)・`12`・`13` で、PostGraphile v4 が生成する型をそのまま使い、独自のスキーマプラグインは使わない。業務の決定事項は上の「受注・発注まわりの仕様」。
 
 ### 守るルール
 | # | ルール | モデル・画面での意味 |
@@ -204,6 +204,8 @@ DB(`tools/docker/postgresql/script`、スキーマ `tests`)の仕様。正は DD
 | 精算・返品・支給 | `order_detail_settle`・`return_register`・`supply_register`(明細は `jsonb` の配列) |
 - 担当者は引数、省略時は JWT の `staff_id`。理由・相手先・精算区分は ID で渡し、履歴ID は関数が引く。戻り値は作った計画変更(または精算・伝票)。
 - エラーは errcode で判定する: `OPR00` 担当者・マスタが無い、`OPR01` 対象が無い、`OPR02` 数量・引数が不正、`OPR03` 今の状態では実行できない(すでに停止・打ち切り・キャンセル済み、など)。ロットを動かす関数の `VIS05`(棚に場所が無い)は `p_location_id` で場所を渡す。
+- 納期の変更は、MRP が見る期限(受注明細の完了期限 `deadline` → 受注の完了期限 → 受注明細の出荷納期 → 受注の出荷納期)を変える(`order_detail_change` の `p_new_deadline`)。出荷納期だけを変えても MRP には反映されない。
+- 支給(`supply_register`)で在庫を動かすのは「渡す・返す場面」だけ。返却不要(譲渡)・無償 → 有償の切り替えは、既存のロットをつなぐだけで、在庫を動かさない。引当予約の保管は、予約を移動先のロットに付け替える。
 - 関数ができたら、`kind: function` で呼び、複数の mutation を1本にする。
 
 ### 操作ごとの手順(関数にまとめる内容)

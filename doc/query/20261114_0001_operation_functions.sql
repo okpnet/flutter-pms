@@ -9,7 +9,7 @@
 --         psql -d test_avocado -f 20261114_0001_operation_functions.sql
 --       この文書の SQL は doc/query に置いた「案」で、tools/docker/postgresql/script の本体には、レビュー後に統合する。
 --
--- 共通の約束(07_visiter_functions.sql の visiter_* と同じ)
+-- 共通の約束(06_cteate_test.sql の visiter_* の関数(旧 07_visiter_functions.sql)と同じ)
 --   ・担当者は p_staff_id、省略時は JWT の jwt.claims.staff_id。履歴IDは、その担当者の最新の履歴
 --   ・エラーは errcode で判定する:
 --       OPR00 担当者・マスタ(理由・精算区分・相手先)が見つからない
@@ -113,7 +113,8 @@ BEGIN
     RETURN v_row;
 END
 $$ LANGUAGE plpgsql VOLATILE;
-COMMENT ON FUNCTION tests.op_add_plan_change IS '@omit';
+-- 署名(引数の型)を省くと、ER ツールの出力で COMMENT が `op_add_plan_change()` になり、@omit が付かず、GraphQL の mutation として公開されてしまう
+COMMENT ON FUNCTION tests.op_add_plan_change(uuid, uuid, uuid, uuid, uuid, uuid, uuid, numeric, numeric, numeric, timestamp, timestamp, boolean, boolean, boolean, boolean, boolean, boolean, boolean, uuid, uuid, uuid, varchar, uuid, uuid, varchar) IS '@omit';
 
 -- ---------------------------------------------------------------------
 -- 1. 受注明細の操作
@@ -194,10 +195,15 @@ $$ LANGUAGE plpgsql VOLATILE;
 COMMENT ON FUNCTION tests.order_detail_set_stop(uuid, boolean, uuid, varchar, uuid, uuid, uuid, varchar) IS
     '受注明細の停止・再開。計画変更(旧・新の停止)を記録する(1トランザクション)。戻り値は計画変更';
 
--- 受注明細の納期・数量の変更(延期・前倒し・増減)。どちらかは必須。数量はキャンセル数量以上
+-- 受注明細の納期・数量の変更(延期・前倒し・増減)。数量・完了期限・出荷納期のどれかは必須。数量はキャンセル数量以上。
+-- MRP は、受注明細の完了期限(deadline)→ 受注の完了期限 → 受注明細の出荷納期(delivery_date)→ 受注の出荷納期の順に見る。
+-- そのため、MRP に反映したい納期の変更は p_new_deadline(受注明細の完了期限)で行う(受注の完了期限があっても、明細の値が先に使われる)。
+-- p_new_delivery_date は出荷納期(表示・出荷予定用)だけを変える。計画変更の旧・新の日付は、p_new_deadline があればその有効な旧値と新値、
+-- 無ければ出荷納期の旧値と新値。
 CREATE OR REPLACE FUNCTION tests.order_detail_change(
     p_order_detail_id uuid,
     p_new_quantity numeric DEFAULT NULL,
+    p_new_deadline timestamp DEFAULT NULL,
     p_new_delivery_date timestamp DEFAULT NULL,
     p_change_reason_id uuid DEFAULT NULL,
     p_reason varchar DEFAULT NULL,
@@ -207,11 +213,11 @@ CREATE OR REPLACE FUNCTION tests.order_detail_change(
     p_remarks varchar DEFAULT NULL
 ) RETURNS tests.trans_plan_change AS $$
 DECLARE
-    v_st record; v_od tests.trans_order_detail;
+    v_st record; v_od tests.trans_order_detail; v_o tests.trans_order; v_old_effective timestamp;
 BEGIN
     SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
-    IF p_new_quantity IS NULL AND p_new_delivery_date IS NULL THEN
-        RAISE EXCEPTION '新しい数量または納期のどちらかは必須です' USING ERRCODE = 'OPR02';
+    IF p_new_quantity IS NULL AND p_new_deadline IS NULL AND p_new_delivery_date IS NULL THEN
+        RAISE EXCEPTION '新しい数量・完了期限・出荷納期のどれかは必須です' USING ERRCODE = 'OPR02';
     END IF;
     SELECT * INTO v_od FROM tests.trans_order_detail WHERE trans_order_detail_id = p_order_detail_id AND remove IS FALSE FOR UPDATE;
     IF NOT FOUND THEN
@@ -221,19 +227,25 @@ BEGIN
         RAISE EXCEPTION '数量は 0 より大きく、キャンセル数量(%)以上にしてください: %', v_od.cancel_quantity, p_new_quantity
             USING ERRCODE = 'OPR02';
     END IF;
+    SELECT * INTO v_o FROM tests.trans_order WHERE trans_order_id = v_od.trans_order_id;
+    v_old_effective := COALESCE(v_od.deadline, v_o.deadline, v_od.delivery_date, v_o.delivery_date);  -- MRP が今見ている期限
     UPDATE tests.trans_order_detail
-    SET quantity = COALESCE(p_new_quantity, quantity), delivery_date = COALESCE(p_new_delivery_date, delivery_date),
+    SET quantity = COALESCE(p_new_quantity, quantity),
+        deadline = COALESCE(p_new_deadline, deadline),
+        delivery_date = COALESCE(p_new_delivery_date, delivery_date),
         update_user_id = v_st.staff_id, update_user_history_id = v_st.staff_history_id
     WHERE trans_order_detail_id = p_order_detail_id;
     RETURN tests.op_add_plan_change(v_st.staff_id, v_st.staff_history_id, p_order_detail => p_order_detail_id,
         p_old_quantity => CASE WHEN p_new_quantity IS NULL THEN NULL ELSE v_od.quantity END, p_new_quantity => p_new_quantity,
-        p_old_date => CASE WHEN p_new_delivery_date IS NULL THEN NULL ELSE v_od.delivery_date END, p_new_date => p_new_delivery_date,
+        p_old_date => CASE WHEN p_new_deadline IS NOT NULL THEN v_old_effective
+                           WHEN p_new_delivery_date IS NOT NULL THEN v_od.delivery_date END,
+        p_new_date => COALESCE(p_new_deadline, p_new_delivery_date),
         p_change_reason_id => p_change_reason_id, p_reason => p_reason, p_stakeholder_id => p_stakeholder_id,
         p_parent => p_parent_plan_change_id, p_remarks => p_remarks);
 END
 $$ LANGUAGE plpgsql VOLATILE;
-COMMENT ON FUNCTION tests.order_detail_change(uuid, numeric, timestamp, uuid, varchar, uuid, uuid, uuid, varchar) IS
-    '受注明細の納期・数量の変更。本体を更新し、計画変更(旧・新)を記録する(1トランザクション)。戻り値は計画変更';
+COMMENT ON FUNCTION tests.order_detail_change(uuid, numeric, timestamp, timestamp, uuid, varchar, uuid, uuid, uuid, varchar) IS
+    '受注明細の納期・数量の変更。MRP が見る完了期限(deadline)を変え、計画変更(旧・新)を記録する(1トランザクション)。戻り値は計画変更';
 
 -- ---------------------------------------------------------------------
 -- 2. 発注明細の操作
@@ -469,7 +481,7 @@ CREATE OR REPLACE FUNCTION tests.inventory_request_hold(
     p_location_id uuid DEFAULT NULL
 ) RETURNS tests.trans_plan_change AS $$
 DECLARE
-    v_st record; v_rq tests.trans_inventory_request;
+    v_st record; v_rq tests.trans_inventory_request; v_new tests.trans_visiter;
 BEGIN
     SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
     SELECT * INTO v_rq FROM tests.trans_inventory_request WHERE trans_inventory_request_id = p_inventory_request_id AND remove IS FALSE FOR UPDATE;
@@ -482,14 +494,18 @@ BEGIN
     IF p_container_id IS NULL OR NOT EXISTS (SELECT 1 FROM tests.trans_container WHERE trans_container_id = p_container_id AND remove IS FALSE) THEN
         RAISE EXCEPTION '保管先のコンテナが見つかりません (%)', p_container_id USING ERRCODE = 'OPR01';
     END IF;
-    PERFORM tests.visiter_move(v_rq.trans_visiter_id, p_container_id, v_rq.quantity, true, v_st.staff_id, p_location_id, NULL, p_remarks);
+    v_new := tests.visiter_move(v_rq.trans_visiter_id, p_container_id, v_rq.quantity, true, v_st.staff_id, p_location_id, NULL, p_remarks);
+    -- 在庫を移したあとは、引当予約を移動先(仮止めの + の行)に付け替える。付け替えないと、予約が移動元のロットを指したままになる
+    UPDATE tests.trans_inventory_request
+    SET trans_visiter_id = v_new.trans_visiter_id, update_user_id = v_st.staff_id, update_user_history_id = v_st.staff_history_id
+    WHERE trans_inventory_request_id = p_inventory_request_id;
     RETURN tests.op_add_plan_change(v_st.staff_id, v_st.staff_history_id, p_inventory_request => p_inventory_request_id,
         p_hold => true, p_container => p_container_id, p_change_reason_id => p_change_reason_id, p_reason => p_reason,
         p_parent => p_parent_plan_change_id, p_remarks => p_remarks);
 END
 $$ LANGUAGE plpgsql VOLATILE;
 COMMENT ON FUNCTION tests.inventory_request_hold(uuid, uuid, uuid, varchar, uuid, uuid, varchar, uuid) IS
-    '引当予約の保管。予約の在庫を選んだコンテナへ仮止めで移し(visiter_move)、計画変更(hold・コンテナ)を記録する(1トランザクション)';
+    '引当予約の保管。予約の在庫を選んだコンテナへ仮止めで移し(visiter_move)、予約を移動先のロットに付け替え、計画変更(hold・コンテナ)を記録する(1トランザクション)';
 
 -- 在庫にする(処置の記録だけ。ロットは動かさない)
 CREATE OR REPLACE FUNCTION tests.lot_release(
@@ -528,20 +544,21 @@ CREATE OR REPLACE FUNCTION tests.lot_hold(
     p_location_id uuid DEFAULT NULL
 ) RETURNS tests.trans_plan_change AS $$
 DECLARE
-    v_st record;
+    v_st record; v_new tests.trans_visiter;
 BEGIN
     SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
     IF p_container_id IS NULL OR NOT EXISTS (SELECT 1 FROM tests.trans_container WHERE trans_container_id = p_container_id AND remove IS FALSE) THEN
         RAISE EXCEPTION '保管先のコンテナが見つかりません (%)', p_container_id USING ERRCODE = 'OPR01';
     END IF;
-    PERFORM tests.visiter_move(p_visiter_id, p_container_id, p_quantity, true, v_st.staff_id, p_location_id, NULL, p_remarks);
-    RETURN tests.op_add_plan_change(v_st.staff_id, v_st.staff_history_id, p_visiter => p_visiter_id,
+    v_new := tests.visiter_move(p_visiter_id, p_container_id, p_quantity, true, v_st.staff_id, p_location_id, NULL, p_remarks);
+    -- 計画変更の対象は、押さえた(仮止めした)移動先のロット。未処置一覧は、このロットが仮止めのまま残っているかで見つける
+    RETURN tests.op_add_plan_change(v_st.staff_id, v_st.staff_history_id, p_visiter => v_new.trans_visiter_id,
         p_hold => true, p_container => p_container_id, p_change_reason_id => p_change_reason_id, p_reason => p_reason,
         p_parent => p_parent_plan_change_id, p_remarks => p_remarks);
 END
 $$ LANGUAGE plpgsql VOLATILE;
 COMMENT ON FUNCTION tests.lot_hold(uuid, uuid, numeric, uuid, varchar, uuid, uuid, varchar, uuid) IS
-    '品物を押さえる(保管)。選んだコンテナへ仮止めで移し(visiter_move)、計画変更(hold・コンテナ)を記録する(1トランザクション)';
+    '品物を押さえる(保管)。選んだコンテナへ仮止めで移し(visiter_move)、押さえた(移動先の)ロットを対象に、計画変更(hold・コンテナ)を記録する(1トランザクション)';
 
 -- 廃棄
 CREATE OR REPLACE FUNCTION tests.lot_scrap(
@@ -683,6 +700,13 @@ BEGIN
     IF num_nonnulls(p_order_id, p_purchase_id) > 1 THEN
         RAISE EXCEPTION '受注と発注は、どちらか一方だけを指定してください' USING ERRCODE = 'OPR02';
     END IF;
+    -- 返品区分の向き: 顧客からの返品(receive = true)は受注側、仕入先・外注先への返品(false)は発注側
+    IF v_receive AND p_purchase_id IS NOT NULL THEN
+        RAISE EXCEPTION '顧客からの返品(receive = true)には、発注(p_purchase_id)を指定できません' USING ERRCODE = 'OPR02';
+    END IF;
+    IF NOT v_receive AND p_order_id IS NOT NULL THEN
+        RAISE EXCEPTION '仕入先・外注先への返品(receive = false)には、受注(p_order_id)を指定できません' USING ERRCODE = 'OPR02';
+    END IF;
 
     INSERT INTO tests.trans_return (code, return_kind_history_id, return_kind_id, return_at, stakeholder_history_id, stakeholder_id,
         trans_order_id, trans_purchase_id, trans_plan_change_id, trans_complaint_id, reason,
@@ -695,6 +719,12 @@ BEGIN
     FOR d IN SELECT * FROM jsonb_array_elements(p_details) LOOP
         IF (d->>'item_id') IS NULL OR COALESCE((d->>'quantity')::numeric, 0) <= 0 THEN
             RAISE EXCEPTION '明細には item_id と、0 より大きい quantity が必要です' USING ERRCODE = 'OPR02';
+        END IF;
+        IF v_receive AND ((d->>'purchase_detail_id') IS NOT NULL OR (d->>'purchase_rec_id') IS NOT NULL) THEN
+            RAISE EXCEPTION '顧客からの返品の明細に、発注側(purchase_detail_id・purchase_rec_id)は指定できません' USING ERRCODE = 'OPR02';
+        END IF;
+        IF NOT v_receive AND ((d->>'order_detail_id') IS NOT NULL OR (d->>'shipping_order_detail_record_id') IS NOT NULL) THEN
+            RAISE EXCEPTION '仕入先・外注先への返品の明細に、受注側(order_detail_id・shipping_order_detail_record_id)は指定できません' USING ERRCODE = 'OPR02';
         END IF;
         INSERT INTO tests.trans_return_detail (trans_return_id, item_history_id, item_id, quantity, replacement,
             trans_order_detail_id, trans_shipping_order_detail_record_id, trans_purchase_detail_id, trans_purchase_rec_id,
@@ -732,8 +762,10 @@ COMMENT ON FUNCTION tests.return_register(uuid, uuid, jsonb, uuid, uuid, uuid, u
 --   p_details は jsonb の配列。要素:
 --     item_id(必須)・quantity(必須・> 0)・unit_price(有償)・scheduled_at(支給予定日)
 --     order_detail_id または purchase_detail_id(どちらか一方)・resource_plan_id(充てる資材計画。受注の時点では空でよい)
---     lot_id と container_id(p_receive = false のとき、選んだコンテナへ移した + の行をつなぐ。仮止めにするなら hold = true)
---     lot_id だけ(p_receive = false で container_id が無い: ロットから quantity を払い出した - の行をつなぐ)
+--     lot_id と container_id(渡す場面: 選んだコンテナへ移した + の行をつなぐ。仮止めにするなら hold = true)
+--     lot_id だけ(渡す場面で container_id が無い: ロットから quantity を払い出した - の行をつなぐ)
+--     ※「渡す場面」= receive = false で、返却不要(company_owns = true)でも、無償 → 有償の切り替え(p_complaint_id あり)でもない。
+--       返却不要・切り替えで lot_id を渡すと、在庫は動かさず、そのロットをつなぐだけ(所有者の変更だけ)
 --     visiter_ids(つなぐ既存の棚ビジター。顧客からの受け入れの + の行など)
 --   支給予定(ロットがつながっていない)は、visiter 系を渡さずに登録する。
 -- ---------------------------------------------------------------------
@@ -757,9 +789,12 @@ CREATE OR REPLACE FUNCTION tests.supply_register(
 ) RETURNS tests.trans_supply AS $$
 DECLARE
     v_st record; v_stake_hist uuid; v_sup tests.trans_supply; v_det tests.trans_supply_detail; d jsonb;
-    v_line tests.trans_visiter; v_vid text;
+    v_line tests.trans_visiter; v_vid text; v_moves boolean;
 BEGIN
     SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
+    -- 在庫を動かすのは、渡す・返す場面だけ(receive = false で、返却不要の譲渡でも、無償 → 有償の切り替えでもない)。
+    -- 譲渡(company_owns)・切り替え(trans_complaint_id あり)は、すでにあるロットの所有者を変えるだけで、在庫は動かさない。
+    v_moves := NOT p_receive AND NOT p_company_owns AND p_complaint_id IS NULL;
     v_stake_hist := tests.mrp_hist_stakeholder(p_stakeholder_id);
     IF v_stake_hist IS NULL THEN
         RAISE EXCEPTION '相手先が見つかりません (%)', p_stakeholder_id USING ERRCODE = 'OPR00';
@@ -797,7 +832,14 @@ BEGIN
             v_st.staff_id, v_st.staff_history_id)
         RETURNING * INTO v_det;
 
-        IF NOT p_receive AND (d->>'lot_id') IS NOT NULL THEN
+        IF NOT v_moves AND (d->>'lot_id') IS NOT NULL THEN
+            -- 動かさない場面: 既存のロットをそのままつなぐ(所有者はトリガーが決める)
+            IF NOT EXISTS (SELECT 1 FROM tests.trans_visiter WHERE trans_visiter_id = (d->>'lot_id')::uuid AND remove IS FALSE) THEN
+                RAISE EXCEPTION '棚ビジター(ロット)が見つかりません (%)', d->>'lot_id' USING ERRCODE = 'OPR01';
+            END IF;
+            INSERT INTO tests.trans_supply_visiter (trans_supply_detail_id, trans_visiter_id, update_user_id, update_user_history_id)
+            VALUES (v_det.trans_supply_detail_id, (d->>'lot_id')::uuid, v_st.staff_id, v_st.staff_history_id);
+        ELSIF v_moves AND (d->>'lot_id') IS NOT NULL THEN
             IF (d->>'container_id') IS NOT NULL THEN
                 -- 選んだコンテナへ移した + の行(発注先へ渡す・発注先へ有償で渡す・無償 → 有償の切り替えなど)
                 v_line := tests.visiter_move((d->>'lot_id')::uuid, (d->>'container_id')::uuid, (d->>'quantity')::numeric,
@@ -828,7 +870,7 @@ COMMENT ON FUNCTION tests.supply_register(uuid, boolean, boolean, boolean, jsonb
 GRANT EXECUTE ON FUNCTION
     tests.order_detail_cancel(uuid, numeric, uuid, varchar, uuid, uuid, uuid, varchar),
     tests.order_detail_set_stop(uuid, boolean, uuid, varchar, uuid, uuid, uuid, varchar),
-    tests.order_detail_change(uuid, numeric, timestamp, uuid, varchar, uuid, uuid, uuid, varchar),
+    tests.order_detail_change(uuid, numeric, timestamp, timestamp, uuid, varchar, uuid, uuid, uuid, varchar),
     tests.purchase_detail_cancel(uuid, numeric, uuid, varchar, uuid, uuid, uuid, varchar),
     tests.purchase_detail_set_stop(uuid, boolean, uuid, varchar, uuid, uuid, uuid, varchar),
     tests.purchase_detail_change(uuid, numeric, timestamp, uuid, varchar, uuid, uuid, uuid, varchar),
