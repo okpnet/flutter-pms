@@ -1,6 +1,7 @@
 import 'package:data_strategist/lib.dart';
 import 'package:entity_screens/entity_screens.dart';
 import 'package:graphql/client.dart';
+import 'package:pms_graphql/pms_graphql.dart' show AuditUser, AuditUserSource;
 import 'package:purchasing_model/purchasing_model.dart';
 
 import '../entities/purchasing_definitions.dart';
@@ -18,11 +19,24 @@ import '../entities/purchasing_definitions.dart';
 /// 生成された型は、この中だけで使い、外へ出さない。抽出条件・並び順は無視する(サンプルと同じ)。
 ///
 /// パターン: Adapter(生成された読み込みの結果と、画面の [EntityRecord] を変換する)
-List<IEntityRepository> purchasingRepositories(GraphQLClient client) {
+List<IEntityRepository> purchasingRepositories(
+  GraphQLClient client, {
+  AuditUserSource? auditUser,
+}) {
   final language = _LanguageCode(client);
   return [
-    _PurchaseRepository(_purchaseDefinition, client, language),
-    _PurchaseDetailRepository(_purchaseDetailDefinition, client, language),
+    _PurchaseRepository(
+      _purchaseDefinition,
+      client,
+      language,
+      auditUser: auditUser,
+    ),
+    _PurchaseDetailRepository(
+      _purchaseDetailDefinition,
+      client,
+      language,
+      auditUser: auditUser,
+    ),
   ];
 }
 
@@ -130,7 +144,12 @@ class _LanguageCode {
 }
 
 abstract class _ReadOnlyRepository implements IEntityRepository {
-  _ReadOnlyRepository(this.definition, this.client, this.language);
+  _ReadOnlyRepository(
+    this.definition,
+    this.client,
+    this.language, {
+    this.auditUser,
+  });
 
   /// 最新の履歴ID(マスタの履歴の `revision` が最大の行)。マスタの ID から引く。
   Future<String> latestHistoryId(
@@ -208,6 +227,12 @@ abstract class _ReadOnlyRepository implements IEntityRepository {
   final GraphQLClient client;
   final _LanguageCode language;
 
+  /// 更新者(ログイン中の担当者)を返す関数。無いとき・ログインしていないときは、更新者を送らない。
+  final AuditUserSource? auditUser;
+
+  /// 書き込みのたびに、更新者を引く(ログインしていなければ null)。
+  Future<AuditUser?> updater() async => auditUser == null ? null : auditUser!();
+
   @override
   Future<EntityRecord> save(EntityRecord record) =>
       throw UnsupportedError('${definition.key}: 読み取り専用です');
@@ -240,7 +265,12 @@ abstract class _ReadOnlyRepository implements IEntityRepository {
 }
 
 class _PurchaseRepository extends _ReadOnlyRepository {
-  _PurchaseRepository(super.definition, super.client, super.language);
+  _PurchaseRepository(
+    super.definition,
+    super.client,
+    super.language, {
+    super.auditUser,
+  });
 
   EntityRecord _record(Query$PurchasePageRead$allTransPurchases$nodes n) =>
       EntityRecord(
@@ -314,6 +344,11 @@ class _PurchaseRepository extends _ReadOnlyRepository {
       'deadline': _ReadOnlyRepository.isoDate(record, 'deadline'),
       'remarks': _ReadOnlyRepository.str(record, 'remarks'),
     };
+    final au = await updater();
+    if (au != null) {
+      vars['updateUserId'] = au.staffId;
+      vars['updateUserHistoryId'] = au.staffHistoryId;
+    }
     String id;
     if (record.id.isEmpty) {
       final result = await client.mutate$PurchasePageCreate(
@@ -347,11 +382,14 @@ class _PurchaseRepository extends _ReadOnlyRepository {
   /// 論理削除(`remove = true`)。物理削除はしない。
   @override
   Future<void> remove(String id) async {
+    final au = await updater();
     final result = await client.mutate$PurchasePageRemove(
       Options$Mutation$PurchasePageRemove(
         variables: Variables$Mutation$PurchasePageRemove(
           transPurchaseId: id,
           remove: true,
+          updateUserId: au?.staffId,
+          updateUserHistoryId: au?.staffHistoryId,
         ),
       ),
     );
@@ -361,7 +399,12 @@ class _PurchaseRepository extends _ReadOnlyRepository {
 }
 
 class _PurchaseDetailRepository extends _ReadOnlyRepository {
-  _PurchaseDetailRepository(super.definition, super.client, super.language);
+  _PurchaseDetailRepository(
+    super.definition,
+    super.client,
+    super.language, {
+    super.auditUser,
+  });
 
   EntityRecord _record(
     Query$PurchaseDetailPageRead$allTransPurchaseDetails$nodes n,
@@ -490,6 +533,11 @@ class _PurchaseDetailRepository extends _ReadOnlyRepository {
       'itemId': itemId,
       'remarks': _ReadOnlyRepository.str(record, 'remarks'),
     };
+    final au = await updater();
+    if (au != null) {
+      vars['updateUserId'] = au.staffId;
+      vars['updateUserHistoryId'] = au.staffHistoryId;
+    }
     String id;
     if (record.id.isEmpty) {
       final parentId = record.parentId;
@@ -532,11 +580,14 @@ class _PurchaseDetailRepository extends _ReadOnlyRepository {
   /// 論理削除(`remove = true`)。物理削除はしない。
   @override
   Future<void> remove(String id) async {
+    final au = await updater();
     final result = await client.mutate$PurchaseDetailPageRemove(
       Options$Mutation$PurchaseDetailPageRemove(
         variables: Variables$Mutation$PurchaseDetailPageRemove(
           transPurchaseDetailId: id,
           remove: true,
+          updateUserId: au?.staffId,
+          updateUserHistoryId: au?.staffHistoryId,
         ),
       ),
     );

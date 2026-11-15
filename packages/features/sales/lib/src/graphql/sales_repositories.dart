@@ -1,6 +1,7 @@
 import 'package:data_strategist/lib.dart';
 import 'package:entity_screens/entity_screens.dart';
 import 'package:graphql/client.dart';
+import 'package:pms_graphql/pms_graphql.dart' show AuditUser, AuditUserSource;
 import 'package:sales_model/sales_model.dart';
 
 import '../entities/sales_definitions.dart';
@@ -19,16 +20,30 @@ import '../entities/sales_definitions.dart';
 /// 生成された型は、この中だけで使い、外へ出さない。抽出条件・並び順は無視する(絞り込みと並べ替えはテーブル側。サンプルと同じ)。
 ///
 /// パターン: Adapter(生成された読み込みの結果と、画面の [EntityRecord] を変換する)
-List<IEntityRepository> salesRepositories(GraphQLClient client) {
+List<IEntityRepository> salesRepositories(
+  GraphQLClient client, {
+  AuditUserSource? auditUser,
+}) {
   final language = _LanguageCode(client);
   return [
-    _OrderRepository(_orderDefinition, client, language),
-    _OrderDetailRepository(_orderDetailDefinition, client, language),
-    _ShippingOrderRepository(_shippingOrderDefinition, client, language),
+    _OrderRepository(_orderDefinition, client, language, auditUser: auditUser),
+    _OrderDetailRepository(
+      _orderDetailDefinition,
+      client,
+      language,
+      auditUser: auditUser,
+    ),
+    _ShippingOrderRepository(
+      _shippingOrderDefinition,
+      client,
+      language,
+      auditUser: auditUser,
+    ),
     _ShippingOrderDetailRepository(
       _shippingOrderDetailDefinition,
       client,
       language,
+      auditUser: auditUser,
     ),
   ];
 }
@@ -153,7 +168,12 @@ class _LanguageCode {
 }
 
 abstract class _ReadOnlyRepository implements IEntityRepository {
-  _ReadOnlyRepository(this.definition, this.client, this.language);
+  _ReadOnlyRepository(
+    this.definition,
+    this.client,
+    this.language, {
+    this.auditUser,
+  });
 
   /// 最新の履歴ID(マスタの履歴の `revision` が最大の行)。マスタの ID から引く。
   Future<String> latestHistoryId(
@@ -232,6 +252,12 @@ abstract class _ReadOnlyRepository implements IEntityRepository {
   final GraphQLClient client;
   final _LanguageCode language;
 
+  /// 更新者(ログイン中の担当者)を返す関数。無いとき・ログインしていないときは、更新者を送らない。
+  final AuditUserSource? auditUser;
+
+  /// 書き込みのたびに、更新者を引く(ログインしていなければ null)。
+  Future<AuditUser?> updater() async => auditUser == null ? null : auditUser!();
+
   @override
   Future<EntityRecord> save(EntityRecord record) =>
       throw UnsupportedError('${definition.key}: 読み取り専用です');
@@ -264,7 +290,12 @@ abstract class _ReadOnlyRepository implements IEntityRepository {
 }
 
 class _OrderRepository extends _ReadOnlyRepository {
-  _OrderRepository(super.definition, super.client, super.language);
+  _OrderRepository(
+    super.definition,
+    super.client,
+    super.language, {
+    super.auditUser,
+  });
 
   EntityRecord _record(
     Query$OrderPageRead$allTransOrders$nodes n,
@@ -348,6 +379,11 @@ class _OrderRepository extends _ReadOnlyRepository {
       'deadline': _ReadOnlyRepository.isoDate(record, 'deadline'),
       'remarks': _ReadOnlyRepository.str(record, 'remarks'),
     };
+    final au = await updater();
+    if (au != null) {
+      vars['updateUserId'] = au.staffId;
+      vars['updateUserHistoryId'] = au.staffHistoryId;
+    }
     String id;
     if (record.id.isEmpty) {
       final result = await client.mutate$OrderPageCreate(
@@ -377,11 +413,14 @@ class _OrderRepository extends _ReadOnlyRepository {
   /// 論理削除(`remove = true`)。物理削除はしない。
   @override
   Future<void> remove(String id) async {
+    final au = await updater();
     final result = await client.mutate$OrderPageRemove(
       Options$Mutation$OrderPageRemove(
         variables: Variables$Mutation$OrderPageRemove(
           transOrderId: id,
           remove: true,
+          updateUserId: au?.staffId,
+          updateUserHistoryId: au?.staffHistoryId,
         ),
       ),
     );
@@ -391,7 +430,12 @@ class _OrderRepository extends _ReadOnlyRepository {
 }
 
 class _OrderDetailRepository extends _ReadOnlyRepository {
-  _OrderDetailRepository(super.definition, super.client, super.language);
+  _OrderDetailRepository(
+    super.definition,
+    super.client,
+    super.language, {
+    super.auditUser,
+  });
 
   EntityRecord _record(Query$OrderDetailPageRead$allTransOrderDetails$nodes n) {
     final b = n.balance;
@@ -502,6 +546,11 @@ class _OrderDetailRepository extends _ReadOnlyRepository {
       'customerProperty': _ReadOnlyRepository.yes(record, 'customer_property'),
       'remarks': _ReadOnlyRepository.str(record, 'remarks'),
     };
+    final au = await updater();
+    if (au != null) {
+      vars['updateUserId'] = au.staffId;
+      vars['updateUserHistoryId'] = au.staffHistoryId;
+    }
     String id;
     if (record.id.isEmpty) {
       final parentId = record.parentId;
@@ -544,11 +593,14 @@ class _OrderDetailRepository extends _ReadOnlyRepository {
   /// 論理削除(`remove = true`)。物理削除はしない。
   @override
   Future<void> remove(String id) async {
+    final au = await updater();
     final result = await client.mutate$OrderDetailPageRemove(
       Options$Mutation$OrderDetailPageRemove(
         variables: Variables$Mutation$OrderDetailPageRemove(
           transOrderDetailId: id,
           remove: true,
+          updateUserId: au?.staffId,
+          updateUserHistoryId: au?.staffHistoryId,
         ),
       ),
     );
@@ -558,7 +610,12 @@ class _OrderDetailRepository extends _ReadOnlyRepository {
 }
 
 class _ShippingOrderRepository extends _ReadOnlyRepository {
-  _ShippingOrderRepository(super.definition, super.client, super.language);
+  _ShippingOrderRepository(
+    super.definition,
+    super.client,
+    super.language, {
+    super.auditUser,
+  });
 
   EntityRecord _record(
     Query$ShippingOrderPageRead$allTransShippingOrders$nodes n,
@@ -636,6 +693,11 @@ class _ShippingOrderRepository extends _ReadOnlyRepository {
       'stakeholderId': carrierId,
       'remarks': _ReadOnlyRepository.str(record, 'remarks'),
     };
+    final au = await updater();
+    if (au != null) {
+      vars['updateUserId'] = au.staffId;
+      vars['updateUserHistoryId'] = au.staffHistoryId;
+    }
     String id;
     if (record.id.isEmpty) {
       final result = await client.mutate$ShippingOrderPageCreate(
@@ -669,11 +731,14 @@ class _ShippingOrderRepository extends _ReadOnlyRepository {
   /// 論理削除(`remove = true`)。物理削除はしない。
   @override
   Future<void> remove(String id) async {
+    final au = await updater();
     final result = await client.mutate$ShippingOrderPageRemove(
       Options$Mutation$ShippingOrderPageRemove(
         variables: Variables$Mutation$ShippingOrderPageRemove(
           transShippingOrderId: id,
           remove: true,
+          updateUserId: au?.staffId,
+          updateUserHistoryId: au?.staffHistoryId,
         ),
       ),
     );
@@ -686,8 +751,9 @@ class _ShippingOrderDetailRepository extends _ReadOnlyRepository {
   _ShippingOrderDetailRepository(
     super.definition,
     super.client,
-    super.language,
-  );
+    super.language, {
+    super.auditUser,
+  });
 
   EntityRecord _record(
     Query$ShippingOrderDetailPageRead$allTransShippingOrderDetails$nodes n,
@@ -781,6 +847,11 @@ class _ShippingOrderDetailRepository extends _ReadOnlyRepository {
       'shippingQuantity': _ReadOnlyRepository.str(record, 'qty'),
       'remarks': _ReadOnlyRepository.str(record, 'remarks'),
     };
+    final au = await updater();
+    if (au != null) {
+      vars['updateUserId'] = au.staffId;
+      vars['updateUserHistoryId'] = au.staffHistoryId;
+    }
     String id;
     if (record.id.isEmpty) {
       final parentId = record.parentId;
@@ -823,11 +894,14 @@ class _ShippingOrderDetailRepository extends _ReadOnlyRepository {
   /// 論理削除(`remove = true`)。物理削除はしない。
   @override
   Future<void> remove(String id) async {
+    final au = await updater();
     final result = await client.mutate$ShippingOrderDetailPageRemove(
       Options$Mutation$ShippingOrderDetailPageRemove(
         variables: Variables$Mutation$ShippingOrderDetailPageRemove(
           transShippingOrderDetailId: id,
           remove: true,
+          updateUserId: au?.staffId,
+          updateUserHistoryId: au?.staffHistoryId,
         ),
       ),
     );

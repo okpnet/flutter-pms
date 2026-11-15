@@ -6,6 +6,20 @@ import 'package:purchasing/purchasing.dart';
 
 /// 購買の取得元(GraphQL 版。読み取り専用)の通信テスト(検証用サーバー。読み取りだけ)。
 /// 一般ユーザーの資格情報を渡して実行する(packages/infra/data_test_harness/CLAUDE.md)。
+
+/// 行の更新者(update_user_id・update_user_history_id)を、サーバーから読む(論理削除した行も読める)。
+Future<Map<String, dynamic>?> _updater(GraphQLClient client, String field, String idArg, String id) async {
+  final result = await client.query(
+    QueryOptions(
+      document: gql('query(\$id: UUID!) { $field($idArg: \$id) { updateUserId updateUserHistoryId } }'),
+      variables: {'id': id},
+      fetchPolicy: FetchPolicy.noCache,
+    ),
+  );
+  if (result.exception != null) throw result.exception!;
+  return (result.data?[field] as Map?)?.cast<String, dynamic>();
+}
+
 void main() {
   group('検証用サーバー: 購買の取得元', () {
     serverTest('発注の一覧を、画面の値で取得できる', (server) async {
@@ -50,6 +64,43 @@ void main() {
       }
       expect(detail.fields.firstWhere((f) => f.key == 'quantity').readOnly, isFalse);
       await expectLater(repos.first.save(const EntityRecord(id: '', values: {})), throwsA(isA<EntityValidationException>()));
+    });
+
+    serverTest('更新者: ログイン中の担当者が、登録・更新・論理削除で記録される(更新者を渡さないと記録されない)', (server) async {
+      final client = server.provider.client;
+      expect(server.staffId, isNotNull, reason: 'JWT に staff_id が無い');
+      final withAudit = purchasingRepositories(client, auditUser: server.auditUser);
+      final purchaseWith = withAudit.firstWhere((r) => r.definition.key == 'purchase');
+      final purchaseWithout = purchasingRepositories(client).firstWhere((r) => r.definition.key == 'purchase');
+      String? supplier;
+      for (final p in await purchaseWith.find(take: 20)) {
+        if (p.valueOf('stakeholder_id').isNotEmpty) {
+          supplier = p.valueOf('stakeholder_id');
+          break;
+        }
+      }
+      expect(supplier, isNotNull, reason: '仕入先が無い');
+      String? id;
+      try {
+        final created = await purchaseWithout.save(EntityRecord(id: '', values: {'stakeholder_id': supplier!}));
+        id = created.id;
+        final first = await _updater(client, 'transPurchaseByTransPurchaseId', 'transPurchaseId', id);
+        expect(first?['updateUserId'], isNull);
+        await purchaseWith.save(created.copyWith(values: {...created.values, 'remarks': '更新者のテスト'}));
+        final updated = await _updater(client, 'transPurchaseByTransPurchaseId', 'transPurchaseId', id);
+        expect(updated?['updateUserId'], server.staffId);
+        expect(updated?['updateUserHistoryId'], isNotNull);
+        final createdWith = await purchaseWith.save(EntityRecord(id: '', values: {'stakeholder_id': supplier}));
+        final second = await _updater(client, 'transPurchaseByTransPurchaseId', 'transPurchaseId', createdWith.id);
+        expect(second?['updateUserId'], server.staffId);
+        await purchaseWith.remove(createdWith.id);
+        await purchaseWith.remove(id);
+        final removed = await _updater(client, 'transPurchaseByTransPurchaseId', 'transPurchaseId', id);
+        expect(removed?['updateUserId'], server.staffId);
+        id = null;
+      } finally {
+        if (id != null) await purchaseWith.remove(id);
+      }
     });
 
     serverTest('発注と発注明細を登録・更新・削除(論理削除)できる。後始末で削除する', (server) async {

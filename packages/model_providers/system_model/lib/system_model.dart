@@ -8,3 +8,4 @@ export 'src/graphql/unit_page/unit_page_edit.graphql.dart';
 export 'src/graphql/unit_page/unit_page_read.graphql.dart';
 export 'src/graphql/unit_page/unit_page_remove.graphql.dart';
 export 'src/graphql/unit_page/unit_page_rfe.graphql.dart';
+export 'src/graphql/unit_save_page/unit_save_page_call.graphql.dart';

@@ -11,6 +11,8 @@ mutation ShippingOrderDetailPageEdit(
   $estimatedArrivalDate: Date
   $shippingQuantity: BigFloat
   $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
 ) {
   updateTransShippingOrderDetailByTransShippingOrderDetailId(
     input: {
@@ -22,6 +24,8 @@ mutation ShippingOrderDetailPageEdit(
         estimatedArrivalDate: $estimatedArrivalDate
         shippingQuantity: $shippingQuantity
         remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
       }
     }
   ) {

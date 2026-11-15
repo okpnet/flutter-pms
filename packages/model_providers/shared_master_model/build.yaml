@@ -16,3 +16,8 @@ targets:
               fromJsonFunctionName: fromJsonBigInt
               toJsonFunctionName: toJsonBigInt
               import: package:pms_graphql/scalars.dart
+            JSON:
+              type: dynamic
+              fromJsonFunctionName: fromJsonJson
+              toJsonFunctionName: toJsonJson
+              import: package:pms_graphql/scalars.dart

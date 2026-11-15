@@ -12,6 +12,8 @@ scalar Cursor
 
 scalar Datetime
 
+scalar JSON
+
 scalar UUID
 
 enum SharedUnitsOrderBy {
@@ -54,6 +56,7 @@ type HistoryInfoStaff {
 
 type Mutation {
   updateSharedUnitBySharedUnitId(input: UpdateSharedUnitBySharedUnitIdInput!): UpdateSharedUnitPayload
+  unitSave(input: UnitSaveInput!): UnitSavePayload
 }
 
 type PageInfo {
@@ -122,6 +125,10 @@ type SharedUnitsConnection {
   nodes: [SharedUnit]!
   pageInfo: PageInfo!
   totalCount: Int!
+}
+
+type UnitSavePayload {
+  sharedUnit: SharedUnit
 }
 
 type UpdateSharedUnitPayload {
@@ -856,6 +863,16 @@ input UUIDFilter {
   lessThanOrEqualTo: UUID
   greaterThan: UUID
   greaterThanOrEqualTo: UUID
+}
+
+input UnitSaveInput {
+  pUnitId: UUID
+  pName: JSON
+  pPronunciation: JSON
+  pNickname: JSON
+  pDetail: JSON
+  pRemarks: String
+  pStaffId: UUID
 }
 
 input UpdateSharedUnitBySharedUnitIdInput {

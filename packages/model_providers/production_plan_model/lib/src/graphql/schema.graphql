@@ -2686,6 +2686,8 @@ input TransOperationsPlanPatch {
   stop: Boolean
   discontinue: Boolean
   remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
   remove: Boolean
 }
 
@@ -2886,6 +2888,8 @@ input TransResourcePlanPatch {
   itemHistoryId: UUID
   itemId: UUID
   remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
   remove: Boolean
 }
 

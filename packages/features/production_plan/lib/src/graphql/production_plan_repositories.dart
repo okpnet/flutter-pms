@@ -1,6 +1,7 @@
 import 'package:data_strategist/lib.dart';
 import 'package:entity_screens/entity_screens.dart';
 import 'package:graphql/client.dart';
+import 'package:pms_graphql/pms_graphql.dart' show AuditUser, AuditUserSource;
 import 'package:production_plan_model/production_plan_model.dart';
 
 import '../entities/production_plan_definitions.dart';
@@ -17,11 +18,24 @@ import '../entities/production_plan_definitions.dart';
 /// 生成された型は、この中だけで使い、外へ出さない。抽出条件・並び順は無視する(サンプルと同じ)。
 ///
 /// パターン: Adapter(生成された読み込みの結果と、画面の [EntityRecord] を変換する)
-List<IEntityRepository> productionPlanRepositories(GraphQLClient client) {
+List<IEntityRepository> productionPlanRepositories(
+  GraphQLClient client, {
+  AuditUserSource? auditUser,
+}) {
   final language = _LanguageCode(client);
   return [
-    _ResourcePlanRepository(_resourcePlanDefinition, client, language),
-    _OperationsPlanRepository(_operationsPlanDefinition, client, language),
+    _ResourcePlanRepository(
+      _resourcePlanDefinition,
+      client,
+      language,
+      auditUser: auditUser,
+    ),
+    _OperationsPlanRepository(
+      _operationsPlanDefinition,
+      client,
+      language,
+      auditUser: auditUser,
+    ),
   ];
 }
 
@@ -109,7 +123,12 @@ class _LanguageCode {
 }
 
 abstract class _ReadOnlyRepository implements IEntityRepository {
-  _ReadOnlyRepository(this.definition, this.client, this.language);
+  _ReadOnlyRepository(
+    this.definition,
+    this.client,
+    this.language, {
+    this.auditUser,
+  });
 
   /// 品目の最新の履歴ID(`revision` が最大の行)。品目の ID から引く。
   Future<String> itemHistoryId(String masterId) async {
@@ -169,6 +188,12 @@ abstract class _ReadOnlyRepository implements IEntityRepository {
   final GraphQLClient client;
   final _LanguageCode language;
 
+  /// 更新者(ログイン中の担当者)を返す関数。無いとき・ログインしていないときは、更新者を送らない。
+  final AuditUserSource? auditUser;
+
+  /// 書き込みのたびに、更新者を引く(ログインしていなければ null)。
+  Future<AuditUser?> updater() async => auditUser == null ? null : auditUser!();
+
   @override
   Future<EntityRecord> save(EntityRecord record) =>
       throw UnsupportedError('${definition.key}: 読み取り専用です');
@@ -198,7 +223,12 @@ abstract class _ReadOnlyRepository implements IEntityRepository {
 }
 
 class _ResourcePlanRepository extends _ReadOnlyRepository {
-  _ResourcePlanRepository(super.definition, super.client, super.language);
+  _ResourcePlanRepository(
+    super.definition,
+    super.client,
+    super.language, {
+    super.auditUser,
+  });
 
   EntityRecord _record(
     Query$ResourcePlanPageRead$allTransResourcePlans$nodes n,
@@ -294,6 +324,11 @@ class _ResourcePlanRepository extends _ReadOnlyRepository {
       'itemId': itemId,
       'remarks': _ReadOnlyRepository.str(record, 'remarks'),
     };
+    final au = await updater();
+    if (au != null) {
+      vars['updateUserId'] = au.staffId;
+      vars['updateUserHistoryId'] = au.staffHistoryId;
+    }
     String id;
     if (record.id.isEmpty) {
       final result = await client.mutate$ResourcePlanPageCreate(
@@ -327,11 +362,14 @@ class _ResourcePlanRepository extends _ReadOnlyRepository {
   /// 論理削除(`remove = true`)。物理削除はしない。
   @override
   Future<void> remove(String id) async {
+    final au = await updater();
     final result = await client.mutate$ResourcePlanPageRemove(
       Options$Mutation$ResourcePlanPageRemove(
         variables: Variables$Mutation$ResourcePlanPageRemove(
           transResourcePlanId: id,
           remove: true,
+          updateUserId: au?.staffId,
+          updateUserHistoryId: au?.staffHistoryId,
         ),
       ),
     );
@@ -341,7 +379,12 @@ class _ResourcePlanRepository extends _ReadOnlyRepository {
 }
 
 class _OperationsPlanRepository extends _ReadOnlyRepository {
-  _OperationsPlanRepository(super.definition, super.client, super.language);
+  _OperationsPlanRepository(
+    super.definition,
+    super.client,
+    super.language, {
+    super.auditUser,
+  });
 
   EntityRecord _record(
     Query$OperationsPlanPageRead$allTransOperationsPlans$nodes n,
@@ -418,6 +461,11 @@ class _OperationsPlanRepository extends _ReadOnlyRepository {
       'deadline': _ReadOnlyRepository.isoDate(record, 'deadline'),
       'remarks': _ReadOnlyRepository.str(record, 'remarks'),
     };
+    final au = await updater();
+    if (au != null) {
+      vars['updateUserId'] = au.staffId;
+      vars['updateUserHistoryId'] = au.staffHistoryId;
+    }
     String id;
     if (record.id.isEmpty) {
       final parentId = record.parentId;
@@ -460,11 +508,14 @@ class _OperationsPlanRepository extends _ReadOnlyRepository {
   /// 論理削除(`remove = true`)。物理削除はしない。
   @override
   Future<void> remove(String id) async {
+    final au = await updater();
     final result = await client.mutate$OperationsPlanPageRemove(
       Options$Mutation$OperationsPlanPageRemove(
         variables: Variables$Mutation$OperationsPlanPageRemove(
           transOperationsPlanId: id,
           remove: true,
+          updateUserId: au?.staffId,
+          updateUserHistoryId: au?.staffHistoryId,
         ),
       ),
     );

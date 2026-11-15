@@ -88,6 +88,10 @@
   使用します（`preferLast: true` のため、後から出てきた重複の方が優先されます）。また、
   どのエントリが除外されたかをログに残すためにも使われます。
 
+### 更新者(`AuditUser`・`AuditUserResolver`)
+
+登録・更新・論理削除の `update_user_id`・`update_user_history_id` に渡す、ログイン中の担当者。`AuditUserResolver` が、ログイン中のユーザーの担当者の ID(アプリの認証のセッション。`pbapi` の `SessionService.current.appUserId`)を、呼び出しのたびに関数(`staffId`)から貰い、その担当者の最新の履歴の ID(`history_info_staff` の `revision` が最大の行)を引く。同じ担当者は取り直さず、担当者が変わったとき(ログインし直し)だけ引く。担当者が分からないとき・履歴が無いときは null(更新者を送らない)。通信の失敗は、そのまま投げる(更新者を欠いたまま保存しないため)。取得元(リポジトリ)は、`AuditUserSource`(`Future<AuditUser?> Function()`)を受け取る。テストは `test/audit_user_test.dart`。
+
 ### `mutate()`
 
 生成されたモデルのミューテーション(登録・更新・論理削除など)を1つ実行する(`mutate(MutationOptions)`)。結果は `query` と同じ分類(`Ok` または `Err`。JWT の期限切れ・不正は `SessionExpiredError`、DB の権限なしは `PermissionDeniedError`)。`IEditModel` のコンバーターで保存するときは `save()`。

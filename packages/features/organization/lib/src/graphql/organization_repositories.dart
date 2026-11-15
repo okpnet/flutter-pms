@@ -13,7 +13,7 @@ import '../entities/organization_definitions.dart';
 /// (`issue/202611.md` の 2-1)。
 ///
 /// 対象は職員(`staff`)・事業所(`site`)・部署(`department`。ツリー)。名称・読み・略称は多言語の辞書で、言語コード `ja` の値を読む。
-/// 部署の親は部署ツリー(`info_department_tree`)の親の部署 ID。事業所の都道府県・市区町村は、住所の辞書の対応が未確認のため空。
+/// 部署の親は部署ツリー(`info_department_tree`)の親の部署 ID。事業所の住所は、住所(`info_address`)の国・郵便番号・住所1・住所2・建物・電話番号・FAX(住所1・住所2・建物は多言語の辞書の `ja` の値。住所1 = 都道府県と市区町村、住所2 = 町名・番地・号)。
 /// ほかの実体(会社・提供・役職・割当・部署区分・力量・資格・承認など)は、サンプルのまま。
 /// 生成された型は、この中だけで使い、外へ出さない。抽出条件・並び順は無視する(サンプルと同じ)。
 ///
@@ -108,7 +108,6 @@ abstract class _ReadOnlyRepository implements IEntityRepository {
         ? ''
         : text(nodes.first.dictionaryValue);
   }
-
 }
 
 class _StaffRepository extends _ReadOnlyRepository {
@@ -202,7 +201,15 @@ class _SiteRepository extends _ReadOnlyRepository {
         ),
         'country_code_2': _ReadOnlyRepository.text(a?.countryCode2),
         'zip_code': _ReadOnlyRepository.text(a?.zipCode),
-        'building': _ReadOnlyRepository.text(a?.building),
+        'address1': _ReadOnlyRepository.dict(
+          a?.address1?.sharedDictionaryBySharedDictionaryNameId,
+        ),
+        'address2': _ReadOnlyRepository.dict(
+          a?.address2?.sharedDictionaryBySharedDictionaryNameId,
+        ),
+        'building': _ReadOnlyRepository.dict(
+          a?.building?.sharedDictionaryBySharedDictionaryNameId,
+        ),
         'phone': _ReadOnlyRepository.text(a?.phone),
         'fax_number': _ReadOnlyRepository.text(a?.faxNumber),
       },

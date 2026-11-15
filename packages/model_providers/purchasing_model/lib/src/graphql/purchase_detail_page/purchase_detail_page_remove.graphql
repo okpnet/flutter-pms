@@ -6,11 +6,13 @@
 mutation PurchaseDetailPageRemove(
   $transPurchaseDetailId: UUID!
   $remove: Boolean!
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
 ) {
   updateTransPurchaseDetailByTransPurchaseDetailId(
     input: {
       transPurchaseDetailId: $transPurchaseDetailId
-      transPurchaseDetailPatch: { remove: $remove }
+      transPurchaseDetailPatch: { remove: $remove, updateUserId: $updateUserId, updateUserHistoryId: $updateUserHistoryId }
     }
   ) {
     transPurchaseDetail {

@@ -12,6 +12,7 @@ class TestServer {
   TestServer._(
     this.url, {
     this.authenticated = false,
+    this.staffId,
     Map<String, String> headers = const {},
   }) : provider = GraphQLClientProvider(url, headers: headers, timeLimit: 20);
 
@@ -29,6 +30,16 @@ class TestServer {
   /// テスト用ユーザーの JWT(`Authorization: Bearer`)を付けているか。付けていなければ匿名(DB の匿名ロールの権限だけ)。
   /// 付けるには `--dart-define=PMS_TEST_USER=...` と `PMS_TEST_PASSWORD=...`(または同名の環境変数)を渡す([TestToken])。
   final bool authenticated;
+
+  /// テスト用ユーザーの担当者の ID(JWT の `staff_id`。ログイン中のユーザー)。匿名・読めないときは null。
+  final String? staffId;
+
+  /// 更新者(ログイン中のユーザーの担当者)。アプリの認証のセッションの代わりに、JWT の `staff_id` から得る。
+  /// 書き込みを行う取得元の `auditUser` に渡す(更新者の列が埋まることを確かめるテスト用)。
+  late final AuditUserSource auditUser = AuditUserResolver(
+    client: provider.client,
+    staffId: () => staffId,
+  ).call;
 
   /// 実接続の[GraphQLClientProvider]。モデルパッケージの生成クエリ文書を実行する。
   final GraphQLClientProvider provider;
@@ -56,6 +67,7 @@ class TestServer {
         return TestServer._(
           url,
           authenticated: token != null,
+          staffId: token?.staffId,
           headers: token == null ? const {} : {'Authorization': token.value},
         );
       }

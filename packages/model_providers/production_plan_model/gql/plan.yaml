@@ -38,6 +38,7 @@ ResourcePlanPageEdit:
   requiredWhere:
     - trans_resource_plan_id
   generateRfe: true
+  withUpdater: true # 更新者(update_user_id・update_user_history_id)を、Edit・Remove の引数にする(ログイン中の担当者を渡す)
   columns:
     - trans_resource_plan_id
     - trans_order_detail_id
@@ -98,6 +99,7 @@ OperationsPlanPageEdit:
   requiredWhere:
     - trans_operations_plan_id
   generateRfe: true
+  withUpdater: true # 更新者(update_user_id・update_user_history_id)を、Edit・Remove の引数にする(ログイン中の担当者を渡す)
   columns:
     - trans_operations_plan_id
     - trans_resource_plan_id

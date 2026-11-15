@@ -6,6 +6,7 @@ export 'extends/_extends.dart';
 export 'graphql_converters/_graphql_converters.dart';
 export 'providers/_providers.dart';
 export 'results/_result.dart';
+export 'src/audit_user.dart';
 export 'src/flat_filter_converter.dart';
 export 'src/content_variable.dart';
 export 'src/flat_map.dart';

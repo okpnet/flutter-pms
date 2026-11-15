@@ -4,7 +4,7 @@ import 'package:entity_screens/entity_screens.dart';
 /// 会社情報のサンプルデータ(架空の値)。参照は参照先の id(UUID の文字列)。
 const Map<String, List<EntityRecord>> organizationSeeds = {
     'company': [
-      EntityRecord(id: 'aa62e8bc-0000-4000-8000-000000000001', values: {'name': 'サンプル精工株式会社', 'pronunciation': 'サンプルセイコウカブシキガイシャ', 'nickname': 'サンプル精工', 'ceo': '山田 太郎', 'web_page': 'https://www.example.co.jp', 'country_code_2': 'JP', 'zip_code': '100-0001', 'prefecture': '東京都', 'city': '千代田区千代田1-1-1 サンプルビル12F', 'building': '', 'phone': '', 'fax_number': '', 'remarks': ''}),
+      EntityRecord(id: 'aa62e8bc-0000-4000-8000-000000000001', values: {'name': 'サンプル精工株式会社', 'pronunciation': 'サンプルセイコウカブシキガイシャ', 'nickname': 'サンプル精工', 'ceo': '山田 太郎', 'web_page': 'https://www.example.co.jp', 'country_code_2': 'JP', 'zip_code': '100-0001', 'address1': '東京都千代田区', 'address2': '千代田1-1-1 サンプルビル12F', 'building': '', 'phone': '', 'fax_number': '', 'remarks': ''}),
     ],
     'provision': [
       EntityRecord(id: '4b3b42c0-0000-4000-8000-000000000001', values: {'kind': '製品', 'code': 'PV-001', 'name': '精密切削部品', 'detail': '自動車・産業機械向けの金属切削部品。ミクロン単位の寸法精度で量産対応。'}, parentId: 'aa62e8bc-0000-4000-8000-000000000001'),
@@ -30,12 +30,12 @@ const Map<String, List<EntityRecord>> organizationSeeds = {
       EntityRecord(id: '0ab739f0-0000-4000-8000-000000000006', values: {'staff': '675ca4d1-0000-4000-8000-00000000000b', 'enable': 'はい', 'priority': '6', 'office': '', 'department': ''}, parentId: '934f4e0a-0000-4000-8000-000000000005'),
     ],
     'site': [
-      EntityRecord(id: '3791ee4e-0000-4000-8000-000000000001', values: {'code': 'HQ', 'name': '本社', 'pronunciation': 'ホンシャ', 'nickname': '', 'country_code_2': 'JP', 'zip_code': '100-0001', 'prefecture': '東京都', 'city': '千代田区千代田1-1-1 サンプルビル12F', 'building': '', 'phone': '', 'fax_number': ''}),
-      EntityRecord(id: '3791ee4e-0000-4000-8000-000000000002', values: {'code': 'KT', 'name': '関東工場', 'pronunciation': 'カントウコウジョウ', 'nickname': '', 'country_code_2': 'JP', 'zip_code': '330-0001', 'prefecture': '埼玉県', 'city': 'さいたま市大宮区桜木町2-3-4 サンプル工業団地A-5', 'building': '', 'phone': '', 'fax_number': ''}),
-      EntityRecord(id: '3791ee4e-0000-4000-8000-000000000003', values: {'code': 'KS', 'name': '関西工場', 'pronunciation': 'カンサイコウジョウ', 'nickname': '', 'country_code_2': 'JP', 'zip_code': '578-0001', 'prefecture': '大阪府', 'city': '東大阪市荒本北1-2-3 サンプルテクノパーク内', 'building': '', 'phone': '', 'fax_number': ''}),
-      EntityRecord(id: '3791ee4e-0000-4000-8000-000000000004', values: {'code': 'CH', 'name': '中部物流', 'pronunciation': 'チュウブブツリュウ', 'nickname': '', 'country_code_2': 'JP', 'zip_code': '485-0001', 'prefecture': '愛知県', 'city': '小牧市大字入鹿出新田1234-5 サンプル物流センター', 'building': '', 'phone': '', 'fax_number': ''}),
-      EntityRecord(id: '3791ee4e-0000-4000-8000-000000000005', values: {'code': 'KY', 'name': '九州営業所', 'pronunciation': 'キュウシュウエイギョウショ', 'nickname': '', 'country_code_2': 'JP', 'zip_code': '812-0001', 'prefecture': '福岡県', 'city': '福岡市博多区博多駅前3-4-5 サンプル博多ビル6F', 'building': '', 'phone': '', 'fax_number': ''}),
-      EntityRecord(id: '3791ee4e-0000-4000-8000-000000000006', values: {'code': 'HK', 'name': '北海道営業所', 'pronunciation': 'ホッカイドウエイギョウショ', 'nickname': '', 'country_code_2': 'JP', 'zip_code': '060-0001', 'prefecture': '北海道', 'city': '札幌市中央区北一条西2-3-4 サンプル札幌ビル3F', 'building': '', 'phone': '', 'fax_number': ''}),
+      EntityRecord(id: '3791ee4e-0000-4000-8000-000000000001', values: {'code': 'HQ', 'name': '本社', 'pronunciation': 'ホンシャ', 'nickname': '', 'country_code_2': 'JP', 'zip_code': '100-0001', 'address1': '東京都千代田区', 'address2': '千代田1-1-1 サンプルビル12F', 'building': '', 'phone': '', 'fax_number': ''}),
+      EntityRecord(id: '3791ee4e-0000-4000-8000-000000000002', values: {'code': 'KT', 'name': '関東工場', 'pronunciation': 'カントウコウジョウ', 'nickname': '', 'country_code_2': 'JP', 'zip_code': '330-0001', 'address1': '埼玉県さいたま市大宮区', 'address2': '桜木町2-3-4 サンプル工業団地A-5', 'building': '', 'phone': '', 'fax_number': ''}),
+      EntityRecord(id: '3791ee4e-0000-4000-8000-000000000003', values: {'code': 'KS', 'name': '関西工場', 'pronunciation': 'カンサイコウジョウ', 'nickname': '', 'country_code_2': 'JP', 'zip_code': '578-0001', 'address1': '大阪府東大阪市', 'address2': '荒本北1-2-3 サンプルテクノパーク内', 'building': '', 'phone': '', 'fax_number': ''}),
+      EntityRecord(id: '3791ee4e-0000-4000-8000-000000000004', values: {'code': 'CH', 'name': '中部物流', 'pronunciation': 'チュウブブツリュウ', 'nickname': '', 'country_code_2': 'JP', 'zip_code': '485-0001', 'address1': '愛知県小牧市', 'address2': '大字入鹿出新田1234-5 サンプル物流センター', 'building': '', 'phone': '', 'fax_number': ''}),
+      EntityRecord(id: '3791ee4e-0000-4000-8000-000000000005', values: {'code': 'KY', 'name': '九州営業所', 'pronunciation': 'キュウシュウエイギョウショ', 'nickname': '', 'country_code_2': 'JP', 'zip_code': '812-0001', 'address1': '福岡県福岡市博多区', 'address2': '博多駅前3-4-5 サンプル博多ビル6F', 'building': '', 'phone': '', 'fax_number': ''}),
+      EntityRecord(id: '3791ee4e-0000-4000-8000-000000000006', values: {'code': 'HK', 'name': '北海道営業所', 'pronunciation': 'ホッカイドウエイギョウショ', 'nickname': '', 'country_code_2': 'JP', 'zip_code': '060-0001', 'address1': '北海道札幌市中央区', 'address2': '北一条西2-3-4 サンプル札幌ビル3F', 'building': '', 'phone': '', 'fax_number': ''}),
     ],
     'deptkind': [
       EntityRecord(id: '80fb04e8-0000-4000-8000-000000000001', values: {'name': '管理部門', 'detail': ''}),

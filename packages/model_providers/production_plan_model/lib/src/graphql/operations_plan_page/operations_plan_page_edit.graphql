@@ -9,6 +9,8 @@ mutation OperationsPlanPageEdit(
   $quantity: BigFloat
   $deadline: Datetime
   $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
 ) {
   updateTransOperationsPlanByTransOperationsPlanId(
     input: {
@@ -18,6 +20,8 @@ mutation OperationsPlanPageEdit(
         quantity: $quantity
         deadline: $deadline
         remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
       }
     }
   ) {

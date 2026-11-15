@@ -496,3 +496,72 @@
     +   担当者アクセスパス許可登録[StaffAccessPermissionPageCreate]
 1.  担当者の実効アクセスパス(DBのビュー v_staff_effective_access_path)
     +   担当者実効アクセスパス台帳[StaffEffectiveAccessPathPage]
+
+1.  2026-11 追加分(受注・発注まわりの計画変更・精算・返品・支給・操作の DB 関数、書き込み用の登録(Create)など。モデルパッケージの YAML ごと)
+    1.  plan_change_model/plan_change.yaml
+        +   PlanChange 台帳[PlanChangePage]
+        +   PlanChangeUnreflected 台帳[PlanChangeUnreflectedPage]
+        +   PlanChange 情報[PlanChangePageEdit]
+    1.  production_plan_model/plan.yaml
+        +   OperationsPlanSetStop 登録[OperationsPlanSetStopPageCall]
+        +   OperationsPlanDiscontinue 登録[OperationsPlanDiscontinuePageCall]
+        +   ResourcePlan 登録[ResourcePlanPageCreate]
+        +   OperationsPlan 登録[OperationsPlanPageCreate]
+    1.  purchasing_model/balance.yaml
+        +   PurchaseDetailBalance 台帳[PurchaseDetailBalancePage]
+        +   PurchaseDetailCancel 登録[PurchaseDetailCancelPageCall]
+        +   PurchaseDetailSetStop 登録[PurchaseDetailSetStopPageCall]
+        +   PurchaseDetailChange 登録[PurchaseDetailChangePageCall]
+    1.  purchasing_model/purchase.yaml
+        +   Purchase 登録[PurchasePageCreate]
+        +   PurchaseDetail 登録[PurchaseDetailPageCreate]
+    1.  quality_model/complaint_target.yaml
+        +   ComplaintSupply 台帳[ComplaintSupplyPage]
+        +   ComplaintSupply 登録[ComplaintSupplyPageCreate]
+        +   ComplaintSupply 情報[ComplaintSupplyPageEdit]
+    1.  return_model/return.yaml
+        +   Return 台帳[ReturnPage]
+        +   ReturnDetail 台帳[ReturnDetailPage]
+        +   ReturnVisiter 台帳[ReturnVisiterPage]
+        +   Return 情報[ReturnPageEdit]
+        +   ReturnDetail 情報[ReturnDetailPageEdit]
+        +   ReturnVisiter 情報[ReturnVisiterPageEdit]
+        +   ReturnRegister 登録[ReturnRegisterPageCall]
+    1.  sales_model/balance.yaml
+        +   OrderDetailBalance 台帳[OrderDetailBalancePage]
+        +   OrderDetailSettlement 台帳[OrderDetailSettlementPage]
+        +   OrderDetailSettlement 情報[OrderDetailSettlementPageEdit]
+        +   OrderDetailCancel 登録[OrderDetailCancelPageCall]
+        +   OrderDetailSetStop 登録[OrderDetailSetStopPageCall]
+        +   OrderDetailChange 登録[OrderDetailChangePageCall]
+        +   OrderDetailSettle 登録[OrderDetailSettlePageCall]
+    1.  sales_model/order.yaml
+        +   Order 登録[OrderPageCreate]
+        +   OrderDetail 登録[OrderDetailPageCreate]
+    1.  sales_model/shipping_order.yaml
+        +   ShippingOrder 登録[ShippingOrderPageCreate]
+        +   ShippingOrderDetail 登録[ShippingOrderDetailPageCreate]
+    1.  shared_master_model/stakeholder_page.yaml
+        +   Stakeholder 台帳[StakeholderPage]
+        +   Stakeholder 情報[StakeholderPageEdit]
+        +   StakeholderSave 登録[StakeholderSavePageCall]
+    1.  supply_model/supply.yaml
+        +   Supply 台帳[SupplyPage]
+        +   SupplyDetail 台帳[SupplyDetailPage]
+        +   SupplyVisiter 台帳[SupplyVisiterPage]
+        +   SupplyDetailBalance 台帳[SupplyDetailBalancePage]
+        +   Supply 情報[SupplyPageEdit]
+        +   SupplyDetail 情報[SupplyDetailPageEdit]
+        +   SupplyVisiter 情報[SupplyVisiterPageEdit]
+        +   SupplyRegister 登録[SupplyRegisterPageCall]
+    1.  system_model/unit.yaml
+        +   UnitSave 登録[UnitSavePageCall]
+    1.  work_record_model/owner.yaml
+        +   VisiterOwner 台帳[VisiterOwnerPage]
+        +   ExternalProperty 台帳[ExternalPropertyPage]
+        +   InventoryRequestRelease 登録[InventoryRequestReleasePageCall]
+        +   InventoryRequestHold 登録[InventoryRequestHoldPageCall]
+        +   LotRelease 登録[LotReleasePageCall]
+        +   LotHold 登録[LotHoldPageCall]
+        +   LotScrap 登録[LotScrapPageCall]
+        +   LotDeliver 登録[LotDeliverPageCall]

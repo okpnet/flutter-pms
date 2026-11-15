@@ -7,16 +7,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:graphql/client.dart';
 import 'package:pbapi/pbapi.dart';
-import 'package:pms_graphql/pms_graphql.dart' show SessionUnavailableException;
-import 'package:production_plan/production_plan.dart' show productionPlanRepositories;
+import 'package:pms_graphql/pms_graphql.dart'
+    show AuditUserResolver, AuditUserSource, SessionUnavailableException;
+import 'package:production_plan/production_plan.dart'
+    show productionPlanRepositories;
 import 'package:purchasing/purchasing.dart' show purchasingRepositories;
 import 'package:item/item.dart' show itemRepositories;
 import 'package:organization/organization.dart' show organizationRepositories;
 import 'package:resource/resource.dart' show resourceRepositories;
-import 'package:production_process/production_process.dart' show productionProcessRepositories;
+import 'package:production_process/production_process.dart'
+    show productionProcessRepositories;
 import 'package:work_record/work_record.dart' show workRecordRepositories;
-import 'package:quality_document/quality_document.dart' show qualityDocumentRepositories;
-import 'package:quality_common/quality_common.dart' show qualityCommonRepositories;
+import 'package:quality_document/quality_document.dart'
+    show qualityDocumentRepositories;
+import 'package:quality_common/quality_common.dart'
+    show qualityCommonRepositories;
 import 'package:quality/quality.dart' show qualityRepositories;
 import 'package:sales/sales.dart' show salesRepositories;
 import 'package:shared_master/shared_master.dart' show sharedMasterRepositories;
@@ -105,20 +110,36 @@ final graphqlClientProvider = Provider<GraphQLClient?>((ref) {
   return GraphQLClient(link: link, cache: GraphQLCache());
 });
 
+/// 更新者(ログイン中の担当者)。登録・更新・論理削除の `update_user_id`・`update_user_history_id` に渡す。
+///
+/// 担当者の ID は、ログインしているユーザーの ID を保持している状態(認証のセッション。`pbapi` の
+/// `SessionService.current.appUserId` = アプリの DB の担当者の ID)から、書き込みのたびに貰う(ログインし直しに追従する)。
+/// 履歴の ID は、その担当者の最新の履歴を引いて使い回す。PocketBase を使わないとき・ログインしていないときは null(更新者を送らない)。
+final auditUserProvider = Provider<AuditUserSource?>((ref) {
+  if (!ref.read(pocketbaseEnabledProvider)) return null;
+  final client = ref.watch(graphqlClientProvider);
+  if (client == null) return null;
+  return AuditUserResolver(
+    client: client,
+    staffId: () => ref.read(sessionServiceProvider).current?.appUserId,
+  ).call;
+});
+
 /// 画面の取得元を GraphQL 版に差し替える。[graphqlUrl] が未指定なら空(サンプルのまま)。
 List<Override> graphqlOverrides() => [
   entityRepositoryOverridesProvider.overrideWith((ref) {
     final client = ref.watch(graphqlClientProvider);
     if (client == null) return const [];
+    final auditUser = ref.watch(auditUserProvider);
     return [
       // 取得元を GraphQL にした機能は、ここに足す
       ...accessControlRepositories(client),
-      // 営業: 受注・受注明細(読み取り専用。キャンセル・停止・残も出る)
-      ...salesRepositories(client),
-      // 購買: 発注・発注明細(読み取り専用。キャンセル・停止・受入済み・残も出る)
-      ...purchasingRepositories(client),
-      // 生産計画: 資材計画・生産計画(読み取り専用。停止・打ち切りも出る)
-      ...productionPlanRepositories(client),
+      // 営業: 受注・受注明細・出荷予定・出荷指示(書き込みは更新者つき。キャンセル・停止・残は読み取り専用)
+      ...salesRepositories(client, auditUser: auditUser),
+      // 購買: 発注・発注明細(書き込みは更新者つき。キャンセル・停止・受入済み・残は読み取り専用)
+      ...purchasingRepositories(client, auditUser: auditUser),
+      // 生産計画: 資材計画・生産計画(書き込みは更新者つき。停止・打ち切りは読み取り専用)
+      ...productionPlanRepositories(client, auditUser: auditUser),
       // システム: 単位(読み取り専用。名称・読み・略称は言語コード ja の値)
       ...systemRepositories(client),
       // 共有マスタ: 利害関係者(読み取り専用。顧客・外部供給者・運送業者はフラグで見分ける)

@@ -532,3 +532,4 @@ second occurrence
 - 引数は `requiredWhere` の主キーと `$remove: Boolean!`。`update<型>By<主キー>` の Patch に `remove` だけを渡し、結果は主キーと `remove`。
 - 更新のミューテーションが無い、または Patch に `remove` が無いテーブルは生成しない(エラーにしない)。ビュー(読み込み専用)は対象外。
 - 監査列を Edit に含めない方針(要件0048)は変わらない。`remove` を書くのは `~PageRemove` だけ。
+- 例外(2026-11-15): 定義に `withUpdater: true` があるときだけ、更新者の2列(`update_user_id`・`update_user_history_id`)を、Edit の引数・Patch と、`~PageRemove` の引数・Patch に含める(任意の引数。結果には含めない)。ログイン中の担当者を、アプリの状態から渡すため。`update_at`・`remove` は、これまでどおり含めない。

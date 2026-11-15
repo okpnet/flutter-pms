@@ -12,6 +12,8 @@ mutation ShippingOrderPageEdit(
   $stakeholderHistoryId: UUID
   $stakeholderId: UUID
   $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
 ) {
   updateTransShippingOrderByTransShippingOrderId(
     input: {
@@ -24,6 +26,8 @@ mutation ShippingOrderPageEdit(
         stakeholderHistoryId: $stakeholderHistoryId
         stakeholderId: $stakeholderId
         remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
       }
     }
   ) {

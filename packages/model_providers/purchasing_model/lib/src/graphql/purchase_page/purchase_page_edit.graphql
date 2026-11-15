@@ -16,6 +16,8 @@ mutation PurchasePageEdit(
   $purchaseOrderDate: Datetime
   $deadline: Datetime
   $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
 ) {
   updateTransPurchaseByTransPurchaseId(
     input: {
@@ -32,6 +34,8 @@ mutation PurchasePageEdit(
         purchaseOrderDate: $purchaseOrderDate
         deadline: $deadline
         remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
       }
     }
   ) {

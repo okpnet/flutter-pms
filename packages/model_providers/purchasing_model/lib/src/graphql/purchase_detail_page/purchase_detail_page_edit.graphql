@@ -18,6 +18,8 @@ mutation PurchaseDetailPageEdit(
   $itemHistoryId: UUID
   $itemId: UUID
   $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
 ) {
   updateTransPurchaseDetailByTransPurchaseDetailId(
     input: {
@@ -36,6 +38,8 @@ mutation PurchaseDetailPageEdit(
         itemHistoryId: $itemHistoryId
         itemId: $itemId
         remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
       }
     }
   ) {

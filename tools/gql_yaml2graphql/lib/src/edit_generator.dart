@@ -3,6 +3,8 @@
 // 規則は source/27_yaml_to_graphql_conversion_rules.md の6-8節・7章・8章、CLAUDE.md 5-5・5-6節に従う。
 //   - 監査列(update_at/update_user_id/update_user_history_id/remove)は、Editの引数・Patch・結果に含めない。
 //     RFEのルートにだけ含める(0048)。
+//     ただし、定義に `withUpdater: true` があるときは、更新者(update_user_id・update_user_history_id)だけ、ルートの引数・Patchに含める
+//     (ログイン中の担当者を、アプリの状態から渡すため。Removeの引数にも含める)。結果には含めない。
 //   - 表示名・テキストはja/enの両方を必須引数(\$jaLanguageCodeId/\$enLanguageCodeId)で更新・取得する(0036・0048)。
 //   - editable: false の子(readを参照)は、親側のFK列だけをPatchに含め、子の中身は書かない(0047)。
 //   - editable: true の1対1の子は、入れ子のupdateByで更新する。引数名は、関係の名前(labels・addressは除く)を
@@ -18,6 +20,9 @@ import 'schema_index.dart';
 
 /// 引数名の接頭辞に含めない関係の名前(呼称のlabels、住所のaddress)。
 const _transparentNames = {'labels', 'address'};
+
+/// `withUpdater: true` のときだけ、Edit・Remove の引数に含める更新者の列。
+const _updaterColumns = {'update_user_id', 'update_user_history_id'};
 
 class EditResult {
   EditResult(this.edit, this.rfe);
@@ -88,6 +93,7 @@ class EditGenerator {
       ctx,
       type,
       name,
+      allowAudit: node['withUpdater'] == true ? _updaterColumns : const {},
     );
 
     // ---- 結果(ミューテーション) ----
@@ -177,6 +183,16 @@ class EditGenerator {
       keyLines.add('${camel(k)}: \$${camel(k)}');
     }
     vars.declare('remove', 'Boolean!');
+    // 定義に withUpdater: true があり、Patch に更新者の列があるときは、論理削除にも更新者を渡せる(任意の引数)
+    final updaterLines = <String>[];
+    if (node['withUpdater'] == true) {
+      for (final col in _updaterColumns) {
+        final field = patch[camel(col)];
+        if (field == null) continue;
+        vars.declare(camel(col), field.typeSource);
+        updaterLines.add('${camel(col)}: \$${camel(col)}');
+      }
+    }
     final b = StringBuffer()
       ..writeln('# $dir画面 - Remove(論理削除のミューテーション)')
       ..writeln('#')
@@ -195,7 +211,7 @@ class EditGenerator {
       b.writeln('      $k');
     }
     b
-      ..writeln('      $patchField: { remove: \$remove }')
+      ..writeln('      $patchField: { remove: \$remove${updaterLines.map((l) => ', $l').join()} }')
       ..writeln('    }')
       ..writeln('  ) {')
       ..writeln('    $resultField {');
@@ -267,8 +283,9 @@ class EditGenerator {
     Set<String> keyCols,
     _Ctx ctx,
     String objectType,
-    String path,
-  ) {
+    String path, {
+    Set<String> allowAudit = const {},
+  }) {
     final fields = schema.inputs[patchType];
     final lines = <String>[];
     if (fields == null) {
@@ -278,7 +295,7 @@ class EditGenerator {
     var lastWasRelation = false;
     for (final c in cols) {
       if (c is String) {
-        if (auditColumns.contains(c) || keyCols.contains(c)) continue;
+        if ((auditColumns.contains(c) && !allowAudit.contains(c)) || keyCols.contains(c)) continue;
         if (c == 'remarks' && noRemarksTypes.contains(objectType)) continue;
         final f = fields[camel(c)];
         if (f == null) {

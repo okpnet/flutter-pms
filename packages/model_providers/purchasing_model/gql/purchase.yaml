@@ -49,6 +49,7 @@ PurchasePageEdit:
   requiredWhere:
     - trans_purchase_id
   generateRfe: true
+  withUpdater: true # 更新者(update_user_id・update_user_history_id)を、Edit・Remove の引数にする(ログイン中の担当者を渡す)
   columns:
     - trans_purchase_id
     - stakeholder_history_id
@@ -144,6 +145,7 @@ PurchaseDetailPageEdit:
   requiredWhere:
     - trans_purchase_detail_id
   generateRfe: true
+  withUpdater: true # 更新者(update_user_id・update_user_history_id)を、Edit・Remove の引数にする(ログイン中の担当者を渡す)
   columns:
     - trans_purchase_detail_id
     - trans_purchase_id

@@ -40,6 +40,7 @@ flutter test --dart-define=PMS_TEST_USER=tanaka --dart-define=PMS_TEST_PASSWORD=
 ```
 - 接続先は `PMS_TEST_POCKETBASE_URL`(既定 `http://192.168.1.103:8090`)。
 - テスト用の一般ユーザーは `tools/init/test_user_init.bat`(ダミーの担当者 `tanaka`・`suzuki`・`sato`)で用意する。
+- `TestToken.staffId`・`TestServer.staffId`: JWT の `staff_id`(アプリの DB の担当者の ID。ログイン中のユーザー)。`TestServer.auditUser` は、これを `AuditUserResolver` に渡した更新者(書き込みを行う取得元の `auditUser` に渡し、更新者の列が埋まることを確かめるテスト用)。
 - 渡さなければ匿名で実行する(従来どおり。権限エラーで失敗する)。取得に失敗したとき(資格情報の誤り・PocketBase に接続できない)は `TestTokenException`(パスワード・トークンは含めない)。
 
 ### 使い方

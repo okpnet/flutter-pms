@@ -3,6 +3,7 @@
 
 schema {
   query: Query
+  mutation: Mutation
 }
 
 scalar BigInt
@@ -10,6 +11,8 @@ scalar BigInt
 scalar Cursor
 
 scalar Datetime
+
+scalar JSON
 
 scalar UUID
 
@@ -115,6 +118,11 @@ type MstrStakeholdersConnection {
   totalCount: Int!
 }
 
+type Mutation {
+  updateMstrStakeholderByMstrStakeholderId(input: UpdateMstrStakeholderByMstrStakeholderIdInput!): UpdateMstrStakeholderPayload
+  stakeholderSave(input: StakeholderSaveInput!): StakeholderSavePayload
+}
+
 type PageInfo {
   hasNextPage: Boolean!
   endCursor: Cursor
@@ -142,6 +150,14 @@ type SharedDictionaryValue {
 
 type SharedDictionaryValuesConnection {
   nodes: [SharedDictionaryValue]!
+}
+
+type StakeholderSavePayload {
+  mstrStakeholder: MstrStakeholder
+}
+
+type UpdateMstrStakeholderPayload {
+  mstrStakeholder: MstrStakeholder
 }
 
 type VStakeholderOutsourceAvailableCount {
@@ -625,6 +641,11 @@ input MstrStakeholderFilter {
   not: MstrStakeholderFilter
 }
 
+input MstrStakeholderPatch {
+  remarks: String
+  remove: Boolean
+}
+
 input SharedAppellationFilter {
   sharedAppellationsId: UUIDFilter
   sharedDictionaryNameId: UUIDFilter
@@ -752,6 +773,23 @@ input SharedDictionaryValueFilter {
   not: SharedDictionaryValueFilter
 }
 
+input StakeholderSaveInput {
+  pStakeholderId: UUID
+  pCode: String
+  pControlCode: String
+  pName: JSON
+  pPronunciation: JSON
+  pNickname: JSON
+  pIsCustomer: Boolean
+  pIsSupplier: Boolean
+  pIsLogistics: Boolean
+  pMail: String
+  pShippingKindId: UUID
+  pRemarks: String
+  pStaffId: UUID
+  pClearShippingKind: Boolean
+}
+
 input StringFilter {
   isNull: Boolean
   equalTo: String
@@ -804,6 +842,11 @@ input UUIDFilter {
   lessThanOrEqualTo: UUID
   greaterThan: UUID
   greaterThanOrEqualTo: UUID
+}
+
+input UpdateMstrStakeholderByMstrStakeholderIdInput {
+  mstrStakeholderPatch: MstrStakeholderPatch!
+  mstrStakeholderId: UUID!
 }
 
 input VStakeholderOutsourceAvailableCountFilter {

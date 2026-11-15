@@ -17,24 +17,35 @@ const f = (key, label, kind = 'text', o = {}) => ({
   picker: o.picker,
 });
 
-/** 住所(info_address の複数列): 郵便番号・都道府県・市町村番地・建物・電話・FAX */
+/** 住所(info_address の列。名称は DB のコメント): 国・郵便番号・住所1・住所2・建物・電話番号・FAX。
+ *  住所1・住所2・建物は、呼称(多言語の辞書)。住所1 = 都道府県と市区町村(例 東京都千代田区)、住所2 = 町名・番地・号(例 千代田1-1-1)として使う。 */
 const addressFields = () => [
-  f('country_code_2', '国コード(ISO 3166-1 alpha-2)', 'text', { req: false }),
+  f('country_code_2', '国', 'text', { req: false }),
   f('zip_code', '郵便番号', 'text', { req: false }),
-  f('prefecture', '都道府県', 'text', { req: false }),
-  f('city', '市町村番地', 'text', { req: false }),
+  f('address1', '住所1', 'text', { req: false }),
+  f('address2', '住所2', 'text', { req: false }),
   f('building', '建物', 'text', { req: false }),
-  f('phone', '電話', 'text', { req: false }),
+  f('phone', '電話番号', 'text', { req: false }),
   f('fax_number', 'FAX', 'text', { req: false }),
 ];
-/** 1つの文字列の住所を、上の項目に分ける(画面案のサンプル用)。 */
+/** 1つの文字列の住所を、上の項目に分ける(画面案のサンプル用)。住所1 = 都道府県 + 市区町村、住所2 = 残り。 */
 const splitAddress = (text = '', tel = '', fax = '') => {
   let rest = String(text ?? '').trim();
   const zip = rest.match(/〒?\s*(\d{3}-?\d{4})/);
   if (zip) rest = rest.replace(zip[0], '').trim();
   const pref = rest.match(/^(北海道|東京都|(?:京都|大阪)府|.{2,3}県)/);
   if (pref) rest = rest.slice(pref[0].length).trim();
-  return { country_code_2: 'JP', zip_code: zip ? zip[1] : '', prefecture: pref ? pref[0] : '', city: rest, building: '', phone: tel, fax_number: fax };
+  const city = rest.match(/^(.+?市(?:[^市区町村]+?区)?|.+?[区町村郡])/);
+  if (city) rest = rest.slice(city[0].length).trim();
+  return {
+    country_code_2: 'JP',
+    zip_code: zip ? zip[1] : '',
+    address1: `${pref ? pref[0] : ''}${city ? city[0] : ''}`,
+    address2: rest,
+    building: '',
+    phone: tel,
+    fax_number: fax,
+  };
 };
 
 module.exports = function build(D, X) {

@@ -11,3 +11,30 @@ StakeholderPage:
     - column: remove
       operator: =
       value: false
+
+# 利害関係者の削除(論理削除 remove = true)
+StakeholderPageEdit:
+  kind: edit
+  from: mstr_stakeholder
+  requiredWhere:
+    - mstr_stakeholder_id
+  columns:
+    - mstr_stakeholder_id
+    - remarks
+    - remove
+
+# ---- DB の関数(kind: function)。呼称(多言語の辞書)を含む登録・更新を、1回の呼び出し = 1トランザクションで行う ----
+# doc/query/20261114_0002_appellation_functions.sql。更新は「渡した項目だけ」(NULL は今のまま。文字は空文字で消す。
+# 配送区分を外すときは p_clear_shipping_kind)。名称・読み・略称は、言語コード → 値 の JSON(例 {"ja": "株式会社○○"})。
+# 担当者は p_staff_id、省略時は JWT の staff_id。エラー(errcode): APL00 担当者・言語 / APL01 対象が無い / APL02 必須・空にできない / APL03 コードの重複。
+
+# 利害関係者の登録・更新(p_stakeholder_id が無ければ新規)
+StakeholderSavePageCall:
+  kind: function
+  mutation: stakeholderSave
+  returns: mstrStakeholder
+  columns:
+    - mstr_stakeholder_id
+    - code
+    - symbol
+    - remarks

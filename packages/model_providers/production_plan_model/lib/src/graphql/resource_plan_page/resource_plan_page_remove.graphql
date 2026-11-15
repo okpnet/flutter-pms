@@ -6,11 +6,13 @@
 mutation ResourcePlanPageRemove(
   $transResourcePlanId: UUID!
   $remove: Boolean!
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
 ) {
   updateTransResourcePlanByTransResourcePlanId(
     input: {
       transResourcePlanId: $transResourcePlanId
-      transResourcePlanPatch: { remove: $remove }
+      transResourcePlanPatch: { remove: $remove, updateUserId: $updateUserId, updateUserHistoryId: $updateUserHistoryId }
     }
   ) {
     transResourcePlan {

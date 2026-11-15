@@ -15,6 +15,8 @@ mutation ResourcePlanPageEdit(
   $itemHistoryId: UUID
   $itemId: UUID
   $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
 ) {
   updateTransResourcePlanByTransResourcePlanId(
     input: {
@@ -30,6 +32,8 @@ mutation ResourcePlanPageEdit(
         itemHistoryId: $itemHistoryId
         itemId: $itemId
         remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
       }
     }
   ) {

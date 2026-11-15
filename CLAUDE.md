@@ -263,6 +263,17 @@ DB(`tools/docker/postgresql/script`、スキーマ `tests`)の仕様。正は DD
 1. 顧客支給を 0円発注で扱う処理が無い。
 1. 組立品で、支給明細のある部品だけが支給依頼になり、ほかの部品は通常の生産・発注の提案になる。
 
+## 登録・更新の方式(関数とミューテーション)
+
+1.  共通のもの(呼称・文章・ラベルなど、複数の表にまたがる部品)は、DB 関数にする: `shared_appellation_save`(呼称)・`shared_text_save`(文章)・`trans_label_save`(trans のラベル)・`trans_text_save`(trans の文章)(`doc/query/20261115_0001_common_functions.sql`)。言語別の値は、言語コード → 値 の JSON で渡し、渡した言語の値だけ入れ替える(空文字で空になる)。
+1.  マスタ・Info・trans は、極力ミューテーション(PostGraphile の自動 CRUD の create・update)で対応する。マスタごと・テーブルごとの保存関数は作らない。呼称・文章・ラベルを持つ列は、共通関数で作り、返った ID を本体の create の列(`names`・`details` など)に渡す。更新は、渡した列だけが変わる(null で消える)。削除は `remove = true`。
+1.  複数の表にまたがり影響が大きいもの(MRP・棚移動・キャンセル・停止・支給・返品・精算など、trans で同時実行と金額に関わるもの)は、DB 関数にする(上の「操作の DB 関数」)。
+1.  理由: Info・マスタは、同時に変更される可能性が低く、影響が限定的。trans は、棚移動が同時に起こる可能性が高く、MRP でも参照・変更され、変更されると金銭に直結する。関数が増えすぎると、DB の保守性が下がる。関数を足す前に、ミューテーションで足りるかを確認する。
+1.  コードの重複は、DB の部分一意索引(`remove = false` の行だけ。`<表>_ix_code_active`。`doc/query/20261115_0002_code_unique_indexes.sql`)で止める。重複のエラー(`23505`)は、索引の名前で、画面の検証エラーに変換する。体系(ツリー)の循環(自分自身・子孫を親にする)は DB に検査が無く、クライアントで検査する。
+1.  共通関数とミューテーションは別のトランザクション。本体の登録が失敗すると、呼称・文章が参照されない行(孤児)として残る(マスタ・Info は許容する)。同じ値の更新は、履歴のトリガーが握りつぶし、応答の行が null になる(エラーではない)ため、更新後に読み直す。
+1.  更新者(`update_user_id`・`update_user_history_id`)は、ログイン中のユーザーの ID を保持している状態(認証のセッション。`pbapi` の `SessionService.current.appUserId` = アプリの DB の担当者の ID)から貰う。履歴の ID は、その担当者の最新の履歴を引く(`pms_graphql` の `AuditUserResolver`。アプリの `auditUserProvider` が組み立て、取得元の `auditUser` に渡す)。ミューテーションの Edit・Remove に更新者を含めるには、YAML の定義に `withUpdater: true` を付ける(生成器。既定では監査列を含めない)。DB のトリガーで埋める方式は採らない。
+1.  詳細(マスタごとの本体の列、取得元の取り込み手順、DB への依頼)は `tools/docker/postgresql/issue/20261115_0001.md`。
+
 ## バージョン管理
 
 依存・SDK バージョンはルート [pubspec.yaml](pubspec.yaml) の `melos > command > bootstrap` で集中管理する。上げるときはここだけ直して `melos bootstrap`(各パッケージの該当行は "Managed by Melos" コメント付きで上書きされる)。

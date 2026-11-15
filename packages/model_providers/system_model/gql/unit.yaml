@@ -94,3 +94,18 @@ UnitPageEdit:
     - update_user_id
     - update_user_history_id
     - remove
+
+# ---- DB の関数(kind: function)。呼称(多言語の辞書)・文章を含む登録・更新を、1回の呼び出し = 1トランザクションで行う ----
+# doc/query/20261114_0002_appellation_functions.sql。更新は「渡した項目だけ」(NULL は今のまま。文字は空文字で消す)。
+# 名称・読み・略称・詳細は、言語コード → 値 の JSON(例 {"ja": "キログラム"})。渡した言語の値だけ入れ替える。名称の ja は必須。
+# 担当者は p_staff_id、省略時は JWT の staff_id。エラー(errcode): APL00 担当者・言語 / APL01 対象が無い / APL02 必須・空にできない / APL03 コードの重複。
+
+# 単位の登録・更新(p_unit_id が無ければ新規)。削除は UnitPageRemove(remove = true)
+UnitSavePageCall:
+  kind: function
+  mutation: unitSave
+  returns: sharedUnit
+  columns:
+    - shared_unit_id
+    - symbol
+    - remarks

@@ -11,9 +11,17 @@
 --
 -- 値の渡し方: 言語コード → 値 の JSON オブジェクト。例 {"ja": "キログラム", "en": "kilogram"}。
 -- jsonb の引数は、GraphQL の JSON で、PostGraphile v4 は JSON の文字列として受け取る(CLAUDE.md「操作の DB 関数」)。
--- 更新は、渡した言語の値だけを入れ替える(渡さない言語の値は残す)。名称(p_name)の ja は、新規のとき必須。
+-- 更新は、渡した言語の値だけを入れ替える(渡さない言語の値は残す)。名称(p_name)の ja は、新規のとき必須で、更新でも空にできない。
+-- 言語の値を消すには、その言語の値を空文字(または JSON の null)にする(行は残り、値が空になる。読み込みは言語コードで引くため、空の表示になる)。
 --
--- エラー(errcode): APL00 担当者・言語コードが無い / APL01 対象が無い / APL02 必須の値が無い / APL03 コードの重複
+-- 更新の規則(全部の関数で同じ): 「渡した項目だけ更新する」。引数を渡さない(NULL)項目は今のまま。
+--   空にするとき: 文字の列は空文字 ''(NULL にする)、参照の列は「…を外す」の真偽(例 p_clear_shipping_kind)、
+--   真偽の列は NULL 以外(true / false)を渡す。新規のときは、渡さない項目は既定値(真偽は false、そのほかは NULL)。
+--
+-- 戻り値: 保存した行(単位は shared_unit、利害関係者は mstr_stakeholder)。PostGraphile の戻り値の型は表の型になるため、
+-- 画面は mutation の応答で、名称(辞書)を含めて保存後の内容をそのまま受け取れる(問い合わせ直しが要らない)。
+--
+-- エラー(errcode): APL00 担当者・言語コードが無い / APL01 対象が無い / APL02 必須の値が無い・空にできない / APL03 コードの重複
 --
 -- 注意: 履歴のトリガー(trg_02_history_*)は、INSERT 時に履歴の行を作る。そのため ON CONFLICT は使わず、
 -- 先に UPDATE し、行が無ければ INSERT する(ON CONFLICT だと使われない ID の履歴が残り、外部キー違反になる)。
@@ -147,6 +155,9 @@ BEGIN
     IF NOT FOUND THEN
         RAISE EXCEPTION '呼称が見つかりません (%)', v_id USING ERRCODE = 'APL01';
     END IF;
+    IF p_name IS NOT NULL AND p_name ? 'ja' AND COALESCE(p_name ->> 'ja', '') = '' THEN
+        RAISE EXCEPTION '名称(ja)は空にできません' USING ERRCODE = 'APL02';
+    END IF;
     v_name := tests.ap_dictionary_set(v_row.shared_dictionary_name_id, p_name, p_staff_id, p_staff_history_id);
     v_pron := v_row.shared_dictionary_pronunciation_id;
     v_nick := v_row.shared_dictionary_nickname_id;
@@ -165,8 +176,14 @@ $$ LANGUAGE plpgsql VOLATILE;
 COMMENT ON FUNCTION tests.ap_appellation_set(uuid, jsonb, jsonb, jsonb, uuid, uuid) IS '@omit';
 
 -- ---------------------------------------------------------------------------
--- 単位(shared_unit)の登録・更新。p_unit_id が NULL なら新規。戻り値: shared_unit_id
--- 備考(p_remarks)は渡した値に置き換える(NULL で消す)。名称・読み・略称・詳細は、渡した言語の値だけ入れ替える。
+-- 戻り値の型を変えたため、適用済みの古い版があれば先に消す(何度流しても同じにするため)
+-- ---------------------------------------------------------------------------
+DROP FUNCTION IF EXISTS tests.unit_save(uuid, jsonb, jsonb, jsonb, jsonb, varchar, uuid);
+DROP FUNCTION IF EXISTS tests.stakeholder_save(uuid, varchar, varchar, jsonb, jsonb, jsonb, boolean, boolean, boolean, varchar, uuid, varchar, uuid);
+
+-- ---------------------------------------------------------------------------
+-- 単位(shared_unit)の登録・更新。p_unit_id が NULL なら新規。戻り値: 保存した shared_unit の行
+-- 更新は「渡した項目だけ」。備考(p_remarks)は、NULL で今のまま、空文字で消す。
 -- 削除は、自動 CRUD の更新(remove = true)で行う。
 -- ---------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION tests.unit_save(
@@ -177,7 +194,7 @@ CREATE OR REPLACE FUNCTION tests.unit_save(
     p_detail jsonb DEFAULT NULL,
     p_remarks varchar DEFAULT NULL,
     p_staff_id uuid DEFAULT NULL
-) RETURNS uuid AS $$
+) RETURNS tests.shared_unit AS $$
 DECLARE
     v_staff record;
     v_row tests.shared_unit%ROWTYPE;
@@ -190,31 +207,35 @@ BEGIN
         v_names := tests.ap_appellation_set(NULL, p_name, p_pronunciation, p_nickname, v_staff.staff_id, v_staff.staff_history_id);
         IF p_detail IS NOT NULL THEN v_details := tests.ap_text_set(NULL, p_detail, v_staff.staff_id, v_staff.staff_history_id); END IF;
         INSERT INTO tests.shared_unit (names, details, remarks, update_user_id, update_user_history_id)
-        VALUES (v_names, v_details, p_remarks, v_staff.staff_id, v_staff.staff_history_id)
+        VALUES (v_names, v_details, NULLIF(p_remarks, ''), v_staff.staff_id, v_staff.staff_history_id)
         RETURNING shared_unit_id INTO v_id;
-        RETURN v_id;
+    ELSE
+        SELECT * INTO v_row FROM tests.shared_unit WHERE shared_unit_id = v_id AND remove = false;
+        IF NOT FOUND THEN
+            RAISE EXCEPTION '単位が見つかりません (%)', v_id USING ERRCODE = 'APL01';
+        END IF;
+        PERFORM tests.ap_appellation_set(v_row.names, p_name, p_pronunciation, p_nickname, v_staff.staff_id, v_staff.staff_history_id);
+        v_details := v_row.details;
+        IF p_detail IS NOT NULL THEN v_details := tests.ap_text_set(v_details, p_detail, v_staff.staff_id, v_staff.staff_history_id); END IF;
+        UPDATE tests.shared_unit
+           SET details = v_details,
+               remarks = CASE WHEN p_remarks IS NULL THEN remarks ELSE NULLIF(p_remarks, '') END,
+               update_user_id = v_staff.staff_id, update_user_history_id = v_staff.staff_history_id
+         WHERE shared_unit_id = v_id;
     END IF;
-
-    SELECT * INTO v_row FROM tests.shared_unit WHERE shared_unit_id = v_id AND remove = false;
-    IF NOT FOUND THEN
-        RAISE EXCEPTION '単位が見つかりません (%)', v_id USING ERRCODE = 'APL01';
-    END IF;
-    PERFORM tests.ap_appellation_set(v_row.names, p_name, p_pronunciation, p_nickname, v_staff.staff_id, v_staff.staff_history_id);
-    v_details := v_row.details;
-    IF p_detail IS NOT NULL THEN v_details := tests.ap_text_set(v_details, p_detail, v_staff.staff_id, v_staff.staff_history_id); END IF;
-    UPDATE tests.shared_unit
-       SET details = v_details, remarks = p_remarks,
-           update_user_id = v_staff.staff_id, update_user_history_id = v_staff.staff_history_id
-     WHERE shared_unit_id = v_id;
-    RETURN v_id;
+    SELECT * INTO v_row FROM tests.shared_unit WHERE shared_unit_id = v_id;
+    RETURN v_row;
 END
 $$ LANGUAGE plpgsql VOLATILE;
 
 -- ---------------------------------------------------------------------------
--- 利害関係者(mstr_stakeholder)の登録・更新。p_stakeholder_id が NULL なら新規。戻り値: mstr_stakeholder_id
--- コード(p_code)は新規のとき必須。削除していない行の中で重複させない(APL03)。役割の3つの真偽は、NULL を false として扱う。
--- 住所(info_address_id)は、この関数では扱わない(更新では今の値を残す)。窓口(担当者)は別の実体。
--- 削除は、自動 CRUD の更新(remove = true)で行う。
+-- 利害関係者(mstr_stakeholder)の登録・更新。p_stakeholder_id が NULL なら新規。戻り値: 保存した mstr_stakeholder の行
+-- 更新は「渡した項目だけ」(NULL は今のまま)。
+--   管理コード・メール・備考: 空文字で消す。 役割の3つの真偽: true / false を渡した分だけ変える。
+--   配送区分: 外すときは p_clear_shipping_kind = true(p_shipping_kind_id より優先)。
+--   コード(p_code): 新規のとき必須。更新で渡すときは空にできない。削除していない行の中で重複させない(APL03)。
+-- 住所(info_address_id)は、この関数では扱わない(更新では今の値を残す)。画面の定義に住所の項目が無く、住所は別の実体のため。
+-- 窓口(担当者)は別の実体。削除は、自動 CRUD の更新(remove = true)で行う。
 -- ---------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION tests.stakeholder_save(
     p_stakeholder_id uuid DEFAULT NULL,
@@ -223,14 +244,15 @@ CREATE OR REPLACE FUNCTION tests.stakeholder_save(
     p_name jsonb DEFAULT NULL,
     p_pronunciation jsonb DEFAULT NULL,
     p_nickname jsonb DEFAULT NULL,
-    p_is_customer boolean DEFAULT false,
-    p_is_supplier boolean DEFAULT false,
-    p_is_logistics boolean DEFAULT false,
+    p_is_customer boolean DEFAULT NULL,
+    p_is_supplier boolean DEFAULT NULL,
+    p_is_logistics boolean DEFAULT NULL,
     p_mail varchar DEFAULT NULL,
     p_shipping_kind_id uuid DEFAULT NULL,
     p_remarks varchar DEFAULT NULL,
-    p_staff_id uuid DEFAULT NULL
-) RETURNS uuid AS $$
+    p_staff_id uuid DEFAULT NULL,
+    p_clear_shipping_kind boolean DEFAULT false
+) RETURNS tests.mstr_stakeholder AS $$
 DECLARE
     v_staff record;
     v_row tests.mstr_stakeholder%ROWTYPE;
@@ -238,7 +260,7 @@ DECLARE
     v_id uuid := p_stakeholder_id;
 BEGIN
     SELECT * INTO v_staff FROM tests.ap_staff(p_staff_id);
-    IF COALESCE(p_code, '') = '' AND v_id IS NULL THEN
+    IF (v_id IS NULL AND COALESCE(p_code, '') = '') OR (p_code IS NOT NULL AND p_code = '') THEN
         RAISE EXCEPTION 'コードは必須です' USING ERRCODE = 'APL02';
     END IF;
     IF p_code IS NOT NULL AND EXISTS (
@@ -254,23 +276,39 @@ BEGIN
             (is_customer, is_supplier, is_logistics, code, control_code, names, mail, mstr_shipping_kind_id, remarks,
              update_user_id, update_user_history_id)
         VALUES (COALESCE(p_is_customer, false), COALESCE(p_is_supplier, false), COALESCE(p_is_logistics, false),
-                p_code, p_control_code, v_names, p_mail, p_shipping_kind_id, p_remarks,
+                p_code, NULLIF(p_control_code, ''), v_names, NULLIF(p_mail, ''),
+                CASE WHEN p_clear_shipping_kind THEN NULL ELSE p_shipping_kind_id END, NULLIF(p_remarks, ''),
                 v_staff.staff_id, v_staff.staff_history_id)
         RETURNING mstr_stakeholder_id INTO v_id;
-        RETURN v_id;
+    ELSE
+        SELECT * INTO v_row FROM tests.mstr_stakeholder WHERE mstr_stakeholder_id = v_id AND remove = false;
+        IF NOT FOUND THEN
+            RAISE EXCEPTION '利害関係者が見つかりません (%)', v_id USING ERRCODE = 'APL01';
+        END IF;
+        PERFORM tests.ap_appellation_set(v_row.names, p_name, p_pronunciation, p_nickname, v_staff.staff_id, v_staff.staff_history_id);
+        UPDATE tests.mstr_stakeholder
+           SET is_customer = COALESCE(p_is_customer, is_customer),
+               is_supplier = COALESCE(p_is_supplier, is_supplier),
+               is_logistics = COALESCE(p_is_logistics, is_logistics),
+               code = COALESCE(p_code, code),
+               control_code = CASE WHEN p_control_code IS NULL THEN control_code ELSE NULLIF(p_control_code, '') END,
+               mail = CASE WHEN p_mail IS NULL THEN mail ELSE NULLIF(p_mail, '') END,
+               mstr_shipping_kind_id = CASE WHEN p_clear_shipping_kind THEN NULL
+                                            ELSE COALESCE(p_shipping_kind_id, mstr_shipping_kind_id) END,
+               remarks = CASE WHEN p_remarks IS NULL THEN remarks ELSE NULLIF(p_remarks, '') END,
+               update_user_id = v_staff.staff_id, update_user_history_id = v_staff.staff_history_id
+         WHERE mstr_stakeholder_id = v_id;
     END IF;
-
-    SELECT * INTO v_row FROM tests.mstr_stakeholder WHERE mstr_stakeholder_id = v_id AND remove = false;
-    IF NOT FOUND THEN
-        RAISE EXCEPTION '利害関係者が見つかりません (%)', v_id USING ERRCODE = 'APL01';
-    END IF;
-    PERFORM tests.ap_appellation_set(v_row.names, p_name, p_pronunciation, p_nickname, v_staff.staff_id, v_staff.staff_history_id);
-    UPDATE tests.mstr_stakeholder
-       SET is_customer = COALESCE(p_is_customer, false), is_supplier = COALESCE(p_is_supplier, false),
-           is_logistics = COALESCE(p_is_logistics, false), code = COALESCE(p_code, code), control_code = p_control_code,
-           mail = p_mail, mstr_shipping_kind_id = p_shipping_kind_id, remarks = p_remarks,
-           update_user_id = v_staff.staff_id, update_user_history_id = v_staff.staff_history_id
-     WHERE mstr_stakeholder_id = v_id;
-    RETURN v_id;
+    SELECT * INTO v_row FROM tests.mstr_stakeholder WHERE mstr_stakeholder_id = v_id;
+    RETURN v_row;
 END
 $$ LANGUAGE plpgsql VOLATILE;
+
+-- ---------------------------------------------------------------------------
+-- 一意索引(DDL。関数とは別にレビューして適用する)
+-- コードの重複は、関数の中の検査では、同時に 2 件登録したときや、関数を通さない通常の登録(自動 CRUD)で防げない。
+-- 削除済みのコードは再利用できる仕様のため、削除していない行(remove = false)だけに効く部分一意索引にする。
+-- 適用前に、重複が無いことを確認する(検証用 DB は 10 件・重複なし)。PERO のデータ(pms_test.pero)にも取り込む。
+-- 関数の検査(APL03)は、分かりやすいエラーを返すために残す。同時登録の競合は、この索引が 23505(unique_violation)で止める。
+-- ---------------------------------------------------------------------------
+CREATE UNIQUE INDEX IF NOT EXISTS mstr_stakeholder_ix_code_active ON tests.mstr_stakeholder (code) WHERE remove = false;

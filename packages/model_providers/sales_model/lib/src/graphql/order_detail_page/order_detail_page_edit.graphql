@@ -16,6 +16,8 @@ mutation OrderDetailPageEdit(
   $deadline: Datetime
   $customerProperty: Boolean
   $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
 ) {
   updateTransOrderDetailByTransOrderDetailId(
     input: {
@@ -32,6 +34,8 @@ mutation OrderDetailPageEdit(
         deadline: $deadline
         customerProperty: $customerProperty
         remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
       }
     }
   ) {

@@ -1879,6 +1879,8 @@ input TransOrderDetailPatch {
   stop: Boolean
   customerProperty: Boolean
   remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
   remove: Boolean
 }
 
@@ -1999,6 +2001,8 @@ input TransOrderPatch {
   deliveryDate: Datetime
   deadline: Datetime
   remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
   remove: Boolean
 }
 
@@ -2044,6 +2048,8 @@ input TransShippingOrderDetailPatch {
   estimatedArrivalDate: Date
   shippingQuantity: BigFloat
   remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
   remove: Boolean
 }
 
@@ -2120,6 +2126,8 @@ input TransShippingOrderPatch {
   stakeholderHistoryId: UUID
   stakeholderId: UUID
   remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
   remove: Boolean
 }
 

@@ -78,6 +78,7 @@ OrderPageEdit:
   requiredWhere:
     - trans_order_id
   generateRfe: true
+  withUpdater: true # 更新者(update_user_id・update_user_history_id)を、Edit・Remove の引数にする(ログイン中の担当者を渡す)
   columns:
     - trans_order_id
     - order_number
@@ -176,6 +177,7 @@ OrderDetailPageEdit:
   requiredWhere:
     - trans_order_detail_id
   generateRfe: true
+  withUpdater: true # 更新者(update_user_id・update_user_history_id)を、Edit・Remove の引数にする(ログイン中の担当者を渡す)
   columns:
     - trans_order_detail_id
     - trans_order_id

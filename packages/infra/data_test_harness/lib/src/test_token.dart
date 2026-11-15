@@ -71,6 +71,21 @@ class TestToken {
 
   bool get isUsable => DateTime.now().add(margin).isBefore(expiresAt);
 
+  /// JWT の `staff_id`(アプリの DB の担当者の ID。ログイン中のユーザー)。読めなければ null。
+  String? get staffId {
+    try {
+      var part = value.split('.')[1].replaceAll('-', '+').replaceAll('_', '/');
+      while (part.length % 4 != 0) {
+        part += '=';
+      }
+      final claims = jsonDecode(utf8.decode(base64.decode(part))) as Map;
+      final id = claims['staff_id'];
+      return id is String && id.isNotEmpty ? id : null;
+    } catch (_) {
+      return null;
+    }
+  }
+
   static Future<TestToken?> _load() async {
     final user = _setting(_definedUser, 'PMS_TEST_USER');
     final password = _setting(_definedPassword, 'PMS_TEST_PASSWORD');

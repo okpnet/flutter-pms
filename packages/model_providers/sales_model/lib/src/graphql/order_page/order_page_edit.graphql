@@ -18,6 +18,8 @@ mutation OrderPageEdit(
   $deliveryDate: Datetime
   $deadline: Datetime
   $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
 ) {
   updateTransOrderByTransOrderId(
     input: {
@@ -36,6 +38,8 @@ mutation OrderPageEdit(
         deliveryDate: $deliveryDate
         deadline: $deadline
         remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
       }
     }
   ) {

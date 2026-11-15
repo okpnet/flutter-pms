@@ -33,10 +33,13 @@
 
 
 
-## 取得元(GraphQL 版。読み取り専用)
+
+## 取得元(GraphQL 版)
 `lib/src/graphql/system_repositories.dart` の `systemRepositories(GraphQLClient)` が、単位(`unit`)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
-1.  読み取り専用: 実体を `viewOnly`・各項目 `readOnly` にし、保存・削除は `UnsupportedError`。名称・読み・略称は多言語の辞書(`shared_appellation`)、詳細は多言語の文章(`shared_text`。先頭の文)で、言語コード `ja` の値を読む。
-1.  書き込みは、辞書・呼称・文章を複数の表へ登録する必要があり、途中で失敗すると孤児が残るため、DB の関数にまとめてから行う(`tools/docker/postgresql/issue/20261103_0002.md` の案)。呼称を使う他の機能(`item`・`organization`・`resource` など)も同じ。
+1.  読み込み: 名称・読み・略称は多言語の辞書(`shared_appellation`)、詳細は多言語の文章(`shared_text`。先頭の文)で、言語コード `ja` の値を読む。
+1.  【暫定】次の書き込みは、共通関数(`shared_appellation_save`・`shared_text_save`)と平らなミューテーションに入れ替える(`tools/docker/postgresql/issue/20261115_0001.md`。CLAUDE.md「登録・更新の方式」)。
+1.  書き込み: 登録・更新は DB の関数 `unit_save`(`doc/query/20261114_0002_appellation_functions.sql`。辞書・呼称・文章・本体を1回の呼び出し = 1トランザクションで行う。モデルは `system_model` の `UnitSavePageCall`)、削除は論理削除(`UnitPageRemove`。`remove = true`)。更新は、読み込んだ値から変わった項目だけ送る(空に変えたときは空文字で消す)。読み書きするのは言語コード `ja` の値だけで、ほかの言語の値は触らない。記号(`symbol`)は DB が採番するため読み取り専用。詳細は、読み込みが先頭の文だけを返すため、変えたときだけ送る(変えないと全文が先頭の文で上書きされる。全文を画面で直せるようにするには、共有の部品に `text_value` を足す。`tools/docker/postgresql/issue/20261115_0001.md`)。
+1.  DB のエラー(RAISE の文。PostGraphile は errcode を返さない)は、名称の必須・コードの重複を `EntityValidationException` に変換する。
 1.  生成された型は、この中だけで使い、外へ出さない。言語コード `ja` の ID は、最初の1回だけ引く。
 ## example と多言語
 1.  ビジュアルテスト用に`example`(Windows 向け)を持つ。`flutter run -d windows`で起動し、`lib/main.dart`の`entries`に遷移先を足す(`packages/features/CLAUDE.md`の「機能プロジェクト共通」)。
@@ -68,7 +71,7 @@
 
 ## テスト
 1.  共通の規則は`packages/features/CLAUDE.md`の「テスト」に従う。
-2.  取得元(GraphQL 版)の通信テストは `test/system_connection_test.dart`(検証用サーバー。読み取りだけ。一般ユーザーの資格情報を渡して実行する。`packages/infra/data_test_harness/CLAUDE.md`)。`dart_test.yaml` に `server` タグを宣言してある。
+2.  取得元(GraphQL 版)の通信テストは `test/system_connection_test.dart`(検証用サーバー。読み取りに加え、単位の登録・更新・削除を行い、後始末で論理削除する。一般ユーザーの資格情報を渡して実行する。`packages/infra/data_test_harness/CLAUDE.md`)。`dart_test.yaml` に `server` タグを宣言してある。
 3.  サンプル(メモリ上)の取得元の単体テストは`RecordingDataRepository`で差し替える。
 
 

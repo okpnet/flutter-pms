@@ -54,6 +54,7 @@
 
 
 
+
 ## example と多言語
 1.  ビジュアルテスト用に`example`(Windows 向け)を持つ。`flutter run -d windows`で起動し、配送区分台帳・登録・顧客台帳・外部供給者台帳を開く(`example`の遷移は CommandBus を通さなくてよい)。画面を足したら`example/lib/main.dart`の`entries`に1行足す。
 2.  文字列は`lib/src/i18n`の言語ファイル(`ja.i18n.yaml`が基準、`en.i18n.yaml`)に置き、`slang.yaml`の`class_name: SharedMasterStrings`で生成する(`dart run slang`)。`sharedMasterStringsProvider`が`feature_shared`の`localeProvider`に従って返す。
@@ -62,10 +63,12 @@
 5.  配送区分は、トップメニューの「営業」「購買」のどちらからも選択して開く。
 6.  配送区分の取得は、GraphQL版のリポジトリに差し替える(必要な画面定義は`doc/log`の課題を参照)。サンプルのメモリ実装は暫定。
 
-## 取得元(GraphQL 版。読み取り専用)
+## 取得元(GraphQL 版)
 `lib/src/graphql/shared_master_repositories.dart` の `sharedMasterRepositories(GraphQLClient)` が、利害関係者(`stakeholder`)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
-1.  読み取り専用: 実体を `viewOnly`・各項目 `readOnly` にし、保存・削除は `UnsupportedError`。名称・読み・略称は多言語の辞書(`shared_appellation`)で、言語コード `ja` の値を読む。顧客・外部供給者・運送業者は、役割のフラグ(はい/いいえ)で見分ける。担当者(`contact`)・配送区分(`shipkind`)は、サンプルのまま。
-1.  書き込みは、呼称の複数表への登録を DB の関数にまとめてから行う(`tools/docker/postgresql/issue/20261103_0002.md` の案)。
+1.  読み込み: 名称・読み・略称は多言語の辞書(`shared_appellation`)で、言語コード `ja` の値を読む。顧客・外部供給者・運送業者は、役割のフラグ(はい/いいえ)で見分ける。
+1.  【暫定】次の書き込みは、共通関数(`shared_appellation_save`)と平らなミューテーションに入れ替える(`tools/docker/postgresql/issue/20261115_0001.md`。CLAUDE.md「登録・更新の方式」)。
+1.  書き込み: 登録・更新は DB の関数 `stakeholder_save`(`doc/query/20261114_0002_appellation_functions.sql`。モデルは `shared_master_model` の `StakeholderSavePageCall`)、削除は論理削除(`StakeholderPageEdit` の `remove = true`)。更新は、読み込んだ値から変わった項目だけ送る(空に変えたときは空文字で消す。役割の選択が空のときは変えない)。読み書きするのは言語コード `ja` の値だけ。コードの重複(`APL03`)・名称・コードの必須は、`EntityValidationException` に変換する。
+1.  配送区分(`mstr_shipping_kind_id`)は、配送区分の取得元が GraphQL 版になるまで(サンプルの ID は DB に無い)読み取り専用。担当者(`contact`)・配送区分(`shipkind`)は、サンプルのまま。住所は、画面の定義に項目が無く、関数でも扱わない。
 1.  モデルは `shared_master_model` の `StakeholderPage`(`gql/stakeholder_page.yaml`。項目の部品は `gql/stakeholder.yaml`)。生成された型は、この中だけで使う。
 
 ## 規則/仕様
@@ -94,7 +97,7 @@
 
 ## テスト
 1.  共通の規則は`packages/features/CLAUDE.md`の「テスト」に従う。
-2.  取得元(GraphQL 版)の通信テストは `test/shared_master_connection_test.dart`(検証用サーバー。読み取りだけ。一般ユーザーの資格情報を渡して実行する。`packages/infra/data_test_harness/CLAUDE.md`)。`dart_test.yaml` に `server` タグを宣言してある。
+2.  取得元(GraphQL 版)の通信テストは `test/shared_master_connection_test.dart`(検証用サーバー。読み取りに加え、利害関係者の登録・更新・削除を行い、後始末で論理削除する。一般ユーザーの資格情報を渡して実行する。`packages/infra/data_test_harness/CLAUDE.md`)。`dart_test.yaml` に `server` タグを宣言してある。
 3.  サンプル(メモリ上)の取得元の単体テストは`RecordingDataRepository`で差し替える。
 
 

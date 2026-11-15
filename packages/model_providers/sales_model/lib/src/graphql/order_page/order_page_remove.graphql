@@ -6,11 +6,13 @@
 mutation OrderPageRemove(
   $transOrderId: UUID!
   $remove: Boolean!
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
 ) {
   updateTransOrderByTransOrderId(
     input: {
       transOrderId: $transOrderId
-      transOrderPatch: { remove: $remove }
+      transOrderPatch: { remove: $remove, updateUserId: $updateUserId, updateUserHistoryId: $updateUserHistoryId }
     }
   ) {
     transOrder {
