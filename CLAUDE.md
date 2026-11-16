@@ -1,4 +1,4 @@
-﻿# CLAUDE.md
+# CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -127,8 +127,7 @@ DB(`tools/docker/postgresql/script`、スキーマ `tests`)の仕様。正は DD
 13 の関数のオーナーは `APP_OWNER_ID`。`visiter_owner_refresh` は一般ユーザー・管理者、`visiter_owner_rebuild` は管理者だけが実行できる。一般ユーザー(`APP_USER_ID`)は `SELECT, INSERT, UPDATE, DELETE`(05・09)で、登録・`visiter_move`・`mrp_run`・`mrp_execute` が使える。管理者は ALL。ただし `trans_visiter_owner` は一般ユーザー・管理者とも読み取りだけ(13 で REVOKE)。
 
 ### 未決・未作成
-(案: ビュー `v_plan_change`・`v_cancel_open_item`・`v_mrp_run`・`v_mrp_suggestion`、`trans_visiter_owner` の `@omit`、押さえたロットの処置の関数と `shipping_order_detail_cancel` は、`doc/query/20261116_0004`・`0007` に作成済み(DB への適用待ち)。精算額は `v_sales_record` に済み。提案は `issue/20261116_0003.md`)
-`v_cancel_open_item`(未処置一覧)、`v_plan_change`(計画変更の表示用の文字)、受注金額のビュー(`v_sales_record`・`v_shipping_order_status` ほか)への精算額の追加、原価計算のビューは、DB に無い。操作をまとめる DB 関数と、登録できる作業指示の判定のビュー(`v_work_plan_registrable`)は、DB に適用済み(SQL は `doc/query/`、出力は PERO のデータから `06_cteate_test.sql`。下の「操作の DB 関数」)。
+ビュー `v_plan_change`・`v_cancel_open_item`・`v_mrp_run`・`v_mrp_suggestion`、受注金額のビュー(`v_sales_record`)の精算額、`trans_visiter_owner` の `@omit`、押さえたロットの処置の関数と `shipping_order_detail_cancel`、操作をまとめる DB 関数、登録できる作業指示の判定のビュー(`v_work_plan_registrable`)は、DB に適用済み(PERO のデータから `06_cteate_test.sql`。下の「操作の DB 関数」)。原価計算のビューは、DB に無い。
 
 ## 受注・発注まわりの GraphQL モデルと画面の仕様(キャンセル・停止・返品・精算・支給・所有)
 
@@ -196,7 +195,7 @@ DB(`tools/docker/postgresql/script`、スキーマ `tests`)の仕様。正は DD
 関数: `visiterMove`(移動・保管・隔離・仮止め)・`visiterIssue`(払出・廃棄・返す)・`visiterAdjust`(棚卸し)・`mrpRun`/`mrpExecute`(`pMode` は MRP の関数に渡すだけで、状態の判定には使わない)・`mrpCommit`/`mrpDiscard`・`visiterOwnerRebuild`(**管理者だけ**。受注明細の顧客所有・受注の顧客を後から変えたとき)。
 
 ### 操作の DB 関数(1回の呼び出し = 1トランザクション)
-**PostGraphile v4 は、1つのドキュメントの複数の mutation を1つのトランザクションにしない**(実測: 1つ目が成功し、2つ目が CHECK 違反で失敗すると、1つ目は残り、応答は部分成功になる)。「本体の更新 + 計画変更の記録」をクライアントの複数の mutation で行わない。次の操作は DB 関数で行う(SQL は `doc/query/20261114_0001_operation_functions.sql`。DB に適用済み)。モデルは `kind: function` の `~PageCall`(`OrderDetailCancelPageCall` など。`sales_model`・`purchasing_model`・`production_plan_model`・`work_record_model`・`return_model`・`supply_model`)で呼ぶ。これらの操作を、表の直接の更新・登録(`~PageEdit`・`~PageCreate`)で行うモデルは作らない。
+**PostGraphile v4 は、1つのドキュメントの複数の mutation を1つのトランザクションにしない**(実測: 1つ目が成功し、2つ目が CHECK 違反で失敗すると、1つ目は残り、応答は部分成功になる)。「本体の更新 + 計画変更の記録」をクライアントの複数の mutation で行わない。次の操作は DB 関数で行う(PERO のデータ・`06_cteate_test.sql`。DB に適用済み)。モデルは `kind: function` の `~PageCall`(`OrderDetailCancelPageCall` など。`sales_model`・`purchasing_model`・`production_plan_model`・`work_record_model`・`return_model`・`supply_model`)で呼ぶ。これらの操作を、表の直接の更新・登録(`~PageEdit`・`~PageCreate`)で行うモデルは作らない。
 | 操作 | 関数(スキーマ `tests`) |
 |---|---|
 | 受注明細のキャンセル・停止・納期数量の変更 | `order_detail_cancel`・`order_detail_set_stop`・`order_detail_change` |
@@ -268,11 +267,11 @@ DB(`tools/docker/postgresql/script`、スキーマ `tests`)の仕様。正は DD
 
 ## 登録・更新の方式(関数とミューテーション)
 
-1.  共通のもの(呼称・文章・ラベルなど、複数の表にまたがる部品)の DB 関数(`shared_appellation_save`・`shared_text_save`・`trans_label_save`・`trans_text_save`。`doc/query/20261116_0001_common_functions.sql`。DB に適用済み)は、言語別の値(言語コード → 値 の JSON)を、渡した言語の値だけ入れ替える(他の言語は残る)。空文字(または JSON の null)で値が空になる(行は残る)。名称には、いずれかの言語に空でない値が必要(`APL02`)。errcode は `APL00` 担当者・言語が無い / `APL01` 対象が無い / `APL03` JSON の型が違う。内部の補助(`apl_*`)は `@omit`(GraphQL に出ない)。言語コードは大文字小文字を区別しない(`shared_language_code` の一意は `lower(code)`。`doc/query/20261116_0003_language_code_unique_lower.sql`)。モデルの YAML では、機能ごとに別名で `kind: function` を足す(トップノードの名前は全パッケージで一意のため、`UnitAppellationSavePageCall` のように機能名を付ける)。
+1.  共通のもの(呼称・文章・ラベルなど、複数の表にまたがる部品)の DB 関数(`shared_appellation_save`・`shared_text_save`・`trans_label_save`・`trans_text_save`。`06_cteate_test.sql`。DB に適用済み)は、言語別の値(言語コード → 値 の JSON)を、渡した言語の値だけ入れ替える(他の言語は残る)。空文字(または JSON の null)で値が空になる(行は残る)。名称には、いずれかの言語に空でない値が必要(`APL02`)。errcode は `APL00` 担当者・言語が無い / `APL01` 対象が無い / `APL03` JSON の型が違う。内部の補助(`apl_*`)は `@omit`(GraphQL に出ない)。言語コードは大文字小文字を区別しない(`shared_language_code` の一意は `lower(code)`。`06_cteate_test.sql`)。モデルの YAML では、機能ごとに別名で `kind: function` を足す(トップノードの名前は全パッケージで一意のため、`UnitAppellationSavePageCall` のように機能名を付ける)。
 1.  マスタ・Info・trans は、極力ミューテーション(PostGraphile の自動 CRUD の create・update)で対応する。マスタごと・テーブルごとの保存関数は作らない。呼称・文章・ラベルを持つ列は、共通関数で作り、返った ID を本体の create の列(`names`・`details` など)に渡す。更新は、渡した列だけが変わる(null で消える)。削除は `remove = true`。
 1.  複数の表にまたがり影響が大きいもの(MRP・棚移動・キャンセル・停止・支給・返品・精算など、trans で同時実行と金額に関わるもの)は、DB 関数にする(上の「操作の DB 関数」)。
 1.  理由: Info・マスタは、同時に変更される可能性が低く、影響が限定的。trans は、棚移動が同時に起こる可能性が高く、MRP でも参照・変更され、変更されると金銭に直結する。関数が増えすぎると、DB の保守性が下がる。関数を足す前に、ミューテーションで足りるかを確認する。
-1.  コードの重複は、DB の部分一意索引(`remove = false` の行だけ。`<表>_ix_code_active`。`doc/query/20261115_0002_code_unique_indexes.sql`。DB に適用済み。利害関係者・力量・資格・場所・作業者・事業所・部署)で止める。重複のエラー(`23505`)は、索引の名前で、画面の検証エラーに変換する。体系(ツリー)の循環(自分自身・子孫を親にする)は DB に検査が無く、クライアントで検査する。
+1.  コードの重複は、DB の部分一意索引(`remove = false` の行だけ。`<表>_ix_code_active`。`06_cteate_test.sql`。DB に適用済み。利害関係者・力量・資格・場所・作業者・事業所・部署)で止める。重複のエラー(`23505`)は、索引の名前で、画面の検証エラーに変換する。体系(ツリー)の循環(自分自身・子孫を親にする)は DB に検査が無く、クライアントで検査する。
 1.  共通関数とミューテーションは別のトランザクション。本体の登録が失敗すると、呼称・文章が参照されない行(孤児)として残る(マスタ・Info は許容する)。同じ値の更新は、履歴のトリガーが握りつぶし、応答の行が null になる(エラーではない)ため、更新後に読み直す。
 1.  更新者(`update_user_id`・`update_user_history_id`)は、ログイン中のユーザーの ID を保持している状態(認証のセッション。`pbapi` の `SessionService.current.appUserId` = アプリの DB の担当者の ID)から貰う。履歴の ID は、その担当者の最新の履歴を、`organization_model` の生成モデル(`StaffHistoryLatestPage`。`organization` 機能の `staffHistoryLookup` が包む)で引く。アプリの `currentUserHolderProvider`(`CurrentUserHolder`。言語コードは `localeProvider` から呼ぶたびに取り直す)を、`auditUserProvider` が取得元の `auditUser` の形にして渡す(`pms_graphql` の `AuditUserResolver` は、テストの道具(`data_test_harness`)だけが使う)。ミューテーションの Edit・Remove に更新者を含めるには、YAML の定義に `withUpdater: true` を付ける(生成器。既定では監査列を含めない)。DB のトリガーで埋める方式は採らない。 ログイン中のユーザーの状態は `packages/core/current_user`(`CurrentUserHolder`。認証側は `IUserIdentitySource`、データ側は履歴の ID を引く関数。アプリが `pbapi`・GraphQL をつなぐ。権限は保持しない)。
 1.  詳細(マスタごとの本体の列、取得元の取り込み手順、DB への依頼)は `tools/docker/postgresql/issue/20261115_0001.md`。

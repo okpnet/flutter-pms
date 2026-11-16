@@ -1,6 +1,6 @@
 # localized_values の使い方
 
-言語別の値(呼称・文章・ラベル)を、画面と保存で扱う純 Dart の部品。DB の共通関数(`shared_appellation_save` など。`doc/query/20261116_0001_common_functions.sql`)の規則に合わせる。
+言語別の値(呼称・文章・ラベル)を、画面と保存で扱う純 Dart の部品。DB の共通関数(`shared_appellation_save` など。`06_cteate_test.sql`)の規則に合わせる。
 
 ```dart
 import 'package:localized_values/localized_values.dart';
