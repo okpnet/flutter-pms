@@ -21,7 +21,10 @@ enum BarcodeCode {
   equipment('EQ'),
 
   /// 品目(製品識別ラベル)。
-  item('IT');
+  item('IT'),
+
+  /// 支給(顧客支給の受け入れ・検品。受け入れ・合格・不合格を1つの画面で選ぶ)。
+  supply('SP');
 
   const BarcodeCode(this.prefix);
 

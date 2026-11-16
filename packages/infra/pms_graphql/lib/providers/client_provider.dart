@@ -18,7 +18,7 @@ import '../results/_result.dart';
 /// ミューテーションがinsert・updateいずれの種別かを表す。
 enum MutationType { insert, update }
 
-/// `graphql`/`graphql_flutter` の [GraphQLClient] をラップし、呼び出しごとの
+/// `graphql` の [GraphQLClient] をラップし、呼び出しごとの
 /// タイムアウト処理、ログ出力、[GraphqlProverResult] への正規化、Hasura向けの
 /// ミューテーションバッチ実行をまとめて提供するクラス。
 final class GraphQLClientProvider {

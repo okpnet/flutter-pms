@@ -126,6 +126,14 @@ class GraphqlScanGateway implements IScanGateway {
   }
 
   @override
+  Future<void> registerSupply(
+    SupplyTarget supply, {
+    required int quantity,
+    required bool receive,
+    required bool hold,
+  }) => throw UnsupportedError('支給の受け入れ・検品の登録は未対応(支給の取得元と登録の関数の通信確認が前提)');
+
+  @override
   Future<void> recordInspection(
     EquipmentTarget equipment,
     List<InspectionResult> results,

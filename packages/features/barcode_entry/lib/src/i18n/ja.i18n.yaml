@@ -16,12 +16,14 @@ steps:
   recvQty: 受入検品(数量入力)
   recvEval: 受入検品(評価)
   equipment: 設備点検
+  supplyChoice: 支給の受け入れ・検品
 kinds:
   work: 作業指示
   shelf: 棚
   purchase: 購入品
   item: 製品/購入品
   equipment: 設備
+  supply: 支給
 modes:
   work:
     label: 作業実績
@@ -35,6 +37,9 @@ modes:
   equipment:
     label: 設備点検
     hint: 設備のバーコードを読み取ります。
+  supply:
+    label: 支給
+    hint: 支給明細のバーコードを読み取ります。
 input:
   topTitle: バーコードの読込
   topHint: バーコードリーダーで読み取るか、文字を入力して Enter を押します。種類は自動で判定します(上の種類を選ぶと、その種類だけを受け付けます)。
@@ -64,6 +69,12 @@ input:
     recheck: 要再点検
   judgePass: 合格
   judgeFail: 不合格
+  supplySummary: '{item}: 未受入 {remain}{unit}、検品待ち(仮止め) {held}{unit}'
+  supplyChoiceLabel: 操作を選んでください。
+  supplyReceive: 受け入れる(仮止めにする)
+  supplyAccept: 検品に合格(仮止めを外す)
+  supplyReject: 検品で不合格(異常を登録。仮止めのまま)
+  supplyRegister: 登録
 ngReasons:
   dimension: 寸法不良
   appearance: 外観不良
@@ -91,6 +102,8 @@ notice:
   started: '{shelf}から出庫し、作業を開始しました。次のバーコードを読み取ってください。'
   stored: '{shelf}へ入庫しました。次のバーコードを読み取ってください。'
   inspected: 点検結果を記録しました。次のバーコードを読み取ってください。
+  supplied: 支給を登録しました。次のバーコードを読み取ってください。
+  qtyOverSupply: 登録できる数量は{remain}{unit}までです。それ以下の数量を入力してください。
   failed: 登録できませんでした。通信の状態を確認して、もう一度お試しください。
 log:
   title: 履歴
@@ -109,4 +122,5 @@ log:
   storedItem: '{shelf}: {item} {qty}{unit}を入庫'
   inspected: '設備点検 {code} {name}: {count}項目を記録(すべて合格)'
   inspectedWithIssue: '設備点検 {code} {name}: {count}項目を記録(要確認 {issues}件)'
+  supplied: '{sym} {item}: 支給 {qty}{unit}を登録'
   failed: '登録に失敗: {sym}'

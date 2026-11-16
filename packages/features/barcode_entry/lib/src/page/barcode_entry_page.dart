@@ -15,6 +15,9 @@ import 'camera_scanner.dart';
 /// バーコードリーダーはキーボード入力として届き、末尾の Enter で確定する。
 /// 入力欄は常に選択された状態にして、続けて読み取れるようにする。
 /// 判定は [ScanFlow] に閉じ、この画面は状態の表示と操作の受け渡しだけを行う。
+/// 支給の画面の選択肢(画面だけの値。登録へは boolean で渡す)。
+enum _SupplyChoice { receive, accept, reject }
+
 class BarcodeEntryPage extends ConsumerStatefulWidget {
   const BarcodeEntryPage({super.key, this.symbol, this.item});
 
@@ -34,6 +37,8 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
   bool _camera = false;
   RejectReason _reason = RejectReason.dimension;
   List<InspectionResult> _results = const [];
+  _SupplyChoice _supplyChoice = _SupplyChoice.receive;
+  final _supplyQty = TextEditingController();
 
   @override
   void initState() {
@@ -55,6 +60,7 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
   void dispose() {
     _input.dispose();
     _focus.dispose();
+    _supplyQty.dispose();
     super.dispose();
   }
 
@@ -238,6 +244,60 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
             ),
           ],
         );
+      case ScanStep.supplyChoice:
+        final sp = c.supply!;
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              t.input.supplySummary(
+                item: sp.itemName,
+                remain: sp.remaining,
+                held: sp.held,
+                unit: sp.unit,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(t.input.supplyChoiceLabel),
+            RadioGroup<_SupplyChoice>(
+              groupValue: _supplyChoice,
+              onChanged: (v) =>
+                  setState(() => _supplyChoice = v ?? _supplyChoice),
+              child: Column(
+                children: [
+                  RadioListTile<_SupplyChoice>(
+                    value: _SupplyChoice.receive,
+                    title: Text(t.input.supplyReceive),
+                  ),
+                  RadioListTile<_SupplyChoice>(
+                    value: _SupplyChoice.accept,
+                    title: Text(t.input.supplyAccept),
+                  ),
+                  RadioListTile<_SupplyChoice>(
+                    value: _SupplyChoice.reject,
+                    title: Text(t.input.supplyReject),
+                  ),
+                ],
+              ),
+            ),
+            TextField(
+              controller: _supplyQty,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(labelText: t.input.qtyLabel),
+            ),
+            const SizedBox(height: 12),
+            FilledButton(
+              onPressed: s.working
+                  ? null
+                  : () => flow.registerSupply(
+                      quantity: int.tryParse(_supplyQty.text.trim()) ?? 0,
+                      receive: _supplyChoice == _SupplyChoice.receive,
+                      hold: _supplyChoice != _SupplyChoice.accept,
+                    ),
+              child: Text(t.input.supplyRegister),
+            ),
+          ],
+        );
       case ScanStep.top:
       case ScanStep.issueShelf:
       case ScanStep.qty:
@@ -349,6 +409,7 @@ class _Summary extends StatelessWidget {
       if (context.shelf case final s?) '${s.symbol}  ${s.name}',
       if (context.item case final i?) '${i.symbol}  ${i.name}',
       if (context.equipment case final e?) '${e.symbol}  ${e.name}',
+      if (context.supply case final sp?) '${sp.symbol}  ${sp.itemName}',
     ];
     if (lines.isEmpty) return const SizedBox.shrink();
     return Card(

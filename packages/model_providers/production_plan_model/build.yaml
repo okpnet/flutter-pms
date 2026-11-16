@@ -4,7 +4,7 @@ targets:
       graphql_codegen:
         options:
           clients:
-            - graphql_flutter
+            - graphql
           scalars:
             Datetime:
               type: DateTime

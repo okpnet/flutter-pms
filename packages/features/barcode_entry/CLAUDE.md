@@ -4,7 +4,7 @@
 プロジェクト名は、バーコードで実績を登録する役割から `barcode_entry` とした。画面の参照元は `tools/open-design` のメニュー「作業実績 › バーコード」。
 
 ## 画面
-1.  リーディングトップ(`BarcodeEntryDestination` → `/barcode`、メニュー「作業実績 › バーコード」): バーコード読込 / テキスト入力(Enter・リーダーの確定で決定)。種類のモード(作業実績・受入検品・棚移動・設備点検)を選ぶとその種類だけ受け付け、選ばなければ種類を自動で判定する。
+1.  リーディングトップ(`BarcodeEntryDestination` → `/barcode`、メニュー「作業実績 › バーコード」): バーコード読込 / テキスト入力(Enter・リーダーの確定で決定)。種類のモード(作業実績・受入検品・棚移動・設備点検・支給)を選ぶとその種類だけ受け付け、選ばなければ種類を自動で判定する。
 2.  流れは1画面の中で段階(`ScanStep`)を進める。`BarcodeEntryDestination.symbol` を渡すと、開いた直後にその symbol を読み込んだものとして進める(symbol ショートカット用)。
 3.  画面は `app_shell` の `ScreenScaffold` で作る。履歴(直近20件)を画面の下に出す。
 
@@ -20,6 +20,7 @@ graph TD;
     B -- 棚 --> R[stockItem 製品/購入品] --> S[stockQty 数量入力] --> M[入庫];
     B -- 購入品 --> E[recvQty 数量入力] --> I[recvEval 評価];
     B -- 設備 --> Q[equipment 設備点検] --> A;
+    B -- 支給 --> U[supplyChoice 受け入れ・合格・不合格をラジオで選ぶ] --> A;
     N -- 合格 --> L[putShelf 棚移動リーディング];
     I -- 合格 --> L;
     N -- 不合格 --> O[ng 不合格処理] --> L;
@@ -37,6 +38,7 @@ graph TD;
 | `CN` | コンテナ | shelf |
 | `EQ` | 設備点検 | equipment |
 | `IT` | 品目(製品識別ラベル) | item |
+| `SP` | 支給(顧客支給の受け入れ・検品) | supply |
 1.  コードと symbol の分解は `BarcodeCode.parse`(大文字小文字を区別しない)。画面・流れはコードの形式を知らない(`ScanFlow` だけが分解して、取得元に symbol を渡す)。
 1.  コード付きは、コードを外した symbol を照会し、コードの種類と対象の種類が一致したときだけ採用する。一致しない・見つからないときは、全体を従来の symbol として照会する(コードの無い従来の symbol も、コードに似た接頭辞の symbol もそのまま読める)。
 1.  発行(印刷)は `BarcodeCode.encode(symbol)`。symbol は DB のトリガーが付けるので、DB は変えない。
@@ -56,6 +58,11 @@ graph TD;
 | GraphQL の取得元 | `lib/src/logic/graphql_scan_gateway.dart` | `GraphqlScanGateway`(Adapter)。`barcode_entry_model` の `ScanClient` だけを使い、生成された型を読み込まない。登録は作業実績・ビジター・入庫を、クライアントで順に呼ぶ組み合わせ |
 | 画面 | `lib/src/page/` | ページ・モジュール・遷移先・パス・種類から文字列への変換 |
 | 文字列 | `lib/src/i18n` | slang の Yaml(日本語。`string_interpolation: braces`) |
+
+## 支給の受け入れ・検品(`SP`)
+1.  1つの画面(`supplyChoice`)で、ラジオボタンから「受け入れ(仮止めにする)」「検品に合格(仮止めを外す)」「検品で不合格(異常を登録。仮止めのまま)」を選び、数量を入れて登録する。選択肢は画面だけの値で、`ScanFlow.registerSupply` へは boolean(`receive`・`hold`)で渡す(受け入れ = `receive`、合格 = どちらも false、不合格 = `hold` だけ true)。
+1.  数量の上限は取得元の値(`SupplyTarget.remaining` = 未受入、`held` = 仮止め中)。受け入れは未受入まで、合格・不合格は仮止め中まで。画面で計算しない。
+1.  メモリ上の取得元は動く。GraphQL 版(`GraphqlScanGateway`)は、支給の照会・登録が未対応(`registerSupply` は `UnsupportedError`、`SP` は未登録の通知になる)。対応は、支給の取得元(`VSupplyDetailBalance`)と登録の関数(`supply_register`)の通信確認のあと。
 
 ## 規則
 1.  symbol の種類は取得元が判定する。画面・流れは symbol の接頭辞を知らない。設備はコードで引く。大文字小文字は区別しない。

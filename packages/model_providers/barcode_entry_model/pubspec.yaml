@@ -13,7 +13,6 @@ dependencies:
   flutter:
     sdk: flutter
   graphql: ^5.2.3
-  graphql_flutter: ^5.1.0
   gql: ^1.0.1
   work_record_model:
     path: ../work_record_model

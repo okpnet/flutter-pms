@@ -53,6 +53,13 @@ class InMemoryScanGateway implements IScanGateway {
       state: WorkState.notStarted,
       outsourced: true,
     ),
+    SupplyTarget(
+      symbol: 'SP-2610-001',
+      itemName: '支給材 A',
+      unit: '個',
+      remaining: 40,
+      held: 10,
+    ),
     ShelfTarget(symbol: 'SH-M-01', name: '材料棚 M-1'),
     ShelfTarget(symbol: 'SH-A-01', name: '完成品棚 A-1'),
     ShelfTarget(symbol: 'SH-A-02', name: '完成品棚 A-2'),
@@ -134,6 +141,28 @@ class InMemoryScanGateway implements IScanGateway {
     }
     final why = reason == null ? '' : ' (${reason.name})';
     journal.add('put ${source.symbol} x$quantity -> ${shelf.symbol}$why');
+  }
+
+  @override
+  Future<void> registerSupply(
+    SupplyTarget supply, {
+    required int quantity,
+    required bool receive,
+    required bool hold,
+  }) async {
+    final current = _targets[supply.symbol];
+    if (current is SupplyTarget) {
+      _targets[supply.symbol] = SupplyTarget(
+        symbol: current.symbol,
+        itemName: current.itemName,
+        unit: current.unit,
+        remaining: receive ? current.remaining - quantity : current.remaining,
+        held: receive
+            ? current.held + quantity
+            : (hold ? current.held : current.held - quantity),
+      );
+    }
+    journal.add('supply ${supply.symbol} x$quantity receive=$receive hold=$hold');
   }
 
   @override

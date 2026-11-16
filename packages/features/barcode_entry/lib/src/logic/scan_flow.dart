@@ -16,6 +16,7 @@ import 'scan_providers.dart';
 /// top ─ 棚 ─ stockItem ─ stockQty ─ top
 /// top ─ 購入品 ─ recvQty ─ recvEval ─(合格)─ putShelf / (不合格)─ ng ─ putShelf
 /// top ─ 設備 ─ equipment ─ top
+/// top ─ 支給 ─ supplyChoice(受け入れ・合格・不合格をラジオで選び、数量を入れる) ─ top
 /// ```
 enum ScanStep {
   top,
@@ -30,6 +31,7 @@ enum ScanStep {
   recvQty,
   recvEval,
   equipment,
+  supplyChoice,
 }
 
 /// 利用者へ出す通知の種類。文字列は画面が表示時に変換する(多言語)。
@@ -52,6 +54,8 @@ enum NoticeKind {
   started,
   stored,
   inspected,
+  supplied,
+  qtyOverSupply,
   failed,
 }
 
@@ -80,6 +84,7 @@ enum LogKind {
   storedItem,
   inspected,
   inspectedWithIssue,
+  supplied,
   failed,
 }
 
@@ -106,6 +111,7 @@ class ScanContext {
     this.shelf,
     this.item,
     this.equipment,
+    this.supply,
     this.quantity = 0,
     this.rejected = false,
     this.reason,
@@ -116,6 +122,7 @@ class ScanContext {
   final ShelfTarget? shelf;
   final ItemTarget? item;
   final EquipmentTarget? equipment;
+  final SupplyTarget? supply;
   final int quantity;
   final bool rejected;
   final RejectReason? reason;
@@ -126,6 +133,7 @@ class ScanContext {
     ShelfTarget? shelf,
     ItemTarget? item,
     EquipmentTarget? equipment,
+    SupplyTarget? supply,
     int? quantity,
     bool? rejected,
     RejectReason? reason,
@@ -135,6 +143,7 @@ class ScanContext {
     shelf: shelf ?? this.shelf,
     item: item ?? this.item,
     equipment: equipment ?? this.equipment,
+    supply: supply ?? this.supply,
     quantity: quantity ?? this.quantity,
     rejected: rejected ?? this.rejected,
     reason: reason ?? this.reason,
@@ -146,6 +155,7 @@ class ScanContext {
     'shelf': shelf?.symbol,
     'item': item?.symbol,
     'equipment': equipment?.symbol,
+    'supply': supply?.symbol,
     'quantity': quantity,
     'rejected': rejected,
     'reason': reason?.name,
@@ -297,6 +307,7 @@ class ScanFlow extends Notifier<ScanState> {
       case ScanStep.ng:
       case ScanStep.recvEval:
       case ScanStep.equipment:
+      case ScanStep.supplyChoice:
         return; // ボタンで答える段階。入力は受け付けない
     }
   }
@@ -346,6 +357,54 @@ class ScanFlow extends Notifier<ScanState> {
       },
     );
     _reset(const ScanNotice(NoticeKind.inspected));
+  }
+
+  /// 支給の受け入れ・検品を登録する。受け入れ = [receive](仮止めの + の行)、
+  /// 合格 = [receive] も [hold] も false(仮止めを解除)、不合格 = [hold] だけ true(仮止めのまま、異常を登録)。
+  /// 「場面」(ラジオの選択肢)は画面にだけあり、ここへは boolean で渡す。
+  Future<void> registerSupply({
+    required int quantity,
+    required bool receive,
+    required bool hold,
+  }) async {
+    final target = state.context.supply;
+    if (state.working || state.step != ScanStep.supplyChoice || target == null) {
+      return;
+    }
+    if (quantity <= 0) {
+      return _notice(const ScanNotice(NoticeKind.qtyInvalid, isError: true));
+    }
+    final limit = receive ? target.remaining : target.held;
+    if (quantity > limit) {
+      return _notice(
+        ScanNotice(
+          NoticeKind.qtyOverSupply,
+          isError: true,
+          args: {'remain': limit, 'unit': target.unit},
+        ),
+      );
+    }
+    final done = await _guard('支給の登録', target.symbol, () async {
+      await _gateway.registerSupply(
+        target,
+        quantity: quantity,
+        receive: receive,
+        hold: hold,
+      );
+      return true;
+    });
+    if (done != true) return;
+    _log(
+      LogKind.supplied,
+      ok: receive || !hold,
+      args: {
+        'sym': target.symbol,
+        'item': target.itemName,
+        'qty': quantity,
+        'unit': target.unit,
+      },
+    );
+    _reset(const ScanNotice(NoticeKind.supplied));
   }
 
   // ---- 段階ごとの判定 ----
@@ -437,6 +496,8 @@ class ScanFlow extends Notifier<ScanState> {
         _go(ScanStep.recvQty, ScanContext(purchase: target));
       case EquipmentTarget():
         _go(ScanStep.equipment, ScanContext(equipment: target));
+      case SupplyTarget():
+        _go(ScanStep.supplyChoice, ScanContext(supply: target));
       case ItemTarget():
         _notice(const ScanNotice(NoticeKind.needShelfFirst, isError: true));
     }

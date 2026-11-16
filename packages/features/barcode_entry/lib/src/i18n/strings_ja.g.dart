@@ -107,6 +107,9 @@ class BarcodeEntryStrings$steps$ja {
 
 	/// ja: '設備点検'
 	String get equipment => '設備点検';
+
+	/// ja: '支給の受け入れ・検品'
+	String get supplyChoice => '支給の受け入れ・検品';
 }
 
 // Path: kinds
@@ -131,6 +134,9 @@ class BarcodeEntryStrings$kinds$ja {
 
 	/// ja: '設備'
 	String get equipment => '設備';
+
+	/// ja: '支給'
+	String get supply => '支給';
 }
 
 // Path: modes
@@ -144,6 +150,7 @@ class BarcodeEntryStrings$modes$ja {
 	late final BarcodeEntryStrings$modes$receive$ja receive = BarcodeEntryStrings$modes$receive$ja.internal(_root);
 	late final BarcodeEntryStrings$modes$shelf$ja shelf = BarcodeEntryStrings$modes$shelf$ja.internal(_root);
 	late final BarcodeEntryStrings$modes$equipment$ja equipment = BarcodeEntryStrings$modes$equipment$ja.internal(_root);
+	late final BarcodeEntryStrings$modes$supply$ja supply = BarcodeEntryStrings$modes$supply$ja.internal(_root);
 }
 
 // Path: input
@@ -227,6 +234,24 @@ class BarcodeEntryStrings$input$ja {
 
 	/// ja: '不合格'
 	String get judgeFail => '不合格';
+
+	/// ja: '{item}: 未受入 {remain}{unit}、検品待ち(仮止め) {held}{unit}'
+	String supplySummary({required Object item, required Object remain, required Object unit, required Object held}) => '${item}: 未受入 ${remain}${unit}、検品待ち(仮止め) ${held}${unit}';
+
+	/// ja: '操作を選んでください。'
+	String get supplyChoiceLabel => '操作を選んでください。';
+
+	/// ja: '受け入れる(仮止めにする)'
+	String get supplyReceive => '受け入れる(仮止めにする)';
+
+	/// ja: '検品に合格(仮止めを外す)'
+	String get supplyAccept => '検品に合格(仮止めを外す)';
+
+	/// ja: '検品で不合格(異常を登録。仮止めのまま)'
+	String get supplyReject => '検品で不合格(異常を登録。仮止めのまま)';
+
+	/// ja: '登録'
+	String get supplyRegister => '登録';
 }
 
 // Path: ngReasons
@@ -321,6 +346,12 @@ class BarcodeEntryStrings$notice$ja {
 	/// ja: '点検結果を記録しました。次のバーコードを読み取ってください。'
 	String get inspected => '点検結果を記録しました。次のバーコードを読み取ってください。';
 
+	/// ja: '支給を登録しました。次のバーコードを読み取ってください。'
+	String get supplied => '支給を登録しました。次のバーコードを読み取ってください。';
+
+	/// ja: '登録できる数量は{remain}{unit}までです。それ以下の数量を入力してください。'
+	String qtyOverSupply({required Object remain, required Object unit}) => '登録できる数量は${remain}${unit}までです。それ以下の数量を入力してください。';
+
 	/// ja: '登録できませんでした。通信の状態を確認して、もう一度お試しください。'
 	String get failed => '登録できませんでした。通信の状態を確認して、もう一度お試しください。';
 }
@@ -380,6 +411,9 @@ class BarcodeEntryStrings$log$ja {
 
 	/// ja: '設備点検 {code} {name}: {count}項目を記録(要確認 {issues}件)'
 	String inspectedWithIssue({required Object code, required Object name, required Object count, required Object issues}) => '設備点検 ${code} ${name}: ${count}項目を記録(要確認 ${issues}件)';
+
+	/// ja: '{sym} {item}: 支給 {qty}{unit}を登録'
+	String supplied({required Object sym, required Object item, required Object qty, required Object unit}) => '${sym} ${item}: 支給 ${qty}${unit}を登録';
 
 	/// ja: '登録に失敗: {sym}'
 	String failed({required Object sym}) => '登録に失敗: ${sym}';
@@ -445,6 +479,21 @@ class BarcodeEntryStrings$modes$equipment$ja {
 	String get hint => '設備のバーコードを読み取ります。';
 }
 
+// Path: modes.supply
+class BarcodeEntryStrings$modes$supply$ja {
+	BarcodeEntryStrings$modes$supply$ja.internal(this._root);
+
+	final BarcodeEntryStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '支給'
+	String get label => '支給';
+
+	/// ja: '支給明細のバーコードを読み取ります。'
+	String get hint => '支給明細のバーコードを読み取ります。';
+}
+
 // Path: input.inspectionResults
 class BarcodeEntryStrings$input$inspectionResults$ja {
 	BarcodeEntryStrings$input$inspectionResults$ja.internal(this._root);
@@ -486,11 +535,13 @@ extension on BarcodeEntryStrings {
 			'steps.recvQty' => '受入検品(数量入力)',
 			'steps.recvEval' => '受入検品(評価)',
 			'steps.equipment' => '設備点検',
+			'steps.supplyChoice' => '支給の受け入れ・検品',
 			'kinds.work' => '作業指示',
 			'kinds.shelf' => '棚',
 			'kinds.purchase' => '購入品',
 			'kinds.item' => '製品/購入品',
 			'kinds.equipment' => '設備',
+			'kinds.supply' => '支給',
 			'modes.work.label' => '作業実績',
 			'modes.work.hint' => '作業指示(製造/委託品)のバーコードを読み取ります。',
 			'modes.receive.label' => '受入検品',
@@ -499,6 +550,8 @@ extension on BarcodeEntryStrings {
 			'modes.shelf.hint' => '棚のバーコードを読み取り、続けて製品/購入品を読み取ります。',
 			'modes.equipment.label' => '設備点検',
 			'modes.equipment.hint' => '設備のバーコードを読み取ります。',
+			'modes.supply.label' => '支給',
+			'modes.supply.hint' => '支給明細のバーコードを読み取ります。',
 			'input.topTitle' => 'バーコードの読込',
 			'input.topHint' => 'バーコードリーダーで読み取るか、文字を入力して Enter を押します。種類は自動で判定します(上の種類を選ぶと、その種類だけを受け付けます)。',
 			'input.label' => 'バーコード / 入力',
@@ -526,6 +579,12 @@ extension on BarcodeEntryStrings {
 			'input.inspectionResults.recheck' => '要再点検',
 			'input.judgePass' => '合格',
 			'input.judgeFail' => '不合格',
+			'input.supplySummary' => ({required Object item, required Object remain, required Object unit, required Object held}) => '${item}: 未受入 ${remain}${unit}、検品待ち(仮止め) ${held}${unit}',
+			'input.supplyChoiceLabel' => '操作を選んでください。',
+			'input.supplyReceive' => '受け入れる(仮止めにする)',
+			'input.supplyAccept' => '検品に合格(仮止めを外す)',
+			'input.supplyReject' => '検品で不合格(異常を登録。仮止めのまま)',
+			'input.supplyRegister' => '登録',
 			'ngReasons.dimension' => '寸法不良',
 			'ngReasons.appearance' => '外観不良',
 			'ngReasons.material' => '材料不良',
@@ -551,6 +610,8 @@ extension on BarcodeEntryStrings {
 			'notice.started' => ({required Object shelf}) => '${shelf}から出庫し、作業を開始しました。次のバーコードを読み取ってください。',
 			'notice.stored' => ({required Object shelf}) => '${shelf}へ入庫しました。次のバーコードを読み取ってください。',
 			'notice.inspected' => '点検結果を記録しました。次のバーコードを読み取ってください。',
+			'notice.supplied' => '支給を登録しました。次のバーコードを読み取ってください。',
+			'notice.qtyOverSupply' => ({required Object remain, required Object unit}) => '登録できる数量は${remain}${unit}までです。それ以下の数量を入力してください。',
 			'notice.failed' => '登録できませんでした。通信の状態を確認して、もう一度お試しください。',
 			'log.title' => '履歴',
 			'log.empty' => 'まだ履歴はありません。',
@@ -568,6 +629,7 @@ extension on BarcodeEntryStrings {
 			'log.storedItem' => ({required Object shelf, required Object item, required Object qty, required Object unit}) => '${shelf}: ${item} ${qty}${unit}を入庫',
 			'log.inspected' => ({required Object code, required Object name, required Object count}) => '設備点検 ${code} ${name}: ${count}項目を記録(すべて合格)',
 			'log.inspectedWithIssue' => ({required Object code, required Object name, required Object count, required Object issues}) => '設備点検 ${code} ${name}: ${count}項目を記録(要確認 ${issues}件)',
+			'log.supplied' => ({required Object sym, required Object item, required Object qty, required Object unit}) => '${sym} ${item}: 支給 ${qty}${unit}を登録',
 			'log.failed' => ({required Object sym}) => '登録に失敗: ${sym}',
 			_ => null,
 		};

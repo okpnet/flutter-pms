@@ -21,6 +21,18 @@ abstract interface class IScanGateway {
     RejectReason? reason,
   });
 
+  /// 支給の受け入れ・検品を登録する(数量は棚ビジターの行と関数で決まる)。
+  ///
+  /// [receive] が true なら受け入れ(仮止めの + の行を作る。[hold] も true)。
+  /// [receive] が false で [hold] が false なら検品の合格(仮止めを解除する)、
+  /// [hold] が true なら不合格(仮止めのまま、異常を登録する)。
+  Future<void> registerSupply(
+    SupplyTarget supply, {
+    required int quantity,
+    required bool receive,
+    required bool hold,
+  });
+
   /// 設備点検の結果を記録する(点検項目ごと)。
   Future<void> recordInspection(
     EquipmentTarget equipment,

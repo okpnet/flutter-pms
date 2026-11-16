@@ -1,7 +1,7 @@
 import '../barcode_code.dart';
 
 /// 読み込んだ symbol の種類。
-enum SymbolKind { work, shelf, purchase, item, equipment }
+enum SymbolKind { work, shelf, purchase, item, equipment, supply }
 
 /// バーコードのコードが表すメニューの種類に対応する、対象の種類。
 extension BarcodeCodeKind on BarcodeCode {
@@ -11,6 +11,7 @@ extension BarcodeCodeKind on BarcodeCode {
     BarcodeCode.shelfMove || BarcodeCode.container => SymbolKind.shelf,
     BarcodeCode.equipment => SymbolKind.equipment,
     BarcodeCode.item => SymbolKind.item,
+    BarcodeCode.supply => SymbolKind.supply,
   };
 }
 
@@ -19,7 +20,8 @@ enum ScanMode {
   work(SymbolKind.work),
   receive(SymbolKind.purchase),
   shelf(SymbolKind.shelf),
-  equipment(SymbolKind.equipment);
+  equipment(SymbolKind.equipment),
+  supply(SymbolKind.supply);
 
   const ScanMode(this.accepts);
 
@@ -155,6 +157,33 @@ final class EquipmentTarget extends ScanTarget {
 
   @override
   SymbolKind get kind => SymbolKind.equipment;
+}
+
+/// 支給(顧客支給の受け入れ・検品の対象)。支給明細の symbol。
+///
+/// 数量は、画面で計算せず取得元(`v_supply_detail_balance`)の値をそのまま持つ。
+final class SupplyTarget extends ScanTarget {
+  const SupplyTarget({
+    required this.symbol,
+    required this.itemName,
+    required this.unit,
+    required this.remaining,
+    required this.held,
+  });
+
+  @override
+  final String symbol;
+  final String itemName;
+  final String unit;
+
+  /// 未受入の数量(予定 − 受け入れ済み)。
+  final int remaining;
+
+  /// 仮止め中(受け入れて、検品が済んでいない)の数量。
+  final int held;
+
+  @override
+  SymbolKind get kind => SymbolKind.supply;
 }
 
 /// 点検の結果。

@@ -4,7 +4,7 @@
 
 ## このパッケージについて
 
-`gqlib` は `graphql_flutter`/`graphql` をラップし、型付き・Result方式のクライアントとして
+`gqlib` は `graphql` をラップし、型付き・Result方式のクライアントとして
 提供する Flutter/Dart パッケージで、`flutter-pms` アプリ全体から利用されます。モノレポ内の
 `flutter_pub_lib/gqlib` に配置されており、兄弟パッケージとして `logger_provider`,
 `data_strategist`, `query_builder`, `ui_mapper`, `undo_redo`, `view_responsiveness`

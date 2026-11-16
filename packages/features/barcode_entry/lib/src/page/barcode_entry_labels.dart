@@ -17,6 +17,7 @@ extension BarcodeEntryLabels on BarcodeEntryStrings {
     ScanStep.recvQty => steps.recvQty,
     ScanStep.recvEval => steps.recvEval,
     ScanStep.equipment => steps.equipment,
+    ScanStep.supplyChoice => steps.supplyChoice,
   };
 
   String kindName(SymbolKind kind) => switch (kind) {
@@ -25,6 +26,7 @@ extension BarcodeEntryLabels on BarcodeEntryStrings {
     SymbolKind.purchase => kinds.purchase,
     SymbolKind.item => kinds.item,
     SymbolKind.equipment => kinds.equipment,
+    SymbolKind.supply => kinds.supply,
   };
 
   String modeLabel(ScanMode mode) => switch (mode) {
@@ -32,6 +34,7 @@ extension BarcodeEntryLabels on BarcodeEntryStrings {
     ScanMode.receive => modes.receive.label,
     ScanMode.shelf => modes.shelf.label,
     ScanMode.equipment => modes.equipment.label,
+    ScanMode.supply => modes.supply.label,
   };
 
   String modeHint(ScanMode? mode) => switch (mode) {
@@ -40,6 +43,7 @@ extension BarcodeEntryLabels on BarcodeEntryStrings {
     ScanMode.receive => modes.receive.hint,
     ScanMode.shelf => modes.shelf.hint,
     ScanMode.equipment => modes.equipment.hint,
+    ScanMode.supply => modes.supply.hint,
   };
 
   String reasonLabel(RejectReason reason) => switch (reason) {
@@ -91,6 +95,11 @@ extension BarcodeEntryLabels on BarcodeEntryStrings {
       NoticeKind.started => notice.started(shelf: a['shelf']!),
       NoticeKind.stored => notice.stored(shelf: a['shelf']!),
       NoticeKind.inspected => notice.inspected,
+      NoticeKind.supplied => notice.supplied,
+      NoticeKind.qtyOverSupply => notice.qtyOverSupply(
+        remain: a['remain']!,
+        unit: a['unit']!,
+      ),
       NoticeKind.failed => notice.failed,
     };
   }
@@ -161,6 +170,12 @@ extension BarcodeEntryLabels on BarcodeEntryStrings {
         name: a['name']!,
         count: a['count']!,
         issues: a['issues']!,
+      ),
+      LogKind.supplied => log.supplied(
+        sym: a['sym']!,
+        item: a['item']!,
+        qty: a['qty']!,
+        unit: a['unit']!,
       ),
       LogKind.failed => log.failed(sym: a['sym']!),
     };
