@@ -28,8 +28,10 @@
 ## 行の操作(`CancelOpenActions`)
 未処置一覧の種類ごとに、DB の関数を呼ぶ(`lib/src/graphql/cancel_open_actions.dart`。モデルは `plan_change_model` の `PlanChange*PageCall` 8 本)。引当予約の解除・保管、ロットの在庫にする・押さえる・廃棄・引き渡し、出荷オーダー明細の取り消し、外注発注明細のキャンセル。呼ぶ関数は画面が列のチェック(種類)で選び、この中では状態を判定しない。失敗は `CancelOpenActionException`(`errcode`: `OPR00`〜`OPR03`・`VIS05`)で、画面は errcode で表示する文を選ぶ。テストは `test/cancel_open_actions_test.dart`(存在しない対象で `OPR01`)。操作の実体(画面からの保存)は `lib/src/graphql/operation_repositories.dart`(`operationRepositories`)で、`CancelOpenActions` を呼ぶ。テストは `test/operation_repositories_test.dart`(仕掛品を在庫にして計画変更が追記される確認は、未処置の仕掛品がある DB のときだけ実行する)。
 
+## example
+`example/`(Windows 向けのビジュアルテスト。`flutter run -d windows`。サンプルの取得元で、履歴・未処置一覧を開き、行のボタンから操作の入力画面を確認できる。`flutter test` は起動と画面遷移を確認する)。未処置一覧の行のボタンの列は、列が多いため表の右端にある。
+
 ## 未作成
-1.  `example`(Windows 向けのビジュアルテスト。`flutter create` で枠を作り、`entries` に 2 画面を足す)。
 1.  履歴からの再 MRP の起動。支給材の処置(支給の画面)。引き渡しのときの精算の入力。操作の失敗の表示(いまは数量の誤りだけ項目のエラー、ほかは「保存に失敗しました」。errcode ごとの文は未作成)。
 
 <!-- entity_gen:begin -->
