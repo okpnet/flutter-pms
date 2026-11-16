@@ -8,6 +8,7 @@
 1.  未処置一覧(`cancelopen`。`v_cancel_open_item`): テーブル構造・読み取り専用。キャンセル・停止・打ち切りのあと、処置が済んでいないもの 7 種(未解除の引当予約・仕掛品・押さえたままの品・未出荷の出荷オーダー・未キャンセルの外注発注・外注先にある支給材・顧客支給材の未返却)を、種類の列(チェック。ちょうど 1 つ)で出す。原因(キャンセル・停止・打ち切り)・数量・品目・原因の日つき。
 1.  種類・動き・処置は、コード値(文字列・整数)で持たず、DB のビューの boolean の列をそのまま出す。表示の文を画面で組み立てない(ルートの `CLAUDE.md` の R1・R2)。
 1.  メニューは「計画変更」のグループ(「生産計画」の次)。
+1.  未処置一覧の行には、種類(列のチェック)に合う操作のボタンを出す(`RowAction.whenAny`)。押すと、操作の実体(`actreqrelease`・`actreqhold`・`actlotrelease`・`actlothold`・`actlotscrap`・`actlotdeliver`・`actshipcancel`・`actpurcancel`)の新規登録を、対象と数量を初期値にして開く。操作の実体はメニューに出さず(`inMenu: false`)、保存すると DB の関数が呼ばれて計画変更が追記される(編集・削除は無い)。引当予約は「解除」「保管」、仕掛品・押さえた品は「在庫にする」「廃棄」「引き渡し」(仕掛品は「押さえる」も)、出荷オーダーは「出荷取り消し」、外注発注は「発注キャンセル」。支給材(外注先・顧客)の処置は、支給の画面(段階 4 の別画面)で行う。
 
 ## 参照するモデル
 `packages/model_providers/plan_change_model/gql/plan_change.yaml` の `PlanChangePage`・`CancelOpenItemPage`(ビュー `v_plan_change`・`v_cancel_open_item`)。モデルは `lib/src/graphql` のクラスを使う。
@@ -24,9 +25,32 @@
 1.  取得元の通信テストは `test/plan_change_connection_test.dart`(検証用サーバー。読み取りに加え、受注明細のキャンセル → 履歴・一覧に出る → 後始末で戻す、を行う。データを変更するテストは名前に明記する。一般ユーザーの資格情報を渡して実行する。`packages/infra/data_test_harness/CLAUDE.md`)。`dart_test.yaml` に `server` タグを宣言してある。
 1.  実体の定義・サンプルのテストは `test/plan_change_entities_test.dart`(生成)。
 
+## 行の操作(`CancelOpenActions`)
+未処置一覧の種類ごとに、DB の関数を呼ぶ(`lib/src/graphql/cancel_open_actions.dart`。モデルは `plan_change_model` の `PlanChange*PageCall` 8 本)。引当予約の解除・保管、ロットの在庫にする・押さえる・廃棄・引き渡し、出荷オーダー明細の取り消し、外注発注明細のキャンセル。呼ぶ関数は画面が列のチェック(種類)で選び、この中では状態を判定しない。失敗は `CancelOpenActionException`(`errcode`: `OPR00`〜`OPR03`・`VIS05`)で、画面は errcode で表示する文を選ぶ。テストは `test/cancel_open_actions_test.dart`(存在しない対象で `OPR01`)。操作の実体(画面からの保存)は `lib/src/graphql/operation_repositories.dart`(`operationRepositories`)で、`CancelOpenActions` を呼ぶ。テストは `test/operation_repositories_test.dart`(仕掛品を在庫にして計画変更が追記される確認は、未処置の仕掛品がある DB のときだけ実行する)。
+
 ## 未作成
 1.  `example`(Windows 向けのビジュアルテスト。`flutter create` で枠を作り、`entries` に 2 画面を足す)。
-1.  行の操作(未処置の処置・再 MRP の起動)。操作の関数は DB にある(`issue/20261116_0003.md` の 7.2)が、画面は段階 4 で作る。
+1.  履歴からの再 MRP の起動。支給材の処置(支給の画面)。引き渡しのときの精算の入力。操作の失敗の表示(いまは数量の誤りだけ項目のエラー、ほかは「保存に失敗しました」。errcode ごとの文は未作成)。
+
+<!-- entity_gen:begin -->
+## 実体の画面(生成)
+台帳(テーブル/ツリー)と編集の画面は、`tools/entity_gen/gen.js` が `tools/open-design` の画面定義から生成する(定義・サンプル・表示名・モジュール・テスト)。
+生成物は直接編集しない(再生成: リポジトリのルートで `node tools/entity_gen/gen.js`)。画面の作りは `packages/ui/entity_screens`、機能への組み込みは `feature_shared` の `EntityFeatureModule`。
+専用の画面が必要な実体は、生成の対象から外して手書きする(`shared_master` の配送区分を参考にする)。
+
+| 実体 | キー | 構造 | 項目数 | 参照先 |
+|---|---|---|---|---|
+| 計画変更の履歴 | `planchange` | テーブル構造 | 35 | `item` |
+| 未処置一覧 | `cancelopen` | テーブル構造 | 14 | `item` |
+| 引当予約の解除 | `actreqrelease` | テーブル構造 | 2 |  |
+| 引当予約の保管 | `actreqhold` | テーブル構造 | 3 | `container` |
+| 在庫にする | `actlotrelease` | テーブル構造 | 2 |  |
+| 品物を押さえる | `actlothold` | テーブル構造 | 4 | `container` |
+| 品物の廃棄 | `actlotscrap` | テーブル構造 | 3 |  |
+| 顧客への引き渡し | `actlotdeliver` | テーブル構造 | 3 |  |
+| 出荷オーダーの取り消し | `actshipcancel` | テーブル構造 | 2 |  |
+| 外注発注のキャンセル | `actpurcancel` | テーブル構造 | 3 |  |
+<!-- entity_gen:end -->
 
 ## 規則/仕様
 1.  ディリクトリ/ファイル

@@ -144,6 +144,46 @@
         "key": "cancelopen",
         "label": "未処置一覧",
         "first": "CO-0001"
+      },
+      {
+        "key": "actreqrelease",
+        "label": "引当予約の解除",
+        "first": ""
+      },
+      {
+        "key": "actreqhold",
+        "label": "引当予約の保管",
+        "first": ""
+      },
+      {
+        "key": "actlotrelease",
+        "label": "在庫にする",
+        "first": ""
+      },
+      {
+        "key": "actlothold",
+        "label": "品物を押さえる",
+        "first": ""
+      },
+      {
+        "key": "actlotscrap",
+        "label": "品物の廃棄",
+        "first": ""
+      },
+      {
+        "key": "actlotdeliver",
+        "label": "顧客への引き渡し",
+        "first": ""
+      },
+      {
+        "key": "actshipcancel",
+        "label": "出荷オーダーの取り消し",
+        "first": ""
+      },
+      {
+        "key": "actpurcancel",
+        "label": "外注発注のキャンセル",
+        "first": ""
       }
     ],
     "work_record": [
@@ -430,7 +470,8 @@
       "work_record"
     ],
     "plan_change": [
-      "item"
+      "item",
+      "work_record"
     ],
     "work_record": [
       "item",

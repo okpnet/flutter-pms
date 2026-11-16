@@ -135,8 +135,12 @@ void main() {
           cache: GraphQLCache(),
         ),
       );
-      expect(repos.map((r) => r.definition.key), ['planchange', 'cancelopen']);
-      for (final r in repos) {
+      expect(repos.map((r) => r.definition.key).take(2), [
+        'planchange',
+        'cancelopen',
+      ]);
+      // 読み取り専用なのは台帳の 2 つ。操作の実体は、追記だけ(更新・削除は不可)
+      for (final r in repos.take(2)) {
         expect(r.definition.viewOnly, isTrue);
         expect(r.definition.fields.every((f) => f.readOnly), isTrue);
         expect(

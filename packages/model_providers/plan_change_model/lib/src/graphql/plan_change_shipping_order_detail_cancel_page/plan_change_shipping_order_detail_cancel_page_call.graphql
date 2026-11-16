@@ -1,0 +1,34 @@
+# plan_change_shipping_order_detail_cancel_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #PlanChangeShippingOrderDetailCancelPageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation PlanChangeShippingOrderDetailCancelPageCall(
+  $pShippingOrderDetailId: UUID
+  $pChangeReasonId: UUID
+  $pReason: String
+  $pStaffId: UUID
+  $pParentPlanChangeId: UUID
+  $pRemarks: String
+) {
+  shippingOrderDetailCancel(
+    input: {
+      pShippingOrderDetailId: $pShippingOrderDetailId
+      pChangeReasonId: $pChangeReasonId
+      pReason: $pReason
+      pStaffId: $pStaffId
+      pParentPlanChangeId: $pParentPlanChangeId
+      pRemarks: $pRemarks
+    }
+  ) {
+    transPlanChange {
+      transPlanChangeId
+      symbol
+      release
+      hold
+      scrap
+      deliver
+      transContainerId
+    }
+  }
+}

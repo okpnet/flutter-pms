@@ -142,7 +142,13 @@ function fromHtml(e) {
     if (target) target.maxFrom = [{ source: key, field: extra.limitField }];
   });
   // 行のボタン(action): 引当予約の新規登録を、この行(param の項目)を初期値にして開く
-  const rowActions = e.action ? [{ key: 'reserve', label: e.action.label, target: 'stockrez', param: e.action.param }] : undefined;
+  // 行のボタン(actions): 別の実体の新規登録を、行の値(params: 開く先の項目 → この行の項目。id はこの行の id)を初期値にして開く。
+  // whenAny を指定すると、そのどれかの真偽の項目がオンの行にだけ出す(行の種類を真偽の列で見分ける台帳用)
+  const rowActions = e.actions
+    ? e.actions.map((x) => ({ key: x.key, label: x.label, target: x.target, params: x.params, whenAny: x.whenAny }))
+    : e.action
+      ? [{ key: 'reserve', label: e.action.label, target: 'stockrez', params: { [e.action.param]: 'id' } }]
+      : undefined;
   if (e.parent && e.tree) {
     // 所有する親とツリーの親の両方を持つ実体: 所有する親は参照の項目にし、ツリーの親だけを親子にする
     fields.unshift({ key: e.parent.key, label: byLabel(e.parent.ent), kind: 'reference', required: true, ref: e.parent.ent });
@@ -170,7 +176,7 @@ function fromHtml(e) {
   if (e.parent && e.tree) {
     return { key: e.key, label: e.label, isTree: true, hintParent: e.parent.ent, fields, rows };
   }
-  return { key: e.key, label: e.label, owner: e.parent?.ent, isTree: !!e.tree, viewOnly: !!e.viewOnly, fields, rows, rowActions };
+  return { key: e.key, label: e.label, owner: e.parent?.ent, isTree: !!e.tree, viewOnly: !!e.viewOnly, noMenu: !!e.noMenu, group: e.group, fields, rows, rowActions };
 }
 
 const htmlEntities = DOM.entities.filter((e) => !SKIP.has(e.key)).map(fromHtml);
@@ -322,6 +328,8 @@ for (const g of DOM.groups) {
     for (const [, , rootKey] of screen.tabs) visit(rootKey);
   }
 }
+/* 画面(タブ)を持たない操作の実体: group で指定したグループのプロジェクトへ(メニューには出さない) */
+for (const e of htmlEntities) if (e.group && !e.project) e.project = GROUP_PROJECT[e.group];
 /* 利害関係者: 顧客・外部供給者の行を1つの実体にまとめる */
 const stakeholder = (() => {
   const cust = DOM.entities.find((e) => e.key === 'customer');
@@ -473,7 +481,8 @@ function defsDart(pkg, list) {
         a.push(`nest: NestedList(parent: ${dq(e.nest.parent)}, where: {${where}}${e.nest.menuGroup ? `, menuGroup: ${dq(e.nest.menuGroup)}` : ''})`);
       }
       if (e.viewOnly) a.push('viewOnly: true');
-      if (e.rowActions) a.push(`rowActions: [${e.rowActions.map((r) => `RowAction(key: ${dq(r.key)}, target: ${dq(r.target)}, initialValues: {${dq(r.param)}: RowAction.idSource})`).join(', ')}]`);
+      if (e.noMenu) a.push('inMenu: false');
+      if (e.rowActions) a.push(`rowActions: [${e.rowActions.map((r) => `RowAction(key: ${dq(r.key)}, target: ${dq(r.target)}, initialValues: {${Object.entries(r.params).map(([k, v]) => `${dq(k)}: ${v === 'id' ? 'RowAction.idSource' : dq(v)}`).join(', ')}}${r.whenAny ? `, whenAny: [${r.whenAny.map(dq).join(', ')}]` : ''})`).join(', ')}]`);
       if (uniq) a.push(`uniqueKeys: [${uniq.map((k) => `[${k.map(dq).join(', ')}]`).join(', ')}]`);
       const rev = REVERSE[e.key];
       if (rev) a.push(`reverseLists: [${rev.map((r) => `ReverseList(entity: ${dq(r.entity)}, field: ${dq(r.field)})`).join(', ')}]`);
@@ -569,7 +578,7 @@ function testDart(pkg, list, entityOnly) {
   const p = camel(pkg);
   const name = entityOnly ? `${c}EntityModule` : `${c}Module`;
   const modImport = entityOnly ? `package:${pkg}/src/${pkg}_entity_module.dart` : `package:${pkg}/${pkg}.dart`;
-  const roots = list.filter((e) => !e.owner || e.nest).map((e) => e.key);
+  const roots = list.filter((e) => !e.noMenu && (!e.owner || e.nest)).map((e) => e.key);
   const ownTargets = new Set(list.map((e) => e.key));
   return `import 'package:entity_screens/entity_screens.dart';
 import 'package:feature_shared/feature_shared.dart';
@@ -593,7 +602,7 @@ void main() {
         isNotNull,
         reason: d.key,
       );
-      if (d.owner == null) {
+      if (d.owner == null && d.inMenu) {
         expect(module.locationOf(EntityListDestination(d.key)), isNotNull);
       }
     }

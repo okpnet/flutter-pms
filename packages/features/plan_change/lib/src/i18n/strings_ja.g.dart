@@ -60,6 +60,14 @@ class PlanChangeStrings$entity$ja {
 	// Translations
 	late final PlanChangeStrings$entity$planchange$ja planchange = PlanChangeStrings$entity$planchange$ja.internal(_root);
 	late final PlanChangeStrings$entity$cancelopen$ja cancelopen = PlanChangeStrings$entity$cancelopen$ja.internal(_root);
+	late final PlanChangeStrings$entity$actreqrelease$ja actreqrelease = PlanChangeStrings$entity$actreqrelease$ja.internal(_root);
+	late final PlanChangeStrings$entity$actreqhold$ja actreqhold = PlanChangeStrings$entity$actreqhold$ja.internal(_root);
+	late final PlanChangeStrings$entity$actlotrelease$ja actlotrelease = PlanChangeStrings$entity$actlotrelease$ja.internal(_root);
+	late final PlanChangeStrings$entity$actlothold$ja actlothold = PlanChangeStrings$entity$actlothold$ja.internal(_root);
+	late final PlanChangeStrings$entity$actlotscrap$ja actlotscrap = PlanChangeStrings$entity$actlotscrap$ja.internal(_root);
+	late final PlanChangeStrings$entity$actlotdeliver$ja actlotdeliver = PlanChangeStrings$entity$actlotdeliver$ja.internal(_root);
+	late final PlanChangeStrings$entity$actshipcancel$ja actshipcancel = PlanChangeStrings$entity$actshipcancel$ja.internal(_root);
+	late final PlanChangeStrings$entity$actpurcancel$ja actpurcancel = PlanChangeStrings$entity$actpurcancel$ja.internal(_root);
 }
 
 // Path: entity.planchange
@@ -88,6 +96,118 @@ class PlanChangeStrings$entity$cancelopen$ja {
 	String get title => '未処置一覧';
 
 	late final PlanChangeStrings$entity$cancelopen$fields$ja fields = PlanChangeStrings$entity$cancelopen$fields$ja.internal(_root);
+}
+
+// Path: entity.actreqrelease
+class PlanChangeStrings$entity$actreqrelease$ja {
+	PlanChangeStrings$entity$actreqrelease$ja.internal(this._root);
+
+	final PlanChangeStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '引当予約の解除'
+	String get title => '引当予約の解除';
+
+	late final PlanChangeStrings$entity$actreqrelease$fields$ja fields = PlanChangeStrings$entity$actreqrelease$fields$ja.internal(_root);
+}
+
+// Path: entity.actreqhold
+class PlanChangeStrings$entity$actreqhold$ja {
+	PlanChangeStrings$entity$actreqhold$ja.internal(this._root);
+
+	final PlanChangeStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '引当予約の保管'
+	String get title => '引当予約の保管';
+
+	late final PlanChangeStrings$entity$actreqhold$fields$ja fields = PlanChangeStrings$entity$actreqhold$fields$ja.internal(_root);
+}
+
+// Path: entity.actlotrelease
+class PlanChangeStrings$entity$actlotrelease$ja {
+	PlanChangeStrings$entity$actlotrelease$ja.internal(this._root);
+
+	final PlanChangeStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '在庫にする'
+	String get title => '在庫にする';
+
+	late final PlanChangeStrings$entity$actlotrelease$fields$ja fields = PlanChangeStrings$entity$actlotrelease$fields$ja.internal(_root);
+}
+
+// Path: entity.actlothold
+class PlanChangeStrings$entity$actlothold$ja {
+	PlanChangeStrings$entity$actlothold$ja.internal(this._root);
+
+	final PlanChangeStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '品物を押さえる'
+	String get title => '品物を押さえる';
+
+	late final PlanChangeStrings$entity$actlothold$fields$ja fields = PlanChangeStrings$entity$actlothold$fields$ja.internal(_root);
+}
+
+// Path: entity.actlotscrap
+class PlanChangeStrings$entity$actlotscrap$ja {
+	PlanChangeStrings$entity$actlotscrap$ja.internal(this._root);
+
+	final PlanChangeStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '品物の廃棄'
+	String get title => '品物の廃棄';
+
+	late final PlanChangeStrings$entity$actlotscrap$fields$ja fields = PlanChangeStrings$entity$actlotscrap$fields$ja.internal(_root);
+}
+
+// Path: entity.actlotdeliver
+class PlanChangeStrings$entity$actlotdeliver$ja {
+	PlanChangeStrings$entity$actlotdeliver$ja.internal(this._root);
+
+	final PlanChangeStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '顧客への引き渡し'
+	String get title => '顧客への引き渡し';
+
+	late final PlanChangeStrings$entity$actlotdeliver$fields$ja fields = PlanChangeStrings$entity$actlotdeliver$fields$ja.internal(_root);
+}
+
+// Path: entity.actshipcancel
+class PlanChangeStrings$entity$actshipcancel$ja {
+	PlanChangeStrings$entity$actshipcancel$ja.internal(this._root);
+
+	final PlanChangeStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '出荷オーダーの取り消し'
+	String get title => '出荷オーダーの取り消し';
+
+	late final PlanChangeStrings$entity$actshipcancel$fields$ja fields = PlanChangeStrings$entity$actshipcancel$fields$ja.internal(_root);
+}
+
+// Path: entity.actpurcancel
+class PlanChangeStrings$entity$actpurcancel$ja {
+	PlanChangeStrings$entity$actpurcancel$ja.internal(this._root);
+
+	final PlanChangeStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '外注発注のキャンセル'
+	String get title => '外注発注のキャンセル';
+
+	late final PlanChangeStrings$entity$actpurcancel$fields$ja fields = PlanChangeStrings$entity$actpurcancel$fields$ja.internal(_root);
 }
 
 // Path: entity.planchange.fields
@@ -253,6 +373,168 @@ class PlanChangeStrings$entity$cancelopen$fields$ja {
 
 	/// ja: '原因の日'
 	String get f_since => '原因の日';
+
+	/// ja: '解除'
+	String get f_do_req_release => '解除';
+
+	/// ja: '保管'
+	String get f_do_req_hold => '保管';
+
+	/// ja: '在庫にする'
+	String get f_do_lot_release => '在庫にする';
+
+	/// ja: '押さえる'
+	String get f_do_lot_hold => '押さえる';
+
+	/// ja: '廃棄'
+	String get f_do_lot_scrap => '廃棄';
+
+	/// ja: '引き渡し'
+	String get f_do_lot_deliver => '引き渡し';
+
+	/// ja: '出荷取り消し'
+	String get f_do_ship_cancel => '出荷取り消し';
+
+	/// ja: '発注キャンセル'
+	String get f_do_pur_cancel => '発注キャンセル';
+}
+
+// Path: entity.actreqrelease.fields
+class PlanChangeStrings$entity$actreqrelease$fields$ja {
+	PlanChangeStrings$entity$actreqrelease$fields$ja.internal(this._root);
+
+	final PlanChangeStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '対象'
+	String get f_target => '対象';
+
+	/// ja: '理由'
+	String get f_reason => '理由';
+}
+
+// Path: entity.actreqhold.fields
+class PlanChangeStrings$entity$actreqhold$fields$ja {
+	PlanChangeStrings$entity$actreqhold$fields$ja.internal(this._root);
+
+	final PlanChangeStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '対象'
+	String get f_target => '対象';
+
+	/// ja: '押さえる先のコンテナ'
+	String get f_container => '押さえる先のコンテナ';
+
+	/// ja: '理由'
+	String get f_reason => '理由';
+}
+
+// Path: entity.actlotrelease.fields
+class PlanChangeStrings$entity$actlotrelease$fields$ja {
+	PlanChangeStrings$entity$actlotrelease$fields$ja.internal(this._root);
+
+	final PlanChangeStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '対象'
+	String get f_target => '対象';
+
+	/// ja: '理由'
+	String get f_reason => '理由';
+}
+
+// Path: entity.actlothold.fields
+class PlanChangeStrings$entity$actlothold$fields$ja {
+	PlanChangeStrings$entity$actlothold$fields$ja.internal(this._root);
+
+	final PlanChangeStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '対象'
+	String get f_target => '対象';
+
+	/// ja: '押さえる先のコンテナ'
+	String get f_container => '押さえる先のコンテナ';
+
+	/// ja: '数量'
+	String get f_quantity => '数量';
+
+	/// ja: '理由'
+	String get f_reason => '理由';
+}
+
+// Path: entity.actlotscrap.fields
+class PlanChangeStrings$entity$actlotscrap$fields$ja {
+	PlanChangeStrings$entity$actlotscrap$fields$ja.internal(this._root);
+
+	final PlanChangeStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '対象'
+	String get f_target => '対象';
+
+	/// ja: '数量'
+	String get f_quantity => '数量';
+
+	/// ja: '理由'
+	String get f_reason => '理由';
+}
+
+// Path: entity.actlotdeliver.fields
+class PlanChangeStrings$entity$actlotdeliver$fields$ja {
+	PlanChangeStrings$entity$actlotdeliver$fields$ja.internal(this._root);
+
+	final PlanChangeStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '対象'
+	String get f_target => '対象';
+
+	/// ja: '数量'
+	String get f_quantity => '数量';
+
+	/// ja: '理由'
+	String get f_reason => '理由';
+}
+
+// Path: entity.actshipcancel.fields
+class PlanChangeStrings$entity$actshipcancel$fields$ja {
+	PlanChangeStrings$entity$actshipcancel$fields$ja.internal(this._root);
+
+	final PlanChangeStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '対象'
+	String get f_target => '対象';
+
+	/// ja: '理由'
+	String get f_reason => '理由';
+}
+
+// Path: entity.actpurcancel.fields
+class PlanChangeStrings$entity$actpurcancel$fields$ja {
+	PlanChangeStrings$entity$actpurcancel$fields$ja.internal(this._root);
+
+	final PlanChangeStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '対象'
+	String get f_target => '対象';
+
+	/// ja: '数量'
+	String get f_quantity => '数量';
+
+	/// ja: '理由'
+	String get f_reason => '理由';
 }
 
 /// The flat map containing all translations for locale <ja>.
@@ -315,6 +597,44 @@ extension on PlanChangeStrings {
 			'entity.cancelopen.fields.f_item' => '品目',
 			'entity.cancelopen.fields.f_quantity' => '数量',
 			'entity.cancelopen.fields.f_since' => '原因の日',
+			'entity.cancelopen.fields.f_do_req_release' => '解除',
+			'entity.cancelopen.fields.f_do_req_hold' => '保管',
+			'entity.cancelopen.fields.f_do_lot_release' => '在庫にする',
+			'entity.cancelopen.fields.f_do_lot_hold' => '押さえる',
+			'entity.cancelopen.fields.f_do_lot_scrap' => '廃棄',
+			'entity.cancelopen.fields.f_do_lot_deliver' => '引き渡し',
+			'entity.cancelopen.fields.f_do_ship_cancel' => '出荷取り消し',
+			'entity.cancelopen.fields.f_do_pur_cancel' => '発注キャンセル',
+			'entity.actreqrelease.title' => '引当予約の解除',
+			'entity.actreqrelease.fields.f_target' => '対象',
+			'entity.actreqrelease.fields.f_reason' => '理由',
+			'entity.actreqhold.title' => '引当予約の保管',
+			'entity.actreqhold.fields.f_target' => '対象',
+			'entity.actreqhold.fields.f_container' => '押さえる先のコンテナ',
+			'entity.actreqhold.fields.f_reason' => '理由',
+			'entity.actlotrelease.title' => '在庫にする',
+			'entity.actlotrelease.fields.f_target' => '対象',
+			'entity.actlotrelease.fields.f_reason' => '理由',
+			'entity.actlothold.title' => '品物を押さえる',
+			'entity.actlothold.fields.f_target' => '対象',
+			'entity.actlothold.fields.f_container' => '押さえる先のコンテナ',
+			'entity.actlothold.fields.f_quantity' => '数量',
+			'entity.actlothold.fields.f_reason' => '理由',
+			'entity.actlotscrap.title' => '品物の廃棄',
+			'entity.actlotscrap.fields.f_target' => '対象',
+			'entity.actlotscrap.fields.f_quantity' => '数量',
+			'entity.actlotscrap.fields.f_reason' => '理由',
+			'entity.actlotdeliver.title' => '顧客への引き渡し',
+			'entity.actlotdeliver.fields.f_target' => '対象',
+			'entity.actlotdeliver.fields.f_quantity' => '数量',
+			'entity.actlotdeliver.fields.f_reason' => '理由',
+			'entity.actshipcancel.title' => '出荷オーダーの取り消し',
+			'entity.actshipcancel.fields.f_target' => '対象',
+			'entity.actshipcancel.fields.f_reason' => '理由',
+			'entity.actpurcancel.title' => '外注発注のキャンセル',
+			'entity.actpurcancel.fields.f_target' => '対象',
+			'entity.actpurcancel.fields.f_quantity' => '数量',
+			'entity.actpurcancel.fields.f_reason' => '理由',
 			_ => null,
 		};
 	}

@@ -90,4 +90,59 @@ void main() {
       },
     ]);
   });
+
+  testWidgets('whenAny を指定したボタンは、どれかの真偽がオンの行にだけ出る', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(900, 900));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    const def = EntityDefinition(
+      key: 'open',
+      viewOnly: true,
+      fields: [
+        FieldDefinition(key: 'code'),
+        FieldDefinition(key: 'is_a', kind: FieldKind.flag),
+        FieldDefinition(key: 'is_b', kind: FieldKind.flag),
+      ],
+      rowActions: [
+        RowAction(
+          key: 'reserve',
+          target: 'rez',
+          initialValues: {'x': RowAction.idSource},
+          whenAny: ['is_a'],
+        ),
+      ],
+    );
+    final catalog = EntityCatalog()
+      ..register(
+        InMemoryEntityRepository(def, [
+          const EntityRecord(
+            id: 'r1',
+            values: {'code': 'R1', 'is_a': flagOn, 'is_b': ''},
+          ),
+          const EntityRecord(
+            id: 'r2',
+            values: {'code': 'R2', 'is_a': '', 'is_b': flagOn},
+          ),
+        ]),
+      );
+    await tester.pumpWidget(
+      _host(
+        EntityListPage(
+          entityKey: 'open',
+          scope: EntityScope(
+            catalog: catalog,
+            labels: _Labels(),
+            strings: EntityScreenLocale.ja.buildSync(),
+          ),
+          showCreate: false,
+          onOpen: (r) async {},
+          onCreate: () async {},
+          onAction: (a, r) async {},
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey('action:reserve:r1')), findsOneWidget);
+    expect(find.byKey(const ValueKey('action:reserve:r2')), findsNothing);
+    expect(def.rowActions.single.toJson()['whenAny'], ['is_a']);
+  });
 }

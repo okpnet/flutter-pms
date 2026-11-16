@@ -3,3 +3,5 @@ library;
 
 export 'src/graphql/plan_change_repositories.dart' show planChangeRepositories;
 export 'src/plan_change_module.dart' show PlanChangeModule;
+export 'src/graphql/cancel_open_actions.dart'
+    show CancelOpenActionException, CancelOpenActionResult, CancelOpenActions;

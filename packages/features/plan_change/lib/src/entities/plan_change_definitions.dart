@@ -213,6 +213,56 @@ const List<EntityDefinition> planChangeDefinitions = [
   EntityDefinition(
     key: 'cancelopen',
     viewOnly: true,
+    rowActions: [
+      RowAction(
+        key: 'do_req_release',
+        target: 'actreqrelease',
+        initialValues: {'target': RowAction.idSource},
+        whenAny: ['is_inventory_request'],
+      ),
+      RowAction(
+        key: 'do_req_hold',
+        target: 'actreqhold',
+        initialValues: {'target': RowAction.idSource},
+        whenAny: ['is_inventory_request'],
+      ),
+      RowAction(
+        key: 'do_lot_release',
+        target: 'actlotrelease',
+        initialValues: {'target': RowAction.idSource},
+        whenAny: ['is_work_in_process', 'is_hold'],
+      ),
+      RowAction(
+        key: 'do_lot_hold',
+        target: 'actlothold',
+        initialValues: {'target': RowAction.idSource, 'quantity': 'quantity'},
+        whenAny: ['is_work_in_process'],
+      ),
+      RowAction(
+        key: 'do_lot_scrap',
+        target: 'actlotscrap',
+        initialValues: {'target': RowAction.idSource, 'quantity': 'quantity'},
+        whenAny: ['is_work_in_process', 'is_hold'],
+      ),
+      RowAction(
+        key: 'do_lot_deliver',
+        target: 'actlotdeliver',
+        initialValues: {'target': RowAction.idSource, 'quantity': 'quantity'},
+        whenAny: ['is_work_in_process', 'is_hold'],
+      ),
+      RowAction(
+        key: 'do_ship_cancel',
+        target: 'actshipcancel',
+        initialValues: {'target': RowAction.idSource},
+        whenAny: ['is_shipping_order'],
+      ),
+      RowAction(
+        key: 'do_pur_cancel',
+        target: 'actpurcancel',
+        initialValues: {'target': RowAction.idSource, 'quantity': 'quantity'},
+        whenAny: ['is_outsource_order'],
+      ),
+    ],
     fields: [
       FieldDefinition(key: 'symbol', required: false, readOnly: true),
       FieldDefinition(
@@ -294,6 +344,89 @@ const List<EntityDefinition> planChangeDefinitions = [
         required: false,
         readOnly: true,
       ),
+    ],
+  ),
+  EntityDefinition(
+    key: 'actreqrelease',
+    inMenu: false,
+    fields: [
+      FieldDefinition(key: 'target', required: false, readOnly: true),
+      FieldDefinition(key: 'reason', required: false),
+    ],
+  ),
+  EntityDefinition(
+    key: 'actreqhold',
+    inMenu: false,
+    fields: [
+      FieldDefinition(key: 'target', required: false, readOnly: true),
+      FieldDefinition(
+        key: 'container',
+        kind: FieldKind.reference,
+        reference: 'container',
+      ),
+      FieldDefinition(key: 'reason', required: false),
+    ],
+  ),
+  EntityDefinition(
+    key: 'actlotrelease',
+    inMenu: false,
+    fields: [
+      FieldDefinition(key: 'target', required: false, readOnly: true),
+      FieldDefinition(key: 'reason', required: false),
+    ],
+  ),
+  EntityDefinition(
+    key: 'actlothold',
+    inMenu: false,
+    fields: [
+      FieldDefinition(key: 'target', required: false, readOnly: true),
+      FieldDefinition(
+        key: 'container',
+        kind: FieldKind.reference,
+        reference: 'container',
+      ),
+      FieldDefinition(
+        key: 'quantity',
+        kind: FieldKind.number,
+        required: false,
+        gt: 0,
+      ),
+      FieldDefinition(key: 'reason', required: false),
+    ],
+  ),
+  EntityDefinition(
+    key: 'actlotscrap',
+    inMenu: false,
+    fields: [
+      FieldDefinition(key: 'target', required: false, readOnly: true),
+      FieldDefinition(key: 'quantity', kind: FieldKind.number, gt: 0),
+      FieldDefinition(key: 'reason', required: false),
+    ],
+  ),
+  EntityDefinition(
+    key: 'actlotdeliver',
+    inMenu: false,
+    fields: [
+      FieldDefinition(key: 'target', required: false, readOnly: true),
+      FieldDefinition(key: 'quantity', kind: FieldKind.number, gt: 0),
+      FieldDefinition(key: 'reason', required: false),
+    ],
+  ),
+  EntityDefinition(
+    key: 'actshipcancel',
+    inMenu: false,
+    fields: [
+      FieldDefinition(key: 'target', required: false, readOnly: true),
+      FieldDefinition(key: 'reason', required: false),
+    ],
+  ),
+  EntityDefinition(
+    key: 'actpurcancel',
+    inMenu: false,
+    fields: [
+      FieldDefinition(key: 'target', required: false, readOnly: true),
+      FieldDefinition(key: 'quantity', kind: FieldKind.number, gt: 0),
+      FieldDefinition(key: 'reason', required: false),
     ],
   ),
 ];

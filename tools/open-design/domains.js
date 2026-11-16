@@ -354,6 +354,40 @@
     ["CO-0001", "1", "", "", "", "", "", "", "1", "", "", "item1", "3", "2026-11-10"],
     ["CO-0002", "", "1", "", "", "", "", "", "", "", "1", "item2", "5", "2026-11-11"],
   ]);
+  // 未処置一覧の行の操作(DB の関数の呼び出し。1回 = 1トランザクション。保存すると、計画変更が追記される。編集・削除は無い)。
+  // 行のボタン(action)から、対象(行の id)と数量を初期値にして開く。ボタンは、行の種類(真偽の列)に合うものだけを出す。
+  const op = (key, label, extra) => D.entities.push({
+    key, label, rows: [], noMenu: true, group: "planchange",
+    fields: [
+      ["target", "対象", "t", { req: false, readOnly: true }],
+      ...extra,
+      ["reason", "理由", "t", { req: false }],
+    ],
+  });
+  const qty = ["quantity", "数量", "n", { gt: 0 }];
+  const cont = ["container", "押さえる先のコンテナ", "r", { ref: "container" }];
+  op("actreqrelease", "引当予約の解除", []);
+  op("actreqhold", "引当予約の保管", [cont]);
+  op("actlotrelease", "在庫にする", []);
+  op("actlothold", "品物を押さえる", [cont, ["quantity", "数量", "n", { req: false, gt: 0 }]]);
+  op("actlotscrap", "品物の廃棄", [qty]);
+  op("actlotdeliver", "顧客への引き渡し", [qty]);
+  op("actshipcancel", "出荷オーダーの取り消し", []);
+  op("actpurcancel", "外注発注のキャンセル", [qty]);
+  const co = D.entities.find((e) => e.key === "cancelopen");
+  const tgt = { target: "id" };
+  const tgtQty = { target: "id", quantity: "quantity" };
+  const lot = ["is_work_in_process", "is_hold"];
+  co.actions = [
+    { key: "do_req_release", label: "解除", target: "actreqrelease", params: tgt, whenAny: ["is_inventory_request"] },
+    { key: "do_req_hold", label: "保管", target: "actreqhold", params: tgt, whenAny: ["is_inventory_request"] },
+    { key: "do_lot_release", label: "在庫にする", target: "actlotrelease", params: tgt, whenAny: lot },
+    { key: "do_lot_hold", label: "押さえる", target: "actlothold", params: tgtQty, whenAny: ["is_work_in_process"] },
+    { key: "do_lot_scrap", label: "廃棄", target: "actlotscrap", params: tgtQty, whenAny: lot },
+    { key: "do_lot_deliver", label: "引き渡し", target: "actlotdeliver", params: tgtQty, whenAny: lot },
+    { key: "do_ship_cancel", label: "出荷取り消し", target: "actshipcancel", params: tgt, whenAny: ["is_shipping_order"] },
+    { key: "do_pur_cancel", label: "発注キャンセル", target: "actpurcancel", params: tgtQty, whenAny: ["is_outsource_order"] },
+  ];
   D.screens.push({ id: "planchange", label: "計画変更の履歴", icon: "list", tabs: [["main", "計画変更の履歴", "planchange"]] });
   D.screens.push({ id: "cancelopen", label: "未処置一覧", icon: "alert", tabs: [["main", "未処置一覧", "cancelopen"]] });
   const at = D.groups.findIndex((g) => g.id === "plan");

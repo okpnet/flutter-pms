@@ -176,3 +176,118 @@ PlanChangePageEdit:
   columns:
     - trans_plan_change_id
     - remarks
+
+# ---- 未処置一覧の行の操作(kind: function)。1回の呼び出し = 1トランザクション。担当者は省略時 JWT の staff_id ----
+# エラーは errcode で判定する(OPR00 担当者・マスタ / OPR01 対象 / OPR02 数量・引数 / OPR03 今の状態では不可、VIS05 棚に場所が無い)。
+
+# 引当予約の解除
+PlanChangeInventoryRequestReleasePageCall:
+  kind: function
+  mutation: inventoryRequestRelease
+  returns: transPlanChange
+  columns:
+    - trans_plan_change_id
+    - symbol
+    - release
+    - hold
+    - scrap
+    - deliver
+    - trans_container_id
+
+# 引当予約の保管(コンテナへ仮止めで移す)
+PlanChangeInventoryRequestHoldPageCall:
+  kind: function
+  mutation: inventoryRequestHold
+  returns: transPlanChange
+  columns:
+    - trans_plan_change_id
+    - symbol
+    - release
+    - hold
+    - scrap
+    - deliver
+    - trans_container_id
+
+# 在庫にする(記録だけ)
+PlanChangeLotReleasePageCall:
+  kind: function
+  mutation: lotRelease
+  returns: transPlanChange
+  columns:
+    - trans_plan_change_id
+    - symbol
+    - release
+    - hold
+    - scrap
+    - deliver
+    - trans_container_id
+
+# 押さえる(コンテナへ仮止め)
+PlanChangeLotHoldPageCall:
+  kind: function
+  mutation: lotHold
+  returns: transPlanChange
+  columns:
+    - trans_plan_change_id
+    - symbol
+    - release
+    - hold
+    - scrap
+    - deliver
+    - trans_container_id
+
+# 廃棄
+PlanChangeLotScrapPageCall:
+  kind: function
+  mutation: lotScrap
+  returns: transPlanChange
+  columns:
+    - trans_plan_change_id
+    - symbol
+    - release
+    - hold
+    - scrap
+    - deliver
+    - trans_container_id
+
+# 顧客へ引き渡す
+PlanChangeLotDeliverPageCall:
+  kind: function
+  mutation: lotDeliver
+  returns: transPlanChange
+  columns:
+    - trans_plan_change_id
+    - symbol
+    - release
+    - hold
+    - scrap
+    - deliver
+    - trans_container_id
+
+# 出荷オーダー明細の取り消し
+PlanChangeShippingOrderDetailCancelPageCall:
+  kind: function
+  mutation: shippingOrderDetailCancel
+  returns: transPlanChange
+  columns:
+    - trans_plan_change_id
+    - symbol
+    - release
+    - hold
+    - scrap
+    - deliver
+    - trans_container_id
+
+# 外注発注明細のキャンセル
+PlanChangePurchaseDetailCancelPageCall:
+  kind: function
+  mutation: purchaseDetailCancel
+  returns: transPlanChange
+  columns:
+    - trans_plan_change_id
+    - symbol
+    - release
+    - hold
+    - scrap
+    - deliver
+    - trans_container_id

@@ -59,3 +59,57 @@ entity:
       f_item: "品目"
       f_quantity: "数量"
       f_since: "原因の日"
+      f_do_req_release: "解除"
+      f_do_req_hold: "保管"
+      f_do_lot_release: "在庫にする"
+      f_do_lot_hold: "押さえる"
+      f_do_lot_scrap: "廃棄"
+      f_do_lot_deliver: "引き渡し"
+      f_do_ship_cancel: "出荷取り消し"
+      f_do_pur_cancel: "発注キャンセル"
+  actreqrelease:
+    title: "引当予約の解除"
+    fields:
+      f_target: "対象"
+      f_reason: "理由"
+  actreqhold:
+    title: "引当予約の保管"
+    fields:
+      f_target: "対象"
+      f_container: "押さえる先のコンテナ"
+      f_reason: "理由"
+  actlotrelease:
+    title: "在庫にする"
+    fields:
+      f_target: "対象"
+      f_reason: "理由"
+  actlothold:
+    title: "品物を押さえる"
+    fields:
+      f_target: "対象"
+      f_container: "押さえる先のコンテナ"
+      f_quantity: "数量"
+      f_reason: "理由"
+  actlotscrap:
+    title: "品物の廃棄"
+    fields:
+      f_target: "対象"
+      f_quantity: "数量"
+      f_reason: "理由"
+  actlotdeliver:
+    title: "顧客への引き渡し"
+    fields:
+      f_target: "対象"
+      f_quantity: "数量"
+      f_reason: "理由"
+  actshipcancel:
+    title: "出荷オーダーの取り消し"
+    fields:
+      f_target: "対象"
+      f_reason: "理由"
+  actpurcancel:
+    title: "外注発注のキャンセル"
+    fields:
+      f_target: "対象"
+      f_quantity: "数量"
+      f_reason: "理由"

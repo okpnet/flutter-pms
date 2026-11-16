@@ -20,7 +20,7 @@ void main() {
         isNotNull,
         reason: d.key,
       );
-      if (d.owner == null) {
+      if (d.owner == null && d.inMenu) {
         expect(module.locationOf(EntityListDestination(d.key)), isNotNull);
       }
     }

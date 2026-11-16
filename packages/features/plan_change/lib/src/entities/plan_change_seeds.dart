@@ -125,4 +125,12 @@ const Map<String, List<EntityRecord>> planChangeSeeds = {
       },
     ),
   ],
+  'actreqrelease': [],
+  'actreqhold': [],
+  'actlotrelease': [],
+  'actlothold': [],
+  'actlotscrap': [],
+  'actlotdeliver': [],
+  'actshipcancel': [],
+  'actpurcancel': [],
 };

@@ -4,6 +4,7 @@ import 'package:graphql/client.dart';
 import 'package:plan_change_model/plan_change_model.dart';
 
 import '../entities/plan_change_definitions.dart';
+import 'operation_repositories.dart';
 
 /// 計画変更の実体の取得元(GraphQL 版。読み取り専用)。アプリが [GraphQLClient] を渡して組み立て、
 /// `entityRepositoryOverridesProvider` に渡すと、サンプル(メモリ上)の代わりに使われる。
@@ -19,6 +20,8 @@ List<IEntityRepository> planChangeRepositories(GraphQLClient client) {
   return [
     _PlanChangeRepository(_definition('planchange'), client, language),
     _CancelOpenRepository(_definition('cancelopen'), client, language),
+    // 未処置一覧の行の操作(保存すると DB の関数を呼ぶ。追記のみ)
+    ...operationRepositories(client),
   ];
 }
 

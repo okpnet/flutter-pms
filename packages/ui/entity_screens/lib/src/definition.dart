@@ -234,6 +234,7 @@ class RowAction {
     required this.key,
     required this.target,
     this.initialValues = const {},
+    this.whenAny = const [],
   });
 
   /// ボタンの識別子(名称を引くキー。実体の項目のキーと重ならない名前にする)。
@@ -244,6 +245,14 @@ class RowAction {
 
   /// [target] の項目のキー → 初期値にする、この行の項目のキー(`id` はこの行の id)。
   final Map<String, String> initialValues;
+
+  /// ボタンを出す条件(この行の真偽の項目のキー)。どれかがオン([flagOn])の行にだけボタンを出す。空のときは全行に出す。
+  /// 行の種類を真偽の列(チェック)で見分ける台帳で、種類ごとに使える操作だけを出すため(コード値で分岐しない)。
+  final List<String> whenAny;
+
+  /// この行にボタンを出すか。
+  bool visibleFor(EntityRecord record) =>
+      whenAny.isEmpty || whenAny.any((k) => record.valueOf(k) == flagOn);
 
   /// この行から、[target] の初期値を作る。
   Map<String, String> initialValuesOf(EntityRecord record) => {
@@ -258,6 +267,7 @@ class RowAction {
     'key': key,
     'target': target,
     'initialValues': initialValues,
+    if (whenAny.isNotEmpty) 'whenAny': whenAny,
   };
 }
 
@@ -273,6 +283,7 @@ class EntityDefinition {
     this.nest,
     this.viewOnly = false,
     this.rowActions = const [],
+    this.inMenu = true,
   }) : assert(!(isTree && owner != null), 'ツリーと所有は同時に持てない');
 
   /// 実体のキー(全体で一意。画面のパスにも使う)。
@@ -297,6 +308,9 @@ class EntityDefinition {
 
   /// 読み取り専用の実体(DB のビューなど)。台帳に「新規」を出さず、編集画面に保存・削除を出さない。
   final bool viewOnly;
+
+  /// メニューに出すか。行のボタンからだけ開く操作の実体(例: 未処置の処置)は false にする。
+  final bool inMenu;
 
   /// 台帳の各行に出すボタン(別の実体の新規登録を開く)。
   final List<RowAction> rowActions;

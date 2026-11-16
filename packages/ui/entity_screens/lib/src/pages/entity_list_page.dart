@@ -208,14 +208,16 @@ class _EntityListPageState extends State<EntityListPage> {
       exportable: false,
       getter: (_) => '',
       renderer: BuilderCellRenderer<EntityRecord>(
-        (context, cell) => TextButton(
-          key: ValueKey('action:${a.key}:${cell.item.id}'),
-          onPressed: () async {
-            await widget.onAction!(a, cell.item);
-            if (mounted) _reload();
-          },
-          child: Text(label),
-        ),
+        (context, cell) => !a.visibleFor(cell.item)
+            ? const SizedBox.shrink()
+            : TextButton(
+                key: ValueKey('action:${a.key}:${cell.item.id}'),
+                onPressed: () async {
+                  await widget.onAction!(a, cell.item);
+                  if (mounted) _reload();
+                },
+                child: Text(label),
+              ),
       ),
     );
   }

@@ -176,7 +176,7 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
   /// 台帳から開ける実体のキー(子の台帳を除く。表の中の表で出す子の台帳は含む)。
   List<String> get entityKeys => [
     for (final d in definitions)
-      if (!d.isChild || d.nest != null) d.key,
+      if (d.inMenu && (!d.isChild || d.nest != null)) d.key,
   ];
 
   /// 取得元。既定はサンプルのメモリ実装。

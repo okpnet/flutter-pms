@@ -218,6 +218,30 @@ type CreateTransPlanChangePayload {
   transPlanChange: TransPlanChange
 }
 
+type InventoryRequestHoldPayload {
+  transPlanChange: TransPlanChange
+}
+
+type InventoryRequestReleasePayload {
+  transPlanChange: TransPlanChange
+}
+
+type LotDeliverPayload {
+  transPlanChange: TransPlanChange
+}
+
+type LotHoldPayload {
+  transPlanChange: TransPlanChange
+}
+
+type LotReleasePayload {
+  transPlanChange: TransPlanChange
+}
+
+type LotScrapPayload {
+  transPlanChange: TransPlanChange
+}
+
 type MstrItem {
   mstrItemId: UUID!
   code: String!
@@ -228,11 +252,23 @@ type MstrItem {
 type Mutation {
   createTransPlanChange(input: CreateTransPlanChangeInput!): CreateTransPlanChangePayload
   updateTransPlanChangeByTransPlanChangeId(input: UpdateTransPlanChangeByTransPlanChangeIdInput!): UpdateTransPlanChangePayload
+  inventoryRequestHold(input: InventoryRequestHoldInput!): InventoryRequestHoldPayload
+  inventoryRequestRelease(input: InventoryRequestReleaseInput!): InventoryRequestReleasePayload
+  lotDeliver(input: LotDeliverInput!): LotDeliverPayload
+  lotHold(input: LotHoldInput!): LotHoldPayload
+  lotRelease(input: LotReleaseInput!): LotReleasePayload
+  lotScrap(input: LotScrapInput!): LotScrapPayload
+  purchaseDetailCancel(input: PurchaseDetailCancelInput!): PurchaseDetailCancelPayload
+  shippingOrderDetailCancel(input: ShippingOrderDetailCancelInput!): ShippingOrderDetailCancelPayload
 }
 
 type PageInfo {
   hasNextPage: Boolean!
   endCursor: Cursor
+}
+
+type PurchaseDetailCancelPayload {
+  transPlanChange: TransPlanChange
 }
 
 type Query {
@@ -257,6 +293,10 @@ type SharedDictionaryValue {
 
 type SharedDictionaryValuesConnection {
   nodes: [SharedDictionaryValue]!
+}
+
+type ShippingOrderDetailCancelPayload {
+  transPlanChange: TransPlanChange
 }
 
 type TransOrderDetail {
@@ -295,6 +335,7 @@ type TransPlanChange {
   stakeholderId: UUID
   staffHistoryId: UUID!
   staffId: UUID!
+  symbol: String
   remarks: String
   remove: Boolean
 }
@@ -481,6 +522,70 @@ input IntFilter {
   greaterThanOrEqualTo: Int
 }
 
+input InventoryRequestHoldInput {
+  pInventoryRequestId: UUID
+  pContainerId: UUID
+  pChangeReasonId: UUID
+  pReason: String
+  pStaffId: UUID
+  pParentPlanChangeId: UUID
+  pRemarks: String
+  pLocationId: UUID
+}
+
+input InventoryRequestReleaseInput {
+  pInventoryRequestId: UUID
+  pChangeReasonId: UUID
+  pReason: String
+  pStaffId: UUID
+  pParentPlanChangeId: UUID
+  pRemarks: String
+}
+
+input LotDeliverInput {
+  pVisiterId: UUID
+  pQuantity: BigFloat
+  pOrderDetailSettlementId: UUID
+  pChangeReasonId: UUID
+  pReason: String
+  pStaffId: UUID
+  pParentPlanChangeId: UUID
+  pRemarks: String
+  pLocationId: UUID
+}
+
+input LotHoldInput {
+  pVisiterId: UUID
+  pContainerId: UUID
+  pQuantity: BigFloat
+  pChangeReasonId: UUID
+  pReason: String
+  pStaffId: UUID
+  pParentPlanChangeId: UUID
+  pRemarks: String
+  pLocationId: UUID
+}
+
+input LotReleaseInput {
+  pVisiterId: UUID
+  pChangeReasonId: UUID
+  pReason: String
+  pStaffId: UUID
+  pParentPlanChangeId: UUID
+  pRemarks: String
+}
+
+input LotScrapInput {
+  pVisiterId: UUID
+  pQuantity: BigFloat
+  pChangeReasonId: UUID
+  pReason: String
+  pStaffId: UUID
+  pParentPlanChangeId: UUID
+  pRemarks: String
+  pLocationId: UUID
+}
+
 input MstrItemFilter {
   mstrItemId: UUIDFilter
   mstrItemKindId: UUIDFilter
@@ -551,6 +656,17 @@ input MstrItemFilter {
   and: [MstrItemFilter!]
   or: [MstrItemFilter!]
   not: MstrItemFilter
+}
+
+input PurchaseDetailCancelInput {
+  pPurchaseDetailId: UUID
+  pQuantity: BigFloat
+  pChangeReasonId: UUID
+  pReason: String
+  pStakeholderId: UUID
+  pStaffId: UUID
+  pParentPlanChangeId: UUID
+  pRemarks: String
 }
 
 input SharedAppellationFilter {
@@ -676,6 +792,15 @@ input SharedDictionaryValueFilter {
   and: [SharedDictionaryValueFilter!]
   or: [SharedDictionaryValueFilter!]
   not: SharedDictionaryValueFilter
+}
+
+input ShippingOrderDetailCancelInput {
+  pShippingOrderDetailId: UUID
+  pChangeReasonId: UUID
+  pReason: String
+  pStaffId: UUID
+  pParentPlanChangeId: UUID
+  pRemarks: String
 }
 
 input StringFilter {
