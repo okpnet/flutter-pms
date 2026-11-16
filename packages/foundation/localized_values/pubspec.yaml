@@ -1,0 +1,13 @@
+name: localized_values
+description: "言語別の値(呼称・文章・ラベル)の表示の代替と、保存で送る差分。純 Dart。"
+version: 0.0.1
+publish_to: "none"
+
+resolution: workspace
+
+environment:
+  sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+
+dev_dependencies:
+  test: ^1.25.0
+  lints: ^6.0.0

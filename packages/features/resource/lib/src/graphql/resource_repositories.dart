@@ -1,3 +1,4 @@
+import 'package:localized_values/localized_values.dart';
 import 'package:data_strategist/lib.dart';
 import 'package:entity_screens/entity_screens.dart';
 import 'package:graphql/client.dart';
@@ -122,10 +123,8 @@ abstract class _ReadOnlyRepository implements IEntityRepository {
 
   /// 辞書(`value.nodes[0].dictionaryValue`)の言語コード指定の値。
   static String dict(dynamic dictionary) {
-    final nodes = dictionary?.value?.nodes as List?;
-    return nodes == null || nodes.isEmpty
-        ? ''
-        : text(nodes.first.dictionaryValue);
+    // 言語を絞った問い合わせは、絞った言語(ja)の値になる。言語ごとの値を取る問い合わせになれば、代替も効く
+    return LocalizedValues.fromDictionary(dictionary).resolve('ja');
   }
 }
 

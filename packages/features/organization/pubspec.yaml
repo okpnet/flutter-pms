@@ -13,6 +13,8 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  localized_values:
+    path: ../../foundation/localized_values
   flutter:
     sdk: flutter
   feature_shared:
