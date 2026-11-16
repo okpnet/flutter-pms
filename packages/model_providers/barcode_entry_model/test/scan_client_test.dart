@@ -135,13 +135,13 @@ void main() {
       }
     });
 
-    // 11_barcode_dummy.sql のデータ(設備 LS01 の点検予定、棚 RACK-A01 の保留ビジター)
+    // 07_dummy.sql(2 節) のデータ(設備 LS01 の点検予定、棚 RACK-A01 の保留ビジター)
     serverTest('設備の未実施の点検は、実施済みを除く最も古い予定の明細', (server) async {
       final client = await clientOf(server);
       final eq = await client.findEquipment('LS01');
       if (eq == null) return markTestSkipped('設備 LS01 が無い');
       final p = await client.findPendingInspection(eq.id);
-      if (p == null) return markTestSkipped('点検のダミーデータ(11_barcode_dummy.sql)が無い');
+      if (p == null) return markTestSkipped('点検のダミーデータ(07_dummy.sql(2 節))が無い');
       final days = DateTime.now().difference(p.scheduledStart!).inDays;
       expect(days, inInclusiveRange(6, 8)); // 14日前は実施済み、7日前が対象、7日後は対象外
       expect(p.inspectionName, isNotEmpty);
@@ -155,7 +155,7 @@ void main() {
       final rack = aSym == null ? null : await client.findContainer(aSym);
       if (quarantine == null || rack == null) return markTestSkipped('棚 RACK-A01 / RACK-Q01 が無い');
       final held = (await client.listVisiters(quarantine.id)).where((v) => v.quantity > 0).toList();
-      if (held.isEmpty) return markTestSkipped('保留のダミーデータ(11_barcode_dummy.sql)が無い');
+      if (held.isEmpty) return markTestSkipped('保留のダミーデータ(07_dummy.sql(2 節))が無い');
       expect(held.every((v) => !v.release && !v.issuable), isTrue);
       expect(held.any((v) => v.hasOpenComplaint && v.blockReason == 'hold'), isTrue); // 異常のある保留
       expect(held.any((v) => !v.hasOpenComplaint), isTrue); // 異常の無い保留(点検の対象)

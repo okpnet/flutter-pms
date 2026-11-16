@@ -46,7 +46,7 @@ tools\init\test_admin_init.bat -ResetPassword
 | `APP_ADMIN_NAME` / `APP_ADMIN_EMAIL` | 任意。表示名・Eメール |
 | `PB_PASSWORD_MIN_LENGTH` | パスワードの最小の長さ(既定 8) |
 
-接続先の既定は PocketBase `http://192.168.1.103:8090`、PostGraphile `http://192.168.1.100:5000/graphql`(なければ `192.168.9.245`)。担当者は、コードが `username` と同じもの(大文字小文字を区別しない)、無ければ `ADMIN`(`10_mrp_dummy.sql` が作る)。
+接続先の既定は PocketBase `http://192.168.1.103:8090`、PostGraphile `http://192.168.1.100:5000/graphql`(なければ `192.168.9.245`)。担当者は、コードが `username` と同じもの(大文字小文字を区別しない)、無ければ `ADMIN`(`07_dummy.sql` の 1 節が作る)。
 
 DB の関数は、JWT の `staff_id` を UUID として読む。PocketBase のサーバー起動時の自動作成(`pb_hooks/05_app_admin.pb.js`)の `app_user_id` の既定は UUID ではないため、このバッチが担当者のIDに直す。
 
@@ -71,9 +71,9 @@ PostgreSQL のダミーの担当者(管理者の担当者を除く)を、`userna
 
 ## ダミーの担当者(テスト環境のPostgreSQL)
 流してから、バッチを実行する。何度流しても同じ(あるコードは作らない)。
-- `tools/docker/postgresql/script/10_mrp_dummy.sql`: 担当者 `ADMIN`。
-- `tools/docker/postgresql/script/12_app_admin_dummy.sql`: 管理者の `username` が `admin` 以外のとき、同じコードの担当者を作る。`psql -d test_avocado -v admin_code=ADMINISTRATOR -f 12_app_admin_dummy.sql`
-- `tools/docker/postgresql/script/13_user_dummy.sql`: 利用者の担当者 `TANAKA`・`SUZUKI`・`SATO`。
+- `tools/docker/postgresql/script/07_dummy.sql`(1 節): 担当者 `ADMIN`。
+- `tools/docker/postgresql/script/07_dummy.sql`(3 節): 管理者の `username` が `admin` 以外のとき、同じコードの担当者を作る。`psql -d test_avocado -v admin_code=ADMINISTRATOR -f 07_dummy.sql`
+- `tools/docker/postgresql/script/07_dummy.sql`(4 節): 利用者の担当者 `TANAKA`・`SUZUKI`・`SATO`。
 
 ## アプリからのログイン
 `apps/pms_app` を `--dart-define=POCKETBASE_URL=<PocketBase の接続先>` で起動し、ログイン画面に `username` とパスワードを入力する。

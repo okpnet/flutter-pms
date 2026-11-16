@@ -39,6 +39,7 @@
 `lib/src/graphql/organization_repositories.dart` の `organizationRepositories(GraphQLClient)` が、職員(`staff`)・事業所(`site`)・部署(`department`。ツリー)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
 1.  読み取り専用: 実体を `viewOnly`・各項目 `readOnly` にし、保存・削除は `UnsupportedError`。名称・読み・略称は多言語の辞書で、言語コード `ja` の値を読む。部署の親は部署ツリー(`info_department_tree`)の親の部署 ID(親ごとの絞り込みはサーバー側に無く、取得した中から選ぶ)。事業所の住所は、画面の項目を DB の住所(`info_address`)の列に合わせた: 国・郵便番号・住所1・住所2・建物・電話番号・FAX(画面案の都道府県・市区町村は、DB に列が無いため、住所1 = 都道府県と市区町村、住所2 = 町名・番地・号に統合した。住所1・住所2・建物は呼称(多言語の辞書)で、言語コード `ja` の値)。ほかの実体(会社・提供・役職・割当・部署区分・力量・資格・承認など)は、サンプルのまま。
 1.  **【入れ替え: 呼称の DB 関数】** 書き込みは、`doc/query/20261114_0002_appellation_functions.sql` の補助を使う職員・事業所・部署の関数を足して適用したら、`~PageCall` で `save` を入れ替え、`viewOnly` を外す(`issue/202611.md` の 2-1)。
+1.  更新者の履歴の ID: `lib/src/graphql/staff_history_lookup.dart` の `staffHistoryLookup(GraphQLClient)` が、担当者の最新の履歴の ID(`history_info_staff` の `revision` が最大の行。生成モデル `organization_model` の `StaffHistoryLatestPage`)を引く関数を作る。アプリが `current_user` の `CurrentUserHolder` の `lookupHistory` に渡す(履歴が無いときは null、通信の失敗は投げる)。テストは `test/staff_history_lookup_test.dart`(通信は差し替えた Link)。
 1.  検証用 DB には事業所・部署のデータが無いため、通信テストは職員の値を確認し、事業所・部署は取得できる(空)ことだけを確認する。事業所・部署の値の対応は、データが入ってから確認する。
 
 ## 規則/仕様

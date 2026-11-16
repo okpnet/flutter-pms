@@ -6,11 +6,13 @@
 mutation StakeholderPageRemove(
   $mstrStakeholderId: UUID!
   $remove: Boolean!
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
 ) {
   updateMstrStakeholderByMstrStakeholderId(
     input: {
       mstrStakeholderId: $mstrStakeholderId
-      mstrStakeholderPatch: { remove: $remove }
+      mstrStakeholderPatch: { remove: $remove, updateUserId: $updateUserId, updateUserHistoryId: $updateUserHistoryId }
     }
   ) {
     mstrStakeholder {

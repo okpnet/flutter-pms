@@ -2,7 +2,7 @@
 rem ============================================================================
 rem  test_user_init.bat  -  テスト環境の初期化: ダミーの担当者を、PocketBase のユーザーに追加する
 rem
-rem  user_init.bat のテスト環境版(-Test)。PostgreSQL のダミーの担当者(管理者を除く。13_user_dummy.sql)を、
+rem  user_init.bat のテスト環境版(-Test)。PostgreSQL のダミーの担当者(管理者を除く。07_dummy.sql(4 節))を、
 rem  username=担当者のコード(小文字)、role=user、有効、共通のパスワードで追加し、
 rem  担当者のID(info_staff_id)を app_user_id に入れる。すでにいれば app_user_id を更新する。
 rem    -UserPassword <PW>     共通のパスワード(既定: .env の APP_DUMMY_USER_PWD、無ければ入力、Enter で乱数)

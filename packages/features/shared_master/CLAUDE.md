@@ -64,10 +64,10 @@
 6.  配送区分の取得は、GraphQL版のリポジトリに差し替える(必要な画面定義は`doc/log`の課題を参照)。サンプルのメモリ実装は暫定。
 
 ## 取得元(GraphQL 版)
-`lib/src/graphql/shared_master_repositories.dart` の `sharedMasterRepositories(GraphQLClient)` が、利害関係者(`stakeholder`)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
+`lib/src/graphql/shared_master_repositories.dart` の `sharedMasterRepositories(GraphQLClient, {AuditUserSource? auditUser})` が、利害関係者(`stakeholder`)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
 1.  読み込み: 名称・読み・略称は多言語の辞書(`shared_appellation`)で、言語コード `ja` の値を読む。顧客・外部供給者・運送業者は、役割のフラグ(はい/いいえ)で見分ける。
-1.  【暫定】次の書き込みは、共通関数(`shared_appellation_save`)と平らなミューテーションに入れ替える(`tools/docker/postgresql/issue/20261115_0001.md`。CLAUDE.md「登録・更新の方式」)。
-1.  書き込み: 登録・更新は DB の関数 `stakeholder_save`(`doc/query/20261114_0002_appellation_functions.sql`。モデルは `shared_master_model` の `StakeholderSavePageCall`)、削除は論理削除(`StakeholderPageEdit` の `remove = true`)。更新は、読み込んだ値から変わった項目だけ送る(空に変えたときは空文字で消す。役割の選択が空のときは変えない)。読み書きするのは言語コード `ja` の値だけ。コードの重複(`APL03`)・名称・コードの必須は、`EntityValidationException` に変換する。
+1.  書き込みは、共通関数 + ミューテーション(CLAUDE.md「登録・更新の方式」)。(1)呼称(名称・読み・略称)を、共通関数 `shared_appellation_save` で作る・変える(`shared_master_model` の `StakeholderAppellationSavePageCall`。渡した言語の値だけ入れ替わり、他の言語は残る。更新は、読み込んだ値から変わった項目だけ送る。空に変えたときは空文字で消す)。(2)返った ID を、本体(`mstr_stakeholder`)の `names` に渡して、ミューテーションで書く(登録 `StakeholderPageCreate`・更新 `StakeholderPageEdit`。更新は渡した列だけが変わり、空に変えた列は null で消える。役割の選択が空のときは変えない。呼称だけを変えるときは本体を書かない)。(3)保存のあと読み直して返す。削除は論理削除(`StakeholderPageRemove`。`remove = true`)。更新者は、アプリが `auditUser`(`AuditUserSource`)で渡し、共通関数・登録・更新・論理削除で送る(渡されていない・ログインしていないときは送らない)。読み書きするのは言語コード `ja` の値だけ。
+1.  コードの重複は、DB の部分一意索引(`mstr_stakeholder_ix_code_active`。`doc/query/20261115_0002_code_unique_indexes.sql`)が `23505` で止める。取得元は、エラーの文に索引の名前(`_ix_code_active`)が入っていることで、`EntityValidationException`(コードの重複)に変換する。名称の必須(`APL02`)・コードの必須(画面の検証)も同じ例外で返す。共通関数と本体は別のトランザクションで、本体の登録が失敗すると、呼称が参照されない行として残る(マスタは許容する)。
 1.  配送区分(`mstr_shipping_kind_id`)は、配送区分の取得元が GraphQL 版になるまで(サンプルの ID は DB に無い)読み取り専用。担当者(`contact`)・配送区分(`shipkind`)は、サンプルのまま。住所は、画面の定義に項目が無く、関数でも扱わない。
 1.  モデルは `shared_master_model` の `StakeholderPage`(`gql/stakeholder_page.yaml`。項目の部品は `gql/stakeholder.yaml`)。生成された型は、この中だけで使う。
 

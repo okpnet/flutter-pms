@@ -6,11 +6,13 @@
 mutation UnitPageRemove(
   $sharedUnitId: UUID!
   $remove: Boolean!
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
 ) {
   updateSharedUnitBySharedUnitId(
     input: {
       sharedUnitId: $sharedUnitId
-      sharedUnitPatch: { remove: $remove }
+      sharedUnitPatch: { remove: $remove, updateUserId: $updateUserId, updateUserHistoryId: $updateUserHistoryId }
     }
   ) {
     sharedUnit {

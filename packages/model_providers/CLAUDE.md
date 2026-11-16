@@ -113,7 +113,7 @@
 - 各パッケージの`dart_test.yaml`に`server`タグの宣言が必要(生成が作る)。
 
 ## テストデータ
-検証用サーバー(DB)にはテストデータ(`tools/docker/postgresql/scripts/10_mrp_dummy.sql`)が入っている。
+検証用サーバー(DB)にはテストデータ(`tools/docker/postgresql/script/07_dummy.sql`)が入っている。
 1.  言語は `ja`(`shared_language_code` の `code`)で進める。担当者は `ADMIN`(`info_staff.code`)。
 1.  注文の追加、MRP、再MRP の実行テストに使ってよい(データが変わる)。読み取りだけのテストと分け、変更するテストの名前に明記する。
 1.  `mrpExecute` は重い(受注MRPで2分ほど)。`GraphQLClient` の既定の制限時間(5秒)と、`TestServer.provider` の制限時間(20秒)を超えるため、変更するテストは制限の無い接続(`HttpLink(server.url)`)を使い、テストの制限時間も長くする。

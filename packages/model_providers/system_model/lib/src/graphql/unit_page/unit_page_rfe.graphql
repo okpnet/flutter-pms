@@ -5,95 +5,11 @@
 
 query UnitPageRfe(
   $sharedUnitId: UUID!
-  $jaLanguageCodeId: UUID!
-  $enLanguageCodeId: UUID!
 ) {
   sharedUnitBySharedUnitId(sharedUnitId: $sharedUnitId) {
     sharedUnitId
-
-    labels: sharedAppellationByNames {
-      sharedAppellationsId
-      sharedDictionaryBySharedDictionaryNameId {
-        sharedDictionaryId
-
-        ja: sharedDictionaryValuesBySharedDictionaryId(
-          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-        ) {
-          nodes {
-            dictionaryValue
-          }
-        }
-
-        en: sharedDictionaryValuesBySharedDictionaryId(
-          condition: { sharedLanguageCodeId: $enLanguageCodeId }
-        ) {
-          nodes {
-            dictionaryValue
-          }
-        }
-      }
-
-      sharedDictionaryBySharedDictionaryPronunciationId {
-        sharedDictionaryId
-
-        ja: sharedDictionaryValuesBySharedDictionaryId(
-          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-        ) {
-          nodes {
-            dictionaryValue
-          }
-        }
-
-        en: sharedDictionaryValuesBySharedDictionaryId(
-          condition: { sharedLanguageCodeId: $enLanguageCodeId }
-        ) {
-          nodes {
-            dictionaryValue
-          }
-        }
-      }
-
-      sharedDictionaryBySharedDictionaryNicknameId {
-        sharedDictionaryId
-
-        ja: sharedDictionaryValuesBySharedDictionaryId(
-          condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-        ) {
-          nodes {
-            dictionaryValue
-          }
-        }
-
-        en: sharedDictionaryValuesBySharedDictionaryId(
-          condition: { sharedLanguageCodeId: $enLanguageCodeId }
-        ) {
-          nodes {
-            dictionaryValue
-          }
-        }
-      }
-    }
-
-    detailTexts: sharedTextByDetails {
-      sharedTextId
-
-      ja: sharedTextValuesBySharedTextId(
-        condition: { sharedLanguageCodeId: $jaLanguageCodeId }
-      ) {
-        nodes {
-          textValue
-        }
-      }
-
-      en: sharedTextValuesBySharedTextId(
-        condition: { sharedLanguageCodeId: $enLanguageCodeId }
-      ) {
-        nodes {
-          textValue
-        }
-      }
-    }
-
+    names
+    details
     remarks
     updateUserId
     updateUserHistoryId

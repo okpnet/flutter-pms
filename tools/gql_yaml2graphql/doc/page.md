@@ -498,6 +498,8 @@
     +   担当者実効アクセスパス台帳[StaffEffectiveAccessPathPage]
 
 1.  2026-11 追加分(受注・発注まわりの計画変更・精算・返品・支給・操作の DB 関数、書き込み用の登録(Create)など。モデルパッケージの YAML ごと)
+    1.  organization_model/staff.yaml
+        +   StaffHistoryLatest 台帳[StaffHistoryLatestPage]<!--更新者の履歴IDに使う。担当者の最新の履歴IDを読む-->
     1.  plan_change_model/plan_change.yaml
         +   PlanChange 台帳[PlanChangePage]
         +   PlanChangeUnreflected 台帳[PlanChangeUnreflectedPage]
@@ -544,7 +546,8 @@
     1.  shared_master_model/stakeholder_page.yaml
         +   Stakeholder 台帳[StakeholderPage]
         +   Stakeholder 情報[StakeholderPageEdit]
-        +   StakeholderSave 登録[StakeholderSavePageCall]
+        +   Stakeholder 登録[StakeholderPageCreate]
+        +   StakeholderAppellation 登録・更新(共通関数)[StakeholderAppellationSavePageCall]
     1.  supply_model/supply.yaml
         +   Supply 台帳[SupplyPage]
         +   SupplyDetail 台帳[SupplyDetailPage]
@@ -555,7 +558,11 @@
         +   SupplyVisiter 情報[SupplyVisiterPageEdit]
         +   SupplyRegister 登録[SupplyRegisterPageCall]
     1.  system_model/unit.yaml
-        +   UnitSave 登録[UnitSavePageCall]
+        +   Unit 台帳[UnitPage]
+        +   Unit 情報[UnitPageEdit]
+        +   Unit 登録[UnitPageCreate]
+        +   UnitAppellation 登録・更新(共通関数)[UnitAppellationSavePageCall]
+        +   UnitText 登録・更新(共通関数)[UnitTextSavePageCall]
     1.  work_record_model/owner.yaml
         +   VisiterOwner 台帳[VisiterOwnerPage]
         +   ExternalProperty 台帳[ExternalPropertyPage]

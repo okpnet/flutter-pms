@@ -294,7 +294,7 @@ GraphQLから取得したデータのうち、イミュータブルな更新者�
 4.  サーバーのデータを変更するテストは書かない(読み取り専用)。
 
 ## テストデータ
-検証用サーバー(DB)にはテストデータが入っている(`tools/docker/postgresql/scripts/10_mrp_dummy.sql`)。言語は `JA`(`shared_language_code` の `code`。DB の値は小文字 `ja`なので大文字小文字を区別せずに探す)でテストを進める。詳細は `packages/model_providers/CLAUDE.md` の「テストデータ」を参照。
+検証用サーバー(DB)にはテストデータが入っている(`tools/docker/postgresql/script/07_dummy.sql`)。言語は `JA`(`shared_language_code` の `code`。DB の値は小文字 `ja`なので大文字小文字を区別せずに探す)でテストを進める。詳細は `packages/model_providers/CLAUDE.md` の「テストデータ」を参照。
 
 ## Issue: symbol によるショートカット(未実装)
 `symbol`(`機能コード + 画面コード + symbol`)をバーコードで読み込み、該当の画面へリンクするショートカットにする。実装はしない。ここに方針だけを置く。

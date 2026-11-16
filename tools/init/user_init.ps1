@@ -10,7 +10,7 @@
   テスト(-Test): PostgreSQL のダミーデータの担当者(管理者の担当者を除く)を、PocketBase のユーザーに追加する。
     username は担当者のコード(小文字)。すぐログインできるよう有効にし、共通のパスワードを設定する
     (入力、Enter で乱数。乱数は一度だけ表示)。すでにユーザーがいれば、担当者のIDを app_user_id に入れる(更新)。
-    対応済みなら何もしない。ダミーの担当者は tools/docker/postgresql/script/13_user_dummy.sql。
+    対応済みなら何もしない。ダミーの担当者は tools/docker/postgresql/script/07_dummy.sql(4 節)。
 
   本番: CSV ファイル(-File。UTF-8、見出し行: username,staff_code,email,name。email・name は省略可)の
     利用者を、担当者(コードが staff_code のもの)に対応させて追加する。パスワードは決めず、
@@ -128,7 +128,7 @@ if ($Test) {
   $password = ''
   $targets = @($staffs | Where-Object { $_.infoStaffId -ne $adminRecord.app_user_id } | Sort-Object code)
   if ($targets.Count -eq 0) {
-    Write-Warn '管理者以外の担当者がありません。ダミーデータ(tools/docker/postgresql/script/13_user_dummy.sql)を流してから、もう一度実行してください'
+    Write-Warn '管理者以外の担当者がありません。ダミーデータ(tools/docker/postgresql/script/07_dummy.sql(4 節))を流してから、もう一度実行してください'
   }
   foreach ($staff in $targets) {
     $uname = $staff.code.Trim().ToLowerInvariant()

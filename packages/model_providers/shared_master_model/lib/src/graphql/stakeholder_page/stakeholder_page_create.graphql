@@ -1,0 +1,48 @@
+# stakeholder_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #StakeholderPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation StakeholderPageCreate(
+  $code: String!
+  $controlCode: String
+  $names: UUID
+  $isCustomer: Boolean
+  $isSupplier: Boolean
+  $isLogistics: Boolean
+  $mail: String
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  createMstrStakeholder(
+    input: {
+      mstrStakeholder: {
+        code: $code
+        controlCode: $controlCode
+        names: $names
+        isCustomer: $isCustomer
+        isSupplier: $isSupplier
+        isLogistics: $isLogistics
+        mail: $mail
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    mstrStakeholder {
+      mstrStakeholderId
+      code
+      controlCode
+      names
+      isCustomer
+      isSupplier
+      isLogistics
+      mail
+      remarks
+      updateUserId
+      updateUserHistoryId
+    }
+  }
+}

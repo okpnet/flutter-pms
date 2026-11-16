@@ -64,6 +64,7 @@ PMS のシェルアプリ。GoRouter を構築済みのモックアップ(旧 `l
     1.  `--dart-define=GRAPHQL_URL=...`(PostGraphile)を指定したときだけ、画面の取得元を GraphQL 版にする(`lib/services/graphql`)。未指定はサンプル。
     1.  `--dart-define=POCKETBASE_URL=...`(PocketBase)を指定したときだけ、`pbapi` の接続を開く(`lib/services/pocketbase`)。GraphQL の認証ヘッダーは `pbapi` の `SessionService.graphqlToken` の JWT を使う(取得・更新は `pbapi`)。トークンの保存先は、いまはメモリ。
     1.  PostGraphile が JWT を検証する設定になるまで、JWT は効かない(`tools/docker/postgresql/issue/20261103_0003.md`)。
+    1.  更新者(登録・更新・論理削除の `update_user_id`・`update_user_history_id`)は、`graphql_overrides.dart` の `currentUserHolderProvider`(`current_user` の `CurrentUserHolder`)から、`auditUserProvider` が取得元の `auditUser` の形にして渡す。担当者の ID は認証側の身元(`services/session/pocketbase_user_identity.dart` の `PocketBaseUserIdentity`)、履歴の ID は `organization` 機能の `staffHistoryLookup`(生成モデルの `StaffHistoryLatestPage`)、言語コードは `feature_shared` の `localeProvider`(呼ぶたびに取り直す)。PocketBase を使わない・GraphQL が未指定のときは null(更新者を送らない)。テストは `test/current_user_wiring_test.dart`。
 
 
 ## 規則: プロジェクト間をまたぐ指示

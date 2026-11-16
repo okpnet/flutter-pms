@@ -158,6 +158,18 @@ void main() {
         Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
       );
     });
+    serverTest('StaffHistoryLatestPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryStaffHistoryLatestPageRead,
+          variables: Variables$Query$StaffHistoryLatestPageRead(first: 1).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$StaffHistoryLatestPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
     serverTest('StaffPageRead', (server) async {
       final result = await server.provider.query(
         QueryOptions(

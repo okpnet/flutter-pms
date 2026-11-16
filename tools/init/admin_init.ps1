@@ -227,7 +227,7 @@ if ($staff) {
   $linked = $true
 } elseif ($graphqlOk) {
   $tried = if ($staffCodeWanted) { $staffCodeWanted } elseif ($Test) { "$username / ADMIN" } else { '(未指定)' }
-  Write-Warn "担当者(コード: $tried)が見つかりません。担当者を登録(テストはダミーデータ 10_mrp_dummy.sql・12_app_admin_dummy.sql)してから、もう一度実行してください"
+  Write-Warn "担当者(コード: $tried)が見つかりません。担当者を登録(テストはダミーデータ 07_dummy.sql)してから、もう一度実行してください"
   Write-Warn "app_user_id は仮の値($($user.app_user_id))のままです。担当者のIDを使う機能は動きません"
 }
 

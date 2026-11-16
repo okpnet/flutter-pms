@@ -35,11 +35,11 @@
 
 
 ## 取得元(GraphQL 版)
-`lib/src/graphql/system_repositories.dart` の `systemRepositories(GraphQLClient)` が、単位(`unit`)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
+`lib/src/graphql/system_repositories.dart` の `systemRepositories(GraphQLClient, {AuditUserSource? auditUser})` が、単位(`unit`)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
 1.  読み込み: 名称・読み・略称は多言語の辞書(`shared_appellation`)、詳細は多言語の文章(`shared_text`。先頭の文)で、言語コード `ja` の値を読む。
-1.  【暫定】次の書き込みは、共通関数(`shared_appellation_save`・`shared_text_save`)と平らなミューテーションに入れ替える(`tools/docker/postgresql/issue/20261115_0001.md`。CLAUDE.md「登録・更新の方式」)。
-1.  書き込み: 登録・更新は DB の関数 `unit_save`(`doc/query/20261114_0002_appellation_functions.sql`。辞書・呼称・文章・本体を1回の呼び出し = 1トランザクションで行う。モデルは `system_model` の `UnitSavePageCall`)、削除は論理削除(`UnitPageRemove`。`remove = true`)。更新は、読み込んだ値から変わった項目だけ送る(空に変えたときは空文字で消す)。読み書きするのは言語コード `ja` の値だけで、ほかの言語の値は触らない。記号(`symbol`)は DB が採番するため読み取り専用。詳細は、読み込みが先頭の文だけを返すため、変えたときだけ送る(変えないと全文が先頭の文で上書きされる。全文を画面で直せるようにするには、共有の部品に `text_value` を足す。`tools/docker/postgresql/issue/20261115_0001.md`)。
-1.  DB のエラー(RAISE の文。PostGraphile は errcode を返さない)は、名称の必須・コードの重複を `EntityValidationException` に変換する。
+1.  書き込みは、共通関数 + ミューテーション(CLAUDE.md「登録・更新の方式」)。(1)呼称(名称・読み・略称)と文章(詳細)を、共通関数 `shared_appellation_save`・`shared_text_save` で作る・変える(`system_model` の `UnitAppellationSavePageCall`・`UnitTextSavePageCall`。渡した言語の値だけ入れ替わり、他の言語は残る。更新は、読み込んだ値から変わった項目だけ送る。空に変えたときは空文字で消す)。(2)返った ID を、本体(`shared_unit`)の `names`・`details` に渡して、ミューテーションで書く(登録 `UnitPageCreate`・更新 `UnitPageEdit`。更新は渡した列だけが変わる。呼称・文章だけを変えるときは本体を書かない)。(3)保存のあと読み直して返す(同じ値の更新は履歴のトリガーが握りつぶし、応答の行が null になるため)。削除は論理削除(`UnitPageRemove`。`remove = true`)。更新者は、アプリが `auditUser`(`AuditUserSource`)で渡し、共通関数(`p_staff_id`・`p_staff_history_id`)・登録・更新・論理削除で送る(渡されていない・ログインしていないときは送らない)。
+1.  共通関数と本体は別のトランザクション。本体の登録が失敗すると、呼称・文章が参照されない行として残る(マスタは許容する)。読み書きするのは言語コード `ja` の値だけ。記号(`symbol`)は DB が採番するため読み取り専用。詳細は、読み込みが先頭の文だけを返すため、変えたときだけ送る(変えないと全文が先頭の文で上書きされる。全文を画面で直せるようにするには、共有の部品に `text_value` を足す。`tools/docker/postgresql/issue/20261115_0001.md`)。
+1.  DB のエラー(共通関数の RAISE の文。PostGraphile は errcode を返さない)は、名称の必須(`APL02`)を `EntityValidationException` に変換する。それ以外はそのまま投げる。
 1.  生成された型は、この中だけで使い、外へ出さない。言語コード `ja` の ID は、最初の1回だけ引く。
 ## example と多言語
 1.  ビジュアルテスト用に`example`(Windows 向け)を持つ。`flutter run -d windows`で起動し、`lib/main.dart`の`entries`に遷移先を足す(`packages/features/CLAUDE.md`の「機能プロジェクト共通」)。

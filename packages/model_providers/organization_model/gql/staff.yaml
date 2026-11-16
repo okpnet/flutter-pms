@@ -399,3 +399,16 @@ StaffHeldLicensePageEdit:
     # 使えない。from自身のPKに修正(元はinfo_staff_idだった)。
     - mstr_staff_license_id
   generateRfe: true
+
+# 担当者の最新の履歴の ID(更新者の update_user_history_id に使う)。revision の降順で 1 件だけ読む(呼び出し側が orderBy: REVISION_DESC・first: 1・
+# filter: {infoStaffId: {equalTo: ...}} を渡す)。取得は organization 機能の staffHistoryLookup(アプリが current_user の CurrentUserHolder に渡す)
+StaffHistoryLatestPage:
+  # 子のレコード数(v_*_count)を読まない軽い読み込み(要件0056の対象外)
+  lightRead: true
+  kind: read
+  from: history_info_staff
+  filter: true
+  columns:
+    - history_id
+    - info_staff_id
+    - revision

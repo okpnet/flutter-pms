@@ -36,29 +36,6 @@ Map<String, dynamic> _labelsJsonValue(String appellationsId, String nameJa) => {
   '__typename': 'SharedAppellation',
 };
 
-Map<String, dynamic> _labelsJsonJaEn(String appellationsId, String nameJa) => {
-  'sharedAppellationsId': appellationsId,
-  'sharedDictionaryBySharedDictionaryNameId': {
-    'sharedDictionaryId': 'd1111111-1111-1111-1111-111111111111',
-    'ja': _dictionaryValueConnection(nameJa),
-    'en': _dictionaryValueConnection(null),
-    '__typename': 'SharedDictionary',
-  },
-  'sharedDictionaryBySharedDictionaryPronunciationId': {
-    'sharedDictionaryId': 'd2222222-2222-2222-2222-222222222222',
-    'ja': _dictionaryValueConnection(null),
-    'en': _dictionaryValueConnection(null),
-    '__typename': 'SharedDictionary',
-  },
-  'sharedDictionaryBySharedDictionaryNicknameId': {
-    'sharedDictionaryId': 'd3333333-3333-3333-3333-333333333333',
-    'ja': _dictionaryValueConnection(null),
-    'en': _dictionaryValueConnection(null),
-    '__typename': 'SharedDictionary',
-  },
-  '__typename': 'SharedAppellation',
-};
-
 Map<String, dynamic> _updateUserJson() => {
   'historyId': 'h1111111-1111-1111-1111-111111111111',
   'infoStaffId': 's1111111-1111-1111-1111-111111111111',
@@ -137,17 +114,15 @@ void main() {
     print('UNIT_PAGE_READ_FLAT_MAP_JSON=${jsonEncode(flatMap)}');
   });
 
+  // 単位の更新は、平らな列だけ(名称 names・詳細 details は共通関数が返した ID)
   test('要件0044: Mutation\$UnitPageEdit <-> Map 往復変換が元と一致する', () {
     final raw = {
       'updateSharedUnitBySharedUnitId': {
         'sharedUnit': {
           'sharedUnitId': 'u1111111-1111-1111-1111-111111111111',
-          'description': '長さの単位(編集後)',
+          'names': 'a1111111-1111-1111-1111-111111111111',
+          'details': 't1111111-1111-1111-1111-111111111111',
           'remarks': '備考テキスト(編集後)',
-          'labels': _labelsJsonJaEn(
-            'a1111111-1111-1111-1111-111111111111',
-            'ミリメートル',
-          ),
           '__typename': 'SharedUnit',
         },
         'clientMutationId': null,
@@ -169,22 +144,20 @@ void main() {
 
     expect(restoredMap, equals(entityMap));
     expect(restoredModel, equals(entity));
+    expect(entity.names, 'a1111111-1111-1111-1111-111111111111');
   });
 
   test('要件0044: Query\$UnitPageRfe <-> Map 往復変換が元と一致する', () {
     final raw = {
       'sharedUnitBySharedUnitId': {
         'sharedUnitId': 'u1111111-1111-1111-1111-111111111111',
-        'description': '長さの単位',
         'remarks': '備考テキスト',
         'updateAt': '2026-09-30T00:00:00',
         'updateUserId': 'u1111111-1111-1111-1111-111111111111',
         'updateUserHistoryId': 'h2222222-2222-2222-2222-222222222222',
         'remove': false,
-        'labels': _labelsJsonJaEn(
-          'a1111111-1111-1111-1111-111111111111',
-          'ミリメートル',
-        ),
+        'names': 'a1111111-1111-1111-1111-111111111111',
+        'details': null,
         '__typename': 'SharedUnit',
       },
       '__typename': 'Query',

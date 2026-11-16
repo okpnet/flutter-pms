@@ -42,6 +42,10 @@ enum SharedUnitsOrderBy {
   PRIMARY_KEY_DESC
 }
 
+type CreateSharedUnitPayload {
+  sharedUnit: SharedUnit
+}
+
 type HistoryInfoStaff {
   historyId: UUID!
   infoStaffId: UUID!
@@ -55,8 +59,10 @@ type HistoryInfoStaff {
 }
 
 type Mutation {
+  createSharedUnit(input: CreateSharedUnitInput!): CreateSharedUnitPayload
   updateSharedUnitBySharedUnitId(input: UpdateSharedUnitBySharedUnitIdInput!): UpdateSharedUnitPayload
-  unitSave(input: UnitSaveInput!): UnitSavePayload
+  sharedAppellationSave(input: SharedAppellationSaveInput!): SharedAppellationSavePayload
+  sharedTextSave(input: SharedTextSaveInput!): SharedTextSavePayload
 }
 
 type PageInfo {
@@ -74,6 +80,10 @@ type SharedAppellation {
   sharedDictionaryBySharedDictionaryNameId: SharedDictionary
   sharedDictionaryBySharedDictionaryPronunciationId: SharedDictionary
   sharedDictionaryBySharedDictionaryNicknameId: SharedDictionary
+}
+
+type SharedAppellationSavePayload {
+  sharedAppellation: SharedAppellation
 }
 
 type SharedDictionary {
@@ -94,10 +104,13 @@ type SharedText {
   sharedTextValuesBySharedTextId(condition: SharedTextValueCondition): SharedTextValuesConnection!
 }
 
+type SharedTextSavePayload {
+  sharedText: SharedText
+}
+
 type SharedTextValue {
   charCount: Int
   leadText: String
-  textValue: String
 }
 
 type SharedTextValuesConnection {
@@ -106,6 +119,8 @@ type SharedTextValuesConnection {
 
 type SharedUnit {
   sharedUnitId: UUID!
+  names: UUID!
+  details: UUID
   symbol: String
   remarks: String
   updateAt: Datetime
@@ -125,10 +140,6 @@ type SharedUnitsConnection {
   nodes: [SharedUnit]!
   pageInfo: PageInfo!
   totalCount: Int!
-}
-
-type UnitSavePayload {
-  sharedUnit: SharedUnit
 }
 
 type UpdateSharedUnitPayload {
@@ -177,6 +188,10 @@ input BooleanFilter {
   lessThanOrEqualTo: Boolean
   greaterThan: Boolean
   greaterThanOrEqualTo: Boolean
+}
+
+input CreateSharedUnitInput {
+  sharedUnit: SharedUnitInput!
 }
 
 input DatetimeFilter {
@@ -586,21 +601,13 @@ input SharedAppellationFilter {
   not: SharedAppellationFilter
 }
 
-input SharedAppellationOnSharedUnitForSharedUnitFk2UsingSharedAppellationsPkUpdate {
-  sharedAppellationPatch: updateSharedAppellationOnSharedUnitForSharedUnitFk2Patch!
-  sharedAppellationsId: UUID!
-}
-
-input SharedAppellationsFk1Input {
-  updateBySharedDictionaryId: SharedDictionaryOnSharedAppellationForSharedAppellationsFk1UsingSharedDictionaryPkUpdate
-}
-
-input SharedAppellationsFk2Input {
-  updateBySharedDictionaryId: SharedDictionaryOnSharedAppellationForSharedAppellationsFk2UsingSharedDictionaryPkUpdate
-}
-
-input SharedAppellationsFk3Input {
-  updateBySharedDictionaryId: SharedDictionaryOnSharedAppellationForSharedAppellationsFk3UsingSharedDictionaryPkUpdate
+input SharedAppellationSaveInput {
+  pAppellationId: UUID
+  pName: JSON
+  pPronunciation: JSON
+  pNickname: JSON
+  pStaffId: UUID
+  pStaffHistoryId: UUID
 }
 
 input SharedDictionaryFilter {
@@ -623,21 +630,6 @@ input SharedDictionaryFilter {
   and: [SharedDictionaryFilter!]
   or: [SharedDictionaryFilter!]
   not: SharedDictionaryFilter
-}
-
-input SharedDictionaryOnSharedAppellationForSharedAppellationsFk1UsingSharedDictionaryPkUpdate {
-  sharedDictionaryPatch: updateSharedDictionaryOnSharedAppellationForSharedAppellationsFk1Patch!
-  sharedDictionaryId: UUID!
-}
-
-input SharedDictionaryOnSharedAppellationForSharedAppellationsFk2UsingSharedDictionaryPkUpdate {
-  sharedDictionaryPatch: updateSharedDictionaryOnSharedAppellationForSharedAppellationsFk2Patch!
-  sharedDictionaryId: UUID!
-}
-
-input SharedDictionaryOnSharedAppellationForSharedAppellationsFk3UsingSharedDictionaryPkUpdate {
-  sharedDictionaryPatch: updateSharedDictionaryOnSharedAppellationForSharedAppellationsFk3Patch!
-  sharedDictionaryId: UUID!
 }
 
 input SharedDictionaryToManySharedDictionaryValueFilter {
@@ -667,16 +659,6 @@ input SharedDictionaryValueFilter {
   and: [SharedDictionaryValueFilter!]
   or: [SharedDictionaryValueFilter!]
   not: SharedDictionaryValueFilter
-}
-
-input SharedDictionaryValueFk1InverseInput {
-  deleteOthers: Boolean
-  create: [SharedDictionaryValueFk1SharedDictionaryValueCreateInput!]
-}
-
-input SharedDictionaryValueFk1SharedDictionaryValueCreateInput {
-  sharedLanguageCodeId: UUID
-  dictionaryValue: String!
 }
 
 input SharedTextFilter {
@@ -715,9 +697,11 @@ input SharedTextFilter {
   not: SharedTextFilter
 }
 
-input SharedTextOnSharedUnitForSharedUnitFk1UsingSharedTextPkUpdate {
-  sharedTextPatch: updateSharedTextOnSharedUnitForSharedUnitFk1Patch!
-  sharedTextId: UUID!
+input SharedTextSaveInput {
+  pTextId: UUID
+  pValues: JSON
+  pStaffId: UUID
+  pStaffHistoryId: UUID
 }
 
 input SharedTextToManySharedTextValueFilter {
@@ -749,16 +733,6 @@ input SharedTextValueFilter {
   and: [SharedTextValueFilter!]
   or: [SharedTextValueFilter!]
   not: SharedTextValueFilter
-}
-
-input SharedTextValueFk1InverseInput {
-  deleteOthers: Boolean
-  create: [SharedTextValueFk1SharedTextValueCreateInput!]
-}
-
-input SharedTextValueFk1SharedTextValueCreateInput {
-  sharedLanguageCodeId: UUID
-  textValue: String
 }
 
 input SharedUnitFilter {
@@ -796,19 +770,21 @@ input SharedUnitFilter {
   not: SharedUnitFilter
 }
 
-input SharedUnitFk1Input {
-  updateBySharedTextId: SharedTextOnSharedUnitForSharedUnitFk1UsingSharedTextPkUpdate
-}
-
-input SharedUnitFk2Input {
-  updateBySharedAppellationsId: SharedAppellationOnSharedUnitForSharedUnitFk2UsingSharedAppellationsPkUpdate
+input SharedUnitInput {
+  names: UUID
+  details: UUID
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
 }
 
 input SharedUnitPatch {
+  names: UUID
+  details: UUID
   remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
   remove: Boolean
-  sharedAppellationToNames: SharedUnitFk2Input
-  sharedTextToDetails: SharedUnitFk1Input
 }
 
 input StringFilter {
@@ -865,16 +841,6 @@ input UUIDFilter {
   greaterThanOrEqualTo: UUID
 }
 
-input UnitSaveInput {
-  pUnitId: UUID
-  pName: JSON
-  pPronunciation: JSON
-  pNickname: JSON
-  pDetail: JSON
-  pRemarks: String
-  pStaffId: UUID
-}
-
 input UpdateSharedUnitBySharedUnitIdInput {
   sharedUnitPatch: SharedUnitPatch!
   sharedUnitId: UUID!
@@ -922,26 +888,4 @@ input VUnitSpecMeasurementCountFilter {
   and: [VUnitSpecMeasurementCountFilter!]
   or: [VUnitSpecMeasurementCountFilter!]
   not: VUnitSpecMeasurementCountFilter
-}
-
-input updateSharedAppellationOnSharedUnitForSharedUnitFk2Patch {
-  sharedDictionaryToSharedDictionaryNameId: SharedAppellationsFk1Input
-  sharedDictionaryToSharedDictionaryPronunciationId: SharedAppellationsFk3Input
-  sharedDictionaryToSharedDictionaryNicknameId: SharedAppellationsFk2Input
-}
-
-input updateSharedDictionaryOnSharedAppellationForSharedAppellationsFk1Patch {
-  sharedDictionaryValuesUsingSharedDictionaryId: SharedDictionaryValueFk1InverseInput
-}
-
-input updateSharedDictionaryOnSharedAppellationForSharedAppellationsFk2Patch {
-  sharedDictionaryValuesUsingSharedDictionaryId: SharedDictionaryValueFk1InverseInput
-}
-
-input updateSharedDictionaryOnSharedAppellationForSharedAppellationsFk3Patch {
-  sharedDictionaryValuesUsingSharedDictionaryId: SharedDictionaryValueFk1InverseInput
-}
-
-input updateSharedTextOnSharedUnitForSharedUnitFk1Patch {
-  sharedTextValuesUsingSharedTextId: SharedTextValueFk1InverseInput
 }

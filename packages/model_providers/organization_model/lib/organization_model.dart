@@ -22,6 +22,7 @@ export 'src/contents/staff_capability_page_keyname.dart';
 export 'src/contents/staff_count_page_filter_spec.dart';
 export 'src/contents/staff_held_license_page_filter_spec.dart';
 export 'src/contents/staff_held_license_page_keyname.dart';
+export 'src/contents/staff_history_latest_page_filter_spec.dart';
 export 'src/contents/staff_page_filter_spec.dart';
 export 'src/contents/staff_page_keyname.dart';
 export 'src/graphql/approval_operation_page/approval_operation_page_edit.graphql.dart';
@@ -73,6 +74,7 @@ export 'src/graphql/staff_held_license_page/staff_held_license_page_edit.graphql
 export 'src/graphql/staff_held_license_page/staff_held_license_page_read.graphql.dart';
 export 'src/graphql/staff_held_license_page/staff_held_license_page_remove.graphql.dart';
 export 'src/graphql/staff_held_license_page/staff_held_license_page_rfe.graphql.dart';
+export 'src/graphql/staff_history_latest_page/staff_history_latest_page_read.graphql.dart';
 export 'src/graphql/staff_page/staff_page_edit.graphql.dart';
 export 'src/graphql/staff_page/staff_page_read.graphql.dart';
 export 'src/graphql/staff_page/staff_page_remove.graphql.dart';

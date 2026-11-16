@@ -2,6 +2,7 @@ import 'package:localized_values/localized_values.dart';
 import 'package:data_strategist/lib.dart';
 import 'package:entity_screens/entity_screens.dart';
 import 'package:graphql/client.dart';
+import 'package:pms_graphql/pms_graphql.dart' show AuditUser, AuditUserSource;
 import 'package:shared_master_model/shared_master_model.dart';
 
 import '../entities/shared_master_definitions.dart';
@@ -9,22 +10,33 @@ import '../entities/shared_master_definitions.dart';
 /// 共有マスタの実体の取得元(GraphQL 版)。アプリが [GraphQLClient] を渡して組み立て、
 /// `entityRepositoryOverridesProvider` に渡すと、サンプル(メモリ上)の代わりに使われる。
 ///
-/// 【暫定】書き込みは、適用済みの `stakeholder_save`(マスタごとの保存関数。方針に合わないため、いずれ外す)を使っている。
-/// 共通関数(`shared_appellation_save`)と、平らなミューテーション(利害関係者の create・update)に入れ替える
-/// (`issue/20261115_0001.md`・`tools/docker/postgresql/issue/20261115_0001.md`)。
-///
 /// 対象は利害関係者(`stakeholder`。顧客・外部供給者・運送業者をフラグで見分ける)。名称・読み・略称は多言語の辞書
-/// (`shared_appellation`)で、言語コード `ja` の値を読み書きする(他の言語の値は触らない)。登録・更新は DB の関数
-/// `stakeholder_save`(`doc/query/20261114_0002_appellation_functions.sql`。辞書・呼称・本体を1回の呼び出し = 1トランザクションで行う)、
-/// 削除は論理削除(`remove = true`)。更新は「渡した項目だけ」の関数で、画面は全項目を持つため、変わった項目だけ送る(役割の選択が空のときも変えない)。
-/// 配送区分(`mstr_shipping_kind_id`)は、配送区分の取得元が GraphQL 版になるまで(サンプルの ID は DB に無い)読み取り専用。
+/// (`shared_appellation`)で、言語コード `ja` の値を読み書きする(他の言語の値は触らない)。
+///
+/// 書き込みは、共通関数 + ミューテーション(CLAUDE.md「登録・更新の方式」):
+/// 1. 呼称(名称・読み・略称)は、共通関数 `shared_appellation_save` で作る・変える(渡した言語の値だけ入れ替わる。
+///    更新は、読み込んだ値から変わった項目だけ送る。空に変えたときは空文字で消す)。
+/// 2. 返った ID を、本体(`mstr_stakeholder`)の `names` に渡し、ミューテーション(登録 `StakeholderPageCreate`・
+///    更新 `StakeholderPageEdit`)で書く。更新は、渡した列だけが変わる(空に変えた列は null で消す)。呼称だけを変えるなら、本体は書かない。
+/// 3. 保存のあと読み直して返す(同じ値の更新は履歴のトリガーが握りつぶし、応答の行が null になるため、応答は使わない)。
+/// コードの重複は、DB の部分一意索引(`mstr_stakeholder_ix_code_active`)が `23505` で止める。索引の名前で、画面の検証エラー(重複)にする。
+/// 削除は論理削除(`StakeholderPageRemove`。`remove = true`)。更新者は、ログイン中の担当者を [AuditUserSource] で受けて送る
+/// (渡されていない・ログインしていないときは送らない)。
+/// 共通関数と本体は別のトランザクション。本体の登録が失敗すると、呼称が、どの本体からも参照されない行として残る(マスタは許容する)。
+/// 役割の選択(はい/いいえ)が空のときは変えない。配送区分(`mstr_shipping_kind_id`)は、配送区分の取得元が GraphQL 版になるまで
+/// (サンプルの ID は DB に無い)読み取り専用。住所は扱わない。
 /// 担当者(`contact`)・配送区分(`shipkind`)は、サンプルのまま。生成された型は、この中だけで使い、外へ出さない。
 /// 抽出条件・並び順は無視する(サンプルと同じ)。
 ///
 /// パターン: Adapter(生成された読み込みの結果と、画面の [EntityRecord] を変換する)
-List<IEntityRepository> sharedMasterRepositories(GraphQLClient client) {
+List<IEntityRepository> sharedMasterRepositories(
+  GraphQLClient client, {
+  AuditUserSource? auditUser,
+}) {
   final language = _LanguageCode(client);
-  return [_StakeholderRepository(_stakeholderDefinition, client, language)];
+  return [
+    _StakeholderRepository(_stakeholderDefinition, client, language, auditUser),
+  ];
 }
 
 /// 生成された定義(DB に合わせた項目)を使う。配送区分は、読み取り専用にする(上の説明)。
@@ -51,16 +63,15 @@ final EntityDefinition _stakeholderDefinition = () {
   );
 }();
 
-/// DB の関数のエラー(RAISE の文。PostGraphile は errcode を返さない)を、画面の検証エラーにする。それ以外はそのまま投げる。
+/// DB のエラーを、画面の検証エラーにする。それ以外はそのまま投げる。
+/// 共通関数の RAISE の文(PostGraphile は errcode を返さない)と、コードの部分一意索引(`23505`。メッセージに索引の名前が入る)で見分ける。
 Never _throwMapped(OperationException e) {
   final message = e.graphqlErrors.map((x) => x.message).join(' ');
-  if (message.contains('名称(ja)は必須') || message.contains('名称(ja)は空にできません')) {
+  // APL02: 名称には、いずれかの言語に値が必要
+  if (message.contains('名称には、いずれかの言語に値が必要')) {
     throw const EntityValidationException({'name': EntityFieldError.required});
   }
-  if (message.contains('コードは必須')) {
-    throw const EntityValidationException({'code': EntityFieldError.required});
-  }
-  if (message.contains('コードが重複')) {
+  if (message.contains('_ix_code_active')) {
     throw const EntityValidationException({'code': EntityFieldError.duplicate});
   }
   throw e;
@@ -99,14 +110,26 @@ class _LanguageCode {
 }
 
 class _StakeholderRepository implements IEntityRepository {
-  _StakeholderRepository(this.definition, this.client, this.language);
+  _StakeholderRepository(
+    this.definition,
+    this.client,
+    this.language,
+    this.auditUser,
+  );
 
   @override
   final EntityDefinition definition;
   final GraphQLClient client;
   final _LanguageCode language;
 
-  /// 登録・更新(DB の関数 stakeholder_save)。更新は、変わった項目だけ送る(読み書きするのは言語コード ja の値だけ)。
+  /// 更新者(ログイン中の担当者)を返す関数。無いとき・ログインしていないときは、更新者を送らない。
+  final AuditUserSource? auditUser;
+
+  /// 書き込みのたびに、更新者を引く(ログインしていなければ null)。
+  Future<AuditUser?> _updater() async =>
+      auditUser == null ? null : auditUser!();
+
+  /// 登録・更新。呼称は共通関数、本体はミューテーション(上の説明)。
   @override
   Future<EntityRecord> save(EntityRecord record) async {
     String t(String key) => record.valueOf(key).trim();
@@ -116,53 +139,119 @@ class _StakeholderRepository implements IEntityRepository {
     };
     if (errors.isNotEmpty) throw EntityValidationException(errors);
     final isNew = record.id.isEmpty;
-    final existing = isNew ? null : await findById(record.id);
-    // 送る項目: 新規は入力のあった項目、更新は読み込んだ値から変わった項目(空に変えたときは空文字で消す)
-    bool send(String key) =>
-        isNew ? t(key).isNotEmpty : t(key) != (existing?.valueOf(key) ?? '');
-    Map<String, String>? ja(String key) => send(key) ? {'ja': t(key)} : null;
-    String? text(String key) => send(key) ? t(key) : null;
-    // 役割の選択(はい/いいえ)。空・変わらないときは送らない(新規は false)
-    bool? flag(String key) => !send(key)
+    final node = isNew ? null : await _readNode(record.id);
+    if (!isNew && node == null) throw StateError('利害関係者が見つかりません');
+    final before = node == null ? null : _record(node);
+    // 送る項目: 新規は入力のあった項目、更新は読み込んだ値から変わった項目(空に変えたときは空文字・null で消す)
+    bool changed(String key) =>
+        isNew ? t(key).isNotEmpty : t(key) != (before?.valueOf(key) ?? '');
+    final au = await _updater();
+
+    // 1. 呼称(名称・読み・略称)。渡した言語の値だけ入れ替わる
+    var namesId = node?.labels?.sharedAppellationsId;
+    final nameChanged = isNew || changed('name');
+    final pronunciationChanged = changed('pronunciation');
+    final nicknameChanged = changed('nickname');
+    if (nameChanged || pronunciationChanged || nicknameChanged) {
+      final result = await client.mutate$StakeholderAppellationSavePageCall(
+        Options$Mutation$StakeholderAppellationSavePageCall(
+          variables: Variables$Mutation$StakeholderAppellationSavePageCall(
+            pAppellationId: namesId,
+            pName: nameChanged ? {'ja': t('name')} : null,
+            pPronunciation: pronunciationChanged
+                ? {'ja': t('pronunciation')}
+                : null,
+            pNickname: nicknameChanged ? {'ja': t('nickname')} : null,
+            pStaffId: au?.staffId,
+            pStaffHistoryId: au?.staffHistoryId,
+          ),
+        ),
+      );
+      final e = result.exception;
+      if (e != null) _throwMapped(e);
+      namesId = result
+          .parsedData
+          ?.sharedAppellationSave
+          ?.sharedAppellation
+          ?.sharedAppellationsId;
+      if (namesId == null) throw StateError('利害関係者の名称を保存できませんでした');
+    }
+
+    // 2. 本体(平らな列だけ)。役割の選択(はい/いいえ)は、変わった値だけ。空は変えない
+    bool? flag(String key) => !changed(key)
         ? null
         : switch (t(key)) {
             'はい' => true,
             'いいえ' => false,
             _ => null,
           };
-    final result = await client.mutate$StakeholderSavePageCall(
-      Options$Mutation$StakeholderSavePageCall(
-        variables: Variables$Mutation$StakeholderSavePageCall(
-          pStakeholderId: isNew ? null : record.id,
-          pCode: isNew || send('code') ? t('code') : null,
-          pControlCode: text('control_code'),
-          pName: isNew || send('name') ? {'ja': t('name')} : null,
-          pPronunciation: ja('pronunciation'),
-          pNickname: ja('nickname'),
-          pIsCustomer: flag('is_customer'),
-          pIsSupplier: flag('is_supplier'),
-          pIsLogistics: flag('is_logistics'),
-          pMail: text('mail'),
-          pRemarks: text('remarks'),
+    final isCustomer = flag('is_customer');
+    final isSupplier = flag('is_supplier');
+    final isLogistics = flag('is_logistics');
+    final String id;
+    if (isNew) {
+      final result = await client.mutate$StakeholderPageCreate(
+        Options$Mutation$StakeholderPageCreate(
+          variables: Variables$Mutation$StakeholderPageCreate.fromJson({
+            'code': t('code'),
+            if (t('control_code').isNotEmpty) 'controlCode': t('control_code'),
+            'names': namesId,
+            'isCustomer': ?isCustomer,
+            'isSupplier': ?isSupplier,
+            'isLogistics': ?isLogistics,
+            if (t('mail').isNotEmpty) 'mail': t('mail'),
+            if (t('remarks').isNotEmpty) 'remarks': t('remarks'),
+            if (au != null) 'updateUserId': au.staffId,
+            if (au != null) 'updateUserHistoryId': au.staffHistoryId,
+          }),
         ),
-      ),
-    );
-    final e = result.exception;
-    if (e != null) _throwMapped(e);
-    final id =
-        result.parsedData?.stakeholderSave?.mstrStakeholder?.mstrStakeholderId;
-    if (id == null) throw StateError('利害関係者を保存できませんでした');
+      );
+      final e = result.exception;
+      if (e != null) _throwMapped(e);
+      final created = result.parsedData?.createMstrStakeholder?.mstrStakeholder;
+      if (created == null) throw StateError('利害関係者を登録できませんでした');
+      id = created.mstrStakeholderId;
+    } else {
+      id = record.id;
+      String? clearable(String key) => t(key).isEmpty ? null : t(key);
+      final patch = <String, dynamic>{
+        if (changed('code')) 'code': t('code'),
+        if (changed('control_code')) 'controlCode': clearable('control_code'),
+        'isCustomer': ?isCustomer,
+        'isSupplier': ?isSupplier,
+        'isLogistics': ?isLogistics,
+        if (changed('mail')) 'mail': clearable('mail'),
+        if (changed('remarks')) 'remarks': clearable('remarks'),
+      };
+      if (patch.isNotEmpty) {
+        final result = await client.mutate$StakeholderPageEdit(
+          Options$Mutation$StakeholderPageEdit(
+            variables: Variables$Mutation$StakeholderPageEdit.fromJson({
+              'mstrStakeholderId': id,
+              ...patch,
+              if (au != null) 'updateUserId': au.staffId,
+              if (au != null) 'updateUserHistoryId': au.staffHistoryId,
+            }),
+          ),
+        );
+        final e = result.exception;
+        if (e != null) _throwMapped(e);
+      }
+    }
     return (await findById(id)) ?? record;
   }
 
   /// 論理削除(`remove = true`)。物理削除はしない。使用中かの判定は呼び出し側([EntityCatalog])が行う。
   @override
   Future<void> remove(String id) async {
+    final au = await _updater();
     final result = await client.mutate$StakeholderPageRemove(
       Options$Mutation$StakeholderPageRemove(
         variables: Variables$Mutation$StakeholderPageRemove(
           mstrStakeholderId: id,
           remove: true,
+          updateUserId: au?.staffId,
+          updateUserHistoryId: au?.staffHistoryId,
         ),
       ),
     );
@@ -202,7 +291,7 @@ class _StakeholderRepository implements IEntityRepository {
     );
   }
 
-  Future<List<EntityRecord>> _read(
+  Future<List<Query$StakeholderPageRead$allMstrStakeholders$nodes>> _readNodes(
     int first,
     int offset,
     Map<String, dynamic> filter,
@@ -224,8 +313,18 @@ class _StakeholderRepository implements IEntityRepository {
       for (final n
           in result.parsedData?.allMstrStakeholders?.nodes ??
               const <Query$StakeholderPageRead$allMstrStakeholders$nodes?>[])
-        if (n != null) _record(n),
+        ?n,
     ];
+  }
+
+  /// 1件(呼称の ID を含む生成された型のまま)。更新のとき、既存の呼称の ID を引くのに使う。
+  Future<Query$StakeholderPageRead$allMstrStakeholders$nodes?> _readNode(
+    String id,
+  ) async {
+    final rows = await _readNodes(1, 0, {
+      'mstrStakeholderId': {'equalTo': id},
+    });
+    return rows.isEmpty ? null : rows.first;
   }
 
   @override
@@ -234,14 +333,14 @@ class _StakeholderRepository implements IEntityRepository {
     int skip = 0,
     Expression? predicate,
     SortExpression? orders,
-  }) => _read(take, skip, const {});
+  }) async => [
+    for (final n in await _readNodes(take, skip, const {})) _record(n),
+  ];
 
   @override
   Future<EntityRecord?> findById(String id) async {
-    final rows = await _read(1, 0, {
-      'mstrStakeholderId': {'equalTo': id},
-    });
-    return rows.isEmpty ? null : rows.first;
+    final n = await _readNode(id);
+    return n == null ? null : _record(n);
   }
 
   @override

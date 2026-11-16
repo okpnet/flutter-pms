@@ -1,6 +1,7 @@
 import 'package:access_control/access_control.dart';
 import 'package:auth_files/auth_files_api.dart' show LogoutDestination;
-import 'package:feature_shared/feature_shared.dart' show commandBusProvider;
+import 'package:feature_shared/feature_shared.dart'
+    show commandBusProvider, localeProvider;
 import 'package:current_user/current_user.dart';
 import 'package:backstage/backstage.dart' show backstageBootProvider;
 import 'package:entity_screens/entity_screens.dart';
@@ -9,16 +10,13 @@ import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:graphql/client.dart';
 import 'package:pbapi/pbapi.dart';
 import 'package:pms_graphql/pms_graphql.dart'
-    show
-        AuditUser,
-        AuditUserResolver,
-        AuditUserSource,
-        SessionUnavailableException;
+    show AuditUser, AuditUserSource, SessionUnavailableException;
 import 'package:production_plan/production_plan.dart'
     show productionPlanRepositories;
 import 'package:purchasing/purchasing.dart' show purchasingRepositories;
 import 'package:item/item.dart' show itemRepositories;
-import 'package:organization/organization.dart' show organizationRepositories;
+import 'package:organization/organization.dart'
+    show organizationRepositories, staffHistoryLookup;
 import 'package:resource/resource.dart' show resourceRepositories;
 import 'package:production_process/production_process.dart'
     show productionProcessRepositories;
@@ -129,10 +127,10 @@ final currentUserHolderProvider = Provider<CurrentUserHolder?>((ref) {
   final identity = ref.watch(userIdentitySourceProvider);
   return CurrentUserHolder(
     identity: identity,
-    lookupHistory: (staffId) async => (await AuditUserResolver(
-      client: client,
-      staffId: () => staffId,
-    )())?.staffHistoryId,
+    // 担当者の最新の履歴の ID は、organization 機能の生成モデル(StaffHistoryLatestPage)で引く
+    lookupHistory: staffHistoryLookup(client),
+    // 言語コードは、使用言語(localeProvider)から、呼ぶたびに取り直す(設定の変更に追従する)
+    languageCode: () => ref.read(localeProvider).languageCode,
   );
 });
 
@@ -163,10 +161,10 @@ List<Override> graphqlOverrides() => [
       ...purchasingRepositories(client, auditUser: auditUser),
       // 生産計画: 資材計画・生産計画(書き込みは更新者つき。停止・打ち切りは読み取り専用)
       ...productionPlanRepositories(client, auditUser: auditUser),
-      // システム: 単位(読み取り専用。名称・読み・略称は言語コード ja の値)
-      ...systemRepositories(client),
-      // 共有マスタ: 利害関係者(読み取り専用。顧客・外部供給者・運送業者はフラグで見分ける)
-      ...sharedMasterRepositories(client),
+      // システム: 単位(書き込みは更新者つき。名称・読み・略称は言語コード ja の値)
+      ...systemRepositories(client, auditUser: auditUser),
+      // 共有マスタ: 利害関係者(書き込みは更新者つき。顧客・外部供給者・運送業者はフラグで見分ける)
+      ...sharedMasterRepositories(client, auditUser: auditUser),
       // 品目: 品目区分・品目(読み取り専用。ツリーは品目ツリーの親)
       ...itemRepositories(client),
       // 組織: 職員・事業所・部署(読み取り専用。部署のツリーは部署ツリーの親)

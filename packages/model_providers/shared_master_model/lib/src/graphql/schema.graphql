@@ -56,6 +56,10 @@ enum MstrStakeholdersOrderBy {
   PRIMARY_KEY_DESC
 }
 
+type CreateMstrStakeholderPayload {
+  mstrStakeholder: MstrStakeholder
+}
+
 type HistoryInfoStaff {
   historyId: UUID!
   infoStaffId: UUID!
@@ -97,11 +101,14 @@ type MstrStakeholder {
   isLogistics: Boolean
   code: String!
   controlCode: String
+  names: UUID!
   mail: String
   mstrShippingKindId: UUID
   symbol: String
   remarks: String
   updateAt: Datetime
+  updateUserId: UUID
+  updateUserHistoryId: UUID
   remove: Boolean
   sharedAppellationByNames: SharedAppellation
   infoAddressByInfoAddressId: InfoAddress
@@ -119,8 +126,9 @@ type MstrStakeholdersConnection {
 }
 
 type Mutation {
+  createMstrStakeholder(input: CreateMstrStakeholderInput!): CreateMstrStakeholderPayload
   updateMstrStakeholderByMstrStakeholderId(input: UpdateMstrStakeholderByMstrStakeholderIdInput!): UpdateMstrStakeholderPayload
-  stakeholderSave(input: StakeholderSaveInput!): StakeholderSavePayload
+  sharedAppellationSave(input: SharedAppellationSaveInput!): SharedAppellationSavePayload
 }
 
 type PageInfo {
@@ -139,6 +147,10 @@ type SharedAppellation {
   sharedDictionaryBySharedDictionaryNicknameId: SharedDictionary
 }
 
+type SharedAppellationSavePayload {
+  sharedAppellation: SharedAppellation
+}
+
 type SharedDictionary {
   sharedDictionaryId: UUID!
   sharedDictionaryValuesBySharedDictionaryId(condition: SharedDictionaryValueCondition): SharedDictionaryValuesConnection!
@@ -150,10 +162,6 @@ type SharedDictionaryValue {
 
 type SharedDictionaryValuesConnection {
   nodes: [SharedDictionaryValue]!
-}
-
-type StakeholderSavePayload {
-  mstrStakeholder: MstrStakeholder
 }
 
 type UpdateMstrStakeholderPayload {
@@ -198,6 +206,10 @@ input BooleanFilter {
   lessThanOrEqualTo: Boolean
   greaterThan: Boolean
   greaterThanOrEqualTo: Boolean
+}
+
+input CreateMstrStakeholderInput {
+  mstrStakeholder: MstrStakeholderInput!
 }
 
 input DatetimeFilter {
@@ -641,8 +653,30 @@ input MstrStakeholderFilter {
   not: MstrStakeholderFilter
 }
 
-input MstrStakeholderPatch {
+input MstrStakeholderInput {
+  isCustomer: Boolean
+  isSupplier: Boolean
+  isLogistics: Boolean
+  code: String!
+  controlCode: String
+  names: UUID
+  mail: String
   remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
+input MstrStakeholderPatch {
+  isCustomer: Boolean
+  isSupplier: Boolean
+  isLogistics: Boolean
+  code: String
+  controlCode: String
+  names: UUID
+  mail: String
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
   remove: Boolean
 }
 
@@ -722,6 +756,15 @@ input SharedAppellationFilter {
   not: SharedAppellationFilter
 }
 
+input SharedAppellationSaveInput {
+  pAppellationId: UUID
+  pName: JSON
+  pPronunciation: JSON
+  pNickname: JSON
+  pStaffId: UUID
+  pStaffHistoryId: UUID
+}
+
 input SharedDictionaryFilter {
   sharedDictionaryId: UUIDFilter
   revision: IntFilter
@@ -771,23 +814,6 @@ input SharedDictionaryValueFilter {
   and: [SharedDictionaryValueFilter!]
   or: [SharedDictionaryValueFilter!]
   not: SharedDictionaryValueFilter
-}
-
-input StakeholderSaveInput {
-  pStakeholderId: UUID
-  pCode: String
-  pControlCode: String
-  pName: JSON
-  pPronunciation: JSON
-  pNickname: JSON
-  pIsCustomer: Boolean
-  pIsSupplier: Boolean
-  pIsLogistics: Boolean
-  pMail: String
-  pShippingKindId: UUID
-  pRemarks: String
-  pStaffId: UUID
-  pClearShippingKind: Boolean
 }
 
 input StringFilter {

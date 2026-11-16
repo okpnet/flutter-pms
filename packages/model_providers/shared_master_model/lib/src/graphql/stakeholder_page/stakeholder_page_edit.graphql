@@ -5,18 +5,43 @@
 
 mutation StakeholderPageEdit(
   $mstrStakeholderId: UUID!
+  $code: String
+  $controlCode: String
+  $names: UUID
+  $isCustomer: Boolean
+  $isSupplier: Boolean
+  $isLogistics: Boolean
+  $mail: String
   $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
 ) {
   updateMstrStakeholderByMstrStakeholderId(
     input: {
       mstrStakeholderId: $mstrStakeholderId
       mstrStakeholderPatch: {
+        code: $code
+        controlCode: $controlCode
+        names: $names
+        isCustomer: $isCustomer
+        isSupplier: $isSupplier
+        isLogistics: $isLogistics
+        mail: $mail
         remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
       }
     }
   ) {
     mstrStakeholder {
       mstrStakeholderId
+      code
+      controlCode
+      names
+      isCustomer
+      isSupplier
+      isLogistics
+      mail
       remarks
     }
   }

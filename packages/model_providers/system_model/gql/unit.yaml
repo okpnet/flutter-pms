@@ -72,40 +72,51 @@ UnitPage:
       arrayType: toFirstOne
       <<: *UpdateStaffReadFields
 
-# 単位の書き込み
+# 単位の更新(平らな列だけ。渡した列だけが変わる。名称(names)・詳細(details)の ID は、共通関数で作る・変える)。論理削除は UnitPageRemove(remove = true)
 UnitPageEdit:
   kind: edit
   from: shared_unit
   requiredWhere:
-    - shared_unit_id  
+    - shared_unit_id
   generateRfe: true
+  withUpdater: true # 更新者(update_user_id・update_user_history_id)を、Edit・Remove の引数にする(ログイン中の担当者を渡す)
   columns:
     - shared_unit_id
-    - name: labels
-      arrayType: toFirstOne
-      using: names
-      <<: *AppellationLabelsEditFields # 要件0044レビュー: 読み込み用アーム(AppellationLabelsReadFields)
-        # が誤って参照されていたため編集用アームに修正(他のEdit画面と同じ既知のパターン)
-    - name: detailTexts
-      arrayType: toFirstOne
-      using: details
-      <<: *FixTextEditFields
+    - names
+    - details
     - remarks
     - update_user_id
     - update_user_history_id
     - remove
 
-# ---- DB の関数(kind: function)。呼称(多言語の辞書)・文章を含む登録・更新を、1回の呼び出し = 1トランザクションで行う ----
-# doc/query/20261114_0002_appellation_functions.sql。更新は「渡した項目だけ」(NULL は今のまま。文字は空文字で消す)。
-# 名称・読み・略称・詳細は、言語コード → 値 の JSON(例 {"ja": "キログラム"})。渡した言語の値だけ入れ替える。名称の ja は必須。
-# 担当者は p_staff_id、省略時は JWT の staff_id。エラー(errcode): APL00 担当者・言語 / APL01 対象が無い / APL02 必須・空にできない / APL03 コードの重複。
-
-# 単位の登録・更新(p_unit_id が無ければ新規)。削除は UnitPageRemove(remove = true)
-UnitSavePageCall:
-  kind: function
-  mutation: unitSave
-  returns: sharedUnit
+# ---- 登録(kind: create)。記号(symbol)は DB が採番する ----
+UnitPageCreate:
+  kind: create
+  from: shared_unit
   columns:
-    - shared_unit_id
-    - symbol
+    - names
+    - details
     - remarks
+    - update_user_id
+    - update_user_history_id
+
+# ---- 共通関数(kind: function)。呼称・文章(言語別の値)を作る・変える。返った ID を、本体の names・details に渡す ----
+# doc/query/20261116_0001_common_functions.sql。渡した言語の値だけ入れ替える(言語コード → 値 の JSON。例 {"ja": "キログラム"})。空文字で値が空になる(行は残る)。
+# 名称には、いずれかの言語に空でない値が必要。担当者は p_staff_id・p_staff_history_id、省略時は JWT の staff_id。
+# エラー(errcode): APL00 担当者・言語が無い / APL01 対象が無い / APL02 必須・空にできない / APL03 JSON の型が違う。
+
+# 呼称(名称・読み・略称)の登録・更新(p_appellation_id が無ければ新規)
+UnitAppellationSavePageCall:
+  kind: function
+  mutation: sharedAppellationSave
+  returns: sharedAppellation
+  columns:
+    - shared_appellations_id
+
+# 文章(詳細)の登録・更新(p_text_id が無ければ新規)
+UnitTextSavePageCall:
+  kind: function
+  mutation: sharedTextSave
+  returns: sharedText
+  columns:
+    - shared_text_id

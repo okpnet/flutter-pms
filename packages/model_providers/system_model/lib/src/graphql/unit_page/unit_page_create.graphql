@@ -1,0 +1,33 @@
+# unit_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #UnitPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation UnitPageCreate(
+  $names: UUID
+  $details: UUID
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  createSharedUnit(
+    input: {
+      sharedUnit: {
+        names: $names
+        details: $details
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    sharedUnit {
+      sharedUnitId
+      names
+      details
+      remarks
+      updateUserId
+      updateUserHistoryId
+    }
+  }
+}

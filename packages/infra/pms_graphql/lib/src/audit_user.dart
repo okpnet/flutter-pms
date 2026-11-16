@@ -34,11 +34,7 @@ typedef AuditUserSource = Future<AuditUser?> Function();
 ///
 /// パターン: Proxy(履歴の ID の取得と使い回しを、呼び出し側から隠す)
 class AuditUserResolver {
-  AuditUserResolver({
-    required GraphQLClient client,
-    required String? Function() staffId,
-  }) : _client = client,
-       _staffId = staffId;
+  AuditUserResolver({required this._client, required this._staffId});
 
   final GraphQLClient _client;
   final String? Function() _staffId;

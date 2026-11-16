@@ -12,29 +12,53 @@ StakeholderPage:
       operator: =
       value: false
 
-# 利害関係者の削除(論理削除 remove = true)
+# 利害関係者の更新(平らな列だけ。渡した列だけが変わる。名称(names)の ID は、共通関数で作る・変える)。論理削除は StakeholderPageRemove(remove = true)
+# 配送区分(mstr_shipping_kind_id)は、配送区分の取得元が GraphQL 版になるまで書かない。住所は扱わない。
 StakeholderPageEdit:
   kind: edit
   from: mstr_stakeholder
   requiredWhere:
     - mstr_stakeholder_id
-  columns:
-    - mstr_stakeholder_id
-    - remarks
-    - remove
-
-# ---- DB の関数(kind: function)。呼称(多言語の辞書)を含む登録・更新を、1回の呼び出し = 1トランザクションで行う ----
-# doc/query/20261114_0002_appellation_functions.sql。更新は「渡した項目だけ」(NULL は今のまま。文字は空文字で消す。
-# 配送区分を外すときは p_clear_shipping_kind)。名称・読み・略称は、言語コード → 値 の JSON(例 {"ja": "株式会社○○"})。
-# 担当者は p_staff_id、省略時は JWT の staff_id。エラー(errcode): APL00 担当者・言語 / APL01 対象が無い / APL02 必須・空にできない / APL03 コードの重複。
-
-# 利害関係者の登録・更新(p_stakeholder_id が無ければ新規)
-StakeholderSavePageCall:
-  kind: function
-  mutation: stakeholderSave
-  returns: mstrStakeholder
+  withUpdater: true # 更新者(update_user_id・update_user_history_id)を、Edit・Remove の引数にする(ログイン中の担当者を渡す)
   columns:
     - mstr_stakeholder_id
     - code
-    - symbol
+    - control_code
+    - names
+    - is_customer
+    - is_supplier
+    - is_logistics
+    - mail
     - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 利害関係者の登録(記号 symbol は DB が採番する。コードの重複は部分一意索引 mstr_stakeholder_ix_code_active が止める)
+StakeholderPageCreate:
+  kind: create
+  from: mstr_stakeholder
+  columns:
+    - code
+    - control_code
+    - names
+    - is_customer
+    - is_supplier
+    - is_logistics
+    - mail
+    - remarks
+    - update_user_id
+    - update_user_history_id
+
+# ---- 共通関数(kind: function)。呼称(名称・読み・略称。言語別の値)を作る・変える。返った ID を、本体の names に渡す ----
+# doc/query/20261116_0001_common_functions.sql。渡した言語の値だけ入れ替える(言語コード → 値 の JSON。例 {"ja": "株式会社○○"})。空文字で値が空になる(行は残る)。
+# 名称には、いずれかの言語に空でない値が必要。担当者は p_staff_id・p_staff_history_id、省略時は JWT の staff_id。
+# エラー(errcode): APL00 担当者・言語が無い / APL01 対象が無い / APL02 必須・空にできない / APL03 JSON の型が違う。
+
+# 呼称(名称・読み・略称)の登録・更新(p_appellation_id が無ければ新規)
+StakeholderAppellationSavePageCall:
+  kind: function
+  mutation: sharedAppellationSave
+  returns: sharedAppellation
+  columns:
+    - shared_appellations_id
