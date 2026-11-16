@@ -5,6 +5,7 @@
 --     チェック・シグナル・ステップで 1 対 1 に出す。複数の boolean から文・意味をアプリが組み立てない。
 --   ・言語別の表示の文字の列は持たない(意図がアプリで変わらない表示は、アプリでよい)。ビットスイッチの整数値は持たない(廃案)。
 --   ・ビューには symbol 列を含める。PostGraphile 用に、COMMENT ON VIEW の @primaryKey・@foreignKey を付ける。
+--     スマートコメントは、タグ(@primaryKey・@unique・@foreignKey)の行を先に書き、説明は最後の行に書く(説明を先に書くと、タグが読まれない)。
 --   ・ビューの中だけで完結させる。既存のテーブル・関数・行は変えない。
 --   ・出力の順(PERO の関数・ビューの依存): 先に参照される v_order_detail_balance・v_purchase_detail_balance・v_supply_detail_balance・
 --     v_external_property・v_visiter_lot・v_visiter_lineage・v_mrp_visiter_item・v_plan_change_unreflected が作られたあと。
@@ -126,8 +127,7 @@ CROSS JOIN LATERAL (
 ) AS t
 WHERE pc.remove IS FALSE;
 
-COMMENT ON VIEW tests.v_plan_change IS '計画変更(表示用。種別・対象・処置を boolean の列で返す)
-@primaryKey trans_plan_change_id
+COMMENT ON VIEW tests.v_plan_change IS '@primaryKey trans_plan_change_id
 @unique symbol
 @foreignKey (trans_plan_change_id) references trans_plan_change (trans_plan_change_id)
 @foreignKey (parent_trans_plan_change_id) references trans_plan_change (trans_plan_change_id)
@@ -145,7 +145,8 @@ COMMENT ON VIEW tests.v_plan_change IS '計画変更(表示用。種別・対象
 @foreignKey (stakeholder_history_id, stakeholder_id) references history_mstr_stakeholder (history_id, mstr_stakeholder_id)
 @foreignKey (staff_history_id, staff_id) references history_info_staff (history_id, info_staff_id)
 @foreignKey (trans_mrp_suggestion_id) references trans_mrp_suggestion (trans_mrp_suggestion_id)
-@foreignKey (reflected_trans_mrp_run_id) references trans_mrp_run (trans_mrp_run_id)';
+@foreignKey (reflected_trans_mrp_run_id) references trans_mrp_run (trans_mrp_run_id)
+計画変更(表示用。種別・対象・処置を boolean の列で返す)';
 
 COMMENT ON COLUMN tests.v_plan_change.is_order_detail IS '対象: 受注明細';
 COMMENT ON COLUMN tests.v_plan_change.is_purchase_detail IS '対象: 発注明細';
@@ -456,8 +457,7 @@ LEFT JOIN LATERAL (
     LIMIT 1
 ) AS c ON TRUE;
 
-COMMENT ON VIEW tests.v_cancel_open_item IS '未処置一覧(キャンセル・停止・打ち切りのあと、処置が済んでいないもの。種類は is_* の boolean で、ちょうど 1 つ true)
-@primaryKey open_item_id
+COMMENT ON VIEW tests.v_cancel_open_item IS '@primaryKey open_item_id
 @foreignKey (item_id) references mstr_item (mstr_item_id)
 @foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)
 @foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)
@@ -468,7 +468,8 @@ COMMENT ON VIEW tests.v_cancel_open_item IS '未処置一覧(キャンセル・�
 @foreignKey (trans_supply_detail_id) references trans_supply_detail (trans_supply_detail_id)
 @foreignKey (trans_container_id) references trans_container (trans_container_id)
 @foreignKey (stakeholder_id) references mstr_stakeholder (mstr_stakeholder_id)
-@foreignKey (cause_trans_plan_change_id) references trans_plan_change (trans_plan_change_id)';
+@foreignKey (cause_trans_plan_change_id) references trans_plan_change (trans_plan_change_id)
+未処置一覧(キャンセル・停止・打ち切りのあと、処置が済んでいないもの。種類は is_* の boolean で、ちょうど 1 つ true)';
 
 COMMENT ON COLUMN tests.v_cancel_open_item.is_inventory_request IS '未解除の引当予約';
 COMMENT ON COLUMN tests.v_cancel_open_item.is_work_in_process IS '仕掛品(停止・打ち切りの生産計画のロット)';
@@ -512,11 +513,11 @@ SELECT
 FROM tests.trans_mrp_run AS r
 WHERE r.remove IS FALSE;
 
-COMMENT ON VIEW tests.v_mrp_run IS 'MRP 実行(状態・実行区分を boolean の列で返す)
-@primaryKey trans_mrp_run_id
+COMMENT ON VIEW tests.v_mrp_run IS '@primaryKey trans_mrp_run_id
 @unique symbol
 @foreignKey (trans_mrp_run_id) references trans_mrp_run (trans_mrp_run_id)
-@foreignKey (staff_history_id, staff_id) references history_info_staff (history_id, info_staff_id)';
+@foreignKey (staff_history_id, staff_id) references history_info_staff (history_id, info_staff_id)
+MRP 実行(状態・実行区分を boolean の列で返す)';
 
 COMMENT ON COLUMN tests.v_mrp_run.is_calculated IS '計算済み(確定・破棄を待っている)';
 COMMENT ON COLUMN tests.v_mrp_run.is_committed IS '確定済み';
@@ -612,8 +613,7 @@ FROM tests.trans_mrp_suggestion AS s
 INNER JOIN tests.trans_mrp_run AS r ON r.trans_mrp_run_id = s.trans_mrp_run_id AND r.remove IS FALSE
 WHERE s.remove IS FALSE;
 
-COMMENT ON VIEW tests.v_mrp_suggestion IS 'MRP の提案(対象・動き・判断を boolean の列で返す。提案の種類・判断の整数は出さない)
-@primaryKey trans_mrp_suggestion_id
+COMMENT ON VIEW tests.v_mrp_suggestion IS '@primaryKey trans_mrp_suggestion_id
 @unique symbol
 @foreignKey (trans_mrp_suggestion_id) references trans_mrp_suggestion (trans_mrp_suggestion_id)
 @foreignKey (trans_mrp_run_id) references trans_mrp_run (trans_mrp_run_id)
@@ -631,7 +631,8 @@ COMMENT ON VIEW tests.v_mrp_suggestion IS 'MRP の提案(対象・動き・判�
 @foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)
 @foreignKey (mstr_equipment_id) references mstr_equipment (mstr_equipment_id)
 @foreignKey (mstr_outsource_available_history_id, mstr_outsource_available_id) references history_mstr_outsource_available (history_id, mstr_outsource_available_id)
-@foreignKey (update_user_history_id, update_user_id) references history_info_staff (history_id, info_staff_id)';
+@foreignKey (update_user_history_id, update_user_id) references history_info_staff (history_id, info_staff_id)
+MRP の提案(対象・動き・判断を boolean の列で返す。提案の種類・判断の整数は出さない)';
 
 COMMENT ON COLUMN tests.v_mrp_suggestion.is_purchase IS '対象: 発注';
 COMMENT ON COLUMN tests.v_mrp_suggestion.is_production IS '対象: 生産';

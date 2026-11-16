@@ -50,6 +50,9 @@ BEGIN
                       AND s.kind NOT IN ('PURCHASE_NEW','PURCHASE_RESCHEDULE','PURCHASE_CANCEL','PRODUCTION_NEW','PRODUCTION_RESCHEDULE','PRODUCTION_CANCEL',
                                          'OUTSOURCE_NEW','OUTSOURCE_CANCEL','OUTSOURCE_OPTION','PLAN_NEW','PLAN_UPDATE','PLAN_KEEP','PLAN_CANCEL',
                                          'EXC_OVERLOAD','EXC_EXCESS','EXC_MASTER','SUPPLY_REQUEST')));
+    PERFORM pg_temp.expect('T1-9 ビューのスマートコメントは、タグ(@primaryKey)の行が先頭(説明が先頭だとタグが読まれない)',
+        (SELECT bool_and(obj_description(('tests.' || n)::regclass) LIKE '@primaryKey %')
+           FROM unnest(ARRAY['v_plan_change', 'v_cancel_open_item', 'v_mrp_run', 'v_mrp_suggestion']) AS n));
     PERFORM pg_temp.expect('T1-8 MRP 実行の状態の列が、ちょうど 1 つ立つ',
         NOT EXISTS (SELECT 1 FROM v_mrp_run WHERE is_calculated::int + is_committed::int + is_discarded::int + is_expired::int <> 1));
 END $$;
