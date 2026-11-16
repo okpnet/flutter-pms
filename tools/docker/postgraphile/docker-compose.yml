@@ -39,3 +39,6 @@ services:
       # JWT なしのリクエストに使うロール
       - "--default-role"
       - "${PGL_DEFAULT_ROLE:-app_anonymous}"
+      # GraphQL のエラーに DB の errcode(関数の ERRCODE。OPR01・VIS03・MRP02 など)を含める。hint・detail は出さない(DB の内部情報が出るため)
+      - "--extended-errors"
+      - "errcode"

@@ -2,14 +2,14 @@
   "formatVersion": 3,
   "appVersion": "0.1.0",
   "id": 538067658,
-  "nextId": 5964,
+  "nextId": 6013,
   "properties": {
     "outputFileName": "pms_test",
     "outputFolder": "",
     "targetDb": "postgresql",
     "postPath": "C:\\Users\\隼人さん\\AppData\\Local\\Programs\\PERO\\post\\postgresql.post",
     "startQuery": "\\c test_avocado\nSET search_path TO tests, public;",
-    "endQuery": "-- [PERO 取り込みログ] 取り込めなかった要素\n-- 取り込まない文: DROP VIEW IF × 163\n-- 取り込まない文: DROP TRIGGER IF × 3\n-- 取り込まない文: 主キーと重複するユニークインデックス(取り込まない) × 263",
+    "endQuery": "-- [PERO 取り込みログ] 取り込めなかった要素\n-- 取り込まない文: DROP VIEW IF × 163\n-- 取り込まない文: DROP TRIGGER IF × 3\n-- 取り込まない文: 主キーと重複するユニークインデックス(取り込まない) × 263\n\n-- [追加] コードの部分一意索引(doc/query/20261115_0002_code_unique_indexes.sql)。削除済み(remove = true)のコードは再利用できる\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_stakeholder_ix_code_active ON tests.mstr_stakeholder (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_capability_ix_code_active ON tests.mstr_capability (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_license_ix_code_active ON tests.mstr_license (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_location_ix_code_active ON tests.mstr_location (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS info_staff_ix_code_active ON tests.info_staff (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS info_office_ix_code_active ON tests.info_office (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS info_department_ix_code_active ON tests.info_department (code) WHERE remove = false;\n-- [追加] 言語コードの一意制約を、大文字小文字を区別しない一意索引にする(doc/query/20261116_0003_language_code_unique_lower.sql)\nALTER TABLE tests.shared_language_code DROP CONSTRAINT IF EXISTS shared_language_code_ix1;\nDROP INDEX IF EXISTS tests.shared_language_code_ix1;\nCREATE UNIQUE INDEX shared_language_code_ix1 ON tests.shared_language_code (lower(code));",
     "schema": "tests",
     "includeSchema": true
   },
@@ -10095,12 +10095,12 @@
         "sqlite": ""
       },
       "bodies": {
-        "postgresql": "CREATE OR REPLACE FUNCTION tests.lot_release(\n    p_visiter_id uuid,\n    p_change_reason_id uuid DEFAULT NULL,\n    p_reason varchar DEFAULT NULL,\n    p_staff_id uuid DEFAULT NULL,\n    p_parent_plan_change_id uuid DEFAULT NULL,\n    p_remarks varchar DEFAULT NULL\n) RETURNS tests.trans_plan_change AS $$\nDECLARE\n    v_st record;\nBEGIN\n    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);\n    IF NOT EXISTS (SELECT 1 FROM tests.trans_visiter WHERE trans_visiter_id = p_visiter_id AND remove IS FALSE) THEN\n        RAISE EXCEPTION '棚ビジター(ロット)が見つかりません (%)', p_visiter_id USING ERRCODE = 'OPR01';\n    END IF;\n    RETURN tests.op_add_plan_change(v_st.staff_id, v_st.staff_history_id, p_visiter => p_visiter_id,\n        p_release => true, p_change_reason_id => p_change_reason_id, p_reason => p_reason,\n        p_parent => p_parent_plan_change_id, p_remarks => p_remarks);\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.lot_release(\n    p_visiter_id uuid,\n    p_change_reason_id uuid DEFAULT NULL,\n    p_reason varchar DEFAULT NULL,\n    p_staff_id uuid DEFAULT NULL,\n    p_parent_plan_change_id uuid DEFAULT NULL,\n    p_remarks varchar DEFAULT NULL\n) RETURNS tests.trans_plan_change AS $$\nDECLARE\n    v_st record;\nBEGIN\n    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);\n    IF NOT EXISTS (SELECT 1 FROM tests.trans_visiter WHERE trans_visiter_id = p_visiter_id AND remove IS FALSE) THEN\n        RAISE EXCEPTION '棚ビジター(ロット)が見つかりません (%)', p_visiter_id USING ERRCODE = 'OPR01';\n    END IF;\n    PERFORM tests.op_unhold(p_visiter_id, v_st.staff_id, v_st.staff_history_id);\n    RETURN tests.op_add_plan_change(v_st.staff_id, v_st.staff_history_id, p_visiter => p_visiter_id,\n        p_release => true, p_change_reason_id => p_change_reason_id, p_reason => p_reason,\n        p_parent => p_parent_plan_change_id, p_remarks => p_remarks);\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
         "mysql": "",
         "sqlserver": "",
         "sqlite": ""
       },
-      "comment": "キャンセル後の品物を在庫にする(処置の記録。ロットは動かさない)。計画変更(release)を記録する",
+      "comment": "キャンセル後の品物を在庫にする(処置の記録)。押さえていたロットは仮止めを外す。計画変更(release)を記録する(1トランザクション)",
       "args": "uuid, uuid, varchar, uuid, uuid, varchar",
       "dependsOnTableIds": [
         151,
@@ -10146,12 +10146,12 @@
         "sqlite": ""
       },
       "bodies": {
-        "postgresql": "CREATE OR REPLACE FUNCTION tests.lot_scrap(\n    p_visiter_id uuid,\n    p_quantity numeric,\n    p_change_reason_id uuid DEFAULT NULL,\n    p_reason varchar DEFAULT NULL,\n    p_staff_id uuid DEFAULT NULL,\n    p_parent_plan_change_id uuid DEFAULT NULL,\n    p_remarks varchar DEFAULT NULL,\n    p_location_id uuid DEFAULT NULL\n) RETURNS tests.trans_plan_change AS $$\nDECLARE\n    v_st record;\nBEGIN\n    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);\n    PERFORM tests.visiter_issue(p_visiter_id, p_quantity, NULL, v_st.staff_id, p_location_id, NULL, p_remarks);\n    RETURN tests.op_add_plan_change(v_st.staff_id, v_st.staff_history_id, p_visiter => p_visiter_id,\n        p_scrap => true, p_change_reason_id => p_change_reason_id, p_reason => p_reason,\n        p_parent => p_parent_plan_change_id, p_remarks => p_remarks);\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.lot_scrap(\n    p_visiter_id uuid,\n    p_quantity numeric,\n    p_change_reason_id uuid DEFAULT NULL,\n    p_reason varchar DEFAULT NULL,\n    p_staff_id uuid DEFAULT NULL,\n    p_parent_plan_change_id uuid DEFAULT NULL,\n    p_remarks varchar DEFAULT NULL,\n    p_location_id uuid DEFAULT NULL\n) RETURNS tests.trans_plan_change AS $$\nDECLARE\n    v_st record;\nBEGIN\n    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);\n    PERFORM tests.op_unhold(p_visiter_id, v_st.staff_id, v_st.staff_history_id);\n    PERFORM tests.visiter_issue(p_visiter_id, p_quantity, NULL, v_st.staff_id, p_location_id, NULL, p_remarks);\n    RETURN tests.op_add_plan_change(v_st.staff_id, v_st.staff_history_id, p_visiter => p_visiter_id,\n        p_scrap => true, p_change_reason_id => p_change_reason_id, p_reason => p_reason,\n        p_parent => p_parent_plan_change_id, p_remarks => p_remarks);\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
         "mysql": "",
         "sqlserver": "",
         "sqlite": ""
       },
-      "comment": "品物の廃棄。ロットから払い出し(visiter_issue)、計画変更(scrap)を記録する(1トランザクション)",
+      "comment": "品物の廃棄。押さえていたロットは仮止めを外してから、ロットから払い出し(visiter_issue)、計画変更(scrap)を記録する(1トランザクション)",
       "args": "uuid, numeric, uuid, varchar, uuid, uuid, varchar, uuid",
       "dependsOnTableIds": [
         151
@@ -10170,12 +10170,12 @@
         "sqlite": ""
       },
       "bodies": {
-        "postgresql": "CREATE OR REPLACE FUNCTION tests.lot_deliver(\n    p_visiter_id uuid,\n    p_quantity numeric,\n    p_order_detail_settlement_id uuid DEFAULT NULL,\n    p_change_reason_id uuid DEFAULT NULL,\n    p_reason varchar DEFAULT NULL,\n    p_staff_id uuid DEFAULT NULL,\n    p_parent_plan_change_id uuid DEFAULT NULL,\n    p_remarks varchar DEFAULT NULL,\n    p_location_id uuid DEFAULT NULL\n) RETURNS tests.trans_plan_change AS $$\nDECLARE\n    v_st record;\nBEGIN\n    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);\n    PERFORM tests.visiter_issue(p_visiter_id, p_quantity, NULL, v_st.staff_id, p_location_id, NULL, p_remarks);\n    RETURN tests.op_add_plan_change(v_st.staff_id, v_st.staff_history_id, p_visiter => p_visiter_id,\n        p_deliver => true, p_settlement => p_order_detail_settlement_id,\n        p_change_reason_id => p_change_reason_id, p_reason => p_reason,\n        p_parent => p_parent_plan_change_id, p_remarks => p_remarks);\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.lot_deliver(\n    p_visiter_id uuid,\n    p_quantity numeric,\n    p_order_detail_settlement_id uuid DEFAULT NULL,\n    p_change_reason_id uuid DEFAULT NULL,\n    p_reason varchar DEFAULT NULL,\n    p_staff_id uuid DEFAULT NULL,\n    p_parent_plan_change_id uuid DEFAULT NULL,\n    p_remarks varchar DEFAULT NULL,\n    p_location_id uuid DEFAULT NULL\n) RETURNS tests.trans_plan_change AS $$\nDECLARE\n    v_st record;\nBEGIN\n    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);\n    PERFORM tests.op_unhold(p_visiter_id, v_st.staff_id, v_st.staff_history_id);\n    PERFORM tests.visiter_issue(p_visiter_id, p_quantity, NULL, v_st.staff_id, p_location_id, NULL, p_remarks);\n    RETURN tests.op_add_plan_change(v_st.staff_id, v_st.staff_history_id, p_visiter => p_visiter_id,\n        p_deliver => true, p_settlement => p_order_detail_settlement_id,\n        p_change_reason_id => p_change_reason_id, p_reason => p_reason,\n        p_parent => p_parent_plan_change_id, p_remarks => p_remarks);\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
         "mysql": "",
         "sqlserver": "",
         "sqlite": ""
       },
-      "comment": "顧客への引き渡し。ロットから払い出し(visiter_issue)、計画変更(deliver・精算)を記録する(1トランザクション)",
+      "comment": "顧客への引き渡し。押さえていたロットは仮止めを外してから、ロットから払い出し(visiter_issue)、計画変更(deliver・精算)を記録する(1トランザクション)",
       "args": "uuid, numeric, uuid, uuid, varchar, uuid, uuid, varchar, uuid",
       "dependsOnTableIds": [
         151
@@ -10260,6 +10260,233 @@
         62,
         2924,
         3871
+      ],
+      "schema": "tests"
+    },
+    {
+      "id": 5994,
+      "kind": "function",
+      "name": "visiter_owner_refresh",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.visiter_owner_refresh(p_lot uuid, p_depth integer DEFAULT 0) RETURNS void\nSECURITY DEFINER SET search_path = tests, pg_catalog AS $$\nDECLARE\n    v_lot tests.trans_visiter;\n    v_owner_hist uuid; v_owner uuid; v_sd uuid; v_od uuid; v_at timestamp;\n    v_found boolean := false;\n    r record; c record;\n    v_op uuid; v_rp record; v_guard integer := 0;\nBEGIN\n    IF p_lot IS NULL OR p_depth > 50 THEN RETURN; END IF;\n    SELECT * INTO v_lot FROM tests.trans_visiter WHERE trans_visiter_id = p_lot;\n    -- 在庫(ロット)の行だけが対象 (出庫・棚卸しの行は所有者を持たない)\n    IF NOT FOUND OR v_lot.quantity <= 0 OR v_lot.adjustment IS TRUE THEN RETURN; END IF;\n\n    -- 1. 直接つながる、所有を変える支給の最新\n    SELECT s.counterpart_owns, s.stakeholder_history_id, s.stakeholder_id, sd.trans_supply_detail_id, s.supply_at\n      INTO r\n      FROM tests.trans_supply_visiter AS sv\n     INNER JOIN tests.trans_supply_detail AS sd\n        ON sd.trans_supply_detail_id = sv.trans_supply_detail_id AND sd.remove IS FALSE\n     INNER JOIN tests.trans_supply AS s\n        ON s.trans_supply_id = sd.trans_supply_id AND s.remove IS FALSE\n       AND (s.counterpart_owns IS TRUE OR s.company_owns IS TRUE)\n     WHERE sv.trans_visiter_id = p_lot AND sv.remove IS FALSE\n     ORDER BY s.supply_at DESC, sv.update_at DESC\n     LIMIT 1;\n    IF FOUND THEN\n        v_found := true;\n        v_sd := r.trans_supply_detail_id; v_at := r.supply_at;\n        IF r.counterpart_owns THEN\n            v_owner_hist := r.stakeholder_history_id; v_owner := r.stakeholder_id;\n        END IF;\n    END IF;\n\n    -- 2. 分割元の所有者\n    IF NOT v_found AND v_lot.parent_trans_visiter_id IS NOT NULL THEN\n        SELECT o.* INTO r FROM tests.trans_visiter_owner AS o\n         WHERE o.trans_visiter_id = v_lot.parent_trans_visiter_id AND o.remove IS FALSE;\n        IF FOUND THEN\n            v_found := true;\n            v_owner_hist := r.owner_stakeholder_history_id; v_owner := r.owner_stakeholder_id;\n            v_sd := r.trans_supply_detail_id; v_od := r.trans_order_detail_id; v_at := r.effective_at;\n        END IF;\n    END IF;\n\n    -- 3. 作業実績で作られたロット: いちばん上の受注明細が顧客所有なら、その受注の顧客\n    IF NOT v_found THEN\n        SELECT wp.trans_operations_plan_id INTO v_op\n          FROM tests.trans_work_record_visiter AS wrv\n         INNER JOIN tests.trans_work_record AS wr ON wr.trans_work_record_id = wrv.trans_work_record_id AND wr.remove IS FALSE\n         INNER JOIN tests.trans_work_plan AS wp ON wp.trans_work_plan_id = wr.trans_work_plan_id\n         WHERE wrv.trans_visiter_id = p_lot AND wrv.remove IS FALSE\n         LIMIT 1;\n        WHILE v_op IS NOT NULL AND v_guard < 30 LOOP\n            v_guard := v_guard + 1;\n            SELECT rp.trans_order_detail_id, rp.parent_trans_operations_plan_id INTO v_rp\n              FROM tests.trans_operations_plan AS op\n             INNER JOIN tests.trans_resource_plan AS rp ON rp.trans_resource_plan_id = op.trans_resource_plan_id\n             WHERE op.trans_operations_plan_id = v_op;\n            EXIT WHEN NOT FOUND;\n            IF v_rp.trans_order_detail_id IS NOT NULL THEN\n                SELECT od.trans_order_detail_id, o.stakeholder_history_id, o.stakeholder_id INTO r\n                  FROM tests.trans_order_detail AS od\n                 INNER JOIN tests.trans_order AS o ON o.trans_order_id = od.trans_order_id\n                 WHERE od.trans_order_detail_id = v_rp.trans_order_detail_id\n                   AND od.customer_property IS TRUE AND o.stakeholder_id IS NOT NULL;\n                IF FOUND THEN\n                    v_found := true;\n                    v_owner_hist := r.stakeholder_history_id; v_owner := r.stakeholder_id;\n                    v_od := r.trans_order_detail_id; v_at := now();\n                END IF;\n                EXIT;\n            END IF;\n            v_op := v_rp.parent_trans_operations_plan_id;\n        END LOOP;\n    END IF;\n\n    -- 書き込み (無ければ消す = 自社)\n    IF v_found THEN\n        INSERT INTO tests.trans_visiter_owner AS t (trans_visiter_id, owner_stakeholder_history_id, owner_stakeholder_id,\n                                                    trans_supply_detail_id, trans_order_detail_id, effective_at)\n        VALUES (p_lot, v_owner_hist, v_owner, v_sd, v_od, COALESCE(v_at, now()))\n        ON CONFLICT (trans_visiter_id) DO UPDATE\n        SET owner_stakeholder_history_id = EXCLUDED.owner_stakeholder_history_id,\n            owner_stakeholder_id = EXCLUDED.owner_stakeholder_id,\n            trans_supply_detail_id = EXCLUDED.trans_supply_detail_id,\n            trans_order_detail_id = EXCLUDED.trans_order_detail_id,\n            effective_at = EXCLUDED.effective_at,\n            remove = FALSE\n        WHERE (t.owner_stakeholder_id, t.trans_supply_detail_id, t.trans_order_detail_id, t.remove)\n              IS DISTINCT FROM (EXCLUDED.owner_stakeholder_id, EXCLUDED.trans_supply_detail_id, EXCLUDED.trans_order_detail_id, FALSE);\n    ELSE\n        DELETE FROM tests.trans_visiter_owner WHERE trans_visiter_id = p_lot;\n    END IF;\n\n    -- 分割先のロットも決め直す\n    FOR c IN\n        SELECT v.trans_visiter_id FROM tests.trans_visiter AS v\n         WHERE v.parent_trans_visiter_id = p_lot AND v.remove IS FALSE\n           AND v.quantity > 0 AND v.adjustment IS NOT TRUE\n    LOOP\n        PERFORM tests.visiter_owner_refresh(c.trans_visiter_id, p_depth + 1);\n    END LOOP;\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "@omit",
+      "args": "uuid, integer",
+      "dependsOnTableIds": [
+        8,
+        35,
+        45,
+        62,
+        2904,
+        2924,
+        3077,
+        3124,
+        3154,
+        3173,
+        3186,
+        3221
+      ],
+      "schema": "tests"
+    },
+    {
+      "id": 5995,
+      "kind": "function",
+      "name": "visiter_owner_rebuild",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.visiter_owner_rebuild() RETURNS integer\nSECURITY DEFINER SET search_path = tests, pg_catalog AS $$\nDECLARE\n    c record; n integer := 0;\nBEGIN\n    DELETE FROM tests.trans_visiter_owner;\n    -- 分割元の無いロットから順に (分割先は refresh の中で決め直される)\n    FOR c IN\n        SELECT v.trans_visiter_id FROM tests.trans_visiter AS v\n         WHERE v.remove IS FALSE AND v.quantity > 0 AND v.adjustment IS NOT TRUE\n           AND v.parent_trans_visiter_id IS NULL\n    LOOP\n        PERFORM tests.visiter_owner_refresh(c.trans_visiter_id);\n        n := n + 1;\n    END LOOP;\n    RETURN n;\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "棚ビジターの所有者をすべて決め直す(受注明細の顧客所有・受注の顧客を後から変えたとき)",
+      "args": "",
+      "dependsOnTableIds": [
+        8,
+        2924
+      ],
+      "schema": "tests"
+    },
+    {
+      "id": 5996,
+      "kind": "trigger",
+      "name": "trg_06_visiter_owner_supply_visiter",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_06_visiter_owner_supply_visiter() RETURNS trigger AS $$\nBEGIN\n    IF TG_OP <> 'INSERT' AND OLD.trans_visiter_id IS DISTINCT FROM NEW.trans_visiter_id THEN\n        PERFORM tests.visiter_owner_refresh(OLD.trans_visiter_id);\n    END IF;\n    PERFORM tests.visiter_owner_refresh(NEW.trans_visiter_id);\n    RETURN NULL;\nEND\n$$ LANGUAGE plpgsql;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "@omit",
+      "args": "",
+      "dependsOnTableIds": [],
+      "schema": ""
+    },
+    {
+      "id": 5997,
+      "kind": "trigger",
+      "name": "trg_06_visiter_owner_supply",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_06_visiter_owner_supply() RETURNS trigger AS $$\nDECLARE c record;\nBEGIN\n    FOR c IN\n        SELECT DISTINCT sv.trans_visiter_id FROM tests.trans_supply_visiter AS sv\n         INNER JOIN tests.trans_supply_detail AS sd ON sd.trans_supply_detail_id = sv.trans_supply_detail_id\n         WHERE sd.trans_supply_id = NEW.trans_supply_id AND sv.remove IS FALSE\n    LOOP\n        PERFORM tests.visiter_owner_refresh(c.trans_visiter_id);\n    END LOOP;\n    RETURN NULL;\nEND\n$$ LANGUAGE plpgsql;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "@omit",
+      "args": "",
+      "dependsOnTableIds": [
+        35,
+        45
+      ],
+      "schema": ""
+    },
+    {
+      "id": 5998,
+      "kind": "trigger",
+      "name": "trg_06_visiter_owner_supply_detail",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_06_visiter_owner_supply_detail() RETURNS trigger AS $$\nDECLARE c record;\nBEGIN\n    FOR c IN\n        SELECT sv.trans_visiter_id FROM tests.trans_supply_visiter AS sv\n         WHERE sv.trans_supply_detail_id = NEW.trans_supply_detail_id AND sv.remove IS FALSE\n    LOOP\n        PERFORM tests.visiter_owner_refresh(c.trans_visiter_id);\n    END LOOP;\n    RETURN NULL;\nEND\n$$ LANGUAGE plpgsql;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "@omit",
+      "args": "",
+      "dependsOnTableIds": [
+        35
+      ],
+      "schema": ""
+    },
+    {
+      "id": 5999,
+      "kind": "trigger",
+      "name": "trg_06_visiter_owner_visiter",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_06_visiter_owner_visiter() RETURNS trigger AS $$\nBEGIN\n    IF NEW.parent_trans_visiter_id IS NOT NULL AND NEW.quantity > 0 AND NEW.adjustment IS NOT TRUE THEN\n        PERFORM tests.visiter_owner_refresh(NEW.trans_visiter_id);\n    END IF;\n    RETURN NULL;\nEND\n$$ LANGUAGE plpgsql;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "@omit",
+      "args": "",
+      "dependsOnTableIds": [],
+      "schema": ""
+    },
+    {
+      "id": 6000,
+      "kind": "trigger",
+      "name": "trg_06_visiter_owner_work_record_visiter",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_06_visiter_owner_work_record_visiter() RETURNS trigger AS $$\nBEGIN\n    PERFORM tests.visiter_owner_refresh(NEW.trans_visiter_id);\n    RETURN NULL;\nEND\n$$ LANGUAGE plpgsql;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "@omit",
+      "args": "",
+      "dependsOnTableIds": [],
+      "schema": ""
+    },
+    {
+      "id": 6006,
+      "kind": "function",
+      "name": "op_unhold",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.op_unhold(p_visiter_id uuid, p_staff uuid, p_staff_hist uuid) RETURNS void AS $$\n    UPDATE tests.trans_visiter\n    SET release = TRUE, update_user_id = p_staff, update_user_history_id = p_staff_hist\n    WHERE trans_visiter_id = p_visiter_id AND release IS FALSE AND remove IS FALSE\n      AND EXISTS (SELECT 1 FROM tests.trans_plan_change AS pc\n                  WHERE pc.hold AND pc.remove IS FALSE\n                    AND (pc.trans_visiter_id = p_visiter_id\n                         OR pc.trans_inventory_request_id IN (SELECT rq.trans_inventory_request_id\n                                                                FROM tests.trans_inventory_request AS rq\n                                                               WHERE rq.trans_visiter_id = p_visiter_id)));\n$$ LANGUAGE sql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "@omit",
+      "args": "uuid, uuid, uuid",
+      "dependsOnTableIds": [
+        151,
+        2878,
+        2924
+      ],
+      "schema": "tests"
+    },
+    {
+      "id": 6007,
+      "kind": "function",
+      "name": "shipping_order_detail_cancel",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.shipping_order_detail_cancel(\n    p_shipping_order_detail_id uuid,\n    p_change_reason_id uuid DEFAULT NULL,\n    p_reason varchar DEFAULT NULL,\n    p_staff_id uuid DEFAULT NULL,\n    p_parent_plan_change_id uuid DEFAULT NULL,\n    p_remarks varchar DEFAULT NULL\n) RETURNS tests.trans_plan_change AS $$\nDECLARE\n    v_st record; v_sd tests.trans_shipping_order_detail; v_reason_hist uuid; v_row tests.trans_plan_change;\nBEGIN\n    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);\n    SELECT * INTO v_sd FROM tests.trans_shipping_order_detail\n    WHERE trans_shipping_order_detail_id = p_shipping_order_detail_id FOR UPDATE;\n    IF NOT FOUND THEN\n        RAISE EXCEPTION '出荷オーダー明細が見つかりません (%)', p_shipping_order_detail_id USING ERRCODE = 'OPR01';\n    END IF;\n    IF v_sd.remove IS TRUE THEN\n        RAISE EXCEPTION 'すでに取り消し済みの出荷オーダー明細です' USING ERRCODE = 'OPR03';\n    END IF;\n    IF EXISTS (SELECT 1 FROM tests.trans_shipping_order_detail_record AS r\n               WHERE r.trans_shipping_order_detail_id = p_shipping_order_detail_id AND r.remove IS FALSE) THEN\n        RAISE EXCEPTION '出荷実績がある出荷オーダー明細は取り消せません' USING ERRCODE = 'OPR03';\n    END IF;\n    IF p_change_reason_id IS NOT NULL THEN\n        v_reason_hist := tests.op_hist_change_reason(p_change_reason_id);\n        IF v_reason_hist IS NULL THEN\n            RAISE EXCEPTION '変更理由が見つかりません (%)', p_change_reason_id USING ERRCODE = 'OPR00';\n        END IF;\n    END IF;\n    UPDATE tests.trans_shipping_order_detail\n    SET remove = TRUE, update_user_id = v_st.staff_id, update_user_history_id = v_st.staff_history_id\n    WHERE trans_shipping_order_detail_id = p_shipping_order_detail_id;\n    INSERT INTO tests.trans_plan_change (\n        parent_trans_plan_change_id, change_at, trans_shipping_order_detail_id,\n        old_quantity, new_quantity, cancel_quantity,\n        change_reason_history_id, change_reason_id, reason,\n        staff_history_id, staff_id, remarks, update_user_id, update_user_history_id)\n    VALUES (\n        p_parent_plan_change_id, now(), p_shipping_order_detail_id,\n        v_sd.shipping_quantity, 0, v_sd.shipping_quantity,\n        v_reason_hist, p_change_reason_id, p_reason,\n        v_st.staff_history_id, v_st.staff_id, p_remarks, v_st.staff_id, v_st.staff_history_id)\n    RETURNING * INTO v_row;\n    RETURN v_row;\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "未出荷の出荷オーダー明細の取り消し(出荷実績があるときは不可)。論理削除し、計画変更(キャンセル数量)を記録する(1トランザクション)。戻り値は計画変更",
+      "args": "uuid, uuid, varchar, uuid, uuid, varchar",
+      "dependsOnTableIds": [
+        151,
+        811,
+        3097
       ],
       "schema": "tests"
     }
@@ -10457,7 +10684,7 @@
       "kind": "table",
       "logicalName": "支給所有権",
       "physicalName": "trans_visiter_owner",
-      "comment": "支給所有権",
+      "comment": "支給所有権\n@omit create,update,delete",
       "locked": false,
       "columns": [
         {
@@ -10573,7 +10800,17 @@
           "comment": "適用日"
         }
       ],
-      "indexes": [],
+      "indexes": [
+        {
+          "id": 5993,
+          "nameMode": "manual",
+          "name": "trans_visiter_owner_ix91",
+          "columnIds": [
+            13
+          ],
+          "nullsNotDistinct": false
+        }
+      ],
       "uniques": [
         {
           "id": 4200,
@@ -10594,7 +10831,20 @@
           "nullsNotDistinct": false
         }
       ],
-      "checks": [],
+      "checks": [
+        {
+          "id": 5975,
+          "nameMode": "manual",
+          "name": "trans_visiter_owner_ck1",
+          "expression": "num_nonnulls(trans_supply_detail_id, trans_order_detail_id) = 1"
+        },
+        {
+          "id": 5976,
+          "nameMode": "manual",
+          "name": "trans_visiter_owner_ck2",
+          "expression": "num_nonnulls(owner_stakeholder_history_id, owner_stakeholder_id) in (0, 2)"
+        }
+      ],
       "preQuery": "",
       "postQuery": "",
       "triggers": [
@@ -10836,7 +11086,26 @@
           "comment": "棚ビジターID"
         }
       ],
-      "indexes": [],
+      "indexes": [
+        {
+          "id": 5991,
+          "nameMode": "manual",
+          "name": "trans_supply_visiter_ix91",
+          "columnIds": [
+            37
+          ],
+          "nullsNotDistinct": false
+        },
+        {
+          "id": 5992,
+          "nameMode": "manual",
+          "name": "trans_supply_visiter_ix92",
+          "columnIds": [
+            38
+          ],
+          "nullsNotDistinct": false
+        }
+      ],
       "uniques": [
         {
           "id": 4203,
@@ -10890,6 +11159,28 @@
           "timing": "BEFORE",
           "events": [
             "INSERT"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        },
+        {
+          "id": 6001,
+          "source": "public",
+          "methodId": 5996,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_06_visiter_owner_trans_supply_visiter",
+          "timing": "AFTER",
+          "events": [
+            "INSERT",
+            "UPDATE"
           ],
           "forEach": "ROW",
           "when": "",
@@ -11067,7 +11358,44 @@
           "comment": "資材計画ID"
         }
       ],
-      "indexes": [],
+      "indexes": [
+        {
+          "id": 5987,
+          "nameMode": "manual",
+          "name": "trans_supply_detail_ix91",
+          "columnIds": [
+            47
+          ],
+          "nullsNotDistinct": false
+        },
+        {
+          "id": 5988,
+          "nameMode": "manual",
+          "name": "trans_supply_detail_ix92",
+          "columnIds": [
+            53
+          ],
+          "nullsNotDistinct": false
+        },
+        {
+          "id": 5989,
+          "nameMode": "manual",
+          "name": "trans_supply_detail_ix93",
+          "columnIds": [
+            54
+          ],
+          "nullsNotDistinct": false
+        },
+        {
+          "id": 5990,
+          "nameMode": "manual",
+          "name": "trans_supply_detail_ix94",
+          "columnIds": [
+            55
+          ],
+          "nullsNotDistinct": false
+        }
+      ],
       "uniques": [
         {
           "id": 4204,
@@ -11079,7 +11407,20 @@
           "nullsNotDistinct": false
         }
       ],
-      "checks": [],
+      "checks": [
+        {
+          "id": 5973,
+          "nameMode": "manual",
+          "name": "trans_supply_detail_ck1",
+          "expression": "quantity > 0"
+        },
+        {
+          "id": 5974,
+          "nameMode": "manual",
+          "name": "trans_supply_detail_ck2",
+          "expression": "num_nonnulls(trans_order_detail_id, trans_purchase_detail_id) <= 1"
+        }
+      ],
       "preQuery": "",
       "postQuery": "",
       "triggers": [
@@ -11126,6 +11467,29 @@
           "when": "",
           "args": "",
           "updateColumnIds": []
+        },
+        {
+          "id": 6003,
+          "source": "public",
+          "methodId": 5998,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_06_visiter_owner_trans_supply_detail",
+          "timing": "AFTER",
+          "events": [
+            "UPDATE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": [
+            5901
+          ]
         }
       ]
     },
@@ -11390,7 +11754,20 @@
           "nullsNotDistinct": false
         }
       ],
-      "checks": [],
+      "checks": [
+        {
+          "id": 5971,
+          "nameMode": "manual",
+          "name": "trans_supply_ck1",
+          "expression": "num_nonnulls(trans_order_id, trans_purchase_id) <= 1"
+        },
+        {
+          "id": 5972,
+          "nameMode": "manual",
+          "name": "trans_supply_ck2",
+          "expression": "not (counterpart_owns and company_owns)"
+        }
+      ],
       "preQuery": "",
       "postQuery": "",
       "triggers": [
@@ -11437,6 +11814,33 @@
           "when": "",
           "args": "",
           "updateColumnIds": []
+        },
+        {
+          "id": 6002,
+          "source": "public",
+          "methodId": 5997,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_06_visiter_owner_trans_supply",
+          "timing": "AFTER",
+          "events": [
+            "UPDATE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": [
+            69,
+            70,
+            67,
+            65,
+            5901
+          ]
         }
       ]
     },
@@ -11497,7 +11901,26 @@
           "comment": "棚ビジターID"
         }
       ],
-      "indexes": [],
+      "indexes": [
+        {
+          "id": 5985,
+          "nameMode": "manual",
+          "name": "trans_return_visiter_ix91",
+          "columnIds": [
+            86
+          ],
+          "nullsNotDistinct": false
+        },
+        {
+          "id": 5986,
+          "nameMode": "manual",
+          "name": "trans_return_visiter_ix92",
+          "columnIds": [
+            87
+          ],
+          "nullsNotDistinct": false
+        }
+      ],
       "uniques": [
         {
           "id": 4206,
@@ -11744,7 +12167,35 @@
           "comment": "元の棚ビジターID"
         }
       ],
-      "indexes": [],
+      "indexes": [
+        {
+          "id": 5982,
+          "nameMode": "manual",
+          "name": "trans_return_detail_ix91",
+          "columnIds": [
+            96
+          ],
+          "nullsNotDistinct": false
+        },
+        {
+          "id": 5983,
+          "nameMode": "manual",
+          "name": "trans_return_detail_ix92",
+          "columnIds": [
+            101
+          ],
+          "nullsNotDistinct": false
+        },
+        {
+          "id": 5984,
+          "nameMode": "manual",
+          "name": "trans_return_detail_ix93",
+          "columnIds": [
+            103
+          ],
+          "nullsNotDistinct": false
+        }
+      ],
       "uniques": [
         {
           "id": 4207,
@@ -11756,7 +12207,20 @@
           "nullsNotDistinct": false
         }
       ],
-      "checks": [],
+      "checks": [
+        {
+          "id": 5969,
+          "nameMode": "manual",
+          "name": "trans_return_detail_ck1",
+          "expression": "quantity > 0"
+        },
+        {
+          "id": 5970,
+          "nameMode": "manual",
+          "name": "trans_return_detail_ck2",
+          "expression": "num_nonnulls(trans_order_detail_id, trans_shipping_order_detail_record_id) = 0 or num_nonnulls(trans_purchase_detail_id, trans_purchase_rec_id) = 0"
+        }
+      ],
       "preQuery": "",
       "postQuery": "",
       "triggers": [
@@ -12286,7 +12750,17 @@
           "comment": "担当者ID"
         }
       ],
-      "indexes": [],
+      "indexes": [
+        {
+          "id": 5981,
+          "nameMode": "manual",
+          "name": "trans_order_detail_settlement_ix91",
+          "columnIds": [
+            135
+          ],
+          "nullsNotDistinct": false
+        }
+      ],
       "uniques": [
         {
           "id": 4209,
@@ -12869,7 +13343,44 @@
           "comment": "反映したMRP実行ID"
         }
       ],
-      "indexes": [],
+      "indexes": [
+        {
+          "id": 5977,
+          "nameMode": "manual",
+          "name": "trans_plan_change_ix91",
+          "columnIds": [
+            155
+          ],
+          "nullsNotDistinct": false
+        },
+        {
+          "id": 5978,
+          "nameMode": "manual",
+          "name": "trans_plan_change_ix92",
+          "columnIds": [
+            156
+          ],
+          "nullsNotDistinct": false
+        },
+        {
+          "id": 5979,
+          "nameMode": "manual",
+          "name": "trans_plan_change_ix93",
+          "columnIds": [
+            157
+          ],
+          "nullsNotDistinct": false
+        },
+        {
+          "id": 5980,
+          "nameMode": "manual",
+          "name": "trans_plan_change_ix94",
+          "columnIds": [
+            153
+          ],
+          "nullsNotDistinct": false
+        }
+      ],
       "uniques": [
         {
           "id": 4210,
@@ -12881,7 +13392,26 @@
           "nullsNotDistinct": false
         }
       ],
-      "checks": [],
+      "checks": [
+        {
+          "id": 5966,
+          "nameMode": "manual",
+          "name": "trans_plan_change_ck1",
+          "expression": "num_nonnulls( trans_order_detail_id, trans_purchase_detail_id, trans_operations_plan_id, trans_inventory_request_id, trans_visiter_id, trans_shipping_order_detail_id) = 1"
+        },
+        {
+          "id": 5967,
+          "nameMode": "manual",
+          "name": "trans_plan_change_ck2",
+          "expression": "cancel_quantity >= 0"
+        },
+        {
+          "id": 5968,
+          "nameMode": "manual",
+          "name": "trans_plan_change_ck3",
+          "expression": "not hold or trans_container_id is not null"
+        }
+      ],
       "preQuery": "",
       "postQuery": "",
       "triggers": [
@@ -49825,6 +50355,28 @@
           "when": "",
           "args": "",
           "updateColumnIds": []
+        },
+        {
+          "id": 6005,
+          "source": "public",
+          "methodId": 6000,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_06_visiter_owner_trans_work_record_visiter",
+          "timing": "AFTER",
+          "events": [
+            "INSERT",
+            "UPDATE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
         }
       ]
     },
@@ -50139,6 +50691,27 @@
             2930,
             5901
           ]
+        },
+        {
+          "id": 6004,
+          "source": "public",
+          "methodId": 5999,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_06_visiter_owner_trans_visiter",
+          "timing": "AFTER",
+          "events": [
+            "INSERT"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
         }
       ]
     },
@@ -51935,7 +52508,7 @@
           "precision": 10,
           "scale": 2,
           "pk": false,
-          "notNull": false,
+          "notNull": true,
           "defaultKind": "value",
           "defaultValue": "0",
           "defaultMethodId": null,
@@ -51981,7 +52554,14 @@
           "nullsNotDistinct": false
         }
       ],
-      "checks": [],
+      "checks": [
+        {
+          "id": 5965,
+          "nameMode": "manual",
+          "name": "trans_purchase_detail_ck1",
+          "expression": "cancel_quantity >= 0 and cancel_quantity <= coalesce(quantity, 0)"
+        }
+      ],
       "preQuery": "",
       "postQuery": "",
       "triggers": [
@@ -52208,7 +52788,7 @@
           "precision": 10,
           "scale": 2,
           "pk": false,
-          "notNull": false,
+          "notNull": true,
           "defaultKind": "value",
           "defaultValue": "0",
           "defaultMethodId": null,
@@ -52269,7 +52849,14 @@
           "nullsNotDistinct": false
         }
       ],
-      "checks": [],
+      "checks": [
+        {
+          "id": 5964,
+          "nameMode": "manual",
+          "name": "trans_order_detail_ck1",
+          "expression": "cancel_quantity >= 0 and cancel_quantity <= quantity"
+        }
+      ],
       "preQuery": "",
       "postQuery": "",
       "triggers": [
@@ -52617,17 +53204,18 @@
           "comment": "利害関係者ID"
         }
       ],
-      "indexes": [],
-      "uniques": [
+      "indexes": [
         {
-          "id": 4446,
+          "id": 6012,
           "nameMode": "manual",
-          "name": "trans_shipping_order_ix1",
+          "name": "trans_shipping_order_ix91",
           "columnIds": [
             3112
           ],
           "nullsNotDistinct": false
-        },
+        }
+      ],
+      "uniques": [
         {
           "id": 4447,
           "nameMode": "manual",
@@ -64343,6 +64931,106 @@
       },
       "preQuery": "",
       "postQuery": ""
+    },
+    {
+      "id": 6008,
+      "kind": "view",
+      "logicalName": "",
+      "physicalName": "v_plan_change",
+      "comment": "計画変更(表示用。種別・対象・処置を boolean の列で返す)\n@primaryKey trans_plan_change_id\n@unique symbol\n@foreignKey (trans_plan_change_id) references trans_plan_change (trans_plan_change_id)\n@foreignKey (parent_trans_plan_change_id) references trans_plan_change (trans_plan_change_id)\n@foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)\n@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)\n@foreignKey (trans_operations_plan_id) references trans_operations_plan (trans_operations_plan_id)\n@foreignKey (trans_inventory_request_id) references trans_inventory_request (trans_inventory_request_id)\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (trans_shipping_order_detail_id) references trans_shipping_order_detail (trans_shipping_order_detail_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n@foreignKey (root_trans_order_detail_id) references trans_order_detail (trans_order_detail_id)\n@foreignKey (trans_container_id) references trans_container (trans_container_id)\n@foreignKey (trans_order_detail_settlement_id) references trans_order_detail_settlement (trans_order_detail_settlement_id)\n@foreignKey (change_reason_history_id, change_reason_id) references history_mstr_change_reason (history_id, mstr_change_reason_id)\n@foreignKey (stakeholder_history_id, stakeholder_id) references history_mstr_stakeholder (history_id, mstr_stakeholder_id)\n@foreignKey (staff_history_id, staff_id) references history_info_staff (history_id, info_staff_id)\n@foreignKey (trans_mrp_suggestion_id) references trans_mrp_suggestion (trans_mrp_suggestion_id)\n@foreignKey (reflected_trans_mrp_run_id) references trans_mrp_run (trans_mrp_run_id)",
+      "locked": false,
+      "viewType": "sql",
+      "join": {
+        "sources": [],
+        "columns": [],
+        "where": ""
+      },
+      "function": {
+        "methodId": null,
+        "args": [],
+        "columns": []
+      },
+      "sql": {
+        "sql": "SELECT\r\n    pc.trans_plan_change_id\r\n    , pc.symbol\r\n    , pc.parent_trans_plan_change_id\r\n    , pc.change_at\r\n    -- 対象(どれか 1 つ)\r\n    , pc.trans_order_detail_id\r\n    , pc.trans_purchase_detail_id\r\n    , pc.trans_operations_plan_id\r\n    , pc.trans_inventory_request_id\r\n    , pc.trans_visiter_id\r\n    , pc.trans_shipping_order_detail_id\r\n    , (pc.trans_order_detail_id IS NOT NULL) AS is_order_detail\r\n    , (pc.trans_purchase_detail_id IS NOT NULL) AS is_purchase_detail\r\n    , (pc.trans_operations_plan_id IS NOT NULL) AS is_operations_plan\r\n    , (pc.trans_inventory_request_id IS NOT NULL) AS is_inventory_request\r\n    , (pc.trans_visiter_id IS NOT NULL) AS is_visiter\r\n    , (pc.trans_shipping_order_detail_id IS NOT NULL) AS is_shipping_order_detail\r\n    , t.item_id\r\n    , t.root_trans_order_detail_id\r\n    -- 動き(キャンセル・数量・日付・停止)。値そのものは、下の列で読む\r\n    , (pc.cancel_quantity > 0) AS is_cancel\r\n    , (pc.new_quantity IS NOT NULL AND pc.new_quantity IS DISTINCT FROM pc.old_quantity) AS is_quantity_change\r\n    , (pc.new_date IS NOT NULL AND pc.new_date IS DISTINCT FROM pc.old_date) AS is_date_change\r\n    , (pc.new_date IS NOT NULL AND pc.old_date IS NOT NULL AND pc.new_date > pc.old_date) AS is_postpone\r\n    , (pc.new_date IS NOT NULL AND pc.old_date IS NOT NULL AND pc.new_date < pc.old_date) AS is_advance\r\n    , (pc.new_stop IS TRUE AND pc.old_stop IS NOT TRUE) AS is_stop\r\n    , (pc.new_stop IS FALSE AND pc.old_stop IS TRUE) AS is_resume\r\n    -- 処置(生産計画の打ち切り・引当予約の解除と保管・品物の処置)\r\n    , pc.discontinue AS is_discontinue\r\n    , pc.release AS is_release\r\n    , pc.hold AS is_hold\r\n    , pc.scrap AS is_scrap\r\n    , pc.deliver AS is_deliver\r\n    , (pc.trans_order_detail_settlement_id IS NOT NULL) AS has_settlement\r\n    -- 起点と処置のつながり(起点の変更から parent_trans_plan_change_id で下の処置につなぐ)\r\n    , (pc.parent_trans_plan_change_id IS NULL) AS is_root\r\n    , EXISTS (SELECT 1 FROM tests.trans_plan_change AS c\r\n              WHERE c.parent_trans_plan_change_id = pc.trans_plan_change_id AND c.remove IS FALSE) AS has_children\r\n    -- 原因(変更理由マスタの boolean。理由が無いときは false)\r\n    , COALESCE(cr.customer_cause, FALSE) AS customer_cause\r\n    , COALESCE(cr.supplier_cause, FALSE) AS supplier_cause\r\n    , COALESCE(cr.quality_cause, FALSE) AS quality_cause\r\n    -- MRP との関係\r\n    , (pc.trans_mrp_suggestion_id IS NOT NULL) AS from_mrp\r\n    , (pc.reflected_trans_mrp_run_id IS NOT NULL) AS is_reflected\r\n    , (pc.reflected_trans_mrp_run_id IS NULL AND pc.trans_mrp_suggestion_id IS NULL\r\n       AND (pc.trans_order_detail_id IS NOT NULL OR pc.trans_purchase_detail_id IS NOT NULL\r\n            OR pc.trans_operations_plan_id IS NOT NULL)) AS is_unreflected\r\n    -- 値\r\n    , pc.old_quantity\r\n    , pc.new_quantity\r\n    , pc.cancel_quantity\r\n    , pc.old_date\r\n    , pc.new_date\r\n    , pc.old_stop\r\n    , pc.new_stop\r\n    , pc.trans_container_id\r\n    , pc.trans_order_detail_settlement_id\r\n    , pc.change_reason_history_id\r\n    , pc.change_reason_id\r\n    , pc.reason\r\n    , pc.stakeholder_history_id\r\n    , pc.stakeholder_id\r\n    , pc.staff_history_id\r\n    , pc.staff_id\r\n    , pc.trans_mrp_suggestion_id\r\n    , pc.reflected_trans_mrp_run_id\r\n    , pc.remarks\r\n    , pc.update_at\r\nFROM tests.trans_plan_change AS pc\r\nLEFT JOIN tests.mstr_change_reason AS cr\r\n    ON cr.mstr_change_reason_id = pc.change_reason_id AND cr.remove IS FALSE\r\nCROSS JOIN LATERAL (\r\n    SELECT\r\n        COALESCE(od.item_id, pd.item_id, rp_op.item_id, rp_rq.item_id, vi.item_id, od_sd.item_id) AS item_id\r\n        , COALESCE(\r\n              pc.trans_order_detail_id\r\n              , od_sd.trans_order_detail_id\r\n              , tests.mrp_root_order_detail(COALESCE(op.trans_resource_plan_id, rq.trans_resource_plan_id, pd.trans_resource_plan_id))\r\n          ) AS root_trans_order_detail_id\r\n    FROM (SELECT 1) AS d\r\n    LEFT JOIN tests.trans_order_detail AS od ON od.trans_order_detail_id = pc.trans_order_detail_id\r\n    LEFT JOIN tests.trans_purchase_detail AS pd ON pd.trans_purchase_detail_id = pc.trans_purchase_detail_id\r\n    LEFT JOIN tests.trans_operations_plan AS op ON op.trans_operations_plan_id = pc.trans_operations_plan_id\r\n    LEFT JOIN tests.trans_resource_plan AS rp_op ON rp_op.trans_resource_plan_id = op.trans_resource_plan_id\r\n    LEFT JOIN tests.trans_inventory_request AS rq ON rq.trans_inventory_request_id = pc.trans_inventory_request_id\r\n    LEFT JOIN tests.trans_resource_plan AS rp_rq ON rp_rq.trans_resource_plan_id = rq.trans_resource_plan_id\r\n    LEFT JOIN tests.v_mrp_visiter_item AS vi ON vi.trans_visiter_id = pc.trans_visiter_id\r\n    LEFT JOIN tests.trans_shipping_order_detail AS sdd ON sdd.trans_shipping_order_detail_id = pc.trans_shipping_order_detail_id\r\n    LEFT JOIN tests.trans_order_detail AS od_sd ON od_sd.trans_order_detail_id = sdd.trans_order_detail_id\r\n) AS t\r\nWHERE pc.remove IS FALSE",
+        "columns": []
+      },
+      "preQuery": "",
+      "postQuery": "COMMENT ON COLUMN tests.v_plan_change.is_order_detail IS '対象: 受注明細';\nCOMMENT ON COLUMN tests.v_plan_change.is_purchase_detail IS '対象: 発注明細';\nCOMMENT ON COLUMN tests.v_plan_change.is_operations_plan IS '対象: 生産計画';\nCOMMENT ON COLUMN tests.v_plan_change.is_inventory_request IS '対象: 引当予約';\nCOMMENT ON COLUMN tests.v_plan_change.is_visiter IS '対象: 棚ビジター(ロット)';\nCOMMENT ON COLUMN tests.v_plan_change.is_shipping_order_detail IS '対象: 出荷オーダー明細';\nCOMMENT ON COLUMN tests.v_plan_change.is_cancel IS 'キャンセル(キャンセル数量が 0 より大きい)';\nCOMMENT ON COLUMN tests.v_plan_change.is_quantity_change IS '数量の変更';\nCOMMENT ON COLUMN tests.v_plan_change.is_date_change IS '納期の変更';\nCOMMENT ON COLUMN tests.v_plan_change.is_postpone IS '延期(納期を後ろへ)';\nCOMMENT ON COLUMN tests.v_plan_change.is_advance IS '前倒し(納期を前へ)';\nCOMMENT ON COLUMN tests.v_plan_change.is_stop IS '停止';\nCOMMENT ON COLUMN tests.v_plan_change.is_resume IS '再開';\nCOMMENT ON COLUMN tests.v_plan_change.is_discontinue IS '打ち切り';\nCOMMENT ON COLUMN tests.v_plan_change.is_release IS '在庫にする(解除)';\nCOMMENT ON COLUMN tests.v_plan_change.is_hold IS '押さえる(保管)';\nCOMMENT ON COLUMN tests.v_plan_change.is_scrap IS '廃棄';\nCOMMENT ON COLUMN tests.v_plan_change.is_deliver IS '顧客へ引き渡し';\nCOMMENT ON COLUMN tests.v_plan_change.has_settlement IS '精算あり';\nCOMMENT ON COLUMN tests.v_plan_change.is_root IS '起点の変更(親の変更が無い)';\nCOMMENT ON COLUMN tests.v_plan_change.has_children IS '下に処置がある';\nCOMMENT ON COLUMN tests.v_plan_change.customer_cause IS '顧客の都合';\nCOMMENT ON COLUMN tests.v_plan_change.supplier_cause IS '仕入先・外注先の都合';\nCOMMENT ON COLUMN tests.v_plan_change.quality_cause IS '品質の原因(異常の登録を促す)';\nCOMMENT ON COLUMN tests.v_plan_change.from_mrp IS 'MRP の提案から作られた';\nCOMMENT ON COLUMN tests.v_plan_change.is_reflected IS 'MRP に反映済み';\nCOMMENT ON COLUMN tests.v_plan_change.is_unreflected IS 'MRP に未反映(再 MRP の対象)';"
+    },
+    {
+      "id": 6009,
+      "kind": "view",
+      "logicalName": "",
+      "physicalName": "v_cancel_open_item",
+      "comment": "未処置一覧(キャンセル・停止・打ち切りのあと、処置が済んでいないもの。種類は is_* の boolean で、ちょうど 1 つ true)\n@primaryKey open_item_id\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n@foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)\n@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)\n@foreignKey (trans_operations_plan_id) references trans_operations_plan (trans_operations_plan_id)\n@foreignKey (trans_inventory_request_id) references trans_inventory_request (trans_inventory_request_id)\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (trans_shipping_order_detail_id) references trans_shipping_order_detail (trans_shipping_order_detail_id)\n@foreignKey (trans_supply_detail_id) references trans_supply_detail (trans_supply_detail_id)\n@foreignKey (trans_container_id) references trans_container (trans_container_id)\n@foreignKey (stakeholder_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (cause_trans_plan_change_id) references trans_plan_change (trans_plan_change_id)",
+      "locked": false,
+      "viewType": "sql",
+      "join": {
+        "sources": [],
+        "columns": [],
+        "where": ""
+      },
+      "function": {
+        "methodId": null,
+        "args": [],
+        "columns": []
+      },
+      "sql": {
+        "sql": "WITH q AS (\r\n    -- 1. 未解除の引当予約\r\n    SELECT\r\n        'inventory_request:' || rq.trans_inventory_request_id::text AS k\r\n        , rq.symbol\r\n        , TRUE AS is_inventory_request, FALSE AS is_work_in_process, FALSE AS is_hold, FALSE AS is_shipping_order\r\n        , FALSE AS is_outsource_order, FALSE AS is_supply_at_supplier, FALSE AS is_customer_supply\r\n        , COALESCE(ob.cancel_closed, FALSE) AS cause_cancel\r\n        , (COALESCE(ob.stop, FALSE) OR COALESCE(pop.stop, FALSE)) AS cause_stop\r\n        , COALESCE(pop.discontinue, FALSE) AS cause_discontinue\r\n        , rp.item_id\r\n        , rq.quantity\r\n        , root.od AS trans_order_detail_id\r\n        , NULL::uuid AS trans_purchase_detail_id\r\n        , rp.parent_trans_operations_plan_id AS trans_operations_plan_id\r\n        , rq.trans_inventory_request_id\r\n        , rq.trans_visiter_id\r\n        , NULL::uuid AS trans_shipping_order_detail_id\r\n        , NULL::uuid AS trans_supply_detail_id\r\n        , NULL::uuid AS trans_container_id\r\n        , o.stakeholder_id\r\n    FROM tests.trans_inventory_request AS rq\r\n    INNER JOIN tests.trans_resource_plan AS rp\r\n        ON rp.trans_resource_plan_id = rq.trans_resource_plan_id AND rp.remove IS FALSE\r\n    CROSS JOIN LATERAL (SELECT tests.mrp_root_order_detail(rp.trans_resource_plan_id) AS od) AS root\r\n    LEFT JOIN tests.v_order_detail_balance AS ob ON ob.trans_order_detail_id = root.od\r\n    LEFT JOIN tests.trans_order AS o ON o.trans_order_id = ob.trans_order_id\r\n    LEFT JOIN tests.trans_operations_plan AS pop\r\n        ON pop.trans_operations_plan_id = rp.parent_trans_operations_plan_id AND pop.remove IS FALSE\r\n    WHERE rq.remove IS FALSE AND rq.quantity > 0\r\n      AND NOT EXISTS (SELECT 1 FROM tests.trans_inventory_apply AS ap\r\n                      WHERE ap.trans_inventory_request_id = rq.trans_inventory_request_id AND ap.remove IS FALSE)\r\n      AND NOT EXISTS (SELECT 1 FROM tests.trans_plan_change AS pc\r\n                      WHERE pc.trans_inventory_request_id = rq.trans_inventory_request_id AND pc.remove IS FALSE\r\n                        AND (pc.release OR pc.hold))\r\n      AND (COALESCE(ob.cancel_closed, FALSE) OR COALESCE(ob.stop, FALSE)\r\n           OR COALESCE(pop.stop, FALSE) OR COALESCE(pop.discontinue, FALSE))\r\n\r\n    UNION ALL\r\n    -- 2. 仕掛品\r\n    SELECT\r\n        'work_in_process:' || l.trans_visiter_id::text\r\n        , l.symbol\r\n        , FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE\r\n        , COALESCE(ob.cancel_closed, FALSE)\r\n        , (op.stop OR COALESCE(ob.stop, FALSE))\r\n        , op.discontinue\r\n        , rp.item_id\r\n        , l.quantity\r\n        , root.od\r\n        , NULL::uuid\r\n        , op.trans_operations_plan_id\r\n        , NULL::uuid\r\n        , l.trans_visiter_id\r\n        , NULL::uuid\r\n        , NULL::uuid\r\n        , l.trans_container_id\r\n        , o.stakeholder_id\r\n    FROM tests.trans_operations_plan AS op\r\n    INNER JOIN tests.trans_resource_plan AS rp\r\n        ON rp.trans_resource_plan_id = op.trans_resource_plan_id AND rp.remove IS FALSE\r\n    INNER JOIN tests.trans_work_plan AS wp\r\n        ON wp.trans_operations_plan_id = op.trans_operations_plan_id AND wp.remove IS FALSE\r\n    INNER JOIN tests.trans_work_record AS wr\r\n        ON wr.trans_work_plan_id = wp.trans_work_plan_id AND wr.remove IS FALSE\r\n    INNER JOIN tests.trans_work_record_visiter AS wrv\r\n        ON wrv.trans_work_record_id = wr.trans_work_record_id AND wrv.remove IS FALSE\r\n    INNER JOIN tests.v_visiter_lineage AS lg ON lg.ancestor_visiter_id = wrv.trans_visiter_id\r\n    INNER JOIN tests.v_visiter_lot AS l ON l.trans_visiter_id = lg.trans_visiter_id\r\n    CROSS JOIN LATERAL (SELECT tests.mrp_root_order_detail(op.trans_resource_plan_id) AS od) AS root\r\n    LEFT JOIN tests.v_order_detail_balance AS ob ON ob.trans_order_detail_id = root.od\r\n    LEFT JOIN tests.trans_order AS o ON o.trans_order_id = ob.trans_order_id\r\n    WHERE op.remove IS FALSE AND l.quantity > 0\r\n      AND (op.stop OR op.discontinue OR COALESCE(ob.cancel_closed, FALSE) OR COALESCE(ob.stop, FALSE))\r\n      AND NOT EXISTS (SELECT 1 FROM tests.trans_plan_change AS pc\r\n                      WHERE pc.trans_visiter_id = l.trans_visiter_id AND pc.remove IS FALSE AND (pc.release OR pc.hold))\r\n\r\n    UNION ALL\r\n    -- 3. 押さえたままの品(押さえる = 仮止めにしたロット。仮止めのまま、数量が残るもの)\r\n    SELECT\r\n        'hold:' || l.trans_visiter_id::text\r\n        , l.symbol\r\n        , FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE\r\n        , FALSE, FALSE, FALSE\r\n        , vi.item_id\r\n        , l.quantity\r\n        , NULL::uuid\r\n        , NULL::uuid\r\n        , NULL::uuid\r\n        , NULL::uuid\r\n        , l.trans_visiter_id\r\n        , NULL::uuid\r\n        , NULL::uuid\r\n        , l.trans_container_id\r\n        , NULL::uuid\r\n    FROM tests.v_visiter_lot AS l\r\n    LEFT JOIN tests.v_mrp_visiter_item AS vi ON vi.trans_visiter_id = l.trans_visiter_id\r\n    WHERE l.release IS FALSE AND l.quantity > 0\r\n      AND EXISTS (SELECT 1 FROM tests.trans_plan_change AS pc\r\n                  WHERE pc.hold AND pc.remove IS FALSE\r\n                    AND (pc.trans_visiter_id = l.trans_visiter_id\r\n                         OR pc.trans_inventory_request_id IN (SELECT rq.trans_inventory_request_id\r\n                                                                FROM tests.trans_inventory_request AS rq\r\n                                                               WHERE rq.trans_visiter_id = l.trans_visiter_id)))\r\n\r\n    UNION ALL\r\n    -- 4. 未出荷の出荷オーダー\r\n    SELECT\r\n        'shipping_order:' || sd.trans_shipping_order_detail_id::text\r\n        , sd.symbol\r\n        , FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE\r\n        , ob.cancel_closed\r\n        , ob.stop\r\n        , FALSE\r\n        , ob.item_id\r\n        , sd.shipping_quantity - COALESCE(sh.q, 0)\r\n        , sd.trans_order_detail_id\r\n        , NULL::uuid\r\n        , NULL::uuid\r\n        , NULL::uuid\r\n        , NULL::uuid\r\n        , sd.trans_shipping_order_detail_id\r\n        , NULL::uuid\r\n        , NULL::uuid\r\n        , o.stakeholder_id\r\n    FROM tests.trans_shipping_order_detail AS sd\r\n    INNER JOIN tests.trans_shipping_order AS so\r\n        ON so.trans_shipping_order_id = sd.trans_shipping_order_id AND so.remove IS FALSE\r\n    INNER JOIN tests.v_order_detail_balance AS ob\r\n        ON ob.trans_order_detail_id = sd.trans_order_detail_id AND (ob.cancel_closed OR ob.stop)\r\n    INNER JOIN tests.trans_order AS o ON o.trans_order_id = ob.trans_order_id\r\n    LEFT JOIN LATERAL (\r\n        SELECT SUM(r.shipping_quantity) AS q FROM tests.trans_shipping_order_detail_record AS r\r\n        WHERE r.trans_shipping_order_detail_id = sd.trans_shipping_order_detail_id AND r.remove IS FALSE\r\n    ) AS sh ON TRUE\r\n    WHERE sd.remove IS FALSE AND sd.shipping_quantity - COALESCE(sh.q, 0) > 0\r\n\r\n    UNION ALL\r\n    -- 5. 未キャンセルの外注発注\r\n    SELECT\r\n        'outsource_order:' || pb.trans_purchase_detail_id::text\r\n        , pb.symbol\r\n        , FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE\r\n        , COALESCE(ob.cancel_closed, FALSE)\r\n        , (op.stop OR COALESCE(ob.stop, FALSE))\r\n        , op.discontinue\r\n        , pb.item_id\r\n        , pb.remaining_quantity\r\n        , root.od\r\n        , pb.trans_purchase_detail_id\r\n        , op.trans_operations_plan_id\r\n        , NULL::uuid\r\n        , NULL::uuid\r\n        , NULL::uuid\r\n        , NULL::uuid\r\n        , NULL::uuid\r\n        , p.stakeholder_id\r\n    FROM tests.v_purchase_detail_balance AS pb\r\n    INNER JOIN tests.trans_purchase_detail AS pd ON pd.trans_purchase_detail_id = pb.trans_purchase_detail_id\r\n    INNER JOIN tests.trans_purchase AS p ON p.trans_purchase_id = pd.trans_purchase_id\r\n    INNER JOIN tests.trans_work_plan AS wp\r\n        ON wp.trans_purchase_detail_id = pb.trans_purchase_detail_id AND wp.remove IS FALSE\r\n    INNER JOIN tests.trans_operations_plan AS op\r\n        ON op.trans_operations_plan_id = wp.trans_operations_plan_id AND op.remove IS FALSE\r\n    CROSS JOIN LATERAL (SELECT tests.mrp_root_order_detail(op.trans_resource_plan_id) AS od) AS root\r\n    LEFT JOIN tests.v_order_detail_balance AS ob ON ob.trans_order_detail_id = root.od\r\n    WHERE pb.is_outsource AND NOT pb.cancel_closed AND pb.remaining_quantity > 0\r\n      AND ((op.discontinue OR COALESCE(ob.cancel_closed, FALSE))\r\n           OR ((op.stop OR COALESCE(ob.stop, FALSE)) AND NOT pb.stop))\r\n\r\n    UNION ALL\r\n    -- 6. 外注先にある支給材(無償で渡した材料。有償は発注先の物のため除く)\r\n    SELECT\r\n        'supply_at_supplier:' || sb.trans_supply_detail_id::text\r\n        , sb.symbol\r\n        , FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE\r\n        , pb.cancel_closed\r\n        , pb.stop\r\n        , FALSE\r\n        , sb.item_id\r\n        , sb.current_quantity\r\n        , NULL::uuid\r\n        , sb.trans_purchase_detail_id\r\n        , NULL::uuid\r\n        , NULL::uuid\r\n        , NULL::uuid\r\n        , NULL::uuid\r\n        , sb.trans_supply_detail_id\r\n        , NULL::uuid\r\n        , sb.stakeholder_id\r\n    FROM tests.v_supply_detail_balance AS sb\r\n    INNER JOIN tests.v_purchase_detail_balance AS pb\r\n        ON pb.trans_purchase_detail_id = sb.trans_purchase_detail_id AND (pb.cancel_closed OR pb.stop)\r\n    WHERE sb.receive IS FALSE AND sb.paid_supply IS FALSE AND sb.current_quantity > 0\r\n\r\n    UNION ALL\r\n    -- 7. 顧客支給材の未返却(顧客の所有のロットで、受注明細が全部キャンセル済み)\r\n    SELECT\r\n        'customer_supply:' || ep.trans_visiter_id::text\r\n        , ep.symbol\r\n        , FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE\r\n        , TRUE\r\n        , FALSE\r\n        , FALSE\r\n        , COALESCE(ep.item_id, sd.item_id)\r\n        , ep.quantity\r\n        , ob.trans_order_detail_id\r\n        , NULL::uuid\r\n        , NULL::uuid\r\n        , NULL::uuid\r\n        , ep.trans_visiter_id\r\n        , NULL::uuid\r\n        , ep.trans_supply_detail_id\r\n        , ep.trans_container_id\r\n        , ep.owner_stakeholder_id\r\n    FROM tests.v_external_property AS ep\r\n    LEFT JOIN tests.trans_supply_detail AS sd ON sd.trans_supply_detail_id = ep.trans_supply_detail_id\r\n    INNER JOIN tests.v_order_detail_balance AS ob\r\n        ON ob.trans_order_detail_id = COALESCE(sd.trans_order_detail_id, ep.trans_order_detail_id) AND ob.cancel_closed\r\n)\r\nSELECT\r\n    md5(q.k)::uuid AS open_item_id\r\n    , q.symbol\r\n    , q.is_inventory_request\r\n    , q.is_work_in_process\r\n    , q.is_hold\r\n    , q.is_shipping_order\r\n    , q.is_outsource_order\r\n    , q.is_supply_at_supplier\r\n    , q.is_customer_supply\r\n    , q.cause_cancel\r\n    , q.cause_stop\r\n    , q.cause_discontinue\r\n    , q.item_id\r\n    , q.quantity\r\n    , q.trans_order_detail_id\r\n    , q.trans_purchase_detail_id\r\n    , q.trans_operations_plan_id\r\n    , q.trans_inventory_request_id\r\n    , q.trans_visiter_id\r\n    , q.trans_shipping_order_detail_id\r\n    , q.trans_supply_detail_id\r\n    , q.trans_container_id\r\n    , q.stakeholder_id\r\n    , c.trans_plan_change_id AS cause_trans_plan_change_id\r\n    , c.change_at AS since\r\nFROM q\r\nLEFT JOIN LATERAL (\r\n    -- 原因の計画変更(最新): 受注明細のキャンセル・停止、発注明細のキャンセル・停止、生産計画の停止・打ち切り\r\n    SELECT pc.trans_plan_change_id, pc.change_at\r\n    FROM tests.trans_plan_change AS pc\r\n    WHERE pc.remove IS FALSE\r\n      AND ((pc.trans_order_detail_id = q.trans_order_detail_id AND (pc.cancel_quantity > 0 OR pc.new_stop IS TRUE))\r\n           OR (pc.trans_purchase_detail_id = q.trans_purchase_detail_id AND (pc.cancel_quantity > 0 OR pc.new_stop IS TRUE))\r\n           OR (pc.trans_operations_plan_id = q.trans_operations_plan_id AND (pc.discontinue OR pc.new_stop IS TRUE)))\r\n    ORDER BY pc.change_at DESC\r\n    LIMIT 1\r\n) AS c ON TRUE",
+        "columns": []
+      },
+      "preQuery": "",
+      "postQuery": "COMMENT ON COLUMN tests.v_cancel_open_item.is_inventory_request IS '未解除の引当予約';\nCOMMENT ON COLUMN tests.v_cancel_open_item.is_work_in_process IS '仕掛品(停止・打ち切りの生産計画のロット)';\nCOMMENT ON COLUMN tests.v_cancel_open_item.is_hold IS '押さえたままの品';\nCOMMENT ON COLUMN tests.v_cancel_open_item.is_shipping_order IS '未出荷の出荷オーダー';\nCOMMENT ON COLUMN tests.v_cancel_open_item.is_outsource_order IS '未キャンセルの外注発注';\nCOMMENT ON COLUMN tests.v_cancel_open_item.is_supply_at_supplier IS '外注先にある支給材';\nCOMMENT ON COLUMN tests.v_cancel_open_item.is_customer_supply IS '顧客支給材の未返却';\nCOMMENT ON COLUMN tests.v_cancel_open_item.cause_cancel IS '原因: 全部キャンセル済み';\nCOMMENT ON COLUMN tests.v_cancel_open_item.cause_stop IS '原因: 停止(再開できる)';\nCOMMENT ON COLUMN tests.v_cancel_open_item.cause_discontinue IS '原因: 生産計画の打ち切り';\nCOMMENT ON COLUMN tests.v_cancel_open_item.quantity IS '処置が要る数量(今の数量・未出荷の数量・受入残)';\nCOMMENT ON COLUMN tests.v_cancel_open_item.cause_trans_plan_change_id IS '原因の計画変更(処置の関数の起点に渡す)';\nCOMMENT ON COLUMN tests.v_cancel_open_item.since IS '原因の日時(原因の計画変更の日時)';"
+    },
+    {
+      "id": 6010,
+      "kind": "view",
+      "logicalName": "",
+      "physicalName": "v_mrp_run",
+      "comment": "MRP 実行(状態・実行区分を boolean の列で返す)\n@primaryKey trans_mrp_run_id\n@unique symbol\n@foreignKey (trans_mrp_run_id) references trans_mrp_run (trans_mrp_run_id)\n@foreignKey (staff_history_id, staff_id) references history_info_staff (history_id, info_staff_id)",
+      "locked": false,
+      "viewType": "sql",
+      "join": {
+        "sources": [],
+        "columns": [],
+        "where": ""
+      },
+      "function": {
+        "methodId": null,
+        "args": [],
+        "columns": []
+      },
+      "sql": {
+        "sql": "SELECT\r\n    r.trans_mrp_run_id\r\n    , r.symbol\r\n    , (r.status = 0) AS is_calculated\r\n    , (r.status = 1) AS is_committed\r\n    , (r.status = 2) AS is_discarded\r\n    , (r.status = 3) AS is_expired\r\n    , (r.run_mode = 1) AS is_order_run\r\n    , (r.run_mode = 2) AS is_rerun\r\n    , r.run_at\r\n    , r.committed_at\r\n    , r.suggestion_count\r\n    , r.pending_count\r\n    , r.late_count\r\n    , r.overload_count\r\n    , r.staff_history_id\r\n    , r.staff_id\r\n    , r.params\r\n    , r.remarks\r\n    , r.update_at\r\nFROM tests.trans_mrp_run AS r\r\nWHERE r.remove IS FALSE",
+        "columns": []
+      },
+      "preQuery": "",
+      "postQuery": "COMMENT ON COLUMN tests.v_mrp_run.is_calculated IS '計算済み(確定・破棄を待っている)';\nCOMMENT ON COLUMN tests.v_mrp_run.is_committed IS '確定済み';\nCOMMENT ON COLUMN tests.v_mrp_run.is_discarded IS '破棄';\nCOMMENT ON COLUMN tests.v_mrp_run.is_expired IS '失効(新しい計算があり、確定できない)';\nCOMMENT ON COLUMN tests.v_mrp_run.is_order_run IS '受注 MRP';\nCOMMENT ON COLUMN tests.v_mrp_run.is_rerun IS '再 MRP';"
+    },
+    {
+      "id": 6011,
+      "kind": "view",
+      "logicalName": "",
+      "physicalName": "v_mrp_suggestion",
+      "comment": "MRP の提案(対象・動き・判断を boolean の列で返す。提案の種類・判断の整数は出さない)\n@primaryKey trans_mrp_suggestion_id\n@unique symbol\n@foreignKey (trans_mrp_suggestion_id) references trans_mrp_suggestion (trans_mrp_suggestion_id)\n@foreignKey (trans_mrp_run_id) references trans_mrp_run (trans_mrp_run_id)\n@foreignKey (parent_trans_mrp_suggestion_id) references trans_mrp_suggestion (trans_mrp_suggestion_id)\n@foreignKey (trans_mrp_suggestion_task_id) references trans_mrp_suggestion_task (trans_mrp_suggestion_task_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n@foreignKey (item_history_id, item_id) references history_mstr_item (history_id, mstr_item_id)\n@foreignKey (stakeholder_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (stakeholder_history_id, stakeholder_id) references history_mstr_stakeholder (history_id, mstr_stakeholder_id)\n@foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)\n@foreignKey (trans_unrecognized_detail_id) references trans_unrecognized_detail (trans_unrecognized_detail_id)\n@foreignKey (trans_resource_plan_id) references trans_resource_plan (trans_resource_plan_id)\n@foreignKey (parent_trans_operations_plan_id) references trans_operations_plan (trans_operations_plan_id)\n@foreignKey (trans_operations_plan_id) references trans_operations_plan (trans_operations_plan_id)\n@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)\n@foreignKey (mstr_equipment_id) references mstr_equipment (mstr_equipment_id)\n@foreignKey (mstr_outsource_available_history_id, mstr_outsource_available_id) references history_mstr_outsource_available (history_id, mstr_outsource_available_id)\n@foreignKey (update_user_history_id, update_user_id) references history_info_staff (history_id, info_staff_id)",
+      "locked": false,
+      "viewType": "sql",
+      "join": {
+        "sources": [],
+        "columns": [],
+        "where": ""
+      },
+      "function": {
+        "methodId": null,
+        "args": [],
+        "columns": []
+      },
+      "sql": {
+        "sql": "SELECT\r\n    s.trans_mrp_suggestion_id\r\n    , s.trans_mrp_run_id\r\n    , s.parent_trans_mrp_suggestion_id\r\n    , s.seq\r\n    , s.symbol\r\n    -- 対象\r\n    , (s.kind IN ('PURCHASE_NEW', 'PURCHASE_RESCHEDULE', 'PURCHASE_CANCEL')) AS is_purchase\r\n    , (s.kind IN ('PRODUCTION_NEW', 'PRODUCTION_RESCHEDULE', 'PRODUCTION_CANCEL')) AS is_production\r\n    , (s.kind IN ('OUTSOURCE_NEW', 'OUTSOURCE_CANCEL', 'OUTSOURCE_OPTION')) AS is_outsource\r\n    , (s.kind IN ('PLAN_NEW', 'PLAN_UPDATE', 'PLAN_KEEP', 'PLAN_CANCEL')) AS is_plan\r\n    , (s.kind IN ('EXC_OVERLOAD', 'EXC_EXCESS', 'EXC_MASTER')) AS is_exception\r\n    , (s.kind = 'SUPPLY_REQUEST') AS is_supply_request\r\n    -- 動き\r\n    , (s.kind IN ('PURCHASE_NEW', 'PRODUCTION_NEW', 'OUTSOURCE_NEW', 'PLAN_NEW', 'SUPPLY_REQUEST')) AS is_new\r\n    , (s.kind IN ('PURCHASE_RESCHEDULE', 'PRODUCTION_RESCHEDULE', 'PLAN_UPDATE')) AS is_change\r\n    , (s.kind IN ('PURCHASE_CANCEL', 'PRODUCTION_CANCEL', 'OUTSOURCE_CANCEL', 'PLAN_CANCEL')) AS is_cancel\r\n    , (s.kind = 'PLAN_KEEP') AS is_keep\r\n    , (s.kind = 'OUTSOURCE_OPTION') AS is_option\r\n    -- 例外の主題\r\n    , (s.kind = 'EXC_OVERLOAD') AS subject_equipment\r\n    , (s.kind = 'EXC_EXCESS') AS subject_stock\r\n    , (s.kind = 'EXC_MASTER') AS subject_master\r\n    -- 判断\r\n    , s.need_user\r\n    , s.late\r\n    , (s.decision = 0) AS undecided\r\n    , (s.decision = 1) AS adopted\r\n    , (s.decision = 2) AS rejected\r\n    , (s.decision = 9) AS is_info\r\n    -- 計画区分\r\n    , (s.plan_kind = 1) AS is_order_demand\r\n    , (s.plan_kind = 2) AS is_non_booked\r\n    , (s.plan_kind = 3) AS is_safety_stock\r\n    , (s.plan_kind = 4) AS is_dependent_demand\r\n    -- MRP 実行\r\n    , (r.status = 0) AS run_open\r\n    , (r.status = 1) AS run_committed\r\n    -- 値\r\n    , s.item_history_id\r\n    , s.item_id\r\n    , s.bom_level\r\n    , s.quantity\r\n    , s.allocated_quantity\r\n    , s.old_quantity\r\n    , s.need_at\r\n    , s.release_at\r\n    , s.due_at\r\n    , s.old_due_at\r\n    , s.trans_order_detail_id\r\n    , s.trans_unrecognized_detail_id\r\n    , s.trans_resource_plan_id\r\n    , s.parent_trans_operations_plan_id\r\n    , s.trans_purchase_detail_id\r\n    , s.trans_operations_plan_id\r\n    , s.stakeholder_history_id\r\n    , s.stakeholder_id\r\n    , s.cost\r\n    , s.asking_price\r\n    , s.trans_mrp_suggestion_task_id\r\n    , s.mstr_outsource_available_history_id\r\n    , s.mstr_outsource_available_id\r\n    , s.mstr_equipment_id\r\n    , s.load_date\r\n    , s.message\r\n    , s.applied_at\r\n    , s.remarks\r\n    , s.update_at\r\n    , s.update_user_id\r\n    , s.update_user_history_id\r\nFROM tests.trans_mrp_suggestion AS s\r\nINNER JOIN tests.trans_mrp_run AS r ON r.trans_mrp_run_id = s.trans_mrp_run_id AND r.remove IS FALSE\r\nWHERE s.remove IS FALSE",
+        "columns": []
+      },
+      "preQuery": "",
+      "postQuery": "COMMENT ON COLUMN tests.v_mrp_suggestion.is_purchase IS '対象: 発注';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.is_production IS '対象: 生産';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.is_outsource IS '対象: 外注';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.is_plan IS '対象: 資材計画';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.is_exception IS '対象: 例外';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.is_supply_request IS '対象: 顧客への支給依頼';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.is_new IS '動き: 新規';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.is_change IS '動き: 変更(日程・数量)';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.is_cancel IS '動き: 取消';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.is_keep IS '動き: 維持';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.is_option IS '動き: 切り替えの選択肢';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.subject_equipment IS '例外の主題: 設備(過負荷)';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.subject_stock IS '例外の主題: 在庫(過剰)';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.subject_master IS '例外の主題: マスタ(不備)';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.need_user IS 'ユーザー判断が必要';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.late IS '納期遅れ';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.undecided IS '判断が要る(未判断)';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.adopted IS '採用';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.rejected IS '却下';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.is_info IS '情報(判断の対象でない)';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.is_order_demand IS '計画区分: 受注';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.is_non_booked IS '計画区分: 非計上';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.is_safety_stock IS '計画区分: 安全在庫';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.is_dependent_demand IS '計画区分: 従属';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.run_open IS 'MRP 実行が計算済み(確定・破棄を待っている)';\nCOMMENT ON COLUMN tests.v_mrp_suggestion.run_committed IS 'MRP 実行が確定済み';"
     }
   ],
   "relationships": [

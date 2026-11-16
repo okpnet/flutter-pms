@@ -93,8 +93,25 @@ GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA :"db_test_schema" TO :"app_user_id", :"
 
 -- 一般ユーザー
 -- 一般ユーザーも登録できるよう INSERT を付ける (claude/135)
--- (棚ビジター所有者 trans_visiter_owner の書き込みは 13 で外す)
+-- (棚ビジター所有者 trans_visiter_owner の書き込みは、このファイルの末尾で外す)
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA :"db_test_schema" TO :"app_user_id";
 
 -- デバッガー用の権限付与は不要
 -- （05 でオーナーロールのメンバーにしているため。本番での削除対象は 05 のみ）
+
+-- ============================================================
+-- 棚ビジターの有効な所有者(trans_visiter_owner)の権限
+-- 関数・トリガー(visiter_owner_refresh・visiter_owner_rebuild・trg_06_visiter_owner_*)は、06(ER のデータ)に入っている。
+-- オーナーは上の付け替え(関数もオーナーロールへ)で決まる。SECURITY DEFINER の関数がスーパーユーザーの権限で動かないように、
+-- オーナーを APP_OWNER_ID にしておくこと(この付け替えのあとで、権限を調整する)
+--   ・visiter_owner_refresh: 一般ユーザー・管理者が実行できる(トリガーから呼ばれる。付けないと visiter_move・支給の登録で permission denied)
+--   ・visiter_owner_rebuild(全件の決め直し): 管理者だけ
+--   ・trans_visiter_owner は、トリガー(SECURITY DEFINER)だけが書く。アプリのロールは読み取りだけ
+--     (上で一般ユーザーに INSERT・UPDATE・DELETE、管理者に ALL を付けているので、ここで外す)
+-- ============================================================
+REVOKE ALL ON FUNCTION tests.visiter_owner_refresh(uuid, integer) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION tests.visiter_owner_refresh(uuid, integer) TO :"app_user_id", :"app_admin_id";
+REVOKE ALL ON FUNCTION tests.visiter_owner_rebuild() FROM PUBLIC;
+REVOKE ALL ON FUNCTION tests.visiter_owner_rebuild() FROM :"app_user_id";
+GRANT EXECUTE ON FUNCTION tests.visiter_owner_rebuild() TO :"app_admin_id";
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON tests.trans_visiter_owner FROM :"app_user_id", :"app_admin_id";

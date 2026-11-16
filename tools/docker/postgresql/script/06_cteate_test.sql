@@ -38,29 +38,6 @@ $$ LANGUAGE sql IMMUTABLE;
 
 COMMENT ON FUNCTION tests.mrp_need_end(timestamp) IS '@omit';
 
-CREATE OR REPLACE FUNCTION tests.apl_value(p_value jsonb) RETURNS text AS $$
-BEGIN
-    IF p_value IS NULL OR jsonb_typeof(p_value) = 'null' THEN
-        RETURN '';
-    ELSIF jsonb_typeof(p_value) = 'string' THEN
-        RETURN p_value #>> '{}';
-    END IF;
-    RAISE EXCEPTION '言語の値は文字列にしてください (%)', p_value USING ERRCODE = 'APL03';
-END
-$$ LANGUAGE plpgsql IMMUTABLE;
-
-COMMENT ON FUNCTION tests.apl_value(jsonb) IS '@omit';
-
-CREATE OR REPLACE FUNCTION tests.apl_check_object(p_values jsonb) RETURNS void AS $$
-BEGIN
-    IF p_values IS NOT NULL AND jsonb_typeof(p_values) <> 'object' THEN
-        RAISE EXCEPTION '言語の値は、言語コード → 値 のオブジェクトにしてください (%)', p_values USING ERRCODE = 'APL03';
-    END IF;
-END
-$$ LANGUAGE plpgsql IMMUTABLE;
-
-COMMENT ON FUNCTION tests.apl_check_object(jsonb) IS '@omit';
-
 CREATE TABLE tests.shared_dictionary (
   shared_dictionary_id uuid DEFAULT gen_random_uuid() NOT NULL,
   revision integer DEFAULT 1,
@@ -366,24 +343,6 @@ END
 $$ LANGUAGE plpgsql STABLE;
 
 COMMENT ON FUNCTION tests.op_staff(uuid) IS '@omit';
-
-CREATE OR REPLACE FUNCTION tests.apl_staff(
-    p_staff_id uuid, p_staff_history_id uuid, OUT staff_id uuid, OUT staff_history_id uuid
-) AS $$
-BEGIN
-    staff_id := COALESCE(p_staff_id, NULLIF(current_setting('jwt.claims.staff_id', true), '')::uuid);
-    staff_history_id := p_staff_history_id;
-    IF staff_history_id IS NULL THEN
-        SELECT h.history_id INTO staff_history_id FROM tests.history_info_staff AS h
-        WHERE h.info_staff_id = staff_id ORDER BY h.revision DESC, h.update_at DESC LIMIT 1;
-    END IF;
-    IF staff_id IS NULL OR staff_history_id IS NULL THEN
-        RAISE EXCEPTION '担当者が見つかりません (%)', staff_id USING ERRCODE = 'APL00';
-    END IF;
-END
-$$ LANGUAGE plpgsql STABLE;
-
-COMMENT ON FUNCTION tests.apl_staff(uuid, uuid) IS '@omit';
 
 CREATE TABLE tests.shared_text (
   shared_text_id uuid DEFAULT gen_random_uuid() NOT NULL,
@@ -1157,7 +1116,7 @@ CREATE TABLE tests.trans_order_detail (
   fixed_price numeric(10,2),
   delivery_date timestamp,
   deadline timestamp,
-  cancel_quantity numeric(10,2) DEFAULT 0,
+  cancel_quantity numeric(10,2) DEFAULT 0 NOT NULL,
   stop boolean DEFAULT false,
   customer_property boolean DEFAULT false,
   symbol varchar(16) DEFAULT '',
@@ -1166,7 +1125,8 @@ CREATE TABLE tests.trans_order_detail (
   update_user_id uuid,
   update_user_history_id uuid,
   remove boolean DEFAULT false,
-  CONSTRAINT trans_order_detail_pk PRIMARY KEY (trans_order_detail_id)
+  CONSTRAINT trans_order_detail_pk PRIMARY KEY (trans_order_detail_id),
+  CONSTRAINT trans_order_detail_ck1 CHECK (cancel_quantity >= 0 and cancel_quantity <= quantity)
 );
 
 ALTER TABLE tests.trans_order_detail ADD CONSTRAINT trans_order_detail_ix1 UNIQUE (trans_order_id);
@@ -1525,7 +1485,7 @@ CREATE TABLE tests.trans_purchase_detail (
   item_id uuid NOT NULL,
   material_supply boolean DEFAULT false,
   paid_supply boolean DEFAULT false,
-  cancel_quantity numeric(10,2) DEFAULT 0,
+  cancel_quantity numeric(10,2) DEFAULT 0 NOT NULL,
   stop boolean DEFAULT false,
   symbol varchar(16) DEFAULT '',
   remarks varchar(1024),
@@ -1533,7 +1493,8 @@ CREATE TABLE tests.trans_purchase_detail (
   update_user_id uuid,
   update_user_history_id uuid,
   remove boolean DEFAULT false,
-  CONSTRAINT trans_purchase_detail_pk PRIMARY KEY (trans_purchase_detail_id)
+  CONSTRAINT trans_purchase_detail_pk PRIMARY KEY (trans_purchase_detail_id),
+  CONSTRAINT trans_purchase_detail_ck1 CHECK (cancel_quantity >= 0 and cancel_quantity <= coalesce(quantity, 0))
 );
 
 ALTER TABLE tests.trans_purchase_detail ADD CONSTRAINT trans_purchase_detail_ix1 UNIQUE (trans_purchase_detail_id, trans_purchase_id);
@@ -1976,6 +1937,8 @@ CREATE TABLE tests.trans_order_detail_settlement (
   CONSTRAINT trans_order_detail_settlement_pk PRIMARY KEY (trans_order_detail_settlement_id)
 );
 
+CREATE INDEX trans_order_detail_settlement_ix91 ON tests.trans_order_detail_settlement (trans_order_detail_id);
+
 ALTER TABLE tests.trans_order_detail_settlement ADD CONSTRAINT trans_order_detail_settlement_ix1 UNIQUE (symbol);
 
 COMMENT ON TABLE tests.trans_order_detail_settlement IS '受注詳細決済';
@@ -2252,7 +2215,7 @@ CREATE TABLE tests.trans_shipping_order (
   CONSTRAINT trans_shipping_order_pk PRIMARY KEY (trans_shipping_order_id)
 );
 
-ALTER TABLE tests.trans_shipping_order ADD CONSTRAINT trans_shipping_order_ix1 UNIQUE (trans_order_id);
+CREATE INDEX trans_shipping_order_ix91 ON tests.trans_shipping_order (trans_order_id);
 
 ALTER TABLE tests.trans_shipping_order ADD CONSTRAINT trans_shipping_order_ix2 UNIQUE (symbol);
 
@@ -3366,8 +3329,19 @@ CREATE TABLE tests.trans_plan_change (
   update_user_id uuid,
   update_user_history_id uuid,
   remove boolean DEFAULT false,
-  CONSTRAINT trans_plan_change_pk PRIMARY KEY (trans_plan_change_id)
+  CONSTRAINT trans_plan_change_pk PRIMARY KEY (trans_plan_change_id),
+  CONSTRAINT trans_plan_change_ck1 CHECK (num_nonnulls( trans_order_detail_id, trans_purchase_detail_id, trans_operations_plan_id, trans_inventory_request_id, trans_visiter_id, trans_shipping_order_detail_id) = 1),
+  CONSTRAINT trans_plan_change_ck2 CHECK (cancel_quantity >= 0),
+  CONSTRAINT trans_plan_change_ck3 CHECK (not hold or trans_container_id is not null)
 );
+
+CREATE INDEX trans_plan_change_ix91 ON tests.trans_plan_change (trans_order_detail_id);
+
+CREATE INDEX trans_plan_change_ix92 ON tests.trans_plan_change (trans_purchase_detail_id);
+
+CREATE INDEX trans_plan_change_ix93 ON tests.trans_plan_change (trans_operations_plan_id);
+
+CREATE INDEX trans_plan_change_ix94 ON tests.trans_plan_change (parent_trans_plan_change_id);
 
 ALTER TABLE tests.trans_plan_change ADD CONSTRAINT trans_plan_change_ix1 UNIQUE (symbol);
 
@@ -3599,6 +3573,20 @@ $$ LANGUAGE plpgsql VOLATILE;
 
 COMMENT ON FUNCTION tests.inventory_request_release(uuid, uuid, varchar, uuid, uuid, varchar) IS '引当予約の解除。予約を取り消し(remove)、計画変更(release)を記録する(1トランザクション)。戻り値は計画変更';
 
+CREATE OR REPLACE FUNCTION tests.op_unhold(p_visiter_id uuid, p_staff uuid, p_staff_hist uuid) RETURNS void AS $$
+    UPDATE tests.trans_visiter
+    SET release = TRUE, update_user_id = p_staff, update_user_history_id = p_staff_hist
+    WHERE trans_visiter_id = p_visiter_id AND release IS FALSE AND remove IS FALSE
+      AND EXISTS (SELECT 1 FROM tests.trans_plan_change AS pc
+                  WHERE pc.hold AND pc.remove IS FALSE
+                    AND (pc.trans_visiter_id = p_visiter_id
+                         OR pc.trans_inventory_request_id IN (SELECT rq.trans_inventory_request_id
+                                                                FROM tests.trans_inventory_request AS rq
+                                                               WHERE rq.trans_visiter_id = p_visiter_id)));
+$$ LANGUAGE sql VOLATILE;
+
+COMMENT ON FUNCTION tests.op_unhold(uuid, uuid, uuid) IS '@omit';
+
 CREATE OR REPLACE FUNCTION tests.lot_release(
     p_visiter_id uuid,
     p_change_reason_id uuid DEFAULT NULL,
@@ -3614,13 +3602,14 @@ BEGIN
     IF NOT EXISTS (SELECT 1 FROM tests.trans_visiter WHERE trans_visiter_id = p_visiter_id AND remove IS FALSE) THEN
         RAISE EXCEPTION '棚ビジター(ロット)が見つかりません (%)', p_visiter_id USING ERRCODE = 'OPR01';
     END IF;
+    PERFORM tests.op_unhold(p_visiter_id, v_st.staff_id, v_st.staff_history_id);
     RETURN tests.op_add_plan_change(v_st.staff_id, v_st.staff_history_id, p_visiter => p_visiter_id,
         p_release => true, p_change_reason_id => p_change_reason_id, p_reason => p_reason,
         p_parent => p_parent_plan_change_id, p_remarks => p_remarks);
 END
 $$ LANGUAGE plpgsql VOLATILE;
 
-COMMENT ON FUNCTION tests.lot_release(uuid, uuid, varchar, uuid, uuid, varchar) IS 'キャンセル後の品物を在庫にする(処置の記録。ロットは動かさない)。計画変更(release)を記録する';
+COMMENT ON FUNCTION tests.lot_release(uuid, uuid, varchar, uuid, uuid, varchar) IS 'キャンセル後の品物を在庫にする(処置の記録)。押さえていたロットは仮止めを外す。計画変更(release)を記録する(1トランザクション)';
 
 CREATE TABLE tests.trans_supply (
   trans_supply_id uuid DEFAULT gen_random_uuid() NOT NULL,
@@ -3644,7 +3633,9 @@ CREATE TABLE tests.trans_supply (
   update_user_id uuid,
   update_user_history_id uuid,
   remove boolean DEFAULT false,
-  CONSTRAINT trans_supply_pk PRIMARY KEY (trans_supply_id)
+  CONSTRAINT trans_supply_pk PRIMARY KEY (trans_supply_id),
+  CONSTRAINT trans_supply_ck1 CHECK (num_nonnulls(trans_order_id, trans_purchase_id) <= 1),
+  CONSTRAINT trans_supply_ck2 CHECK (not (counterpart_owns and company_owns))
 );
 
 ALTER TABLE tests.trans_supply ADD CONSTRAINT trans_supply_ix1 UNIQUE (symbol);
@@ -3710,8 +3701,18 @@ CREATE TABLE tests.trans_supply_detail (
   update_user_id uuid,
   update_user_history_id uuid,
   remove boolean DEFAULT false,
-  CONSTRAINT trans_supply_detail_pk PRIMARY KEY (trans_supply_detail_id)
+  CONSTRAINT trans_supply_detail_pk PRIMARY KEY (trans_supply_detail_id),
+  CONSTRAINT trans_supply_detail_ck1 CHECK (quantity > 0),
+  CONSTRAINT trans_supply_detail_ck2 CHECK (num_nonnulls(trans_order_detail_id, trans_purchase_detail_id) <= 1)
 );
+
+CREATE INDEX trans_supply_detail_ix91 ON tests.trans_supply_detail (trans_supply_id);
+
+CREATE INDEX trans_supply_detail_ix92 ON tests.trans_supply_detail (trans_order_detail_id);
+
+CREATE INDEX trans_supply_detail_ix93 ON tests.trans_supply_detail (trans_purchase_detail_id);
+
+CREATE INDEX trans_supply_detail_ix94 ON tests.trans_supply_detail (trans_resource_plan_id);
 
 ALTER TABLE tests.trans_supply_detail ADD CONSTRAINT trans_supply_detail_ix1 UNIQUE (symbol);
 
@@ -3763,14 +3764,19 @@ CREATE TABLE tests.trans_visiter_owner (
   update_user_id uuid,
   update_user_history_id uuid,
   remove boolean DEFAULT false,
-  CONSTRAINT trans_visiter_owner_pk PRIMARY KEY (trans_visiter_owner_id)
+  CONSTRAINT trans_visiter_owner_pk PRIMARY KEY (trans_visiter_owner_id),
+  CONSTRAINT trans_visiter_owner_ck1 CHECK (num_nonnulls(trans_supply_detail_id, trans_order_detail_id) = 1),
+  CONSTRAINT trans_visiter_owner_ck2 CHECK (num_nonnulls(owner_stakeholder_history_id, owner_stakeholder_id) in (0, 2))
 );
+
+CREATE INDEX trans_visiter_owner_ix91 ON tests.trans_visiter_owner (owner_stakeholder_id);
 
 ALTER TABLE tests.trans_visiter_owner ADD CONSTRAINT trans_visiter_owner_ix1 UNIQUE (trans_visiter_id);
 
 ALTER TABLE tests.trans_visiter_owner ADD CONSTRAINT trans_visiter_owner_ix2 UNIQUE (symbol);
 
-COMMENT ON TABLE tests.trans_visiter_owner IS '支給所有権';
+COMMENT ON TABLE tests.trans_visiter_owner IS '支給所有権
+@omit create,update,delete';
 
 COMMENT ON COLUMN tests.trans_visiter_owner.trans_visiter_owner_id IS '支給所有権ID';
 
@@ -3848,6 +3854,10 @@ CREATE TABLE tests.trans_supply_visiter (
   remove boolean DEFAULT false,
   CONSTRAINT trans_supply_visiter_pk PRIMARY KEY (trans_supply_visiter_id)
 );
+
+CREATE INDEX trans_supply_visiter_ix91 ON tests.trans_supply_visiter (trans_supply_detail_id);
+
+CREATE INDEX trans_supply_visiter_ix92 ON tests.trans_supply_visiter (trans_visiter_id);
 
 ALTER TABLE tests.trans_supply_visiter ADD CONSTRAINT trans_supply_visiter_ix1 UNIQUE (symbol);
 
@@ -3946,6 +3956,56 @@ COMMENT ON COLUMN tests.trans_shipping_order_detail_record.update_user_id IS '�
 COMMENT ON COLUMN tests.trans_shipping_order_detail_record.update_user_history_id IS '更新者履歴ID';
 
 COMMENT ON COLUMN tests.trans_shipping_order_detail_record.remove IS '削除';
+
+CREATE OR REPLACE FUNCTION tests.shipping_order_detail_cancel(
+    p_shipping_order_detail_id uuid,
+    p_change_reason_id uuid DEFAULT NULL,
+    p_reason varchar DEFAULT NULL,
+    p_staff_id uuid DEFAULT NULL,
+    p_parent_plan_change_id uuid DEFAULT NULL,
+    p_remarks varchar DEFAULT NULL
+) RETURNS tests.trans_plan_change AS $$
+DECLARE
+    v_st record; v_sd tests.trans_shipping_order_detail; v_reason_hist uuid; v_row tests.trans_plan_change;
+BEGIN
+    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
+    SELECT * INTO v_sd FROM tests.trans_shipping_order_detail
+    WHERE trans_shipping_order_detail_id = p_shipping_order_detail_id FOR UPDATE;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION '出荷オーダー明細が見つかりません (%)', p_shipping_order_detail_id USING ERRCODE = 'OPR01';
+    END IF;
+    IF v_sd.remove IS TRUE THEN
+        RAISE EXCEPTION 'すでに取り消し済みの出荷オーダー明細です' USING ERRCODE = 'OPR03';
+    END IF;
+    IF EXISTS (SELECT 1 FROM tests.trans_shipping_order_detail_record AS r
+               WHERE r.trans_shipping_order_detail_id = p_shipping_order_detail_id AND r.remove IS FALSE) THEN
+        RAISE EXCEPTION '出荷実績がある出荷オーダー明細は取り消せません' USING ERRCODE = 'OPR03';
+    END IF;
+    IF p_change_reason_id IS NOT NULL THEN
+        v_reason_hist := tests.op_hist_change_reason(p_change_reason_id);
+        IF v_reason_hist IS NULL THEN
+            RAISE EXCEPTION '変更理由が見つかりません (%)', p_change_reason_id USING ERRCODE = 'OPR00';
+        END IF;
+    END IF;
+    UPDATE tests.trans_shipping_order_detail
+    SET remove = TRUE, update_user_id = v_st.staff_id, update_user_history_id = v_st.staff_history_id
+    WHERE trans_shipping_order_detail_id = p_shipping_order_detail_id;
+    INSERT INTO tests.trans_plan_change (
+        parent_trans_plan_change_id, change_at, trans_shipping_order_detail_id,
+        old_quantity, new_quantity, cancel_quantity,
+        change_reason_history_id, change_reason_id, reason,
+        staff_history_id, staff_id, remarks, update_user_id, update_user_history_id)
+    VALUES (
+        p_parent_plan_change_id, now(), p_shipping_order_detail_id,
+        v_sd.shipping_quantity, 0, v_sd.shipping_quantity,
+        v_reason_hist, p_change_reason_id, p_reason,
+        v_st.staff_history_id, v_st.staff_id, p_remarks, v_st.staff_id, v_st.staff_history_id)
+    RETURNING * INTO v_row;
+    RETURN v_row;
+END
+$$ LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION tests.shipping_order_detail_cancel(uuid, uuid, varchar, uuid, uuid, varchar) IS '未出荷の出荷オーダー明細の取り消し(出荷実績があるときは不可)。論理削除し、計画変更(キャンセル数量)を記録する(1トランザクション)。戻り値は計画変更';
 
 CREATE TABLE tests.mstr_return_kind (
   mstr_return_kind_id uuid DEFAULT gen_random_uuid() NOT NULL,
@@ -4125,8 +4185,16 @@ CREATE TABLE tests.trans_return_detail (
   update_user_id uuid,
   update_user_history_id uuid,
   remove boolean DEFAULT false,
-  CONSTRAINT trans_return_detail_pk PRIMARY KEY (trans_return_detail_id)
+  CONSTRAINT trans_return_detail_pk PRIMARY KEY (trans_return_detail_id),
+  CONSTRAINT trans_return_detail_ck1 CHECK (quantity > 0),
+  CONSTRAINT trans_return_detail_ck2 CHECK (num_nonnulls(trans_order_detail_id, trans_shipping_order_detail_record_id) = 0 or num_nonnulls(trans_purchase_detail_id, trans_purchase_rec_id) = 0)
 );
+
+CREATE INDEX trans_return_detail_ix91 ON tests.trans_return_detail (trans_return_id);
+
+CREATE INDEX trans_return_detail_ix92 ON tests.trans_return_detail (trans_order_detail_id);
+
+CREATE INDEX trans_return_detail_ix93 ON tests.trans_return_detail (trans_purchase_detail_id);
 
 ALTER TABLE tests.trans_return_detail ADD CONSTRAINT trans_return_detail_ix1 UNIQUE (symbol);
 
@@ -4178,6 +4246,10 @@ CREATE TABLE tests.trans_return_visiter (
   remove boolean DEFAULT false,
   CONSTRAINT trans_return_visiter_pk PRIMARY KEY (trans_return_visiter_id)
 );
+
+CREATE INDEX trans_return_visiter_ix91 ON tests.trans_return_visiter (trans_return_detail_id);
+
+CREATE INDEX trans_return_visiter_ix92 ON tests.trans_return_visiter (trans_visiter_id);
 
 ALTER TABLE tests.trans_return_visiter ADD CONSTRAINT trans_return_visiter_ix1 UNIQUE (symbol);
 
@@ -5384,22 +5456,6 @@ COMMENT ON COLUMN tests.shared_language_code.update_user_history_id IS '更新�
 
 COMMENT ON COLUMN tests.shared_language_code.remove IS '削除';
 
-CREATE OR REPLACE FUNCTION tests.apl_language(p_code text) RETURNS uuid AS $$
-DECLARE
-    v_id uuid;
-BEGIN
-    SELECT l.shared_language_code_id INTO v_id FROM tests.shared_language_code AS l
-    WHERE l.remove = false AND lower(l.code) = lower(p_code)
-    ORDER BY (l.code = p_code) DESC, l.shared_language_code_id LIMIT 1;
-    IF v_id IS NULL THEN
-        RAISE EXCEPTION '言語コードがありません (%)', p_code USING ERRCODE = 'APL00';
-    END IF;
-    RETURN v_id;
-END
-$$ LANGUAGE plpgsql STABLE;
-
-COMMENT ON FUNCTION tests.apl_language(text) IS '@omit';
-
 CREATE TABLE tests.trans_text_value (
   trans_text_value_id uuid DEFAULT gen_random_uuid() NOT NULL,
   trans_text_id uuid NOT NULL,
@@ -5446,53 +5502,6 @@ COMMENT ON COLUMN tests.trans_text_value.update_user_history_id IS '更新者履
 
 COMMENT ON COLUMN tests.trans_text_value.remove IS '削除';
 
-CREATE OR REPLACE FUNCTION tests.trans_text_save(
-    p_text_id uuid DEFAULT NULL,
-    p_values jsonb DEFAULT NULL,
-    p_staff_id uuid DEFAULT NULL,
-    p_staff_history_id uuid DEFAULT NULL
-) RETURNS tests.trans_text AS $$
-DECLARE
-    v_staff record;
-    v_id uuid := p_text_id;
-    v_item record;
-    v_lang uuid;
-    v_value_id uuid;
-    v_row tests.trans_text%ROWTYPE;
-BEGIN
-    SELECT * INTO v_staff FROM tests.apl_staff(p_staff_id, p_staff_history_id);
-    PERFORM tests.apl_check_object(p_values);
-    IF v_id IS NULL THEN
-        INSERT INTO tests.trans_text (update_user_id, update_user_history_id)
-        VALUES (v_staff.staff_id, v_staff.staff_history_id) RETURNING trans_text_id INTO v_id;
-    ELSE
-        SELECT * INTO v_row FROM tests.trans_text WHERE trans_text_id = v_id FOR UPDATE;
-        IF v_row.trans_text_id IS NULL OR v_row.remove THEN
-            RAISE EXCEPTION '文章が見つかりません (%)', v_id USING ERRCODE = 'APL01';
-        END IF;
-    END IF;
-    FOR v_item IN SELECT key, value FROM jsonb_each(COALESCE(p_values, '{}'::jsonb)) LOOP
-        v_lang := tests.apl_language(v_item.key);
-        SELECT trans_text_value_id INTO v_value_id FROM tests.trans_text_value
-         WHERE trans_text_id = v_id AND shared_language_code_id = v_lang;
-        IF v_value_id IS NULL THEN
-            INSERT INTO tests.trans_text_value
-                (trans_text_id, shared_language_code_id, text_value, update_user_id, update_user_history_id)
-            VALUES (v_id, v_lang, tests.apl_value(v_item.value), v_staff.staff_id, v_staff.staff_history_id);
-        ELSE
-            UPDATE tests.trans_text_value
-               SET text_value = tests.apl_value(v_item.value), remove = false,
-                   update_user_id = v_staff.staff_id, update_user_history_id = v_staff.staff_history_id
-             WHERE trans_text_value_id = v_value_id;
-        END IF;
-    END LOOP;
-    SELECT * INTO v_row FROM tests.trans_text WHERE trans_text_id = v_id;
-    RETURN v_row;
-END
-$$ LANGUAGE plpgsql VOLATILE;
-
-COMMENT ON FUNCTION tests.trans_text_save(uuid, jsonb, uuid, uuid) IS 'trans の文章(詳細など)を、言語別の値(JSON)で作る・渡した言語の値だけ入れ替える。返った ID を、本体の details 系の列に渡す';
-
 CREATE TABLE tests.trans_label_value (
   trans_label_value_id uuid DEFAULT gen_random_uuid() NOT NULL,
   trans_label_id uuid NOT NULL,
@@ -5532,52 +5541,6 @@ COMMENT ON COLUMN tests.trans_label_value.update_user_id IS '更新者ID';
 COMMENT ON COLUMN tests.trans_label_value.update_user_history_id IS '更新者履歴ID';
 
 COMMENT ON COLUMN tests.trans_label_value.remove IS '削除';
-
-CREATE OR REPLACE FUNCTION tests.trans_label_save(
-    p_label_id uuid DEFAULT NULL,
-    p_values jsonb DEFAULT NULL,
-    p_staff_id uuid DEFAULT NULL,
-    p_staff_history_id uuid DEFAULT NULL
-) RETURNS tests.trans_label AS $$
-DECLARE
-    v_staff record;
-    v_id uuid := p_label_id;
-    v_item record;
-    v_lang uuid;
-    v_value_id uuid;
-    v_row tests.trans_label%ROWTYPE;
-BEGIN
-    SELECT * INTO v_staff FROM tests.apl_staff(p_staff_id, p_staff_history_id);
-    PERFORM tests.apl_check_object(p_values);
-    IF v_id IS NULL THEN
-        INSERT INTO tests.trans_label (update_user_id, update_user_history_id)
-        VALUES (v_staff.staff_id, v_staff.staff_history_id) RETURNING trans_label_id INTO v_id;
-    ELSE
-        SELECT * INTO v_row FROM tests.trans_label WHERE trans_label_id = v_id FOR UPDATE;
-        IF v_row.trans_label_id IS NULL OR v_row.remove THEN
-            RAISE EXCEPTION 'ラベルが見つかりません (%)', v_id USING ERRCODE = 'APL01';
-        END IF;
-    END IF;
-    FOR v_item IN SELECT key, value FROM jsonb_each(COALESCE(p_values, '{}'::jsonb)) LOOP
-        v_lang := tests.apl_language(v_item.key);
-        SELECT trans_label_value_id INTO v_value_id FROM tests.trans_label_value
-         WHERE trans_label_id = v_id AND shared_language_code_id = v_lang;
-        IF v_value_id IS NULL THEN
-            INSERT INTO tests.trans_label_value (trans_label_id, shared_language_code_id, label_value, update_user_id, update_user_history_id)
-            VALUES (v_id, v_lang, tests.apl_value(v_item.value), v_staff.staff_id, v_staff.staff_history_id);
-        ELSE
-            UPDATE tests.trans_label_value
-               SET label_value = tests.apl_value(v_item.value), remove = false,
-                   update_user_id = v_staff.staff_id, update_user_history_id = v_staff.staff_history_id
-             WHERE trans_label_value_id = v_value_id;
-        END IF;
-    END LOOP;
-    SELECT * INTO v_row FROM tests.trans_label WHERE trans_label_id = v_id;
-    RETURN v_row;
-END
-$$ LANGUAGE plpgsql VOLATILE;
-
-COMMENT ON FUNCTION tests.trans_label_save(uuid, jsonb, uuid, uuid) IS 'trans のラベル(題名・名称)を、言語別の値(JSON)で作る・渡した言語の値だけ入れ替える。返った ID を、本体の題名・名称の列に渡す';
 
 CREATE TABLE tests.shared_text_value (
   shared_text_value_id uuid DEFAULT gen_random_uuid() NOT NULL,
@@ -5627,53 +5590,6 @@ COMMENT ON COLUMN tests.shared_text_value.update_user_id IS '更新者ID';
 COMMENT ON COLUMN tests.shared_text_value.update_user_history_id IS '更新者履歴ID';
 
 COMMENT ON COLUMN tests.shared_text_value.remove IS '削除';
-
-CREATE OR REPLACE FUNCTION tests.shared_text_save(
-    p_text_id uuid DEFAULT NULL,
-    p_values jsonb DEFAULT NULL,
-    p_staff_id uuid DEFAULT NULL,
-    p_staff_history_id uuid DEFAULT NULL
-) RETURNS tests.shared_text AS $$
-DECLARE
-    v_staff record;
-    v_id uuid := p_text_id;
-    v_item record;
-    v_lang uuid;
-    v_value_id uuid;
-    v_row tests.shared_text%ROWTYPE;
-BEGIN
-    SELECT * INTO v_staff FROM tests.apl_staff(p_staff_id, p_staff_history_id);
-    PERFORM tests.apl_check_object(p_values);
-    IF v_id IS NULL THEN
-        INSERT INTO tests.shared_text (update_user_id, update_user_history_id)
-        VALUES (v_staff.staff_id, v_staff.staff_history_id) RETURNING shared_text_id INTO v_id;
-    ELSE
-        SELECT * INTO v_row FROM tests.shared_text WHERE shared_text_id = v_id FOR UPDATE;
-        IF v_row.shared_text_id IS NULL OR v_row.remove THEN
-            RAISE EXCEPTION '文章が見つかりません (%)', v_id USING ERRCODE = 'APL01';
-        END IF;
-    END IF;
-    FOR v_item IN SELECT key, value FROM jsonb_each(COALESCE(p_values, '{}'::jsonb)) LOOP
-        v_lang := tests.apl_language(v_item.key);
-        SELECT shared_text_value_id INTO v_value_id FROM tests.shared_text_value
-         WHERE shared_text_id = v_id AND shared_language_code_id = v_lang;
-        IF v_value_id IS NULL THEN
-            INSERT INTO tests.shared_text_value
-                (shared_language_code_id, shared_text_id, text_value, update_user_id, update_user_history_id)
-            VALUES (v_lang, v_id, tests.apl_value(v_item.value), v_staff.staff_id, v_staff.staff_history_id);
-        ELSE
-            UPDATE tests.shared_text_value
-               SET text_value = tests.apl_value(v_item.value), remove = false,
-                   update_user_id = v_staff.staff_id, update_user_history_id = v_staff.staff_history_id
-             WHERE shared_text_value_id = v_value_id;
-        END IF;
-    END LOOP;
-    SELECT * INTO v_row FROM tests.shared_text WHERE shared_text_id = v_id;
-    RETURN v_row;
-END
-$$ LANGUAGE plpgsql VOLATILE;
-
-COMMENT ON FUNCTION tests.shared_text_save(uuid, jsonb, uuid, uuid) IS '文章(詳細など)を、言語別の値(JSON)で作る・渡した言語の値だけ入れ替える。返った ID を、本体の details 列に渡す';
 
 CREATE TABLE tests.history_shared_text_value (
   history_id uuid DEFAULT gen_random_uuid() NOT NULL,
@@ -6129,92 +6045,6 @@ COMMENT ON COLUMN tests.shared_dictionary_value.update_user_id IS '更新者ID';
 COMMENT ON COLUMN tests.shared_dictionary_value.update_user_history_id IS '更新者履歴ID';
 
 COMMENT ON COLUMN tests.shared_dictionary_value.remove IS '削除';
-
-CREATE OR REPLACE FUNCTION tests.shared_appellation_save(
-    p_appellation_id uuid DEFAULT NULL,
-    p_name jsonb DEFAULT NULL,
-    p_pronunciation jsonb DEFAULT NULL,
-    p_nickname jsonb DEFAULT NULL,
-    p_staff_id uuid DEFAULT NULL,
-    p_staff_history_id uuid DEFAULT NULL
-) RETURNS tests.shared_appellations AS $$
-DECLARE
-    v_staff record;
-    v_id uuid := p_appellation_id;
-    v_row tests.shared_appellations%ROWTYPE;
-    v_ids uuid[] := ARRAY[NULL, NULL, NULL]::uuid[];  -- 名称・読み・略称の辞書
-    v_vals jsonb[] := ARRAY[p_name, p_pronunciation, p_nickname];
-    v_new_id uuid;
-    v_changed boolean := false;
-    v_item record;
-    v_lang uuid;
-    v_value_id uuid;
-    i int;
-BEGIN
-    SELECT * INTO v_staff FROM tests.apl_staff(p_staff_id, p_staff_history_id);
-    PERFORM tests.apl_check_object(p_name);
-    PERFORM tests.apl_check_object(p_pronunciation);
-    PERFORM tests.apl_check_object(p_nickname);
-
-    IF v_id IS NOT NULL THEN
-        SELECT * INTO v_row FROM tests.shared_appellations WHERE shared_appellations_id = v_id FOR UPDATE;
-        IF v_row.shared_appellations_id IS NULL OR v_row.remove THEN
-            RAISE EXCEPTION '呼称が見つかりません (%)', v_id USING ERRCODE = 'APL01';
-        END IF;
-        v_ids := ARRAY[v_row.shared_dictionary_name_id, v_row.shared_dictionary_pronunciation_id, v_row.shared_dictionary_nickname_id];
-    END IF;
-
-    FOR i IN 1..3 LOOP
-        -- 名称は、新規なら必ず辞書を作る。読み・略称は、値を渡したときだけ
-        IF v_ids[i] IS NULL AND (v_vals[i] IS NOT NULL OR (i = 1 AND v_id IS NULL)) THEN
-            INSERT INTO tests.shared_dictionary (update_user_id, update_user_history_id)
-            VALUES (v_staff.staff_id, v_staff.staff_history_id) RETURNING shared_dictionary_id INTO v_new_id;
-            v_ids[i] := v_new_id;
-            v_changed := true;
-        ELSIF v_ids[i] IS NOT NULL THEN
-            PERFORM 1 FROM tests.shared_dictionary WHERE shared_dictionary_id = v_ids[i] FOR UPDATE;
-        END IF;
-        FOR v_item IN SELECT key, value FROM jsonb_each(COALESCE(v_vals[i], '{}'::jsonb)) LOOP
-            v_lang := tests.apl_language(v_item.key);
-            SELECT shared_dictionary_value_id INTO v_value_id FROM tests.shared_dictionary_value
-             WHERE shared_dictionary_id = v_ids[i] AND shared_language_code_id = v_lang;
-            IF v_value_id IS NULL THEN
-                INSERT INTO tests.shared_dictionary_value
-                    (shared_language_code_id, shared_dictionary_id, dictionary_value, update_user_id, update_user_history_id)
-                VALUES (v_lang, v_ids[i], tests.apl_value(v_item.value), v_staff.staff_id, v_staff.staff_history_id);
-            ELSE
-                UPDATE tests.shared_dictionary_value
-                   SET dictionary_value = tests.apl_value(v_item.value), remove = false,
-                       update_user_id = v_staff.staff_id, update_user_history_id = v_staff.staff_history_id
-                 WHERE shared_dictionary_value_id = v_value_id;
-            END IF;
-        END LOOP;
-    END LOOP;
-
-    -- 名称は、いずれかの言語に空でない値が必要(ja の必須ではない)。違反は、ここまでの変更ごと取り消される
-    IF NOT EXISTS (SELECT 1 FROM tests.shared_dictionary_value
-                    WHERE shared_dictionary_id = v_ids[1] AND remove = false AND dictionary_value <> '') THEN
-        RAISE EXCEPTION '名称には、いずれかの言語に値が必要です' USING ERRCODE = 'APL02';
-    END IF;
-
-    IF v_id IS NULL THEN
-        INSERT INTO tests.shared_appellations
-            (shared_dictionary_name_id, shared_dictionary_pronunciation_id, shared_dictionary_nickname_id,
-             update_user_id, update_user_history_id)
-        VALUES (v_ids[1], v_ids[2], v_ids[3], v_staff.staff_id, v_staff.staff_history_id)
-        RETURNING shared_appellations_id INTO v_id;
-    ELSIF v_changed THEN
-        UPDATE tests.shared_appellations
-           SET shared_dictionary_pronunciation_id = v_ids[2], shared_dictionary_nickname_id = v_ids[3],
-               update_user_id = v_staff.staff_id, update_user_history_id = v_staff.staff_history_id
-         WHERE shared_appellations_id = v_id;
-    END IF;
-    SELECT * INTO v_row FROM tests.shared_appellations WHERE shared_appellations_id = v_id;
-    RETURN v_row;
-END
-$$ LANGUAGE plpgsql VOLATILE;
-
-COMMENT ON FUNCTION tests.shared_appellation_save(uuid, jsonb, jsonb, jsonb, uuid, uuid) IS '呼称(名称・読み・略称)を、言語別の値(JSON)で作る・渡した言語の値だけ入れ替える。返った ID を、本体の names 列に渡す';
 
 CREATE TABLE tests.history_shared_dictionary_value (
   history_id uuid DEFAULT gen_random_uuid() NOT NULL,
@@ -12984,6 +12814,135 @@ COMMENT ON COLUMN tests.trans_work_record_visiter.update_user_history_id IS '更
 
 COMMENT ON COLUMN tests.trans_work_record_visiter.remove IS '削除';
 
+CREATE OR REPLACE FUNCTION tests.visiter_owner_refresh(p_lot uuid, p_depth integer DEFAULT 0) RETURNS void
+SECURITY DEFINER SET search_path = tests, pg_catalog AS $$
+DECLARE
+    v_lot tests.trans_visiter;
+    v_owner_hist uuid; v_owner uuid; v_sd uuid; v_od uuid; v_at timestamp;
+    v_found boolean := false;
+    r record; c record;
+    v_op uuid; v_rp record; v_guard integer := 0;
+BEGIN
+    IF p_lot IS NULL OR p_depth > 50 THEN RETURN; END IF;
+    SELECT * INTO v_lot FROM tests.trans_visiter WHERE trans_visiter_id = p_lot;
+    -- 在庫(ロット)の行だけが対象 (出庫・棚卸しの行は所有者を持たない)
+    IF NOT FOUND OR v_lot.quantity <= 0 OR v_lot.adjustment IS TRUE THEN RETURN; END IF;
+
+    -- 1. 直接つながる、所有を変える支給の最新
+    SELECT s.counterpart_owns, s.stakeholder_history_id, s.stakeholder_id, sd.trans_supply_detail_id, s.supply_at
+      INTO r
+      FROM tests.trans_supply_visiter AS sv
+     INNER JOIN tests.trans_supply_detail AS sd
+        ON sd.trans_supply_detail_id = sv.trans_supply_detail_id AND sd.remove IS FALSE
+     INNER JOIN tests.trans_supply AS s
+        ON s.trans_supply_id = sd.trans_supply_id AND s.remove IS FALSE
+       AND (s.counterpart_owns IS TRUE OR s.company_owns IS TRUE)
+     WHERE sv.trans_visiter_id = p_lot AND sv.remove IS FALSE
+     ORDER BY s.supply_at DESC, sv.update_at DESC
+     LIMIT 1;
+    IF FOUND THEN
+        v_found := true;
+        v_sd := r.trans_supply_detail_id; v_at := r.supply_at;
+        IF r.counterpart_owns THEN
+            v_owner_hist := r.stakeholder_history_id; v_owner := r.stakeholder_id;
+        END IF;
+    END IF;
+
+    -- 2. 分割元の所有者
+    IF NOT v_found AND v_lot.parent_trans_visiter_id IS NOT NULL THEN
+        SELECT o.* INTO r FROM tests.trans_visiter_owner AS o
+         WHERE o.trans_visiter_id = v_lot.parent_trans_visiter_id AND o.remove IS FALSE;
+        IF FOUND THEN
+            v_found := true;
+            v_owner_hist := r.owner_stakeholder_history_id; v_owner := r.owner_stakeholder_id;
+            v_sd := r.trans_supply_detail_id; v_od := r.trans_order_detail_id; v_at := r.effective_at;
+        END IF;
+    END IF;
+
+    -- 3. 作業実績で作られたロット: いちばん上の受注明細が顧客所有なら、その受注の顧客
+    IF NOT v_found THEN
+        SELECT wp.trans_operations_plan_id INTO v_op
+          FROM tests.trans_work_record_visiter AS wrv
+         INNER JOIN tests.trans_work_record AS wr ON wr.trans_work_record_id = wrv.trans_work_record_id AND wr.remove IS FALSE
+         INNER JOIN tests.trans_work_plan AS wp ON wp.trans_work_plan_id = wr.trans_work_plan_id
+         WHERE wrv.trans_visiter_id = p_lot AND wrv.remove IS FALSE
+         LIMIT 1;
+        WHILE v_op IS NOT NULL AND v_guard < 30 LOOP
+            v_guard := v_guard + 1;
+            SELECT rp.trans_order_detail_id, rp.parent_trans_operations_plan_id INTO v_rp
+              FROM tests.trans_operations_plan AS op
+             INNER JOIN tests.trans_resource_plan AS rp ON rp.trans_resource_plan_id = op.trans_resource_plan_id
+             WHERE op.trans_operations_plan_id = v_op;
+            EXIT WHEN NOT FOUND;
+            IF v_rp.trans_order_detail_id IS NOT NULL THEN
+                SELECT od.trans_order_detail_id, o.stakeholder_history_id, o.stakeholder_id INTO r
+                  FROM tests.trans_order_detail AS od
+                 INNER JOIN tests.trans_order AS o ON o.trans_order_id = od.trans_order_id
+                 WHERE od.trans_order_detail_id = v_rp.trans_order_detail_id
+                   AND od.customer_property IS TRUE AND o.stakeholder_id IS NOT NULL;
+                IF FOUND THEN
+                    v_found := true;
+                    v_owner_hist := r.stakeholder_history_id; v_owner := r.stakeholder_id;
+                    v_od := r.trans_order_detail_id; v_at := now();
+                END IF;
+                EXIT;
+            END IF;
+            v_op := v_rp.parent_trans_operations_plan_id;
+        END LOOP;
+    END IF;
+
+    -- 書き込み (無ければ消す = 自社)
+    IF v_found THEN
+        INSERT INTO tests.trans_visiter_owner AS t (trans_visiter_id, owner_stakeholder_history_id, owner_stakeholder_id,
+                                                    trans_supply_detail_id, trans_order_detail_id, effective_at)
+        VALUES (p_lot, v_owner_hist, v_owner, v_sd, v_od, COALESCE(v_at, now()))
+        ON CONFLICT (trans_visiter_id) DO UPDATE
+        SET owner_stakeholder_history_id = EXCLUDED.owner_stakeholder_history_id,
+            owner_stakeholder_id = EXCLUDED.owner_stakeholder_id,
+            trans_supply_detail_id = EXCLUDED.trans_supply_detail_id,
+            trans_order_detail_id = EXCLUDED.trans_order_detail_id,
+            effective_at = EXCLUDED.effective_at,
+            remove = FALSE
+        WHERE (t.owner_stakeholder_id, t.trans_supply_detail_id, t.trans_order_detail_id, t.remove)
+              IS DISTINCT FROM (EXCLUDED.owner_stakeholder_id, EXCLUDED.trans_supply_detail_id, EXCLUDED.trans_order_detail_id, FALSE);
+    ELSE
+        DELETE FROM tests.trans_visiter_owner WHERE trans_visiter_id = p_lot;
+    END IF;
+
+    -- 分割先のロットも決め直す
+    FOR c IN
+        SELECT v.trans_visiter_id FROM tests.trans_visiter AS v
+         WHERE v.parent_trans_visiter_id = p_lot AND v.remove IS FALSE
+           AND v.quantity > 0 AND v.adjustment IS NOT TRUE
+    LOOP
+        PERFORM tests.visiter_owner_refresh(c.trans_visiter_id, p_depth + 1);
+    END LOOP;
+END
+$$ LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION tests.visiter_owner_refresh(uuid, integer) IS '@omit';
+
+CREATE OR REPLACE FUNCTION tests.visiter_owner_rebuild() RETURNS integer
+SECURITY DEFINER SET search_path = tests, pg_catalog AS $$
+DECLARE
+    c record; n integer := 0;
+BEGIN
+    DELETE FROM tests.trans_visiter_owner;
+    -- 分割元の無いロットから順に (分割先は refresh の中で決め直される)
+    FOR c IN
+        SELECT v.trans_visiter_id FROM tests.trans_visiter AS v
+         WHERE v.remove IS FALSE AND v.quantity > 0 AND v.adjustment IS NOT TRUE
+           AND v.parent_trans_visiter_id IS NULL
+    LOOP
+        PERFORM tests.visiter_owner_refresh(c.trans_visiter_id);
+        n := n + 1;
+    END LOOP;
+    RETURN n;
+END
+$$ LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION tests.visiter_owner_rebuild() IS '棚ビジターの所有者をすべて決め直す(受注明細の顧客所有・受注の顧客を後から変えたとき)';
+
 CREATE TABLE tests.trans_purchase_rec_visiter (
   trans_purchase_rec_visiter_id uuid DEFAULT gen_random_uuid() NOT NULL,
   trans_purchase_rec_id uuid NOT NULL,
@@ -16297,6 +16256,7 @@ DECLARE
     v_st record;
 BEGIN
     SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
+    PERFORM tests.op_unhold(p_visiter_id, v_st.staff_id, v_st.staff_history_id);
     PERFORM tests.visiter_issue(p_visiter_id, p_quantity, NULL, v_st.staff_id, p_location_id, NULL, p_remarks);
     RETURN tests.op_add_plan_change(v_st.staff_id, v_st.staff_history_id, p_visiter => p_visiter_id,
         p_scrap => true, p_change_reason_id => p_change_reason_id, p_reason => p_reason,
@@ -16304,7 +16264,7 @@ BEGIN
 END
 $$ LANGUAGE plpgsql VOLATILE;
 
-COMMENT ON FUNCTION tests.lot_scrap(uuid, numeric, uuid, varchar, uuid, uuid, varchar, uuid) IS '品物の廃棄。ロットから払い出し(visiter_issue)、計画変更(scrap)を記録する(1トランザクション)';
+COMMENT ON FUNCTION tests.lot_scrap(uuid, numeric, uuid, varchar, uuid, uuid, varchar, uuid) IS '品物の廃棄。押さえていたロットは仮止めを外してから、ロットから払い出し(visiter_issue)、計画変更(scrap)を記録する(1トランザクション)';
 
 CREATE OR REPLACE FUNCTION tests.lot_deliver(
     p_visiter_id uuid,
@@ -16321,6 +16281,7 @@ DECLARE
     v_st record;
 BEGIN
     SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
+    PERFORM tests.op_unhold(p_visiter_id, v_st.staff_id, v_st.staff_history_id);
     PERFORM tests.visiter_issue(p_visiter_id, p_quantity, NULL, v_st.staff_id, p_location_id, NULL, p_remarks);
     RETURN tests.op_add_plan_change(v_st.staff_id, v_st.staff_history_id, p_visiter => p_visiter_id,
         p_deliver => true, p_settlement => p_order_detail_settlement_id,
@@ -16329,7 +16290,7 @@ BEGIN
 END
 $$ LANGUAGE plpgsql VOLATILE;
 
-COMMENT ON FUNCTION tests.lot_deliver(uuid, numeric, uuid, uuid, varchar, uuid, uuid, varchar, uuid) IS '顧客への引き渡し。ロットから払い出し(visiter_issue)、計画変更(deliver・精算)を記録する(1トランザクション)';
+COMMENT ON FUNCTION tests.lot_deliver(uuid, numeric, uuid, uuid, varchar, uuid, uuid, varchar, uuid) IS '顧客への引き渡し。押さえていたロットは仮止めを外してから、ロットから払い出し(visiter_issue)、計画変更(deliver・精算)を記録する(1トランザクション)';
 
 CREATE OR REPLACE FUNCTION tests.return_register(
     p_return_kind_id uuid,
@@ -21720,6 +21681,598 @@ COMMENT ON VIEW tests.v_work_plan_registrable IS '@primaryKey trans_work_plan_id
 @foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)
 登録できる作業指示か(生産計画の連なりと最上位の受注明細の、停止・打ち切り・全部キャンセルの判定)';
 
+CREATE VIEW tests.v_plan_change AS
+SELECT
+    pc.trans_plan_change_id
+    , pc.symbol
+    , pc.parent_trans_plan_change_id
+    , pc.change_at
+    -- 対象(どれか 1 つ)
+    , pc.trans_order_detail_id
+    , pc.trans_purchase_detail_id
+    , pc.trans_operations_plan_id
+    , pc.trans_inventory_request_id
+    , pc.trans_visiter_id
+    , pc.trans_shipping_order_detail_id
+    , (pc.trans_order_detail_id IS NOT NULL) AS is_order_detail
+    , (pc.trans_purchase_detail_id IS NOT NULL) AS is_purchase_detail
+    , (pc.trans_operations_plan_id IS NOT NULL) AS is_operations_plan
+    , (pc.trans_inventory_request_id IS NOT NULL) AS is_inventory_request
+    , (pc.trans_visiter_id IS NOT NULL) AS is_visiter
+    , (pc.trans_shipping_order_detail_id IS NOT NULL) AS is_shipping_order_detail
+    , t.item_id
+    , t.root_trans_order_detail_id
+    -- 動き(キャンセル・数量・日付・停止)。値そのものは、下の列で読む
+    , (pc.cancel_quantity > 0) AS is_cancel
+    , (pc.new_quantity IS NOT NULL AND pc.new_quantity IS DISTINCT FROM pc.old_quantity) AS is_quantity_change
+    , (pc.new_date IS NOT NULL AND pc.new_date IS DISTINCT FROM pc.old_date) AS is_date_change
+    , (pc.new_date IS NOT NULL AND pc.old_date IS NOT NULL AND pc.new_date > pc.old_date) AS is_postpone
+    , (pc.new_date IS NOT NULL AND pc.old_date IS NOT NULL AND pc.new_date < pc.old_date) AS is_advance
+    , (pc.new_stop IS TRUE AND pc.old_stop IS NOT TRUE) AS is_stop
+    , (pc.new_stop IS FALSE AND pc.old_stop IS TRUE) AS is_resume
+    -- 処置(生産計画の打ち切り・引当予約の解除と保管・品物の処置)
+    , pc.discontinue AS is_discontinue
+    , pc.release AS is_release
+    , pc.hold AS is_hold
+    , pc.scrap AS is_scrap
+    , pc.deliver AS is_deliver
+    , (pc.trans_order_detail_settlement_id IS NOT NULL) AS has_settlement
+    -- 起点と処置のつながり(起点の変更から parent_trans_plan_change_id で下の処置につなぐ)
+    , (pc.parent_trans_plan_change_id IS NULL) AS is_root
+    , EXISTS (SELECT 1 FROM tests.trans_plan_change AS c
+              WHERE c.parent_trans_plan_change_id = pc.trans_plan_change_id AND c.remove IS FALSE) AS has_children
+    -- 原因(変更理由マスタの boolean。理由が無いときは false)
+    , COALESCE(cr.customer_cause, FALSE) AS customer_cause
+    , COALESCE(cr.supplier_cause, FALSE) AS supplier_cause
+    , COALESCE(cr.quality_cause, FALSE) AS quality_cause
+    -- MRP との関係
+    , (pc.trans_mrp_suggestion_id IS NOT NULL) AS from_mrp
+    , (pc.reflected_trans_mrp_run_id IS NOT NULL) AS is_reflected
+    , (pc.reflected_trans_mrp_run_id IS NULL AND pc.trans_mrp_suggestion_id IS NULL
+       AND (pc.trans_order_detail_id IS NOT NULL OR pc.trans_purchase_detail_id IS NOT NULL
+            OR pc.trans_operations_plan_id IS NOT NULL)) AS is_unreflected
+    -- 値
+    , pc.old_quantity
+    , pc.new_quantity
+    , pc.cancel_quantity
+    , pc.old_date
+    , pc.new_date
+    , pc.old_stop
+    , pc.new_stop
+    , pc.trans_container_id
+    , pc.trans_order_detail_settlement_id
+    , pc.change_reason_history_id
+    , pc.change_reason_id
+    , pc.reason
+    , pc.stakeholder_history_id
+    , pc.stakeholder_id
+    , pc.staff_history_id
+    , pc.staff_id
+    , pc.trans_mrp_suggestion_id
+    , pc.reflected_trans_mrp_run_id
+    , pc.remarks
+    , pc.update_at
+FROM tests.trans_plan_change AS pc
+LEFT JOIN tests.mstr_change_reason AS cr
+    ON cr.mstr_change_reason_id = pc.change_reason_id AND cr.remove IS FALSE
+CROSS JOIN LATERAL (
+    SELECT
+        COALESCE(od.item_id, pd.item_id, rp_op.item_id, rp_rq.item_id, vi.item_id, od_sd.item_id) AS item_id
+        , COALESCE(
+              pc.trans_order_detail_id
+              , od_sd.trans_order_detail_id
+              , tests.mrp_root_order_detail(COALESCE(op.trans_resource_plan_id, rq.trans_resource_plan_id, pd.trans_resource_plan_id))
+          ) AS root_trans_order_detail_id
+    FROM (SELECT 1) AS d
+    LEFT JOIN tests.trans_order_detail AS od ON od.trans_order_detail_id = pc.trans_order_detail_id
+    LEFT JOIN tests.trans_purchase_detail AS pd ON pd.trans_purchase_detail_id = pc.trans_purchase_detail_id
+    LEFT JOIN tests.trans_operations_plan AS op ON op.trans_operations_plan_id = pc.trans_operations_plan_id
+    LEFT JOIN tests.trans_resource_plan AS rp_op ON rp_op.trans_resource_plan_id = op.trans_resource_plan_id
+    LEFT JOIN tests.trans_inventory_request AS rq ON rq.trans_inventory_request_id = pc.trans_inventory_request_id
+    LEFT JOIN tests.trans_resource_plan AS rp_rq ON rp_rq.trans_resource_plan_id = rq.trans_resource_plan_id
+    LEFT JOIN tests.v_mrp_visiter_item AS vi ON vi.trans_visiter_id = pc.trans_visiter_id
+    LEFT JOIN tests.trans_shipping_order_detail AS sdd ON sdd.trans_shipping_order_detail_id = pc.trans_shipping_order_detail_id
+    LEFT JOIN tests.trans_order_detail AS od_sd ON od_sd.trans_order_detail_id = sdd.trans_order_detail_id
+) AS t
+WHERE pc.remove IS FALSE;
+
+COMMENT ON VIEW tests.v_plan_change IS '計画変更(表示用。種別・対象・処置を boolean の列で返す)
+@primaryKey trans_plan_change_id
+@unique symbol
+@foreignKey (trans_plan_change_id) references trans_plan_change (trans_plan_change_id)
+@foreignKey (parent_trans_plan_change_id) references trans_plan_change (trans_plan_change_id)
+@foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)
+@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)
+@foreignKey (trans_operations_plan_id) references trans_operations_plan (trans_operations_plan_id)
+@foreignKey (trans_inventory_request_id) references trans_inventory_request (trans_inventory_request_id)
+@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)
+@foreignKey (trans_shipping_order_detail_id) references trans_shipping_order_detail (trans_shipping_order_detail_id)
+@foreignKey (item_id) references mstr_item (mstr_item_id)
+@foreignKey (root_trans_order_detail_id) references trans_order_detail (trans_order_detail_id)
+@foreignKey (trans_container_id) references trans_container (trans_container_id)
+@foreignKey (trans_order_detail_settlement_id) references trans_order_detail_settlement (trans_order_detail_settlement_id)
+@foreignKey (change_reason_history_id, change_reason_id) references history_mstr_change_reason (history_id, mstr_change_reason_id)
+@foreignKey (stakeholder_history_id, stakeholder_id) references history_mstr_stakeholder (history_id, mstr_stakeholder_id)
+@foreignKey (staff_history_id, staff_id) references history_info_staff (history_id, info_staff_id)
+@foreignKey (trans_mrp_suggestion_id) references trans_mrp_suggestion (trans_mrp_suggestion_id)
+@foreignKey (reflected_trans_mrp_run_id) references trans_mrp_run (trans_mrp_run_id)';
+
+COMMENT ON COLUMN tests.v_plan_change.is_order_detail IS '対象: 受注明細';
+COMMENT ON COLUMN tests.v_plan_change.is_purchase_detail IS '対象: 発注明細';
+COMMENT ON COLUMN tests.v_plan_change.is_operations_plan IS '対象: 生産計画';
+COMMENT ON COLUMN tests.v_plan_change.is_inventory_request IS '対象: 引当予約';
+COMMENT ON COLUMN tests.v_plan_change.is_visiter IS '対象: 棚ビジター(ロット)';
+COMMENT ON COLUMN tests.v_plan_change.is_shipping_order_detail IS '対象: 出荷オーダー明細';
+COMMENT ON COLUMN tests.v_plan_change.is_cancel IS 'キャンセル(キャンセル数量が 0 より大きい)';
+COMMENT ON COLUMN tests.v_plan_change.is_quantity_change IS '数量の変更';
+COMMENT ON COLUMN tests.v_plan_change.is_date_change IS '納期の変更';
+COMMENT ON COLUMN tests.v_plan_change.is_postpone IS '延期(納期を後ろへ)';
+COMMENT ON COLUMN tests.v_plan_change.is_advance IS '前倒し(納期を前へ)';
+COMMENT ON COLUMN tests.v_plan_change.is_stop IS '停止';
+COMMENT ON COLUMN tests.v_plan_change.is_resume IS '再開';
+COMMENT ON COLUMN tests.v_plan_change.is_discontinue IS '打ち切り';
+COMMENT ON COLUMN tests.v_plan_change.is_release IS '在庫にする(解除)';
+COMMENT ON COLUMN tests.v_plan_change.is_hold IS '押さえる(保管)';
+COMMENT ON COLUMN tests.v_plan_change.is_scrap IS '廃棄';
+COMMENT ON COLUMN tests.v_plan_change.is_deliver IS '顧客へ引き渡し';
+COMMENT ON COLUMN tests.v_plan_change.has_settlement IS '精算あり';
+COMMENT ON COLUMN tests.v_plan_change.is_root IS '起点の変更(親の変更が無い)';
+COMMENT ON COLUMN tests.v_plan_change.has_children IS '下に処置がある';
+COMMENT ON COLUMN tests.v_plan_change.customer_cause IS '顧客の都合';
+COMMENT ON COLUMN tests.v_plan_change.supplier_cause IS '仕入先・外注先の都合';
+COMMENT ON COLUMN tests.v_plan_change.quality_cause IS '品質の原因(異常の登録を促す)';
+COMMENT ON COLUMN tests.v_plan_change.from_mrp IS 'MRP の提案から作られた';
+COMMENT ON COLUMN tests.v_plan_change.is_reflected IS 'MRP に反映済み';
+COMMENT ON COLUMN tests.v_plan_change.is_unreflected IS 'MRP に未反映(再 MRP の対象)';
+
+CREATE VIEW tests.v_cancel_open_item AS
+WITH q AS (
+    -- 1. 未解除の引当予約
+    SELECT
+        'inventory_request:' || rq.trans_inventory_request_id::text AS k
+        , rq.symbol
+        , TRUE AS is_inventory_request, FALSE AS is_work_in_process, FALSE AS is_hold, FALSE AS is_shipping_order
+        , FALSE AS is_outsource_order, FALSE AS is_supply_at_supplier, FALSE AS is_customer_supply
+        , COALESCE(ob.cancel_closed, FALSE) AS cause_cancel
+        , (COALESCE(ob.stop, FALSE) OR COALESCE(pop.stop, FALSE)) AS cause_stop
+        , COALESCE(pop.discontinue, FALSE) AS cause_discontinue
+        , rp.item_id
+        , rq.quantity
+        , root.od AS trans_order_detail_id
+        , NULL::uuid AS trans_purchase_detail_id
+        , rp.parent_trans_operations_plan_id AS trans_operations_plan_id
+        , rq.trans_inventory_request_id
+        , rq.trans_visiter_id
+        , NULL::uuid AS trans_shipping_order_detail_id
+        , NULL::uuid AS trans_supply_detail_id
+        , NULL::uuid AS trans_container_id
+        , o.stakeholder_id
+    FROM tests.trans_inventory_request AS rq
+    INNER JOIN tests.trans_resource_plan AS rp
+        ON rp.trans_resource_plan_id = rq.trans_resource_plan_id AND rp.remove IS FALSE
+    CROSS JOIN LATERAL (SELECT tests.mrp_root_order_detail(rp.trans_resource_plan_id) AS od) AS root
+    LEFT JOIN tests.v_order_detail_balance AS ob ON ob.trans_order_detail_id = root.od
+    LEFT JOIN tests.trans_order AS o ON o.trans_order_id = ob.trans_order_id
+    LEFT JOIN tests.trans_operations_plan AS pop
+        ON pop.trans_operations_plan_id = rp.parent_trans_operations_plan_id AND pop.remove IS FALSE
+    WHERE rq.remove IS FALSE AND rq.quantity > 0
+      AND NOT EXISTS (SELECT 1 FROM tests.trans_inventory_apply AS ap
+                      WHERE ap.trans_inventory_request_id = rq.trans_inventory_request_id AND ap.remove IS FALSE)
+      AND NOT EXISTS (SELECT 1 FROM tests.trans_plan_change AS pc
+                      WHERE pc.trans_inventory_request_id = rq.trans_inventory_request_id AND pc.remove IS FALSE
+                        AND (pc.release OR pc.hold))
+      AND (COALESCE(ob.cancel_closed, FALSE) OR COALESCE(ob.stop, FALSE)
+           OR COALESCE(pop.stop, FALSE) OR COALESCE(pop.discontinue, FALSE))
+
+    UNION ALL
+    -- 2. 仕掛品
+    SELECT
+        'work_in_process:' || l.trans_visiter_id::text
+        , l.symbol
+        , FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE
+        , COALESCE(ob.cancel_closed, FALSE)
+        , (op.stop OR COALESCE(ob.stop, FALSE))
+        , op.discontinue
+        , rp.item_id
+        , l.quantity
+        , root.od
+        , NULL::uuid
+        , op.trans_operations_plan_id
+        , NULL::uuid
+        , l.trans_visiter_id
+        , NULL::uuid
+        , NULL::uuid
+        , l.trans_container_id
+        , o.stakeholder_id
+    FROM tests.trans_operations_plan AS op
+    INNER JOIN tests.trans_resource_plan AS rp
+        ON rp.trans_resource_plan_id = op.trans_resource_plan_id AND rp.remove IS FALSE
+    INNER JOIN tests.trans_work_plan AS wp
+        ON wp.trans_operations_plan_id = op.trans_operations_plan_id AND wp.remove IS FALSE
+    INNER JOIN tests.trans_work_record AS wr
+        ON wr.trans_work_plan_id = wp.trans_work_plan_id AND wr.remove IS FALSE
+    INNER JOIN tests.trans_work_record_visiter AS wrv
+        ON wrv.trans_work_record_id = wr.trans_work_record_id AND wrv.remove IS FALSE
+    INNER JOIN tests.v_visiter_lineage AS lg ON lg.ancestor_visiter_id = wrv.trans_visiter_id
+    INNER JOIN tests.v_visiter_lot AS l ON l.trans_visiter_id = lg.trans_visiter_id
+    CROSS JOIN LATERAL (SELECT tests.mrp_root_order_detail(op.trans_resource_plan_id) AS od) AS root
+    LEFT JOIN tests.v_order_detail_balance AS ob ON ob.trans_order_detail_id = root.od
+    LEFT JOIN tests.trans_order AS o ON o.trans_order_id = ob.trans_order_id
+    WHERE op.remove IS FALSE AND l.quantity > 0
+      AND (op.stop OR op.discontinue OR COALESCE(ob.cancel_closed, FALSE) OR COALESCE(ob.stop, FALSE))
+      AND NOT EXISTS (SELECT 1 FROM tests.trans_plan_change AS pc
+                      WHERE pc.trans_visiter_id = l.trans_visiter_id AND pc.remove IS FALSE AND (pc.release OR pc.hold))
+
+    UNION ALL
+    -- 3. 押さえたままの品(押さえる = 仮止めにしたロット。仮止めのまま、数量が残るもの)
+    SELECT
+        'hold:' || l.trans_visiter_id::text
+        , l.symbol
+        , FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE
+        , FALSE, FALSE, FALSE
+        , vi.item_id
+        , l.quantity
+        , NULL::uuid
+        , NULL::uuid
+        , NULL::uuid
+        , NULL::uuid
+        , l.trans_visiter_id
+        , NULL::uuid
+        , NULL::uuid
+        , l.trans_container_id
+        , NULL::uuid
+    FROM tests.v_visiter_lot AS l
+    LEFT JOIN tests.v_mrp_visiter_item AS vi ON vi.trans_visiter_id = l.trans_visiter_id
+    WHERE l.release IS FALSE AND l.quantity > 0
+      AND EXISTS (SELECT 1 FROM tests.trans_plan_change AS pc
+                  WHERE pc.hold AND pc.remove IS FALSE
+                    AND (pc.trans_visiter_id = l.trans_visiter_id
+                         OR pc.trans_inventory_request_id IN (SELECT rq.trans_inventory_request_id
+                                                                FROM tests.trans_inventory_request AS rq
+                                                               WHERE rq.trans_visiter_id = l.trans_visiter_id)))
+
+    UNION ALL
+    -- 4. 未出荷の出荷オーダー
+    SELECT
+        'shipping_order:' || sd.trans_shipping_order_detail_id::text
+        , sd.symbol
+        , FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE
+        , ob.cancel_closed
+        , ob.stop
+        , FALSE
+        , ob.item_id
+        , sd.shipping_quantity - COALESCE(sh.q, 0)
+        , sd.trans_order_detail_id
+        , NULL::uuid
+        , NULL::uuid
+        , NULL::uuid
+        , NULL::uuid
+        , sd.trans_shipping_order_detail_id
+        , NULL::uuid
+        , NULL::uuid
+        , o.stakeholder_id
+    FROM tests.trans_shipping_order_detail AS sd
+    INNER JOIN tests.trans_shipping_order AS so
+        ON so.trans_shipping_order_id = sd.trans_shipping_order_id AND so.remove IS FALSE
+    INNER JOIN tests.v_order_detail_balance AS ob
+        ON ob.trans_order_detail_id = sd.trans_order_detail_id AND (ob.cancel_closed OR ob.stop)
+    INNER JOIN tests.trans_order AS o ON o.trans_order_id = ob.trans_order_id
+    LEFT JOIN LATERAL (
+        SELECT SUM(r.shipping_quantity) AS q FROM tests.trans_shipping_order_detail_record AS r
+        WHERE r.trans_shipping_order_detail_id = sd.trans_shipping_order_detail_id AND r.remove IS FALSE
+    ) AS sh ON TRUE
+    WHERE sd.remove IS FALSE AND sd.shipping_quantity - COALESCE(sh.q, 0) > 0
+
+    UNION ALL
+    -- 5. 未キャンセルの外注発注
+    SELECT
+        'outsource_order:' || pb.trans_purchase_detail_id::text
+        , pb.symbol
+        , FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE
+        , COALESCE(ob.cancel_closed, FALSE)
+        , (op.stop OR COALESCE(ob.stop, FALSE))
+        , op.discontinue
+        , pb.item_id
+        , pb.remaining_quantity
+        , root.od
+        , pb.trans_purchase_detail_id
+        , op.trans_operations_plan_id
+        , NULL::uuid
+        , NULL::uuid
+        , NULL::uuid
+        , NULL::uuid
+        , NULL::uuid
+        , p.stakeholder_id
+    FROM tests.v_purchase_detail_balance AS pb
+    INNER JOIN tests.trans_purchase_detail AS pd ON pd.trans_purchase_detail_id = pb.trans_purchase_detail_id
+    INNER JOIN tests.trans_purchase AS p ON p.trans_purchase_id = pd.trans_purchase_id
+    INNER JOIN tests.trans_work_plan AS wp
+        ON wp.trans_purchase_detail_id = pb.trans_purchase_detail_id AND wp.remove IS FALSE
+    INNER JOIN tests.trans_operations_plan AS op
+        ON op.trans_operations_plan_id = wp.trans_operations_plan_id AND op.remove IS FALSE
+    CROSS JOIN LATERAL (SELECT tests.mrp_root_order_detail(op.trans_resource_plan_id) AS od) AS root
+    LEFT JOIN tests.v_order_detail_balance AS ob ON ob.trans_order_detail_id = root.od
+    WHERE pb.is_outsource AND NOT pb.cancel_closed AND pb.remaining_quantity > 0
+      AND ((op.discontinue OR COALESCE(ob.cancel_closed, FALSE))
+           OR ((op.stop OR COALESCE(ob.stop, FALSE)) AND NOT pb.stop))
+
+    UNION ALL
+    -- 6. 外注先にある支給材(無償で渡した材料。有償は発注先の物のため除く)
+    SELECT
+        'supply_at_supplier:' || sb.trans_supply_detail_id::text
+        , sb.symbol
+        , FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE
+        , pb.cancel_closed
+        , pb.stop
+        , FALSE
+        , sb.item_id
+        , sb.current_quantity
+        , NULL::uuid
+        , sb.trans_purchase_detail_id
+        , NULL::uuid
+        , NULL::uuid
+        , NULL::uuid
+        , NULL::uuid
+        , sb.trans_supply_detail_id
+        , NULL::uuid
+        , sb.stakeholder_id
+    FROM tests.v_supply_detail_balance AS sb
+    INNER JOIN tests.v_purchase_detail_balance AS pb
+        ON pb.trans_purchase_detail_id = sb.trans_purchase_detail_id AND (pb.cancel_closed OR pb.stop)
+    WHERE sb.receive IS FALSE AND sb.paid_supply IS FALSE AND sb.current_quantity > 0
+
+    UNION ALL
+    -- 7. 顧客支給材の未返却(顧客の所有のロットで、受注明細が全部キャンセル済み)
+    SELECT
+        'customer_supply:' || ep.trans_visiter_id::text
+        , ep.symbol
+        , FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE
+        , TRUE
+        , FALSE
+        , FALSE
+        , COALESCE(ep.item_id, sd.item_id)
+        , ep.quantity
+        , ob.trans_order_detail_id
+        , NULL::uuid
+        , NULL::uuid
+        , NULL::uuid
+        , ep.trans_visiter_id
+        , NULL::uuid
+        , ep.trans_supply_detail_id
+        , ep.trans_container_id
+        , ep.owner_stakeholder_id
+    FROM tests.v_external_property AS ep
+    LEFT JOIN tests.trans_supply_detail AS sd ON sd.trans_supply_detail_id = ep.trans_supply_detail_id
+    INNER JOIN tests.v_order_detail_balance AS ob
+        ON ob.trans_order_detail_id = COALESCE(sd.trans_order_detail_id, ep.trans_order_detail_id) AND ob.cancel_closed
+)
+SELECT
+    md5(q.k)::uuid AS open_item_id
+    , q.symbol
+    , q.is_inventory_request
+    , q.is_work_in_process
+    , q.is_hold
+    , q.is_shipping_order
+    , q.is_outsource_order
+    , q.is_supply_at_supplier
+    , q.is_customer_supply
+    , q.cause_cancel
+    , q.cause_stop
+    , q.cause_discontinue
+    , q.item_id
+    , q.quantity
+    , q.trans_order_detail_id
+    , q.trans_purchase_detail_id
+    , q.trans_operations_plan_id
+    , q.trans_inventory_request_id
+    , q.trans_visiter_id
+    , q.trans_shipping_order_detail_id
+    , q.trans_supply_detail_id
+    , q.trans_container_id
+    , q.stakeholder_id
+    , c.trans_plan_change_id AS cause_trans_plan_change_id
+    , c.change_at AS since
+FROM q
+LEFT JOIN LATERAL (
+    -- 原因の計画変更(最新): 受注明細のキャンセル・停止、発注明細のキャンセル・停止、生産計画の停止・打ち切り
+    SELECT pc.trans_plan_change_id, pc.change_at
+    FROM tests.trans_plan_change AS pc
+    WHERE pc.remove IS FALSE
+      AND ((pc.trans_order_detail_id = q.trans_order_detail_id AND (pc.cancel_quantity > 0 OR pc.new_stop IS TRUE))
+           OR (pc.trans_purchase_detail_id = q.trans_purchase_detail_id AND (pc.cancel_quantity > 0 OR pc.new_stop IS TRUE))
+           OR (pc.trans_operations_plan_id = q.trans_operations_plan_id AND (pc.discontinue OR pc.new_stop IS TRUE)))
+    ORDER BY pc.change_at DESC
+    LIMIT 1
+) AS c ON TRUE;
+
+COMMENT ON VIEW tests.v_cancel_open_item IS '未処置一覧(キャンセル・停止・打ち切りのあと、処置が済んでいないもの。種類は is_* の boolean で、ちょうど 1 つ true)
+@primaryKey open_item_id
+@foreignKey (item_id) references mstr_item (mstr_item_id)
+@foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)
+@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)
+@foreignKey (trans_operations_plan_id) references trans_operations_plan (trans_operations_plan_id)
+@foreignKey (trans_inventory_request_id) references trans_inventory_request (trans_inventory_request_id)
+@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)
+@foreignKey (trans_shipping_order_detail_id) references trans_shipping_order_detail (trans_shipping_order_detail_id)
+@foreignKey (trans_supply_detail_id) references trans_supply_detail (trans_supply_detail_id)
+@foreignKey (trans_container_id) references trans_container (trans_container_id)
+@foreignKey (stakeholder_id) references mstr_stakeholder (mstr_stakeholder_id)
+@foreignKey (cause_trans_plan_change_id) references trans_plan_change (trans_plan_change_id)';
+
+COMMENT ON COLUMN tests.v_cancel_open_item.is_inventory_request IS '未解除の引当予約';
+COMMENT ON COLUMN tests.v_cancel_open_item.is_work_in_process IS '仕掛品(停止・打ち切りの生産計画のロット)';
+COMMENT ON COLUMN tests.v_cancel_open_item.is_hold IS '押さえたままの品';
+COMMENT ON COLUMN tests.v_cancel_open_item.is_shipping_order IS '未出荷の出荷オーダー';
+COMMENT ON COLUMN tests.v_cancel_open_item.is_outsource_order IS '未キャンセルの外注発注';
+COMMENT ON COLUMN tests.v_cancel_open_item.is_supply_at_supplier IS '外注先にある支給材';
+COMMENT ON COLUMN tests.v_cancel_open_item.is_customer_supply IS '顧客支給材の未返却';
+COMMENT ON COLUMN tests.v_cancel_open_item.cause_cancel IS '原因: 全部キャンセル済み';
+COMMENT ON COLUMN tests.v_cancel_open_item.cause_stop IS '原因: 停止(再開できる)';
+COMMENT ON COLUMN tests.v_cancel_open_item.cause_discontinue IS '原因: 生産計画の打ち切り';
+COMMENT ON COLUMN tests.v_cancel_open_item.quantity IS '処置が要る数量(今の数量・未出荷の数量・受入残)';
+COMMENT ON COLUMN tests.v_cancel_open_item.cause_trans_plan_change_id IS '原因の計画変更(処置の関数の起点に渡す)';
+COMMENT ON COLUMN tests.v_cancel_open_item.since IS '原因の日時(原因の計画変更の日時)';
+
+CREATE VIEW tests.v_mrp_run AS
+SELECT
+    r.trans_mrp_run_id
+    , r.symbol
+    , (r.status = 0) AS is_calculated
+    , (r.status = 1) AS is_committed
+    , (r.status = 2) AS is_discarded
+    , (r.status = 3) AS is_expired
+    , (r.run_mode = 1) AS is_order_run
+    , (r.run_mode = 2) AS is_rerun
+    , r.run_at
+    , r.committed_at
+    , r.suggestion_count
+    , r.pending_count
+    , r.late_count
+    , r.overload_count
+    , r.staff_history_id
+    , r.staff_id
+    , r.params
+    , r.remarks
+    , r.update_at
+FROM tests.trans_mrp_run AS r
+WHERE r.remove IS FALSE;
+
+COMMENT ON VIEW tests.v_mrp_run IS 'MRP 実行(状態・実行区分を boolean の列で返す)
+@primaryKey trans_mrp_run_id
+@unique symbol
+@foreignKey (trans_mrp_run_id) references trans_mrp_run (trans_mrp_run_id)
+@foreignKey (staff_history_id, staff_id) references history_info_staff (history_id, info_staff_id)';
+
+COMMENT ON COLUMN tests.v_mrp_run.is_calculated IS '計算済み(確定・破棄を待っている)';
+COMMENT ON COLUMN tests.v_mrp_run.is_committed IS '確定済み';
+COMMENT ON COLUMN tests.v_mrp_run.is_discarded IS '破棄';
+COMMENT ON COLUMN tests.v_mrp_run.is_expired IS '失効(新しい計算があり、確定できない)';
+COMMENT ON COLUMN tests.v_mrp_run.is_order_run IS '受注 MRP';
+COMMENT ON COLUMN tests.v_mrp_run.is_rerun IS '再 MRP';
+
+CREATE VIEW tests.v_mrp_suggestion AS
+SELECT
+    s.trans_mrp_suggestion_id
+    , s.trans_mrp_run_id
+    , s.parent_trans_mrp_suggestion_id
+    , s.seq
+    , s.symbol
+    -- 対象
+    , (s.kind IN ('PURCHASE_NEW', 'PURCHASE_RESCHEDULE', 'PURCHASE_CANCEL')) AS is_purchase
+    , (s.kind IN ('PRODUCTION_NEW', 'PRODUCTION_RESCHEDULE', 'PRODUCTION_CANCEL')) AS is_production
+    , (s.kind IN ('OUTSOURCE_NEW', 'OUTSOURCE_CANCEL', 'OUTSOURCE_OPTION')) AS is_outsource
+    , (s.kind IN ('PLAN_NEW', 'PLAN_UPDATE', 'PLAN_KEEP', 'PLAN_CANCEL')) AS is_plan
+    , (s.kind IN ('EXC_OVERLOAD', 'EXC_EXCESS', 'EXC_MASTER')) AS is_exception
+    , (s.kind = 'SUPPLY_REQUEST') AS is_supply_request
+    -- 動き
+    , (s.kind IN ('PURCHASE_NEW', 'PRODUCTION_NEW', 'OUTSOURCE_NEW', 'PLAN_NEW', 'SUPPLY_REQUEST')) AS is_new
+    , (s.kind IN ('PURCHASE_RESCHEDULE', 'PRODUCTION_RESCHEDULE', 'PLAN_UPDATE')) AS is_change
+    , (s.kind IN ('PURCHASE_CANCEL', 'PRODUCTION_CANCEL', 'OUTSOURCE_CANCEL', 'PLAN_CANCEL')) AS is_cancel
+    , (s.kind = 'PLAN_KEEP') AS is_keep
+    , (s.kind = 'OUTSOURCE_OPTION') AS is_option
+    -- 例外の主題
+    , (s.kind = 'EXC_OVERLOAD') AS subject_equipment
+    , (s.kind = 'EXC_EXCESS') AS subject_stock
+    , (s.kind = 'EXC_MASTER') AS subject_master
+    -- 判断
+    , s.need_user
+    , s.late
+    , (s.decision = 0) AS undecided
+    , (s.decision = 1) AS adopted
+    , (s.decision = 2) AS rejected
+    , (s.decision = 9) AS is_info
+    -- 計画区分
+    , (s.plan_kind = 1) AS is_order_demand
+    , (s.plan_kind = 2) AS is_non_booked
+    , (s.plan_kind = 3) AS is_safety_stock
+    , (s.plan_kind = 4) AS is_dependent_demand
+    -- MRP 実行
+    , (r.status = 0) AS run_open
+    , (r.status = 1) AS run_committed
+    -- 値
+    , s.item_history_id
+    , s.item_id
+    , s.bom_level
+    , s.quantity
+    , s.allocated_quantity
+    , s.old_quantity
+    , s.need_at
+    , s.release_at
+    , s.due_at
+    , s.old_due_at
+    , s.trans_order_detail_id
+    , s.trans_unrecognized_detail_id
+    , s.trans_resource_plan_id
+    , s.parent_trans_operations_plan_id
+    , s.trans_purchase_detail_id
+    , s.trans_operations_plan_id
+    , s.stakeholder_history_id
+    , s.stakeholder_id
+    , s.cost
+    , s.asking_price
+    , s.trans_mrp_suggestion_task_id
+    , s.mstr_outsource_available_history_id
+    , s.mstr_outsource_available_id
+    , s.mstr_equipment_id
+    , s.load_date
+    , s.message
+    , s.applied_at
+    , s.remarks
+    , s.update_at
+    , s.update_user_id
+    , s.update_user_history_id
+FROM tests.trans_mrp_suggestion AS s
+INNER JOIN tests.trans_mrp_run AS r ON r.trans_mrp_run_id = s.trans_mrp_run_id AND r.remove IS FALSE
+WHERE s.remove IS FALSE;
+
+COMMENT ON VIEW tests.v_mrp_suggestion IS 'MRP の提案(対象・動き・判断を boolean の列で返す。提案の種類・判断の整数は出さない)
+@primaryKey trans_mrp_suggestion_id
+@unique symbol
+@foreignKey (trans_mrp_suggestion_id) references trans_mrp_suggestion (trans_mrp_suggestion_id)
+@foreignKey (trans_mrp_run_id) references trans_mrp_run (trans_mrp_run_id)
+@foreignKey (parent_trans_mrp_suggestion_id) references trans_mrp_suggestion (trans_mrp_suggestion_id)
+@foreignKey (trans_mrp_suggestion_task_id) references trans_mrp_suggestion_task (trans_mrp_suggestion_task_id)
+@foreignKey (item_id) references mstr_item (mstr_item_id)
+@foreignKey (item_history_id, item_id) references history_mstr_item (history_id, mstr_item_id)
+@foreignKey (stakeholder_id) references mstr_stakeholder (mstr_stakeholder_id)
+@foreignKey (stakeholder_history_id, stakeholder_id) references history_mstr_stakeholder (history_id, mstr_stakeholder_id)
+@foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)
+@foreignKey (trans_unrecognized_detail_id) references trans_unrecognized_detail (trans_unrecognized_detail_id)
+@foreignKey (trans_resource_plan_id) references trans_resource_plan (trans_resource_plan_id)
+@foreignKey (parent_trans_operations_plan_id) references trans_operations_plan (trans_operations_plan_id)
+@foreignKey (trans_operations_plan_id) references trans_operations_plan (trans_operations_plan_id)
+@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)
+@foreignKey (mstr_equipment_id) references mstr_equipment (mstr_equipment_id)
+@foreignKey (mstr_outsource_available_history_id, mstr_outsource_available_id) references history_mstr_outsource_available (history_id, mstr_outsource_available_id)
+@foreignKey (update_user_history_id, update_user_id) references history_info_staff (history_id, info_staff_id)';
+
+COMMENT ON COLUMN tests.v_mrp_suggestion.is_purchase IS '対象: 発注';
+COMMENT ON COLUMN tests.v_mrp_suggestion.is_production IS '対象: 生産';
+COMMENT ON COLUMN tests.v_mrp_suggestion.is_outsource IS '対象: 外注';
+COMMENT ON COLUMN tests.v_mrp_suggestion.is_plan IS '対象: 資材計画';
+COMMENT ON COLUMN tests.v_mrp_suggestion.is_exception IS '対象: 例外';
+COMMENT ON COLUMN tests.v_mrp_suggestion.is_supply_request IS '対象: 顧客への支給依頼';
+COMMENT ON COLUMN tests.v_mrp_suggestion.is_new IS '動き: 新規';
+COMMENT ON COLUMN tests.v_mrp_suggestion.is_change IS '動き: 変更(日程・数量)';
+COMMENT ON COLUMN tests.v_mrp_suggestion.is_cancel IS '動き: 取消';
+COMMENT ON COLUMN tests.v_mrp_suggestion.is_keep IS '動き: 維持';
+COMMENT ON COLUMN tests.v_mrp_suggestion.is_option IS '動き: 切り替えの選択肢';
+COMMENT ON COLUMN tests.v_mrp_suggestion.subject_equipment IS '例外の主題: 設備(過負荷)';
+COMMENT ON COLUMN tests.v_mrp_suggestion.subject_stock IS '例外の主題: 在庫(過剰)';
+COMMENT ON COLUMN tests.v_mrp_suggestion.subject_master IS '例外の主題: マスタ(不備)';
+COMMENT ON COLUMN tests.v_mrp_suggestion.need_user IS 'ユーザー判断が必要';
+COMMENT ON COLUMN tests.v_mrp_suggestion.late IS '納期遅れ';
+COMMENT ON COLUMN tests.v_mrp_suggestion.undecided IS '判断が要る(未判断)';
+COMMENT ON COLUMN tests.v_mrp_suggestion.adopted IS '採用';
+COMMENT ON COLUMN tests.v_mrp_suggestion.rejected IS '却下';
+COMMENT ON COLUMN tests.v_mrp_suggestion.is_info IS '情報(判断の対象でない)';
+COMMENT ON COLUMN tests.v_mrp_suggestion.is_order_demand IS '計画区分: 受注';
+COMMENT ON COLUMN tests.v_mrp_suggestion.is_non_booked IS '計画区分: 非計上';
+COMMENT ON COLUMN tests.v_mrp_suggestion.is_safety_stock IS '計画区分: 安全在庫';
+COMMENT ON COLUMN tests.v_mrp_suggestion.is_dependent_demand IS '計画区分: 従属';
+COMMENT ON COLUMN tests.v_mrp_suggestion.run_open IS 'MRP 実行が計算済み(確定・破棄を待っている)';
+COMMENT ON COLUMN tests.v_mrp_suggestion.run_committed IS 'MRP 実行が確定済み';
+
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_shared_dictionary() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -24450,6 +25003,19 @@ COMMENT ON FUNCTION tests.trg_05_visiter_balance() IS '@omit';
 
 CREATE TRIGGER trg_05_visiter_balance AFTER INSERT OR UPDATE OF quantity, adjustment, parent_trans_visiter_id, remove OR DELETE ON tests.trans_visiter FOR EACH ROW EXECUTE FUNCTION tests.trg_05_visiter_balance();
 
+CREATE OR REPLACE FUNCTION tests.trg_06_visiter_owner_visiter() RETURNS trigger AS $$
+BEGIN
+    IF NEW.parent_trans_visiter_id IS NOT NULL AND NEW.quantity > 0 AND NEW.adjustment IS NOT TRUE THEN
+        PERFORM tests.visiter_owner_refresh(NEW.trans_visiter_id);
+    END IF;
+    RETURN NULL;
+END
+$$ LANGUAGE plpgsql;
+
+COMMENT ON FUNCTION tests.trg_06_visiter_owner_visiter() IS '@omit';
+
+CREATE TRIGGER trg_06_visiter_owner_trans_visiter AFTER INSERT ON tests.trans_visiter FOR EACH ROW EXECUTE FUNCTION tests.trg_06_visiter_owner_visiter();
+
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_task_group() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -25419,6 +25985,24 @@ CREATE TRIGGER trg_01_updatetimes_trans_supply BEFORE INSERT OR UPDATE OR DELETE
 
 CREATE TRIGGER trg_04_symbol_trans_supply BEFORE INSERT ON tests.trans_supply FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
 
+CREATE OR REPLACE FUNCTION tests.trg_06_visiter_owner_supply() RETURNS trigger AS $$
+DECLARE c record;
+BEGIN
+    FOR c IN
+        SELECT DISTINCT sv.trans_visiter_id FROM tests.trans_supply_visiter AS sv
+         INNER JOIN tests.trans_supply_detail AS sd ON sd.trans_supply_detail_id = sv.trans_supply_detail_id
+         WHERE sd.trans_supply_id = NEW.trans_supply_id AND sv.remove IS FALSE
+    LOOP
+        PERFORM tests.visiter_owner_refresh(c.trans_visiter_id);
+    END LOOP;
+    RETURN NULL;
+END
+$$ LANGUAGE plpgsql;
+
+COMMENT ON FUNCTION tests.trg_06_visiter_owner_supply() IS '@omit';
+
+CREATE TRIGGER trg_06_visiter_owner_trans_supply AFTER UPDATE OF counterpart_owns, company_owns, stakeholder_id, supply_at, remove ON tests.trans_supply FOR EACH ROW EXECUTE FUNCTION tests.trg_06_visiter_owner_supply();
+
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_supply_detail() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -25441,6 +26025,23 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_supply_detail BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_supply_detail FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_supply_detail();
 
 CREATE TRIGGER trg_04_symbol_trans_supply_detail BEFORE INSERT ON tests.trans_supply_detail FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
+
+CREATE OR REPLACE FUNCTION tests.trg_06_visiter_owner_supply_detail() RETURNS trigger AS $$
+DECLARE c record;
+BEGIN
+    FOR c IN
+        SELECT sv.trans_visiter_id FROM tests.trans_supply_visiter AS sv
+         WHERE sv.trans_supply_detail_id = NEW.trans_supply_detail_id AND sv.remove IS FALSE
+    LOOP
+        PERFORM tests.visiter_owner_refresh(c.trans_visiter_id);
+    END LOOP;
+    RETURN NULL;
+END
+$$ LANGUAGE plpgsql;
+
+COMMENT ON FUNCTION tests.trg_06_visiter_owner_supply_detail() IS '@omit';
+
+CREATE TRIGGER trg_06_visiter_owner_trans_supply_detail AFTER UPDATE OF remove ON tests.trans_supply_detail FOR EACH ROW EXECUTE FUNCTION tests.trg_06_visiter_owner_supply_detail();
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_visiter_owner() RETURNS trigger AS
 $BODY$
@@ -25510,6 +26111,20 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_supply_visiter BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_supply_visiter FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_supply_visiter();
 
 CREATE TRIGGER trg_04_symbol_trans_supply_visiter BEFORE INSERT ON tests.trans_supply_visiter FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
+
+CREATE OR REPLACE FUNCTION tests.trg_06_visiter_owner_supply_visiter() RETURNS trigger AS $$
+BEGIN
+    IF TG_OP <> 'INSERT' AND OLD.trans_visiter_id IS DISTINCT FROM NEW.trans_visiter_id THEN
+        PERFORM tests.visiter_owner_refresh(OLD.trans_visiter_id);
+    END IF;
+    PERFORM tests.visiter_owner_refresh(NEW.trans_visiter_id);
+    RETURN NULL;
+END
+$$ LANGUAGE plpgsql;
+
+COMMENT ON FUNCTION tests.trg_06_visiter_owner_supply_visiter() IS '@omit';
+
+CREATE TRIGGER trg_06_visiter_owner_trans_supply_visiter AFTER INSERT OR UPDATE ON tests.trans_supply_visiter FOR EACH ROW EXECUTE FUNCTION tests.trg_06_visiter_owner_supply_visiter();
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_purchase_rec() RETURNS trigger AS
 $BODY$
@@ -34945,6 +35560,17 @@ CREATE TRIGGER trg_01_updatetimes_trans_work_record_visiter BEFORE INSERT OR UPD
 
 CREATE TRIGGER trg_04_symbol_trans_work_record_visiter BEFORE INSERT ON tests.trans_work_record_visiter FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
 
+CREATE OR REPLACE FUNCTION tests.trg_06_visiter_owner_work_record_visiter() RETURNS trigger AS $$
+BEGIN
+    PERFORM tests.visiter_owner_refresh(NEW.trans_visiter_id);
+    RETURN NULL;
+END
+$$ LANGUAGE plpgsql;
+
+COMMENT ON FUNCTION tests.trg_06_visiter_owner_work_record_visiter() IS '@omit';
+
+CREATE TRIGGER trg_06_visiter_owner_trans_work_record_visiter AFTER INSERT OR UPDATE ON tests.trans_work_record_visiter FOR EACH ROW EXECUTE FUNCTION tests.trg_06_visiter_owner_work_record_visiter();
+
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_purchase_rec_visiter() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -35133,3 +35759,16 @@ CREATE TRIGGER trg_04_symbol_trans_mrp_load BEFORE INSERT ON tests.trans_mrp_loa
 -- 取り込まない文: DROP VIEW IF × 163
 -- 取り込まない文: DROP TRIGGER IF × 3
 -- 取り込まない文: 主キーと重複するユニークインデックス(取り込まない) × 263
+
+-- [追加] コードの部分一意索引(doc/query/20261115_0002_code_unique_indexes.sql)。削除済み(remove = true)のコードは再利用できる
+CREATE UNIQUE INDEX IF NOT EXISTS mstr_stakeholder_ix_code_active ON tests.mstr_stakeholder (code) WHERE remove = false;
+CREATE UNIQUE INDEX IF NOT EXISTS mstr_capability_ix_code_active ON tests.mstr_capability (code) WHERE remove = false;
+CREATE UNIQUE INDEX IF NOT EXISTS mstr_license_ix_code_active ON tests.mstr_license (code) WHERE remove = false AND code IS NOT NULL;
+CREATE UNIQUE INDEX IF NOT EXISTS mstr_location_ix_code_active ON tests.mstr_location (code) WHERE remove = false AND code IS NOT NULL;
+CREATE UNIQUE INDEX IF NOT EXISTS info_staff_ix_code_active ON tests.info_staff (code) WHERE remove = false AND code IS NOT NULL;
+CREATE UNIQUE INDEX IF NOT EXISTS info_office_ix_code_active ON tests.info_office (code) WHERE remove = false;
+CREATE UNIQUE INDEX IF NOT EXISTS info_department_ix_code_active ON tests.info_department (code) WHERE remove = false;
+-- [追加] 言語コードの一意制約を、大文字小文字を区別しない一意索引にする(doc/query/20261116_0003_language_code_unique_lower.sql)
+ALTER TABLE tests.shared_language_code DROP CONSTRAINT IF EXISTS shared_language_code_ix1;
+DROP INDEX IF EXISTS tests.shared_language_code_ix1;
+CREATE UNIQUE INDEX shared_language_code_ix1 ON tests.shared_language_code (lower(code));

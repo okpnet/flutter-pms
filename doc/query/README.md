@@ -6,8 +6,16 @@ DB(PostgreSQL `tests` スキーマ)へ適用する SQL の「案」を置く。`
 |---|---|---|
 | `20261114_0001_operation_functions.sql` | 操作の DB 関数(受注・発注明細のキャンセル・停止・変更、生産計画の停止・打ち切り、引当予約・品物の処置、精算、返品・支給の登録)。1回の呼び出し = 1トランザクション | 案。検証用 DB で、トランザクション内で実行して ROLLBACK し、動作を確認済み |
 | `20261114_0001_v_work_plan_registrable.sql` | 登録できる作業指示かの判定のビュー(`v_work_plan_registrable`)。生産計画の連なりと最上位の受注明細の、停止・打ち切り・全部キャンセルを判定する | 案。同上 |
-| `20261116_0001_common_functions.sql` | 共通の部品の保存関数 4 本(`shared_appellation_save`・`shared_text_save`・`trans_label_save`・`trans_text_save`)。補助は `apl_staff`・`apl_language`・`apl_value`(`@omit`。`op_staff` と同じ形)。渡した言語だけ入れ替える・名称は「いずれかの言語に値」が必須(ja の必須ではない)。適用済みの `unit_save`・`stakeholder_save`・`ap_*` を外す DROP は、末尾にコメントで置いた(移行後)。旧 `20261114_0002`・`0003`・`20261115_0001` はこれに統合して削除 | 案。06 の試験の指摘を反映した版は未検証。再度 06 に出力して、トランザクション内で実行して ROLLBACK し、`issue/20261116_0001.md` の B の検討の通信テストを行う |
-| `20261115_0002_code_unique_indexes.sql` | コードの部分一意索引(DDL。`remove = false` の行だけ。`<表>_ix_code_active`)。マスタごとの保存関数の検査の代わりに、索引で重複を止める | 案。同上で確認(関数を通さない重複の登録が `23505`、削除済みのコードは再利用できる) |
+| `20261116_0001_common_functions.sql` | 共通の部品の保存関数 4 本(`shared_appellation_save`・`shared_text_save`・`trans_label_save`・`trans_text_save`)。補助は `apl_staff`・`apl_language`・`apl_value`(`@omit`。`op_staff` と同じ形)。渡した言語だけ入れ替える・名称は「いずれかの言語に値」が必須(ja の必須ではない)。適用済みの `unit_save`・`stakeholder_save`・`ap_*` を外す DROP は、末尾にコメントで置いた(移行後)。旧 `20261114_0002`・`0003`・`20261115_0001` はこれに統合して削除 | **DB に適用済み**(06 に取り込み済み。`unit_save`・`stakeholder_save` は DB から外れた)。2026-11-16、検証用 DB でトランザクション内に 6 ケースを含む 46 ケースを実行して ROLLBACK し、すべて想定どおり(`issue/20261116_0001.md` の B の検討の通信テスト。実サーバー(PostGraphile)の入れ子・言語ごとの更新は、資格情報が要るため未実施) |
+| `20261115_0002_code_unique_indexes.sql` | コードの部分一意索引(DDL。`remove = false` の行だけ。`<表>_ix_code_active`)。マスタごとの保存関数の検査の代わりに、索引で重複を止める | **DB に適用済み**(2026-11-16。適用前に重複が無いことを確認。関数を通さない重複の登録が `23505`、削除済みのコードは再利用できる) |
+| `20261116_0003_language_code_unique_lower.sql` | 言語コードの一意制約(`shared_language_code_ix1`)を、大文字小文字を区別しない一意索引 `UNIQUE (lower(code))` にする(DDL)。共通関数の `apl_language` が、`ja` と `JA` を別の行として並べないため | **DB に適用済み**(2026-11-16。外部キーはこの制約を参照していない。確認済み) |
+| `20261116_0004_stage1_views.sql` | 段階 1 のビューと PostGraphile のスマートコメント: `trans_visiter_owner` の `@omit create,update,delete`、`v_plan_change`(計画変更の表示用)、`v_cancel_open_item`(未処置一覧 7 種)、`v_mrp_run`・`v_mrp_suggestion`(MRP の提案を boolean で。kind・decision・plan_kind を出さない)。いずれも boolean の列・`symbol`・`@primaryKey`/`@foreignKey`・列コメントつき | **PERO のデータ(`pms_test.pero`)と 06 に適用済み**(2026-11-16)。使い捨ての DB に、06 → 07_dummy を流して、検査 T1〜T9 が成功 |
+| `20261116_0006_stage1_tests.sql` | 上の検査(T1〜T9。不変条件・キャンセル → 打ち切り → 処置の場面・外注・顧客支給・支給の判定(MRP)・`mrp_commit` の範囲)。流したあと必ず ROLLBACK する。DB には適用しない | 検査(全件成功) |
+| `20261116_0007_operation_functions_add.sql` | 操作の関数の追加・差し替え: 補助 `op_unhold`(`@omit`)、`lot_release`・`lot_scrap`・`lot_deliver`(押さえた仮止めのロットを、処置のときに外す)、新設 `shipping_order_detail_cancel`(未出荷の出荷オーダー明細の取り消し。計画変更つき) | **PERO のデータと 06 に適用済み**(2026-11-16) |
+
+(初期化スクリプトの構成: `05_init_test` → `06_cteate_test`(PERO のデータから出力。関数・トリガー・制約・索引・ビューを含む) → `07_dummy`(ダミーデータ。旧 10・11・14・15 とキャンセル・返品・精算・支給のマスタ) → `09_grant_test`。旧 12・13 は PERO のデータ(06)に統合した。)
+
+`pms_test.pero` は、索引・言語コードの DDL を出力の最後(`endQuery`)に足した(`06_cteate_test.sql` の末尾にも同じ内容)。共通関数(`apl_*`・`*_save`)は、06 には入っているが、コミットした `pms_test.pero` の関数(`methods`)には入っていない(PERO のデータを更新して取り込み直すか、06 を正にするかは、DB 側の判断)。
 
 ## 適用
 スキーマ `tests` に、psql で1回ずつ流す(何度流しても同じ。`CREATE OR REPLACE`)。
@@ -16,6 +24,8 @@ psql -d test_avocado -f 20261114_0001_operation_functions.sql
 psql -d test_avocado -f 20261114_0001_v_work_plan_registrable.sql
 psql -d test_avocado -f 20261116_0001_common_functions.sql
 psql -d test_avocado -f 20261115_0002_code_unique_indexes.sql        # 重複が無いことを確認してから
+# 20261116_0004・0007 は、PERO のデータ(`pms_test.pero`)と 06 に適用済み(DB は、再構築で入る。既存の DB に流すなら、0004 → 0007 の順)
+# 20261116_0006 は検査(適用しない。06 と 07_dummy.sql を流した DB に、BEGIN … ROLLBACK で流す)
 ```
 適用したら、`melos run gql:schema` → `melos run gql`(新しい関数は `kind: function`、ビューは `kind: read` で `model_providers` に足す)。
 
