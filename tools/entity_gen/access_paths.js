@@ -64,6 +64,8 @@ const EN = {
   prodrez: 'Production reservation',
   purrez: 'Purchase reservation',
   mrppending: 'Suggestions to decide',
+  planchange: 'Plan change history',
+  cancelopen: 'Open items after cancel',
   mrppurchase: 'Planned purchases',
   mrpissue: 'Master data issues',
   mrpcoverage: 'Resource plan coverage',

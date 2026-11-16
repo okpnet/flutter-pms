@@ -30,6 +30,7 @@ const PROJECTS = {
   shared_master: { cls: 'SharedMaster', title: '共有マスタ' },
   purchasing: { cls: 'Purchasing', title: '購買', group: 'purchasing' },
   production_plan: { cls: 'ProductionPlan', title: '生産計画', group: 'plan' },
+  plan_change: { cls: 'PlanChange', title: '計画変更', group: 'planchange' },
   work_record: { cls: 'WorkRecord', title: '作業実績', group: 'result' },
   quality_common: { cls: 'QualityCommon', title: '品質共通', group: 'qcommon' },
   quality_document: { cls: 'QualityDocument', title: '品質管理文書', group: 'qdoc' },

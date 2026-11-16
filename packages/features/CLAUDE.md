@@ -229,6 +229,7 @@ GraphQLから取得したデータのうち、イミュータブルな更新者�
 | 営業 | `sales` |
 | 営業・購買に共通(配送区分・利害関係者) | `shared_master` |
 | 購買 | `purchasing` |
+| 計画変更の履歴・未処置一覧(キャンセル・停止・打ち切りのあと。読み取り専用) | `plan_change`(DB のビュー `v_plan_change`・`v_cancel_open_item`。種類・動き・処置は boolean の列で、列の名前にチェックで出す) |
 | 生産計画 | `production_plan` |
 | 作業実績 | `work_record` |
 | 作業実績のバーコード(作業実績・受入検品・棚移動・設備点検。実績登録専用アプリでも使う) | `barcode_entry`(読み込みの流れは `lib/src/logic`、画面は `lib/src/page`。取得元は `IScanGateway`) |

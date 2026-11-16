@@ -6,16 +6,15 @@
 query MrpSuggestionPageRead(
   $first: Int!
   $offset: Int
-  $filter: TransMrpSuggestionFilter = {and: []}
-  $orderBy: [TransMrpSuggestionsOrderBy!]
+  $filter: VMrpSuggestionFilter = {and: []}
+  $orderBy: [VMrpSuggestionsOrderBy!]
   $languageCodeId: UUID!
-  $removed: Boolean = false
 ) {
-  allTransMrpSuggestions(
+  allVMrpSuggestions(
     first: $first
     offset: $offset
     orderBy: $orderBy
-    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+    filter: { and: [$filter] }
   ) {
     totalCount
     pageInfo {
@@ -27,10 +26,28 @@ query MrpSuggestionPageRead(
       transMrpRunId
       parentTransMrpSuggestionId
       seq
-      kind
-      decision
+      isPurchase
+      isProduction
+      isOutsource
+      isPlan
+      isException
+      isSupplyRequest
+      isNew
+      isChange
+      isCancel
+      isKeep
+      isOption
+      subjectEquipment
+      subjectStock
+      subjectMaster
       needUser
       late
+      undecided
+      adopted
+      rejected
+      isInfo
+      runOpen
+      runCommitted
       itemHistoryId
       itemId
 
@@ -62,7 +79,10 @@ query MrpSuggestionPageRead(
       }
 
       bomLevel
-      planKind
+      isOrderDemand
+      isNonBooked
+      isSafetyStock
+      isDependentDemand
       quantity
       allocatedQuantity
       oldQuantity
@@ -202,7 +222,6 @@ query MrpSuggestionPageRead(
       symbol
       remarks
       updateAt
-      remove
     }
   }
 }

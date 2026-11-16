@@ -79,7 +79,6 @@ class ProductionPlanStrings$mrp$ja {
 	late final ProductionPlanStrings$mrp$failure$ja failure = ProductionPlanStrings$mrp$failure$ja.internal(_root);
 	late final ProductionPlanStrings$mrp$result$ja result = ProductionPlanStrings$mrp$result$ja.internal(_root);
 	late final ProductionPlanStrings$mrp$columns$ja columns = ProductionPlanStrings$mrp$columns$ja.internal(_root);
-	late final ProductionPlanStrings$mrp$kind$ja kind = ProductionPlanStrings$mrp$kind$ja.internal(_root);
 	late final ProductionPlanStrings$mrp$decision$ja decision = ProductionPlanStrings$mrp$decision$ja.internal(_root);
 }
 
@@ -263,9 +262,6 @@ class ProductionPlanStrings$mrp$columns$ja {
 
 	// Translations
 
-	/// ja: '提案種別'
-	String get kind => '提案種別';
-
 	/// ja: '品目コード'
 	String get itemCode => '品目コード';
 
@@ -293,71 +289,53 @@ class ProductionPlanStrings$mrp$columns$ja {
 	/// ja: '遅れ'
 	String get late => '遅れ';
 
-	/// ja: '判断'
-	String get decision => '判断';
+	/// ja: '判断が必要'
+	String get needUser => '判断が必要';
 
 	/// ja: 'メッセージ'
 	String get message => 'メッセージ';
-}
 
-// Path: mrp.kind
-class ProductionPlanStrings$mrp$kind$ja {
-	ProductionPlanStrings$mrp$kind$ja.internal(this._root);
+	/// ja: '発注'
+	String get purchase => '発注';
 
-	final ProductionPlanStrings _root; // ignore: unused_field
+	/// ja: '生産'
+	String get production => '生産';
 
-	// Translations
+	/// ja: '外注'
+	String get outsource => '外注';
 
-	/// ja: '発注（新規）'
-	String get purchaseNew => '発注（新規）';
+	/// ja: '資材計画'
+	String get plan => '資材計画';
 
-	/// ja: '生産（新規）'
-	String get productionNew => '生産（新規）';
-
-	/// ja: '発注の日程変更'
-	String get purchaseReschedule => '発注の日程変更';
-
-	/// ja: '生産の日程変更'
-	String get productionReschedule => '生産の日程変更';
-
-	/// ja: '発注の取消'
-	String get purchaseCancel => '発注の取消';
-
-	/// ja: '生産の取消'
-	String get productionCancel => '生産の取消';
-
-	/// ja: '外注への切替'
-	String get outsourceOption => '外注への切替';
-
-	/// ja: '設備の過負荷'
-	String get excOverload => '設備の過負荷';
-
-	/// ja: '在庫の過剰'
-	String get excExcess => '在庫の過剰';
-
-	/// ja: 'マスタの不備'
-	String get excMaster => 'マスタの不備';
-
-	/// ja: '外注（新規）'
-	String get outsourceNew => '外注（新規）';
-
-	/// ja: '外注の取消'
-	String get outsourceCancel => '外注の取消';
-
-	/// ja: '生産計画（新規）'
-	String get planNew => '生産計画（新規）';
-
-	/// ja: '生産計画の変更'
-	String get planUpdate => '生産計画の変更';
-
-	/// ja: '生産計画の維持'
-	String get planKeep => '生産計画の維持';
-
-	/// ja: '生産計画の取消'
-	String get planCancel => '生産計画の取消';
+	/// ja: '例外'
+	String get exception => '例外';
 
 	/// ja: '支給依頼'
 	String get supplyRequest => '支給依頼';
+
+	/// ja: '新規'
+	String get isNew => '新規';
+
+	/// ja: '変更'
+	String get isChange => '変更';
+
+	/// ja: '取消'
+	String get isCancel => '取消';
+
+	/// ja: '維持'
+	String get isKeep => '維持';
+
+	/// ja: '切替の選択肢'
+	String get isOption => '切替の選択肢';
+
+	/// ja: '設備(過負荷)'
+	String get subjectEquipment => '設備(過負荷)';
+
+	/// ja: '在庫(過剰)'
+	String get subjectStock => '在庫(過剰)';
+
+	/// ja: 'マスタ(不備)'
+	String get subjectMaster => 'マスタ(不備)';
 }
 
 // Path: mrp.decision
@@ -655,11 +633,38 @@ class ProductionPlanStrings$entity$mrppending$fields$ja {
 
 	// Translations
 
-	/// ja: '提案種別'
-	String get f_kind => '提案種別';
-
 	/// ja: '品目'
 	String get f_item => '品目';
+
+	/// ja: '発注'
+	String get f_is_purchase => '発注';
+
+	/// ja: '生産'
+	String get f_is_production => '生産';
+
+	/// ja: '外注'
+	String get f_is_outsource => '外注';
+
+	/// ja: '資材計画'
+	String get f_is_plan => '資材計画';
+
+	/// ja: '例外'
+	String get f_is_exception => '例外';
+
+	/// ja: '支給依頼'
+	String get f_is_supply_request => '支給依頼';
+
+	/// ja: '新規'
+	String get f_is_new => '新規';
+
+	/// ja: '変更'
+	String get f_is_change => '変更';
+
+	/// ja: '取消'
+	String get f_is_cancel => '取消';
+
+	/// ja: '切替の選択肢'
+	String get f_is_option => '切替の選択肢';
 
 	/// ja: '数量'
 	String get f_quantity => '数量';
@@ -845,7 +850,6 @@ extension on ProductionPlanStrings {
 			'mrp.result.noRows' => '該当する提案がありません',
 			'mrp.result.lateYes' => '遅れ',
 			'mrp.result.lateNo' => '',
-			'mrp.columns.kind' => '提案種別',
 			'mrp.columns.itemCode' => '品目コード',
 			'mrp.columns.itemName' => '品目名',
 			'mrp.columns.symbol' => 'シンボル',
@@ -855,25 +859,22 @@ extension on ProductionPlanStrings {
 			'mrp.columns.releaseDate' => '発注日・着手日',
 			'mrp.columns.dueDate' => '納期',
 			'mrp.columns.late' => '遅れ',
-			'mrp.columns.decision' => '判断',
+			'mrp.columns.needUser' => '判断が必要',
 			'mrp.columns.message' => 'メッセージ',
-			'mrp.kind.purchaseNew' => '発注（新規）',
-			'mrp.kind.productionNew' => '生産（新規）',
-			'mrp.kind.purchaseReschedule' => '発注の日程変更',
-			'mrp.kind.productionReschedule' => '生産の日程変更',
-			'mrp.kind.purchaseCancel' => '発注の取消',
-			'mrp.kind.productionCancel' => '生産の取消',
-			'mrp.kind.outsourceOption' => '外注への切替',
-			'mrp.kind.excOverload' => '設備の過負荷',
-			'mrp.kind.excExcess' => '在庫の過剰',
-			'mrp.kind.excMaster' => 'マスタの不備',
-			'mrp.kind.outsourceNew' => '外注（新規）',
-			'mrp.kind.outsourceCancel' => '外注の取消',
-			'mrp.kind.planNew' => '生産計画（新規）',
-			'mrp.kind.planUpdate' => '生産計画の変更',
-			'mrp.kind.planKeep' => '生産計画の維持',
-			'mrp.kind.planCancel' => '生産計画の取消',
-			'mrp.kind.supplyRequest' => '支給依頼',
+			'mrp.columns.purchase' => '発注',
+			'mrp.columns.production' => '生産',
+			'mrp.columns.outsource' => '外注',
+			'mrp.columns.plan' => '資材計画',
+			'mrp.columns.exception' => '例外',
+			'mrp.columns.supplyRequest' => '支給依頼',
+			'mrp.columns.isNew' => '新規',
+			'mrp.columns.isChange' => '変更',
+			'mrp.columns.isCancel' => '取消',
+			'mrp.columns.isKeep' => '維持',
+			'mrp.columns.isOption' => '切替の選択肢',
+			'mrp.columns.subjectEquipment' => '設備(過負荷)',
+			'mrp.columns.subjectStock' => '在庫(過剰)',
+			'mrp.columns.subjectMaster' => 'マスタ(不備)',
 			'mrp.decision.pending' => '要判断',
 			'mrp.decision.adopted' => '採用',
 			'mrp.decision.rejected' => '却下',
@@ -912,8 +913,17 @@ extension on ProductionPlanStrings {
 			'entity.purrez.fields.f_trans_purchase_detail_id' => '発注明細',
 			'entity.purrez.fields.f_remarks' => '備考',
 			'entity.mrppending.title' => '要判断の提案',
-			'entity.mrppending.fields.f_kind' => '提案種別',
 			'entity.mrppending.fields.f_item' => '品目',
+			'entity.mrppending.fields.f_is_purchase' => '発注',
+			'entity.mrppending.fields.f_is_production' => '生産',
+			'entity.mrppending.fields.f_is_outsource' => '外注',
+			'entity.mrppending.fields.f_is_plan' => '資材計画',
+			'entity.mrppending.fields.f_is_exception' => '例外',
+			'entity.mrppending.fields.f_is_supply_request' => '支給依頼',
+			'entity.mrppending.fields.f_is_new' => '新規',
+			'entity.mrppending.fields.f_is_change' => '変更',
+			'entity.mrppending.fields.f_is_cancel' => '取消',
+			'entity.mrppending.fields.f_is_option' => '切替の選択肢',
 			'entity.mrppending.fields.f_quantity' => '数量',
 			'entity.mrppending.fields.f_need_at' => '必要日',
 			'entity.mrppending.fields.f_release_at' => '発注日（着手日）',

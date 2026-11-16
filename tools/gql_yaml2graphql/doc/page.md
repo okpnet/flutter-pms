@@ -381,7 +381,6 @@
             +   提案工程明細[MrpSuggestionTaskPage]
         +   ペギング台帳[MrpPeggingPage]
         +   負荷台帳[MrpLoadPage]
-        +   確認中提案台帳[MrpPendingSuggestionPage]
         +   購買計画台帳[MrpPurchasePlanPage]
         +   マスタ不備台帳[MrpMasterIssuePage]
         +   資材計画充足台帳[ResourcePlanCoveragePage]

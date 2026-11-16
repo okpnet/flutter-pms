@@ -2009,6 +2009,9 @@ input HistoryInfoStaffFilter {
   transMrpPeggingsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transMrpLoadsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   vMrpPendingSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  vMrpRunsByStaffHistoryIdAndStaffIdExist: Boolean
+  vMrpSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  vPlanChangesByStaffHistoryIdAndStaffIdExist: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [HistoryInfoStaffFilter!]
@@ -2402,6 +2405,7 @@ input MstrEquipmentFilter {
   vEquipmentInspectionOperationCountByMstrEquipmentIdExists: Boolean
   vInspectionStatusesByMstrEquipmentIdExist: Boolean
   vMrpPendingSuggestionsByMstrEquipmentIdExist: Boolean
+  vMrpSuggestionsByMstrEquipmentIdExist: Boolean
   mstrItemByMstrItemId: MstrItemFilter
   mstrEquipmentKindByMstrEquipmentCategoryId: MstrEquipmentKindFilter
   mstrEquipmentKindByMstrEquipmentCategoryIdExists: Boolean
@@ -2686,6 +2690,7 @@ input MstrItemFilter {
   mstrItemActualSizesByMstrItemIdExist: Boolean
   mstrItemTreesByMstrItemIdExist: Boolean
   mstrItemTreesByParentMstrItemIdExist: Boolean
+  vCancelOpenItemsByItemIdExist: Boolean
   vExternalPropertiesByItemIdExist: Boolean
   vItemDescendantByAncestorMstrItemIdExists: Boolean
   vItemEquipmentCountByMstrItemIdExists: Boolean
@@ -2698,9 +2703,11 @@ input MstrItemFilter {
   vItemOnHandByItemIdExists: Boolean
   vMrpMasterIssuesByItemIdExist: Boolean
   vMrpPendingSuggestionsByItemIdExist: Boolean
+  vMrpSuggestionsByItemIdExist: Boolean
   vMrpVisiterItemsByItemIdExist: Boolean
   vOperationsPlanUnreservedsByMstrItemIdExist: Boolean
   vOrderDetailBalancesByItemIdExist: Boolean
+  vPlanChangesByItemIdExist: Boolean
   vPurchaseAmountsByMstrItemIdExist: Boolean
   vPurchaseDeliveryCompliancesByMstrItemIdExist: Boolean
   vPurchaseDetailBalancesByItemIdExist: Boolean

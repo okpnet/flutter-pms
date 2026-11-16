@@ -6,10 +6,14 @@
 import 'package:pms_graphql/pms_graphql.dart';
 
 abstract class MrpRunPageFilterSpec {
-  static const FlatFilterSpec spec = FlatFilterSpec('TransMrpRunFilter', {
+  static const FlatFilterSpec spec = FlatFilterSpec('VMrpRunFilter', {
     'transMrpRunId': FlatFilterPath([], 'transMrpRunId'),
-    'runMode': FlatFilterPath([], 'runMode'),
-    'status': FlatFilterPath([], 'status'),
+    'isCalculated': FlatFilterPath([], 'isCalculated'),
+    'isCommitted': FlatFilterPath([], 'isCommitted'),
+    'isDiscarded': FlatFilterPath([], 'isDiscarded'),
+    'isExpired': FlatFilterPath([], 'isExpired'),
+    'isOrderRun': FlatFilterPath([], 'isOrderRun'),
+    'isRerun': FlatFilterPath([], 'isRerun'),
     'runAt': FlatFilterPath([], 'runAt'),
     'committedAt': FlatFilterPath([], 'committedAt'),
     'staffHistoryId': FlatFilterPath([], 'staffHistoryId'),
@@ -22,6 +26,5 @@ abstract class MrpRunPageFilterSpec {
     'symbol': FlatFilterPath([], 'symbol'),
     'remarks': FlatFilterPath([], 'remarks'),
     'updateAt': FlatFilterPath([], 'updateAt'),
-    'remove': FlatFilterPath([], 'remove'),
   });
 }

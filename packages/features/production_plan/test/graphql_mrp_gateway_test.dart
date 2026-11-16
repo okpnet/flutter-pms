@@ -20,18 +20,39 @@ GraphQLClient _clientTo(String url, {Map<String, String> headers = const {}}) =>
 GraphqlMrpGateway _gateway(GraphQLClient client) =>
     GraphqlMrpGateway(client: client, languageCodeId: _languageId);
 
+/// ビュー v_mrp_suggestion の 1 行。種類・判断は boolean の列(kind・decision は無い)。
 Map<String, Object?> _suggestion({
   required int seq,
-  String kind = 'PURCHASE_NEW',
-  int decision = 0,
+  bool purchase = true,
+  bool supplyRequest = false,
+  bool exception = false,
+  bool undecided = true,
+  bool info = false,
   bool late = false,
 }) => {
-  '__typename': 'TransMrpSuggestion',
+  '__typename': 'VMrpSuggestion',
   'transMrpSuggestionId': 'aaaaaaaa-0000-0000-0000-00000000000$seq',
   'transMrpRunId': 'bbbbbbbb-0000-0000-0000-000000000001',
   'seq': seq,
-  'kind': kind,
-  'decision': decision,
+  'isPurchase': purchase,
+  'isProduction': false,
+  'isOutsource': false,
+  'isPlan': false,
+  'isException': exception,
+  'isSupplyRequest': supplyRequest,
+  'isNew': purchase || supplyRequest,
+  'isChange': false,
+  'isCancel': false,
+  'isKeep': false,
+  'isOption': false,
+  'subjectEquipment': exception,
+  'subjectStock': false,
+  'subjectMaster': false,
+  'needUser': undecided,
+  'undecided': undecided,
+  'adopted': false,
+  'rejected': false,
+  'isInfo': info,
   'late': late,
   'quantity': '2100.5',
   'allocatedQuantity': '1500',
@@ -85,8 +106,8 @@ Map<String, Object?> _data(List<Map<String, Object?>> suggestions) => {
       'updateAt': '2026-10-30T09:00:00',
     },
   },
-  'allTransMrpSuggestions': {
-    '__typename': 'TransMrpSuggestionsConnection',
+  'allVMrpSuggestions': {
+    '__typename': 'VMrpSuggestionsConnection',
     'totalCount': suggestions.length,
     'pageInfo': {
       '__typename': 'PageInfo',
@@ -169,7 +190,14 @@ void main() {
       server = await FaultyGraphqlServer.start();
       server.data = _data([
         _suggestion(seq: 1),
-        _suggestion(seq: 2, kind: 'EXC_OVERLOAD', decision: 9, late: true),
+        _suggestion(
+          seq: 2,
+          purchase: false,
+          exception: true,
+          undecided: false,
+          info: true,
+          late: true,
+        ),
       ]);
     });
     tearDown(() => server.close());
@@ -184,13 +212,16 @@ void main() {
       expect(result.executedAt, DateTime.parse('2026-10-30T09:00:00'));
       expect(result.suggestionCount, 2);
       final first = result.suggestions.first;
-      expect(first.kind, MrpSuggestionKind.purchaseNew);
+      expect(first.isPurchase, isTrue);
+      expect(first.isNew, isTrue);
       expect(first.itemCode, 'M-1001');
       expect(first.itemName, 'SUS304丸棒');
       expect(first.quantity, 2100.5);
       expect(first.allocation, 1500);
-      expect(first.decision, MrpDecision.pending);
-      expect(result.suggestions.last.decision, MrpDecision.info);
+      expect(first.undecided, isTrue);
+      expect(result.suggestions.last.isInfo, isTrue);
+      expect(result.suggestions.last.isException, isTrue);
+      expect(result.suggestions.last.subjectEquipment, isTrue);
       expect(result.lateCount, 1);
       // mutation と提案の読み込みの2回。
       expect(server.requestCount, 2);
@@ -202,28 +233,17 @@ void main() {
 
     test('支給依頼(SUPPLY_REQUEST。要判断)の提案を受け取る(行が消えない・失敗にならない)', () async {
       server.data = _data([
-        _suggestion(seq: 1, kind: 'SUPPLY_REQUEST', decision: 0),
-        _suggestion(seq: 2, kind: 'PURCHASE_NEW'),
+        _suggestion(seq: 1, purchase: false, supplyRequest: true),
+        _suggestion(seq: 2),
       ]);
       final result = await _gateway(
         _clientTo(server.url),
       ).execute(mode: MrpMode.order, staffId: '');
       expect(result.suggestions.length, 2);
-      expect(result.suggestions.first.kind, MrpSuggestionKind.supplyRequest);
-      expect(result.suggestions.first.decision, MrpDecision.pending);
-      expect(MrpSuggestionKind.ofCode('SUPPLY_REQUEST'), MrpSuggestionKind.supplyRequest);
-    });
-
-    test('未知の提案種別は失敗にする(確かめていない結果を出さない)', () async {
-      server.data = _data([_suggestion(seq: 1, kind: 'UNKNOWN')]);
-      expect(
-        () => _gateway(
-          _clientTo(server.url),
-        ).execute(mode: MrpMode.order, staffId: ''),
-        throwsA(
-          isA<MrpFailure>().having((f) => f.code, 'code', 'MRP_UNKNOWN_KIND'),
-        ),
-      );
+      expect(result.suggestions.first.isSupplyRequest, isTrue);
+      expect(result.suggestions.first.undecided, isTrue);
+      expect(result.suggestions.first.needUser, isTrue);
+      expect(result.pendingCount, 2);
     });
 
     test('サーバーのエラーコード(MRP00)を失敗のコードにする', () {

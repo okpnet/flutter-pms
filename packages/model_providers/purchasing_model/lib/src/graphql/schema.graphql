@@ -1261,6 +1261,9 @@ input HistoryInfoStaffFilter {
   transMrpPeggingsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transMrpLoadsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   vMrpPendingSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  vMrpRunsByStaffHistoryIdAndStaffIdExist: Boolean
+  vMrpSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  vPlanChangesByStaffHistoryIdAndStaffIdExist: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [HistoryInfoStaffFilter!]
@@ -1448,10 +1451,12 @@ input MstrStakeholderFilter {
   mstrInspectionsByExternalInspectionExist: Boolean
   mstrStakeholderProvisionsByMstrStakeholderIdExist: Boolean
   transAuditsByMstrStakeholderIdExist: Boolean
+  vCancelOpenItemsByStakeholderIdExist: Boolean
   vExternalPropertiesByOwnerStakeholderIdExist: Boolean
   vInspectionStatusesBySupplierIdExist: Boolean
   vMrpPendingSuggestionsByStakeholderIdExist: Boolean
   vMrpPurchasePlansByStakeholderIdExist: Boolean
+  vMrpSuggestionsByStakeholderIdExist: Boolean
   vPurchaseAmountsBySupplierIdExist: Boolean
   vPurchaseDeliveryCompliancesBySupplierIdExist: Boolean
   vSalesRecordsByCustomerIdExist: Boolean
@@ -1799,7 +1804,10 @@ input TransPurchaseDetailFilter {
   transReturnDetailsByTransPurchaseDetailIdExist: Boolean
   transInspectSchDetailsByTransPurchaseDetailIdExist: Boolean
   transMrpPeggingsByTransPurchaseDetailIdExist: Boolean
+  vCancelOpenItemsByTransPurchaseDetailIdExist: Boolean
   vMrpPendingSuggestionsByTransPurchaseDetailIdExist: Boolean
+  vMrpSuggestionsByTransPurchaseDetailIdExist: Boolean
+  vPlanChangesByTransPurchaseDetailIdExist: Boolean
   vPlanChangeUnreflectedsByTransPurchaseDetailIdExist: Boolean
   vPurchaseDetailBalanceByTransPurchaseDetailId: VPurchaseDetailBalanceFilter
   vPurchaseDetailBalanceByTransPurchaseDetailIdExists: Boolean
@@ -1987,6 +1995,7 @@ input TransUnrecognizedDetailFilter {
   transResourcePlansByTransUnrecognizedDetailIdExist: Boolean
   transMrpSuggestionsByTransUnrecognizedDetailIdExist: Boolean
   vMrpPendingSuggestionsByTransUnrecognizedDetailIdExist: Boolean
+  vMrpSuggestionsByTransUnrecognizedDetailIdExist: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransUnrecognizedDetailFilter!]

@@ -6,15 +6,14 @@
 query MrpRunPageRead(
   $first: Int!
   $offset: Int
-  $filter: TransMrpRunFilter = {and: []}
-  $orderBy: [TransMrpRunsOrderBy!]
-  $removed: Boolean = false
+  $filter: VMrpRunFilter = {and: []}
+  $orderBy: [VMrpRunsOrderBy!]
 ) {
-  allTransMrpRuns(
+  allVMrpRuns(
     first: $first
     offset: $offset
     orderBy: $orderBy
-    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+    filter: { and: [$filter] }
   ) {
     totalCount
     pageInfo {
@@ -23,8 +22,12 @@ query MrpRunPageRead(
     }
     nodes {
       transMrpRunId
-      runMode
-      status
+      isCalculated
+      isCommitted
+      isDiscarded
+      isExpired
+      isOrderRun
+      isRerun
       runAt
       committedAt
       staffHistoryId
@@ -37,7 +40,6 @@ query MrpRunPageRead(
       symbol
       remarks
       updateAt
-      remove
     }
   }
 }

@@ -111,7 +111,7 @@
       {
         "key": "mrppending",
         "label": "要判断の提案",
-        "first": "PURCHASE_NEW"
+        "first": "100"
       },
       {
         "key": "mrppurchase",
@@ -132,6 +132,18 @@
         "key": "stockrez",
         "label": "引当予約",
         "first": "20"
+      }
+    ],
+    "plan_change": [
+      {
+        "key": "planchange",
+        "label": "計画変更の履歴",
+        "first": "CH-0001"
+      },
+      {
+        "key": "cancelopen",
+        "label": "未処置一覧",
+        "first": "CO-0001"
       }
     ],
     "work_record": [
@@ -416,6 +428,9 @@
       "sales",
       "shared_master",
       "work_record"
+    ],
+    "plan_change": [
+      "item"
     ],
     "work_record": [
       "item",

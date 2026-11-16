@@ -18,5 +18,7 @@ abstract class SalesRecordPageFilterSpec {
     'shippedQuantity': FlatFilterPath([], 'shippedQuantity'),
     'orderAmount': FlatFilterPath([], 'orderAmount'),
     'shippedAmount': FlatFilterPath([], 'shippedAmount'),
+    'settlementAmount': FlatFilterPath([], 'settlementAmount'),
+    'totalAmount': FlatFilterPath([], 'totalAmount'),
   });
 }

@@ -44,12 +44,20 @@ class SalesRecordRow {
     required this.shippedQuantity,
     required this.orderAmount,
     required this.shippedAmount,
+    this.settlementAmount = 0,
+    this.totalAmount = 0,
   });
 
   final num orderQuantity;
   final num shippedQuantity;
   final num orderAmount;
   final num shippedAmount;
+
+  /// 途中の精算額(精算 1 件 = 請求書 1 行。DB のビュー v_sales_record の列。画面で計算しない)。
+  final num settlementAmount;
+
+  /// 受注金額の合計(数量 × 単価 + 調整 + 精算額。DB のビューの列)。
+  final num totalAmount;
 }
 
 /// 出荷予定受注実績状況の1行。
@@ -110,6 +118,8 @@ GraphqlFetch<MetricPage<SalesRecordRow>> salesRecordFetch(
             shippedQuantity: _num(n.shippedQuantity),
             orderAmount: _num(n.orderAmount),
             shippedAmount: _num(n.shippedAmount),
+            settlementAmount: _num(n.settlementAmount),
+            totalAmount: _num(n.totalAmount),
           ),
       ],
     );

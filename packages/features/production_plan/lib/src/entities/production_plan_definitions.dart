@@ -57,8 +57,17 @@ const List<EntityDefinition> productionPlanDefinitions = [
     EntityDefinition(
       key: 'mrppending', viewOnly: true,
       fields: [
-        FieldDefinition(key: 'kind', required: false, readOnly: true),
         FieldDefinition(key: 'item', kind: FieldKind.reference, required: false, reference: 'item', readOnly: true),
+        FieldDefinition(key: 'is_purchase', kind: FieldKind.flag, required: false, readOnly: true),
+        FieldDefinition(key: 'is_production', kind: FieldKind.flag, required: false, readOnly: true),
+        FieldDefinition(key: 'is_outsource', kind: FieldKind.flag, required: false, readOnly: true),
+        FieldDefinition(key: 'is_plan', kind: FieldKind.flag, required: false, readOnly: true),
+        FieldDefinition(key: 'is_exception', kind: FieldKind.flag, required: false, readOnly: true),
+        FieldDefinition(key: 'is_supply_request', kind: FieldKind.flag, required: false, readOnly: true),
+        FieldDefinition(key: 'is_new', kind: FieldKind.flag, required: false, readOnly: true),
+        FieldDefinition(key: 'is_change', kind: FieldKind.flag, required: false, readOnly: true),
+        FieldDefinition(key: 'is_cancel', kind: FieldKind.flag, required: false, readOnly: true),
+        FieldDefinition(key: 'is_option', kind: FieldKind.flag, required: false, readOnly: true),
         FieldDefinition(key: 'quantity', kind: FieldKind.number, required: false, readOnly: true),
         FieldDefinition(key: 'need_at', kind: FieldKind.date, required: false, readOnly: true),
         FieldDefinition(key: 'release_at', kind: FieldKind.date, required: false, readOnly: true),

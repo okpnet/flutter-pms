@@ -1568,6 +1568,9 @@ input HistoryInfoStaffFilter {
   transMrpPeggingsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transMrpLoadsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   vMrpPendingSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  vMrpRunsByStaffHistoryIdAndStaffIdExist: Boolean
+  vMrpSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  vPlanChangesByStaffHistoryIdAndStaffIdExist: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [HistoryInfoStaffFilter!]
@@ -1998,10 +2001,12 @@ input TransContainerFilter {
   transPlanChangesByTransContainerIdExist: Boolean
   transContainerTreesByTransContainerIdExist: Boolean
   transContainerTreesByParentTransContainerIdExist: Boolean
+  vCancelOpenItemsByTransContainerIdExist: Boolean
   vContainerDescendantByAncestorTransContainerIdExists: Boolean
   vContainerVisiterCountByTransContainerId: VContainerVisiterCountFilter
   vContainerVisiterCountByTransContainerIdExists: Boolean
   vExternalPropertiesByTransContainerIdExist: Boolean
+  vPlanChangesByTransContainerIdExist: Boolean
   vShelfInventoryStatusesByTransContainerIdExist: Boolean
   vStockStatusesByTransContainerIdExist: Boolean
   vVisiterHoldWithoutComplaintsByTransContainerIdExist: Boolean
@@ -2131,6 +2136,8 @@ input TransInventoryRequestFilter {
   remove: BooleanFilter
   transPlanChangesByTransInventoryRequestIdExist: Boolean
   transInventoryAppliesByTransInventoryRequestIdExist: Boolean
+  vCancelOpenItemsByTransInventoryRequestIdExist: Boolean
+  vPlanChangesByTransInventoryRequestIdExist: Boolean
   transVisiterByTransVisiterIdExists: Boolean
   transPurchaseRezByTransPurchaseRezIdExists: Boolean
   transProductRezByTransProductRezIdExists: Boolean
@@ -2284,9 +2291,11 @@ input TransVisiterFilter {
   transWorkRecordVisitersByTransVisiterIdExist: Boolean
   transPurchaseRecVisitersByTransVisiterIdExist: Boolean
   transConveysByTransVisiterIdExist: Boolean
+  vCancelOpenItemsByTransVisiterIdExist: Boolean
   vComplaintTargetVisitersByTransVisiterIdExist: Boolean
   vExternalPropertyByTransVisiterIdExists: Boolean
   vMrpVisiterItemByTransVisiterIdExists: Boolean
+  vPlanChangesByTransVisiterIdExist: Boolean
   vShelfInventoryStatusByTransVisiterIdExists: Boolean
   vShelfInventoryStatusesByParentTransVisiterIdExist: Boolean
   vStockStatusByTransVisiterIdExists: Boolean

@@ -32,6 +32,8 @@ query SalesRecordPageRead(
       shippedQuantity
       orderAmount
       shippedAmount
+      settlementAmount
+      totalAmount
     }
   }
 }

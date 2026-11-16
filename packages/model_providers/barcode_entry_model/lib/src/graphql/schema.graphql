@@ -1207,6 +1207,9 @@ input HistoryInfoStaffFilter {
   transMrpPeggingsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transMrpLoadsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   vMrpPendingSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  vMrpRunsByStaffHistoryIdAndStaffIdExist: Boolean
+  vMrpSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  vPlanChangesByStaffHistoryIdAndStaffIdExist: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [HistoryInfoStaffFilter!]
   or: [HistoryInfoStaffFilter!]
@@ -1297,6 +1300,7 @@ input MstrEquipmentFilter {
   vEquipmentInspectionOperationCountByMstrEquipmentIdExists: Boolean
   vInspectionStatusesByMstrEquipmentIdExist: Boolean
   vMrpPendingSuggestionsByMstrEquipmentIdExist: Boolean
+  vMrpSuggestionsByMstrEquipmentIdExist: Boolean
   mstrEquipmentKindByMstrEquipmentCategoryIdExists: Boolean
   mstrLocationByMstrLocationIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
@@ -1386,6 +1390,7 @@ input MstrItemFilter {
   mstrItemActualSizesByMstrItemIdExist: Boolean
   mstrItemTreesByMstrItemIdExist: Boolean
   mstrItemTreesByParentMstrItemIdExist: Boolean
+  vCancelOpenItemsByItemIdExist: Boolean
   vExternalPropertiesByItemIdExist: Boolean
   vItemDescendantByAncestorMstrItemIdExists: Boolean
   vItemEquipmentCountByMstrItemIdExists: Boolean
@@ -1398,9 +1403,11 @@ input MstrItemFilter {
   vItemOnHandByItemIdExists: Boolean
   vMrpMasterIssuesByItemIdExist: Boolean
   vMrpPendingSuggestionsByItemIdExist: Boolean
+  vMrpSuggestionsByItemIdExist: Boolean
   vMrpVisiterItemsByItemIdExist: Boolean
   vOperationsPlanUnreservedsByMstrItemIdExist: Boolean
   vOrderDetailBalancesByItemIdExist: Boolean
+  vPlanChangesByItemIdExist: Boolean
   vPurchaseAmountsByMstrItemIdExist: Boolean
   vPurchaseDeliveryCompliancesByMstrItemIdExist: Boolean
   vPurchaseDetailBalancesByItemIdExist: Boolean
@@ -1674,9 +1681,11 @@ input TransContainerFilter {
   transPlanChangesByTransContainerIdExist: Boolean
   transContainerTreesByTransContainerIdExist: Boolean
   transContainerTreesByParentTransContainerIdExist: Boolean
+  vCancelOpenItemsByTransContainerIdExist: Boolean
   vContainerDescendantByAncestorTransContainerIdExists: Boolean
   vContainerVisiterCountByTransContainerIdExists: Boolean
   vExternalPropertiesByTransContainerIdExist: Boolean
+  vPlanChangesByTransContainerIdExist: Boolean
   vShelfInventoryStatusesByTransContainerIdExist: Boolean
   vStockStatusesByTransContainerIdExist: Boolean
   vVisiterHoldWithoutComplaintsByTransContainerIdExist: Boolean
@@ -1862,10 +1871,14 @@ input TransOperationsPlanFilter {
   transMrpSuggestionsByTransOperationsPlanIdExist: Boolean
   transPlanChangesByTransOperationsPlanIdExist: Boolean
   transMrpPeggingsByTransOperationsPlanIdExist: Boolean
+  vCancelOpenItemsByTransOperationsPlanIdExist: Boolean
   vMrpPendingSuggestionsByParentTransOperationsPlanIdExist: Boolean
   vMrpPendingSuggestionsByTransOperationsPlanIdExist: Boolean
+  vMrpSuggestionsByParentTransOperationsPlanIdExist: Boolean
+  vMrpSuggestionsByTransOperationsPlanIdExist: Boolean
   vOperationsPlanUnreservedByTransOperationsPlanIdExists: Boolean
   vOperationsPlanWorkPlanCountByTransOperationsPlanIdExists: Boolean
+  vPlanChangesByTransOperationsPlanIdExist: Boolean
   vPlanChangeUnreflectedsByTransOperationsPlanIdExist: Boolean
   vWorkPlanDeliveryCompliancesByTransOperationsPlanIdExist: Boolean
   vWorkPlanRegistrablesByTransOperationsPlanIdExist: Boolean
@@ -1907,7 +1920,10 @@ input TransPurchaseDetailFilter {
   transReturnDetailsByTransPurchaseDetailIdExist: Boolean
   transInspectSchDetailsByTransPurchaseDetailIdExist: Boolean
   transMrpPeggingsByTransPurchaseDetailIdExist: Boolean
+  vCancelOpenItemsByTransPurchaseDetailIdExist: Boolean
   vMrpPendingSuggestionsByTransPurchaseDetailIdExist: Boolean
+  vMrpSuggestionsByTransPurchaseDetailIdExist: Boolean
+  vPlanChangesByTransPurchaseDetailIdExist: Boolean
   vPlanChangeUnreflectedsByTransPurchaseDetailIdExist: Boolean
   vPurchaseDetailBalanceByTransPurchaseDetailIdExists: Boolean
   vPurchaseDetailPurchaseRecCountByTransPurchaseDetailIdExists: Boolean
@@ -1970,6 +1986,7 @@ input TransResourcePlanFilter {
   transMrpSuggestionsByTransResourcePlanIdExist: Boolean
   transSupplyDetailsByTransResourcePlanIdExist: Boolean
   vMrpPendingSuggestionsByTransResourcePlanIdExist: Boolean
+  vMrpSuggestionsByTransResourcePlanIdExist: Boolean
   vResourcePlanCoverageByTransResourcePlanIdExists: Boolean
   vSupplyDetailBalancesByTransResourcePlanIdExist: Boolean
   transOperationsPlanByParentTransOperationsPlanIdExists: Boolean
@@ -2005,9 +2022,11 @@ input TransVisiterFilter {
   transWorkRecordVisitersByTransVisiterIdExist: Boolean
   transPurchaseRecVisitersByTransVisiterIdExist: Boolean
   transConveysByTransVisiterIdExist: Boolean
+  vCancelOpenItemsByTransVisiterIdExist: Boolean
   vComplaintTargetVisitersByTransVisiterIdExist: Boolean
   vExternalPropertyByTransVisiterIdExists: Boolean
   vMrpVisiterItemByTransVisiterIdExists: Boolean
+  vPlanChangesByTransVisiterIdExist: Boolean
   vShelfInventoryStatusByTransVisiterIdExists: Boolean
   vShelfInventoryStatusesByParentTransVisiterIdExist: Boolean
   vStockStatusByTransVisiterIdExists: Boolean

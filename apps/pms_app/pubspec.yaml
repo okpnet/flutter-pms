@@ -65,6 +65,8 @@ dependencies:
     path: ../../packages/features/sales
   purchasing:
     path: ../../packages/features/purchasing
+  plan_change:
+    path: ../../packages/features/plan_change
   production_plan:
     path: ../../packages/features/production_plan
   production_process:

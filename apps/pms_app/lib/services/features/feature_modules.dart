@@ -6,6 +6,7 @@ import 'package:barcode_entry/barcode_entry.dart';
 import 'package:item/item.dart';
 import 'package:maintenance/maintenance.dart';
 import 'package:organization/organization.dart';
+import 'package:plan_change/plan_change.dart';
 import 'package:production_plan/production_plan.dart';
 import 'package:production_process/production_process.dart';
 import 'package:purchasing/purchasing.dart';
@@ -41,6 +42,7 @@ const List<FeatureModule> featureModules = [
   SalesModule(),
   PurchasingModule(),
   ProductionPlanModule(),
+  PlanChangeModule(),
   ProductionProcessModule(),
   WorkRecordModule(),
   BarcodeEntryModule(),

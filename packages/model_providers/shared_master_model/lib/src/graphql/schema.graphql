@@ -522,6 +522,9 @@ input HistoryInfoStaffFilter {
   transMrpPeggingsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transMrpLoadsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   vMrpPendingSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  vMrpRunsByStaffHistoryIdAndStaffIdExist: Boolean
+  vMrpSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  vPlanChangesByStaffHistoryIdAndStaffIdExist: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [HistoryInfoStaffFilter!]
@@ -625,10 +628,12 @@ input MstrStakeholderFilter {
   mstrInspectionsByExternalInspectionExist: Boolean
   mstrStakeholderProvisionsByMstrStakeholderIdExist: Boolean
   transAuditsByMstrStakeholderIdExist: Boolean
+  vCancelOpenItemsByStakeholderIdExist: Boolean
   vExternalPropertiesByOwnerStakeholderIdExist: Boolean
   vInspectionStatusesBySupplierIdExist: Boolean
   vMrpPendingSuggestionsByStakeholderIdExist: Boolean
   vMrpPurchasePlansByStakeholderIdExist: Boolean
+  vMrpSuggestionsByStakeholderIdExist: Boolean
   vPurchaseAmountsBySupplierIdExist: Boolean
   vPurchaseDeliveryCompliancesBySupplierIdExist: Boolean
   vSalesRecordsByCustomerIdExist: Boolean

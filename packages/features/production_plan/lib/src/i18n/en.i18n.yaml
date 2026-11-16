@@ -43,7 +43,6 @@ mrp:
     lateYes: Late
     lateNo: ""
   columns:
-    kind: Suggestion
     itemCode: Item code
     itemName: Item name
     symbol: Symbol
@@ -53,26 +52,22 @@ mrp:
     releaseDate: Release date
     dueDate: Due date
     late: Late
-    decision: Decision
+    needUser: Needs decision (flag)
     message: Message
-  kind:
-    purchaseNew: Purchase (new)
-    productionNew: Production (new)
-    purchaseReschedule: Purchase reschedule
-    productionReschedule: Production reschedule
-    purchaseCancel: Purchase cancel
-    productionCancel: Production cancel
-    outsourceOption: Switch to outsourcing
-    excOverload: Equipment overload
-    excExcess: Excess stock
-    excMaster: Master data issue
-    outsourceNew: Outsource (new)
-    outsourceCancel: Outsource (cancel)
-    planNew: Production plan (new)
-    planUpdate: Production plan (change)
-    planKeep: Production plan (keep)
-    planCancel: Production plan (cancel)
+    purchase: Purchase
+    production: Production
+    outsource: Outsource
+    plan: Material plan
+    exception: Exception
     supplyRequest: Supply request
+    isNew: New
+    isChange: Change
+    isCancel: Cancel
+    isKeep: Keep
+    isOption: Switch option
+    subjectEquipment: Equipment (overload)
+    subjectStock: Stock (excess)
+    subjectMaster: Master data (issue)
   decision:
     pending: Needs decision
     adopted: Adopted

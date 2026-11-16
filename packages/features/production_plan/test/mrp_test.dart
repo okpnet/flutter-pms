@@ -60,11 +60,16 @@ void main() {
     expect(result.lateCount, 1);
     expect(MrpMode.order.code, 1);
     expect(MrpMode.redo.code, 2);
-    expect(MrpDecision.info.code, 9);
-    expect(
-      MrpSuggestionKind.ofCode('OUTSOURCE_OPTION'),
-      MrpSuggestionKind.outsourceOption,
-    );
+    // 種類・判断は boolean の列。対象はちょうど 1 つ、判断もちょうど 1 つ true
+    for (final s in DemoMrpGateway.demoSuggestions) {
+      expect(
+        [s.isPurchase, s.isProduction, s.isOutsource, s.isPlan, s.isException, s.isSupplyRequest]
+            .where((v) => v)
+            .length,
+        1,
+      );
+      expect([s.undecided, s.adopted, s.rejected, s.isInfo].where((v) => v).length, 1);
+    }
   });
 
   testWidgets('実行前に確認の警告を出し、キャンセルでは実行しない', (tester) async {
@@ -124,7 +129,9 @@ void main() {
     expect(find.text('遅れ件数: 1件'), findsOneWidget);
     // 結果の表
     expect(find.text('SUS304丸棒 φ20'), findsOneWidget);
-    expect(find.text('発注（新規）'), findsWidgets);
+    // 対象・動き・判断は、列の名前とチェック(文は組み立てない)
+    expect(find.text('発注'), findsWidgets);
+    expect(find.text('✓'), findsWidgets);
     // 提案の symbol
     expect(find.text('MS-0001'), findsOneWidget);
   });
@@ -139,7 +146,7 @@ void main() {
     expect(find.text('SUS304丸棒 φ20'), findsOneWidget);
 
     // 判断: 要判断だけ
-    await tester.tap(find.byKey(const ValueKey('mrpDecision:pending')));
+    await tester.tap(find.byKey(const ValueKey('mrpDecision:undecided')));
     await tester.pumpAndSettle();
     expect(find.text('SUS304丸棒 φ20'), findsNothing);
     expect(find.text('A5052アルミ板 t3'), findsOneWidget);

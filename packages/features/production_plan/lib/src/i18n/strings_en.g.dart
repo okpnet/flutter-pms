@@ -63,7 +63,6 @@ class _ProductionPlanStrings$mrp$en extends ProductionPlanStrings$mrp$ja {
 	@override late final _ProductionPlanStrings$mrp$failure$en failure = _ProductionPlanStrings$mrp$failure$en._(_root);
 	@override late final _ProductionPlanStrings$mrp$result$en result = _ProductionPlanStrings$mrp$result$en._(_root);
 	@override late final _ProductionPlanStrings$mrp$columns$en columns = _ProductionPlanStrings$mrp$columns$en._(_root);
-	@override late final _ProductionPlanStrings$mrp$kind$en kind = _ProductionPlanStrings$mrp$kind$en._(_root);
 	@override late final _ProductionPlanStrings$mrp$decision$en decision = _ProductionPlanStrings$mrp$decision$en._(_root);
 }
 
@@ -157,7 +156,6 @@ class _ProductionPlanStrings$mrp$columns$en extends ProductionPlanStrings$mrp$co
 	final ProductionPlanStringsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get kind => 'Suggestion';
 	@override String get itemCode => 'Item code';
 	@override String get itemName => 'Item name';
 	@override String get symbol => 'Symbol';
@@ -167,34 +165,22 @@ class _ProductionPlanStrings$mrp$columns$en extends ProductionPlanStrings$mrp$co
 	@override String get releaseDate => 'Release date';
 	@override String get dueDate => 'Due date';
 	@override String get late => 'Late';
-	@override String get decision => 'Decision';
+	@override String get needUser => 'Needs decision (flag)';
 	@override String get message => 'Message';
-}
-
-// Path: mrp.kind
-class _ProductionPlanStrings$mrp$kind$en extends ProductionPlanStrings$mrp$kind$ja {
-	_ProductionPlanStrings$mrp$kind$en._(ProductionPlanStringsEn root) : this._root = root, super.internal(root);
-
-	final ProductionPlanStringsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get purchaseNew => 'Purchase (new)';
-	@override String get productionNew => 'Production (new)';
-	@override String get purchaseReschedule => 'Purchase reschedule';
-	@override String get productionReschedule => 'Production reschedule';
-	@override String get purchaseCancel => 'Purchase cancel';
-	@override String get productionCancel => 'Production cancel';
-	@override String get outsourceOption => 'Switch to outsourcing';
-	@override String get excOverload => 'Equipment overload';
-	@override String get excExcess => 'Excess stock';
-	@override String get excMaster => 'Master data issue';
-	@override String get outsourceNew => 'Outsource (new)';
-	@override String get outsourceCancel => 'Outsource (cancel)';
-	@override String get planNew => 'Production plan (new)';
-	@override String get planUpdate => 'Production plan (change)';
-	@override String get planKeep => 'Production plan (keep)';
-	@override String get planCancel => 'Production plan (cancel)';
+	@override String get purchase => 'Purchase';
+	@override String get production => 'Production';
+	@override String get outsource => 'Outsource';
+	@override String get plan => 'Material plan';
+	@override String get exception => 'Exception';
 	@override String get supplyRequest => 'Supply request';
+	@override String get isNew => 'New';
+	@override String get isChange => 'Change';
+	@override String get isCancel => 'Cancel';
+	@override String get isKeep => 'Keep';
+	@override String get isOption => 'Switch option';
+	@override String get subjectEquipment => 'Equipment (overload)';
+	@override String get subjectStock => 'Stock (excess)';
+	@override String get subjectMaster => 'Master data (issue)';
 }
 
 // Path: mrp.decision
@@ -255,7 +241,6 @@ extension on ProductionPlanStringsEn {
 			'mrp.result.noRows' => 'No matching suggestions',
 			'mrp.result.lateYes' => 'Late',
 			'mrp.result.lateNo' => '',
-			'mrp.columns.kind' => 'Suggestion',
 			'mrp.columns.itemCode' => 'Item code',
 			'mrp.columns.itemName' => 'Item name',
 			'mrp.columns.symbol' => 'Symbol',
@@ -265,25 +250,22 @@ extension on ProductionPlanStringsEn {
 			'mrp.columns.releaseDate' => 'Release date',
 			'mrp.columns.dueDate' => 'Due date',
 			'mrp.columns.late' => 'Late',
-			'mrp.columns.decision' => 'Decision',
+			'mrp.columns.needUser' => 'Needs decision (flag)',
 			'mrp.columns.message' => 'Message',
-			'mrp.kind.purchaseNew' => 'Purchase (new)',
-			'mrp.kind.productionNew' => 'Production (new)',
-			'mrp.kind.purchaseReschedule' => 'Purchase reschedule',
-			'mrp.kind.productionReschedule' => 'Production reschedule',
-			'mrp.kind.purchaseCancel' => 'Purchase cancel',
-			'mrp.kind.productionCancel' => 'Production cancel',
-			'mrp.kind.outsourceOption' => 'Switch to outsourcing',
-			'mrp.kind.excOverload' => 'Equipment overload',
-			'mrp.kind.excExcess' => 'Excess stock',
-			'mrp.kind.excMaster' => 'Master data issue',
-			'mrp.kind.outsourceNew' => 'Outsource (new)',
-			'mrp.kind.outsourceCancel' => 'Outsource (cancel)',
-			'mrp.kind.planNew' => 'Production plan (new)',
-			'mrp.kind.planUpdate' => 'Production plan (change)',
-			'mrp.kind.planKeep' => 'Production plan (keep)',
-			'mrp.kind.planCancel' => 'Production plan (cancel)',
-			'mrp.kind.supplyRequest' => 'Supply request',
+			'mrp.columns.purchase' => 'Purchase',
+			'mrp.columns.production' => 'Production',
+			'mrp.columns.outsource' => 'Outsource',
+			'mrp.columns.plan' => 'Material plan',
+			'mrp.columns.exception' => 'Exception',
+			'mrp.columns.supplyRequest' => 'Supply request',
+			'mrp.columns.isNew' => 'New',
+			'mrp.columns.isChange' => 'Change',
+			'mrp.columns.isCancel' => 'Cancel',
+			'mrp.columns.isKeep' => 'Keep',
+			'mrp.columns.isOption' => 'Switch option',
+			'mrp.columns.subjectEquipment' => 'Equipment (overload)',
+			'mrp.columns.subjectStock' => 'Stock (excess)',
+			'mrp.columns.subjectMaster' => 'Master data (issue)',
 			'mrp.decision.pending' => 'Needs decision',
 			'mrp.decision.adopted' => 'Adopted',
 			'mrp.decision.rejected' => 'Rejected',

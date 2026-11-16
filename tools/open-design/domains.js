@@ -41,7 +41,7 @@
 
 /* 手書きの追加（20261031_0001 の採択）。
    - 品目に「作業単価」(mstr_item_task_cost。品目×工程場所) と「在庫」(v_item_on_hand。読み取り専用)。
-   - 生産計画に資材所要計算の結果の読み取り専用の一覧(v_mrp_pending_suggestion・v_mrp_purchase_plan・v_mrp_master_issue・v_resource_plan_coverage)。
+   - 生産計画に資材所要計算の結果の読み取り専用の一覧(v_mrp_suggestion(run_open・undecided で絞る)・v_mrp_purchase_plan・v_mrp_master_issue・v_resource_plan_coverage)。
    - 作業実績に MRP のビジター品目(v_mrp_visiter_item。読み取り専用)。
    読み取り専用(viewOnly)は、台帳に「新規」を出さず、編集画面に保存・削除を出さない。 */
 (function () {
@@ -75,9 +75,19 @@
   screen("itemonhand", "品目の在庫", "box", "item");
 
   // 資材所要計算の結果(読み取り専用)
+  // v_mrp_suggestion(計算済み = run_open・未判断 = undecided)。提案の種類(kind)の文字列は持たず、対象・動きを boolean の列(チェック)で出す
   view("mrppending", "要判断の提案", [
-    ["kind", "提案種別", "t"],
     ["item", "品目", "r", { ref: "item" }],
+    ["is_purchase", "発注", "b"],
+    ["is_production", "生産", "b"],
+    ["is_outsource", "外注", "b"],
+    ["is_plan", "資材計画", "b"],
+    ["is_exception", "例外", "b"],
+    ["is_supply_request", "支給依頼", "b"],
+    ["is_new", "新規", "b"],
+    ["is_change", "変更", "b"],
+    ["is_cancel", "取消", "b"],
+    ["is_option", "切替の選択肢", "b"],
     ["quantity", "数量", "n"],
     ["need_at", "必要日", "d"],
     ["release_at", "発注日（着手日）", "d"],
@@ -86,8 +96,8 @@
     ["message", "メッセージ", "t"],
     ["symbol", "シンボル", "t"],
   ], [
-    ["PURCHASE_NEW", "item1", "100", "2026-11-10", "2026-10-30", "2026-11-12", "1", "納期が必要日に間に合いません", "PS-0001"],
-    ["PRODUCTION_NEW", "item2", "20", "2026-11-15", "2026-11-01", "2026-11-14", "", "", "PS-0002"],
+    ["item1", "1", "", "", "", "", "", "1", "", "", "", "100", "2026-11-10", "2026-10-30", "2026-11-12", "1", "納期が必要日に間に合いません", "PS-0001"],
+    ["item2", "", "1", "", "", "", "", "1", "", "", "", "20", "2026-11-15", "2026-11-01", "2026-11-14", "", "", "PS-0002"],
   ]);
   view("mrppurchase", "発注予定", [
     ["kind", "提案種別", "t"],
@@ -238,7 +248,7 @@
 
 /* 出荷管理（出荷予定台帳 + 出荷指示）と、引当予約。
    - 出荷予定は DB の出荷オーダー(trans_shipping_order)、出荷指示は出荷オーダー明細(trans_shipping_order_detail)。
-     出荷オーダーは受注1件につき1件(DB の一意制約 trans_shipping_order_ix1)。
+     出荷オーダーは、1 つの受注を複数回に分けて出荷できるため、受注 1 件に複数件(DB の一意制約 trans_shipping_order_ix1 は外した)。
      運送業者は利害関係者のうち運送業者のフラグ(is_logistics)がオンの行(別名 carrier)。梱包サイズ・品目は、受注明細の品目から分かるため持たない。
      出荷の完了・進捗は、出荷実績(trans_shipping_order_detail_record)から求める値で、この画面案には持たない。
    - stockrez は 購買注文明細 / 生産計画 のどちらか一方と、引当元の在庫(OD_DATA.stock)を結ぶ。
@@ -269,4 +279,83 @@
   if (pd) pd.action = { label: "引当予約", param: "purdetail" };
   const op = D.entities.find((e) => e.key === "opsplan");
   if (op) op.action = { label: "引当予約", param: "opsplan" };
+})();
+
+/* 計画変更の履歴と未処置一覧(読み取り専用。DB のビュー v_plan_change・v_cancel_open_item)。
+   種類・動き・処置・原因は、コード値(文字列・整数)でなく boolean の列(チェック)で出す。表示の文字は列の名前だけ(文を組み立てない)。
+   「生産計画」とは別のメニューのグループ「計画変更」に置く(プロジェクト plan_change)。 */
+(function () {
+  const D = window.OD_DOMAINS;
+  const view = (key, label, fields, rows) => D.entities.push({ key, label, viewOnly: true, fields, rows });
+  view("planchange", "計画変更の履歴", [
+    ["change_at", "変更日", "d"],
+    ["symbol", "シンボル", "t", { req: false }],
+    // 対象(ちょうど 1 つ)
+    ["is_order_detail", "受注明細", "b"],
+    ["is_purchase_detail", "発注明細", "b"],
+    ["is_operations_plan", "生産計画", "b"],
+    ["is_inventory_request", "引当予約", "b"],
+    ["is_visiter", "ロット", "b"],
+    ["is_shipping_order_detail", "出荷オーダー明細", "b"],
+    ["item", "品目", "r", { ref: "item", req: false }],
+    // 動き
+    ["is_cancel", "キャンセル", "b"],
+    ["is_quantity_change", "数量の変更", "b"],
+    ["is_date_change", "納期の変更", "b"],
+    ["is_postpone", "延期", "b"],
+    ["is_advance", "前倒し", "b"],
+    ["is_stop", "停止", "b"],
+    ["is_resume", "再開", "b"],
+    // 処置
+    ["is_discontinue", "打ち切り", "b"],
+    ["is_release", "在庫にする", "b"],
+    ["is_hold", "押さえる", "b"],
+    ["is_scrap", "廃棄", "b"],
+    ["is_deliver", "引き渡し", "b"],
+    ["has_settlement", "精算あり", "b"],
+    // 原因
+    ["customer_cause", "顧客の都合", "b"],
+    ["supplier_cause", "仕入先・外注先の都合", "b"],
+    ["quality_cause", "品質の原因", "b"],
+    // MRP との関係
+    ["from_mrp", "MRP の提案から", "b"],
+    ["is_reflected", "MRP に反映済み", "b"],
+    ["is_unreflected", "MRP に未反映", "b"],
+    ["is_root", "起点の変更", "b"],
+    // 値
+    ["cancel_quantity", "キャンセル数量", "n", { req: false }],
+    ["old_quantity", "変更前の数量", "n", { req: false }],
+    ["new_quantity", "変更後の数量", "n", { req: false }],
+    ["old_date", "変更前の納期", "d", { req: false }],
+    ["new_date", "変更後の納期", "d", { req: false }],
+    ["reason", "理由", "t", { req: false }],
+  ], [
+    ["2026-11-10", "CH-0001", "1", "", "", "", "", "", "item1", "1", "", "", "", "", "", "", "", "", "", "", "", "", "1", "", "", "", "", "1", "1", "5", "", "", "", "", "顧客の都合でキャンセル"],
+    ["2026-11-10", "CH-0002", "", "", "1", "", "", "", "item1", "", "", "", "", "", "", "", "1", "", "", "", "", "", "1", "", "", "", "", "", "", "", "", "", "", "", ""],
+  ]);
+  view("cancelopen", "未処置一覧", [
+    ["symbol", "シンボル", "t", { req: false }],
+    // 種類(ちょうど 1 つ)
+    ["is_inventory_request", "未解除の引当予約", "b"],
+    ["is_work_in_process", "仕掛品", "b"],
+    ["is_hold", "押さえたままの品", "b"],
+    ["is_shipping_order", "未出荷の出荷オーダー", "b"],
+    ["is_outsource_order", "未キャンセルの外注発注", "b"],
+    ["is_supply_at_supplier", "外注先にある支給材", "b"],
+    ["is_customer_supply", "顧客支給材の未返却", "b"],
+    // 原因
+    ["cause_cancel", "キャンセル", "b"],
+    ["cause_stop", "停止", "b"],
+    ["cause_discontinue", "打ち切り", "b"],
+    ["item", "品目", "r", { ref: "item", req: false }],
+    ["quantity", "数量", "n", { req: false }],
+    ["since", "原因の日", "d", { req: false }],
+  ], [
+    ["CO-0001", "1", "", "", "", "", "", "", "1", "", "", "item1", "3", "2026-11-10"],
+    ["CO-0002", "", "1", "", "", "", "", "", "", "", "1", "item2", "5", "2026-11-11"],
+  ]);
+  D.screens.push({ id: "planchange", label: "計画変更の履歴", icon: "list", tabs: [["main", "計画変更の履歴", "planchange"]] });
+  D.screens.push({ id: "cancelopen", label: "未処置一覧", icon: "alert", tabs: [["main", "未処置一覧", "cancelopen"]] });
+  const at = D.groups.findIndex((g) => g.id === "plan");
+  D.groups.splice(at + 1, 0, { id: "planchange", label: "計画変更", icon: "check", screens: ["planchange", "cancelopen"] });
 })();

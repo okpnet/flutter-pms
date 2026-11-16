@@ -7,7 +7,7 @@ import 'mrp_gateway.dart';
 import 'mrp_models.dart';
 
 /// MRP の窓口の実体(GraphQL)。メソッド `mrpExecute`(DB 関数 `tests.mrp_execute`)で計算し、
-/// 実行(`trans_mrp_run`)の提案(`trans_mrp_suggestion`)を読み込んで結果にする。
+/// 実行(`trans_mrp_run`)の提案(ビュー `v_mrp_suggestion`。種類・判断は boolean の列)を読み込んで結果にする。
 ///
 /// 生成された型はここで機能の型([MrpRunResult]・[MrpSuggestion]・[MrpFailure])に変換し、外へ出さない。
 /// パターン: Adapter(GraphQL のモデルを窓口 [IMrpGateway] へ適合させる)
@@ -86,10 +86,10 @@ class GraphqlMrpGateway implements IMrpGateway {
           variables: Variables$Query$MrpSuggestionPageRead(
             first: pageSize,
             offset: suggestions.isEmpty ? null : suggestions.length,
-            filter: Input$TransMrpSuggestionFilter(
+            filter: Input$VMrpSuggestionFilter(
               transMrpRunId: Input$UUIDFilter(equalTo: runId),
             ),
-            orderBy: [Enum$TransMrpSuggestionsOrderBy.SEQ_ASC],
+            orderBy: [Enum$VMrpSuggestionsOrderBy.SEQ_ASC],
             languageCodeId: languageCodeId,
           ),
           fetchPolicy: FetchPolicy.noCache,
@@ -97,15 +97,15 @@ class GraphqlMrpGateway implements IMrpGateway {
       );
       final failure = failureOf(result.exception);
       if (failure != null) throw failure;
-      final Query$MrpSuggestionPageRead$allTransMrpSuggestions? data;
+      final Query$MrpSuggestionPageRead$allVMrpSuggestions? data;
       try {
-        data = result.parsedData?.allTransMrpSuggestions;
+        data = result.parsedData?.allVMrpSuggestions;
       } on Object catch (e) {
         throw MrpFailure('MRP_PARSE', '$e');
       }
       if (data == null) return suggestions;
       final nodes = data.nodes
-          .whereType<Query$MrpSuggestionPageRead$allTransMrpSuggestions$nodes>()
+          .whereType<Query$MrpSuggestionPageRead$allVMrpSuggestions$nodes>()
           .toList();
       suggestions.addAll(nodes.map(_toSuggestion));
       if (nodes.isEmpty || !data.pageInfo.hasNextPage) return suggestions;
@@ -113,17 +113,31 @@ class GraphqlMrpGateway implements IMrpGateway {
   }
 
   MrpSuggestion _toSuggestion(
-    Query$MrpSuggestionPageRead$allTransMrpSuggestions$nodes node,
+    Query$MrpSuggestionPageRead$allVMrpSuggestions$nodes node,
   ) {
-    final kind = MrpSuggestionKind.ofCode(node.kind);
-    if (kind == null) {
-      throw MrpFailure('MRP_UNKNOWN_KIND', '未知の提案種別: ${node.kind}');
-    }
     final master = node.item?.master;
     final names =
         master?.labels?.sharedDictionaryBySharedDictionaryNameId?.value.nodes;
     return MrpSuggestion(
-      kind: kind,
+      isPurchase: node.isPurchase ?? false,
+      isProduction: node.isProduction ?? false,
+      isOutsource: node.isOutsource ?? false,
+      isPlan: node.isPlan ?? false,
+      isException: node.isException ?? false,
+      isSupplyRequest: node.isSupplyRequest ?? false,
+      isNew: node.isNew ?? false,
+      isChange: node.isChange ?? false,
+      isCancel: node.isCancel ?? false,
+      isKeep: node.isKeep ?? false,
+      isOption: node.isOption ?? false,
+      subjectEquipment: node.subjectEquipment ?? false,
+      subjectStock: node.subjectStock ?? false,
+      subjectMaster: node.subjectMaster ?? false,
+      needUser: node.needUser ?? false,
+      undecided: node.undecided ?? false,
+      adopted: node.adopted ?? false,
+      rejected: node.rejected ?? false,
+      isInfo: node.isInfo ?? false,
       // 設備の過負荷など、品目の無い提案は設備のコードを品目コードの欄に出す。
       itemCode: master?.code ?? node.equipment?.code ?? '',
       // 設備は品目に紐づくので、品目の無い提案は設備の品目の名称を出す。
@@ -145,7 +159,6 @@ class GraphqlMrpGateway implements IMrpGateway {
       releaseDate: node.releaseAt,
       dueDate: node.dueAt,
       late: node.late ?? false,
-      decision: MrpDecision.ofCode(node.decision ?? 0) ?? MrpDecision.pending,
       message: node.message ?? '',
       symbol: node.symbol ?? '',
     );
@@ -161,7 +174,12 @@ class GraphqlMrpGateway implements IMrpGateway {
     for (final error in exception.graphqlErrors) {
       final extensions = error.extensions ?? const {};
       final inner = extensions['exception'];
-      final code = extensions['code'] ?? (inner is Map ? inner['code'] : null);
+      // PostGraphile の --extended-errors errcode が付ける DB の SQLSTATE(extensions.exception.errcode。関数の ERRCODE)
+      final code =
+          extensions['errcode'] ??
+          (inner is Map ? inner['errcode'] : null) ??
+          extensions['code'] ??
+          (inner is Map ? inner['code'] : null);
       if (code != null) return MrpFailure('$code', error.message);
     }
     final link = exception.linkException;

@@ -25,7 +25,7 @@ class _MrpPageState extends ConsumerState<MrpPage> {
   bool _redo = false;
   MrpRunResult? _result;
   MrpFailure? _failure;
-  MrpDecision? _decision;
+  _Judgement? _judgement;
   String _search = '';
 
   Future<void> _run() async {
@@ -106,7 +106,7 @@ class _MrpPageState extends ConsumerState<MrpPage> {
     setState(() {
       _result = result;
       _failure = failure;
-      _decision = null;
+      _judgement = null;
       _search = '';
     });
   }
@@ -218,32 +218,15 @@ class _MrpPageState extends ConsumerState<MrpPage> {
     );
   }
 
-  String _kindLabel(dynamic t, MrpSuggestionKind k) => switch (k) {
-    MrpSuggestionKind.purchaseNew => t.kind.purchaseNew as String,
-    MrpSuggestionKind.productionNew => t.kind.productionNew as String,
-    MrpSuggestionKind.purchaseReschedule => t.kind.purchaseReschedule as String,
-    MrpSuggestionKind.productionReschedule =>
-      t.kind.productionReschedule as String,
-    MrpSuggestionKind.purchaseCancel => t.kind.purchaseCancel as String,
-    MrpSuggestionKind.productionCancel => t.kind.productionCancel as String,
-    MrpSuggestionKind.outsourceOption => t.kind.outsourceOption as String,
-    MrpSuggestionKind.excOverload => t.kind.excOverload as String,
-    MrpSuggestionKind.excExcess => t.kind.excExcess as String,
-    MrpSuggestionKind.excMaster => t.kind.excMaster as String,
-    MrpSuggestionKind.outsourceNew => t.kind.outsourceNew as String,
-    MrpSuggestionKind.outsourceCancel => t.kind.outsourceCancel as String,
-    MrpSuggestionKind.planNew => t.kind.planNew as String,
-    MrpSuggestionKind.planUpdate => t.kind.planUpdate as String,
-    MrpSuggestionKind.planKeep => t.kind.planKeep as String,
-    MrpSuggestionKind.planCancel => t.kind.planCancel as String,
-    MrpSuggestionKind.supplyRequest => t.kind.supplyRequest as String,
-  };
+  /// boolean の列の表示(チェック)。値は、列の名前と 1 対 1 で、意味を組み立てない。
+  static String _check(bool v) => v ? '✓' : '';
 
-  String _decisionLabel(dynamic t, MrpDecision d) => switch (d) {
-    MrpDecision.pending => t.decision.pending as String,
-    MrpDecision.adopted => t.decision.adopted as String,
-    MrpDecision.rejected => t.decision.rejected as String,
-    MrpDecision.info => t.decision.info as String,
+  /// 判断の絞り込み(利用者が選ぶ列。値のコードは持たない)。
+  String _judgementLabel(dynamic t, _Judgement j) => switch (j) {
+    _Judgement.undecided => t.decision.pending as String,
+    _Judgement.adopted => t.decision.adopted as String,
+    _Judgement.rejected => t.decision.rejected as String,
+    _Judgement.info => t.decision.info as String,
   };
 
   List<Widget> _resultViews(dynamic t, MrpRunResult r) {
@@ -256,18 +239,69 @@ class _MrpPageState extends ConsumerState<MrpPage> {
     final keyword = _search.trim().toLowerCase();
     final rows = [
       for (final s in r.suggestions)
-        if ((_decision == null || s.decision == _decision) &&
+        if ((_judgement == null || _judgement!.test(s)) &&
             (keyword.isEmpty ||
-                '${s.itemCode} ${s.itemName} ${s.symbol} ${_kindLabel(t, s.kind)} ${s.message}'
+                '${s.itemCode} ${s.itemName} ${s.symbol} ${s.message}'
                     .toLowerCase()
                     .contains(keyword)))
           s,
     ];
     final columns = <ColumnDefinition<MrpSuggestion>>[
+      // 対象(ちょうど 1 つ)・動き: 列の名前にチェックで出す
       ColumnDefinition(
-        key: 'kind',
-        label: t.columns.kind as String,
-        getter: (s) => _kindLabel(t, s.kind),
+        key: 'isPurchase',
+        label: t.columns.purchase as String,
+        getter: (s) => _check(s.isPurchase),
+      ),
+      ColumnDefinition(
+        key: 'isProduction',
+        label: t.columns.production as String,
+        getter: (s) => _check(s.isProduction),
+      ),
+      ColumnDefinition(
+        key: 'isOutsource',
+        label: t.columns.outsource as String,
+        getter: (s) => _check(s.isOutsource),
+      ),
+      ColumnDefinition(
+        key: 'isPlan',
+        label: t.columns.plan as String,
+        getter: (s) => _check(s.isPlan),
+      ),
+      ColumnDefinition(
+        key: 'isException',
+        label: t.columns.exception as String,
+        getter: (s) => _check(s.isException),
+      ),
+      ColumnDefinition(
+        key: 'isSupplyRequest',
+        label: t.columns.supplyRequest as String,
+        getter: (s) => _check(s.isSupplyRequest),
+      ),
+      ColumnDefinition(
+        key: 'isNew',
+        label: t.columns.isNew as String,
+        getter: (s) => _check(s.isNew),
+      ),
+      ColumnDefinition(
+        key: 'isChange',
+        label: t.columns.isChange as String,
+        getter: (s) => _check(s.isChange),
+      ),
+      ColumnDefinition(
+        key: 'isCancel',
+        label: t.columns.isCancel as String,
+        getter: (s) => _check(s.isCancel),
+      ),
+      ColumnDefinition(
+        key: 'isKeep',
+        label: t.columns.isKeep as String,
+        getter: (s) => _check(s.isKeep),
+      ),
+      ColumnDefinition(
+        key: 'isOption',
+        label: t.columns.isOption as String,
+        getter: (s) => _check(s.isOption),
       ),
       ColumnDefinition(
         key: 'itemCode',
@@ -318,10 +352,26 @@ class _MrpPageState extends ConsumerState<MrpPage> {
         getter: (s) =>
             s.late ? t.result.lateYes as String : t.result.lateNo as String,
       ),
+      // 判断(ちょうど 1 つ): 列の名前にチェックで出す
       ColumnDefinition(
-        key: 'decision',
-        label: t.columns.decision as String,
-        getter: (s) => _decisionLabel(t, s.decision),
+        key: 'undecided',
+        label: t.decision.pending as String,
+        getter: (s) => _check(s.undecided),
+      ),
+      ColumnDefinition(
+        key: 'adopted',
+        label: t.decision.adopted as String,
+        getter: (s) => _check(s.adopted),
+      ),
+      ColumnDefinition(
+        key: 'rejected',
+        label: t.decision.rejected as String,
+        getter: (s) => _check(s.rejected),
+      ),
+      ColumnDefinition(
+        key: 'isInfo',
+        label: t.decision.info as String,
+        getter: (s) => _check(s.isInfo),
       ),
       ColumnDefinition(
         key: 'message',
@@ -383,15 +433,15 @@ class _MrpPageState extends ConsumerState<MrpPage> {
           ChoiceChip(
             key: const ValueKey('mrpDecision:all'),
             label: Text(t.result.all as String),
-            selected: _decision == null,
-            onSelected: (_) => setState(() => _decision = null),
+            selected: _judgement == null,
+            onSelected: (_) => setState(() => _judgement = null),
           ),
-          for (final d in MrpDecision.values)
+          for (final j in _Judgement.values)
             ChoiceChip(
-              key: ValueKey('mrpDecision:${d.name}'),
-              label: Text(_decisionLabel(t, d)),
-              selected: _decision == d,
-              onSelected: (_) => setState(() => _decision = d),
+              key: ValueKey('mrpDecision:${j.name}'),
+              label: Text(_judgementLabel(t, j)),
+              selected: _judgement == j,
+              onSelected: (_) => setState(() => _judgement = j),
             ),
         ],
       ),
@@ -405,14 +455,28 @@ class _MrpPageState extends ConsumerState<MrpPage> {
         SizedBox(
           height: 520,
           child: FlgTable<MrpSuggestion>(
-            key: ValueKey('mrpTable:${_decision?.name}:$keyword'),
+            key: ValueKey('mrpTable:${_judgement?.name}:$keyword'),
             columns: columns,
             items: rows,
-            rowKey: (s) =>
-                '${s.kind.code}|${s.itemCode}|${s.decision.code}|${s.message}',
+            rowKey: (s) => '${s.symbol}|${s.itemCode}|${s.message}',
             config: const TableConfig(sortEnabled: true, filterEnabled: true),
           ),
         ),
     ];
   }
+}
+
+/// 判断の絞り込みの選択肢(画面だけで使う。DB のコード値は持たず、boolean の列で判定する)。
+enum _Judgement {
+  undecided,
+  adopted,
+  rejected,
+  info;
+
+  bool test(MrpSuggestion s) => switch (this) {
+    _Judgement.undecided => s.undecided,
+    _Judgement.adopted => s.adopted,
+    _Judgement.rejected => s.rejected,
+    _Judgement.info => s.isInfo,
+  };
 }

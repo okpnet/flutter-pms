@@ -33,6 +33,8 @@
 /e/department,部署,Department,organization,false
 /e/staff,作業者,Staff,organization,false
 /e/approvalpattern,承認パターン,Approval pattern,organization,false
+/e/planchange,計画変更の履歴,Plan change history,plan_change,false
+/e/cancelopen,未処置一覧,Open items after cancel,plan_change,false
 /e/resplan,資材計画,Resource plan,production_plan,false
 /e/prodrez,生産引き当て予約,Production reservation,production_plan,false
 /e/purrez,購買引き当て予約,Purchase reservation,production_plan,false

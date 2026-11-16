@@ -454,6 +454,7 @@ input TransSupplyDetailFilter {
   transComplaintSuppliesByTransSupplyDetailIdExist: Boolean
   transSupplyVisitersByTransSupplyDetailIdExist: Boolean
   transMrpPeggingsByTransSupplyDetailIdExist: Boolean
+  vCancelOpenItemsByTransSupplyDetailIdExist: Boolean
   vComplaintTargetsByTransSupplyDetailIdExist: Boolean
   vComplaintTargetVisitersByTransSupplyDetailIdExist: Boolean
   vExternalPropertiesByTransSupplyDetailIdExist: Boolean

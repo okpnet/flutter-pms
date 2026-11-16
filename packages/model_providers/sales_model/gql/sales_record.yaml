@@ -17,3 +17,5 @@ SalesRecordPage:
     - shipped_quantity
     - order_amount
     - shipped_amount
+    - settlement_amount
+    - total_amount

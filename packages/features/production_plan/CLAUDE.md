@@ -11,9 +11,9 @@
 4.  資材所要計算(MRP): `MrpDestination` → `/mrp`。メニューは「生産計画」の子項目。
     1.  「再MRPとして実行する」(チェックなしは受注MRP=`p_mode` 1、ありは再MRP=2)と「MRPを実行」。実行前に確認ダイアログで警告(処理が重い・影響が広範囲で他のユーザーにも及ぶ・再MRPはさらに大きい・実行中は操作も中断もできない)を出し、「実行する」を押したときだけ実行する。
     2.  実行中は画面全体の操作と戻る操作を無効にし(`busyProvider`)、「計算中」と経過時間を出す。
-    3.  成功したら「MRPが成功しました」のお知らせ(実行日時・受注MRPか再MRPか・提案件数・要判断件数・遅れ件数)と、結果の表(提案種別・品目コード・品目名・数量・在庫引当・必要日・発注日・着手日・納期・遅れ・判断・メッセージ。判断での絞り込み・並べ替え・検索)を出す。
+    3.  成功したら「MRPが成功しました」のお知らせ(実行日時・受注MRPか再MRPか・提案件数・要判断件数・遅れ件数)と、結果の表(対象・動き・判断を、列の名前にチェックで出す。品目コード・品目名・数量・在庫引当・必要日・発注日・着手日・納期・遅れ・メッセージ。判断(要判断・採用・却下・情報)での絞り込み・並べ替え・検索)を出す。提案の種類(文字列)・判断(整数)のコード値は持たず、DB のビュー `v_mrp_suggestion` の boolean の列を使う(`MrpSuggestion` の `isPurchase`・`isNew`・`undecided` など)。
     4.  失敗したら、エラーコードに関わらず「しばらく時間をおいて、もう一度実行してください」を出し、エラーコード(想定: 57014=タイムアウト、MRP00=引数エラー)を小さく添える。失敗後は操作が元に戻り、再実行できる。
-    5.  実行は窓口(`IMrpGateway`、`mrpGatewayProvider`)で行う。実体は `GraphqlMrpGateway`(`lib/src/mrp/graphql_mrp_gateway.dart`。メソッド `mrpExecute` で計算し、`MrpSuggestionPage` で実行の提案を読む)で、アプリが `GraphQLClient` と品目名の言語(`languageCodeId`)を渡して差し込む。既定は実体なし(失敗にする)。実行者は `mrpStaffIdProvider`。失敗のコードは、サーバーの SQLSTATE(`MRP00` など)、通信の制限時間 `57014`、認証エラー `HTTP_<ステータス>`、それ以外の通信の失敗 `NETWORK`。
+    5.  実行は窓口(`IMrpGateway`、`mrpGatewayProvider`)で行う。実体は `GraphqlMrpGateway`(`lib/src/mrp/graphql_mrp_gateway.dart`。メソッド `mrpExecute` で計算し、`MrpSuggestionPage`(ビュー `v_mrp_suggestion`)で実行の提案を読む)で、アプリが `GraphQLClient` と品目名の言語(`languageCodeId`)を渡して差し込む。既定は実体なし(失敗にする)。実行者は `mrpStaffIdProvider`。失敗のコードは、サーバーの SQLSTATE(`MRP00` など。PostGraphile の `--extended-errors errcode` が付ける `extensions.exception.errcode`)、通信の制限時間 `57014`、認証エラー `HTTP_<ステータス>`、それ以外の通信の失敗 `NETWORK`。
     6.  通信テストは `test/graphql_mrp_gateway_test.dart`。検証用サーバーでは提案の読み込みだけ(`mrpExecute` はデータを変更するため実行しない)、実行・通信の異常は代役サーバーで確認する。
 
 ## 参照するモデル
@@ -28,7 +28,7 @@
 5.  ラベルは slang で多言語化し、列名は `schema.graphql` のコメントを使う。推論・仮置きしたラベルは `doc/log` に残す。
 
 ## 資材所要計算の結果(読み取り専用)
-資材所要計算の結果は、読み取り専用(`viewOnly`)の台帳として「生産計画」のメニューに出す: 要判断の提案(`mrppending`、`v_mrp_pending_suggestion`)、発注予定(`mrppurchase`、`v_mrp_purchase_plan`)、マスタ不備(`mrpissue`、`v_mrp_master_issue`)、資材計画の充足状況(`mrpcoverage`、`v_resource_plan_coverage`)。資材所要計算の画面の結果の表には、提案の `symbol` の列がある。
+資材所要計算の結果は、読み取り専用(`viewOnly`)の台帳として「生産計画」のメニューに出す: 要判断の提案(`mrppending`。ビュー `v_mrp_suggestion` の `run_open` かつ `undecided` で絞る。対象・動きは boolean の列。置き換え前は `v_mrp_pending_suggestion`)、発注予定(`mrppurchase`、`v_mrp_purchase_plan`)、マスタ不備(`mrpissue`、`v_mrp_master_issue`)、資材計画の充足状況(`mrpcoverage`、`v_resource_plan_coverage`)。資材所要計算の画面の結果の表には、提案の `symbol` の列がある。
 
 <!-- entity_gen:begin -->
 ## 実体の画面(生成)
@@ -43,12 +43,13 @@
 | 生産計画明細 | `workplan` | 子の台帳(親: 生産計画) | 7 | `task`, `purdetail` |
 | 生産引き当て予約 | `prodrez` | テーブル構造 | 2 | `workplan` |
 | 購買引き当て予約 | `purrez` | テーブル構造 | 2 | `purdetail` |
-| 要判断の提案 | `mrppending` | テーブル構造 | 9 | `item` |
+| 要判断の提案 | `mrppending` | テーブル構造 | 18 | `item` |
 | 発注予定 | `mrppurchase` | テーブル構造 | 8 | `supplier` |
 | マスタ不備 | `mrpissue` | テーブル構造 | 5 | `item` |
 | 資材計画の充足状況 | `mrpcoverage` | テーブル構造 | 8 | `item` |
 | 引当予約 | `stockrez` | テーブル構造 | 6 | `purdetail`, `opsplan`, `stockstatus` |
 <!-- entity_gen:end -->
+
 
 
 

@@ -34,6 +34,7 @@
 
 
 
+
 ## 取得元(GraphQL 版)
 `lib/src/graphql/system_repositories.dart` の `systemRepositories(GraphQLClient, {AuditUserSource? auditUser})` が、単位(`unit`)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
 1.  読み込み: 名称・読み・略称は多言語の辞書(`shared_appellation`)、詳細は多言語の文章(`shared_text`。先頭の文)で、言語コード `ja` の値を読む。
