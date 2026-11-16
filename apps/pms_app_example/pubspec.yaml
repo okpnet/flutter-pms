@@ -1,0 +1,46 @@
+name: pms_app_example
+description: "pms_app の実際の動作を、仮想のサーバー(PocketBase・メンテナンス)と、各機能のサンプルの取得元で真似て評価するアプリ。"
+version: 1.0.0+1
+publish_to: none
+
+resolution: workspace
+
+environment:
+  sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  go_router: ^18.1.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  http: ^1.2.0
+  pms_app:
+    path: ../pms_app
+  app_core:
+    path: ../../packages/features/app_core
+  auth_files:
+    path: ../../packages/features/auth_files
+  backstage:
+    path: ../../packages/features/backstage
+  maintenance:
+    path: ../../packages/features/maintenance
+  feature_shared:
+    path: ../../packages/core/feature_shared
+  page_mediator_extension:
+    path: ../../packages/core/page_mediator_extension
+  logger_provider:
+    path: ../../packages/infra/logger_provider
+  pbapi:
+    path: ../../packages/infra/pbapi
+  theme_lib:
+    path: ../../packages/ui/theme_lib
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/logger_config.json

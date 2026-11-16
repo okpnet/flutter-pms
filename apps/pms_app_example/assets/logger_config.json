@@ -1,0 +1,14 @@
+{
+  "logger": {
+    "level": "info",
+    "printer": "pretty",
+    "useConsoleOutput": true
+  },
+  "rotation": {
+    "term": "daily",
+    "directoryName": "logs",
+    "fileNamePrefix": "rotation",
+    "maxArchivedFiles": 10,
+    "minimumLevel": "trace"
+  }
+}
