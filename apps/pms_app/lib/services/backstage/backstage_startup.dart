@@ -36,7 +36,9 @@ Future<String?> loadEncryptedBackstageConfig() async {
 String? readEncryptedBackstageConfig() {
   try {
     final dir = File(Platform.resolvedExecutable).parent.path;
-    final file = File('$dir${Platform.pathSeparator}$backstageEncryptedConfigFileName');
+    final file = File(
+      '$dir${Platform.pathSeparator}$backstageEncryptedConfigFileName',
+    );
     return file.existsSync() ? file.readAsStringSync() : null;
   } catch (_) {
     return null;

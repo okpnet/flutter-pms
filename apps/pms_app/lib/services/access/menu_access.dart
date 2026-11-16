@@ -1,9 +1,9 @@
 import 'package:access_control_model/access_control_client.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger_provider/logger_provider.dart';
-import 'package:pbapi/pbapi.dart';
 
 import '../graphql/graphql_overrides.dart';
+import '../session/pocketbase_user_identity.dart';
 
 /// サイドバーのメニューに出してよいページ(アクセスパス)。
 ///
@@ -46,7 +46,7 @@ class MenuAccess {
 final menuAccessProvider = FutureProvider.autoDispose
     .family<MenuAccess, String>((ref, location) async {
       if (!ref.read(pocketbaseEnabledProvider)) return MenuAccess.all;
-      final session = ref.read(sessionServiceProvider).current;
+      final session = ref.read(userIdentitySourceProvider).current;
       if (session == null) return MenuAccess.none;
       if (session.isAdmin) return MenuAccess.all;
       final client = ref.read(graphqlClientProvider);
@@ -54,7 +54,7 @@ final menuAccessProvider = FutureProvider.autoDispose
       try {
         final effective = await AccessControlClient(
           client: client,
-        ).listEffectiveAccessPaths(staffId: session.appUserId);
+        ).listEffectiveAccessPaths(staffId: session.staffId);
         return MenuAccess.of(effective.map((e) => e.usecasePath));
       } catch (e, s) {
         ref

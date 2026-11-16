@@ -1,4 +1,4 @@
-# CLAUDE.md
+﻿# CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -29,6 +29,8 @@ cd tools/config_user_generator; dart run bin/config_user_generator.dart   # 裏�
 裏設定の入口(ログインページの特定のユーザーIDとパスワード)のハッシュは、`tools\config_user_generator` で上のコマンドを実行して作る(ユーザーIDとパスワードは標準入力。反復回数は引数で変えられる。例 `... config_user_generator.dart 200000`。`--help` で使い方)。出力の `{"entry": {...}}` を `apps\pms_app\assets\backstage.json` に貼り、アプリを再起動する。ID・パスワードをソース・アセットに書かない。詳細は [packages/features/backstage/README.md](packages/features/backstage/README.md)。
 
 単一テスト: 対象パッケージ内で `flutter test test/xxx_test.dart`(純Dart パッケージは `dart test test/xxx_test.dart`、`--plain-name "名前"` で絞り込み)。
+
+サーバーを使うテスト(`*_model`・`production_plan` など)は、一般ユーザーの資格情報が要る。渡さないと匿名で実行されて失敗する。`$env:PMS_TEST_USER='tanaka'; $env:PMS_TEST_PASSWORD='<パスワード>'; melos run test`(環境変数。接続先は `PMS_TEST_POCKETBASE_URL`。`flutter test --dart-define=PMS_TEST_USER=…` でも渡せる。資格情報はソース・Git に入れない)。サーバーに接続できないとき、`--exclude-tags server` で除外できる。詳細は [packages/infra/data_test_harness/CLAUDE.md](packages/infra/data_test_harness/CLAUDE.md)。
 
 ## アーキテクチャ
 
@@ -135,7 +137,7 @@ DB(`tools/docker/postgresql/script`、スキーマ `tests`)の仕様。正は DD
 | # | ルール | モデル・画面での意味 |
 |---|---|---|
 | R1 | 状態・区分をコード値で持たない・判定しない | Dart に状態の enum を作らない。マスタの `code` で分岐しない。判定は boolean 列とビューの列(`cancelClosed`・`openQuantity` など)で行う |
-| R2 | 表示用の文字(「キャンセル」「停止」など)はビューで1か所だけ定義する | 画面で boolean から文字を組み立てない。`v_plan_change`(未作成)を使う |
+| R2 | 表示用の文字(「キャンセル」「停止」など)はビューで1か所だけ定義する | 画面で boolean から文字(文・意味)を組み立てない。`v_plan_change`(未作成)を使う。boolean は、列の名前(DB の列コメント)に、チェックボックス・シグナル・ステップ表記で 1 対 1 に出すのは可(どのアプリが出しても意図が変わらない)。複数の boolean をまとめた整数(ビットスイッチ)は持たない |
 | R3 | 記録は追記のみ | 計画変更・支給・返品・精算の登録は **DB 関数だけ**(直接の create・update はしない)。画面に「編集」「削除」を出さない。取り消しは `remove = true` の更新(`~PageRemove`)だけ、または打ち消しの記録を1件追加 |
 | R4 | マスタは履歴ID+IDの組で参照する | create の入力に `xxxHistoryId` と `xxxId` の両方を入れる(担当者も同じ) |
 | R5 | 数量は棚ビジターだけが持つ | 中間テーブル(返品ビジター・支給ビジター)に数量の入力欄を作らない。数量は棚ビジターの行と関数(`visiterMove`・`visiterIssue`)で決まる |
@@ -265,13 +267,13 @@ DB(`tools/docker/postgresql/script`、スキーマ `tests`)の仕様。正は DD
 
 ## 登録・更新の方式(関数とミューテーション)
 
-1.  共通のもの(呼称・文章・ラベルなど、複数の表にまたがる部品)は、DB 関数にする: `shared_appellation_save`(呼称)・`shared_text_save`(文章)・`trans_label_save`(trans のラベル)・`trans_text_save`(trans の文章)(`doc/query/20261115_0001_common_functions.sql`)。言語別の値は、言語コード → 値 の JSON で渡し、渡した言語の値だけ入れ替える(空文字で空になる)。
+1.  共通のもの(呼称・文章・ラベルなど、複数の表にまたがる部品)の DB 関数(`shared_appellation_save`・`shared_text_save`・`trans_label_save`・`trans_text_save`。`doc/query/20261116_0001_common_functions.sql`)は、必要かの確認が済むまで DB に適用しない(入れ子のミューテーションで、新規の登録が 1 トランザクションか・言語ごとの値の更新で他の言語が残るかを確認する。`issue/20261116_0001.md`)。補助の関数(`ap_*`)は作らない。言語別の値は、言語コード → 値 の JSON。
 1.  マスタ・Info・trans は、極力ミューテーション(PostGraphile の自動 CRUD の create・update)で対応する。マスタごと・テーブルごとの保存関数は作らない。呼称・文章・ラベルを持つ列は、共通関数で作り、返った ID を本体の create の列(`names`・`details` など)に渡す。更新は、渡した列だけが変わる(null で消える)。削除は `remove = true`。
 1.  複数の表にまたがり影響が大きいもの(MRP・棚移動・キャンセル・停止・支給・返品・精算など、trans で同時実行と金額に関わるもの)は、DB 関数にする(上の「操作の DB 関数」)。
 1.  理由: Info・マスタは、同時に変更される可能性が低く、影響が限定的。trans は、棚移動が同時に起こる可能性が高く、MRP でも参照・変更され、変更されると金銭に直結する。関数が増えすぎると、DB の保守性が下がる。関数を足す前に、ミューテーションで足りるかを確認する。
-1.  コードの重複は、DB の部分一意索引(`remove = false` の行だけ。`<表>_ix_code_active`。`doc/query/20261115_0002_code_unique_indexes.sql`)で止める。重複のエラー(`23505`)は、索引の名前で、画面の検証エラーに変換する。体系(ツリー)の循環(自分自身・子孫を親にする)は DB に検査が無く、クライアントで検査する。
+1.  コードの重複は、DB の部分一意索引(`remove = false` の行だけ。`<表>_ix_code_active`。`doc/query/20261115_0002_code_unique_indexes.sql`。採択済み、DB へ依頼)で止める。重複のエラー(`23505`)は、索引の名前で、画面の検証エラーに変換する。体系(ツリー)の循環(自分自身・子孫を親にする)は DB に検査が無く、クライアントで検査する。
 1.  共通関数とミューテーションは別のトランザクション。本体の登録が失敗すると、呼称・文章が参照されない行(孤児)として残る(マスタ・Info は許容する)。同じ値の更新は、履歴のトリガーが握りつぶし、応答の行が null になる(エラーではない)ため、更新後に読み直す。
-1.  更新者(`update_user_id`・`update_user_history_id`)は、ログイン中のユーザーの ID を保持している状態(認証のセッション。`pbapi` の `SessionService.current.appUserId` = アプリの DB の担当者の ID)から貰う。履歴の ID は、その担当者の最新の履歴を引く(`pms_graphql` の `AuditUserResolver`。アプリの `auditUserProvider` が組み立て、取得元の `auditUser` に渡す)。ミューテーションの Edit・Remove に更新者を含めるには、YAML の定義に `withUpdater: true` を付ける(生成器。既定では監査列を含めない)。DB のトリガーで埋める方式は採らない。
+1.  更新者(`update_user_id`・`update_user_history_id`)は、ログイン中のユーザーの ID を保持している状態(認証のセッション。`pbapi` の `SessionService.current.appUserId` = アプリの DB の担当者の ID)から貰う。履歴の ID は、その担当者の最新の履歴を引く(`pms_graphql` の `AuditUserResolver`。アプリの `auditUserProvider` が組み立て、取得元の `auditUser` に渡す)。ミューテーションの Edit・Remove に更新者を含めるには、YAML の定義に `withUpdater: true` を付ける(生成器。既定では監査列を含めない)。DB のトリガーで埋める方式は採らない。 ログイン中のユーザーの状態は `packages/core/current_user`(`CurrentUserHolder`。認証側は `IUserIdentitySource`、データ側は履歴の ID を引く関数。アプリが `pbapi`・GraphQL をつなぐ。権限は保持しない)。
 1.  詳細(マスタごとの本体の列、取得元の取り込み手順、DB への依頼)は `tools/docker/postgresql/issue/20261115_0001.md`。
 
 ## バージョン管理

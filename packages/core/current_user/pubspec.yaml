@@ -1,0 +1,13 @@
+name: current_user
+description: "ログイン中のユーザー(担当者)の状態管理。認証(PocketBase)とデータ(GraphQL)の間をつなぐインターフェイスと、一度引いた担当者の履歴・言語を保持する。"
+version: 0.0.1
+publish_to: "none"
+
+resolution: workspace
+
+environment:
+  sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+
+dev_dependencies:
+  test: ^1.25.0
+  lints: ^6.0.0

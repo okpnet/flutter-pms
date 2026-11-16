@@ -1,6 +1,7 @@
 import 'package:access_control/access_control.dart';
 import 'package:auth_files/auth_files_api.dart' show LogoutDestination;
 import 'package:feature_shared/feature_shared.dart' show commandBusProvider;
+import 'package:current_user/current_user.dart';
 import 'package:backstage/backstage.dart' show backstageBootProvider;
 import 'package:entity_screens/entity_screens.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,7 +9,11 @@ import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:graphql/client.dart';
 import 'package:pbapi/pbapi.dart';
 import 'package:pms_graphql/pms_graphql.dart'
-    show AuditUserResolver, AuditUserSource, SessionUnavailableException;
+    show
+        AuditUser,
+        AuditUserResolver,
+        AuditUserSource,
+        SessionUnavailableException;
 import 'package:production_plan/production_plan.dart'
     show productionPlanRepositories;
 import 'package:purchasing/purchasing.dart' show purchasingRepositories;
@@ -28,6 +33,7 @@ import 'package:shared_master/shared_master.dart' show sharedMasterRepositories;
 import 'package:system/system.dart' show systemRepositories;
 
 import '../pocketbase/pocketbase_overrides.dart';
+import '../session/pocketbase_user_identity.dart';
 import '../router/root_router.dart' show rootRouterProvider;
 import 'package:page_mediator_extension/page_mediator_extension.dart';
 
@@ -112,17 +118,34 @@ final graphqlClientProvider = Provider<GraphQLClient?>((ref) {
 
 /// 更新者(ログイン中の担当者)。登録・更新・論理削除の `update_user_id`・`update_user_history_id` に渡す。
 ///
-/// 担当者の ID は、ログインしているユーザーの ID を保持している状態(認証のセッション。`pbapi` の
-/// `SessionService.current.appUserId` = アプリの DB の担当者の ID)から、書き込みのたびに貰う(ログインし直しに追従する)。
-/// 履歴の ID は、その担当者の最新の履歴を引いて使い回す。PocketBase を使わないとき・ログインしていないときは null(更新者を送らない)。
-final auditUserProvider = Provider<AuditUserSource?>((ref) {
+/// 担当者の ID は、ログインしているユーザーの身元(`current_user` の `IUserIdentitySource`。PocketBase の実装は
+/// `PocketBaseUserIdentity`)から、書き込みのたびに貰う(ログインし直しに追従する)。履歴の ID は、その担当者の
+/// 最新の履歴を引いて [CurrentUserHolder] が使い回す。PocketBase を使わないとき・ログインしていないときは
+/// null(更新者を送らない)。
+final currentUserHolderProvider = Provider<CurrentUserHolder?>((ref) {
   if (!ref.read(pocketbaseEnabledProvider)) return null;
   final client = ref.watch(graphqlClientProvider);
   if (client == null) return null;
-  return AuditUserResolver(
-    client: client,
-    staffId: () => ref.read(sessionServiceProvider).current?.appUserId,
-  ).call;
+  final identity = ref.watch(userIdentitySourceProvider);
+  return CurrentUserHolder(
+    identity: identity,
+    lookupHistory: (staffId) async => (await AuditUserResolver(
+      client: client,
+      staffId: () => staffId,
+    )())?.staffHistoryId,
+  );
+});
+
+/// 取得元(リポジトリ)に渡す更新者の窓口。
+final auditUserProvider = Provider<AuditUserSource?>((ref) {
+  final holder = ref.watch(currentUserHolderProvider);
+  if (holder == null) return null;
+  return () async {
+    final u = await holder();
+    return u == null
+        ? null
+        : AuditUser(staffId: u.staffId, staffHistoryId: u.staffHistoryId);
+  };
 });
 
 /// 画面の取得元を GraphQL 版に差し替える。[graphqlUrl] が未指定なら空(サンプルのまま)。

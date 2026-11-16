@@ -35,6 +35,8 @@ dependencies:
     path: ../../packages/core/settings_keeper
   page_mediator_extension:
     path: ../../packages/core/page_mediator_extension
+  current_user:
+    path: ../../packages/core/current_user
   maintenance:
     path: ../../packages/features/maintenance
   dashboard_container:

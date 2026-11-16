@@ -38,6 +38,29 @@ $$ LANGUAGE sql IMMUTABLE;
 
 COMMENT ON FUNCTION tests.mrp_need_end(timestamp) IS '@omit';
 
+CREATE OR REPLACE FUNCTION tests.apl_value(p_value jsonb) RETURNS text AS $$
+BEGIN
+    IF p_value IS NULL OR jsonb_typeof(p_value) = 'null' THEN
+        RETURN '';
+    ELSIF jsonb_typeof(p_value) = 'string' THEN
+        RETURN p_value #>> '{}';
+    END IF;
+    RAISE EXCEPTION '言語の値は文字列にしてください (%)', p_value USING ERRCODE = 'APL03';
+END
+$$ LANGUAGE plpgsql IMMUTABLE;
+
+COMMENT ON FUNCTION tests.apl_value(jsonb) IS '@omit';
+
+CREATE OR REPLACE FUNCTION tests.apl_check_object(p_values jsonb) RETURNS void AS $$
+BEGIN
+    IF p_values IS NOT NULL AND jsonb_typeof(p_values) <> 'object' THEN
+        RAISE EXCEPTION '言語の値は、言語コード → 値 のオブジェクトにしてください (%)', p_values USING ERRCODE = 'APL03';
+    END IF;
+END
+$$ LANGUAGE plpgsql IMMUTABLE;
+
+COMMENT ON FUNCTION tests.apl_check_object(jsonb) IS '@omit';
+
 CREATE TABLE tests.shared_dictionary (
   shared_dictionary_id uuid DEFAULT gen_random_uuid() NOT NULL,
   revision integer DEFAULT 1,
@@ -344,18 +367,23 @@ $$ LANGUAGE plpgsql STABLE;
 
 COMMENT ON FUNCTION tests.op_staff(uuid) IS '@omit';
 
-CREATE OR REPLACE FUNCTION tests.ap_staff(p_staff_id uuid, OUT staff_id uuid, OUT staff_history_id uuid) AS $$
+CREATE OR REPLACE FUNCTION tests.apl_staff(
+    p_staff_id uuid, p_staff_history_id uuid, OUT staff_id uuid, OUT staff_history_id uuid
+) AS $$
 BEGIN
     staff_id := COALESCE(p_staff_id, NULLIF(current_setting('jwt.claims.staff_id', true), '')::uuid);
-    SELECT h.history_id INTO staff_history_id FROM tests.history_info_staff AS h
-    WHERE h.info_staff_id = staff_id ORDER BY h.revision DESC, h.update_at DESC LIMIT 1;
+    staff_history_id := p_staff_history_id;
     IF staff_history_id IS NULL THEN
+        SELECT h.history_id INTO staff_history_id FROM tests.history_info_staff AS h
+        WHERE h.info_staff_id = staff_id ORDER BY h.revision DESC, h.update_at DESC LIMIT 1;
+    END IF;
+    IF staff_id IS NULL OR staff_history_id IS NULL THEN
         RAISE EXCEPTION '担当者が見つかりません (%)', staff_id USING ERRCODE = 'APL00';
     END IF;
 END
 $$ LANGUAGE plpgsql STABLE;
 
-COMMENT ON FUNCTION tests.ap_staff(uuid) IS '@omit';
+COMMENT ON FUNCTION tests.apl_staff(uuid, uuid) IS '@omit';
 
 CREATE TABLE tests.shared_text (
   shared_text_id uuid DEFAULT gen_random_uuid() NOT NULL,
@@ -5356,12 +5384,13 @@ COMMENT ON COLUMN tests.shared_language_code.update_user_history_id IS '更新�
 
 COMMENT ON COLUMN tests.shared_language_code.remove IS '削除';
 
-CREATE OR REPLACE FUNCTION tests.ap_language(p_code text) RETURNS uuid AS $$
+CREATE OR REPLACE FUNCTION tests.apl_language(p_code text) RETURNS uuid AS $$
 DECLARE
     v_id uuid;
 BEGIN
-    SELECT shared_language_code_id INTO v_id FROM tests.shared_language_code
-    WHERE lower(code) = lower(p_code) AND remove = false;
+    SELECT l.shared_language_code_id INTO v_id FROM tests.shared_language_code AS l
+    WHERE l.remove = false AND lower(l.code) = lower(p_code)
+    ORDER BY (l.code = p_code) DESC, l.shared_language_code_id LIMIT 1;
     IF v_id IS NULL THEN
         RAISE EXCEPTION '言語コードがありません (%)', p_code USING ERRCODE = 'APL00';
     END IF;
@@ -5369,7 +5398,7 @@ BEGIN
 END
 $$ LANGUAGE plpgsql STABLE;
 
-COMMENT ON FUNCTION tests.ap_language(text) IS '@omit';
+COMMENT ON FUNCTION tests.apl_language(text) IS '@omit';
 
 CREATE TABLE tests.trans_text_value (
   trans_text_value_id uuid DEFAULT gen_random_uuid() NOT NULL,
@@ -5417,6 +5446,53 @@ COMMENT ON COLUMN tests.trans_text_value.update_user_history_id IS '更新者履
 
 COMMENT ON COLUMN tests.trans_text_value.remove IS '削除';
 
+CREATE OR REPLACE FUNCTION tests.trans_text_save(
+    p_text_id uuid DEFAULT NULL,
+    p_values jsonb DEFAULT NULL,
+    p_staff_id uuid DEFAULT NULL,
+    p_staff_history_id uuid DEFAULT NULL
+) RETURNS tests.trans_text AS $$
+DECLARE
+    v_staff record;
+    v_id uuid := p_text_id;
+    v_item record;
+    v_lang uuid;
+    v_value_id uuid;
+    v_row tests.trans_text%ROWTYPE;
+BEGIN
+    SELECT * INTO v_staff FROM tests.apl_staff(p_staff_id, p_staff_history_id);
+    PERFORM tests.apl_check_object(p_values);
+    IF v_id IS NULL THEN
+        INSERT INTO tests.trans_text (update_user_id, update_user_history_id)
+        VALUES (v_staff.staff_id, v_staff.staff_history_id) RETURNING trans_text_id INTO v_id;
+    ELSE
+        SELECT * INTO v_row FROM tests.trans_text WHERE trans_text_id = v_id FOR UPDATE;
+        IF v_row.trans_text_id IS NULL OR v_row.remove THEN
+            RAISE EXCEPTION '文章が見つかりません (%)', v_id USING ERRCODE = 'APL01';
+        END IF;
+    END IF;
+    FOR v_item IN SELECT key, value FROM jsonb_each(COALESCE(p_values, '{}'::jsonb)) LOOP
+        v_lang := tests.apl_language(v_item.key);
+        SELECT trans_text_value_id INTO v_value_id FROM tests.trans_text_value
+         WHERE trans_text_id = v_id AND shared_language_code_id = v_lang;
+        IF v_value_id IS NULL THEN
+            INSERT INTO tests.trans_text_value
+                (trans_text_id, shared_language_code_id, text_value, update_user_id, update_user_history_id)
+            VALUES (v_id, v_lang, tests.apl_value(v_item.value), v_staff.staff_id, v_staff.staff_history_id);
+        ELSE
+            UPDATE tests.trans_text_value
+               SET text_value = tests.apl_value(v_item.value), remove = false,
+                   update_user_id = v_staff.staff_id, update_user_history_id = v_staff.staff_history_id
+             WHERE trans_text_value_id = v_value_id;
+        END IF;
+    END LOOP;
+    SELECT * INTO v_row FROM tests.trans_text WHERE trans_text_id = v_id;
+    RETURN v_row;
+END
+$$ LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION tests.trans_text_save(uuid, jsonb, uuid, uuid) IS 'trans の文章(詳細など)を、言語別の値(JSON)で作る・渡した言語の値だけ入れ替える。返った ID を、本体の details 系の列に渡す';
+
 CREATE TABLE tests.trans_label_value (
   trans_label_value_id uuid DEFAULT gen_random_uuid() NOT NULL,
   trans_label_id uuid NOT NULL,
@@ -5456,6 +5532,52 @@ COMMENT ON COLUMN tests.trans_label_value.update_user_id IS '更新者ID';
 COMMENT ON COLUMN tests.trans_label_value.update_user_history_id IS '更新者履歴ID';
 
 COMMENT ON COLUMN tests.trans_label_value.remove IS '削除';
+
+CREATE OR REPLACE FUNCTION tests.trans_label_save(
+    p_label_id uuid DEFAULT NULL,
+    p_values jsonb DEFAULT NULL,
+    p_staff_id uuid DEFAULT NULL,
+    p_staff_history_id uuid DEFAULT NULL
+) RETURNS tests.trans_label AS $$
+DECLARE
+    v_staff record;
+    v_id uuid := p_label_id;
+    v_item record;
+    v_lang uuid;
+    v_value_id uuid;
+    v_row tests.trans_label%ROWTYPE;
+BEGIN
+    SELECT * INTO v_staff FROM tests.apl_staff(p_staff_id, p_staff_history_id);
+    PERFORM tests.apl_check_object(p_values);
+    IF v_id IS NULL THEN
+        INSERT INTO tests.trans_label (update_user_id, update_user_history_id)
+        VALUES (v_staff.staff_id, v_staff.staff_history_id) RETURNING trans_label_id INTO v_id;
+    ELSE
+        SELECT * INTO v_row FROM tests.trans_label WHERE trans_label_id = v_id FOR UPDATE;
+        IF v_row.trans_label_id IS NULL OR v_row.remove THEN
+            RAISE EXCEPTION 'ラベルが見つかりません (%)', v_id USING ERRCODE = 'APL01';
+        END IF;
+    END IF;
+    FOR v_item IN SELECT key, value FROM jsonb_each(COALESCE(p_values, '{}'::jsonb)) LOOP
+        v_lang := tests.apl_language(v_item.key);
+        SELECT trans_label_value_id INTO v_value_id FROM tests.trans_label_value
+         WHERE trans_label_id = v_id AND shared_language_code_id = v_lang;
+        IF v_value_id IS NULL THEN
+            INSERT INTO tests.trans_label_value (trans_label_id, shared_language_code_id, label_value, update_user_id, update_user_history_id)
+            VALUES (v_id, v_lang, tests.apl_value(v_item.value), v_staff.staff_id, v_staff.staff_history_id);
+        ELSE
+            UPDATE tests.trans_label_value
+               SET label_value = tests.apl_value(v_item.value), remove = false,
+                   update_user_id = v_staff.staff_id, update_user_history_id = v_staff.staff_history_id
+             WHERE trans_label_value_id = v_value_id;
+        END IF;
+    END LOOP;
+    SELECT * INTO v_row FROM tests.trans_label WHERE trans_label_id = v_id;
+    RETURN v_row;
+END
+$$ LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION tests.trans_label_save(uuid, jsonb, uuid, uuid) IS 'trans のラベル(題名・名称)を、言語別の値(JSON)で作る・渡した言語の値だけ入れ替える。返った ID を、本体の題名・名称の列に渡す';
 
 CREATE TABLE tests.shared_text_value (
   shared_text_value_id uuid DEFAULT gen_random_uuid() NOT NULL,
@@ -5506,37 +5628,52 @@ COMMENT ON COLUMN tests.shared_text_value.update_user_history_id IS '更新者�
 
 COMMENT ON COLUMN tests.shared_text_value.remove IS '削除';
 
-CREATE OR REPLACE FUNCTION tests.ap_text_set(
-    p_text_id uuid, p_values jsonb, p_staff_id uuid, p_staff_history_id uuid
-) RETURNS uuid AS $$
+CREATE OR REPLACE FUNCTION tests.shared_text_save(
+    p_text_id uuid DEFAULT NULL,
+    p_values jsonb DEFAULT NULL,
+    p_staff_id uuid DEFAULT NULL,
+    p_staff_history_id uuid DEFAULT NULL
+) RETURNS tests.shared_text AS $$
 DECLARE
+    v_staff record;
     v_id uuid := p_text_id;
     v_item record;
     v_lang uuid;
+    v_value_id uuid;
+    v_row tests.shared_text%ROWTYPE;
 BEGIN
+    SELECT * INTO v_staff FROM tests.apl_staff(p_staff_id, p_staff_history_id);
+    PERFORM tests.apl_check_object(p_values);
     IF v_id IS NULL THEN
         INSERT INTO tests.shared_text (update_user_id, update_user_history_id)
-        VALUES (p_staff_id, p_staff_history_id) RETURNING shared_text_id INTO v_id;
+        VALUES (v_staff.staff_id, v_staff.staff_history_id) RETURNING shared_text_id INTO v_id;
+    ELSE
+        SELECT * INTO v_row FROM tests.shared_text WHERE shared_text_id = v_id FOR UPDATE;
+        IF v_row.shared_text_id IS NULL OR v_row.remove THEN
+            RAISE EXCEPTION '文章が見つかりません (%)', v_id USING ERRCODE = 'APL01';
+        END IF;
     END IF;
-    FOR v_item IN SELECT key, value FROM jsonb_each_text(COALESCE(p_values, '{}'::jsonb)) LOOP
-        v_lang := tests.ap_language(v_item.key);
-        UPDATE tests.shared_text_value
-           SET text_value = COALESCE(v_item.value, ''), lead_text = left(COALESCE(v_item.value, ''), 80),
-               char_count = char_length(COALESCE(v_item.value, '')), remove = false,
-               update_user_id = p_staff_id, update_user_history_id = p_staff_history_id
+    FOR v_item IN SELECT key, value FROM jsonb_each(COALESCE(p_values, '{}'::jsonb)) LOOP
+        v_lang := tests.apl_language(v_item.key);
+        SELECT shared_text_value_id INTO v_value_id FROM tests.shared_text_value
          WHERE shared_text_id = v_id AND shared_language_code_id = v_lang;
-        IF NOT FOUND THEN
+        IF v_value_id IS NULL THEN
             INSERT INTO tests.shared_text_value
-                (shared_language_code_id, shared_text_id, text_value, lead_text, char_count, update_user_id, update_user_history_id)
-            VALUES (v_lang, v_id, COALESCE(v_item.value, ''), left(COALESCE(v_item.value, ''), 80),
-                    char_length(COALESCE(v_item.value, '')), p_staff_id, p_staff_history_id);
+                (shared_language_code_id, shared_text_id, text_value, update_user_id, update_user_history_id)
+            VALUES (v_lang, v_id, tests.apl_value(v_item.value), v_staff.staff_id, v_staff.staff_history_id);
+        ELSE
+            UPDATE tests.shared_text_value
+               SET text_value = tests.apl_value(v_item.value), remove = false,
+                   update_user_id = v_staff.staff_id, update_user_history_id = v_staff.staff_history_id
+             WHERE shared_text_value_id = v_value_id;
         END IF;
     END LOOP;
-    RETURN v_id;
+    SELECT * INTO v_row FROM tests.shared_text WHERE shared_text_id = v_id;
+    RETURN v_row;
 END
 $$ LANGUAGE plpgsql VOLATILE;
 
-COMMENT ON FUNCTION tests.ap_text_set(uuid, jsonb, uuid, uuid) IS '@omit';
+COMMENT ON FUNCTION tests.shared_text_save(uuid, jsonb, uuid, uuid) IS '文章(詳細など)を、言語別の値(JSON)で作る・渡した言語の値だけ入れ替える。返った ID を、本体の details 列に渡す';
 
 CREATE TABLE tests.history_shared_text_value (
   history_id uuid DEFAULT gen_random_uuid() NOT NULL,
@@ -5993,194 +6130,91 @@ COMMENT ON COLUMN tests.shared_dictionary_value.update_user_history_id IS '更�
 
 COMMENT ON COLUMN tests.shared_dictionary_value.remove IS '削除';
 
-CREATE OR REPLACE FUNCTION tests.ap_dictionary_set(
-    p_dictionary_id uuid, p_values jsonb, p_staff_id uuid, p_staff_history_id uuid
-) RETURNS uuid AS $$
+CREATE OR REPLACE FUNCTION tests.shared_appellation_save(
+    p_appellation_id uuid DEFAULT NULL,
+    p_name jsonb DEFAULT NULL,
+    p_pronunciation jsonb DEFAULT NULL,
+    p_nickname jsonb DEFAULT NULL,
+    p_staff_id uuid DEFAULT NULL,
+    p_staff_history_id uuid DEFAULT NULL
+) RETURNS tests.shared_appellations AS $$
 DECLARE
-    v_id uuid := p_dictionary_id;
-    v_item record;
-    v_lang uuid;
-BEGIN
-    IF v_id IS NULL THEN
-        INSERT INTO tests.shared_dictionary (update_user_id, update_user_history_id)
-        VALUES (p_staff_id, p_staff_history_id) RETURNING shared_dictionary_id INTO v_id;
-    END IF;
-    FOR v_item IN SELECT key, value FROM jsonb_each_text(COALESCE(p_values, '{}'::jsonb)) LOOP
-        v_lang := tests.ap_language(v_item.key);
-        UPDATE tests.shared_dictionary_value
-           SET dictionary_value = COALESCE(v_item.value, ''), remove = false,
-               update_user_id = p_staff_id, update_user_history_id = p_staff_history_id
-         WHERE shared_dictionary_id = v_id AND shared_language_code_id = v_lang;
-        IF NOT FOUND THEN
-            INSERT INTO tests.shared_dictionary_value
-                (shared_language_code_id, shared_dictionary_id, dictionary_value, update_user_id, update_user_history_id)
-            VALUES (v_lang, v_id, COALESCE(v_item.value, ''), p_staff_id, p_staff_history_id);
-        END IF;
-    END LOOP;
-    RETURN v_id;
-END
-$$ LANGUAGE plpgsql VOLATILE;
-
-COMMENT ON FUNCTION tests.ap_dictionary_set(uuid, jsonb, uuid, uuid) IS '@omit';
-
-CREATE OR REPLACE FUNCTION tests.ap_appellation_set(
-    p_appellation_id uuid, p_name jsonb, p_pronunciation jsonb, p_nickname jsonb,
-    p_staff_id uuid, p_staff_history_id uuid
-) RETURNS uuid AS $$
-DECLARE
+    v_staff record;
     v_id uuid := p_appellation_id;
     v_row tests.shared_appellations%ROWTYPE;
-    v_name uuid;
-    v_pron uuid;
-    v_nick uuid;
+    v_ids uuid[] := ARRAY[NULL, NULL, NULL]::uuid[];  -- 名称・読み・略称の辞書
+    v_vals jsonb[] := ARRAY[p_name, p_pronunciation, p_nickname];
+    v_new_id uuid;
+    v_changed boolean := false;
+    v_item record;
+    v_lang uuid;
+    v_value_id uuid;
+    i int;
 BEGIN
-    IF v_id IS NULL THEN
-        IF COALESCE(NULLIF(p_name ->> 'ja', ''), '') = '' THEN
-            RAISE EXCEPTION '名称(ja)は必須です' USING ERRCODE = 'APL02';
+    SELECT * INTO v_staff FROM tests.apl_staff(p_staff_id, p_staff_history_id);
+    PERFORM tests.apl_check_object(p_name);
+    PERFORM tests.apl_check_object(p_pronunciation);
+    PERFORM tests.apl_check_object(p_nickname);
+
+    IF v_id IS NOT NULL THEN
+        SELECT * INTO v_row FROM tests.shared_appellations WHERE shared_appellations_id = v_id FOR UPDATE;
+        IF v_row.shared_appellations_id IS NULL OR v_row.remove THEN
+            RAISE EXCEPTION '呼称が見つかりません (%)', v_id USING ERRCODE = 'APL01';
         END IF;
-        v_name := tests.ap_dictionary_set(NULL, p_name, p_staff_id, p_staff_history_id);
-        IF p_pronunciation IS NOT NULL THEN v_pron := tests.ap_dictionary_set(NULL, p_pronunciation, p_staff_id, p_staff_history_id); END IF;
-        IF p_nickname IS NOT NULL THEN v_nick := tests.ap_dictionary_set(NULL, p_nickname, p_staff_id, p_staff_history_id); END IF;
+        v_ids := ARRAY[v_row.shared_dictionary_name_id, v_row.shared_dictionary_pronunciation_id, v_row.shared_dictionary_nickname_id];
+    END IF;
+
+    FOR i IN 1..3 LOOP
+        -- 名称は、新規なら必ず辞書を作る。読み・略称は、値を渡したときだけ
+        IF v_ids[i] IS NULL AND (v_vals[i] IS NOT NULL OR (i = 1 AND v_id IS NULL)) THEN
+            INSERT INTO tests.shared_dictionary (update_user_id, update_user_history_id)
+            VALUES (v_staff.staff_id, v_staff.staff_history_id) RETURNING shared_dictionary_id INTO v_new_id;
+            v_ids[i] := v_new_id;
+            v_changed := true;
+        ELSIF v_ids[i] IS NOT NULL THEN
+            PERFORM 1 FROM tests.shared_dictionary WHERE shared_dictionary_id = v_ids[i] FOR UPDATE;
+        END IF;
+        FOR v_item IN SELECT key, value FROM jsonb_each(COALESCE(v_vals[i], '{}'::jsonb)) LOOP
+            v_lang := tests.apl_language(v_item.key);
+            SELECT shared_dictionary_value_id INTO v_value_id FROM tests.shared_dictionary_value
+             WHERE shared_dictionary_id = v_ids[i] AND shared_language_code_id = v_lang;
+            IF v_value_id IS NULL THEN
+                INSERT INTO tests.shared_dictionary_value
+                    (shared_language_code_id, shared_dictionary_id, dictionary_value, update_user_id, update_user_history_id)
+                VALUES (v_lang, v_ids[i], tests.apl_value(v_item.value), v_staff.staff_id, v_staff.staff_history_id);
+            ELSE
+                UPDATE tests.shared_dictionary_value
+                   SET dictionary_value = tests.apl_value(v_item.value), remove = false,
+                       update_user_id = v_staff.staff_id, update_user_history_id = v_staff.staff_history_id
+                 WHERE shared_dictionary_value_id = v_value_id;
+            END IF;
+        END LOOP;
+    END LOOP;
+
+    -- 名称は、いずれかの言語に空でない値が必要(ja の必須ではない)。違反は、ここまでの変更ごと取り消される
+    IF NOT EXISTS (SELECT 1 FROM tests.shared_dictionary_value
+                    WHERE shared_dictionary_id = v_ids[1] AND remove = false AND dictionary_value <> '') THEN
+        RAISE EXCEPTION '名称には、いずれかの言語に値が必要です' USING ERRCODE = 'APL02';
+    END IF;
+
+    IF v_id IS NULL THEN
         INSERT INTO tests.shared_appellations
             (shared_dictionary_name_id, shared_dictionary_pronunciation_id, shared_dictionary_nickname_id,
              update_user_id, update_user_history_id)
-        VALUES (v_name, v_pron, v_nick, p_staff_id, p_staff_history_id)
+        VALUES (v_ids[1], v_ids[2], v_ids[3], v_staff.staff_id, v_staff.staff_history_id)
         RETURNING shared_appellations_id INTO v_id;
-        RETURN v_id;
-    END IF;
-
-    SELECT * INTO v_row FROM tests.shared_appellations WHERE shared_appellations_id = v_id;
-    IF NOT FOUND THEN
-        RAISE EXCEPTION '呼称が見つかりません (%)', v_id USING ERRCODE = 'APL01';
-    END IF;
-    IF p_name IS NOT NULL AND p_name ? 'ja' AND COALESCE(p_name ->> 'ja', '') = '' THEN
-        RAISE EXCEPTION '名称(ja)は空にできません' USING ERRCODE = 'APL02';
-    END IF;
-    v_name := tests.ap_dictionary_set(v_row.shared_dictionary_name_id, p_name, p_staff_id, p_staff_history_id);
-    v_pron := v_row.shared_dictionary_pronunciation_id;
-    v_nick := v_row.shared_dictionary_nickname_id;
-    IF p_pronunciation IS NOT NULL THEN v_pron := tests.ap_dictionary_set(v_pron, p_pronunciation, p_staff_id, p_staff_history_id); END IF;
-    IF p_nickname IS NOT NULL THEN v_nick := tests.ap_dictionary_set(v_nick, p_nickname, p_staff_id, p_staff_history_id); END IF;
-    IF (v_pron, v_nick) IS DISTINCT FROM (v_row.shared_dictionary_pronunciation_id, v_row.shared_dictionary_nickname_id) THEN
+    ELSIF v_changed THEN
         UPDATE tests.shared_appellations
-           SET shared_dictionary_pronunciation_id = v_pron, shared_dictionary_nickname_id = v_nick,
-               update_user_id = p_staff_id, update_user_history_id = p_staff_history_id
+           SET shared_dictionary_pronunciation_id = v_ids[2], shared_dictionary_nickname_id = v_ids[3],
+               update_user_id = v_staff.staff_id, update_user_history_id = v_staff.staff_history_id
          WHERE shared_appellations_id = v_id;
     END IF;
-    RETURN v_id;
-END
-$$ LANGUAGE plpgsql VOLATILE;
-
-COMMENT ON FUNCTION tests.ap_appellation_set(uuid, jsonb, jsonb, jsonb, uuid, uuid) IS '@omit';
-
-CREATE OR REPLACE FUNCTION tests.unit_save(
-    p_unit_id uuid DEFAULT NULL,
-    p_name jsonb DEFAULT NULL,
-    p_pronunciation jsonb DEFAULT NULL,
-    p_nickname jsonb DEFAULT NULL,
-    p_detail jsonb DEFAULT NULL,
-    p_remarks varchar DEFAULT NULL,
-    p_staff_id uuid DEFAULT NULL
-) RETURNS tests.shared_unit AS $$
-DECLARE
-    v_staff record;
-    v_row tests.shared_unit%ROWTYPE;
-    v_names uuid;
-    v_details uuid;
-    v_id uuid := p_unit_id;
-BEGIN
-    SELECT * INTO v_staff FROM tests.ap_staff(p_staff_id);
-    IF v_id IS NULL THEN
-        v_names := tests.ap_appellation_set(NULL, p_name, p_pronunciation, p_nickname, v_staff.staff_id, v_staff.staff_history_id);
-        IF p_detail IS NOT NULL THEN v_details := tests.ap_text_set(NULL, p_detail, v_staff.staff_id, v_staff.staff_history_id); END IF;
-        INSERT INTO tests.shared_unit (names, details, remarks, update_user_id, update_user_history_id)
-        VALUES (v_names, v_details, NULLIF(p_remarks, ''), v_staff.staff_id, v_staff.staff_history_id)
-        RETURNING shared_unit_id INTO v_id;
-    ELSE
-        SELECT * INTO v_row FROM tests.shared_unit WHERE shared_unit_id = v_id AND remove = false;
-        IF NOT FOUND THEN
-            RAISE EXCEPTION '単位が見つかりません (%)', v_id USING ERRCODE = 'APL01';
-        END IF;
-        PERFORM tests.ap_appellation_set(v_row.names, p_name, p_pronunciation, p_nickname, v_staff.staff_id, v_staff.staff_history_id);
-        v_details := v_row.details;
-        IF p_detail IS NOT NULL THEN v_details := tests.ap_text_set(v_details, p_detail, v_staff.staff_id, v_staff.staff_history_id); END IF;
-        UPDATE tests.shared_unit
-           SET details = v_details,
-               remarks = CASE WHEN p_remarks IS NULL THEN remarks ELSE NULLIF(p_remarks, '') END,
-               update_user_id = v_staff.staff_id, update_user_history_id = v_staff.staff_history_id
-         WHERE shared_unit_id = v_id;
-    END IF;
-    SELECT * INTO v_row FROM tests.shared_unit WHERE shared_unit_id = v_id;
+    SELECT * INTO v_row FROM tests.shared_appellations WHERE shared_appellations_id = v_id;
     RETURN v_row;
 END
 $$ LANGUAGE plpgsql VOLATILE;
 
-CREATE OR REPLACE FUNCTION tests.stakeholder_save(
-    p_stakeholder_id uuid DEFAULT NULL,
-    p_code varchar DEFAULT NULL,
-    p_control_code varchar DEFAULT NULL,
-    p_name jsonb DEFAULT NULL,
-    p_pronunciation jsonb DEFAULT NULL,
-    p_nickname jsonb DEFAULT NULL,
-    p_is_customer boolean DEFAULT NULL,
-    p_is_supplier boolean DEFAULT NULL,
-    p_is_logistics boolean DEFAULT NULL,
-    p_mail varchar DEFAULT NULL,
-    p_shipping_kind_id uuid DEFAULT NULL,
-    p_remarks varchar DEFAULT NULL,
-    p_staff_id uuid DEFAULT NULL,
-    p_clear_shipping_kind boolean DEFAULT false
-) RETURNS tests.mstr_stakeholder AS $$
-DECLARE
-    v_staff record;
-    v_row tests.mstr_stakeholder%ROWTYPE;
-    v_names uuid;
-    v_id uuid := p_stakeholder_id;
-BEGIN
-    SELECT * INTO v_staff FROM tests.ap_staff(p_staff_id);
-    IF (v_id IS NULL AND COALESCE(p_code, '') = '') OR (p_code IS NOT NULL AND p_code = '') THEN
-        RAISE EXCEPTION 'コードは必須です' USING ERRCODE = 'APL02';
-    END IF;
-    IF p_code IS NOT NULL AND EXISTS (
-        SELECT 1 FROM tests.mstr_stakeholder
-        WHERE code = p_code AND remove = false AND mstr_stakeholder_id IS DISTINCT FROM v_id
-    ) THEN
-        RAISE EXCEPTION 'コードが重複しています (%)', p_code USING ERRCODE = 'APL03';
-    END IF;
-
-    IF v_id IS NULL THEN
-        v_names := tests.ap_appellation_set(NULL, p_name, p_pronunciation, p_nickname, v_staff.staff_id, v_staff.staff_history_id);
-        INSERT INTO tests.mstr_stakeholder
-            (is_customer, is_supplier, is_logistics, code, control_code, names, mail, mstr_shipping_kind_id, remarks,
-             update_user_id, update_user_history_id)
-        VALUES (COALESCE(p_is_customer, false), COALESCE(p_is_supplier, false), COALESCE(p_is_logistics, false),
-                p_code, NULLIF(p_control_code, ''), v_names, NULLIF(p_mail, ''),
-                CASE WHEN p_clear_shipping_kind THEN NULL ELSE p_shipping_kind_id END, NULLIF(p_remarks, ''),
-                v_staff.staff_id, v_staff.staff_history_id)
-        RETURNING mstr_stakeholder_id INTO v_id;
-    ELSE
-        SELECT * INTO v_row FROM tests.mstr_stakeholder WHERE mstr_stakeholder_id = v_id AND remove = false;
-        IF NOT FOUND THEN
-            RAISE EXCEPTION '利害関係者が見つかりません (%)', v_id USING ERRCODE = 'APL01';
-        END IF;
-        PERFORM tests.ap_appellation_set(v_row.names, p_name, p_pronunciation, p_nickname, v_staff.staff_id, v_staff.staff_history_id);
-        UPDATE tests.mstr_stakeholder
-           SET is_customer = COALESCE(p_is_customer, is_customer),
-               is_supplier = COALESCE(p_is_supplier, is_supplier),
-               is_logistics = COALESCE(p_is_logistics, is_logistics),
-               code = COALESCE(p_code, code),
-               control_code = CASE WHEN p_control_code IS NULL THEN control_code ELSE NULLIF(p_control_code, '') END,
-               mail = CASE WHEN p_mail IS NULL THEN mail ELSE NULLIF(p_mail, '') END,
-               mstr_shipping_kind_id = CASE WHEN p_clear_shipping_kind THEN NULL
-                                            ELSE COALESCE(p_shipping_kind_id, mstr_shipping_kind_id) END,
-               remarks = CASE WHEN p_remarks IS NULL THEN remarks ELSE NULLIF(p_remarks, '') END,
-               update_user_id = v_staff.staff_id, update_user_history_id = v_staff.staff_history_id
-         WHERE mstr_stakeholder_id = v_id;
-    END IF;
-    SELECT * INTO v_row FROM tests.mstr_stakeholder WHERE mstr_stakeholder_id = v_id;
-    RETURN v_row;
-END
-$$ LANGUAGE plpgsql VOLATILE;
+COMMENT ON FUNCTION tests.shared_appellation_save(uuid, jsonb, jsonb, jsonb, uuid, uuid) IS '呼称(名称・読み・略称)を、言語別の値(JSON)で作る・渡した言語の値だけ入れ替える。返った ID を、本体の names 列に渡す';
 
 CREATE TABLE tests.history_shared_dictionary_value (
   history_id uuid DEFAULT gen_random_uuid() NOT NULL,

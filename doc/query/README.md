@@ -1,4 +1,4 @@
-# doc/query
+﻿# doc/query
 
 DB(PostgreSQL `tests` スキーマ)へ適用する SQL の「案」を置く。`tools/docker/postgresql/script` の本体には、レビューのあとに統合する。
 
@@ -6,9 +6,7 @@ DB(PostgreSQL `tests` スキーマ)へ適用する SQL の「案」を置く。`
 |---|---|---|
 | `20261114_0001_operation_functions.sql` | 操作の DB 関数(受注・発注明細のキャンセル・停止・変更、生産計画の停止・打ち切り、引当予約・品物の処置、精算、返品・支給の登録)。1回の呼び出し = 1トランザクション | 案。検証用 DB で、トランザクション内で実行して ROLLBACK し、動作を確認済み |
 | `20261114_0001_v_work_plan_registrable.sql` | 登録できる作業指示かの判定のビュー(`v_work_plan_registrable`)。生産計画の連なりと最上位の受注明細の、停止・打ち切り・全部キャンセルを判定する | 案。同上 |
-| `20261114_0002_appellation_functions.sql` | 呼称(多言語の辞書)を持つマスタの登録・更新の DB 関数(単位 `unit_save`・利害関係者 `stakeholder_save` と、補助 `ap_*`)。1回の呼び出し = 1トランザクション。**入れ替えの印**: 適用するまで、該当の取得元は読み取り専用 | 案。検証用 DB で、トランザクション内で実行して ROLLBACK し、動作を確認済み(下) |
-| `20261114_0003_appellation_functions_fix.sql` | `20261114_0002` を変更した、**全体のファイル**(差分ではない)。変更は `ap_dictionary_set`・`ap_text_set` だけ: 同じ値で更新すると一意制約違反になる不具合の修正(行の有無を `FOUND` ではなく、先に行を引いて判定する)。`0002` は、DB に適用した版のまま残す。適用済みの DB に、そのまま流せる(`CREATE OR REPLACE`。引数・戻り値は同じ) | 案。`0002` の版で不具合を再現し、`0003` を流すと直ることを確認(トランザクション内で実行して ROLLBACK)。全ケースも通過 |
-| `20261115_0001_common_functions.sql` | 共通の部品の保存関数(`shared_appellation_save`・`shared_text_save`・`trans_label_save`・`trans_text_save`)。マスタ・Info・trans の本体は、ミューテーション(自動 CRUD)で扱い、呼称・文章・ラベルだけ、この関数で作る・変える(方針は `issue/20261115_0001.md`)。前提は `0003` の適用 | 案。`0003` → この SQL を流して 46 ケース(呼称・文章・ラベルの新規・更新・同じ値の更新・空にする・エラー、ミューテーションと同じ形のマスタ・体系の登録・更新・削除)を確認(トランザクション内で実行して ROLLBACK) |
+| `20261116_0001_common_functions.sql` | 共通の部品の保存関数 4 本(`shared_appellation_save`・`shared_text_save`・`trans_label_save`・`trans_text_save`)。補助は `apl_staff`・`apl_language`・`apl_value`(`@omit`。`op_staff` と同じ形)。渡した言語だけ入れ替える・名称は「いずれかの言語に値」が必須(ja の必須ではない)。適用済みの `unit_save`・`stakeholder_save`・`ap_*` を外す DROP は、末尾にコメントで置いた(移行後)。旧 `20261114_0002`・`0003`・`20261115_0001` はこれに統合して削除 | 案。06 の試験の指摘を反映した版は未検証。再度 06 に出力して、トランザクション内で実行して ROLLBACK し、`issue/20261116_0001.md` の B の検討の通信テストを行う |
 | `20261115_0002_code_unique_indexes.sql` | コードの部分一意索引(DDL。`remove = false` の行だけ。`<表>_ix_code_active`)。マスタごとの保存関数の検査の代わりに、索引で重複を止める | 案。同上で確認(関数を通さない重複の登録が `23505`、削除済みのコードは再利用できる) |
 
 ## 適用
@@ -16,10 +14,8 @@ DB(PostgreSQL `tests` スキーマ)へ適用する SQL の「案」を置く。`
 ```
 psql -d test_avocado -f 20261114_0001_operation_functions.sql
 psql -d test_avocado -f 20261114_0001_v_work_plan_registrable.sql
-psql -d test_avocado -f 20261114_0002_appellation_functions.sql
-psql -d test_avocado -f 20261115_0001_common_functions.sql           # 0003 のあとに
+psql -d test_avocado -f 20261116_0001_common_functions.sql
 psql -d test_avocado -f 20261115_0002_code_unique_indexes.sql        # 重複が無いことを確認してから
-psql -d test_avocado -f 20261114_0003_appellation_functions_fix.sql   # 0002 を適用済みの DB には、続けてこれ(全体のファイル。0002 の代わりに、これだけを流してもよい)
 ```
 適用したら、`melos run gql:schema` → `melos run gql`(新しい関数は `kind: function`、ビューは `kind: read` で `model_providers` に足す)。
 
