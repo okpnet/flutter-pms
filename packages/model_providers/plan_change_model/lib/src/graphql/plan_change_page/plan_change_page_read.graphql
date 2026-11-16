@@ -6,15 +6,15 @@
 query PlanChangePageRead(
   $first: Int!
   $offset: Int
-  $filter: TransPlanChangeFilter = {and: []}
-  $orderBy: [TransPlanChangesOrderBy!]
-  $removed: Boolean = false
+  $filter: VPlanChangeFilter = {and: []}
+  $orderBy: [VPlanChangesOrderBy!]
+  $languageCodeId: UUID!
 ) {
-  allTransPlanChanges(
+  allVPlanChanges(
     first: $first
     offset: $offset
     orderBy: $orderBy
-    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+    filter: { and: [$filter] }
   ) {
     totalCount
     pageInfo {
@@ -23,6 +23,7 @@ query PlanChangePageRead(
     }
     nodes {
       transPlanChangeId
+      symbol
       parentTransPlanChangeId
       changeAt
       transOrderDetailId
@@ -31,6 +32,62 @@ query PlanChangePageRead(
       transInventoryRequestId
       transVisiterId
       transShippingOrderDetailId
+      isOrderDetail
+      isPurchaseDetail
+      isOperationsPlan
+      isInventoryRequest
+      isVisiter
+      isShippingOrderDetail
+      itemId
+
+      item: mstrItemByItemId {
+        mstrItemId
+        code
+        symbol
+
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+      }
+
+      rootTransOrderDetailId
+
+      root_order_detail: transOrderDetailByRootTransOrderDetailId {
+        transOrderDetailId
+        symbol
+      }
+
+      isCancel
+      isQuantityChange
+      isDateChange
+      isPostpone
+      isAdvance
+      isStop
+      isResume
+      isDiscontinue
+      isRelease
+      isHold
+      isScrap
+      isDeliver
+      hasSettlement
+      isRoot
+      hasChildren
+      customerCause
+      supplierCause
+      qualityCause
+      fromMrp
+      isReflected
+      isUnreflected
       oldQuantity
       newQuantity
       cancelQuantity
@@ -38,11 +95,6 @@ query PlanChangePageRead(
       newDate
       oldStop
       newStop
-      discontinue
-      release
-      hold
-      scrap
-      deliver
       transContainerId
       transOrderDetailSettlementId
       changeReasonId
@@ -51,10 +103,8 @@ query PlanChangePageRead(
       staffId
       transMrpSuggestionId
       reflectedTransMrpRunId
-      symbol
       remarks
       updateAt
-      remove
     }
   }
 }

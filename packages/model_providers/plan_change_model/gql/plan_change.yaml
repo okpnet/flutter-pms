@@ -1,25 +1,98 @@
 # yaml-language-server: $schema=../../schema.json
 
-# 計画変更の履歴(trans_plan_change。追記のみ)。種別の列は無く、どの列に値が入っているかで分かる。
-# 表示用の文字は、DB の v_plan_change ができてから、その列を出す(アプリに持たない)。
-PlanChangePage:
+# 計画変更の品目(コードと名称だけ。画面に出すための軽い結合)
+PlanChangeItemFields: &PlanChangeItemFields
   kind: read
-  from: trans_plan_change
-  filter: true
+  from: mstr_item
+  requiredWhere:
+    - languageCode
   defaultWhere:
     - column: remove
-      operator: "="
+      operator: =
       value: false
   columns:
+    - mstr_item_id
+    - code
+    - symbol
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+      <<: *AppellationLabelsReadFields
+
+# 受注明細(記号だけ。最上位の受注明細の表示用)
+PlanChangeOrderDetailFields: &PlanChangeOrderDetailFields
+  kind: read
+  from: trans_order_detail
+  columns:
+    - trans_order_detail_id
+    - symbol
+
+# 計画変更の履歴(v_plan_change。追記のみ)。対象・動き・処置・原因・MRP との関係は boolean の列。
+# 表示の文字の列は持たない(列の名前に、チェック・シグナルで出す)。取り消しの記録も、種別の列は無く、値のある列で分かる。
+PlanChangePage:
+  kind: read
+  from: v_plan_change
+  filter: true
+  requiredWhere:
+    - languageCode
+  columns:
     - trans_plan_change_id
+    - symbol
     - parent_trans_plan_change_id
     - change_at
+    # 対象(ちょうど 1 つ true)
     - trans_order_detail_id
     - trans_purchase_detail_id
     - trans_operations_plan_id
     - trans_inventory_request_id
     - trans_visiter_id
     - trans_shipping_order_detail_id
+    - is_order_detail
+    - is_purchase_detail
+    - is_operations_plan
+    - is_inventory_request
+    - is_visiter
+    - is_shipping_order_detail
+    - item_id
+    - name: item
+      as: item
+      arrayType: toFirstOne
+      using: item_id
+      <<: *PlanChangeItemFields
+    - root_trans_order_detail_id
+    - name: root_order_detail
+      as: root_order_detail
+      arrayType: toFirstOne
+      using: root_trans_order_detail_id
+      <<: *PlanChangeOrderDetailFields
+    # 動き
+    - is_cancel
+    - is_quantity_change
+    - is_date_change
+    - is_postpone
+    - is_advance
+    - is_stop
+    - is_resume
+    # 処置
+    - is_discontinue
+    - is_release
+    - is_hold
+    - is_scrap
+    - is_deliver
+    - has_settlement
+    # 起点と処置のつながり・原因・MRP
+    - is_root
+    - has_children
+    - customer_cause
+    - supplier_cause
+    - quality_cause
+    - from_mrp
+    - is_reflected
+    - is_unreflected
+    # 値
     - old_quantity
     - new_quantity
     - cancel_quantity
@@ -27,11 +100,6 @@ PlanChangePage:
     - new_date
     - old_stop
     - new_stop
-    - discontinue
-    - release
-    - hold
-    - scrap
-    - deliver
     - trans_container_id
     - trans_order_detail_settlement_id
     - change_reason_id
@@ -40,9 +108,50 @@ PlanChangePage:
     - staff_id
     - trans_mrp_suggestion_id
     - reflected_trans_mrp_run_id
-    - symbol
     - remarks
     - update_at
+
+# 未処置一覧(v_cancel_open_item。キャンセル・停止・打ち切りのあと、処置が済んでいないもの)。
+# 種類は 7 つの boolean(ちょうど 1 つ true)、原因は 3 つの boolean。種類の文字は持たない。
+CancelOpenItemPage:
+  kind: read
+  from: v_cancel_open_item
+  filter: true
+  requiredWhere:
+    - languageCode
+  columns:
+    - open_item_id
+    - symbol
+    # 種類
+    - is_inventory_request
+    - is_work_in_process
+    - is_hold
+    - is_shipping_order
+    - is_outsource_order
+    - is_supply_at_supplier
+    - is_customer_supply
+    # 原因
+    - cause_cancel
+    - cause_stop
+    - cause_discontinue
+    - item_id
+    - name: item
+      as: item
+      arrayType: toFirstOne
+      using: item_id
+      <<: *PlanChangeItemFields
+    - quantity
+    - trans_order_detail_id
+    - trans_purchase_detail_id
+    - trans_operations_plan_id
+    - trans_inventory_request_id
+    - trans_visiter_id
+    - trans_shipping_order_detail_id
+    - trans_supply_detail_id
+    - trans_container_id
+    - stakeholder_id
+    - cause_trans_plan_change_id
+    - since
 
 # MRP に未反映の計画変更(v_plan_change_unreflected)
 PlanChangeUnreflectedPage:

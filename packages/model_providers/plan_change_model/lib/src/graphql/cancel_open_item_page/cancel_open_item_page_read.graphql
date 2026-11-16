@@ -1,0 +1,73 @@
+# cancel_open_item_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #CancelOpenItemPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query CancelOpenItemPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VCancelOpenItemFilter = {and: []}
+  $orderBy: [VCancelOpenItemsOrderBy!]
+  $languageCodeId: UUID!
+) {
+  allVCancelOpenItems(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      openItemId
+      symbol
+      isInventoryRequest
+      isWorkInProcess
+      isHold
+      isShippingOrder
+      isOutsourceOrder
+      isSupplyAtSupplier
+      isCustomerSupply
+      causeCancel
+      causeStop
+      causeDiscontinue
+      itemId
+
+      item: mstrItemByItemId {
+        mstrItemId
+        code
+        symbol
+
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+      }
+
+      quantity
+      transOrderDetailId
+      transPurchaseDetailId
+      transOperationsPlanId
+      transInventoryRequestId
+      transVisiterId
+      transShippingOrderDetailId
+      transSupplyDetailId
+      transContainerId
+      stakeholderId
+      causeTransPlanChangeId
+      since
+    }
+  }
+}

@@ -265,6 +265,14 @@ features:
         code: R
         page: SR
         label: 受注明細
+      - screen: shipplan
+        code: S
+        page: SS
+        label: 出荷予定
+      - screen: shipline
+        code: H
+        page: SH
+        label: 出荷指示
   - feature: shared_master
     code: H
     label: 共有マスタ
@@ -357,6 +365,10 @@ features:
         code: V
         page: LV
         label: 資材計画の充足状況
+      - screen: stockrez
+        code: S
+        page: LS
+        label: 引当予約
   - feature: work_record
     code: W
     label: 作業実績
@@ -389,6 +401,10 @@ features:
         code: M
         page: WM
         label: ビジター品目
+      - screen: stockstatus
+        code: S
+        page: WS
+        label: 在庫状況
   - feature: quality_common
     code: C
     label: 品質共通

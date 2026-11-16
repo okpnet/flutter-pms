@@ -14,14 +14,36 @@ scalar Datetime
 
 scalar UUID
 
-enum TransPlanChangesOrderBy {
+enum VCancelOpenItemsOrderBy {
   NATURAL
-  TRANS_PLAN_CHANGE_ID_ASC
-  TRANS_PLAN_CHANGE_ID_DESC
-  PARENT_TRANS_PLAN_CHANGE_ID_ASC
-  PARENT_TRANS_PLAN_CHANGE_ID_DESC
-  CHANGE_AT_ASC
-  CHANGE_AT_DESC
+  OPEN_ITEM_ID_ASC
+  OPEN_ITEM_ID_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  IS_INVENTORY_REQUEST_ASC
+  IS_INVENTORY_REQUEST_DESC
+  IS_WORK_IN_PROCESS_ASC
+  IS_WORK_IN_PROCESS_DESC
+  IS_HOLD_ASC
+  IS_HOLD_DESC
+  IS_SHIPPING_ORDER_ASC
+  IS_SHIPPING_ORDER_DESC
+  IS_OUTSOURCE_ORDER_ASC
+  IS_OUTSOURCE_ORDER_DESC
+  IS_SUPPLY_AT_SUPPLIER_ASC
+  IS_SUPPLY_AT_SUPPLIER_DESC
+  IS_CUSTOMER_SUPPLY_ASC
+  IS_CUSTOMER_SUPPLY_DESC
+  CAUSE_CANCEL_ASC
+  CAUSE_CANCEL_DESC
+  CAUSE_STOP_ASC
+  CAUSE_STOP_DESC
+  CAUSE_DISCONTINUE_ASC
+  CAUSE_DISCONTINUE_DESC
+  ITEM_ID_ASC
+  ITEM_ID_DESC
+  QUANTITY_ASC
+  QUANTITY_DESC
   TRANS_ORDER_DETAIL_ID_ASC
   TRANS_ORDER_DETAIL_ID_DESC
   TRANS_PURCHASE_DETAIL_ID_ASC
@@ -34,64 +56,16 @@ enum TransPlanChangesOrderBy {
   TRANS_VISITER_ID_DESC
   TRANS_SHIPPING_ORDER_DETAIL_ID_ASC
   TRANS_SHIPPING_ORDER_DETAIL_ID_DESC
-  OLD_QUANTITY_ASC
-  OLD_QUANTITY_DESC
-  NEW_QUANTITY_ASC
-  NEW_QUANTITY_DESC
-  CANCEL_QUANTITY_ASC
-  CANCEL_QUANTITY_DESC
-  OLD_DATE_ASC
-  OLD_DATE_DESC
-  NEW_DATE_ASC
-  NEW_DATE_DESC
-  OLD_STOP_ASC
-  OLD_STOP_DESC
-  NEW_STOP_ASC
-  NEW_STOP_DESC
-  DISCONTINUE_ASC
-  DISCONTINUE_DESC
-  RELEASE_ASC
-  RELEASE_DESC
-  HOLD_ASC
-  HOLD_DESC
-  SCRAP_ASC
-  SCRAP_DESC
-  DELIVER_ASC
-  DELIVER_DESC
+  TRANS_SUPPLY_DETAIL_ID_ASC
+  TRANS_SUPPLY_DETAIL_ID_DESC
   TRANS_CONTAINER_ID_ASC
   TRANS_CONTAINER_ID_DESC
-  TRANS_ORDER_DETAIL_SETTLEMENT_ID_ASC
-  TRANS_ORDER_DETAIL_SETTLEMENT_ID_DESC
-  CHANGE_REASON_HISTORY_ID_ASC
-  CHANGE_REASON_HISTORY_ID_DESC
-  CHANGE_REASON_ID_ASC
-  CHANGE_REASON_ID_DESC
-  REASON_ASC
-  REASON_DESC
-  STAKEHOLDER_HISTORY_ID_ASC
-  STAKEHOLDER_HISTORY_ID_DESC
   STAKEHOLDER_ID_ASC
   STAKEHOLDER_ID_DESC
-  STAFF_HISTORY_ID_ASC
-  STAFF_HISTORY_ID_DESC
-  STAFF_ID_ASC
-  STAFF_ID_DESC
-  TRANS_MRP_SUGGESTION_ID_ASC
-  TRANS_MRP_SUGGESTION_ID_DESC
-  REFLECTED_TRANS_MRP_RUN_ID_ASC
-  REFLECTED_TRANS_MRP_RUN_ID_DESC
-  SYMBOL_ASC
-  SYMBOL_DESC
-  REMARKS_ASC
-  REMARKS_DESC
-  UPDATE_AT_ASC
-  UPDATE_AT_DESC
-  UPDATE_USER_ID_ASC
-  UPDATE_USER_ID_DESC
-  UPDATE_USER_HISTORY_ID_ASC
-  UPDATE_USER_HISTORY_ID_DESC
-  REMOVE_ASC
-  REMOVE_DESC
+  CAUSE_TRANS_PLAN_CHANGE_ID_ASC
+  CAUSE_TRANS_PLAN_CHANGE_ID_DESC
+  SINCE_ASC
+  SINCE_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -116,8 +90,139 @@ enum VPlanChangeUnreflectedsOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum VPlanChangesOrderBy {
+  NATURAL
+  TRANS_PLAN_CHANGE_ID_ASC
+  TRANS_PLAN_CHANGE_ID_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  PARENT_TRANS_PLAN_CHANGE_ID_ASC
+  PARENT_TRANS_PLAN_CHANGE_ID_DESC
+  CHANGE_AT_ASC
+  CHANGE_AT_DESC
+  TRANS_ORDER_DETAIL_ID_ASC
+  TRANS_ORDER_DETAIL_ID_DESC
+  TRANS_PURCHASE_DETAIL_ID_ASC
+  TRANS_PURCHASE_DETAIL_ID_DESC
+  TRANS_OPERATIONS_PLAN_ID_ASC
+  TRANS_OPERATIONS_PLAN_ID_DESC
+  TRANS_INVENTORY_REQUEST_ID_ASC
+  TRANS_INVENTORY_REQUEST_ID_DESC
+  TRANS_VISITER_ID_ASC
+  TRANS_VISITER_ID_DESC
+  TRANS_SHIPPING_ORDER_DETAIL_ID_ASC
+  TRANS_SHIPPING_ORDER_DETAIL_ID_DESC
+  IS_ORDER_DETAIL_ASC
+  IS_ORDER_DETAIL_DESC
+  IS_PURCHASE_DETAIL_ASC
+  IS_PURCHASE_DETAIL_DESC
+  IS_OPERATIONS_PLAN_ASC
+  IS_OPERATIONS_PLAN_DESC
+  IS_INVENTORY_REQUEST_ASC
+  IS_INVENTORY_REQUEST_DESC
+  IS_VISITER_ASC
+  IS_VISITER_DESC
+  IS_SHIPPING_ORDER_DETAIL_ASC
+  IS_SHIPPING_ORDER_DETAIL_DESC
+  ITEM_ID_ASC
+  ITEM_ID_DESC
+  ROOT_TRANS_ORDER_DETAIL_ID_ASC
+  ROOT_TRANS_ORDER_DETAIL_ID_DESC
+  IS_CANCEL_ASC
+  IS_CANCEL_DESC
+  IS_QUANTITY_CHANGE_ASC
+  IS_QUANTITY_CHANGE_DESC
+  IS_DATE_CHANGE_ASC
+  IS_DATE_CHANGE_DESC
+  IS_POSTPONE_ASC
+  IS_POSTPONE_DESC
+  IS_ADVANCE_ASC
+  IS_ADVANCE_DESC
+  IS_STOP_ASC
+  IS_STOP_DESC
+  IS_RESUME_ASC
+  IS_RESUME_DESC
+  IS_DISCONTINUE_ASC
+  IS_DISCONTINUE_DESC
+  IS_RELEASE_ASC
+  IS_RELEASE_DESC
+  IS_HOLD_ASC
+  IS_HOLD_DESC
+  IS_SCRAP_ASC
+  IS_SCRAP_DESC
+  IS_DELIVER_ASC
+  IS_DELIVER_DESC
+  HAS_SETTLEMENT_ASC
+  HAS_SETTLEMENT_DESC
+  IS_ROOT_ASC
+  IS_ROOT_DESC
+  HAS_CHILDREN_ASC
+  HAS_CHILDREN_DESC
+  CUSTOMER_CAUSE_ASC
+  CUSTOMER_CAUSE_DESC
+  SUPPLIER_CAUSE_ASC
+  SUPPLIER_CAUSE_DESC
+  QUALITY_CAUSE_ASC
+  QUALITY_CAUSE_DESC
+  FROM_MRP_ASC
+  FROM_MRP_DESC
+  IS_REFLECTED_ASC
+  IS_REFLECTED_DESC
+  IS_UNREFLECTED_ASC
+  IS_UNREFLECTED_DESC
+  OLD_QUANTITY_ASC
+  OLD_QUANTITY_DESC
+  NEW_QUANTITY_ASC
+  NEW_QUANTITY_DESC
+  CANCEL_QUANTITY_ASC
+  CANCEL_QUANTITY_DESC
+  OLD_DATE_ASC
+  OLD_DATE_DESC
+  NEW_DATE_ASC
+  NEW_DATE_DESC
+  OLD_STOP_ASC
+  OLD_STOP_DESC
+  NEW_STOP_ASC
+  NEW_STOP_DESC
+  TRANS_CONTAINER_ID_ASC
+  TRANS_CONTAINER_ID_DESC
+  TRANS_ORDER_DETAIL_SETTLEMENT_ID_ASC
+  TRANS_ORDER_DETAIL_SETTLEMENT_ID_DESC
+  CHANGE_REASON_HISTORY_ID_ASC
+  CHANGE_REASON_HISTORY_ID_DESC
+  CHANGE_REASON_ID_ASC
+  CHANGE_REASON_ID_DESC
+  REASON_ASC
+  REASON_DESC
+  STAKEHOLDER_HISTORY_ID_ASC
+  STAKEHOLDER_HISTORY_ID_DESC
+  STAKEHOLDER_ID_ASC
+  STAKEHOLDER_ID_DESC
+  STAFF_HISTORY_ID_ASC
+  STAFF_HISTORY_ID_DESC
+  STAFF_ID_ASC
+  STAFF_ID_DESC
+  TRANS_MRP_SUGGESTION_ID_ASC
+  TRANS_MRP_SUGGESTION_ID_DESC
+  REFLECTED_TRANS_MRP_RUN_ID_ASC
+  REFLECTED_TRANS_MRP_RUN_ID_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 type CreateTransPlanChangePayload {
   transPlanChange: TransPlanChange
+}
+
+type MstrItem {
+  mstrItemId: UUID!
+  code: String!
+  symbol: String
+  sharedAppellationByNames: SharedAppellation
 }
 
 type Mutation {
@@ -131,8 +236,32 @@ type PageInfo {
 }
 
 type Query {
-  allTransPlanChanges(first: Int, offset: Int, orderBy: [TransPlanChangesOrderBy!] = [PRIMARY_KEY_ASC], filter: TransPlanChangeFilter): TransPlanChangesConnection
+  allVCancelOpenItems(first: Int, offset: Int, orderBy: [VCancelOpenItemsOrderBy!] = [PRIMARY_KEY_ASC], filter: VCancelOpenItemFilter): VCancelOpenItemsConnection
+  allVPlanChanges(first: Int, offset: Int, orderBy: [VPlanChangesOrderBy!] = [PRIMARY_KEY_ASC], filter: VPlanChangeFilter): VPlanChangesConnection
   allVPlanChangeUnreflecteds(first: Int, offset: Int, orderBy: [VPlanChangeUnreflectedsOrderBy!] = [PRIMARY_KEY_ASC], filter: VPlanChangeUnreflectedFilter): VPlanChangeUnreflectedsConnection
+}
+
+type SharedAppellation {
+  sharedAppellationsId: UUID!
+  sharedDictionaryBySharedDictionaryNameId: SharedDictionary
+}
+
+type SharedDictionary {
+  sharedDictionaryId: UUID!
+  sharedDictionaryValuesBySharedDictionaryId(condition: SharedDictionaryValueCondition): SharedDictionaryValuesConnection!
+}
+
+type SharedDictionaryValue {
+  dictionaryValue: String!
+}
+
+type SharedDictionaryValuesConnection {
+  nodes: [SharedDictionaryValue]!
+}
+
+type TransOrderDetail {
+  transOrderDetailId: UUID!
+  symbol: String
 }
 
 type TransPlanChange {
@@ -166,22 +295,108 @@ type TransPlanChange {
   stakeholderId: UUID
   staffHistoryId: UUID!
   staffId: UUID!
-  transMrpSuggestionId: UUID
-  reflectedTransMrpRunId: UUID
-  symbol: String
   remarks: String
-  updateAt: Datetime
   remove: Boolean
-}
-
-type TransPlanChangesConnection {
-  nodes: [TransPlanChange]!
-  pageInfo: PageInfo!
-  totalCount: Int!
 }
 
 type UpdateTransPlanChangePayload {
   transPlanChange: TransPlanChange
+}
+
+type VCancelOpenItem {
+  openItemId: UUID!
+  symbol: String
+  isInventoryRequest: Boolean
+  isWorkInProcess: Boolean
+  isHold: Boolean
+  isShippingOrder: Boolean
+  isOutsourceOrder: Boolean
+  isSupplyAtSupplier: Boolean
+  isCustomerSupply: Boolean
+  causeCancel: Boolean
+  causeStop: Boolean
+  causeDiscontinue: Boolean
+  itemId: UUID
+  quantity: BigFloat
+  transOrderDetailId: UUID
+  transPurchaseDetailId: UUID
+  transOperationsPlanId: UUID
+  transInventoryRequestId: UUID
+  transVisiterId: UUID
+  transShippingOrderDetailId: UUID
+  transSupplyDetailId: UUID
+  transContainerId: UUID
+  stakeholderId: UUID
+  causeTransPlanChangeId: UUID
+  since: Datetime
+  mstrItemByItemId: MstrItem
+}
+
+type VCancelOpenItemsConnection {
+  nodes: [VCancelOpenItem]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type VPlanChange {
+  transPlanChangeId: UUID!
+  symbol: String
+  parentTransPlanChangeId: UUID
+  changeAt: Datetime
+  transOrderDetailId: UUID
+  transPurchaseDetailId: UUID
+  transOperationsPlanId: UUID
+  transInventoryRequestId: UUID
+  transVisiterId: UUID
+  transShippingOrderDetailId: UUID
+  isOrderDetail: Boolean
+  isPurchaseDetail: Boolean
+  isOperationsPlan: Boolean
+  isInventoryRequest: Boolean
+  isVisiter: Boolean
+  isShippingOrderDetail: Boolean
+  itemId: UUID
+  rootTransOrderDetailId: UUID
+  isCancel: Boolean
+  isQuantityChange: Boolean
+  isDateChange: Boolean
+  isPostpone: Boolean
+  isAdvance: Boolean
+  isStop: Boolean
+  isResume: Boolean
+  isDiscontinue: Boolean
+  isRelease: Boolean
+  isHold: Boolean
+  isScrap: Boolean
+  isDeliver: Boolean
+  hasSettlement: Boolean
+  isRoot: Boolean
+  hasChildren: Boolean
+  customerCause: Boolean
+  supplierCause: Boolean
+  qualityCause: Boolean
+  fromMrp: Boolean
+  isReflected: Boolean
+  isUnreflected: Boolean
+  oldQuantity: BigFloat
+  newQuantity: BigFloat
+  cancelQuantity: BigFloat
+  oldDate: Datetime
+  newDate: Datetime
+  oldStop: Boolean
+  newStop: Boolean
+  transContainerId: UUID
+  transOrderDetailSettlementId: UUID
+  changeReasonId: UUID
+  reason: String
+  stakeholderId: UUID
+  staffId: UUID
+  transMrpSuggestionId: UUID
+  reflectedTransMrpRunId: UUID
+  remarks: String
+  updateAt: Datetime
+  mstrItemByItemId: MstrItem
+  transOrderDetailByRootTransOrderDetailId: TransOrderDetail
 }
 
 type VPlanChangeUnreflected {
@@ -196,6 +411,12 @@ type VPlanChangeUnreflected {
 
 type VPlanChangeUnreflectedsConnection {
   nodes: [VPlanChangeUnreflected]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type VPlanChangesConnection {
+  nodes: [VPlanChange]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
@@ -246,6 +467,217 @@ input DatetimeFilter {
   greaterThanOrEqualTo: Datetime
 }
 
+input IntFilter {
+  isNull: Boolean
+  equalTo: Int
+  notEqualTo: Int
+  distinctFrom: Int
+  notDistinctFrom: Int
+  in: [Int!]
+  notIn: [Int!]
+  lessThan: Int
+  lessThanOrEqualTo: Int
+  greaterThan: Int
+  greaterThanOrEqualTo: Int
+}
+
+input MstrItemFilter {
+  mstrItemId: UUIDFilter
+  mstrItemKindId: UUIDFilter
+  code: StringFilter
+  identification: StringFilter
+  controlCode: StringFilter
+  mstrManufacturerId: UUIDFilter
+  names: UUIDFilter
+  labelCode: StringFilter
+  catalogItem: BooleanFilter
+  details: UUIDFilter
+  sharedUnitId: UUIDFilter
+  mstrItemLotId: UUIDFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historyMstrItemsByMstrItemIdExist: Boolean
+  mstrEquipmentsByMstrItemIdExist: Boolean
+  mstrItemSuppliersByMstrItemIdExist: Boolean
+  mstrItemTaskCostsByMstrItemIdExist: Boolean
+  mstrItemOperationsByMstrItemIdExist: Boolean
+  mstrItemHcdcsByMstrItemIdExist: Boolean
+  mstrInspectionsByMstrItemIdExist: Boolean
+  mstrItemProvisionsByMstrItemIdExist: Boolean
+  mstrItemOperationTasksByMstrItemIdExist: Boolean
+  mstrItemActualSizesByMstrItemIdExist: Boolean
+  mstrItemTreesByMstrItemIdExist: Boolean
+  mstrItemTreesByParentMstrItemIdExist: Boolean
+  vCancelOpenItemsByItemIdExist: Boolean
+  vExternalPropertiesByItemIdExist: Boolean
+  vItemDescendantByAncestorMstrItemIdExists: Boolean
+  vItemEquipmentCountByMstrItemIdExists: Boolean
+  vItemInspectionCountByMstrItemIdExists: Boolean
+  vItemItemActualSizeCountByMstrItemIdExists: Boolean
+  vItemItemHcdcsCountByMstrItemIdExists: Boolean
+  vItemItemOperationCountByMstrItemIdExists: Boolean
+  vItemItemOperationTaskCountByMstrItemIdExists: Boolean
+  vItemItemProvisionCountByMstrItemIdExists: Boolean
+  vItemOnHandByItemIdExists: Boolean
+  vMrpMasterIssuesByItemIdExist: Boolean
+  vMrpPendingSuggestionsByItemIdExist: Boolean
+  vMrpSuggestionsByItemIdExist: Boolean
+  vMrpVisiterItemsByItemIdExist: Boolean
+  vOperationsPlanUnreservedsByMstrItemIdExist: Boolean
+  vOrderDetailBalancesByItemIdExist: Boolean
+  vPlanChangesByItemIdExist: Boolean
+  vPurchaseAmountsByMstrItemIdExist: Boolean
+  vPurchaseDeliveryCompliancesByMstrItemIdExist: Boolean
+  vPurchaseDetailBalancesByItemIdExist: Boolean
+  vPurchaseDetailUnreservedsByMstrItemIdExist: Boolean
+  vResourcePlanCoveragesByItemIdExist: Boolean
+  vSalesRecordsByMstrItemIdExist: Boolean
+  vShippingDeliveryCompliancesByMstrItemIdExist: Boolean
+  vShippingOrderStatusesByMstrItemIdExist: Boolean
+  vStockStatusesByMstrItemIdExist: Boolean
+  vSupplyDetailBalancesByItemIdExist: Boolean
+  vVisiterItemsByMstrItemIdExist: Boolean
+  mstrManufacturerByMstrManufacturerIdExists: Boolean
+  sharedAppellationByNames: SharedAppellationFilter
+  sharedTextByDetailsExists: Boolean
+  sharedUnitBySharedUnitIdExists: Boolean
+  mstrItemLotByMstrItemLotIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrItemFilter!]
+  or: [MstrItemFilter!]
+  not: MstrItemFilter
+}
+
+input SharedAppellationFilter {
+  sharedAppellationsId: UUIDFilter
+  sharedDictionaryNameId: UUIDFilter
+  sharedDictionaryPronunciationId: UUIDFilter
+  sharedDictionaryNicknameId: UUIDFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  infoAddressesByAddress1Exist: Boolean
+  infoAddressesByAddress2Exist: Boolean
+  infoAddressesByBuildingExist: Boolean
+  infoCompaniesByNamesExist: Boolean
+  infoCompaniesByCeoNamesExist: Boolean
+  infoStaffsByNamesExist: Boolean
+  historyInfoStaffsByNamesExist: Boolean
+  sharedUnitsByNamesExist: Boolean
+  mstrItemKindsByNamesExist: Boolean
+  mstrManufacturersByNamesExist: Boolean
+  mstrItemsByNamesExist: Boolean
+  mstrShippingKindsByNamesExist: Boolean
+  mstrStakeholdersByNamesExist: Boolean
+  mstrStakeholderContactsByOfficeNamesExist: Boolean
+  mstrStakeholderContactsByDepartmentNamesExist: Boolean
+  mstrStakeholderContactsByContactPersonNamesExist: Boolean
+  mstrApprovalPatternsByNamesExist: Boolean
+  mstrChangeReasonsByNamesExist: Boolean
+  mstrSettlementKindsByNamesExist: Boolean
+  infoOfficesByNamesExist: Boolean
+  infoDepartmentsByNamesExist: Boolean
+  mstrLocationsByNamesExist: Boolean
+  mstrTaskGroupsByNamesExist: Boolean
+  mstrTasksByNamesExist: Boolean
+  mstrEquipmentKindsByNamesExist: Boolean
+  mstrReturnKindsByNamesExist: Boolean
+  infoAccessPathsByNamesExist: Boolean
+  mstrOperationsByNamesExist: Boolean
+  mstrItemOperationsByNamesExist: Boolean
+  infoDepartmentKindValuesByNamesExist: Boolean
+  mstrInspectionKindsByNamesExist: Boolean
+  mstrItemSizeKindsByNamesExist: Boolean
+  historyMstrItemKindsByNamesExist: Boolean
+  historySharedAppellationsBySharedAppellationsIdExist: Boolean
+  infoStaffIconsByNamesExist: Boolean
+  mstrDocumentTiersByNamesExist: Boolean
+  mstrDocumentsByTitlesExist: Boolean
+  mstrDocumentContentsByTitlesExist: Boolean
+  mstrInspectionOperationsByNamesExist: Boolean
+  mstrInspectionsByNamesExist: Boolean
+  infoPositionsByNamesExist: Boolean
+  infoProvisionsByNamesExist: Boolean
+  mstrOperationTasksByNamesExist: Boolean
+  mstrReportsByNamesExist: Boolean
+  mstrTaskTreesByNamesExist: Boolean
+  mstrItemTreesByNamesExist: Boolean
+  mstrAuditStdsByNamesExist: Boolean
+  mstrAuditStdCheckitemsByNamesExist: Boolean
+  mstrEquipmentTagsByNamesExist: Boolean
+  mstrLicensesByNamesExist: Boolean
+  infoAccessPathApprovalsByNamesExist: Boolean
+  mstrCapabilitiesByNamesExist: Boolean
+  mstrApprovalsByNamesExist: Boolean
+  sharedDictionaryBySharedDictionaryNameId: SharedDictionaryFilter
+  sharedDictionaryBySharedDictionaryPronunciationIdExists: Boolean
+  sharedDictionaryBySharedDictionaryNicknameIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [SharedAppellationFilter!]
+  or: [SharedAppellationFilter!]
+  not: SharedAppellationFilter
+}
+
+input SharedDictionaryFilter {
+  sharedDictionaryId: UUIDFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  sharedAppellationsBySharedDictionaryNameIdExist: Boolean
+  sharedAppellationsBySharedDictionaryPronunciationIdExist: Boolean
+  sharedAppellationsBySharedDictionaryNicknameIdExist: Boolean
+  sharedDictionaryValuesBySharedDictionaryId: SharedDictionaryToManySharedDictionaryValueFilter
+  sharedDictionaryValuesBySharedDictionaryIdExist: Boolean
+  historySharedDictionariesBySharedDictionaryIdExist: Boolean
+  vDictionaryDictionaryValueCountBySharedDictionaryIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [SharedDictionaryFilter!]
+  or: [SharedDictionaryFilter!]
+  not: SharedDictionaryFilter
+}
+
+input SharedDictionaryToManySharedDictionaryValueFilter {
+  every: SharedDictionaryValueFilter
+  some: SharedDictionaryValueFilter
+  none: SharedDictionaryValueFilter
+}
+
+input SharedDictionaryValueCondition {
+  sharedLanguageCodeId: UUID
+}
+
+input SharedDictionaryValueFilter {
+  sharedDictionaryValueId: UUIDFilter
+  sharedLanguageCodeId: UUIDFilter
+  sharedDictionaryId: UUIDFilter
+  dictionaryValue: StringFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historySharedDictionaryValuesBySharedDictionaryValueIdExist: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [SharedDictionaryValueFilter!]
+  or: [SharedDictionaryValueFilter!]
+  not: SharedDictionaryValueFilter
+}
+
 input StringFilter {
   isNull: Boolean
   equalTo: String
@@ -286,67 +718,53 @@ input StringFilter {
   greaterThanOrEqualToInsensitive: String
 }
 
-input TransPlanChangeFilter {
-  transPlanChangeId: UUIDFilter
-  parentTransPlanChangeId: UUIDFilter
-  changeAt: DatetimeFilter
+input TransOrderDetailFilter {
   transOrderDetailId: UUIDFilter
-  transPurchaseDetailId: UUIDFilter
-  transOperationsPlanId: UUIDFilter
-  transInventoryRequestId: UUIDFilter
-  transVisiterId: UUIDFilter
-  transShippingOrderDetailId: UUIDFilter
-  oldQuantity: BigFloatFilter
-  newQuantity: BigFloatFilter
+  transOrderId: UUIDFilter
+  itemHistoryId: UUIDFilter
+  itemId: UUIDFilter
+  quantity: BigFloatFilter
+  unitPrice: BigFloatFilter
+  priceAdjustment: BigFloatFilter
+  fixedPrice: BigFloatFilter
+  deliveryDate: DatetimeFilter
+  deadline: DatetimeFilter
   cancelQuantity: BigFloatFilter
-  oldDate: DatetimeFilter
-  newDate: DatetimeFilter
-  oldStop: BooleanFilter
-  newStop: BooleanFilter
-  discontinue: BooleanFilter
-  release: BooleanFilter
-  hold: BooleanFilter
-  scrap: BooleanFilter
-  deliver: BooleanFilter
-  transContainerId: UUIDFilter
-  transOrderDetailSettlementId: UUIDFilter
-  changeReasonHistoryId: UUIDFilter
-  changeReasonId: UUIDFilter
-  reason: StringFilter
-  stakeholderHistoryId: UUIDFilter
-  stakeholderId: UUIDFilter
-  staffHistoryId: UUIDFilter
-  staffId: UUIDFilter
-  transMrpSuggestionId: UUIDFilter
-  reflectedTransMrpRunId: UUIDFilter
+  stop: BooleanFilter
+  customerProperty: BooleanFilter
   symbol: StringFilter
   remarks: StringFilter
   updateAt: DatetimeFilter
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
-  transOrderDetailSettlementsByTransPlanChangeIdExist: Boolean
-  transPlanChangesByParentTransPlanChangeIdExist: Boolean
-  transSuppliesByTransPlanChangeIdExist: Boolean
-  transReturnsByTransPlanChangeIdExist: Boolean
-  vPlanChangeUnreflectedByTransPlanChangeIdExists: Boolean
-  transPlanChangeByParentTransPlanChangeIdExists: Boolean
-  transOrderDetailByTransOrderDetailIdExists: Boolean
-  transPurchaseDetailByTransPurchaseDetailIdExists: Boolean
-  transOperationsPlanByTransOperationsPlanIdExists: Boolean
-  transInventoryRequestByTransInventoryRequestIdExists: Boolean
-  transVisiterByTransVisiterIdExists: Boolean
-  transShippingOrderDetailByTransShippingOrderDetailIdExists: Boolean
-  transContainerByTransContainerIdExists: Boolean
-  transOrderDetailSettlementByTransOrderDetailSettlementIdExists: Boolean
-  historyMstrChangeReasonByChangeReasonHistoryIdAndChangeReasonIdExists: Boolean
-  historyMstrStakeholderByStakeholderHistoryIdAndStakeholderIdExists: Boolean
-  transMrpSuggestionByTransMrpSuggestionIdExists: Boolean
-  transMrpRunByReflectedTransMrpRunIdExists: Boolean
+  masterErrorCount: IntFilter
+  transResourcePlansByTransOrderDetailIdExist: Boolean
+  transOrderDetailSettlementsByTransOrderDetailIdExist: Boolean
+  transShippingOrderDetailsByTransOrderDetailIdExist: Boolean
+  transMrpSuggestionsByTransOrderDetailIdExist: Boolean
+  transPlanChangesByTransOrderDetailIdExist: Boolean
+  transSupplyDetailsByTransOrderDetailIdExist: Boolean
+  transVisiterOwnersByTransOrderDetailIdExist: Boolean
+  transReturnDetailsByTransOrderDetailIdExist: Boolean
+  transOrderDetailRisksByTransOrderDetailIdExist: Boolean
+  vCancelOpenItemsByTransOrderDetailIdExist: Boolean
+  vExternalPropertiesByTransOrderDetailIdExist: Boolean
+  vMrpPendingSuggestionsByTransOrderDetailIdExist: Boolean
+  vMrpSuggestionsByTransOrderDetailIdExist: Boolean
+  vOrderDetailBalanceByTransOrderDetailIdExists: Boolean
+  vOrderDetailOrderDetailRiskCountByTransOrderDetailIdExists: Boolean
+  vOrderDetailShippingOrderDetailCountByTransOrderDetailIdExists: Boolean
+  vPlanChangesByTransOrderDetailIdExist: Boolean
+  vPlanChangesByRootTransOrderDetailIdExist: Boolean
+  vPlanChangeUnreflectedsByTransOrderDetailIdExist: Boolean
+  vResourcePlanCoveragesByTransOrderDetailIdExist: Boolean
+  vSupplyDetailBalancesByTransOrderDetailIdExist: Boolean
+  vWorkPlanRegistrablesByTransOrderDetailIdExist: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
-  and: [TransPlanChangeFilter!]
-  or: [TransPlanChangeFilter!]
-  not: TransPlanChangeFilter
+  and: [TransOrderDetailFilter!]
+  or: [TransOrderDetailFilter!]
+  not: TransOrderDetailFilter
 }
 
 input TransPlanChangeInput {
@@ -405,6 +823,133 @@ input UUIDFilter {
 input UpdateTransPlanChangeByTransPlanChangeIdInput {
   transPlanChangePatch: TransPlanChangePatch!
   transPlanChangeId: UUID!
+}
+
+input VCancelOpenItemFilter {
+  openItemId: UUIDFilter
+  symbol: StringFilter
+  isInventoryRequest: BooleanFilter
+  isWorkInProcess: BooleanFilter
+  isHold: BooleanFilter
+  isShippingOrder: BooleanFilter
+  isOutsourceOrder: BooleanFilter
+  isSupplyAtSupplier: BooleanFilter
+  isCustomerSupply: BooleanFilter
+  causeCancel: BooleanFilter
+  causeStop: BooleanFilter
+  causeDiscontinue: BooleanFilter
+  itemId: UUIDFilter
+  quantity: BigFloatFilter
+  transOrderDetailId: UUIDFilter
+  transPurchaseDetailId: UUIDFilter
+  transOperationsPlanId: UUIDFilter
+  transInventoryRequestId: UUIDFilter
+  transVisiterId: UUIDFilter
+  transShippingOrderDetailId: UUIDFilter
+  transSupplyDetailId: UUIDFilter
+  transContainerId: UUIDFilter
+  stakeholderId: UUIDFilter
+  causeTransPlanChangeId: UUIDFilter
+  since: DatetimeFilter
+  mstrItemByItemId: MstrItemFilter
+  mstrItemByItemIdExists: Boolean
+  transOrderDetailByTransOrderDetailIdExists: Boolean
+  transPurchaseDetailByTransPurchaseDetailIdExists: Boolean
+  transOperationsPlanByTransOperationsPlanIdExists: Boolean
+  transInventoryRequestByTransInventoryRequestIdExists: Boolean
+  transVisiterByTransVisiterIdExists: Boolean
+  transShippingOrderDetailByTransShippingOrderDetailIdExists: Boolean
+  transSupplyDetailByTransSupplyDetailIdExists: Boolean
+  transContainerByTransContainerIdExists: Boolean
+  mstrStakeholderByStakeholderIdExists: Boolean
+  transPlanChangeByCauseTransPlanChangeIdExists: Boolean
+  and: [VCancelOpenItemFilter!]
+  or: [VCancelOpenItemFilter!]
+  not: VCancelOpenItemFilter
+}
+
+input VPlanChangeFilter {
+  transPlanChangeId: UUIDFilter
+  symbol: StringFilter
+  parentTransPlanChangeId: UUIDFilter
+  changeAt: DatetimeFilter
+  transOrderDetailId: UUIDFilter
+  transPurchaseDetailId: UUIDFilter
+  transOperationsPlanId: UUIDFilter
+  transInventoryRequestId: UUIDFilter
+  transVisiterId: UUIDFilter
+  transShippingOrderDetailId: UUIDFilter
+  isOrderDetail: BooleanFilter
+  isPurchaseDetail: BooleanFilter
+  isOperationsPlan: BooleanFilter
+  isInventoryRequest: BooleanFilter
+  isVisiter: BooleanFilter
+  isShippingOrderDetail: BooleanFilter
+  itemId: UUIDFilter
+  rootTransOrderDetailId: UUIDFilter
+  isCancel: BooleanFilter
+  isQuantityChange: BooleanFilter
+  isDateChange: BooleanFilter
+  isPostpone: BooleanFilter
+  isAdvance: BooleanFilter
+  isStop: BooleanFilter
+  isResume: BooleanFilter
+  isDiscontinue: BooleanFilter
+  isRelease: BooleanFilter
+  isHold: BooleanFilter
+  isScrap: BooleanFilter
+  isDeliver: BooleanFilter
+  hasSettlement: BooleanFilter
+  isRoot: BooleanFilter
+  hasChildren: BooleanFilter
+  customerCause: BooleanFilter
+  supplierCause: BooleanFilter
+  qualityCause: BooleanFilter
+  fromMrp: BooleanFilter
+  isReflected: BooleanFilter
+  isUnreflected: BooleanFilter
+  oldQuantity: BigFloatFilter
+  newQuantity: BigFloatFilter
+  cancelQuantity: BigFloatFilter
+  oldDate: DatetimeFilter
+  newDate: DatetimeFilter
+  oldStop: BooleanFilter
+  newStop: BooleanFilter
+  transContainerId: UUIDFilter
+  transOrderDetailSettlementId: UUIDFilter
+  changeReasonHistoryId: UUIDFilter
+  changeReasonId: UUIDFilter
+  reason: StringFilter
+  stakeholderHistoryId: UUIDFilter
+  stakeholderId: UUIDFilter
+  staffHistoryId: UUIDFilter
+  staffId: UUIDFilter
+  transMrpSuggestionId: UUIDFilter
+  reflectedTransMrpRunId: UUIDFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  transPlanChangeByTransPlanChangeIdExists: Boolean
+  transPlanChangeByParentTransPlanChangeIdExists: Boolean
+  transOrderDetailByTransOrderDetailIdExists: Boolean
+  transPurchaseDetailByTransPurchaseDetailIdExists: Boolean
+  transOperationsPlanByTransOperationsPlanIdExists: Boolean
+  transInventoryRequestByTransInventoryRequestIdExists: Boolean
+  transVisiterByTransVisiterIdExists: Boolean
+  transShippingOrderDetailByTransShippingOrderDetailIdExists: Boolean
+  mstrItemByItemId: MstrItemFilter
+  mstrItemByItemIdExists: Boolean
+  transOrderDetailByRootTransOrderDetailId: TransOrderDetailFilter
+  transOrderDetailByRootTransOrderDetailIdExists: Boolean
+  transContainerByTransContainerIdExists: Boolean
+  transOrderDetailSettlementByTransOrderDetailSettlementIdExists: Boolean
+  historyMstrChangeReasonByChangeReasonHistoryIdAndChangeReasonIdExists: Boolean
+  historyMstrStakeholderByStakeholderHistoryIdAndStakeholderIdExists: Boolean
+  historyInfoStaffByStaffHistoryIdAndStaffIdExists: Boolean
+  transMrpSuggestionByTransMrpSuggestionIdExists: Boolean
+  transMrpRunByReflectedTransMrpRunIdExists: Boolean
+  and: [VPlanChangeFilter!]
+  or: [VPlanChangeFilter!]
+  not: VPlanChangeFilter
 }
 
 input VPlanChangeUnreflectedFilter {

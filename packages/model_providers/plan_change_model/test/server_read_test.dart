@@ -14,11 +14,23 @@ const _zeroId = '00000000-0000-0000-0000-000000000000';
 
 void main() {
   group('検証用サーバー: 全readクエリ', () {
+    serverTest('CancelOpenItemPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryCancelOpenItemPageRead,
+          variables: Variables$Query$CancelOpenItemPageRead(first: 1, languageCodeId: _zeroId).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$CancelOpenItemPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
     serverTest('PlanChangePageRead', (server) async {
       final result = await server.provider.query(
         QueryOptions(
           document: documentNodeQueryPlanChangePageRead,
-          variables: Variables$Query$PlanChangePageRead(first: 1).toJson(),
+          variables: Variables$Query$PlanChangePageRead(first: 1, languageCodeId: _zeroId).toJson(),
         ),
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
@@ -46,8 +58,8 @@ void main() {
     tearDown(() => server.close());
 
     QueryOptions options() => QueryOptions(
-      document: documentNodeQueryPlanChangePageRead,
-      variables: Variables$Query$PlanChangePageRead(first: 1).toJson(),
+      document: documentNodeQueryCancelOpenItemPageRead,
+      variables: Variables$Query$CancelOpenItemPageRead(first: 1, languageCodeId: _zeroId).toJson(),
     );
 
     // 代役サーバーの既定の応答に合う、中身の無い問い合わせ(応答の読み取りを確認しないテスト用)。
