@@ -102,18 +102,16 @@ void main() {
       expect(collection.hasConverterFromInstance(_ModelB()), isFalse);
     });
 
-    // NOTE: `hasConverter<T>()`/`getConverter<T>()` guard with `if (T is! IEditModel)`.
-    // Because `T` here evaluates to a `Type` object (not the model instance), that
-    // check is always true regardless of what `T` actually is, so these two methods
-    // currently throw ArgumentError for *every* type argument, including valid
-    // IEditModel implementers. These tests document the current (likely buggy)
-    // behavior rather than the presumably-intended one.
-    test('hasConverter<T> always throws ArgumentError, even for a registered type', () {
-      expect(() => collection.hasConverter<_ModelA>(), throwsArgumentError);
+    test('hasConverter<T> は、登録した型だけ true', () {
+      expect(collection.hasConverter<_ModelA>(), isTrue);
+      collection.removeAllConverters();
+      expect(collection.hasConverter<_ModelA>(), isFalse);
     });
 
-    test('getConverter<T> always throws ArgumentError via hasConverter', () {
-      expect(() => collection.getConverter<_ModelA>(), throwsArgumentError);
+    test('getConverter<T> は、登録した型のコンバーターを返し、無ければ null', () {
+      expect(collection.getConverter<_ModelA>(), isNotNull);
+      collection.removeAllConverters();
+      expect(collection.getConverter<_ModelA>(), isNull);
     });
   });
 }

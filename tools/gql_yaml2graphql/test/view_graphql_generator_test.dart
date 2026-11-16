@@ -278,4 +278,25 @@ VisiterIssuePageCall:
     );
     expect(r.log.errors, isNotEmpty);
   });
+  test('戻り値がスカラー(Int など)の関数は、columns なしで、フィールドをそのまま選ぶ', () {
+    final r = generateAll(
+      viewYaml: '''
+VisiterOwnerRebuildPageCall:
+  kind: function
+  mutation: visiterOwnerRebuild
+  returns: integer
+''',
+      schemaText: '''
+type Query { nodeId: ID }
+type Mutation { visiterOwnerRebuild(input: VisiterOwnerRebuildInput!): VisiterOwnerRebuildPayload }
+type VisiterOwnerRebuildPayload { integer: Int }
+input VisiterOwnerRebuildInput { clientMutationId: String }
+''',
+    );
+    expect(r.log.errors, isEmpty);
+    final text = r.files['visiter_owner_rebuild_page/visiter_owner_rebuild_page_call.graphql']!;
+    expect(text, contains('visiterOwnerRebuild('));
+    expect(text, contains('    integer'));
+    expect(text, isNot(contains('integer {')));
+  });
 }

@@ -4,7 +4,7 @@
 //   - 名前は `~PageCall`。出力は `<ディレクトリ>/<ディレクトリ名>_call.graphql`(操作名 `~PageCall`)。
 //   - `mutation:` に関数のミューテーション名、`returns:` に戻り値のフィールド(ペイロードの中)を書く。
 //   - 引数は、`args:` に書いた入力の名前(省略時は clientMutationId を除くすべて)。変数名は入力名のまま(`pSrc` など)。
-//   - 結果は、`columns:`(戻り値の型の列名)。
+//   - 結果は、`columns:`(戻り値の型の列名)。戻り値がスカラー(Int など)のときは、`columns:` を書かない(`returns:` のフィールドをそのまま選ぶ)。
 
 import 'names.dart';
 import 'read_generator.dart';
@@ -56,7 +56,9 @@ class FunctionGenerator {
     }
     final result = <String>[];
     final row = schema.objects[ret.typeName];
-    for (final c in (node['columns'] as List?) ?? const []) {
+    // 戻り値がスカラー(Int など。PostGraphile はペイロードのフィールドにする)なら、列の指定は不要で、そのまま選ぶ
+    final isScalar = row == null && !ret.isList;
+    for (final c in isScalar ? const [] : (node['columns'] as List?) ?? const []) {
       if (c is! String) {
         log.error(name, '戻り値の列は列名(文字列)だけを指定できます: $c');
         continue;
@@ -67,7 +69,7 @@ class FunctionGenerator {
       }
       result.add(camel(c));
     }
-    if (result.isEmpty && log.errors.length == before) log.error(name, '`columns`が空です');
+    if (!isScalar && result.isEmpty && log.errors.length == before) log.error(name, '`columns`が空です');
     if (log.errors.length > before) return null;
 
     final dir = directoryOf(name);
@@ -90,13 +92,17 @@ class FunctionGenerator {
     }
     b
       ..writeln('    }')
-      ..writeln('  ) {')
-      ..writeln('    $returns {');
-    for (final r in result) {
-      b.writeln('      $r');
+      ..writeln('  ) {');
+    if (isScalar) {
+      b.writeln('    $returns');
+    } else {
+      b.writeln('    $returns {');
+      for (final r in result) {
+        b.writeln('      $r');
+      }
+      b.writeln('    }');
     }
     b
-      ..writeln('    }')
       ..writeln('  }')
       ..writeln('}');
     return b.toString();
