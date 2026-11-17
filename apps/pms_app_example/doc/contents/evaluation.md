@@ -16,4 +16,4 @@
 | 10 | 読み込み中の円は、ライブラリ化・抽象化されているか | × | `CircularProgressIndicator` を、17 のファイルで直接使っている。覆い(`app_shell` の `BusyOverlay`)は 1 つあるが、通常の読み込み中の表示は部品になっていない。`pms_app` に別の `OverlayIndicator`(Cupertino)と `BootSplash`(Material)がある |
 | 11 | サイドメニューの項目に、漏れ・不要は無いか | △ | 項目は 78 件。すべてパスに解決でき、開いてもエラー画面にならない。重複は 1 件(配送区分。営業・購買の両方から開く仕様)。**メニューにも、ユーザーメニューにも入口が無いページ**: 共有ファイル(`/auth/files`)・管理者の画面(`/auth/admin/signups`・`/auth/admin/resets`)。`auth_files` はメニューの項目を持たず、遷移先(`SharedFilesDestination` など)を呼ぶ画面も無い。ほかに `/profile/display`・`/e/stakeholder` もメニューに無い(入口の有無は未確認) |
 
-詳細な指摘と提案は `issue/20261117_0002.md`。
+詳細な指摘と提案は `issue/D_20261117_0002.md`。

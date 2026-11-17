@@ -58,7 +58,7 @@ MRP のビジター品目(`mrpvisiter`、`v_mrp_visiter_item`)は、読み取り
 ## 取得元(GraphQL 版。読み取り専用)
 `lib/src/graphql/work_record_repositories.dart` の `workRecordRepositories(GraphQLClient)` が、コンテナ(`container`)・成績書(`certificate`)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
 1.  読み取り専用: 実体を `viewOnly`・各項目 `readOnly` にし、保存・削除は `UnsupportedError`。名称は多言語のラベル(`trans_label`)で、言語コード `ja` の値を読む。コンテナは、DB に親子の列が無いため、すべてトップに並べる。作業実績(`workrec`。読み込みが作業指示を必須にしている)・在庫の状況(`stockstatus`。DB のビューの列が画面案の項目と合わない)・引当申請・引当要求・ビジター品目は、サンプルのまま。
-1.  **【入れ替え: 呼称の DB 関数】** 書き込みは、ラベル(`trans_label`・`trans_label_value`)を複数の表へ登録する関数を足して適用したら、`~PageCall` で `save` を入れ替え、`viewOnly` を外す(`issue/202611.md` の 2-1。`doc/query/20261114_0002` の補助は辞書用で、ラベルは別の表のため、同じ方式の補助を足す)。
+1.  **【入れ替え: 呼称の DB 関数】** 書き込みは、ラベル(`trans_label`・`trans_label_value`)を複数の表へ登録する関数を足して適用したら、`~PageCall` で `save` を入れ替え、`viewOnly` を外す(`issue/C_202611.md` の 2-1。`doc/query/20261114_0002` の補助は辞書用で、ラベルは別の表のため、同じ方式の補助を足す)。
 1.  検証用 DB には、コンテナ 2 件(名称のラベルは `ja` の値が無く空)・成績書 0 件。
 
 ## 規則/仕様

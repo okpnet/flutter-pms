@@ -5,7 +5,7 @@ import 'package:graphql/client.dart';
 ///
 /// 流れ: ① ファイルのバイナリを PocketBase へ上げる(`app_file_id` = 新しい UUID) → ② その UUID を `trans_file_id` にして、
 /// `trans_file` の行と、それを持つ行を 1 回の入れ子の登録で作る。② が失敗したら全部ロールバックされる(DB に何も残らない)。
-/// `trans_file` のトリガーは渡された主キーを使う(`issue/20261117_0004.md`)。
+/// `trans_file` のトリガーは渡された主キーを使う(`issue/C_20261117_0004.md`)。
 ///
 /// 入れ子は、親(`trans_file`)から子(ファイルを持つ表)へ向けて作る(`<子の型>sUsingTransFileId`)。子から親へ作る向きは、
 /// 入れ子の入力に主キーが無い(採番される)ため使えない。生成器(`gql/*.yaml`)が入れ子の登録に対応していないため、

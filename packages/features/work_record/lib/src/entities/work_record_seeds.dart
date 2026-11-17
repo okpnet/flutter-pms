@@ -53,6 +53,7 @@ const Map<String, List<EntityRecord>> workRecordSeeds = {
         'title': '丸棒 SS400 ミルシート',
         'class': '',
         'remarks': '',
+        'file': '',
       },
     ),
   ],

@@ -10,7 +10,7 @@ import '../entities/item_definitions.dart';
 /// `entityRepositoryOverridesProvider` に渡すと、サンプル(メモリ上)の代わりに使われる。
 ///
 /// 【入れ替え: 呼称の DB 関数】 書き込みは、共通関数(`shared_appellation_save`・`shared_text_save`)で呼称・文章を作り、返った ID を本体のミューテーションに渡す形で、品目・品目区分の取得元の `save` を入れ替え、`viewOnly` を外す
-/// (`issue/202611.md` の 2-1)。
+/// (`issue/C_202611.md` の 2-1)。
 ///
 /// 対象は品目区分(`itemkind`)・品目(`item`。ツリー)。名称・読み・略称は多言語の辞書、詳細は多言語の文章(先頭の文)で、
 /// 言語コード `ja` の値を読む。品目の親は、品目ツリー(`mstr_item_tree`)の親の品目 ID。ほかの実体(品目HS・工程・サイズなど)は、

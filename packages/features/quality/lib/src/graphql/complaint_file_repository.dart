@@ -12,7 +12,7 @@ import 'package:quality_model/quality_model.dart';
 /// ① 選んだファイルを PocketBase へ上げる(`app_file_id` は窓口が作った UUID。[IEntityFileTransfer.upload])
 /// → ② その ID を `trans_file_id` にして、`trans_file` の行とつなぎを **1 回の入れ子の登録(1 トランザクション)**で登録する。
 /// ① が失敗したら DB には何もしない。② が失敗したら全部ロールバックされ、PocketBase に参照されないファイルだけが残る
-/// (利用者の権限では削除できない。DB の行は無いので無害。`issue/20261117_0004.md`)。
+/// (利用者の権限では削除できない。DB の行は無いので無害。`issue/C_20261117_0004.md`)。
 /// DB の `trans_file` のトリガーは、渡された主キー(= `app_file_id`)をそのまま使う(ほかの表は DB が採番する)。
 /// 差し替えは、新しいファイルを上げて、新しい `trans_file` の行を作りながら `trans_file_id` を付け替える(1 トランザクション)。
 /// 取り消しは論理削除(`remove = true`)。更新者は [AuditUserSource] で受けて送る。

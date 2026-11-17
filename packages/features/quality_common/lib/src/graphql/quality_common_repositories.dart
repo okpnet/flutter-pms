@@ -9,7 +9,7 @@ import '../entities/quality_common_definitions.dart';
 /// `entityRepositoryOverridesProvider` に渡すと、サンプル(メモリ上)の代わりに使われる。
 ///
 /// 【入れ替え: 呼称の DB 関数】 書き込みは、共通関数(`shared_appellation_save`・`shared_text_save`)で呼称・文章を作り、返った ID を本体のミューテーションに渡す形で、リスクの取得元の `save` を入れ替え、`viewOnly` を外す
-/// (`issue/202611.md` の 2-1)。
+/// (`issue/C_202611.md` の 2-1)。
 ///
 /// 対象はリスク(`risk`)。題名は多言語のラベル(`trans_label`)、詳細は多言語の文章(`trans_text`。先頭の文)で、言語コード `ja` の値を読む。
 /// ほかの実体は、サンプルのまま: 処置・再発防止(読み込みが親の苦情・処置を必須にしている)、予防(リスクの子)・予防明細、

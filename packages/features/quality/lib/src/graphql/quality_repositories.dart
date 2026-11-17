@@ -12,7 +12,7 @@ import 'complaint_file_repository.dart';
 /// `entityRepositoryOverridesProvider` に渡すと、サンプル(メモリ上)の代わりに使われる。
 ///
 /// 【入れ替え: 呼称の DB 関数】 書き込みは、共通関数(`shared_appellation_save`・`shared_text_save`)で呼称・文章を作り、返った ID を本体のミューテーションに渡す形で、苦情・監査・監査基準の取得元の `save` を入れ替え、`viewOnly` を外す
-/// (`issue/202611.md` の 2-1)。
+/// (`issue/C_202611.md` の 2-1)。
 ///
 /// 対象は苦情(`complaint`)・監査(`audit`)・監査基準(`auditstd`)。題名は多言語のラベル(`trans_label`)・詳細は多言語の文章
 /// (`trans_text`。先頭の文)、監査基準の名称・読み・略称は多言語の辞書(`shared_appellation`)・詳細は文章(`shared_text`)で、

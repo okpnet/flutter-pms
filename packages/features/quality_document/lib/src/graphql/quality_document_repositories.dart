@@ -10,7 +10,7 @@ import '../entities/quality_document_definitions.dart';
 /// `entityRepositoryOverridesProvider` に渡すと、サンプル(メモリ上)の代わりに使われる。
 ///
 /// 【入れ替え: 呼称の DB 関数】 書き込みは、共通関数(`shared_appellation_save`・`shared_text_save`)で呼称・文章を作り、返った ID を本体のミューテーションに渡す形で、文書階層・文書の取得元の `save` を入れ替え、`viewOnly` を外す
-/// (`issue/202611.md` の 2-1)。
+/// (`issue/C_202611.md` の 2-1)。
 ///
 /// 対象は文書階層(`doctier`)・文書(`doc`。ツリー)。名称(文書は題名)・読み・略称は多言語の辞書で、言語コード `ja` の値を読む。
 /// 文書の親は文書ツリーの親の文書 ID。文書内容(`doccontent`。読み込みが文書を必須にしている)・帳票(`report`)は、サンプルのまま。
