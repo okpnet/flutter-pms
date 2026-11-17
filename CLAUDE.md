@@ -225,7 +225,7 @@ DB(`tools/docker/postgresql/script`、スキーマ `tests`)の仕様。正は DD
 | 返品 | 顧客から: 入庫の+の行を作り `TransReturnVisiter` でつなぐ/仕入先へ: `visiterIssue` の−の行をつなぐ | — | 代品あり(`replacement`)は受注残・発注残に戻る。1つの明細に受注側と発注側を混ぜない |
 | 顧客支給 | 支給予定(受注のとき)→ 受け入れ(仮止めの+の行)→ 検品(異常は `TransComplaint`+`TransComplaintSupply`、合格で仮止めを外す)→ 使う | — | 足りなければ MRP が `SUPPLY_REQUEST`。自社手配へ切り替えるなら、その品目の支給明細を `remove` して再MRP。取り決めの変更はその受注明細の再MRP |
 | 発注先への支給 | 資材計画に引当 → コンテナへ `visiterMove` → 支給(明細に発注明細)とつなぐ。戻りは自社の棚へ。有償は `unitPrice`。無償 → 有償は支給を1件追加 | — | 発注先にある量は `VSupplyDetailBalance.currentQuantity` |
-- ID はクライアントで作れる(主キーは uuid)。FK は `DEFERRABLE INITIALLY DEFERRED`。
+- 主キー(uuid)は、DB のトリガー(`trg_01_updatetimes_<表>`。全表)が INSERT のたびに採番し、クライアントが渡した値は無視される(実測: `createTransFile` に `transFileId` を渡しても別の値になる)。登録の応答で返った ID を使う。クライアントが ID を先に決めて他へ渡す設計(例: ファイルの ID を PocketBase の ID にする)はできない。FK は `DEFERRABLE INITIALLY DEFERRED`。
 - 担当者は `staffId` と `staffHistoryId`(その担当者の最新の履歴)を、ログイン中の担当者から入れる(関数にまとめたあとは関数が引く)。
 
 ### 画面ごとの仕様

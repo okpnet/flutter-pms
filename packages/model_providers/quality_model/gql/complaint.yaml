@@ -377,6 +377,17 @@ ComplaintStakeholderPageEdit:
     - update_user_history_id
     - remove
 
+# 共有ファイルの名前・種類(trans_file。実体は PocketBase にあり、DB は ID・名前・種類だけを持つ)
+ComplaintFileBodyFields: &ComplaintFileBodyFields
+  kind: read
+  from: trans_file
+  columns:
+    - trans_file_id
+    # PocketBase のファイル ID(DB の主キーはトリガーが採番するため、PocketBase の ID はこの列に持つ)
+    - binary_data
+    - name
+    - media_type
+
 # trans_complaint_fileの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
 ComplaintFilePage: &ComplaintFilePage
   kind: read
@@ -393,6 +404,12 @@ ComplaintFilePage: &ComplaintFilePage
     - trans_complaint_file_id
     - trans_complaint_id
     - trans_file_id
+    # 共有ファイルの名前・種類(実体は PocketBase。DB は trans_file の行に名前・種類だけを持つ)
+    - name: file
+      as: file
+      arrayType: toFirstOne
+      using: trans_file_id
+      <<: *ComplaintFileBodyFields
     - symbol
     - remarks
     - update_at
@@ -405,6 +422,7 @@ ComplaintFilePage: &ComplaintFilePage
 # trans_complaint_fileの書き込み
 ComplaintFilePageEdit:
   kind: edit
+  withUpdater: true
   from: trans_complaint_file
   requiredWhere:
     - trans_complaint_file_id
@@ -418,6 +436,34 @@ ComplaintFilePageEdit:
     - update_user_history_id
     - remove
 
+
+# ---- 異常報告ファイルの登録(kind: create)。共有ファイルは実体を PocketBase に置き、DB は ID・名前・種類だけを持つ ----
+# 登録の順: ① trans_file の行(ComplaintFileBodyPageCreate。主キーはトリガーが採番する。binary_data に PocketBase のファイル ID を入れる)→ ② trans_complaint_file(ComplaintFilePageCreate)。
+# 差し替えは、新しい trans_file の行を作り、ComplaintFilePageEdit で trans_file_id を付け替える。取り消しは remove = true の更新。
+
+# trans_file の登録(ファイルの名前・種類。binary_data は使わない)
+ComplaintFileBodyPageCreate:
+  kind: create
+  from: trans_file
+  columns:
+    - trans_file_id
+    - binary_data
+    - name
+    - media_type
+    - remarks
+    - update_user_id
+    - update_user_history_id
+
+# trans_complaint_file の登録(異常報告にファイルをつなぐ)
+ComplaintFilePageCreate:
+  kind: create
+  from: trans_complaint_file
+  columns:
+    - trans_complaint_id
+    - trans_file_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
 
 # trans_complaint_visiterの読み込み(異常入出庫ビジター。棚ビジターに付いた異常。release_at が空の行は解除されていない異常)
 ComplaintVisiterPage: &ComplaintVisiterPage

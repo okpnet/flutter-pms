@@ -27,6 +27,14 @@ query ComplaintFilePageRead(
       transComplaintFileId
       transComplaintId
       transFileId
+
+      file: transFileByTransFileId {
+        transFileId
+        binaryData
+        name
+        mediaType
+      }
+
       symbol
       remarks
       updateAt

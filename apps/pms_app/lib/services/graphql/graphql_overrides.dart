@@ -183,7 +183,7 @@ List<Override> graphqlOverrides() => [
       // 品質共通: リスク(読み取り専用)
       ...qualityCommonRepositories(client),
       // 品質管理: 苦情・監査・監査基準(読み取り専用)
-      ...qualityRepositories(client),
+      ...qualityRepositories(client, auditUser: auditUser),
     ];
   }),
 ];

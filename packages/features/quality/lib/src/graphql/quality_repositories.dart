@@ -2,9 +2,11 @@ import 'package:localized_values/localized_values.dart';
 import 'package:data_strategist/lib.dart';
 import 'package:entity_screens/entity_screens.dart';
 import 'package:graphql/client.dart';
+import 'package:pms_graphql/pms_graphql.dart' show AuditUserSource;
 import 'package:quality_model/quality_model.dart';
 
 import '../entities/quality_definitions.dart';
+import 'complaint_file_repository.dart';
 
 /// 品質管理の実体の取得元(GraphQL 版。読み取り専用)。アプリが [GraphQLClient] を渡して組み立て、
 /// `entityRepositoryOverridesProvider` に渡すと、サンプル(メモリ上)の代わりに使われる。
@@ -19,9 +21,19 @@ import '../entities/quality_definitions.dart';
 /// 生成された型は、この中だけで使い、外へ出さない。抽出条件・並び順は無視する(サンプルと同じ)。
 ///
 /// パターン: Adapter(生成された読み込みの結果と、画面の [EntityRecord] を変換する)
-List<IEntityRepository> qualityRepositories(GraphQLClient client) {
+List<IEntityRepository> qualityRepositories(
+  GraphQLClient client, {
+  AuditUserSource? auditUser,
+}) {
   final language = _LanguageCode(client);
   return [
+    // 異常報告のファイル(書き込みできる。実体は PocketBase、DB は trans_file に ID・名前・種類だけ)
+    ComplaintFileRepository(
+      qualityDefinitions.firstWhere((d) => d.key == 'compfile'),
+      client,
+      () => language.id,
+      auditUser,
+    ),
     _ComplaintRepository(_readOnly('complaint'), client, language),
     _AuditRepository(_readOnly('audit'), client, language),
     _AuditStdRepository(_readOnly('auditstd'), client, language),

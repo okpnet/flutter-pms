@@ -860,6 +860,10 @@ enum VComplaintTargetsOrderBy {
   PRIMARY_KEY_DESC
 }
 
+type CreateTransComplaintFilePayload {
+  transComplaintFile: TransComplaintFile
+}
+
 type CreateTransComplaintPayload {
   transComplaint: TransComplaint
 }
@@ -870,6 +874,10 @@ type CreateTransComplaintSupplyPayload {
 
 type CreateTransComplaintVisiterPayload {
   transComplaintVisiter: TransComplaintVisiter
+}
+
+type CreateTransFilePayload {
+  transFile: TransFile
 }
 
 type CreateTransLabelPayload {
@@ -1075,8 +1083,10 @@ type MstrTaskGroup {
 
 type Mutation {
   createTransComplaint(input: CreateTransComplaintInput!): CreateTransComplaintPayload
+  createTransComplaintFile(input: CreateTransComplaintFileInput!): CreateTransComplaintFilePayload
   createTransComplaintSupply(input: CreateTransComplaintSupplyInput!): CreateTransComplaintSupplyPayload
   createTransComplaintVisiter(input: CreateTransComplaintVisiterInput!): CreateTransComplaintVisiterPayload
+  createTransFile(input: CreateTransFileInput!): CreateTransFilePayload
   createTransLabel(input: CreateTransLabelInput!): CreateTransLabelPayload
   createTransLabelValue(input: CreateTransLabelValueInput!): CreateTransLabelValuePayload
   createTransText(input: CreateTransTextInput!): CreateTransTextPayload
@@ -1370,6 +1380,7 @@ type TransComplaintFile {
   updateUserId: UUID
   updateUserHistoryId: UUID
   remove: Boolean
+  transFileByTransFileId: TransFile
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
 }
 
@@ -1533,6 +1544,16 @@ type TransDisposalsConnection {
   nodes: [TransDisposal]!
   pageInfo: PageInfo!
   totalCount: Int!
+}
+
+type TransFile {
+  transFileId: UUID!
+  binaryData: String!
+  name: String!
+  mediaType: String
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
 }
 
 type TransLabel {
@@ -2056,6 +2077,10 @@ input BooleanFilter {
   greaterThanOrEqualTo: Boolean
 }
 
+input CreateTransComplaintFileInput {
+  transComplaintFile: TransComplaintFileInput!
+}
+
 input CreateTransComplaintInput {
   transComplaint: TransComplaintInput!
 }
@@ -2066,6 +2091,10 @@ input CreateTransComplaintSupplyInput {
 
 input CreateTransComplaintVisiterInput {
   transComplaintVisiter: TransComplaintVisiterInput!
+}
+
+input CreateTransFileInput {
+  transFile: TransFileInput!
 }
 
 input CreateTransLabelInput {
@@ -3367,6 +3396,7 @@ input TransComplaintFileFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transFileByTransFileId: TransFileFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransComplaintFileFilter!]
@@ -3374,10 +3404,20 @@ input TransComplaintFileFilter {
   not: TransComplaintFileFilter
 }
 
+input TransComplaintFileInput {
+  transComplaintId: UUID
+  transFileId: UUID
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
 input TransComplaintFilePatch {
   transComplaintId: UUID
   transFileId: UUID
   remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
   remove: Boolean
 }
 
@@ -3700,6 +3740,44 @@ input TransDisposalPatch {
   remove: Boolean
   transLabelToTitles: TransDisposalFk5Input
   transTextToDetails: TransDisposalFk4Input
+}
+
+input TransFileFilter {
+  transFileId: UUIDFilter
+  binaryData: StringFilter
+  name: StringFilter
+  mediaType: StringFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transComplaintFilesByTransFileIdExist: Boolean
+  infoStaffIconsByTransFileIdExist: Boolean
+  mstrDocumentTiersByTransFileIdExist: Boolean
+  mstrDocumentsByTransFileIdExist: Boolean
+  mstrDocumentContentsByTransFileIdExist: Boolean
+  mstrReportsByTransFileIdExist: Boolean
+  mstrEquipmentTagsByTransFileIdExist: Boolean
+  transInspectImpFilesByTransFileIdExist: Boolean
+  transCertificatesByTransFileIdExist: Boolean
+  vFileComplaintFileCountByTransFileIdExists: Boolean
+  vFileStaffIconCountByTransFileIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransFileFilter!]
+  or: [TransFileFilter!]
+  not: TransFileFilter
+}
+
+input TransFileInput {
+  transFileId: UUID
+  binaryData: String!
+  name: String!
+  mediaType: String
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
 }
 
 input TransLabelFilter {

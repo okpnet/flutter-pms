@@ -21,12 +21,26 @@ void main() {
     });
 
     test('実体は読み取り専用: 新規・保存・削除を出さず、書き込もうとすると失敗する', () {
-      final repos = qualityRepositories(GraphQLClient(link: HttpLink('http://localhost:1'), cache: GraphQLCache()));
-      expect(repos.map((r) => r.definition.key), ['complaint', 'audit', 'auditstd']);
-      for (final r in repos) {
+      final repos = qualityRepositories(
+        GraphQLClient(
+          link: HttpLink('http://localhost:1'),
+          cache: GraphQLCache(),
+        ),
+      );
+      // 異常報告のファイル(compfile)だけ書き込める(complaint_file_test.dart)。ほかは読み取り専用
+      expect(repos.map((r) => r.definition.key), [
+        'compfile',
+        'complaint',
+        'audit',
+        'auditstd',
+      ]);
+      for (final r in repos.where((r) => r.definition.key != 'compfile')) {
         expect(r.definition.viewOnly, isTrue);
         expect(r.definition.fields.every((f) => f.readOnly), isTrue);
-        expect(() => r.save(const EntityRecord(id: '', values: {})), throwsUnsupportedError);
+        expect(
+          () => r.save(const EntityRecord(id: '', values: {})),
+          throwsUnsupportedError,
+        );
         expect(() => r.remove('x'), throwsUnsupportedError);
       }
     });

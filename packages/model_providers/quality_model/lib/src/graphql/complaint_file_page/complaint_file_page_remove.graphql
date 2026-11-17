@@ -6,11 +6,13 @@
 mutation ComplaintFilePageRemove(
   $transComplaintFileId: UUID!
   $remove: Boolean!
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
 ) {
   updateTransComplaintFileByTransComplaintFileId(
     input: {
       transComplaintFileId: $transComplaintFileId
-      transComplaintFilePatch: { remove: $remove }
+      transComplaintFilePatch: { remove: $remove, updateUserId: $updateUserId, updateUserHistoryId: $updateUserHistoryId }
     }
   ) {
     transComplaintFile {

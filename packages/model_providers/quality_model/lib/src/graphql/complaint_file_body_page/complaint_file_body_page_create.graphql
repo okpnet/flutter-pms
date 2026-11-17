@@ -1,0 +1,38 @@
+# complaint_file_body_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ComplaintFileBodyPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ComplaintFileBodyPageCreate(
+  $transFileId: UUID
+  $binaryData: String!
+  $name: String!
+  $mediaType: String
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  createTransFile(
+    input: {
+      transFile: {
+        transFileId: $transFileId
+        binaryData: $binaryData
+        name: $name
+        mediaType: $mediaType
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    transFile {
+      transFileId
+      binaryData
+      name
+      mediaType
+      remarks
+      updateUserId
+      updateUserHistoryId
+    }
+  }
+}

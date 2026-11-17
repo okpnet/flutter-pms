@@ -57,6 +57,8 @@ export 'src/graphql/complaint_equipment_page/complaint_equipment_page_edit.graph
 export 'src/graphql/complaint_equipment_page/complaint_equipment_page_read.graphql.dart';
 export 'src/graphql/complaint_equipment_page/complaint_equipment_page_remove.graphql.dart';
 export 'src/graphql/complaint_equipment_page/complaint_equipment_page_rfe.graphql.dart';
+export 'src/graphql/complaint_file_body_page/complaint_file_body_page_create.graphql.dart';
+export 'src/graphql/complaint_file_page/complaint_file_page_create.graphql.dart';
 export 'src/graphql/complaint_file_page/complaint_file_page_edit.graphql.dart';
 export 'src/graphql/complaint_file_page/complaint_file_page_read.graphql.dart';
 export 'src/graphql/complaint_file_page/complaint_file_page_remove.graphql.dart';

@@ -8,6 +8,8 @@ mutation ComplaintFilePageEdit(
   $transComplaintId: UUID
   $transFileId: UUID
   $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
 ) {
   updateTransComplaintFileByTransComplaintFileId(
     input: {
@@ -16,6 +18,8 @@ mutation ComplaintFilePageEdit(
         transComplaintId: $transComplaintId
         transFileId: $transFileId
         remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
       }
     }
   ) {
