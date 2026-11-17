@@ -11,10 +11,10 @@ import 'package:uuid/uuid.dart';
 /// 実体の画面のファイルの項目(`FieldKind.file`)の出し入れを、PocketBase の共有ファイルで行う。
 ///
 /// ファイルの実体(バイナリ)は PocketBase(`app_files`)にだけ置く。DB(`trans_file`)は、名前・種類だけを持つ。
-/// DB の主キー(`trans_file_id`)は DB が採番するため、流れは次のとおり:
+/// 流れ:
 /// 1. 選ぶ([pick]): バイナリをここで預かり、仮の ID([EntityFile.pendingPrefix])の [EntityFile] を返す。保存先へは上げない。
-/// 2. 保存(取得元): DB に `trans_file` の行を作って ID を得る。
-/// 3. 上げる([upload]): その ID を PocketBase の `app_file_id` にして、預かったバイナリを上げる。
+/// 2. 保存(取得元)の最初に上げる([upload]): 新しい UUID を `app_file_id` にして、預かったバイナリを PocketBase へ上げ、その ID の [EntityFile] を返す。
+/// 3. 取得元が、その ID を `trans_file_id` にして DB へ登録する(1 トランザクション。DB が失敗しても PocketBase に参照されないファイルが残るだけ)。
 /// 4. ダウンロード([download]): `app_file_id`(= `trans_file_id`)から最新の版を取り、保存のダイアログ(`auth_files` の窓口)で保存する。
 ///    まだ上げていない(仮の ID)ファイルは、預かったバイナリを保存する。
 ///
@@ -45,11 +45,12 @@ class PocketBaseEntityFileTransfer implements IEntityFileTransfer {
   }
 
   @override
-  Future<void> upload(EntityFile picked, String appFileId) async {
+  Future<EntityFile> upload(EntityFile picked) async {
     final data = _pending[picked.id];
     if (data == null) {
       throw StateError('選んだファイルが見つかりません: ${picked.id}');
     }
+    final appFileId = _newId();
     final stored = await _ref
         .read(sharedFileServiceProvider)
         .upload(
@@ -62,6 +63,11 @@ class PocketBaseEntityFileTransfer implements IEntityFileTransfer {
     _ref
         .read(loggerProvider)
         .debug('[pms_app] ファイルをアップロードしました: $appFileId (版 ${stored.revision})');
+    return EntityFile(
+      id: appFileId,
+      name: picked.name,
+      mediaType: picked.mediaType,
+    );
   }
 
   @override

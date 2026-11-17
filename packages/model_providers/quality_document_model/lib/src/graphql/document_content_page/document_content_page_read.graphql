@@ -25,6 +25,14 @@ query DocumentContentPageRead(
     }
     nodes {
       mstrDocumentContentId
+
+      parent: mstrDocumentContentTreesByMstrDocumentContentId(first: 1) {
+        nodes {
+          mstrDocumentContentTreeId
+          parentMstrDocumentContentId
+        }
+      }
+
       mstrDocumentId
       code
 

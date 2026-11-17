@@ -27960,7 +27960,7 @@ BEGIN
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP='INSERT') THEN
-        NEW.trans_file_id := gen_random_uuid();
+        -- trans_file だけは、クライアントが渡した主キー(共有ファイルの PocketBase の app_file_id と同じ ID)を使う。未指定は列の既定値(gen_random_uuid)
         NEW.update_at:=now();
         RETURN NEW;
     ELSEIF (TG_OP = 'DELETE') THEN

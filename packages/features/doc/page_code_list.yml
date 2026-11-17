@@ -73,6 +73,10 @@ features:
         code: T
         page: OT
         label: 作業者
+      - screen: stafficon
+        code: I
+        page: OI
+        label: 担当者のアイコン
       - screen: staffcapability
         code: F
         page: OF
@@ -149,6 +153,10 @@ features:
         code: F
         page: RF
         label: ファイル
+      - screen: equiptag
+        code: A
+        page: RA
+        label: 設備タグ
       - screen: workcalendar
         code: W
         page: RW

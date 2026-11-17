@@ -4,7 +4,10 @@ import 'package:entity_screens/entity_screens.dart';
 import 'package:graphql/client.dart';
 import 'package:organization_model/organization_model.dart';
 
+import 'package:pms_graphql/pms_graphql.dart' show AuditUserSource;
+
 import '../entities/organization_definitions.dart';
+import 'staff_icon_repository.dart';
 
 /// 組織の実体の取得元(GraphQL 版。読み取り専用)。アプリが [GraphQLClient] を渡して組み立て、
 /// `entityRepositoryOverridesProvider` に渡すと、サンプル(メモリ上)の代わりに使われる。
@@ -18,9 +21,21 @@ import '../entities/organization_definitions.dart';
 /// 生成された型は、この中だけで使い、外へ出さない。抽出条件・並び順は無視する(サンプルと同じ)。
 ///
 /// パターン: Adapter(生成された読み込みの結果と、画面の [EntityRecord] を変換する)
-List<IEntityRepository> organizationRepositories(GraphQLClient client) {
+List<IEntityRepository> organizationRepositories(
+  GraphQLClient client, {
+  AuditUserSource? auditUser,
+  IEntityFileTransfer fileTransfer = const UnsupportedEntityFileTransfer(),
+}) {
   final language = LanguageCodeCache(client);
   return [
+    // 担当者のアイコン(書き込みできる。バイナリは PocketBase、DB は trans_file に名前・種類だけ)
+    StaffIconRepository(
+      organizationDefinitions.firstWhere((d) => d.key == 'stafficon'),
+      client,
+      () => language.id,
+      auditUser,
+      fileTransfer,
+    ),
     _StaffRepository(_readOnly('staff'), client, language),
     _SiteRepository(_readOnly('site'), client, language),
     _DepartmentRepository(_readOnly('department'), client, language),

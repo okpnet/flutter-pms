@@ -4,7 +4,11 @@ import 'package:entity_screens/entity_screens.dart';
 import 'package:graphql/client.dart';
 import 'package:resource_model/resource_model.dart';
 
+import 'package:pms_graphql/pms_graphql.dart' show AuditUserSource;
+
 import '../entities/resource_definitions.dart';
+import 'equipment_tag_repository.dart';
+import 'inspection_repositories.dart';
 
 /// 資源の実体の取得元(GraphQL 版。読み取り専用)。アプリが [GraphQLClient] を渡して組み立て、
 /// `entityRepositoryOverridesProvider` に渡すと、サンプル(メモリ上)の代わりに使われる。
@@ -18,9 +22,28 @@ import '../entities/resource_definitions.dart';
 /// 抽出条件・並び順は無視する(サンプルと同じ)。
 ///
 /// パターン: Adapter(生成された読み込みの結果と、画面の [EntityRecord] を変換する)
-List<IEntityRepository> resourceRepositories(GraphQLClient client) {
+List<IEntityRepository> resourceRepositories(
+  GraphQLClient client, {
+  AuditUserSource? auditUser,
+  IEntityFileTransfer fileTransfer = const UnsupportedEntityFileTransfer(),
+}) {
   final language = _LanguageCode(client);
   return [
+    // 点検予定 → 予定明細 → 点検実施(読み取り専用)・点検ファイル(書き込みできる。バイナリは PocketBase、DB は trans_file に名前・種類だけ)
+    ...inspectionRepositories(
+      client,
+      () => language.id,
+      auditUser: auditUser,
+      fileTransfer: fileTransfer,
+    ),
+    // 設備タグ(書き込みできる。バイナリは PocketBase、DB は trans_file に名前・種類だけ)
+    EquipmentTagRepository(
+      resourceDefinitions.firstWhere((d) => d.key == 'equiptag'),
+      client,
+      () => language.id,
+      auditUser,
+      fileTransfer,
+    ),
     _CapabilityRepository(_readOnly('capability'), client, language),
     _LicenseRepository(_readOnly('license'), client, language),
     _LocationRepository(_readOnly('location'), client, language),

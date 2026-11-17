@@ -120,6 +120,12 @@ entity:
     fields:
       f_file: "ファイル"
       f_regdate: "登録日"
+  equiptag:
+    title: "設備タグ"
+    fields:
+      f_name: "名称"
+      f_file: "タグ(ファイル)"
+      f_remarks: "備考"
   workcalendar:
     title: "稼働カレンダー"
     fields:

@@ -1,25 +1,27 @@
 import 'package:data_strategist/lib.dart';
 import 'package:entity_screens/entity_screens.dart';
 import 'package:graphql/client.dart';
-import 'package:pms_graphql/pms_graphql.dart' show AuditUserSource;
+import 'package:pms_graphql/pms_graphql.dart'
+    show AuditUserSource, SharedFileLink;
 import 'package:quality_model/quality_model.dart';
 
 /// 異常報告のファイル(`compfile`)の取得元(GraphQL 版)。共有ファイルのつなぎ方の基準の実装。
 ///
 /// ファイルのバイナリは PocketBase(`app_files`)にだけあり、DB は `trans_file` の行(名前・種類。`binary_data` は空文字)と、
-/// 異常報告とのつなぎ(`trans_complaint_file`)だけを持つ。DB の主キー(`trans_file_id`)はトリガーが採番する(クライアントが
-/// 決めた値は無視される)ため、保存の順は次のとおり:
-/// ① `trans_file` の行を作って ID を得る → ② その ID を PocketBase の `app_file_id` にして、バイナリを上げる
-/// ([IEntityFileTransfer.upload]) → ③ `trans_complaint_file` でつなぐ。
-/// ② が失敗したら、① の行を論理削除して失敗にする。③ が失敗したときも、① の行を論理削除する(PocketBase に上がったファイルは、
-/// 利用者の権限では削除できないため、参照されないまま残る。`app_file_id` で DB の行と突き合わせて、管理者が掃除する)。
-/// 差し替えは、新しい行・ファイルを作って `trans_file_id` を付け替える(古い行・ファイルは残る。PocketBase は上書きしない)。
+/// 異常報告とのつなぎ(`trans_complaint_file`)だけを持つ。保存の順は次のとおり:
+/// ① 選んだファイルを PocketBase へ上げる(`app_file_id` は窓口が作った UUID。[IEntityFileTransfer.upload])
+/// → ② その ID を `trans_file_id` にして、`trans_file` の行とつなぎを **1 回の入れ子の登録(1 トランザクション)**で登録する。
+/// ① が失敗したら DB には何もしない。② が失敗したら全部ロールバックされ、PocketBase に参照されないファイルだけが残る
+/// (利用者の権限では削除できない。DB の行は無いので無害。`issue/20261117_0004.md`)。
+/// DB の `trans_file` のトリガーは、渡された主キー(= `app_file_id`)をそのまま使う(ほかの表は DB が採番する)。
+/// 差し替えは、新しいファイルを上げて、新しい `trans_file` の行を作りながら `trans_file_id` を付け替える(1 トランザクション)。
 /// 取り消しは論理削除(`remove = true`)。更新者は [AuditUserSource] で受けて送る。
 ///
+/// 入れ子の登録は、生成器(`gql/*.yaml`)が対応していないため、`pms_graphql` の [SharedFileLink] が GraphQL の文を組み立てる。
 /// 台帳(親の指定なし)は空。親(異常報告)ごとの一覧は [findByParent]。日付は、DB に専用の列が無いため、更新日時を出す(読み取り専用)。
 /// 生成された型は、この中だけで使い、外へ出さない。
 ///
-/// パターン: Adapter(生成された読み込み・登録の型と、画面の [EntityRecord] を変換する)
+/// パターン: Adapter(生成された読み込みの型と、画面の [EntityRecord] を変換する)
 class ComplaintFileRepository implements IEntityRepository {
   ComplaintFileRepository(
     EntityDefinition definition,
@@ -141,51 +143,10 @@ class ComplaintFileRepository implements IEntityRepository {
     return null;
   }
 
-  /// 選んだファイル [picked] を保存する: `trans_file` の行を作って DB の ID を得て、その ID で PocketBase へ上げる。
-  /// 返すのは DB の `trans_file_id`。上げるのに失敗したら、作った行を論理削除して例外を投げる。
-  Future<String> _storeFile(EntityFile picked) async {
-    final au = await _auditUser?.call();
-    final r = await _client.mutate$ComplaintFileBodyPageCreate(
-      Options$Mutation$ComplaintFileBodyPageCreate(
-        variables: Variables$Mutation$ComplaintFileBodyPageCreate(
-          binaryData: '',
-          name: picked.name,
-          mediaType: picked.mediaType,
-          updateUserId: au?.staffId,
-          updateUserHistoryId: au?.staffHistoryId,
-        ),
-      ),
-    );
-    final e = r.exception;
-    if (e != null) throw e;
-    final id = r.parsedData?.createTransFile?.transFile?.transFileId;
-    if (id == null) throw StateError('ファイルの行を保存できませんでした');
-    try {
-      await _transfer.upload(picked, id);
-    } catch (_) {
-      await _removeFileRow(id, au?.staffId, au?.staffHistoryId);
-      rethrow;
-    }
-    return id;
-  }
-
-  /// 上げられなかった `trans_file` の行を論理削除する(できなくても、元の失敗を優先する)。
-  Future<void> _removeFileRow(
-    String id,
-    String? staffId,
-    String? historyId,
-  ) async {
-    try {
-      await _client.mutate(
-        MutationOptions(
-          document: gql(
-            r'mutation($id: UUID!, $u: UUID, $h: UUID) { updateTransFileByTransFileId(input: {transFileId: $id, transFilePatch: {remove: true, updateUserId: $u, updateUserHistoryId: $h}}) { clientMutationId } }',
-          ),
-          variables: {'id': id, 'u': staffId, 'h': historyId},
-        ),
-      );
-    } catch (_) {}
-  }
+  static const _link = SharedFileLink(
+    type: 'TransComplaintFile',
+    fields: {'transComplaintId': 'UUID'},
+  );
 
   @override
   Future<EntityRecord> save(EntityRecord record) async {
@@ -203,74 +164,44 @@ class ComplaintFileRepository implements IEntityRepository {
           EntityValidationException.parentKey: EntityFieldError.required,
         });
       }
-      final fileRowId = file.isPending ? await _storeFile(file) : file.id;
-      final String id;
-      try {
-        final r = await _client.mutate$ComplaintFilePageCreate(
-          Options$Mutation$ComplaintFilePageCreate(
-            variables: Variables$Mutation$ComplaintFilePageCreate(
-              transComplaintId: complaintId,
-              transFileId: fileRowId,
-              updateUserId: au?.staffId,
-              updateUserHistoryId: au?.staffHistoryId,
-            ),
-          ),
-        );
-        final e = r.exception;
-        if (e != null) throw e;
-        final created = r
-            .parsedData
-            ?.createTransComplaintFile
-            ?.transComplaintFile
-            ?.transComplaintFileId;
-        if (created == null) throw StateError('異常報告のファイルを保存できませんでした');
-        id = created;
-      } catch (_) {
-        // つなげなかった: 今作った trans_file の行を取り消す(PocketBase に上がったファイルは、削除できないため残る)
-        if (file.isPending) {
-          await _removeFileRow(fileRowId, au?.staffId, au?.staffHistoryId);
-        }
-        rethrow;
-      }
+      // ① PocketBase へ上げる(失敗したら DB には何もしない) ② trans_file とつなぎを 1 トランザクションで登録する
+      final stored = await _transfer.ensureUploaded(file);
+      final id = await _link.attach(
+        _client,
+        fileId: stored.id,
+        values: {'transComplaintId': complaintId},
+        name: stored.name,
+        mediaType: stored.mediaType,
+        staffId: au?.staffId,
+        staffHistoryId: au?.staffHistoryId,
+      );
       return EntityRecord(
         id: id,
         parentId: complaintId,
-        values: {
-          ...record.values,
-          'file': EntityFile(
-            id: fileRowId,
-            name: file.name,
-            mediaType: file.mediaType,
-          ).toValue(),
-        },
+        values: {...record.values, 'file': stored.toValue()},
       );
     }
-    // 更新: ファイルが変わったとき(選び直した・別の ID)だけ、新しい行を作って付け替える
+    // 更新: ファイルが変わったとき(選び直した)だけ、新しいファイルを上げて、行を作りながら付け替える
     final current = await findById(record.id);
     if (current == null) throw StateError('異常報告のファイルが見つかりません');
-    if (EntityFile.tryParse(current.valueOf('file'))?.id != file.id) {
-      final fileRowId = file.isPending ? await _storeFile(file) : file.id;
-      try {
-        final r = await _client.mutate$ComplaintFilePageEdit(
-          Options$Mutation$ComplaintFilePageEdit(
-            variables: Variables$Mutation$ComplaintFilePageEdit(
-              transComplaintFileId: record.id,
-              transFileId: fileRowId,
-              updateUserId: au?.staffId,
-              updateUserHistoryId: au?.staffHistoryId,
-            ),
-          ),
-        );
-        final e = r.exception;
-        if (e != null) throw e;
-      } catch (_) {
-        if (file.isPending) {
-          await _removeFileRow(fileRowId, au?.staffId, au?.staffHistoryId);
-        }
-        rethrow;
-      }
+    if (EntityFile.tryParse(current.valueOf('file'))?.id == file.id) {
+      return record;
     }
-    return record;
+    final stored = await _transfer.ensureUploaded(file);
+    await _link.replace(
+      _client,
+      linkId: record.id,
+      fileId: stored.id,
+      name: stored.name,
+      mediaType: stored.mediaType,
+      staffId: au?.staffId,
+      staffHistoryId: au?.staffHistoryId,
+    );
+    return EntityRecord(
+      id: record.id,
+      parentId: record.parentId,
+      values: {...record.values, 'file': stored.toValue()},
+    );
   }
 
   @override

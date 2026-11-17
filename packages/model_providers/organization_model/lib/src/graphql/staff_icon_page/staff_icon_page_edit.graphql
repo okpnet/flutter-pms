@@ -1,0 +1,36 @@
+# staff_icon_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #StaffIconPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation StaffIconPageEdit(
+  $infoStaffIconId: UUID!
+  $staffId: UUID
+  $staffHistoryId: UUID
+  $names: UUID
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  updateInfoStaffIconByInfoStaffIconId(
+    input: {
+      infoStaffIconId: $infoStaffIconId
+      infoStaffIconPatch: {
+        staffId: $staffId
+        staffHistoryId: $staffHistoryId
+        names: $names
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    infoStaffIcon {
+      infoStaffIconId
+      staffId
+      staffHistoryId
+      names
+      remarks
+    }
+  }
+}

@@ -593,6 +593,17 @@ InspectImpFilePage: &InspectImpFilePage
     - trans_inspect_imp_file_id
     - trans_inspect_record_id
     - trans_file_id
+    # 共有ファイルの名前・種類(trans_file。バイナリは PocketBase にあり、DB は名前・種類だけを持つ)
+    - name: file
+      as: file
+      arrayType: toFirstOne
+      using: trans_file_id
+      kind: read
+      from: trans_file
+      columns:
+        - trans_file_id
+        - name
+        - media_type
     - name: labels
       as: labels
       arrayType: toFirstOne
@@ -648,3 +659,34 @@ InspectRecordPageCreate:
     - stakeholder_history_id
     - stakeholder_id
     - remarks
+
+
+# ---- 点検のファイル(trans_inspect_imp_file)の登録・取り消し ----
+# 登録・差し替えは、trans_file と点検ファイルの行を 1 トランザクションで作る入れ子の登録で、生成器が対応していないため、
+# 取得元(resource の InspectionFileRepository)が GraphQL の文を組み立てる(pms_graphql の SharedFileLink)。
+# 題名(titles)は共通関数(transLabelSave)で作り、返った ID を渡す。
+
+# 点検のファイルの更新・取り消し(備考・題名の付け替え・remove)。ファイルの差し替えは入れ子の登録で行う
+InspectionFilePageEdit:
+  kind: edit
+  withUpdater: true
+  from: trans_inspect_imp_file
+  requiredWhere:
+    - trans_inspect_imp_file_id
+  generateRfe: true
+  columns:
+    - trans_inspect_imp_file_id
+    - trans_inspect_record_id
+    - titles
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# ラベル(題名)の登録・更新(p_label_id が無ければ新規)
+InspectionFileLabelSavePageCall:
+  kind: function
+  mutation: transLabelSave
+  returns: transLabel
+  columns:
+    - trans_label_id

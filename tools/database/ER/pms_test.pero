@@ -6965,7 +6965,7 @@
         "sqlite": ""
       },
       "bodies": {
-        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_file() RETURNS trigger AS\r\n$BODY$\r\nDECLARE\r\n    latest_row record;\r\nBEGIN\r\n    IF (TG_OP = 'UPDATE') THEN\r\n        NEW.update_at:=now();\r\n        RETURN NEW;\r\n    ELSEIF (TG_OP='INSERT') THEN\r\n        NEW.trans_file_id := gen_random_uuid();\r\n        NEW.update_at:=now();\r\n        RETURN NEW;\r\n    ELSEIF (TG_OP = 'DELETE') THEN\r\n        RETURN OLD;\r\n    END IF;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_file() RETURNS trigger AS\r\n$BODY$\r\nDECLARE\r\n    latest_row record;\r\nBEGIN\r\n    IF (TG_OP = 'UPDATE') THEN\r\n        NEW.update_at:=now();\r\n        RETURN NEW;\r\n    ELSEIF (TG_OP='INSERT') THEN\r\n        -- trans_file だけは、クライアントが渡した主キー(共有ファイルの PocketBase の app_file_id と同じ ID)を使う。未指定は列の既定値(gen_random_uuid)\r\n        NEW.update_at:=now();\r\n        RETURN NEW;\r\n    ELSEIF (TG_OP = 'DELETE') THEN\r\n        RETURN OLD;\r\n    END IF;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
         "mysql": "",
         "sqlserver": "",
         "sqlite": ""

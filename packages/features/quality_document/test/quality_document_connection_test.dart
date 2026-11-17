@@ -10,7 +10,7 @@ void main() {
   group('検証用サーバー: 品質管理文書の取得元(読み取り専用)', () {
     serverTest('文書階層・文書を、画面の値(名称は言語コード ja)で取得できる', (server) async {
       final repos = qualityDocumentRepositories(server.provider.client);
-      for (final key in ['doctier', 'doc']) {
+      for (final key in ['doctier', 'doc', 'doccontent', 'report']) {
         final repo = repos.firstWhere((r) => r.definition.key == key);
         final rows = await repo.find(take: 50);
         // 検証用 DB にデータが無い実体は、取得できる(空)ことだけを確認する
@@ -27,15 +27,31 @@ void main() {
     });
 
     test('実体は読み取り専用: 新規・保存・削除を出さず、書き込もうとすると失敗する', () {
-      final repos = qualityDocumentRepositories(GraphQLClient(link: HttpLink('http://localhost:1'), cache: GraphQLCache()));
-      expect(repos.map((r) => r.definition.key), ['doctier', 'doc']);
+      final repos = qualityDocumentRepositories(
+        GraphQLClient(
+          link: HttpLink('http://localhost:1'),
+          cache: GraphQLCache(),
+        ),
+      );
+      expect(repos.map((r) => r.definition.key), [
+        'doctier',
+        'doc',
+        'doccontent',
+        'report',
+      ]);
       for (final r in repos) {
         expect(r.definition.viewOnly, isTrue);
         expect(r.definition.fields.every((f) => f.readOnly), isTrue);
-        expect(() => r.save(const EntityRecord(id: '', values: {})), throwsUnsupportedError);
+        expect(
+          () => r.save(const EntityRecord(id: '', values: {})),
+          throwsUnsupportedError,
+        );
         expect(() => r.remove('x'), throwsUnsupportedError);
       }
-      expect(repos.last.definition.isTree, isTrue);
+      expect(
+        repos.where((r) => r.definition.isTree).map((r) => r.definition.key),
+        ['doc', 'doccontent'],
+      );
     });
   });
 }

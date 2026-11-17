@@ -1,0 +1,77 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 担当者のアイコン(info_staff_icon)。ファイルのバイナリは PocketBase にあり、DB は trans_file に名前・種類だけを持つ。
+# 登録・差し替えは、trans_file とアイコンの行を 1 トランザクションで作る入れ子の登録で、生成器が対応していないため、
+# 取得元(organization の StaffIconRepository)が GraphQL の文を組み立てる(pms_graphql の SharedFileLink)。
+# 名称(names)は共通関数(sharedAppellationSave)で作り、返った ID を渡す。
+
+# 共有ファイルの名前・種類(trans_file)
+OrganizationFileBodyFields: &OrganizationFileBodyFields
+  kind: read
+  from: trans_file
+  columns:
+    - trans_file_id
+    - name
+    - media_type
+
+# 担当者のアイコンの読み込み(担当者ごと)
+StaffIconPage: &StaffIconPage
+  kind: read
+  from: info_staff_icon
+  filter: true
+  requiredWhere:
+    - languageCode
+    - staff_id
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - info_staff_icon_id
+    - staff_id
+    - staff_history_id
+    - names
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - trans_file_id
+    - name: file
+      as: file
+      arrayType: toFirstOne
+      using: trans_file_id
+      <<: *OrganizationFileBodyFields
+    - symbol
+    - remarks
+    - update_at
+
+# 担当者のアイコンの更新・取り消し(備考・名称の付け替え・remove)。ファイルの差し替えは入れ子の登録で行う
+StaffIconPageEdit:
+  kind: edit
+  withUpdater: true
+  from: info_staff_icon
+  requiredWhere:
+    - info_staff_icon_id
+  generateRfe: true
+  columns:
+    - info_staff_icon_id
+    - staff_id
+    - staff_history_id
+    - names
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 呼称(名称)の登録・更新(p_appellation_id が無ければ新規)
+StaffIconAppellationSavePageCall:
+  kind: function
+  mutation: sharedAppellationSave
+  returns: sharedAppellation
+  columns:
+    - shared_appellations_id

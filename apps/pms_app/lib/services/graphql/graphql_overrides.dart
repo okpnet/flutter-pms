@@ -171,9 +171,17 @@ List<Override> graphqlOverrides() => [
       // 品目: 品目区分・品目(読み取り専用。ツリーは品目ツリーの親)
       ...itemRepositories(client),
       // 組織: 職員・事業所・部署(読み取り専用。部署のツリーは部署ツリーの親)
-      ...organizationRepositories(client),
+      ...organizationRepositories(
+        client,
+        auditUser: auditUser,
+        fileTransfer: ref.watch(entityFileTransferProvider),
+      ),
       // 資源: 力量・資格・場所・設備(読み取り専用。場所のツリーは場所ツリーの親)
-      ...resourceRepositories(client),
+      ...resourceRepositories(
+        client,
+        auditUser: auditUser,
+        fileTransfer: ref.watch(entityFileTransferProvider),
+      ),
       // 工程: 作業・工程運用(読み取り専用。作業のツリーは作業ツリーの親)
       ...productionProcessRepositories(client),
       // 作業実績: コンテナ・成績書(読み取り専用)

@@ -1,0 +1,18 @@
+# equipment_tag_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: gql/*.yaml #EquipmentTagPageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query EquipmentTagPageRfe(
+  $mstrEquipmentTagId: UUID!
+) {
+  mstrEquipmentTagByMstrEquipmentTagId(mstrEquipmentTagId: $mstrEquipmentTagId) {
+    mstrEquipmentTagId
+    names
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
+  }
+}

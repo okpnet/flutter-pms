@@ -1,21 +1,32 @@
+import 'dart:math';
+
 import 'package:data_test_harness/data_test_harness.dart';
 import 'package:entity_screens/entity_screens.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql/client.dart';
 import 'package:quality/quality.dart';
 
-/// 保存先(PocketBase)の代役。上げた ID を記録し、失敗も再現する。
+String _uuid() {
+  final r = Random.secure();
+  String h(int n) =>
+      List.generate(n, (_) => r.nextInt(16).toRadixString(16)).join();
+  return '${h(8)}-${h(4)}-4${h(3)}-a${h(3)}-${h(12)}';
+}
+
+/// 保存先(PocketBase)の代役。新しい UUID で「上げた」ことにし、失敗も再現する。
 class _Transfer implements IEntityFileTransfer {
-  final uploaded = <String, String>{}; // app_file_id → 仮の ID
+  final uploaded = <String>[]; // 上げた app_file_id
   bool failUpload = false;
 
   @override
   Future<EntityFile?> pick() async => null;
 
   @override
-  Future<void> upload(EntityFile picked, String appFileId) async {
+  Future<EntityFile> upload(EntityFile picked) async {
     if (failUpload) throw StateError('boom');
-    uploaded[appFileId] = picked.id;
+    final id = _uuid();
+    uploaded.add(id);
+    return EntityFile(id: id, name: picked.name, mediaType: picked.mediaType);
   }
 
   @override
@@ -23,7 +34,7 @@ class _Transfer implements IEntityFileTransfer {
 }
 
 /// 異常報告のファイル(`compfile`)の取得元の通信テスト(検証用サーバー)。
-/// 保存の順(`trans_file` の行 → その ID で保存先へ → つなぎ)・差し替え・取り消し・上げる失敗を確かめる。
+/// 保存の順(先に保存先へ上げる → `trans_file` とつなぎを 1 トランザクションで登録)・差し替え・取り消し・失敗時を確かめる。
 /// データを変更する(名前に明記)。後始末で、作った行を論理削除する。
 /// 一般ユーザーの資格情報を渡して実行する(packages/infra/data_test_harness/CLAUDE.md)。
 void main() {
@@ -33,9 +44,29 @@ void main() {
     mediaType: type,
   );
 
+  Future<int> filesNamed(
+    GraphQLClient client,
+    String name, {
+    required bool activeOnly,
+  }) async {
+    final filter = activeOnly
+        ? '{name: {equalTo: \$n}, remove: {equalTo: false}}'
+        : '{name: {equalTo: \$n}}';
+    final found = await client.query(
+      QueryOptions(
+        document: gql(
+          'query(\$n: String!) { allTransFiles(filter: $filter) { totalCount } }',
+        ),
+        variables: {'n': name},
+        fetchPolicy: FetchPolicy.noCache,
+      ),
+    );
+    return found.data?['allTransFiles']?['totalCount'] as int;
+  }
+
   group('検証用サーバー: 異常報告のファイル', () {
     serverTest(
-      '登録 → 一覧 → 差し替え → 取り消しができる。保存先へは DB が採番した ID で上がる(データを変更し、後始末で論理削除する)',
+      '登録 → 一覧 → 差し替え → 取り消しができる。DB の trans_file_id は、保存先へ上げた ID と同じ(データを変更し、後始末で論理削除する)',
       (server) async {
         final client = server.provider.client;
         final transfer = _Transfer();
@@ -59,16 +90,14 @@ void main() {
             ),
           );
           id = saved.id;
-          // 保存先へは、DB が採番した trans_file_id で 1 回上がった(仮の ID ではない)
           expect(transfer.uploaded, hasLength(1));
-          final dbId1 = transfer.uploaded.keys.single;
-          expect(transfer.uploaded[dbId1], 'pending:1');
-          expect(EntityFile.tryParse(saved.valueOf('file'))?.id, dbId1);
+          final appFileId1 = transfer.uploaded.single;
 
           var rows = await files.findByParent(parent);
           var mine = rows.firstWhere((r) => r.id == id);
           final f1 = EntityFile.tryParse(mine.valueOf('file'))!;
-          expect(f1.id, dbId1);
+          // DB の trans_file_id が、保存先へ上げた ID(app_file_id)と同じ
+          expect(f1.id, appFileId1);
           expect(f1.name, 'a.pdf');
           expect(f1.mediaType, 'application/pdf');
           expect(f1.isPending, isFalse);
@@ -84,7 +113,7 @@ void main() {
           );
           expect(transfer.uploaded, hasLength(1));
 
-          // 差し替え(選び直し: 新しい行・ファイルを作って付け替える)
+          // 差し替え(選び直し: 新しいファイルを上げ、新しい行を作りながら付け替える)
           await files.save(
             EntityRecord(
               id: id,
@@ -95,8 +124,7 @@ void main() {
           expect(transfer.uploaded, hasLength(2));
           mine = (await files.findById(id))!;
           final f2 = EntityFile.tryParse(mine.valueOf('file'))!;
-          expect(f2.id, isNot(dbId1));
-          expect(transfer.uploaded.containsKey(f2.id), isTrue);
+          expect(f2.id, transfer.uploaded.last);
           expect(f2.mediaType, 'image/png');
 
           // 取り消し(論理削除)
@@ -105,7 +133,7 @@ void main() {
           expect(rows.any((r) => r.id == id), isFalse);
           expect(await files.findById(id), isNull);
         } finally {
-          for (final fileId in transfer.uploaded.keys) {
+          for (final fileId in transfer.uploaded) {
             await client.mutate(
               MutationOptions(
                 document: gql(
@@ -122,9 +150,7 @@ void main() {
       },
     );
 
-    serverTest('保存先へ上げるのに失敗したら、つながず、作ったファイルの行も取り消す(データを変更し、後始末で論理削除する)', (
-      server,
-    ) async {
+    serverTest('保存先へ上げるのに失敗したら、DB には何も作らない', (server) async {
       final client = server.provider.client;
       final transfer = _Transfer()..failUpload = true;
       final repos = qualityRepositories(client, fileTransfer: transfer);
@@ -148,20 +174,10 @@ void main() {
         throwsA(isA<StateError>()),
       );
       expect((await files.findByParent(parent)).length, before);
-      // 作った行は論理削除されている(名前で探しても、有効な行は無い)
-      final found = await client.query(
-        QueryOptions(
-          document: gql(
-            r'query($n: String!) { allTransFiles(filter: {name: {equalTo: $n}, remove: {equalTo: false}}) { totalCount } }',
-          ),
-          variables: {'n': marker},
-          fetchPolicy: FetchPolicy.noCache,
-        ),
-      );
-      expect(found.data?['allTransFiles']?['totalCount'], 0);
+      expect(await filesNamed(client, marker, activeOnly: false), 0);
     });
 
-    serverTest('保存先へ上げたあと、つなげなかったら(親が無い)、作ったファイルの行を取り消す(データを変更し、後始末で論理削除する)', (
+    serverTest('DB の登録に失敗したら(親が無い)、全部ロールバックされ、trans_file の行は残らない', (
       server,
     ) async {
       final client = server.provider.client;
@@ -180,17 +196,13 @@ void main() {
         ),
         throwsA(anything),
       );
-      expect(transfer.uploaded, hasLength(1), reason: '上げるところまでは進んだ');
-      final found = await client.query(
-        QueryOptions(
-          document: gql(
-            r'query($n: String!) { allTransFiles(filter: {name: {equalTo: $n}, remove: {equalTo: false}}) { totalCount } }',
-          ),
-          variables: {'n': marker},
-          fetchPolicy: FetchPolicy.noCache,
-        ),
+      expect(
+        transfer.uploaded,
+        hasLength(1),
+        reason: '保存先へは上がった(参照されないファイルだけが残る)',
       );
-      expect(found.data?['allTransFiles']?['totalCount'], 0);
+      // 論理削除ではなく、行そのものが無い(ロールバック)
+      expect(await filesNamed(client, marker, activeOnly: false), 0);
     });
 
     test('ファイルが無いと、検証エラー(必須)になる', () async {

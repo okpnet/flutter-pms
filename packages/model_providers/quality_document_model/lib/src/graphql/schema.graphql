@@ -122,6 +122,38 @@ enum MstrDocumentsOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum MstrReportsOrderBy {
+  NATURAL
+  MSTR_REPORT_ID_ASC
+  MSTR_REPORT_ID_DESC
+  TRANS_FILE_ID_ASC
+  TRANS_FILE_ID_DESC
+  NAMES_ASC
+  NAMES_DESC
+  CODE_ASC
+  CODE_DESC
+  IS_DEFAULT_ASC
+  IS_DEFAULT_DESC
+  INFO_ACCESS_PATH_ID_ASC
+  INFO_ACCESS_PATH_ID_DESC
+  REVISION_ASC
+  REVISION_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 type HistoryInfoStaff {
   historyId: UUID!
   infoStaffId: UUID!
@@ -185,6 +217,7 @@ type MstrDocumentContent {
   sharedTextByContents: SharedText
   transFileByTransFileId: TransFile
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
+  mstrDocumentContentTreesByMstrDocumentContentId(first: Int): MstrDocumentContentTreesConnection!
 }
 
 type MstrDocumentContentTree {
@@ -195,6 +228,10 @@ type MstrDocumentContentTree {
   updateUserId: UUID
   updateUserHistoryId: UUID
   remove: Boolean
+}
+
+type MstrDocumentContentTreesConnection {
+  nodes: [MstrDocumentContentTree]!
 }
 
 type MstrDocumentContentsConnection {
@@ -248,6 +285,27 @@ type MstrDocumentsConnection {
   totalCount: Int!
 }
 
+type MstrReport {
+  mstrReportId: UUID!
+  transFileId: UUID
+  code: String!
+  isDefault: Boolean
+  infoAccessPathId: UUID!
+  symbol: String
+  remarks: String
+  updateAt: Datetime
+  remove: Boolean
+  transFileByTransFileId: TransFile
+  sharedAppellationByNames: SharedAppellation
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
+}
+
+type MstrReportsConnection {
+  nodes: [MstrReport]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type Mutation {
   updateMstrDocumentByMstrDocumentId(input: UpdateMstrDocumentByMstrDocumentIdInput!): UpdateMstrDocumentPayload
   updateMstrDocumentContentByMstrDocumentContentId(input: UpdateMstrDocumentContentByMstrDocumentContentIdInput!): UpdateMstrDocumentContentPayload
@@ -265,6 +323,7 @@ type Query {
   allMstrDocuments(first: Int, offset: Int, orderBy: [MstrDocumentsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrDocumentFilter): MstrDocumentsConnection
   allMstrDocumentContents(first: Int, offset: Int, orderBy: [MstrDocumentContentsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrDocumentContentFilter): MstrDocumentContentsConnection
   allMstrDocumentTiers(first: Int, offset: Int, orderBy: [MstrDocumentTiersOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrDocumentTierFilter): MstrDocumentTiersConnection
+  allMstrReports(first: Int, offset: Int, orderBy: [MstrReportsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrReportFilter): MstrReportsConnection
   mstrDocumentByMstrDocumentId(mstrDocumentId: UUID!): MstrDocument
   mstrDocumentContentByMstrDocumentContentId(mstrDocumentContentId: UUID!): MstrDocumentContent
   mstrDocumentContentTreeByMstrDocumentContentTreeId(mstrDocumentContentTreeId: UUID!): MstrDocumentContentTree
@@ -778,6 +837,7 @@ input MstrDocumentContentFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  mstrDocumentContentTreesByMstrDocumentContentId: MstrDocumentContentToManyMstrDocumentContentTreeFilter
   mstrDocumentContentTreesByMstrDocumentContentIdExist: Boolean
   mstrDocumentContentTreesByParentMstrDocumentContentIdExist: Boolean
   historyMstrDocumentContentsByMstrDocumentContentIdExist: Boolean
@@ -811,6 +871,31 @@ input MstrDocumentContentPatch {
   remove: Boolean
   sharedAppellationToTitles: MstrDocumentContentFk2Input
   sharedTextToContents: MstrDocumentContentFk1Input
+}
+
+input MstrDocumentContentToManyMstrDocumentContentTreeFilter {
+  every: MstrDocumentContentTreeFilter
+  some: MstrDocumentContentTreeFilter
+  none: MstrDocumentContentTreeFilter
+}
+
+input MstrDocumentContentTreeFilter {
+  mstrDocumentContentTreeId: UUIDFilter
+  mstrDocumentContentId: UUIDFilter
+  parentMstrDocumentContentId: UUIDFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historyMstrDocumentContentTreesByMstrDocumentContentTreeIdExist: Boolean
+  mstrDocumentContentByParentMstrDocumentContentIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrDocumentContentTreeFilter!]
+  or: [MstrDocumentContentTreeFilter!]
+  not: MstrDocumentContentTreeFilter
 }
 
 input MstrDocumentContentTreePatch {
@@ -945,6 +1030,32 @@ input MstrDocumentTreePatch {
   parentMstrDocumentId: UUID
   remarks: String
   remove: Boolean
+}
+
+input MstrReportFilter {
+  mstrReportId: UUIDFilter
+  transFileId: UUIDFilter
+  names: UUIDFilter
+  code: StringFilter
+  isDefault: BooleanFilter
+  infoAccessPathId: UUIDFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historyMstrReportsByMstrReportIdExist: Boolean
+  transInspectionReportsByMstrReportIdExist: Boolean
+  transFileByTransFileId: TransFileFilter
+  transFileByTransFileIdExists: Boolean
+  sharedAppellationByNames: SharedAppellationFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrReportFilter!]
+  or: [MstrReportFilter!]
+  not: MstrReportFilter
 }
 
 input SharedAppellationFilter {

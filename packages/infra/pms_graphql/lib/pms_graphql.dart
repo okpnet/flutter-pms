@@ -11,3 +11,4 @@ export 'src/flat_filter_converter.dart';
 export 'src/content_variable.dart';
 export 'src/flat_map.dart';
 export 'src/graphql_data_repository.dart';
+export 'src/shared_file_link.dart';

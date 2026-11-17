@@ -24,7 +24,7 @@ class _Transfer implements IEntityFileTransfer {
   bool failDownload = false;
 
   @override
-  Future<void> upload(EntityFile picked, String appFileId) async {}
+  Future<EntityFile> upload(EntityFile picked) async => picked;
 
   @override
   Future<EntityFile?> pick() async {
@@ -209,7 +209,7 @@ void main() {
   test('窓口が差し込まれていないときは、使うと UnsupportedError', () {
     const t = UnsupportedEntityFileTransfer();
     expect(t.pick(), throwsA(isA<UnsupportedError>()));
-    expect(t.upload(_old, 'x'), throwsA(isA<UnsupportedError>()));
+    expect(t.upload(_old), throwsA(isA<UnsupportedError>()));
     expect(t.download(_old), throwsA(isA<UnsupportedError>()));
     // 使わない import の警告を避けるための参照
     expect(Uint8List(0), isEmpty);

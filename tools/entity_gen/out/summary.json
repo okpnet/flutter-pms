@@ -462,6 +462,11 @@
         "first": "IS-001"
       },
       {
+        "key": "equiptag",
+        "label": "設備タグ",
+        "first": "設備銘板"
+      },
+      {
         "key": "workcalendar",
         "label": "稼働カレンダー",
         "first": "08:30"

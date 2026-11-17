@@ -90,6 +90,12 @@ entity:
       f_private_phone: "緊急電話"
       f_symbol: "記号"
       f_remarks: "備考"
+  stafficon:
+    title: "担当者のアイコン"
+    fields:
+      f_name: "名称"
+      f_file: "アイコン"
+      f_remarks: "備考"
   staffcapability:
     title: "作業者の力量"
     fields:

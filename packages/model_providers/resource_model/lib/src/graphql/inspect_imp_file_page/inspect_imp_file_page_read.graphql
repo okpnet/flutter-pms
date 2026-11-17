@@ -28,6 +28,12 @@ query InspectImpFilePageRead(
       transInspectRecordId
       transFileId
 
+      file: transFileByTransFileId {
+        transFileId
+        name
+        mediaType
+      }
+
       labels: transLabelByTitles {
         transLabelId
 

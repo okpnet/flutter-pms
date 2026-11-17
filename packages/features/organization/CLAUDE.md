@@ -20,6 +20,7 @@
 | 部署 | `department` | ツリー構造 | 5 | `site` |
 | 部署区分の割当 | `departmentkind` | 子の台帳(親: 部署) | 1 | `deptkind` |
 | 作業者 | `staff` | テーブル構造 | 8 |  |
+| 担当者のアイコン | `stafficon` | 子の台帳(親: 作業者) | 3 |  |
 | 作業者の力量 | `staffcapability` | 子の台帳(親: 作業者) | 3 | `capability` |
 | 作業者の資格 | `stafflicense` | 子の台帳(親: 作業者) | 8 | `license` |
 | 承認パターン | `approvalpattern` | テーブル構造 | 3 |  |

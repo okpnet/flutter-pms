@@ -116,6 +116,13 @@ module.exports = function build(D, X) {
     rows: D.employees.map((e) => row(e.no, { no: e.no, name: e.name, pronunciation: rd(e.name), sex: '', phone: '', private_phone: '', symbol: '', remarks: '' })),
   });
 
+  // 担当者のアイコン(info_staff_icon)。ファイルのバイナリは PocketBase にあり、DB は trans_file に名前・種類だけを持つ
+  out.push({
+    key: 'stafficon', label: '担当者のアイコン', project: 'organization', owner: 'staff',
+    fields: [f('name', '名称'), f('file', 'アイコン', 'file'), f('remarks', '備考', 'multiline', { req: false })],
+    rows: [row('si1', { name: '顔写真', file: JSON.stringify({ id: 'si-file-1', name: 'face.png', mediaType: 'image/png' }), remarks: '' }, D.employees[0].no)],
+  });
+
   /* 力量・資格のマスタ(資源)と、作業者が持つ分(組織) */
   const capNames = [...new Set(D.capabilities.map((c) => c.name))];
   if (!capNames.includes('溶接（TIG）')) capNames.push('溶接（TIG）');
@@ -225,6 +232,16 @@ module.exports = function build(D, X) {
     // ファイルの実体は PocketBase にあり、DB は ID だけを持つ。値は {id, name, mediaType} の JSON(entity_screens の EntityFile)
     fields: [f('file', 'ファイル', 'file'), f('regdate', '登録日', 'date')],
     rows: D.inspFiles.map((x) => row(x.id, { file: JSON.stringify({ id: x.id, name: x.fname, mediaType: x.ftype === '写真' ? 'image/jpeg' : 'application/pdf' }), regdate: x.regdate }, x.rec)),
+  });
+
+  // 設備タグ(mstr_equipment_tag)。ファイルのバイナリは PocketBase にあり、DB は trans_file に名前・種類だけを持つ
+  out.push({
+    key: 'equiptag', label: '設備タグ', project: 'resource',
+    fields: [f('name', '名称'), f('file', 'タグ(ファイル)', 'file'), f('remarks', '備考', 'multiline', { req: false })],
+    rows: [
+      row('et1', { name: '設備銘板', file: JSON.stringify({ id: 'et-file-1', name: 'nameplate.png', mediaType: 'image/png' }), remarks: '' }),
+      row('et2', { name: '点検用 QR', file: JSON.stringify({ id: 'et-file-2', name: 'qr.pdf', mediaType: 'application/pdf' }), remarks: '' }),
+    ],
   });
 
   // 稼働カレンダー(mstr_work_calendar。設備が空の日は全体の稼働日)。画面案に無く、DB の変更で増えた(20261031_0001 の採択)

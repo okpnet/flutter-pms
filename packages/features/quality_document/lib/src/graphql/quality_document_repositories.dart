@@ -22,6 +22,8 @@ List<IEntityRepository> qualityDocumentRepositories(GraphQLClient client) {
   return [
     _DocumentTierRepository(_readOnly('doctier'), client, language),
     _DocumentRepository(_readOnly('doc'), client, language),
+    _DocumentContentRepository(_readOnly('doccontent'), client, language),
+    _ReportRepository(_readOnly('report'), client, language),
   ];
 }
 
@@ -280,4 +282,193 @@ class _DocumentRepository extends _ReadOnlyRepository {
         if (r.parentId == parentId) r,
     ];
   }
+}
+
+/// 文書コンテンツ(`doccontent`。ツリー)。読み込みが文書を必須にしているため、文書ごとに引いて並べる。
+class _DocumentContentRepository extends _ReadOnlyRepository {
+  _DocumentContentRepository(super.definition, super.client, super.language);
+
+  static String _lead(dynamic t) {
+    final nodes = t?.value?.nodes as List?;
+    return nodes == null || nodes.isEmpty
+        ? ''
+        : _ReadOnlyRepository.text(nodes.first.leadText);
+  }
+
+  EntityRecord _record(
+    Query$DocumentContentPageRead$allMstrDocumentContents$nodes n,
+  ) {
+    final l = n.labels;
+    final parents = n.parent.nodes;
+    return EntityRecord(
+      id: n.mstrDocumentContentId,
+      parentId: parents.isEmpty
+          ? null
+          : parents.first?.parentMstrDocumentContentId,
+      values: {
+        'doc': _ReadOnlyRepository.text(n.mstrDocumentId),
+        'code': _ReadOnlyRepository.text(n.code),
+        'name': _ReadOnlyRepository.dict(
+          l?.sharedDictionaryBySharedDictionaryNameId,
+        ),
+        'pronunciation': _ReadOnlyRepository.dict(
+          l?.sharedDictionaryBySharedDictionaryPronunciationId,
+        ),
+        'nickname': _ReadOnlyRepository.dict(
+          l?.sharedDictionaryBySharedDictionaryNicknameId,
+        ),
+        'detail': _lead(n.contentTexts),
+        'sequence': _ReadOnlyRepository.number(n.sequence),
+        'image_content': n.imageContent == null
+            ? ''
+            : (n.imageContent! ? 'はい' : 'いいえ'),
+        'file': _ReadOnlyRepository.file(n.file),
+        'remarks': _ReadOnlyRepository.text(n.remarks),
+      },
+    );
+  }
+
+  Future<List<EntityRecord>> _readOf(String documentId) async {
+    final result = await client.query$DocumentContentPageRead(
+      Options$Query$DocumentContentPageRead(
+        variables: Variables$Query$DocumentContentPageRead.fromJson({
+          'first': 1000,
+          'offset': 0,
+          'languageCodeId': await language.id,
+          'mstrDocumentId': documentId,
+        }),
+        fetchPolicy: FetchPolicy.noCache,
+      ),
+    );
+    final e = result.exception;
+    if (e != null) throw e;
+    return [
+      for (final n
+          in result.parsedData?.allMstrDocumentContents?.nodes ??
+              const <
+                Query$DocumentContentPageRead$allMstrDocumentContents$nodes?
+              >[])
+        if (n != null) _record(n),
+    ];
+  }
+
+  Future<List<String>> _documentIds() async {
+    final r = await client.query(
+      QueryOptions(
+        document: gql(
+          'query { allMstrDocuments(first: 1000, filter: {remove: {equalTo: false}}) { nodes { mstrDocumentId } } }',
+        ),
+        fetchPolicy: FetchPolicy.noCache,
+      ),
+    );
+    final e = r.exception;
+    if (e != null) throw e;
+    final nodes =
+        (r.data?['allMstrDocuments'] as Map?)?['nodes'] as List? ?? const [];
+    return [
+      for (final n in nodes.whereType<Map>()) n['mstrDocumentId'] as String,
+    ];
+  }
+
+  Future<List<EntityRecord>> _all() async {
+    final rows = <EntityRecord>[];
+    for (final id in await _documentIds()) {
+      rows.addAll(await _readOf(id));
+    }
+    return rows;
+  }
+
+  @override
+  Future<List<EntityRecord>> find({
+    required int take,
+    int skip = 0,
+    Expression? predicate,
+    SortExpression? orders,
+  }) async => (await _all()).skip(skip).take(take).toList();
+
+  @override
+  Future<EntityRecord?> findById(String id) async {
+    for (final r in await _all()) {
+      if (r.id == id) return r;
+    }
+    return null;
+  }
+
+  @override
+  Future<List<EntityRecord>> findByParent(String? parentId) async => [
+    for (final r in await _all())
+      if (r.parentId == parentId) r,
+  ];
+}
+
+/// レポートひな形(`report`)。
+class _ReportRepository extends _ReadOnlyRepository {
+  _ReportRepository(super.definition, super.client, super.language);
+
+  EntityRecord _record(Query$DocumentReportPageRead$allMstrReports$nodes n) {
+    final l = n.labels;
+    return EntityRecord(
+      id: n.mstrReportId,
+      values: {
+        'code': _ReadOnlyRepository.text(n.code),
+        'name': _ReadOnlyRepository.dict(
+          l?.sharedDictionaryBySharedDictionaryNameId,
+        ),
+        'pronunciation': _ReadOnlyRepository.dict(
+          l?.sharedDictionaryBySharedDictionaryPronunciationId,
+        ),
+        'nickname': _ReadOnlyRepository.dict(
+          l?.sharedDictionaryBySharedDictionaryNicknameId,
+        ),
+        'is_default': n.isDefault == null ? '' : (n.isDefault! ? 'はい' : 'いいえ'),
+        'file': _ReadOnlyRepository.file(n.file),
+        'remarks': _ReadOnlyRepository.text(n.remarks),
+      },
+    );
+  }
+
+  Future<List<EntityRecord>> _read(
+    int first,
+    int offset,
+    Map<String, dynamic> filter,
+  ) async {
+    final result = await client.query$DocumentReportPageRead(
+      Options$Query$DocumentReportPageRead(
+        variables: Variables$Query$DocumentReportPageRead.fromJson({
+          'first': first,
+          'offset': offset,
+          'languageCodeId': await language.id,
+          if (filter.isNotEmpty) 'filter': filter,
+        }),
+        fetchPolicy: FetchPolicy.noCache,
+      ),
+    );
+    final e = result.exception;
+    if (e != null) throw e;
+    return [
+      for (final n
+          in result.parsedData?.allMstrReports?.nodes ??
+              const <Query$DocumentReportPageRead$allMstrReports$nodes?>[])
+        if (n != null) _record(n),
+    ];
+  }
+
+  @override
+  Future<List<EntityRecord>> find({
+    required int take,
+    int skip = 0,
+    Expression? predicate,
+    SortExpression? orders,
+  }) => _read(take, skip, const {});
+
+  @override
+  Future<EntityRecord?> findById(String id) async {
+    final rows = await _read(1, 0, {
+      'mstrReportId': {'equalTo': id},
+    });
+    return rows.isEmpty ? null : rows.first;
+  }
+
+  @override
+  Future<List<EntityRecord>> findByParent(String? parentId) async => const [];
 }

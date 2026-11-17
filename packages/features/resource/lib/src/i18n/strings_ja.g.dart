@@ -72,6 +72,7 @@ class ResourceStrings$entity$ja {
 	late final ResourceStrings$entity$scheduledetail$ja scheduledetail = ResourceStrings$entity$scheduledetail$ja.internal(_root);
 	late final ResourceStrings$entity$inspectionresult$ja inspectionresult = ResourceStrings$entity$inspectionresult$ja.internal(_root);
 	late final ResourceStrings$entity$inspectionfile$ja inspectionfile = ResourceStrings$entity$inspectionfile$ja.internal(_root);
+	late final ResourceStrings$entity$equiptag$ja equiptag = ResourceStrings$entity$equiptag$ja.internal(_root);
 	late final ResourceStrings$entity$workcalendar$ja workcalendar = ResourceStrings$entity$workcalendar$ja.internal(_root);
 }
 
@@ -273,6 +274,20 @@ class ResourceStrings$entity$inspectionfile$ja {
 	String get title => 'ファイル';
 
 	late final ResourceStrings$entity$inspectionfile$fields$ja fields = ResourceStrings$entity$inspectionfile$fields$ja.internal(_root);
+}
+
+// Path: entity.equiptag
+class ResourceStrings$entity$equiptag$ja {
+	ResourceStrings$entity$equiptag$ja.internal(this._root);
+
+	final ResourceStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '設備タグ'
+	String get title => '設備タグ';
+
+	late final ResourceStrings$entity$equiptag$fields$ja fields = ResourceStrings$entity$equiptag$fields$ja.internal(_root);
 }
 
 // Path: entity.workcalendar
@@ -661,6 +676,24 @@ class ResourceStrings$entity$inspectionfile$fields$ja {
 	String get f_regdate => '登録日';
 }
 
+// Path: entity.equiptag.fields
+class ResourceStrings$entity$equiptag$fields$ja {
+	ResourceStrings$entity$equiptag$fields$ja.internal(this._root);
+
+	final ResourceStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '名称'
+	String get f_name => '名称';
+
+	/// ja: 'タグ(ファイル)'
+	String get f_file => 'タグ(ファイル)';
+
+	/// ja: '備考'
+	String get f_remarks => '備考';
+}
+
 // Path: entity.workcalendar.fields
 class ResourceStrings$entity$workcalendar$fields$ja {
 	ResourceStrings$entity$workcalendar$fields$ja.internal(this._root);
@@ -781,6 +814,10 @@ extension on ResourceStrings {
 			'entity.inspectionfile.title' => 'ファイル',
 			'entity.inspectionfile.fields.f_file' => 'ファイル',
 			'entity.inspectionfile.fields.f_regdate' => '登録日',
+			'entity.equiptag.title' => '設備タグ',
+			'entity.equiptag.fields.f_name' => '名称',
+			'entity.equiptag.fields.f_file' => 'タグ(ファイル)',
+			'entity.equiptag.fields.f_remarks' => '備考',
 			'entity.workcalendar.title' => '稼働カレンダー',
 			'entity.workcalendar.fields.f_work_date' => '稼働日',
 			'entity.workcalendar.fields.f_equipment' => '設備',

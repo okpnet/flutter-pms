@@ -17,7 +17,11 @@ void main() {
         if (rows.isEmpty) continue;
         expect(rows.first.valueOf('code'), isNotEmpty, reason: key);
         if (key != 'equipment') {
-          expect(rows.any((r) => r.valueOf('name').isNotEmpty), isTrue, reason: key);
+          expect(
+            rows.any((r) => r.valueOf('name').isNotEmpty),
+            isTrue,
+            reason: key,
+          );
         }
         final again = await repo.findById(rows.first.id);
         expect(again?.values, rows.first.values, reason: key);
@@ -30,15 +34,46 @@ void main() {
     });
 
     test('実体は読み取り専用: 新規・保存・削除を出さず、書き込もうとすると失敗する', () {
-      final repos = resourceRepositories(GraphQLClient(link: HttpLink('http://localhost:1'), cache: GraphQLCache()));
-      expect(repos.map((r) => r.definition.key), ['capability', 'license', 'location', 'equipment']);
-      for (final r in repos) {
-        expect(r.definition.viewOnly, isTrue);
+      final repos = resourceRepositories(
+        GraphQLClient(
+          link: HttpLink('http://localhost:1'),
+          cache: GraphQLCache(),
+        ),
+      );
+      // 書き込めるのは設備タグ・点検ファイルだけ(equipment_tag_test.dart・inspection_file_test.dart)。ほかは読み取り専用
+      const writable = {'equiptag', 'inspectionfile'};
+      expect(
+        repos.map((r) => r.definition.key),
+        containsAll([
+          'equiptag',
+          'inspectionfile',
+          'inspectionschedule',
+          'scheduledetail',
+          'inspectionresult',
+          'capability',
+          'license',
+          'location',
+          'equipment',
+        ]),
+      );
+      for (final r in repos.where(
+        (r) => !writable.contains(r.definition.key),
+      )) {
+        expect(r.definition.viewOnly, isTrue, reason: r.definition.key);
         expect(r.definition.fields.every((f) => f.readOnly), isTrue);
-        expect(() => r.save(const EntityRecord(id: '', values: {})), throwsUnsupportedError);
+        expect(
+          () => r.save(const EntityRecord(id: '', values: {})),
+          throwsUnsupportedError,
+        );
         expect(() => r.remove('x'), throwsUnsupportedError);
       }
-      expect(repos[2].definition.isTree, isTrue);
+      expect(
+        repos
+            .firstWhere((r) => r.definition.key == 'location')
+            .definition
+            .isTree,
+        isTrue,
+      );
     });
   });
 }

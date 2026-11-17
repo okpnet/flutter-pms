@@ -67,6 +67,7 @@ class OrganizationStrings$entity$ja {
 	late final OrganizationStrings$entity$department$ja department = OrganizationStrings$entity$department$ja.internal(_root);
 	late final OrganizationStrings$entity$departmentkind$ja departmentkind = OrganizationStrings$entity$departmentkind$ja.internal(_root);
 	late final OrganizationStrings$entity$staff$ja staff = OrganizationStrings$entity$staff$ja.internal(_root);
+	late final OrganizationStrings$entity$stafficon$ja stafficon = OrganizationStrings$entity$stafficon$ja.internal(_root);
 	late final OrganizationStrings$entity$staffcapability$ja staffcapability = OrganizationStrings$entity$staffcapability$ja.internal(_root);
 	late final OrganizationStrings$entity$stafflicense$ja stafflicense = OrganizationStrings$entity$stafflicense$ja.internal(_root);
 	late final OrganizationStrings$entity$approvalpattern$ja approvalpattern = OrganizationStrings$entity$approvalpattern$ja.internal(_root);
@@ -198,6 +199,20 @@ class OrganizationStrings$entity$staff$ja {
 	String get title => '作業者';
 
 	late final OrganizationStrings$entity$staff$fields$ja fields = OrganizationStrings$entity$staff$fields$ja.internal(_root);
+}
+
+// Path: entity.stafficon
+class OrganizationStrings$entity$stafficon$ja {
+	OrganizationStrings$entity$stafficon$ja.internal(this._root);
+
+	final OrganizationStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '担当者のアイコン'
+	String get title => '担当者のアイコン';
+
+	late final OrganizationStrings$entity$stafficon$fields$ja fields = OrganizationStrings$entity$stafficon$fields$ja.internal(_root);
 }
 
 // Path: entity.staffcapability
@@ -520,6 +535,24 @@ class OrganizationStrings$entity$staff$fields$ja {
 	String get f_remarks => '備考';
 }
 
+// Path: entity.stafficon.fields
+class OrganizationStrings$entity$stafficon$fields$ja {
+	OrganizationStrings$entity$stafficon$fields$ja.internal(this._root);
+
+	final OrganizationStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '名称'
+	String get f_name => '名称';
+
+	/// ja: 'アイコン'
+	String get f_file => 'アイコン';
+
+	/// ja: '備考'
+	String get f_remarks => '備考';
+}
+
 // Path: entity.staffcapability.fields
 class OrganizationStrings$entity$staffcapability$fields$ja {
 	OrganizationStrings$entity$staffcapability$fields$ja.internal(this._root);
@@ -695,6 +728,10 @@ extension on OrganizationStrings {
 			'entity.staff.fields.f_private_phone' => '緊急電話',
 			'entity.staff.fields.f_symbol' => '記号',
 			'entity.staff.fields.f_remarks' => '備考',
+			'entity.stafficon.title' => '担当者のアイコン',
+			'entity.stafficon.fields.f_name' => '名称',
+			'entity.stafficon.fields.f_file' => 'アイコン',
+			'entity.stafficon.fields.f_remarks' => '備考',
 			'entity.staffcapability.title' => '作業者の力量',
 			'entity.staffcapability.fields.f_capability' => '力量',
 			'entity.staffcapability.fields.f_value' => '値',

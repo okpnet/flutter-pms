@@ -1,0 +1,33 @@
+# inspection_file_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #InspectionFilePageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation InspectionFilePageEdit(
+  $transInspectImpFileId: UUID!
+  $transInspectRecordId: UUID
+  $titles: UUID
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  updateTransInspectImpFileByTransInspectImpFileId(
+    input: {
+      transInspectImpFileId: $transInspectImpFileId
+      transInspectImpFilePatch: {
+        transInspectRecordId: $transInspectRecordId
+        titles: $titles
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    transInspectImpFile {
+      transInspectImpFileId
+      transInspectRecordId
+      titles
+      remarks
+    }
+  }
+}

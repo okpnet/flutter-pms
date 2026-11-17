@@ -74,6 +74,8 @@ const EN = {
   actlotdeliver: 'Deliver lot to customer',
   actshipcancel: 'Cancel shipping order line',
   actpurcancel: 'Cancel outsourced purchase line',
+  equiptag: 'Equipment tags',
+  stafficon: 'Staff icons',
   mrppurchase: 'Planned purchases',
   mrpissue: 'Master data issues',
   mrpcoverage: 'Resource plan coverage',

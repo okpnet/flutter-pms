@@ -8,6 +8,8 @@ import 'package:pms_graphql/pms_graphql.dart';
 abstract class DocumentContentPageFilterSpec {
   static const FlatFilterSpec spec = FlatFilterSpec('MstrDocumentContentFilter', {
     'mstrDocumentContentId': FlatFilterPath([], 'mstrDocumentContentId'),
+    'parent||mstrDocumentContentTreeId': FlatFilterPath([FilterStep.many('mstrDocumentContentTreesByMstrDocumentContentId')], 'mstrDocumentContentTreeId'),
+    'parent||parentMstrDocumentContentId': FlatFilterPath([FilterStep.many('mstrDocumentContentTreesByMstrDocumentContentId')], 'parentMstrDocumentContentId'),
     'mstrDocumentId': FlatFilterPath([], 'mstrDocumentId'),
     'code': FlatFilterPath([], 'code'),
     'labels||sharedAppellationsId': FlatFilterPath([FilterStep('sharedAppellationByTitles')], 'sharedAppellationsId'),

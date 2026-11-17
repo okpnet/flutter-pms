@@ -231,6 +231,19 @@ DocumentContentPage: &DocumentContentPage
       value: false
   columns:
     - mstr_document_content_id
+    - name: parent
+      arrayType: toFirstOne
+      using: mstr_document_content_id
+      from: mstr_document_content_tree
+      requiredWhere:
+        - parent_mstr_document_content_id
+      columns:
+        - mstr_document_content_tree_id
+        - parent_mstr_document_content_id
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
     - mstr_document_id
     - code
     - name: labels
@@ -306,3 +319,43 @@ DocumentContentTreePageEdit:
     - update_user_id
     - update_user_history_id
     - remove
+
+# mstr_report の読み込み(レポートひな形。quality_document の台帳用。ファイルの名前・種類つき)
+DocumentReportPage: &DocumentReportPage
+  kind: read
+  from: mstr_report
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_report_id
+    - trans_file_id
+    - name: file
+      as: file
+      arrayType: toFirstOne
+      using: trans_file_id
+      <<: *QualityDocumentFileBodyFields
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - code
+    - is_default
+    - info_access_path_id
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields

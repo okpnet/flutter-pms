@@ -86,6 +86,7 @@
 /e/inspectionitem,点検整備項目,Inspection item,resource,false
 /e/inspectionoperation,設備点検整備運用,Equipment inspection operation,resource,false
 /e/inspectionschedule,点検予定,Inspection schedule,resource,false
+/e/equiptag,設備タグ,Equipment tags,resource,false
 /e/workcalendar,稼働カレンダー,Work calendar,resource,false
 /e/order,受注,Sales order,sales,false
 /e/shipplan,出荷予定,Shipping plan,sales,false
