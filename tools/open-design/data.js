@@ -302,3 +302,8 @@ window.OD_DATA.stock = [
   { id: "st7", loc: "l8",  container: "container3", item: "item2", unit: "個", qty: 90,  safety: 100, shelf: "SH-X-01", sym: "IT-BRKT" },
   { id: "st8", loc: "l15", container: "container2", item: "item4", unit: "本", qty: 15,  safety: 0,   shelf: "SH-R-01", sym: "IT-BAR" },
 ];
+
+/* ---- アクセス拒否（権限のないページ） ----
+   deniedRoutes : 権限がないものとして扱うルート名（例: "sites/edit", "approval/edit"）。入れたルートへ直接移動すると、URLはそのまま
+                  「この操作は許可されていません」の画面に置き換わる。空のときは、確認用の #/denied（サイドメニューの「アクセス拒否（確認用）」）で見られる。 */
+window.OD_DATA.access = { deniedRoutes: [] };

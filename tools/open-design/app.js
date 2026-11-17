@@ -94,6 +94,7 @@
   const ROUTES = {
     home: "ダッシュボード",
     "maintenance-mode": "メンテナンス中",
+    denied: "アクセスが拒否されました",
     barcode: "バーコード",
     customers: "顧客",
     orders: "出荷",
@@ -406,7 +407,7 @@
 
   function moreScreen() {
     const l = (href, ic, label, sub) => `<a class="rowi" href="${href}"><span class="rowi-main"><span class="rowi-name">${icon(ic)}${label}</span><span class="rowi-sub">${sub}</span></span><span class="rowi-right">${icon("chevron")}</span></a>`;
-    return `<div class="card list-card">${l("#/menu", "list", "業務メニュー", "品目・工程・営業・購買・生産計画・作業実績・品質管理")}${l("#/resources", "box", "資源", "力量・資格・場所・設備・保全")}${l("#/company", "building", "会社情報", "概要・サマリ・提供サービス")}${l("#/settings", "gear", "設定", "テーマ・言語・画面の列")}${l("#/maintenance-mode", "wrench", "メンテナンス中", "確認用。フラグがオンのときは全画面でこの表示になります")}${l("#/logout", "logout", "ログアウト", `${esc(D.user.name)} さんとしてサインイン中`)}</div>`;
+    return `<div class="card list-card">${l("#/menu", "list", "業務メニュー", "品目・工程・営業・購買・生産計画・作業実績・品質管理")}${l("#/resources", "box", "資源", "力量・資格・場所・設備・保全")}${l("#/company", "building", "会社情報", "概要・サマリ・提供サービス")}${l("#/settings", "gear", "設定", "テーマ・言語・画面の列")}${l("#/maintenance-mode", "wrench", "メンテナンス中", "確認用。フラグがオンのときは全画面でこの表示になります")}${l("#/denied", "alert", "アクセス拒否", "確認用。権限のないページを開いたときの表示です")}${l("#/logout", "logout", "ログアウト", `${esc(D.user.name)} さんとしてサインイン中`)}</div>`;
   }
 
   /* ---------- screens ---------- */
@@ -2278,7 +2279,7 @@
     }).join("");
     const cell = (s, c) => {
       const lab = `data-label="${c.label}"`;
-      if (c.key === "name") return `<th scope="row" ${lab} class="od-keep">${tg(r)}${editMode ? `<a class="cell-link" href="#/sites/${s.id}" aria-label="${esc(s.name)}を編集">${esc(s.name)}</a>` : esc(s.name)}</th>`;
+      if (c.key === "name") return `<th scope="row" ${lab} class="od-keep">${editMode ? `<a class="cell-link" href="#/sites/${s.id}" aria-label="${esc(s.name)}を編集">${esc(s.name)}</a>` : esc(s.name)}</th>`;
       if (c.key === "type") return `<td ${lab}>${chip(s.type, s.icon)}</td>`;
       if (c.key === "people") return `<td ${lab} class="num od-nowrap">${fmt(s.people)}名</td>`;
       if (c.key === "updatedAt") return `<td ${lab} class="od-nowrap">${esc(s.updatedAt)}</td>`;
@@ -2953,6 +2954,23 @@
     try { if (localStorage.getItem("od.maintenance") === "1") return true; } catch { /* storage unavailable */ }
     return MNT.enabled === true || /[?&]maintenance=1(&|$)/.test(location.search);
   };
+  /* アクセス拒否: 権限のないページへ直接移動したときの単独画面。ACCESS.deniedRoutes に入ったルートで、URLはそのまま画面だけ置き換える。
+     確認用に #/denied?from=<ルート名> でも開ける。実際の権限判定は認可の結果に置き換える。 */
+  const ACCESS = { deniedRoutes: [], ...(D.access ?? {}) };
+  let deniedFrom = "";
+  const deniedScreen = () => {
+    const from = deniedFrom ? (ROUTES[deniedFrom] ?? deniedFrom) : "";
+    return `<div class="mnt-wrap"><section class="card mnt-card" role="alert" aria-labelledby="den-h">
+      <img class="mnt-img" src="access-denied.svg" width="480" height="360" alt="工場の通路にある、黄と黒の縞模様の枠で囲まれた鋼鉄のドア。かんぬきに南京錠がかかり、左には「WARNING ACCESS DENIED」の赤い警告板があるイラスト。">
+      <h1 id="den-h" class="od-keep" tabindex="-1">この操作は<wbr>許可されていません</h1>
+      <p class="mnt-msg">このページを表示する権限がありません。権限が必要な場合は、管理者に連絡してください。</p>
+      <p class="note">エラーコード：<span class="od-nowrap">403</span>${from ? ` ・ 移動しようとしたページ：${esc(from)}` : ""}</p>
+      <div class="logout-actions">
+        <a class="btn btn-primary" href="#/home">${icon("home")}<span>ダッシュボードへ戻る</span></a>
+        ${history.length > 1 ? `<button class="btn" type="button" data-den-back>${icon("back")}<span>前の画面に戻る</span></button>` : ""}
+        <a class="btn" href="#/login">別のユーザーでサインインする</a>
+      </div></section></div>`;
+  };
   const downtimeScreen = (live) => `<div class="mnt-wrap"><section class="card mnt-card" role="status" aria-labelledby="mnt-h">
       <img class="mnt-img" src="maintenance.svg" width="480" height="360" alt="歯車とレンチ、縞模様の通行止めバリケードのイラスト。システムのメンテナンス作業中を表しています。">
       ${live ? `<h1 id="mnt-h" class="od-keep" tabindex="-1">ただいま<wbr>メンテナンス中です</h1>` : `<h2 id="mnt-h" class="od-keep">ただいま<wbr>メンテナンス中です</h2>`}
@@ -3304,6 +3322,7 @@
       const inp = document.querySelector("[data-pagesize]"); if (inp) { inp.value = String(PAGE_SIZE.std); inp.removeAttribute("aria-invalid"); }
       document.getElementById("page-msg").textContent = "";
     });
+    document.querySelector("[data-den-back]")?.addEventListener("click", () => history.back());
     document.querySelector("[data-err=conn]")?.addEventListener("click", () => { gErr = { title: "認証サーバーに接続できません", msg: "ネットワークの状態を確認して、もう一度お試しください。", code: "KC-503" }; });
     const af = document.getElementById("acct-form");
     if (af) { bindAcct(af); document.querySelector("input:not([disabled])")?.focus(); }
@@ -3339,6 +3358,7 @@
       children: [...(g.id === "result" ? [{ id: "barcode", icon: "barcode", label: "バーコード" }] : []), ...g.screens.map((sid) => ({ id: `g/${sid}`, icon: GS[sid].icon, label: GS[sid].label }))] })),
     { id: "company", icon: "building", label: "会社情報" },
     { id: "maintenance-mode", icon: "wrench", label: "メンテナンス中" },
+    { id: "denied", icon: "alert", label: "アクセス拒否（確認用）" },
   ];
   NAV.find((n) => n.group === "g_plan")?.children.push({ id: "mrp", icon: "box", label: "資材所要計算" });
   NAV.find((n) => n.group === "g_result")?.children.push({ id: "stock", icon: "box", label: "在庫状況" });
@@ -3426,7 +3446,9 @@
     const P = parseRoute();
     const mntLive = maintenanceOn();
     if (P.name !== "barcode" || mntLive) { BC.cam = false; bcCamStop(); BC.argKey = null; }
-    const route = mntLive ? "maintenance-mode" : P.name;
+    const blocked = !mntLive && ACCESS.deniedRoutes.includes(P.name);
+    deniedFrom = P.name === "denied" ? hashQuery().get("from") ?? "" : blocked ? P.name : "";
+    const route = mntLive ? "maintenance-mode" : blocked ? "denied" : P.name;
     const isLogout = route === "logout";
     const title = route === "maintenance/entity" ? `${ENT[P.ent]?.label ?? "保全"}の編集`
       : route === "g" ? GS[P.sid]?.label ?? "業務画面"
@@ -3434,7 +3456,7 @@
       : ROUTES[route];
     const need = { "register/code": acct.flow === "register", "forgot/code": acct.flow === "forgot", "forgot/reset": acct.flow === "forgot" && acct.verified };
     if (route in need && !need[route]) { location.hash = route.startsWith("register") ? "#/register" : "#/forgot"; return; }
-    const bare = ["boot", "login", "error", "register", "register/code", "forgot", "forgot/code", "forgot/reset"].includes(route) || mntLive;
+    const bare = ["boot", "login", "error", "register", "register/code", "forgot", "forgot/code", "forgot/reset", "denied"].includes(route) || mntLive;
     navPop = null;
     NAV.forEach((n) => { if (n.group && (n.children.some((c) => c.id && isCurNav(c.id, route)) || route === "resources")) navOpen.add(n.group); });
     if (route === "company") draft = null;
@@ -3452,7 +3474,7 @@
     if (isLogout) {
       screen.innerHTML = (!mobile ? pageHead(title) : "") + logoutScreen(logoutState);
     } else if (bare) {
-      screen.innerHTML = mntLive ? downtimeScreen(true) : { boot: bootScreen, login: loginScreen, error: errorScreen, register: registerScreen, "register/code": () => codeScreen("register"), forgot: forgotScreen, "forgot/code": () => codeScreen("forgot"), "forgot/reset": resetScreen }[route]();
+      screen.innerHTML = mntLive ? downtimeScreen(true) : { boot: bootScreen, login: loginScreen, error: errorScreen, denied: deniedScreen, register: registerScreen, "register/code": () => codeScreen("register"), forgot: forgotScreen, "forgot/code": () => codeScreen("forgot"), "forgot/reset": resetScreen }[route]();
     } else {
       const body = {
         home: homeScreen,
