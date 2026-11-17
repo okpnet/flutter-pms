@@ -40,6 +40,13 @@ query CertificatePageRead(
 
       class
       transFileId
+
+      file: transFileByTransFileId {
+        transFileId
+        name
+        mediaType
+      }
+
       symbol
       remarks
 

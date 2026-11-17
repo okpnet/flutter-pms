@@ -161,6 +161,38 @@ void main() {
       expect(found.data?['allTransFiles']?['totalCount'], 0);
     });
 
+    serverTest('保存先へ上げたあと、つなげなかったら(親が無い)、作ったファイルの行を取り消す(データを変更し、後始末で論理削除する)', (
+      server,
+    ) async {
+      final client = server.provider.client;
+      final transfer = _Transfer();
+      final repos = qualityRepositories(client, fileTransfer: transfer);
+      final files = repos.firstWhere((r) => r.definition.key == 'compfile');
+      final marker = 'orphan-${DateTime.now().microsecondsSinceEpoch}.bin';
+      await expectLater(
+        files.save(
+          EntityRecord(
+            id: '',
+            // 存在しない異常報告(つなぎの登録が外部キーで失敗する)
+            parentId: '00000000-0000-4000-8000-000000000000',
+            values: {'file': pending('o', marker, '').toValue()},
+          ),
+        ),
+        throwsA(anything),
+      );
+      expect(transfer.uploaded, hasLength(1), reason: '上げるところまでは進んだ');
+      final found = await client.query(
+        QueryOptions(
+          document: gql(
+            r'query($n: String!) { allTransFiles(filter: {name: {equalTo: $n}, remove: {equalTo: false}}) { totalCount } }',
+          ),
+          variables: {'n': marker},
+          fetchPolicy: FetchPolicy.noCache,
+        ),
+      );
+      expect(found.data?['allTransFiles']?['totalCount'], 0);
+    });
+
     test('ファイルが無いと、検証エラー(必須)になる', () async {
       final repos = qualityRepositories(
         GraphQLClient(

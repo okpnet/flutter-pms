@@ -99,6 +99,16 @@ abstract class _ReadOnlyRepository implements IEntityRepository {
 
   static String text(Object? v) => v == null ? '' : '$v';
 
+  /// 共有ファイル(`trans_file`)の名前・種類を、ファイルの項目の値(`EntityFile`)にする。ファイルが無ければ空。
+  /// ID は `trans_file_id`(PocketBase の `app_file_id` と同じ)で、そのままダウンロードに使う。
+  static String file(dynamic f) => f == null
+      ? ''
+      : EntityFile(
+          id: '${f.transFileId}',
+          name: '${f.name}',
+          mediaType: f.mediaType == null ? '' : '${f.mediaType}',
+        ).toValue();
+
   /// DB の numeric(文字列)を、画面の数値の形にする(小数の 0 は省く)。
   static String number(Object? v) {
     final s = text(v);
@@ -138,6 +148,7 @@ class _DocumentTierRepository extends _ReadOnlyRepository {
         ),
         'attributive_noun': _ReadOnlyRepository.text(n.attributiveNoun),
         'tier_number': _ReadOnlyRepository.number(n.tierNumber),
+        'file': _ReadOnlyRepository.file(n.file),
         'remarks': _ReadOnlyRepository.text(n.remarks),
       },
     );
@@ -212,6 +223,7 @@ class _DocumentRepository extends _ReadOnlyRepository {
           l?.sharedDictionaryBySharedDictionaryNicknameId,
         ),
         'mstr_document_tier_id': _ReadOnlyRepository.text(n.mstrDocumentTierId),
+        'file': _ReadOnlyRepository.file(n.file),
         'remarks': _ReadOnlyRepository.text(n.remarks),
       },
     );

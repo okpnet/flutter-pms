@@ -3,6 +3,15 @@
 # ドキュメント
 
 # ドキュメントレベル読み込み
+# 共有ファイルの名前・種類(trans_file。バイナリは PocketBase にあり、DB は名前・種類だけを持つ)
+QualityDocumentFileBodyFields: &QualityDocumentFileBodyFields
+  kind: read
+  from: trans_file
+  columns:
+    - trans_file_id
+    - name
+    - media_type
+
 DocumentTierPage: &DocumentTierPage
   kind: read
   from: mstr_document_tier
@@ -26,6 +35,11 @@ DocumentTierPage: &DocumentTierPage
         - nickname
       <<: *AppellationLabelsReadFields
     - trans_file_id
+    - name: file
+      as: file
+      arrayType: toFirstOne
+      using: trans_file_id
+      <<: *QualityDocumentFileBodyFields
     - attributive_noun
     - identifier # 0055: 列名は小文字(Identifier → identifier)
     - tier_number
@@ -122,6 +136,11 @@ DocumentPage: &DocumentPage
       using: mstr_document_tier_id
       <<: *DocumentTierPage
     - trans_file_id
+    - name: file
+      as: file
+      arrayType: toFirstOne
+      using: trans_file_id
+      <<: *QualityDocumentFileBodyFields
     - control_number
     - version_code
     - trans_approval_pattern_id
@@ -231,6 +250,11 @@ DocumentContentPage: &DocumentContentPage
     - sequence
     - image_content
     - trans_file_id
+    - name: file
+      as: file
+      arrayType: toFirstOne
+      using: trans_file_id
+      <<: *QualityDocumentFileBodyFields
     - symbol
     - remarks
     - update_at

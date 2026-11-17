@@ -705,6 +705,7 @@ type TransCertificate {
   updateUserHistoryId: UUID
   remove: Boolean
   transLabelByTitles: TransLabel
+  transFileByTransFileId: TransFile
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
   vCertificatePurchaseCertificationCountByTransCertificateId: VCertificatePurchaseCertificationCount
   vCertificateWorkRecordCertificateCountByTransCertificateId: VCertificateWorkRecordCertificateCount
@@ -777,6 +778,12 @@ type TransConveysConnection {
   nodes: [TransConvey]!
   pageInfo: PageInfo!
   totalCount: Int!
+}
+
+type TransFile {
+  transFileId: UUID!
+  name: String!
+  mediaType: String
 }
 
 type TransInventoryAppliesConnection {
@@ -1958,6 +1965,7 @@ input TransCertificateFilter {
   vCertificateWorkRecordCertificateCountByTransCertificateIdExists: Boolean
   transLabelByTitles: TransLabelFilter
   transLabelByTitlesExists: Boolean
+  transFileByTransFileId: TransFileFilter
   transFileByTransFileIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
@@ -2083,6 +2091,34 @@ input TransConveyPatch {
   staffId: UUID
   remarks: String
   remove: Boolean
+}
+
+input TransFileFilter {
+  transFileId: UUIDFilter
+  binaryData: StringFilter
+  name: StringFilter
+  mediaType: StringFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transComplaintFilesByTransFileIdExist: Boolean
+  infoStaffIconsByTransFileIdExist: Boolean
+  mstrDocumentTiersByTransFileIdExist: Boolean
+  mstrDocumentsByTransFileIdExist: Boolean
+  mstrDocumentContentsByTransFileIdExist: Boolean
+  mstrReportsByTransFileIdExist: Boolean
+  mstrEquipmentTagsByTransFileIdExist: Boolean
+  transInspectImpFilesByTransFileIdExist: Boolean
+  transCertificatesByTransFileIdExist: Boolean
+  vFileComplaintFileCountByTransFileIdExists: Boolean
+  vFileStaffIconCountByTransFileIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransFileFilter!]
+  or: [TransFileFilter!]
+  not: TransFileFilter
 }
 
 input TransInventoryApplyFilter {

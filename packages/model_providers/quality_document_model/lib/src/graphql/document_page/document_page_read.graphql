@@ -117,6 +117,13 @@ query DocumentPageRead(
         }
 
         transFileId
+
+        file: transFileByTransFileId {
+          transFileId
+          name
+          mediaType
+        }
+
         attributiveNoun
         identifier
         tierNumber
@@ -180,6 +187,13 @@ query DocumentPageRead(
       }
 
       transFileId
+
+      file: transFileByTransFileId {
+        transFileId
+        name
+        mediaType
+      }
+
       controlNumber
       versionCode
       transApprovalPatternId

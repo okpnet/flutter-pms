@@ -11,7 +11,8 @@ import 'package:quality_model/quality_model.dart';
 /// 決めた値は無視される)ため、保存の順は次のとおり:
 /// ① `trans_file` の行を作って ID を得る → ② その ID を PocketBase の `app_file_id` にして、バイナリを上げる
 /// ([IEntityFileTransfer.upload]) → ③ `trans_complaint_file` でつなぐ。
-/// ② が失敗したら、① の行を論理削除して失敗にする。③ が失敗したときは、① の行とファイルが残る(参照されない。マスタ・Info と同じく許容する)。
+/// ② が失敗したら、① の行を論理削除して失敗にする。③ が失敗したときも、① の行を論理削除する(PocketBase に上がったファイルは、
+/// 利用者の権限では削除できないため、参照されないまま残る。`app_file_id` で DB の行と突き合わせて、管理者が掃除する)。
 /// 差し替えは、新しい行・ファイルを作って `trans_file_id` を付け替える(古い行・ファイルは残る。PocketBase は上書きしない)。
 /// 取り消しは論理削除(`remove = true`)。更新者は [AuditUserSource] で受けて送る。
 ///
@@ -203,24 +204,34 @@ class ComplaintFileRepository implements IEntityRepository {
         });
       }
       final fileRowId = file.isPending ? await _storeFile(file) : file.id;
-      final r = await _client.mutate$ComplaintFilePageCreate(
-        Options$Mutation$ComplaintFilePageCreate(
-          variables: Variables$Mutation$ComplaintFilePageCreate(
-            transComplaintId: complaintId,
-            transFileId: fileRowId,
-            updateUserId: au?.staffId,
-            updateUserHistoryId: au?.staffHistoryId,
+      final String id;
+      try {
+        final r = await _client.mutate$ComplaintFilePageCreate(
+          Options$Mutation$ComplaintFilePageCreate(
+            variables: Variables$Mutation$ComplaintFilePageCreate(
+              transComplaintId: complaintId,
+              transFileId: fileRowId,
+              updateUserId: au?.staffId,
+              updateUserHistoryId: au?.staffHistoryId,
+            ),
           ),
-        ),
-      );
-      final e = r.exception;
-      if (e != null) throw e;
-      final id = r
-          .parsedData
-          ?.createTransComplaintFile
-          ?.transComplaintFile
-          ?.transComplaintFileId;
-      if (id == null) throw StateError('異常報告のファイルを保存できませんでした');
+        );
+        final e = r.exception;
+        if (e != null) throw e;
+        final created = r
+            .parsedData
+            ?.createTransComplaintFile
+            ?.transComplaintFile
+            ?.transComplaintFileId;
+        if (created == null) throw StateError('異常報告のファイルを保存できませんでした');
+        id = created;
+      } catch (_) {
+        // つなげなかった: 今作った trans_file の行を取り消す(PocketBase に上がったファイルは、削除できないため残る)
+        if (file.isPending) {
+          await _removeFileRow(fileRowId, au?.staffId, au?.staffHistoryId);
+        }
+        rethrow;
+      }
       return EntityRecord(
         id: id,
         parentId: complaintId,
@@ -239,18 +250,25 @@ class ComplaintFileRepository implements IEntityRepository {
     if (current == null) throw StateError('異常報告のファイルが見つかりません');
     if (EntityFile.tryParse(current.valueOf('file'))?.id != file.id) {
       final fileRowId = file.isPending ? await _storeFile(file) : file.id;
-      final r = await _client.mutate$ComplaintFilePageEdit(
-        Options$Mutation$ComplaintFilePageEdit(
-          variables: Variables$Mutation$ComplaintFilePageEdit(
-            transComplaintFileId: record.id,
-            transFileId: fileRowId,
-            updateUserId: au?.staffId,
-            updateUserHistoryId: au?.staffHistoryId,
+      try {
+        final r = await _client.mutate$ComplaintFilePageEdit(
+          Options$Mutation$ComplaintFilePageEdit(
+            variables: Variables$Mutation$ComplaintFilePageEdit(
+              transComplaintFileId: record.id,
+              transFileId: fileRowId,
+              updateUserId: au?.staffId,
+              updateUserHistoryId: au?.staffHistoryId,
+            ),
           ),
-        ),
-      );
-      final e = r.exception;
-      if (e != null) throw e;
+        );
+        final e = r.exception;
+        if (e != null) throw e;
+      } catch (_) {
+        if (file.isPending) {
+          await _removeFileRow(fileRowId, au?.staffId, au?.staffHistoryId);
+        }
+        rethrow;
+      }
     }
     return record;
   }

@@ -160,6 +160,7 @@ type MstrDocument {
   remove: Boolean
   sharedAppellationByTitles: SharedAppellation
   mstrDocumentTierByMstrDocumentTierId: MstrDocumentTier
+  transFileByTransFileId: TransFile
   transApprovalPatternByTransApprovalPatternId: TransApprovalPattern
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
   mstrDocumentTreesByMstrDocumentId(first: Int): MstrDocumentTreesConnection!
@@ -182,6 +183,7 @@ type MstrDocumentContent {
   remove: Boolean
   sharedAppellationByTitles: SharedAppellation
   sharedTextByContents: SharedText
+  transFileByTransFileId: TransFile
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
 }
 
@@ -215,6 +217,7 @@ type MstrDocumentTier {
   updateUserHistoryId: UUID
   remove: Boolean
   sharedAppellationByNames: SharedAppellation
+  transFileByTransFileId: TransFile
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
   vDocumentTierDocumentCountByMstrDocumentTierId: VDocumentTierDocumentCount
 }
@@ -314,6 +317,12 @@ type TransApprovalPattern {
   remove: Boolean
   mstrApprovalPatternByMstrApprovalPatternId: MstrApprovalPattern
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
+}
+
+type TransFile {
+  transFileId: UUID!
+  name: String!
+  mediaType: String
 }
 
 type UpdateMstrDocumentContentPayload {
@@ -775,6 +784,7 @@ input MstrDocumentContentFilter {
   vDocumentContentDescendantByAncestorMstrDocumentContentIdExists: Boolean
   sharedAppellationByTitles: SharedAppellationFilter
   sharedTextByContents: SharedTextFilter
+  transFileByTransFileId: TransFileFilter
   transFileByTransFileIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
@@ -836,6 +846,7 @@ input MstrDocumentFilter {
   vDocumentDocumentContentCountByMstrDocumentIdExists: Boolean
   sharedAppellationByTitles: SharedAppellationFilter
   mstrDocumentTierByMstrDocumentTierId: MstrDocumentTierFilter
+  transFileByTransFileId: TransFileFilter
   transFileByTransFileIdExists: Boolean
   transApprovalPatternByTransApprovalPatternId: TransApprovalPatternFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
@@ -881,6 +892,7 @@ input MstrDocumentTierFilter {
   vDocumentTierDocumentCountByMstrDocumentTierId: VDocumentTierDocumentCountFilter
   vDocumentTierDocumentCountByMstrDocumentTierIdExists: Boolean
   sharedAppellationByNames: SharedAppellationFilter
+  transFileByTransFileId: TransFileFilter
   transFileByTransFileIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
@@ -1259,6 +1271,34 @@ input TransApprovalPatternFilter {
   and: [TransApprovalPatternFilter!]
   or: [TransApprovalPatternFilter!]
   not: TransApprovalPatternFilter
+}
+
+input TransFileFilter {
+  transFileId: UUIDFilter
+  binaryData: StringFilter
+  name: StringFilter
+  mediaType: StringFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transComplaintFilesByTransFileIdExist: Boolean
+  infoStaffIconsByTransFileIdExist: Boolean
+  mstrDocumentTiersByTransFileIdExist: Boolean
+  mstrDocumentsByTransFileIdExist: Boolean
+  mstrDocumentContentsByTransFileIdExist: Boolean
+  mstrReportsByTransFileIdExist: Boolean
+  mstrEquipmentTagsByTransFileIdExist: Boolean
+  transInspectImpFilesByTransFileIdExist: Boolean
+  transCertificatesByTransFileIdExist: Boolean
+  vFileComplaintFileCountByTransFileIdExists: Boolean
+  vFileStaffIconCountByTransFileIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransFileFilter!]
+  or: [TransFileFilter!]
+  not: TransFileFilter
 }
 
 input UUIDFilter {

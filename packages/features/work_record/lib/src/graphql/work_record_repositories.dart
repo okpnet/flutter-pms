@@ -99,6 +99,16 @@ abstract class _ReadOnlyRepository implements IEntityRepository {
 
   static String text(Object? v) => v == null ? '' : '$v';
 
+  /// 共有ファイル(`trans_file`)の名前・種類を、ファイルの項目の値(`EntityFile`)にする。ファイルが無ければ空。
+  /// ID は `trans_file_id`(PocketBase の `app_file_id` と同じ)で、そのままダウンロードに使う。
+  static String file(dynamic f) => f == null
+      ? ''
+      : EntityFile(
+          id: '${f.transFileId}',
+          name: '${f.name}',
+          mediaType: f.mediaType == null ? '' : '${f.mediaType}',
+        ).toValue();
+
   /// 名称のラベル(`value.nodes[0].labelValue`)の、言語コード指定の値。
   static String label(dynamic l) {
     final nodes = l?.value?.nodes as List?;
@@ -179,6 +189,7 @@ class _CertificateRepository extends _ReadOnlyRepository {
         'serial': _ReadOnlyRepository.text(n.serial),
         'title': _ReadOnlyRepository.label(l),
         'class': _ReadOnlyRepository.text(n.$class),
+        'file': _ReadOnlyRepository.file(n.file),
         'remarks': _ReadOnlyRepository.text(n.remarks),
       },
     );

@@ -11,7 +11,9 @@ export 'strings.g.dart' show QualityDocumentStrings;
 /// 基準言語以外は遅延読み込み(slang の生成物)のため、読み込みが終わるまでは
 /// 基準言語の文字列を返し、終わった時点で差し替える。
 final qualityDocumentStringsProvider =
-    NotifierProvider<QualityDocumentStringsNotifier, QualityDocumentStrings>(QualityDocumentStringsNotifier.new);
+    NotifierProvider<QualityDocumentStringsNotifier, QualityDocumentStrings>(
+      QualityDocumentStringsNotifier.new,
+    );
 
 class QualityDocumentStringsNotifier extends Notifier<QualityDocumentStrings> {
   @override

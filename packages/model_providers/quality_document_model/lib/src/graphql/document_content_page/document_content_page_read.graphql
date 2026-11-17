@@ -79,6 +79,13 @@ query DocumentContentPageRead(
       sequence
       imageContent
       transFileId
+
+      file: transFileByTransFileId {
+        transFileId
+        name
+        mediaType
+      }
+
       symbol
       remarks
       updateAt

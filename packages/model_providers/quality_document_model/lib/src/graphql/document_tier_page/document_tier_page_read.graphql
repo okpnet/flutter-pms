@@ -63,6 +63,13 @@ query DocumentTierPageRead(
       }
 
       transFileId
+
+      file: transFileByTransFileId {
+        transFileId
+        name
+        mediaType
+      }
+
       attributiveNoun
       identifier
       tierNumber

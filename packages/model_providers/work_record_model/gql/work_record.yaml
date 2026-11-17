@@ -71,6 +71,15 @@ ContainerPageEdit:
     - remove
 
 # trans_certificateの読み込み(tool/scaffold_view.dartが出力した雛形、要件0055)
+# 共有ファイルの名前・種類(trans_file。バイナリは PocketBase にあり、DB は名前・種類だけを持つ)
+WorkRecordFileBodyFields: &WorkRecordFileBodyFields
+  kind: read
+  from: trans_file
+  columns:
+    - trans_file_id
+    - name
+    - media_type
+
 CertificatePage: &CertificatePage
   kind: read
   from: trans_certificate
@@ -91,6 +100,11 @@ CertificatePage: &CertificatePage
       <<: *FlexibleLabelReadFields
     - class
     - trans_file_id
+    - name: file
+      as: file
+      arrayType: toFirstOne
+      using: trans_file_id
+      <<: *WorkRecordFileBodyFields
     - symbol
     - remarks
     # 子のレコード数(要件0056。DBのビュー 2本)
