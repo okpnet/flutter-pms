@@ -12,7 +12,13 @@ import 'package:theme_lib/theme_lib.dart'
 
 /// 評価用の起動(pms_app の実物のルーター・セッション・各機能 + 仮想のサーバー)。
 class ExampleHarness {
-  ExampleHarness._(this.tester, this.server, this.container, this.picker, this.saver);
+  ExampleHarness._(
+    this.tester,
+    this.server,
+    this.container,
+    this.picker,
+    this.saver,
+  );
 
   final WidgetTester tester;
   final VirtualServer server;
@@ -23,8 +29,7 @@ class ExampleHarness {
   GoRouter get router => container.read(rootRouterProvider);
 
   /// 現在のパス(クエリを含む)。
-  String get location =>
-      router.state.uri.toString();
+  String get location => router.state.uri.toString();
 
   static Future<ExampleHarness> start(
     WidgetTester tester, {
@@ -77,14 +82,18 @@ class ExampleHarness {
     await tester.enterText(find.byType(TextField).at(0), id);
     await tester.enterText(find.byType(TextField).at(1), password);
     await tester.tap(find.text('ログイン'));
-    await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 50)));
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 50)),
+    );
     await settle();
   }
 
   /// ルーターで移動する(アプリの中の `context.go` と同じ)。
   Future<void> go(String path) async {
     router.go(path);
-    await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 50)));
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 50)),
+    );
     await settle();
   }
 }

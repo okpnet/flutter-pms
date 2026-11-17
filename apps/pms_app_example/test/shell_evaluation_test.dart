@@ -4,7 +4,8 @@ import 'package:feature_shared/feature_shared.dart';
 import 'package:app_shell/app_shell.dart' show UserContainer;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:feature_shared/feature_shared.dart' show EntityListDestination, TopLevelDestination, commandBusProvider;
+import 'package:feature_shared/feature_shared.dart'
+    show EntityListDestination, TopLevelDestination, commandBusProvider;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pms_app/contents/_shared/frames/app_main_frame.dart';
@@ -47,7 +48,9 @@ void main() {
 
       final manager = h.container.read(themeManagerProvider.notifier);
       // 追加のテーマ(ocean・forest。アプリが起動時に取り込む)
-      final failures = await tester.runAsync(() => manager.importAssets(ThemeAssets.all));
+      final failures = await tester.runAsync(
+        () => manager.importAssets(ThemeAssets.all),
+      );
       // ignore: avoid_print
       print('追加のテーマの取り込み失敗: ${failures?.length}');
       final ids = h.container.read(themeManagerProvider).themes.keys.toList();
@@ -86,9 +89,12 @@ void main() {
 
       // 設定画面に、ユーザーパネル(大)で名前が出る
       await h.go('/settings');
-      expect(find.byType(UserContainer), findsNWidgets(2), reason: '枠(中)と設定画面(大)');
+      expect(
+        find.byType(UserContainer),
+        findsNWidgets(2),
+        reason: '枠(中)と設定画面(大)',
+      );
       expect(find.text('佐藤'), findsWidgets);
-
     });
 
     testWidgets('管理者でログインすると、管理者として身元に出る', (tester) async {
@@ -124,7 +130,11 @@ void main() {
       );
       await h.settle();
       expect(h.saver.saved.keys, contains('sample.txt'));
-      expect(h.saver.saved['sample.txt']!.length, 12, reason: '内容(virtual file)が戻る');
+      expect(
+        h.saver.saved['sample.txt']!.length,
+        12,
+        reason: '内容(virtual file)が戻る',
+      );
     });
 
     testWidgets('不正なファイル ID は、通信しないで入力エラー', (tester) async {
@@ -197,7 +207,9 @@ void main() {
       expect(find.text('ダッシュボードへ'), findsOneWidget);
       expect(find.byType(FilledButton), findsOneWidget);
       await tester.tap(find.text('ダッシュボードへ'));
-      await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 50)));
+      await tester.runAsync(
+        () => Future<void>.delayed(const Duration(milliseconds: 50)),
+      );
       await h.settle();
       expect(h.location, '/dashboard');
     });
@@ -232,11 +244,14 @@ void main() {
       for (final e in entries) {
         final path = _pathOf(e.destination);
         if (path == null) {
-          failures.add('パスを求められない(メニューに出ない): ${e.groupLabel}/${e.label} ${e.destination.runtimeType}');
+          failures.add(
+            'パスを求められない(メニューに出ない): ${e.groupLabel}/${e.label} ${e.destination.runtimeType}',
+          );
           continue;
         }
         // 配送区分は、営業・購買のどちらのメニューからも開く(仕様)
-        if (!seen.add(path) && path != '/shipping-kinds') failures.add('重複: ${e.groupLabel}/${e.label} → $path');
+        if (!seen.add(path) && path != '/shipping-kinds')
+          failures.add('重複: ${e.groupLabel}/${e.label} → $path');
         await h.go(path);
         if (h.location.startsWith('/error')) {
           failures.add('エラー画面: ${e.groupLabel}/${e.label} → $path');
@@ -252,8 +267,7 @@ void main() {
       final h = await ExampleHarness.start(tester);
       await h.login('admin', 'admin-pass');
       final Set<String?> menuPaths = {
-        for (final e in _menuEntries(_refOf(tester)))
-          _pathOf(e.destination),
+        for (final e in _menuEntries(_refOf(tester))) _pathOf(e.destination),
       };
       final routes = <String>{};
       void walk(RouteBase r, String base) {
@@ -297,33 +311,35 @@ void main() {
 // ファイルの項目(`FieldKind.file`)。実体は PocketBase(仮想)にあり、DB には ID だけを持つ。
 void fileFieldTests() {
   group('ファイルの項目(点検ファイル)', () {
-    testWidgets('編集でアップロードすると、仮想の PocketBase に上がり、名前を押すとダウンロードできる', (tester) async {
-      final h = await ExampleHarness.start(tester);
-      await h.login('admin', 'admin-pass');
-      await h.go('/e/inspectionfile/cda6a7cd-0000-4000-8000-000000000001');
-      expect(find.byKey(const ValueKey('fileUpload:file')), findsOneWidget);
-      expect(find.text('潤滑油量_20261015.jpg'), findsOneWidget);
+    testWidgets(
+      '編集で選ぶだけでは PocketBase に上げず、名前を押すと選んだファイルを保存できる(上げるのは保存の途中で、取得元が DB の ID で行う)',
+      (tester) async {
+        final h = await ExampleHarness.start(tester);
+        await h.login('admin', 'admin-pass');
+        await h.go('/e/inspectionfile/cda6a7cd-0000-4000-8000-000000000001');
+        expect(find.byKey(const ValueKey('fileUpload:file')), findsOneWidget);
+        expect(find.text('潤滑油量_20261015.jpg'), findsOneWidget);
 
-      await tester.tap(find.byKey(const ValueKey('fileUpload:file')));
-      await tester.runAsync(
-        () => Future<void>.delayed(const Duration(milliseconds: 80)),
-      );
-      await h.settle();
-      expect(h.server.files, hasLength(1), reason: '仮想の PocketBase に上がる');
-      final id = h.server.files.single.appFileId;
-      expect(id, matches(RegExp(r'^[0-9a-f-]{36}$')), reason: 'ID は UUID(DB の trans_file_id にする)');
-      expect(find.text('sample.txt'), findsOneWidget);
+        await tester.tap(find.byKey(const ValueKey('fileUpload:file')));
+        await tester.runAsync(
+          () => Future<void>.delayed(const Duration(milliseconds: 80)),
+        );
+        await h.settle();
+        // DB の ID(trans_file_id)は保存のときに決まる。選んだだけの間は、保存先へ上げない
+        expect(h.server.files, isEmpty, reason: '選んだだけでは上げない');
+        expect(find.text('sample.txt'), findsOneWidget);
 
-      // 名前を押すと、その ID でダウンロードして保存する
-      await tester.tap(find.byKey(const ValueKey('fileName:file')));
-      await tester.runAsync(
-        () => Future<void>.delayed(const Duration(milliseconds: 80)),
-      );
-      await h.settle();
-      expect(h.saver.saved.keys, contains('sample.txt'));
-    });
+        // 名前を押すと、預かっているバイナリを保存する
+        await tester.tap(find.byKey(const ValueKey('fileName:file')));
+        await tester.runAsync(
+          () => Future<void>.delayed(const Duration(milliseconds: 80)),
+        );
+        await h.settle();
+        expect(h.saver.saved.keys, contains('sample.txt'));
+      },
+    );
 
-    testWidgets('PocketBase に接続できないときは、アップロードに失敗して、項目にエラーが出る', (tester) async {
+    testWidgets('PocketBase に接続できなくても、ファイルを選べる(上げるのは保存のとき)', (tester) async {
       final h = await ExampleHarness.start(tester);
       await h.login('admin', 'admin-pass');
       await h.go('/e/inspectionfile/cda6a7cd-0000-4000-8000-000000000001');
@@ -334,7 +350,8 @@ void fileFieldTests() {
       );
       await h.settle();
       expect(h.server.files, isEmpty);
-      expect(find.text('アップロードに失敗しました'), findsOneWidget);
+      expect(find.text('sample.txt'), findsOneWidget);
+      expect(find.text('アップロードに失敗しました'), findsNothing);
     });
   });
 }

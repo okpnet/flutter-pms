@@ -256,7 +256,11 @@ void main() {
         userId: 'u2',
         imageName: 'img_abc.png',
       );
-      server.on('POST', '/api/files/token', (r) => server.json({'token': 'tk'}));
+      server.on(
+        'POST',
+        '/api/files/token',
+        (r) => server.json({'token': 'tk'}),
+      );
       server.on(
         'GET',
         '/api/files/user_avatars/a1/img_abc.png',

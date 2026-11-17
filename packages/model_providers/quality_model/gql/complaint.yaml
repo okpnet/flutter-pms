@@ -383,8 +383,6 @@ ComplaintFileBodyFields: &ComplaintFileBodyFields
   from: trans_file
   columns:
     - trans_file_id
-    # PocketBase のファイル ID(DB の主キーはトリガーが採番するため、PocketBase の ID はこの列に持つ)
-    - binary_data
     - name
     - media_type
 
@@ -438,7 +436,7 @@ ComplaintFilePageEdit:
 
 
 # ---- 異常報告ファイルの登録(kind: create)。共有ファイルは実体を PocketBase に置き、DB は ID・名前・種類だけを持つ ----
-# 登録の順: ① trans_file の行(ComplaintFileBodyPageCreate。主キーはトリガーが採番する。binary_data に PocketBase のファイル ID を入れる)→ ② trans_complaint_file(ComplaintFilePageCreate)。
+# 登録の順: ① trans_file の行(ComplaintFileBodyPageCreate。主キーはトリガーが採番する。binary_data は使わない空文字)→ ② その trans_file_id を PocketBase の app_file_id にして、バイナリを上げる(IEntityFileTransfer.upload)→ ③ trans_complaint_file(ComplaintFilePageCreate)。
 # 差し替えは、新しい trans_file の行を作り、ComplaintFilePageEdit で trans_file_id を付け替える。取り消しは remove = true の更新。
 
 # trans_file の登録(ファイルの名前・種類。binary_data は使わない)

@@ -42,9 +42,8 @@ final _pngB = base64Decode(
 
 const _password = 'Passw0rd-Avatar-1';
 
-Matcher _failure(PbFailureKind kind) => throwsA(
-  isA<PbException>().having((e) => e.kind, 'kind', kind),
-);
+Matcher _failure(PbFailureKind kind) =>
+    throwsA(isA<PbException>().having((e) => e.kind, 'kind', kind));
 
 void main() {
   final suffix = DateTime.now().millisecondsSinceEpoch.toRadixString(36);
@@ -99,10 +98,11 @@ void main() {
       );
       final connection = await open();
       final session = SessionService(connection);
-      await AccountService(
-        connection,
-        session,
-      ).acceptCode(username: names[role]!, code: '${r['code']}', password: _password);
+      await AccountService(connection, session).acceptCode(
+        username: names[role]!,
+        code: '${r['code']}',
+        password: _password,
+      );
       final s = await session.login(names[role]!, _password);
       ids[role] = s.userId;
       services[role] = AvatarService(connection);
@@ -193,7 +193,10 @@ void main() {
 
       final replaced = await admin.set(id, Uint8List.fromList(_pngB));
       expect(replaced.imageName, isNot(created.imageName));
-      expect((await services['other']!.find(id))?.imageName, replaced.imageName);
+      expect(
+        (await services['other']!.find(id))?.imageName,
+        replaced.imageName,
+      );
 
       await admin.delete(id);
       expect(await services['other']!.find(id), isNull);

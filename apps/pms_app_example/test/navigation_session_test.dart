@@ -81,7 +81,9 @@ void main() {
 
     h.server.setMaintenance(false);
     await tester.tap(find.textContaining('再確認'));
-    await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 50)));
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 50)),
+    );
     await h.settle();
     expect(h.location, isNot('/maintenance'));
   });

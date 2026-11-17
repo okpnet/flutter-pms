@@ -1,7 +1,7 @@
 import 'package:access_control/access_control.dart';
 import 'package:auth_files/auth_files_api.dart' show LogoutDestination;
 import 'package:feature_shared/feature_shared.dart'
-    show commandBusProvider, localeProvider;
+    show commandBusProvider, entityFileTransferProvider, localeProvider;
 import 'package:current_user/current_user.dart';
 import 'package:backstage/backstage.dart' show backstageBootProvider;
 import 'package:entity_screens/entity_screens.dart';
@@ -183,7 +183,11 @@ List<Override> graphqlOverrides() => [
       // 品質共通: リスク(読み取り専用)
       ...qualityCommonRepositories(client),
       // 品質管理: 苦情・監査・監査基準(読み取り専用)
-      ...qualityRepositories(client, auditUser: auditUser),
+      ...qualityRepositories(
+        client,
+        auditUser: auditUser,
+        fileTransfer: ref.watch(entityFileTransferProvider),
+      ),
     ];
   }),
 ];

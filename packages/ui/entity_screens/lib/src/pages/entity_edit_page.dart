@@ -682,13 +682,13 @@ class _EntityEditPageState extends State<EntityEditPage> {
     );
   }
 
-  /// ファイルの入力。ファイル名(押すとダウンロード)と、選んでアップロード(差し替え)するボタン。
-  /// ファイルの実体は、アップロードのときに保存先へ上がる(DB には ID だけを持つ。保存はこの項目の値を保存するとき)。
+  /// ファイルの入力。ファイル名(押すとダウンロード)と、選ぶ(差し替え)ボタン。
+  /// 選んだだけでは保存先へ上げない(保存のとき、取得元が DB の行を作って、その ID で上げる)。
   Widget _fileField(FieldDefinition f, EntityScreenStrings strings) {
     final file = EntityFile.tryParse(_chosen[f.key] ?? '');
     Future<void> upload() async {
       try {
-        final uploaded = await _scope.fileTransfer.pickAndUpload();
+        final uploaded = await _scope.fileTransfer.pick();
         if (uploaded == null || !mounted) return;
         setState(() {
           _chosen[f.key] = uploaded.toValue();

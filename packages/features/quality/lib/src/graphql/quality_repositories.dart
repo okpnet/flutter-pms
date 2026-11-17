@@ -24,6 +24,7 @@ import 'complaint_file_repository.dart';
 List<IEntityRepository> qualityRepositories(
   GraphQLClient client, {
   AuditUserSource? auditUser,
+  IEntityFileTransfer fileTransfer = const UnsupportedEntityFileTransfer(),
 }) {
   final language = _LanguageCode(client);
   return [
@@ -33,6 +34,7 @@ List<IEntityRepository> qualityRepositories(
       client,
       () => language.id,
       auditUser,
+      fileTransfer,
     ),
     _ComplaintRepository(_readOnly('complaint'), client, language),
     _AuditRepository(_readOnly('audit'), client, language),

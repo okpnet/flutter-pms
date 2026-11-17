@@ -970,6 +970,25 @@ void main() {
       expect(calls, -8);
     });
 
+    test('DB の trans_file_id(UUID。36 文字・ハイフン入り)を、そのままファイルIDにできる', () async {
+      const uuid = '916cf530-db57-46ca-9146-369ed29ae137';
+      server.on(
+        'POST',
+        '/api/collections/app_files/records',
+        (r) => server.json(record(1)),
+      );
+      await files.upload(
+        appFileId: uuid,
+        bytes: Uint8List.fromList([1]),
+        filename: 'a.txt',
+      );
+      final body = server
+          .where('POST', '/api/collections/app_files/records')
+          .single
+          .body;
+      expect(body, contains('"app_file_id":"$uuid"'));
+    });
+
     test('不正なファイルIDはArgumentError(通信しない)', () async {
       for (final id in ['', 'a b', '../x', 'a' * 65]) {
         await expectLater(

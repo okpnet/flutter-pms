@@ -30,7 +30,6 @@ query ComplaintFilePageRead(
 
       file: transFileByTransFileId {
         transFileId
-        binaryData
         name
         mediaType
       }

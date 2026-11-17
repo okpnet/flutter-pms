@@ -24,11 +24,14 @@ class _Transfer implements IEntityFileTransfer {
   bool failDownload = false;
 
   @override
-  Future<EntityFile?> pickAndUpload() async {
+  Future<void> upload(EntityFile picked, String appFileId) async {}
+
+  @override
+  Future<EntityFile?> pick() async {
     if (failUpload) throw StateError('boom');
     uploads++;
     return EntityFile(
-      id: 'f-new-$uploads',
+      id: '${EntityFile.pendingPrefix}new-$uploads',
       name: 'new$uploads.pdf',
       mediaType: 'application/pdf',
     );
@@ -175,7 +178,10 @@ void main() {
     await tester.tap(find.text('保存'));
     await tester.pumpAndSettle();
     final saved = await catalog.repository('doc')!.findById('d1');
-    expect(EntityFile.tryParse(saved!.valueOf('attachment'))?.id, 'f-new-1');
+    expect(
+      EntityFile.tryParse(saved!.valueOf('attachment'))?.id,
+      'pending:new-1',
+    );
   });
 
   testWidgets('編集: ファイルの無い行は「ファイルなし」。アップロードに失敗したら項目にエラー', (tester) async {
@@ -202,7 +208,8 @@ void main() {
 
   test('窓口が差し込まれていないときは、使うと UnsupportedError', () {
     const t = UnsupportedEntityFileTransfer();
-    expect(t.pickAndUpload(), throwsA(isA<UnsupportedError>()));
+    expect(t.pick(), throwsA(isA<UnsupportedError>()));
+    expect(t.upload(_old, 'x'), throwsA(isA<UnsupportedError>()));
     expect(t.download(_old), throwsA(isA<UnsupportedError>()));
     // 使わない import の警告を避けるための参照
     expect(Uint8List(0), isEmpty);
