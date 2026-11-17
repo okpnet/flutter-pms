@@ -1,0 +1,47 @@
+# Quality documents strings (English). Keys missing here fall back to the base language (ja).
+menu:
+  group: "Quality documents"
+entity:
+  doctier:
+    title: "Document tiers"
+    fields:
+      f_code: "Code"
+      f_identifier: "Control number identifier"
+      f_name: "Name"
+      f_pronunciation: "Reading"
+      f_nickname: "Abbreviation"
+      f_attributive_noun: "Qualifying noun"
+      f_tier_number: "Tier number"
+      f_remarks: "Remarks"
+  doc:
+    title: "Documents"
+    fields:
+      f_code: "Code"
+      f_control_number: "Control number"
+      f_version_code: "Version code"
+      f_name: "Document name"
+      f_pronunciation: "Reading"
+      f_nickname: "Abbreviation"
+      f_mstr_document_tier_id: "Document tier"
+      f_remarks: "Remarks"
+  doccontent:
+    title: "Document contents"
+    fields:
+      f_doc: "Document"
+      f_code: "Code"
+      f_name: "Content name"
+      f_pronunciation: "Reading"
+      f_nickname: "Abbreviation"
+      f_detail: "Details"
+      f_sequence: "Sequence"
+      f_image_content: "Image content"
+      f_remarks: "Remarks"
+  report:
+    title: "Reports"
+    fields:
+      f_code: "Code"
+      f_name: "Name"
+      f_pronunciation: "Reading"
+      f_nickname: "Abbreviation"
+      f_is_default: "Default"
+      f_remarks: "Remarks"

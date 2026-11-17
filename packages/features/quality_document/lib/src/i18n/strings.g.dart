@@ -3,10 +3,10 @@
 /// Source: lib/src/i18n
 /// To regenerate, run: `dart run slang`
 ///
-/// Locales: 1
-/// Strings: 36
+/// Locales: 2
+/// Strings: 72 (36 per locale)
 ///
-/// Built on 2026-11-15 at 13:39 UTC
+/// Built on 2026-11-17 at 02:32 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
@@ -17,6 +17,7 @@ import 'package:slang/generated.dart';
 import 'package:slang/slang.dart';
 export 'package:slang/slang.dart';
 
+import 'strings_en.g.dart' deferred as l_en;
 part 'strings_ja.g.dart';
 
 /// Supported locales.
@@ -26,7 +27,8 @@ part 'strings_ja.g.dart';
 /// - Locale locale = QualityDocumentLocale.ja.flutterLocale // get flutter locale from enum
 /// - if (LocaleSettings.currentLocale == QualityDocumentLocale.ja) // locale check
 enum QualityDocumentLocale with BaseAppLocale<QualityDocumentLocale, QualityDocumentStrings> {
-	ja(languageCode: 'ja');
+	ja(languageCode: 'ja'),
+	en(languageCode: 'en');
 
 	const QualityDocumentLocale({
 		required this.languageCode,
@@ -51,6 +53,13 @@ enum QualityDocumentLocale with BaseAppLocale<QualityDocumentLocale, QualityDocu
 					cardinalResolver: cardinalResolver,
 					ordinalResolver: ordinalResolver,
 				);
+			case QualityDocumentLocale.en:
+				await l_en.loadLibrary();
+				return l_en.QualityDocumentStringsEn(
+					overrides: overrides,
+					cardinalResolver: cardinalResolver,
+					ordinalResolver: ordinalResolver,
+				);
 		}
 	}
 
@@ -63,6 +72,12 @@ enum QualityDocumentLocale with BaseAppLocale<QualityDocumentLocale, QualityDocu
 		switch (this) {
 			case QualityDocumentLocale.ja:
 				return QualityDocumentStringsJa(
+					overrides: overrides,
+					cardinalResolver: cardinalResolver,
+					ordinalResolver: ordinalResolver,
+				);
+			case QualityDocumentLocale.en:
+				return l_en.QualityDocumentStringsEn(
 					overrides: overrides,
 					cardinalResolver: cardinalResolver,
 					ordinalResolver: ordinalResolver,

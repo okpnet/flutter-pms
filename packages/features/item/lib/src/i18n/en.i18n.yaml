@@ -1,0 +1,110 @@
+# Items strings (English). Keys missing here fall back to the base language (ja).
+menu:
+  group: "Items"
+  group_purchasing: "Purchasing"
+entity:
+  itemkind:
+    title: "Item kinds"
+    fields:
+      f_code: "Item code"
+      f_name: "Item kind name"
+      f_pronunciation: "Reading"
+      f_nickname: "Abbreviation"
+      f_remarks: "Remarks"
+  hscode:
+    title: "HS codes"
+    fields:
+      f_code: "Code"
+      f_mstr_item_id: "Item"
+      f_iso3166_3: "Country"
+      f_remarks: "Remarks"
+  item:
+    title: "Items"
+    fields:
+      f_code: "Item code"
+      f_identification: "Identification code"
+      f_control_code: "Control code"
+      f_label_code: "Display code"
+      f_name: "Item name"
+      f_pronunciation: "Reading"
+      f_nickname: "Abbreviation"
+      f_mstr_item_kind_id: "Item kind"
+      f_catalog_item: "Purchased item"
+      f_detail: "Details"
+      f_shared_unit_id: "Item unit"
+      f_remarks: "Remarks"
+    reverse:
+      itemoptask: "Item process operation lines"
+      opapply: "Process plans applied to items"
+      purchaseline: "Receipt lines"
+      equipment: "Equipment"
+  itemhs:
+    title: "HS codes"
+    fields:
+      f_hs: "HS code"
+  itemsizekind:
+    title: "Item size kinds"
+    fields:
+      f_code: "Size kind code"
+      f_pronunciation: "Reading"
+      f_nickname: "Abbreviation"
+      f_names: "Size kind name"
+      f_shared_unit_id: "Unit"
+      f_remarks: "Remarks"
+  itemsize:
+    title: "Item sizes"
+    fields:
+      f_mstr_item_size_kind_id: "Item size kind"
+      f_detail: "Details"
+      f_remarks: "Remarks"
+  itempack:
+    title: "Packing sizes"
+    fields:
+      f_label: "Packing kind"
+      f_w: "Width"
+      f_d: "Depth"
+      f_h: "Height"
+      f_unit: "Unit"
+  itemop:
+    title: "Item process operations"
+    fields:
+      f_control_code: "Control code"
+      f_name: "Operation name"
+      f_pronunciation: "Reading"
+      f_nickname: "Abbreviation"
+      f_mstr_operation_id: "Process operation"
+      f_detail: "Details"
+      f_remarks: "Remarks"
+  itemmaker:
+    title: "Manufacturers"
+    fields:
+      f_maker: "Manufacturer name"
+      f_partno: "Manufacturer part number"
+  itemoptask:
+    title: "Item process operation lines"
+    fields:
+      f_mstr_item_id: "Item"
+      f_sequence: "Order"
+      f_default_interval: "Standard time"
+      f_remarks: "Remarks"
+  itemsupplier:
+    title: "Item suppliers"
+    fields:
+      f_supplier: "Supplier"
+      f_days: "Delivery time (days)"
+      f_lot: "Minimum order lot"
+      f_cost: "Unit price (JPY)"
+      f_cost__off: "Quoted price (confirm each time)"
+      f_asking: "Quoted price kind"
+  itemtaskcost:
+    title: "Item task costs"
+    fields:
+      f_taskres: "Task location"
+      f_cost: "Task unit cost (JPY)"
+      f_remarks: "Remarks"
+  itemonhand:
+    title: "Item stock"
+    fields:
+      f_item: "Item"
+      f_on_hand_quantity: "On hand"
+      f_visiter_count: "Visitor count"

@@ -9,10 +9,10 @@ environment:
   sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
 
 dependencies:
+  loadux_lib:
+    path: ../../packages/ui/loadux_lib
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.8
-  import_sorter: ^4.6.0
   view_responsiveness:
     path: ../../packages/ui/view_responsiveness
   theme_lib:
@@ -21,8 +21,6 @@ dependencies:
     path: ../../packages/ui/grid_extensions
   logger_provider:
     path: ../../packages/infra/logger_provider
-  undo_redo:
-    path: ../../packages/foundation/undo_redo
   data_strategist:
     path: ../../packages/foundation/data_strategist
   query_builder:

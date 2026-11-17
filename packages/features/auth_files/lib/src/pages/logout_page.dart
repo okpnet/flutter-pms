@@ -1,3 +1,4 @@
+import 'package:loadux_lib/loadux_lib.dart';
 import 'dart:async';
 
 import 'package:app_core/app_core_api.dart';
@@ -111,7 +112,7 @@ class _LogoutPageState extends ConsumerState<LogoutPage> {
         leading: const SizedBox(
           width: 48,
           height: 48,
-          child: CircularProgressIndicator(strokeWidth: 4),
+          child: LoadingIndicator(strokeWidth: 4),
         ),
         title: t.workingHeading,
         message: t.workingMessage,

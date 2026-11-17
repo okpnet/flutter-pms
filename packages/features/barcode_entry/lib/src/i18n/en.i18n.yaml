@@ -1,0 +1,126 @@
+# Barcode entry strings (English). Keys missing here fall back to the base language (ja).
+menu:
+  group: Work records
+  item: Barcode
+title: Barcode
+steps:
+  top: Reading top
+  start: Choose whether to start
+  issueShelf: Issue from shelf
+  qty: Enter quantity
+  eval: Evaluation
+  ng: Rejection handling
+  putShelf: Shelf move reading (put away)
+  stockItem: Product / purchased item reading
+  stockQty: Enter quantity
+  recvQty: Receiving inspection (enter quantity)
+  recvEval: Receiving inspection (evaluation)
+  equipment: Equipment inspection
+  supplyChoice: Receive and inspect supplied material
+kinds:
+  work: Work order
+  shelf: Shelf
+  purchase: Purchased item
+  item: Product / purchased item
+  equipment: Equipment
+  supply: Supplied material
+modes:
+  work:
+    label: Work record
+    hint: Scan the barcode of a work order (manufactured / outsourced item).
+  receive:
+    label: Receiving inspection
+    hint: Scan the barcode of a purchased item (purchase order line).
+  shelf:
+    label: Shelf move
+    hint: Scan a shelf barcode, then scan a product / purchased item.
+  equipment:
+    label: Equipment inspection
+    hint: Scan an equipment barcode.
+  supply:
+    label: Supplied material
+    hint: Scan the barcode of a supply line.
+input:
+  topTitle: Scan a barcode
+  topHint: Scan with a barcode reader, or type and press Enter. The kind is detected automatically (choose a kind above to accept only that kind).
+  label: Barcode / input
+  commit: Submit
+  camera: Scan with camera
+  cameraClose: Close camera
+  cameraError: The camera is not available. Check the permission, or use the reader or manual input.
+  cancel: Cancel
+  qtyLabel: Quantity
+  startQuestion: Start this work? (Material is issued from the shelf.)
+  answerYes: Yes
+  answerNo: No
+  pass: Pass
+  fail: Fail
+  evalQuestion: Choose an evaluation.
+  ngReason: Reason for rejection
+  ngConfirm: Continue as rejected
+  issueShelfHint: Scan the shelf to take the material for "{item}" from; it is issued and the work starts.
+  putShelfHint: 'Scan the shelf for the {judge} goods ({qty} {unit}); they are put away.'
+  stockItemHint: 'Scan the product / purchased item to put in "{shelf}".'
+  qtyHint: 'Remaining {remain} {unit} (an integer of 1 or more)'
+  inspectionSave: Record inspection results
+  inspectionResults:
+    pass: Pass
+    fail: Fail
+    recheck: Needs recheck
+  judgePass: passed
+  judgeFail: rejected
+  supplySummary: '{item}: not yet received {remain} {unit}, awaiting inspection (on hold) {held} {unit}'
+  supplyChoiceLabel: Choose an operation.
+  supplyReceive: Receive (put on hold)
+  supplyAccept: Inspection passed (release the hold)
+  supplyReject: Inspection failed (register a nonconformity; stays on hold)
+  supplyRegister: Register
+ngReasons:
+  dimension: Dimension defect
+  appearance: Appearance defect
+  material: Material defect
+  shortage: Quantity shortage
+  other: Other
+notice:
+  empty: Scan a barcode or type a value.
+  unknown: '"{value}" is not a registered barcode. Scan again.'
+  wrongKind: 'In "{mode}", scan a {expected} barcode. You scanned a {actual}.'
+  needShelfFirst: Scan a shelf barcode first for products / purchased items (shelf move).
+  expectShelf: 'This is a {actual} barcode. Scan a shelf barcode.'
+  expectItem: 'This is a {actual} barcode. Scan a product / purchased item barcode.'
+  qtyInvalid: Enter a quantity of 1 or more as an integer.
+  qtyOverWork: The remaining ordered quantity is {remain} {unit}. Enter that or less.
+  qtyOverPurchase: The remaining ordered quantity is {remain} {unit}. Enter that or less.
+  workDone: This work order is complete up to the ordered quantity. Scan the next barcode.
+  purchaseDone: This item has been received up to the ordered quantity. Scan the next barcode.
+  workStopped: This work order is stopped. Resume it before registering. Scan the next barcode.
+  workClosed: This work order is closed by discontinuation or order cancellation and cannot be registered. Scan the next barcode.
+  purchaseStopped: This purchase order line is stopped. Resume it before registering. Scan the next barcode.
+  purchaseClosed: This purchase order line is fully canceled and cannot be registered. Scan the next barcode.
+  canceled: Canceled. Start scanning again.
+  notStarted: Not started. Scan the next barcode.
+  started: 'Issued from {shelf} and started the work. Scan the next barcode.'
+  stored: 'Put away in {shelf}. Scan the next barcode.'
+  inspected: Inspection results recorded. Scan the next barcode.
+  supplied: Supplied material registered. Scan the next barcode.
+  qtyOverSupply: You can register up to {remain} {unit}. Enter that or less.
+  failed: Could not register. Check the connection and try again.
+log:
+  title: History
+  empty: No history yet.
+  unknown: 'Unreadable barcode: {value}'
+  workDone: '{sym} {item} / {task}: ordered quantity is complete'
+  purchaseDone: '{sym} {item}: receiving is complete'
+  workBlocked: '{sym} {item} / {task}: cannot register (stopped or closed)'
+  purchaseBlocked: '{sym} {item}: cannot register (stopped or fully canceled)'
+  canceled: Canceled
+  notStarted: '{sym}: not started'
+  started: '{sym} {item} / {task}: issued material from {shelf} and started the work'
+  storedWork: '{sym} {item} / {task}: put {qty} {unit} ({judge}) away in {shelf}'
+  storedWorkDone: '{sym} {item} / {task}: put {qty} {unit} ({judge}) away in {shelf} (ordered quantity complete)'
+  storedPurchase: '{sym} {item}: receiving inspection of {qty} {unit} ({judge}), put away in {shelf}'
+  storedItem: '{shelf}: put away {item} {qty} {unit}'
+  inspected: 'Equipment inspection {code} {name}: recorded {count} items (all passed)'
+  inspectedWithIssue: 'Equipment inspection {code} {name}: recorded {count} items ({issues} need attention)'
+  supplied: '{sym} {item}: registered supplied material {qty} {unit}'
+  failed: 'Registration failed: {sym}'

@@ -1,11 +1,16 @@
+import 'package:loadux_lib/loadux_lib.dart';
 import 'package:app_shell/app_shell.dart';
 import 'package:feature_shared/feature_shared.dart';
+import 'package:baton_lib/baton_lib.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:theme_lib/theme_lib.dart';
 
+import '../app_core_destinations.dart';
 import '../i18n/strings_provider.dart';
+import '../sign_in.dart';
 export 'dashboard_page.dart';
 
 /// アプリケーションのバージョン。ビルド時に `--dart-define=APP_VERSION=1.2.3` で渡す。
@@ -24,7 +29,7 @@ class BootPage extends ConsumerWidget {
         leading: const SizedBox(
           width: 48,
           height: 48,
-          child: CircularProgressIndicator(strokeWidth: 4),
+          child: LoadingIndicator(strokeWidth: 4),
         ),
         title: t.title(app: ref.watch(appCoreStringsProvider).app.title),
         message: t.message,
@@ -63,6 +68,58 @@ class ErrorPage extends ConsumerWidget {
             child: Text(t.error.back),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// 権限の無いページを開こうとしたときの画面。画像と、トップへ戻るボタンだけを持つ
+/// (ログインしていればダッシュボード、していなければログイン)。
+class AccessDeniedPage extends ConsumerWidget {
+  const AccessDeniedPage({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(appCoreStringsProvider);
+    final signedIn = ref.watch(userSummaryProvider) != null;
+    return Scaffold(
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 480),
+                child: SvgPicture.asset(
+                  'assets/access_denied.svg',
+                  package: 'app_core',
+                  semanticsLabel: t.accessDenied.title,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                t.accessDenied.title,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 8),
+              Text(t.accessDenied.message, textAlign: TextAlign.center),
+              const SizedBox(height: 24),
+              FilledButton(
+                onPressed: () {
+                  final bus = ref.read(commandBusProvider);
+                  final login = ref.read(signInDestinationProvider);
+                  // 積まずに、トップ(ログイン中はダッシュボード、未ログインはログイン)へ入れ替える
+                  final PageDestination<Object?> top = signedIn || login == null
+                      ? const DashboardDestination()
+                      : login;
+                  bus.execute(TopLevelDestination(top));
+                },
+                child: Text(signedIn ? t.accessDenied.toDashboard : t.accessDenied.toLogin),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

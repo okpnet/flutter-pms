@@ -1,0 +1,80 @@
+# Quality common strings (English). Keys missing here fall back to the base language (ja).
+menu:
+  group: "Quality common"
+entity:
+  disposal:
+    title: "Nonconformity dispositions"
+    fields:
+      f_trans_complaint_id: "Nonconformity"
+      f_disposal_at: "Disposed on"
+      f_title: "Subject"
+      f_detail: "Details"
+      f_approval_at: "Approved on"
+      f_department_id: "Responsible organization"
+      f_operation_staff_id: "Responsible staff"
+      f_remarks: "Remarks"
+  recur:
+    title: "Recurrence prevention actions"
+    fields:
+      f_trans_disposal_id: "Disposition"
+      f_occurent_at: "Occurred on"
+      f_title: "Subject"
+      f_detail: "Details"
+      f_operation_staff_id: "Responsible staff"
+      f_remarks: "Remarks"
+  obsdisp:
+    title: "Disposition monitoring"
+    fields:
+      f_enable: "Effectiveness"
+      f_observe_schedule: "Planned monitoring date"
+      f_observe_at: "Monitored on"
+      f_observer_staff_id: "Monitored by"
+      f_remarks: "Remarks"
+  obsprev:
+    title: "Recurrence prevention monitoring"
+    fields:
+      f_trans_observer_disposal_id: "Monitoring"
+      f_trans_recurrence_prevention_id: "Recurrence prevention"
+      f_remarks: "Remarks"
+  risk:
+    title: "Risks"
+    fields:
+      f_title: "Subject"
+      f_detail: "Details"
+      f_frequency: "Frequency"
+      f_momentous: "Severity"
+      f_action: "Actionable"
+      f_residual_risk_id: "Residual risk"
+      f_remarks: "Remarks"
+  prevention:
+    title: "Preventive measures"
+    fields:
+      f_number: "Number"
+      f_title: "Subject"
+      f_detail: "Details"
+      f_remarks: "Remarks"
+  preventiondetail:
+    title: "Preventive actions"
+    fields:
+      f_number: "Number"
+      f_trans_risk_id: "Risk"
+      f_info_department_id: "Organization"
+      f_start_at: "Start date"
+      f_stop_at: "End date"
+      f_title: "Subject"
+      f_detail: "Details"
+      f_remarks: "Remarks"
+  auditstdcheck:
+    title: "Audit standard items"
+    fields:
+      f_code: "Audit standard item code"
+      f_control_code: "Control code"
+      f_name: "Standard item name"
+      f_pronunciation: "Reading"
+      f_nickname: "Abbreviation"
+      f_mstr_audit_std_id: "Audit standard"
+      f_detail: "Details"
+      f_type_class: "Type"
+      f_formula_class: "Formula"
+      f_arg_class: "Argument"
+      f_remarks: "Remarks"

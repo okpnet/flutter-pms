@@ -1,3 +1,4 @@
+import 'package:loadux_lib/loadux_lib.dart';
 import 'dart:async';
 import 'dart:math' as math;
 
@@ -1400,9 +1401,9 @@ abstract class _TableBaseState<T, W extends TableWidgetBase<T>>
           ? const SizedBox(
               width: 16,
               height: 16,
-              child: CircularProgressIndicator(strokeWidth: 2),
+              child: LoadingIndicator(strokeWidth: 2),
             )
-          : const CircularProgressIndicator());
+          : const LoadingIndicator());
 
   Widget _loadingBar(double rowHeight) => SizedBox(
     key: const Key('loadingBar'),

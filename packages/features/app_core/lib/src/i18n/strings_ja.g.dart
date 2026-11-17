@@ -39,6 +39,7 @@ class AppCoreStrings with BaseTranslations<AppCoreLocale, AppCoreStrings> {
 	late final AppCoreStrings$shell$ja shell = AppCoreStrings$shell$ja.internal(_root);
 	late final AppCoreStrings$dashboard$ja dashboard = AppCoreStrings$dashboard$ja.internal(_root);
 	late final AppCoreStrings$boot$ja boot = AppCoreStrings$boot$ja.internal(_root);
+	late final AppCoreStrings$accessDenied$ja accessDenied = AppCoreStrings$accessDenied$ja.internal(_root);
 	late final AppCoreStrings$error$ja error = AppCoreStrings$error$ja.internal(_root);
 	late final AppCoreStrings$settings$ja settings = AppCoreStrings$settings$ja.internal(_root);
 }
@@ -110,6 +111,27 @@ class AppCoreStrings$boot$ja {
 
 	/// ja: 'データと設定を読み込んでいます。'
 	String get message => 'データと設定を読み込んでいます。';
+}
+
+// Path: accessDenied
+class AppCoreStrings$accessDenied$ja {
+	AppCoreStrings$accessDenied$ja.internal(this._root);
+
+	final AppCoreStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'このページを表示する権限がありません'
+	String get title => 'このページを表示する権限がありません';
+
+	/// ja: 'アクセスできるページは、管理者が設定します。必要な場合は、管理者にお問い合わせください。'
+	String get message => 'アクセスできるページは、管理者が設定します。必要な場合は、管理者にお問い合わせください。';
+
+	/// ja: 'ダッシュボードへ'
+	String get toDashboard => 'ダッシュボードへ';
+
+	/// ja: 'ログインへ'
+	String get toLogin => 'ログインへ';
 }
 
 // Path: error
@@ -289,6 +311,10 @@ extension on AppCoreStrings {
 			'dashboard.done' => '完了',
 			'boot.title' => ({required Object app}) => '${app}を起動しています…',
 			'boot.message' => 'データと設定を読み込んでいます。',
+			'accessDenied.title' => 'このページを表示する権限がありません',
+			'accessDenied.message' => 'アクセスできるページは、管理者が設定します。必要な場合は、管理者にお問い合わせください。',
+			'accessDenied.toDashboard' => 'ダッシュボードへ',
+			'accessDenied.toLogin' => 'ログインへ',
 			'error.title' => 'エラー',
 			'error.message' => 'アプリケーションでエラーが発生しました',
 			'error.back' => '戻る',

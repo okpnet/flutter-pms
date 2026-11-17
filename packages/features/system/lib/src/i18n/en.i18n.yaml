@@ -1,0 +1,13 @@
+# System strings (English). Keys missing here fall back to the base language (ja).
+menu:
+  group: "System"
+entity:
+  unit:
+    title: "Units"
+    fields:
+      f_name: "Unit name"
+      f_pronunciation: "Reading"
+      f_nickname: "Abbreviation"
+      f_detail: "Details"
+      f_symbol: "Symbol"
+      f_remarks: "Remarks"

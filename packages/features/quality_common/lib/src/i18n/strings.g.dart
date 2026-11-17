@@ -3,10 +3,10 @@
 /// Source: lib/src/i18n
 /// To regenerate, run: `dart run slang`
 ///
-/// Locales: 1
-/// Strings: 61
+/// Locales: 2
+/// Strings: 122 (61 per locale)
 ///
-/// Built on 2026-11-15 at 13:39 UTC
+/// Built on 2026-11-17 at 02:32 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
@@ -17,6 +17,7 @@ import 'package:slang/generated.dart';
 import 'package:slang/slang.dart';
 export 'package:slang/slang.dart';
 
+import 'strings_en.g.dart' deferred as l_en;
 part 'strings_ja.g.dart';
 
 /// Supported locales.
@@ -26,7 +27,8 @@ part 'strings_ja.g.dart';
 /// - Locale locale = QualityCommonLocale.ja.flutterLocale // get flutter locale from enum
 /// - if (LocaleSettings.currentLocale == QualityCommonLocale.ja) // locale check
 enum QualityCommonLocale with BaseAppLocale<QualityCommonLocale, QualityCommonStrings> {
-	ja(languageCode: 'ja');
+	ja(languageCode: 'ja'),
+	en(languageCode: 'en');
 
 	const QualityCommonLocale({
 		required this.languageCode,
@@ -51,6 +53,13 @@ enum QualityCommonLocale with BaseAppLocale<QualityCommonLocale, QualityCommonSt
 					cardinalResolver: cardinalResolver,
 					ordinalResolver: ordinalResolver,
 				);
+			case QualityCommonLocale.en:
+				await l_en.loadLibrary();
+				return l_en.QualityCommonStringsEn(
+					overrides: overrides,
+					cardinalResolver: cardinalResolver,
+					ordinalResolver: ordinalResolver,
+				);
 		}
 	}
 
@@ -63,6 +72,12 @@ enum QualityCommonLocale with BaseAppLocale<QualityCommonLocale, QualityCommonSt
 		switch (this) {
 			case QualityCommonLocale.ja:
 				return QualityCommonStringsJa(
+					overrides: overrides,
+					cardinalResolver: cardinalResolver,
+					ordinalResolver: ordinalResolver,
+				);
+			case QualityCommonLocale.en:
+				return l_en.QualityCommonStringsEn(
 					overrides: overrides,
 					cardinalResolver: cardinalResolver,
 					ordinalResolver: ordinalResolver,

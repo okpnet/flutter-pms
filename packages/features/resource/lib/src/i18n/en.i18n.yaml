@@ -1,0 +1,130 @@
+# Resources strings (English). Keys missing here fall back to the base language (ja).
+menu:
+  group: "Resources"
+entity:
+  capability:
+    title: "Capabilities"
+    fields:
+      f_code: "Capability code"
+      f_name: "Capability name"
+      f_pronunciation: "Reading"
+      f_detail: "Details"
+      f_reference_value: "Reference"
+      f_max: "Maximum"
+      f_min: "Minimum"
+      f_step: "Step"
+      f_remarks: "Remarks"
+    reverse:
+      staffcapability: "Holders"
+  license:
+    title: "Licenses"
+    fields:
+      f_code: "License code"
+      f_name: "License name"
+      f_pronunciation: "Reading"
+      f_detail: "Details"
+      f_public_license: "Public"
+      f_customer_license: "Customer"
+      f_organization_license: "Internal"
+      f_remarks: "Remarks"
+    reverse:
+      stafflicense: "Holders"
+  location:
+    title: "Locations"
+    fields:
+      f_code: "Location code"
+      f_control_code: "Control code"
+      f_name: "Location name"
+      f_pronunciation: "Reading"
+      f_use: "Use"
+      f_remarks: "Remarks"
+    reverse:
+      equipment: "Equipment"
+  equipmentcategory:
+    title: "Equipment categories"
+    fields:
+      f_code: "Category code"
+      f_name: "Category name"
+      f_pronunciation: "Reading"
+      f_start: "Effective from"
+      f_end: "Effective until"
+      f_remarks: "Remarks"
+  equipment:
+    title: "Equipment"
+    fields:
+      f_code: "Equipment code"
+      f_control_code: "Control code"
+      f_label_code: "Display code"
+      f_item: "Item (equipment name)"
+      f_category: "Equipment category"
+      f_location: "Location"
+    reverse:
+      inspectionoperation: "Equipment inspection and maintenance operations"
+  inspectionkind:
+    title: "Inspection and maintenance kinds"
+    fields:
+      f_code: "Kind code"
+      f_name: "Kind name"
+      f_pronunciation: "Reading"
+      f_cycle: "Approximate cycle"
+      f_remarks: "Remarks"
+  inspectionitem:
+    title: "Inspection and maintenance items"
+    fields:
+      f_code: "Inspection code"
+      f_name: "Inspection name"
+      f_pronunciation: "Reading"
+      f_kind: "Inspection kind"
+  inspectionformula:
+    title: "Inspection formulas"
+    fields:
+      f_expr: "Expression"
+  inspectionoperation:
+    title: "Equipment inspection and maintenance operations"
+    fields:
+      f_code: "Operation code"
+      f_name: "Operation name"
+      f_equipment: "Equipment"
+      f_kind: "Inspection and maintenance kind"
+  operationline:
+    title: "Operation lines"
+    fields:
+      f_item: "Inspection and maintenance"
+      f_seq: "Order"
+      f_role: "Responsible position"
+  inspectionschedule:
+    title: "Inspection schedules"
+    fields:
+      f_code: "Control code"
+      f_name: "Schedule name"
+      f_operation: "Inspection and maintenance operation"
+  scheduledetail:
+    title: "Schedule lines"
+    fields:
+      f_item: "Inspection and maintenance item"
+      f_start: "Planned start date"
+      f_end: "Planned end date"
+      f_staff: "Staff"
+  inspectionresult:
+    title: "Inspection results"
+    fields:
+      f_date: "Performed on"
+      f_staff: "Performed by"
+      f_result: "Result"
+      f_value: "Measured value / findings"
+      f_note: "Remarks"
+  inspectionfile:
+    title: "Files"
+    fields:
+      f_fname: "File name"
+      f_ftype: "Type"
+      f_regdate: "Registered on"
+  workcalendar:
+    title: "Work calendar"
+    fields:
+      f_work_date: "Work date"
+      f_equipment: "Equipment"
+      f_start_time: "Start time"
+      f_work_interval: "Working time (HH:MM)"
+      f_holiday: "Holiday"
+      f_remarks: "Remarks"

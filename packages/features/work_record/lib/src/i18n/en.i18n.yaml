@@ -1,0 +1,68 @@
+# Work records strings (English). Keys missing here fall back to the base language (ja).
+menu:
+  group: "Work records"
+entity:
+  container:
+    title: "Containers"
+    fields:
+      f_code: "Code"
+      f_name: "Container name"
+      f_remarks: "Remarks"
+  invapply:
+    title: "Allocations"
+    fields:
+      f_register_at: "Allocated on"
+      f_trans_inventory_request_id: "Allocation reservation"
+      f_staff_id: "Worker"
+      f_remarks: "Remarks"
+  invreq:
+    title: "Allocation reservations"
+    fields:
+      f_register_at: "Reserved on"
+      f_register_plan_at: "Planned allocation date"
+      f_trans_purchase_rez_id: "Purchase allocation"
+      f_trans_product_rez_id: "Production allocation"
+      f_trans_resource_plan_id: "Resource plan"
+      f_quantity: "Allocated quantity"
+      f_staff_id: "Worker"
+      f_remarks: "Remarks"
+  certificate:
+    title: "Certificates"
+    fields:
+      f_serial: "Serial number"
+      f_title: "Subject"
+      f_class: "Class"
+      f_remarks: "Remarks"
+  workrec:
+    title: "Work records"
+    fields:
+      f_trans_work_plan_id: "Work plan line"
+      f_nth_time: "Times"
+      f_start_at: "Start"
+      f_stop_at: "End"
+      f_qty: "Work quantity"
+      f_staff_id: "Worker"
+      f_remarks: "Remarks"
+  wrcert:
+    title: "Work certificates"
+    fields:
+      f_trans_certificate_id: "Certificate"
+      f_remarks: "Remarks"
+  mrpvisiter:
+    title: "Visitor items"
+    fields:
+      f_item: "Item"
+      f_item_count: "Item count"
+      f_finished: "Finished"
+      f_quantity: "Quantity"
+  stockstatus:
+    title: "Stock status"
+    fields:
+      f_location: "Location"
+      f_container: "Container"
+      f_item: "Item"
+      f_qty: "On hand"
+      f_safety: "Safety stock"
+      f_avail: "Available to issue"
+      f_reserved: "Reserved"
+      f_reserve: "Allocation reservation"

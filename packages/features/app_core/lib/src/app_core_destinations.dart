@@ -16,6 +16,11 @@ final class SettingsDestination extends PageDestination<void> {
 }
 
 
+/// 権限の無いページを開こうとしたときの画面へ(アクセス拒否の画像と、トップへ戻るボタンだけを持つ)。
+final class AccessDeniedDestination extends PageDestination<void> {
+  const AccessDeniedDestination();
+}
+
 /// エラー画面へ。[message] はアプリケーションエラーの内容(省略可)。
 final class ErrorDestination extends PageDestination<void> {
   const ErrorDestination({this.message});
@@ -31,6 +36,7 @@ const List<PageDestination<Object?>> appCoreDestinationSamples = [
   BootDestination(),
   DashboardDestination(),
   SettingsDestination(),
+  AccessDeniedDestination(),
   ErrorDestination(),
   ErrorDestination(message: 'sample'),
 ];

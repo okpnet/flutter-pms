@@ -1,3 +1,4 @@
+import 'package:loadux_lib/loadux_lib.dart';
 import 'package:app_shell/app_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -180,7 +181,7 @@ class _ShippingKindEditPageState extends ConsumerState<ShippingKindEditPage> {
     return ScreenScaffold(
       title: _isNew ? k.createTitle : k.editTitle,
       body: _loading
-          ? const Center(child: CircularProgressIndicator())
+          ? const LoadingIndicator.centered()
           : _notFound
           ? Center(child: Text(k.notFound))
           : SingleChildScrollView(

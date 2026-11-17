@@ -1,3 +1,4 @@
+import 'package:loadux_lib/loadux_lib.dart';
 import 'package:app_shell/app_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -161,7 +162,7 @@ class _AdminSignupsPageState extends ConsumerState<AdminSignupsPage>
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          if (busy) const LinearProgressIndicator(),
+          if (busy) const LoadingBar(),
           if (errorText != null) MessageLine(errorText!),
           if (_notice != null) MessageLine(_notice!, isError: false),
           if (items != null && items.isEmpty) Text(t.admin.signups.empty),
@@ -251,7 +252,7 @@ class _AdminResetsPageState extends ConsumerState<AdminResetsPage>
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          if (busy) const LinearProgressIndicator(),
+          if (busy) const LoadingBar(),
           if (errorText != null) MessageLine(errorText!),
           if (_notice != null) MessageLine(_notice!, isError: false),
           if (items != null && items.isEmpty) Text(t.admin.resets.empty),

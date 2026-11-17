@@ -1,6 +1,7 @@
 import 'package:logger_provider/logger_provider.dart';
 
 import '../../imports.dart';
+import '../access/route_access.dart';
 import '../router/router.dart';
 import 'feature_modules.dart';
 
@@ -17,9 +18,14 @@ CommandBus createFeatureCommandBus(Ref ref) {
   return DefaultCommandBus(
     handlers: registry,
     logger: ref.watch(loggerProvider),
-    navigator: GoRouterDestinationNavigator(
-      router: ref.watch(rootRouterProvider),
-      modules: [...featureModules, ...standaloneFeatureModules],
+    // 権限の無いページへは、遷移の前に止める(メニュー・リンクからの遷移)
+    navigator: AccessGuardNavigator(
+      inner: GoRouterDestinationNavigator(
+        router: ref.watch(rootRouterProvider),
+        modules: [...featureModules, ...standaloneFeatureModules],
+      ),
+      allowed: (path) => routeAllowed(ref, path),
+      logger: ref.watch(loggerProvider),
     ),
   );
 }

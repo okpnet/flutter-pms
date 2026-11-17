@@ -5,6 +5,9 @@ abstract final class AppCorePaths {
   static const settings = '/settings';
   static const error = '/error';
 
+  /// 権限の無いページを開こうとしたときの画面。
+  static const accessDenied = '/access-denied';
+
   /// エラー画面。内容があるときは `?message=` で渡す。
   static String errorWith(String? message) => message == null || message.isEmpty
       ? error

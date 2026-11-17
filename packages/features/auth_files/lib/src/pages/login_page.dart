@@ -1,3 +1,4 @@
+import 'package:loadux_lib/loadux_lib.dart';
 import 'package:app_core/app_core_api.dart';
 import 'package:backstage/backstage_api.dart';
 import 'package:feature_shared/feature_shared.dart';
@@ -95,7 +96,7 @@ class _LoginPageState extends ConsumerState<LoginPage> with BusyAction {
       return;
     }
     if (!entered) {
-      await ref.read(commandBusProvider).execute(const DashboardDestination());
+      await ref.read(commandBusProvider).execute(TopLevelDestination(const DashboardDestination()));
       return;
     }
     // 裏設定へ進めなかったときは、ログインのページに留まる
@@ -149,7 +150,7 @@ class _LoginPageState extends ConsumerState<LoginPage> with BusyAction {
                   children: [
                     const SizedBox.square(
                       dimension: 16,
-                      child: CircularProgressIndicator(strokeWidth: 2),
+                      child: LoadingIndicator(strokeWidth: 2),
                     ),
                     const SizedBox(width: 8),
                     Text(t.login.sending),

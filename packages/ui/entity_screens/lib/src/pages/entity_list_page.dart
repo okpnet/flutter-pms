@@ -1,3 +1,4 @@
+import 'package:loadux_lib/loadux_lib.dart';
 import 'package:app_shell/app_shell.dart';
 import 'package:flgtable_lib/tree_table_lib.dart';
 import 'package:flutter/material.dart';
@@ -117,7 +118,7 @@ class _EntityListPageState extends State<EntityListPage> {
           }
           final loaded = snapshot.data;
           if (loaded == null) {
-            return const Center(child: CircularProgressIndicator());
+            return const LoadingIndicator.centered();
           }
           return _table(loaded);
         },

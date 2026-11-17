@@ -1,3 +1,4 @@
+import 'package:loadux_lib/loadux_lib.dart';
 import 'package:app_shell/app_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -144,7 +145,7 @@ class _SharedFilesPageState extends ConsumerState<SharedFilesPage>
               ),
             ],
           ),
-          if (busy) const LinearProgressIndicator(),
+          if (busy) const LoadingBar(),
           if (errorText != null) MessageLine(errorText!),
           if (_notice != null) MessageLine(_notice!, isError: false),
           const SizedBox(height: 12),

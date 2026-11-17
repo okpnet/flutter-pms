@@ -1,0 +1,50 @@
+# Sales strings (English). Keys missing here fall back to the base language (ja).
+menu:
+  group: "Sales"
+entity:
+  order:
+    title: "Sales orders"
+    fields:
+      f_order_number: "Order number"
+      f_customer_order_number: "Customer order number"
+      f_stakeholder_id: "Customer"
+      f_order_processing_date: "Order date"
+      f_delivery_date: "Delivery date"
+      f_deadline: "Completion deadline"
+      f_remarks: "Remarks"
+  orderdetail:
+    title: "Sales order lines"
+    fields:
+      f_item_id: "Item"
+      f_quantity: "Quantity"
+      f_unit_price: "Unit price"
+      f_price_adjustment: "Price adjustment"
+      f_fixed_price: "Fixed unit price"
+      f_master_error_count: "Master data issues"
+      f_cancel_quantity: "Canceled quantity"
+      f_stop: "Stopped"
+      f_remaining_quantity: "Remaining"
+      f_open_quantity: "Open quantity (0 while stopped)"
+      f_cancel_closed: "Fully canceled"
+      f_settlement_amount: "Settlement amount"
+      f_delivery_date: "Line delivery date"
+      f_deadline: "Line completion deadline"
+      f_remarks: "Remarks"
+      f_customer_property: "Product owned by customer"
+  shipplan:
+    title: "Shipping plans"
+    fields:
+      f_order: "Sales order"
+      f_code: "Shipping plan code"
+      f_date: "Planned shipping date"
+      f_arrival: "Planned arrival date"
+      f_carrier: "Carrier"
+      f_remarks: "Remarks"
+  shipline:
+    title: "Shipping instructions"
+    fields:
+      f_orderdetail: "Sales order line"
+      f_qty: "Shipping quantity"
+      f_date: "Line planned date"
+      f_arrival: "Line arrival date"
+      f_remarks: "Remarks"

@@ -25,6 +25,10 @@ class AppCoreModule implements FeatureModule {
       builder: (context, state) => const SettingsPage(),
     ),
     GoRoute(
+      path: AppCorePaths.accessDenied,
+      builder: (context, state) => const AccessDeniedPage(),
+    ),
+    GoRoute(
       path: AppCorePaths.error,
       builder: (context, state) =>
           ErrorPage(message: state.uri.queryParameters['message']),
@@ -37,6 +41,7 @@ class AppCoreModule implements FeatureModule {
         BootDestination() => AppCorePaths.boot,
         DashboardDestination() => AppCorePaths.dashboard,
         SettingsDestination() => AppCorePaths.settings,
+        AccessDeniedDestination() => AppCorePaths.accessDenied,
         ErrorDestination(:final message) => AppCorePaths.errorWith(message),
         _ => null,
       };

@@ -13,6 +13,11 @@ dashboard:
 boot:
   title: "Starting {app}…"
   message: Loading data and settings.
+accessDenied:
+  title: You do not have permission to view this page
+  message: The pages you can open are set by an administrator. Contact an administrator if you need access.
+  toDashboard: Go to the dashboard
+  toLogin: Go to sign in
 error:
   title: Error
   message: An error occurred in the application

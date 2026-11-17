@@ -1,0 +1,123 @@
+# Company information strings (English). Keys missing here fall back to the base language (ja).
+menu:
+  group: "Company"
+entity:
+  company:
+    title: "Company information"
+    fields:
+      f_name: "Company name"
+      f_pronunciation: "Company name reading"
+      f_nickname: "Abbreviation"
+      f_ceo: "Representative"
+      f_web_page: "Website"
+      f_country_code_2: "Country"
+      f_zip_code: "Postal code"
+      f_address1: "Address 1"
+      f_address2: "Address 2"
+      f_building: "Building"
+      f_phone: "Phone"
+      f_fax_number: "Fax"
+      f_remarks: "Remarks"
+  provision:
+    title: "Provisions"
+    fields:
+      f_kind: "Kind"
+      f_code: "Provision code"
+      f_name: "Name"
+      f_detail: "Details"
+  position:
+    title: "Roles (positions)"
+    fields:
+      f_name: "Role name"
+      f_pronunciation: "Reading"
+      f_priority: "Rank"
+      f_remarks: "Remarks"
+  assignment:
+    title: "Assignments"
+    fields:
+      f_staff: "Staff"
+      f_enable: "Enabled"
+      f_priority: "Priority"
+      f_office: "Site"
+      f_department: "Department"
+  site:
+    title: "Sites"
+    fields:
+      f_code: "Site code"
+      f_name: "Site name"
+      f_pronunciation: "Reading"
+      f_nickname: "Abbreviation"
+      f_country_code_2: "Country"
+      f_zip_code: "Postal code"
+      f_address1: "Address 1"
+      f_address2: "Address 2"
+      f_building: "Building"
+      f_phone: "Phone"
+      f_fax_number: "Fax"
+  deptkind:
+    title: "Department kinds"
+    fields:
+      f_name: "Kind name"
+      f_detail: "Kind details"
+  department:
+    title: "Departments"
+    fields:
+      f_code: "Organization code"
+      f_name: "Organization name"
+      f_pronunciation: "Reading"
+      f_nickname: "Abbreviation"
+      f_site: "Site"
+    reverse:
+      assignment: "Assignments"
+      approver: "Approvers"
+      taskres: "Task locations"
+      preventiondetail: "Preventive actions"
+      audit: "Audits"
+  departmentkind:
+    title: "Department kind assignments"
+    fields:
+      f_kind: "Department kind"
+  staff:
+    title: "Workers"
+    fields:
+      f_no: "Staff code"
+      f_name: "Name"
+      f_pronunciation: "Reading"
+      f_sex: "Sex"
+      f_phone: "Phone"
+      f_private_phone: "Emergency phone"
+      f_symbol: "Symbol"
+      f_remarks: "Remarks"
+  staffcapability:
+    title: "Worker capabilities"
+    fields:
+      f_capability: "Capability"
+      f_value: "Value"
+      f_stop: "Stopped"
+  stafflicense:
+    title: "Worker licenses"
+    fields:
+      f_license: "License"
+      f_number: "License number"
+      f_acquired: "Effective from"
+      f_expires: "Effective until"
+      f_abeyance: "On hold"
+      f_abeyance_at: "Held on"
+      f_revocation: "Revoked"
+      f_revocation_at: "Revoked on"
+  approvalpattern:
+    title: "Approval patterns"
+    fields:
+      f_name: "Pattern name"
+      f_pronunciation: "Reading"
+      f_remarks: "Remarks"
+  approver:
+    title: "Approvers"
+    fields:
+      f_name: "Name"
+      f_pronunciation: "Reading"
+      f_nickname: "Abbreviation"
+      f_department: "Department"
+      f_position: "Position"
+      f_priority: "Priority"
+      f_remarks: "Remarks"

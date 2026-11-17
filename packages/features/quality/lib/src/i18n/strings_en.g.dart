@@ -1,0 +1,698 @@
+///
+/// Generated file. Do not edit.
+///
+// coverage:ignore-file
+// ignore_for_file: type=lint, unused_import
+// dart format off
+
+import 'package:intl/intl.dart';
+import 'package:slang/generated.dart';
+import 'strings.g.dart';
+
+// Path: <root>
+class QualityStringsEn extends QualityStrings with BaseTranslations<QualityLocale, QualityStrings> {
+	/// You can call this constructor and build your own translation instance of this locale.
+	/// Constructing via the enum [QualityLocale.build] is preferred.
+	QualityStringsEn({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<QualityLocale, QualityStrings>? meta})
+		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+		  _meta = meta ?? TranslationMetadata(
+		    locale: QualityLocale.en,
+		    overrides: overrides ?? {},
+		    cardinalResolver: cardinalResolver,
+		    ordinalResolver: ordinalResolver,
+		  ),
+		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		_meta.setFlatMapFunction(_flatMapFunction);
+	}
+
+	/// Metadata for the translations of <en>.
+	final TranslationMetadata<QualityLocale, QualityStrings> _meta;
+	@override TranslationMetadata<QualityLocale, QualityStrings> get $meta => _meta;
+
+	/// Access flat map
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
+
+	late final QualityStringsEn _root = this; // ignore: unused_field
+
+	@override 
+	QualityStringsEn $copyWith({TranslationMetadata<QualityLocale, QualityStrings>? meta}) => QualityStringsEn(meta: meta ?? this.$meta);
+
+	// Translations
+	@override late final _QualityStrings$menu$en menu = _QualityStrings$menu$en._(_root);
+	@override late final _QualityStrings$entity$en entity = _QualityStrings$entity$en._(_root);
+}
+
+// Path: menu
+class _QualityStrings$menu$en extends QualityStrings$menu$ja {
+	_QualityStrings$menu$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get group => 'Quality control';
+}
+
+// Path: entity
+class _QualityStrings$entity$en extends QualityStrings$entity$ja {
+	_QualityStrings$entity$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override late final _QualityStrings$entity$complaint$en complaint = _QualityStrings$entity$complaint$en._(_root);
+	@override late final _QualityStrings$entity$compreceive$en compreceive = _QualityStrings$entity$compreceive$en._(_root);
+	@override late final _QualityStrings$entity$compstake$en compstake = _QualityStrings$entity$compstake$en._(_root);
+	@override late final _QualityStrings$entity$compfile$en compfile = _QualityStrings$entity$compfile$en._(_root);
+	@override late final _QualityStrings$entity$corder$en corder = _QualityStrings$entity$corder$en._(_root);
+	@override late final _QualityStrings$entity$corderimp$en corderimp = _QualityStrings$entity$corderimp$en._(_root);
+	@override late final _QualityStrings$entity$cproc$en cproc = _QualityStrings$entity$cproc$en._(_root);
+	@override late final _QualityStrings$entity$cprocimp$en cprocimp = _QualityStrings$entity$cprocimp$en._(_root);
+	@override late final _QualityStrings$entity$cequip$en cequip = _QualityStrings$entity$cequip$en._(_root);
+	@override late final _QualityStrings$entity$cequipimp$en cequipimp = _QualityStrings$entity$cequipimp$en._(_root);
+	@override late final _QualityStrings$entity$orderrisk$en orderrisk = _QualityStrings$entity$orderrisk$en._(_root);
+	@override late final _QualityStrings$entity$orderdetailrisk$en orderdetailrisk = _QualityStrings$entity$orderdetailrisk$en._(_root);
+	@override late final _QualityStrings$entity$odrimp$en odrimp = _QualityStrings$entity$odrimp$en._(_root);
+	@override late final _QualityStrings$entity$taskrisk$en taskrisk = _QualityStrings$entity$taskrisk$en._(_root);
+	@override late final _QualityStrings$entity$trimp$en trimp = _QualityStrings$entity$trimp$en._(_root);
+	@override late final _QualityStrings$entity$auditstd$en auditstd = _QualityStrings$entity$auditstd$en._(_root);
+	@override late final _QualityStrings$entity$auditstdimp$en auditstdimp = _QualityStrings$entity$auditstdimp$en._(_root);
+	@override late final _QualityStrings$entity$auditteam$en auditteam = _QualityStrings$entity$auditteam$en._(_root);
+	@override late final _QualityStrings$entity$auditor$en auditor = _QualityStrings$entity$auditor$en._(_root);
+	@override late final _QualityStrings$entity$audit$en audit = _QualityStrings$entity$audit$en._(_root);
+	@override late final _QualityStrings$entity$auditteamlink$en auditteamlink = _QualityStrings$entity$auditteamlink$en._(_root);
+	@override late final _QualityStrings$entity$auditmember$en auditmember = _QualityStrings$entity$auditmember$en._(_root);
+}
+
+// Path: entity.complaint
+class _QualityStrings$entity$complaint$en extends QualityStrings$entity$complaint$ja {
+	_QualityStrings$entity$complaint$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Nonconformities';
+	@override late final _QualityStrings$entity$complaint$fields$en fields = _QualityStrings$entity$complaint$fields$en._(_root);
+}
+
+// Path: entity.compreceive
+class _QualityStrings$entity$compreceive$en extends QualityStrings$entity$compreceive$ja {
+	_QualityStrings$entity$compreceive$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Nonconformity report receipts';
+	@override late final _QualityStrings$entity$compreceive$fields$en fields = _QualityStrings$entity$compreceive$fields$en._(_root);
+}
+
+// Path: entity.compstake
+class _QualityStrings$entity$compstake$en extends QualityStrings$entity$compstake$ja {
+	_QualityStrings$entity$compstake$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Stakeholder complaints';
+	@override late final _QualityStrings$entity$compstake$fields$en fields = _QualityStrings$entity$compstake$fields$en._(_root);
+}
+
+// Path: entity.compfile
+class _QualityStrings$entity$compfile$en extends QualityStrings$entity$compfile$ja {
+	_QualityStrings$entity$compfile$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Nonconformity report files';
+	@override late final _QualityStrings$entity$compfile$fields$en fields = _QualityStrings$entity$compfile$fields$en._(_root);
+}
+
+// Path: entity.corder
+class _QualityStrings$entity$corder$en extends QualityStrings$entity$corder$ja {
+	_QualityStrings$entity$corder$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Order complaints';
+	@override late final _QualityStrings$entity$corder$fields$en fields = _QualityStrings$entity$corder$fields$en._(_root);
+}
+
+// Path: entity.corderimp
+class _QualityStrings$entity$corderimp$en extends QualityStrings$entity$corderimp$ja {
+	_QualityStrings$entity$corderimp$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Imports';
+	@override late final _QualityStrings$entity$corderimp$fields$en fields = _QualityStrings$entity$corderimp$fields$en._(_root);
+}
+
+// Path: entity.cproc
+class _QualityStrings$entity$cproc$en extends QualityStrings$entity$cproc$ja {
+	_QualityStrings$entity$cproc$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Process complaints';
+	@override late final _QualityStrings$entity$cproc$fields$en fields = _QualityStrings$entity$cproc$fields$en._(_root);
+}
+
+// Path: entity.cprocimp
+class _QualityStrings$entity$cprocimp$en extends QualityStrings$entity$cprocimp$ja {
+	_QualityStrings$entity$cprocimp$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Imports';
+	@override late final _QualityStrings$entity$cprocimp$fields$en fields = _QualityStrings$entity$cprocimp$fields$en._(_root);
+}
+
+// Path: entity.cequip
+class _QualityStrings$entity$cequip$en extends QualityStrings$entity$cequip$ja {
+	_QualityStrings$entity$cequip$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Equipment complaints';
+	@override late final _QualityStrings$entity$cequip$fields$en fields = _QualityStrings$entity$cequip$fields$en._(_root);
+}
+
+// Path: entity.cequipimp
+class _QualityStrings$entity$cequipimp$en extends QualityStrings$entity$cequipimp$ja {
+	_QualityStrings$entity$cequipimp$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Imports';
+	@override late final _QualityStrings$entity$cequipimp$fields$en fields = _QualityStrings$entity$cequipimp$fields$en._(_root);
+}
+
+// Path: entity.orderrisk
+class _QualityStrings$entity$orderrisk$en extends QualityStrings$entity$orderrisk$ja {
+	_QualityStrings$entity$orderrisk$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Order risks';
+	@override late final _QualityStrings$entity$orderrisk$fields$en fields = _QualityStrings$entity$orderrisk$fields$en._(_root);
+}
+
+// Path: entity.orderdetailrisk
+class _QualityStrings$entity$orderdetailrisk$en extends QualityStrings$entity$orderdetailrisk$ja {
+	_QualityStrings$entity$orderdetailrisk$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Sales order line risks';
+	@override late final _QualityStrings$entity$orderdetailrisk$fields$en fields = _QualityStrings$entity$orderdetailrisk$fields$en._(_root);
+}
+
+// Path: entity.odrimp
+class _QualityStrings$entity$odrimp$en extends QualityStrings$entity$odrimp$ja {
+	_QualityStrings$entity$odrimp$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Import: risks';
+	@override late final _QualityStrings$entity$odrimp$fields$en fields = _QualityStrings$entity$odrimp$fields$en._(_root);
+}
+
+// Path: entity.taskrisk
+class _QualityStrings$entity$taskrisk$en extends QualityStrings$entity$taskrisk$ja {
+	_QualityStrings$entity$taskrisk$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Task risks';
+	@override late final _QualityStrings$entity$taskrisk$fields$en fields = _QualityStrings$entity$taskrisk$fields$en._(_root);
+}
+
+// Path: entity.trimp
+class _QualityStrings$entity$trimp$en extends QualityStrings$entity$trimp$ja {
+	_QualityStrings$entity$trimp$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Import: risks';
+	@override late final _QualityStrings$entity$trimp$fields$en fields = _QualityStrings$entity$trimp$fields$en._(_root);
+}
+
+// Path: entity.auditstd
+class _QualityStrings$entity$auditstd$en extends QualityStrings$entity$auditstd$ja {
+	_QualityStrings$entity$auditstd$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Audit standards';
+	@override late final _QualityStrings$entity$auditstd$fields$en fields = _QualityStrings$entity$auditstd$fields$en._(_root);
+}
+
+// Path: entity.auditstdimp
+class _QualityStrings$entity$auditstdimp$en extends QualityStrings$entity$auditstdimp$ja {
+	_QualityStrings$entity$auditstdimp$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Import: audit standard items';
+	@override late final _QualityStrings$entity$auditstdimp$fields$en fields = _QualityStrings$entity$auditstdimp$fields$en._(_root);
+}
+
+// Path: entity.auditteam
+class _QualityStrings$entity$auditteam$en extends QualityStrings$entity$auditteam$ja {
+	_QualityStrings$entity$auditteam$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Audit teams';
+	@override late final _QualityStrings$entity$auditteam$fields$en fields = _QualityStrings$entity$auditteam$fields$en._(_root);
+}
+
+// Path: entity.auditor
+class _QualityStrings$entity$auditor$en extends QualityStrings$entity$auditor$ja {
+	_QualityStrings$entity$auditor$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Auditors';
+	@override late final _QualityStrings$entity$auditor$fields$en fields = _QualityStrings$entity$auditor$fields$en._(_root);
+}
+
+// Path: entity.audit
+class _QualityStrings$entity$audit$en extends QualityStrings$entity$audit$ja {
+	_QualityStrings$entity$audit$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Audits';
+	@override late final _QualityStrings$entity$audit$fields$en fields = _QualityStrings$entity$audit$fields$en._(_root);
+}
+
+// Path: entity.auditteamlink
+class _QualityStrings$entity$auditteamlink$en extends QualityStrings$entity$auditteamlink$ja {
+	_QualityStrings$entity$auditteamlink$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Audit teams';
+	@override late final _QualityStrings$entity$auditteamlink$fields$en fields = _QualityStrings$entity$auditteamlink$fields$en._(_root);
+}
+
+// Path: entity.auditmember
+class _QualityStrings$entity$auditmember$en extends QualityStrings$entity$auditmember$ja {
+	_QualityStrings$entity$auditmember$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Audit participants';
+	@override late final _QualityStrings$entity$auditmember$fields$en fields = _QualityStrings$entity$auditmember$fields$en._(_root);
+}
+
+// Path: entity.complaint.fields
+class _QualityStrings$entity$complaint$fields$en extends QualityStrings$entity$complaint$fields$ja {
+	_QualityStrings$entity$complaint$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_occurent_at => 'Occurred on';
+	@override String get f_title => 'Subject';
+	@override String get f_detail => 'Details';
+	@override String get f_reporter_staff_id => 'Reporter';
+	@override String get f_remarks => 'Remarks';
+}
+
+// Path: entity.compreceive.fields
+class _QualityStrings$entity$compreceive$fields$en extends QualityStrings$entity$compreceive$fields$ja {
+	_QualityStrings$entity$compreceive$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_receive_at => 'Received on';
+	@override String get f_receive_staff_id => 'Received by';
+	@override String get f_detail => 'Details';
+	@override String get f_remarks => 'Remarks';
+}
+
+// Path: entity.compstake.fields
+class _QualityStrings$entity$compstake$fields$en extends QualityStrings$entity$compstake$fields$ja {
+	_QualityStrings$entity$compstake$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_stakeholder_id => 'Stakeholder';
+	@override String get f_remarks => 'Remarks';
+}
+
+// Path: entity.compfile.fields
+class _QualityStrings$entity$compfile$fields$en extends QualityStrings$entity$compfile$fields$ja {
+	_QualityStrings$entity$compfile$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_fname => 'File name';
+	@override String get f_date => 'Registered on';
+}
+
+// Path: entity.corder.fields
+class _QualityStrings$entity$corder$fields$en extends QualityStrings$entity$corder$fields$ja {
+	_QualityStrings$entity$corder$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_trans_complaint_id => 'Nonconformity';
+	@override String get f_trans_order_id => 'Order';
+	@override String get f_remarks => 'Remarks';
+}
+
+// Path: entity.corderimp.fields
+class _QualityStrings$entity$corderimp$fields$en extends QualityStrings$entity$corderimp$fields$ja {
+	_QualityStrings$entity$corderimp$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_kind => 'Import kind';
+	@override String get f_title => 'Import content';
+	@override String get f_date => 'Imported on';
+}
+
+// Path: entity.cproc.fields
+class _QualityStrings$entity$cproc$fields$en extends QualityStrings$entity$cproc$fields$ja {
+	_QualityStrings$entity$cproc$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_trans_complaint_id => 'Nonconformity';
+	@override String get f_mstr_task_id => 'Task';
+	@override String get f_remarks => 'Remarks';
+}
+
+// Path: entity.cprocimp.fields
+class _QualityStrings$entity$cprocimp$fields$en extends QualityStrings$entity$cprocimp$fields$ja {
+	_QualityStrings$entity$cprocimp$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_kind => 'Import kind';
+	@override String get f_title => 'Import content';
+	@override String get f_date => 'Imported on';
+}
+
+// Path: entity.cequip.fields
+class _QualityStrings$entity$cequip$fields$en extends QualityStrings$entity$cequip$fields$ja {
+	_QualityStrings$entity$cequip$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_trans_complaint_id => 'Nonconformity';
+	@override String get f_remarks => 'Remarks';
+}
+
+// Path: entity.cequipimp.fields
+class _QualityStrings$entity$cequipimp$fields$en extends QualityStrings$entity$cequipimp$fields$ja {
+	_QualityStrings$entity$cequipimp$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_kind => 'Import kind';
+	@override String get f_title => 'Import content';
+	@override String get f_date => 'Imported on';
+}
+
+// Path: entity.orderrisk.fields
+class _QualityStrings$entity$orderrisk$fields$en extends QualityStrings$entity$orderrisk$fields$ja {
+	_QualityStrings$entity$orderrisk$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_trans_order_id => 'Order';
+	@override String get f_trans_risk_id => 'Risk';
+	@override String get f_remarks => 'Remarks';
+}
+
+// Path: entity.orderdetailrisk.fields
+class _QualityStrings$entity$orderdetailrisk$fields$en extends QualityStrings$entity$orderdetailrisk$fields$ja {
+	_QualityStrings$entity$orderdetailrisk$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_trans_order_detail_id => 'Sales order line';
+	@override String get f_risk_id => 'Risk';
+	@override String get f_remarks => 'Remarks';
+}
+
+// Path: entity.odrimp.fields
+class _QualityStrings$entity$odrimp$fields$en extends QualityStrings$entity$odrimp$fields$ja {
+	_QualityStrings$entity$odrimp$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_risk => 'Risk';
+}
+
+// Path: entity.taskrisk.fields
+class _QualityStrings$entity$taskrisk$fields$en extends QualityStrings$entity$taskrisk$fields$ja {
+	_QualityStrings$entity$taskrisk$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_mstr_task_id => 'Task';
+	@override String get f_risk_id => 'Risk';
+	@override String get f_remarks => 'Remarks';
+}
+
+// Path: entity.trimp.fields
+class _QualityStrings$entity$trimp$fields$en extends QualityStrings$entity$trimp$fields$ja {
+	_QualityStrings$entity$trimp$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_risk => 'Risk';
+}
+
+// Path: entity.auditstd.fields
+class _QualityStrings$entity$auditstd$fields$en extends QualityStrings$entity$auditstd$fields$ja {
+	_QualityStrings$entity$auditstd$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_code => 'Audit standard code';
+	@override String get f_control_code => 'Control code';
+	@override String get f_name => 'Audit standard name';
+	@override String get f_pronunciation => 'Reading';
+	@override String get f_nickname => 'Abbreviation';
+	@override String get f_category => 'Category';
+	@override String get f_detail => 'Details';
+	@override String get f_remarks => 'Remarks';
+}
+
+// Path: entity.auditstdimp.fields
+class _QualityStrings$entity$auditstdimp$fields$en extends QualityStrings$entity$auditstdimp$fields$ja {
+	_QualityStrings$entity$auditstdimp$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_check => 'Audit standard item';
+}
+
+// Path: entity.auditteam.fields
+class _QualityStrings$entity$auditteam$fields$en extends QualityStrings$entity$auditteam$fields$ja {
+	_QualityStrings$entity$auditteam$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_name => 'Team name';
+	@override String get f_trans_audit_id => 'Audit';
+	@override String get f_remarks => 'Remarks';
+}
+
+// Path: entity.auditor.fields
+class _QualityStrings$entity$auditor$fields$en extends QualityStrings$entity$auditor$fields$ja {
+	_QualityStrings$entity$auditor$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_audit_std_id => 'Audit standard';
+	@override String get f_ccategory => 'Member category';
+	@override String get f_staff_id => 'Audit member';
+	@override String get f_remarks => 'Remarks';
+}
+
+// Path: entity.audit.fields
+class _QualityStrings$entity$audit$fields$en extends QualityStrings$entity$audit$fields$ja {
+	_QualityStrings$entity$audit$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_audit_std_id => 'Audit standard';
+	@override String get f_staff_id => 'Audit lead';
+	@override String get f_scheduled_start_date => 'Planned start date';
+	@override String get f_expected_end_date => 'Planned end date';
+	@override String get f_title => 'Subject';
+	@override String get f_detail => 'Details';
+	@override String get f_info_department_id => 'Organization';
+	@override String get f_mstr_stakeholder_id => 'Stakeholder';
+	@override String get f_remarks => 'Remarks';
+}
+
+// Path: entity.auditteamlink.fields
+class _QualityStrings$entity$auditteamlink$fields$en extends QualityStrings$entity$auditteamlink$fields$ja {
+	_QualityStrings$entity$auditteamlink$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_team => 'Audit team';
+}
+
+// Path: entity.auditmember.fields
+class _QualityStrings$entity$auditmember$fields$en extends QualityStrings$entity$auditmember$fields$ja {
+	_QualityStrings$entity$auditmember$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_class => 'Participation category';
+	@override String get f_remarks => 'Remarks';
+}
+
+/// The flat map containing all translations for locale <en>.
+/// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
+extension on QualityStringsEn {
+	dynamic _flatMapFunction(String path) {
+		return switch (path) {
+			'menu.group' => 'Quality control',
+			'entity.complaint.title' => 'Nonconformities',
+			'entity.complaint.fields.f_occurent_at' => 'Occurred on',
+			'entity.complaint.fields.f_title' => 'Subject',
+			'entity.complaint.fields.f_detail' => 'Details',
+			'entity.complaint.fields.f_reporter_staff_id' => 'Reporter',
+			'entity.complaint.fields.f_remarks' => 'Remarks',
+			'entity.compreceive.title' => 'Nonconformity report receipts',
+			'entity.compreceive.fields.f_receive_at' => 'Received on',
+			'entity.compreceive.fields.f_receive_staff_id' => 'Received by',
+			'entity.compreceive.fields.f_detail' => 'Details',
+			'entity.compreceive.fields.f_remarks' => 'Remarks',
+			'entity.compstake.title' => 'Stakeholder complaints',
+			'entity.compstake.fields.f_stakeholder_id' => 'Stakeholder',
+			'entity.compstake.fields.f_remarks' => 'Remarks',
+			'entity.compfile.title' => 'Nonconformity report files',
+			'entity.compfile.fields.f_fname' => 'File name',
+			'entity.compfile.fields.f_date' => 'Registered on',
+			'entity.corder.title' => 'Order complaints',
+			'entity.corder.fields.f_trans_complaint_id' => 'Nonconformity',
+			'entity.corder.fields.f_trans_order_id' => 'Order',
+			'entity.corder.fields.f_remarks' => 'Remarks',
+			'entity.corderimp.title' => 'Imports',
+			'entity.corderimp.fields.f_kind' => 'Import kind',
+			'entity.corderimp.fields.f_title' => 'Import content',
+			'entity.corderimp.fields.f_date' => 'Imported on',
+			'entity.cproc.title' => 'Process complaints',
+			'entity.cproc.fields.f_trans_complaint_id' => 'Nonconformity',
+			'entity.cproc.fields.f_mstr_task_id' => 'Task',
+			'entity.cproc.fields.f_remarks' => 'Remarks',
+			'entity.cprocimp.title' => 'Imports',
+			'entity.cprocimp.fields.f_kind' => 'Import kind',
+			'entity.cprocimp.fields.f_title' => 'Import content',
+			'entity.cprocimp.fields.f_date' => 'Imported on',
+			'entity.cequip.title' => 'Equipment complaints',
+			'entity.cequip.fields.f_trans_complaint_id' => 'Nonconformity',
+			'entity.cequip.fields.f_remarks' => 'Remarks',
+			'entity.cequipimp.title' => 'Imports',
+			'entity.cequipimp.fields.f_kind' => 'Import kind',
+			'entity.cequipimp.fields.f_title' => 'Import content',
+			'entity.cequipimp.fields.f_date' => 'Imported on',
+			'entity.orderrisk.title' => 'Order risks',
+			'entity.orderrisk.fields.f_trans_order_id' => 'Order',
+			'entity.orderrisk.fields.f_trans_risk_id' => 'Risk',
+			'entity.orderrisk.fields.f_remarks' => 'Remarks',
+			'entity.orderdetailrisk.title' => 'Sales order line risks',
+			'entity.orderdetailrisk.fields.f_trans_order_detail_id' => 'Sales order line',
+			'entity.orderdetailrisk.fields.f_risk_id' => 'Risk',
+			'entity.orderdetailrisk.fields.f_remarks' => 'Remarks',
+			'entity.odrimp.title' => 'Import: risks',
+			'entity.odrimp.fields.f_risk' => 'Risk',
+			'entity.taskrisk.title' => 'Task risks',
+			'entity.taskrisk.fields.f_mstr_task_id' => 'Task',
+			'entity.taskrisk.fields.f_risk_id' => 'Risk',
+			'entity.taskrisk.fields.f_remarks' => 'Remarks',
+			'entity.trimp.title' => 'Import: risks',
+			'entity.trimp.fields.f_risk' => 'Risk',
+			'entity.auditstd.title' => 'Audit standards',
+			'entity.auditstd.fields.f_code' => 'Audit standard code',
+			'entity.auditstd.fields.f_control_code' => 'Control code',
+			'entity.auditstd.fields.f_name' => 'Audit standard name',
+			'entity.auditstd.fields.f_pronunciation' => 'Reading',
+			'entity.auditstd.fields.f_nickname' => 'Abbreviation',
+			'entity.auditstd.fields.f_category' => 'Category',
+			'entity.auditstd.fields.f_detail' => 'Details',
+			'entity.auditstd.fields.f_remarks' => 'Remarks',
+			'entity.auditstdimp.title' => 'Import: audit standard items',
+			'entity.auditstdimp.fields.f_check' => 'Audit standard item',
+			'entity.auditteam.title' => 'Audit teams',
+			'entity.auditteam.fields.f_name' => 'Team name',
+			'entity.auditteam.fields.f_trans_audit_id' => 'Audit',
+			'entity.auditteam.fields.f_remarks' => 'Remarks',
+			'entity.auditor.title' => 'Auditors',
+			'entity.auditor.fields.f_audit_std_id' => 'Audit standard',
+			'entity.auditor.fields.f_ccategory' => 'Member category',
+			'entity.auditor.fields.f_staff_id' => 'Audit member',
+			'entity.auditor.fields.f_remarks' => 'Remarks',
+			'entity.audit.title' => 'Audits',
+			'entity.audit.fields.f_audit_std_id' => 'Audit standard',
+			'entity.audit.fields.f_staff_id' => 'Audit lead',
+			'entity.audit.fields.f_scheduled_start_date' => 'Planned start date',
+			'entity.audit.fields.f_expected_end_date' => 'Planned end date',
+			'entity.audit.fields.f_title' => 'Subject',
+			'entity.audit.fields.f_detail' => 'Details',
+			'entity.audit.fields.f_info_department_id' => 'Organization',
+			'entity.audit.fields.f_mstr_stakeholder_id' => 'Stakeholder',
+			'entity.audit.fields.f_remarks' => 'Remarks',
+			'entity.auditteamlink.title' => 'Audit teams',
+			'entity.auditteamlink.fields.f_team' => 'Audit team',
+			'entity.auditmember.title' => 'Audit participants',
+			'entity.auditmember.fields.f_class' => 'Participation category',
+			'entity.auditmember.fields.f_remarks' => 'Remarks',
+			_ => null,
+		};
+	}
+}

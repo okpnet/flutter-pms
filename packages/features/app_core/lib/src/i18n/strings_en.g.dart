@@ -42,6 +42,7 @@ class AppCoreStringsEn extends AppCoreStrings with BaseTranslations<AppCoreLocal
 	@override late final _AppCoreStrings$shell$en shell = _AppCoreStrings$shell$en._(_root);
 	@override late final _AppCoreStrings$dashboard$en dashboard = _AppCoreStrings$dashboard$en._(_root);
 	@override late final _AppCoreStrings$boot$en boot = _AppCoreStrings$boot$en._(_root);
+	@override late final _AppCoreStrings$accessDenied$en accessDenied = _AppCoreStrings$accessDenied$en._(_root);
 	@override late final _AppCoreStrings$error$en error = _AppCoreStrings$error$en._(_root);
 	@override late final _AppCoreStrings$settings$en settings = _AppCoreStrings$settings$en._(_root);
 }
@@ -91,6 +92,19 @@ class _AppCoreStrings$boot$en extends AppCoreStrings$boot$ja {
 	// Translations
 	@override String title({required Object app}) => 'Starting ${app}…';
 	@override String get message => 'Loading data and settings.';
+}
+
+// Path: accessDenied
+class _AppCoreStrings$accessDenied$en extends AppCoreStrings$accessDenied$ja {
+	_AppCoreStrings$accessDenied$en._(AppCoreStringsEn root) : this._root = root, super.internal(root);
+
+	final AppCoreStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'You do not have permission to view this page';
+	@override String get message => 'The pages you can open are set by an administrator. Contact an administrator if you need access.';
+	@override String get toDashboard => 'Go to the dashboard';
+	@override String get toLogin => 'Go to sign in';
 }
 
 // Path: error
@@ -216,6 +230,10 @@ extension on AppCoreStringsEn {
 			'dashboard.done' => 'Done',
 			'boot.title' => ({required Object app}) => 'Starting ${app}…',
 			'boot.message' => 'Loading data and settings.',
+			'accessDenied.title' => 'You do not have permission to view this page',
+			'accessDenied.message' => 'The pages you can open are set by an administrator. Contact an administrator if you need access.',
+			'accessDenied.toDashboard' => 'Go to the dashboard',
+			'accessDenied.toLogin' => 'Go to sign in',
 			'error.title' => 'Error',
 			'error.message' => 'An error occurred in the application',
 			'error.back' => 'Back',

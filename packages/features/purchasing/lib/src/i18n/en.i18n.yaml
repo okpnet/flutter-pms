@@ -1,0 +1,73 @@
+# Purchasing strings (English). Keys missing here fall back to the base language (ja).
+menu:
+  group: "Purchasing"
+entity:
+  unrec:
+    title: "Unrecorded orders"
+    fields:
+      f_decision_date: "Decision date"
+      f_deadline: "Delivery deadline"
+      f_expected_completion_date: "Expected completion date"
+      f_planned_shipping_date: "Planned shipping date"
+      f_remarks: "Remarks"
+  unrecdetail:
+    title: "Unrecorded order lines"
+    fields:
+      f_quantity: "Quantity"
+      f_unit_price: "Unit price"
+      f_price_adjustment: "Price adjustment"
+      f_fixed_price: "Fixed unit price"
+      f_material_supply: "Material supply type"
+      f_paid_supply: "Paid supply type"
+      f_deadline: "Line delivery deadline"
+      f_item_id: "Item"
+      f_remarks: "Remarks"
+  purchase:
+    title: "Purchase orders"
+    fields:
+      f_stakeholder_id: "Supplier"
+      f_register_at: "Registered on"
+      f_purchase_order_date: "Order date"
+      f_deadline: "Order deadline"
+      f_purchase_amount: "Order amount"
+      f_received_amount: "Received amount"
+      f_remarks: "Remarks"
+  purdetail:
+    title: "Purchase order lines"
+    fields:
+      f_trans_resource_plan_id: "Resource plan"
+      f_restocking_purchase: "Stock purchase"
+      f_quantity: "Quantity"
+      f_unit_price: "Unit price"
+      f_price_adjustment: "Price adjustment"
+      f_fixed_price: "Fixed unit price"
+      f_material_supply: "Material supply type"
+      f_paid_supply: "Paid supply type"
+      f_period: "Delivery date"
+      f_item_id: "Item"
+      f_remarks: "Remarks"
+      f_cancel_quantity: "Canceled quantity"
+      f_stop: "Stopped"
+      f_received_quantity: "Received"
+      f_remaining_quantity: "Remaining"
+      f_open_quantity: "Open quantity (0 while stopped)"
+      f_cancel_closed: "Fully canceled"
+      f_reserve: "Allocation reservation"
+  purchaserec:
+    title: "Receipts"
+    fields:
+      f_trans_purchase_detail_id: "Purchase order line"
+      f_receive_at: "Received at"
+      f_quantity: "Quantity"
+      f_remarks: "Remarks"
+  purchaseline:
+    title: "Receipt lines"
+    fields:
+      f_item: "Item"
+      f_qty: "Received quantity"
+      f_unit: "Unit"
+  purcert:
+    title: "Purchased item certificates"
+    fields:
+      f_trans_certificate_id: "Certificate"
+      f_remarks: "Remarks"

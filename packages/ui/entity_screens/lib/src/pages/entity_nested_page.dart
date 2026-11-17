@@ -1,3 +1,4 @@
+import 'package:loadux_lib/loadux_lib.dart';
 import 'package:app_shell/app_shell.dart';
 import 'package:flgtable_lib/flgtable_lib.dart';
 import 'package:flutter/material.dart';
@@ -152,7 +153,7 @@ class _EntityNestedPageState extends State<EntityNestedPage> {
           if (snapshot.hasError) return Center(child: Text(s.loadFailed));
           final loaded = snapshot.data;
           if (loaded == null) {
-            return const Center(child: CircularProgressIndicator());
+            return const LoadingIndicator.centered();
           }
           return _body(loaded);
         },

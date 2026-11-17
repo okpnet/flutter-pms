@@ -1,0 +1,113 @@
+# Plan changes strings (English). Keys missing here fall back to the base language (ja).
+menu:
+  group: "Plan changes"
+entity:
+  planchange:
+    title: "Plan change history"
+    fields:
+      f_change_at: "Changed on"
+      f_symbol: "Symbol"
+      f_is_order_detail: "Sales order line"
+      f_is_purchase_detail: "Purchase order line"
+      f_is_operations_plan: "Production plan"
+      f_is_inventory_request: "Allocation reservation"
+      f_is_visiter: "Lot"
+      f_is_shipping_order_detail: "Shipping order line"
+      f_item: "Item"
+      f_is_cancel: "Cancel"
+      f_is_quantity_change: "Quantity change"
+      f_is_date_change: "Delivery date change"
+      f_is_postpone: "Postpone"
+      f_is_advance: "Advance"
+      f_is_stop: "Stop"
+      f_is_resume: "Resume"
+      f_is_discontinue: "Discontinue"
+      f_is_release: "Return to stock"
+      f_is_hold: "Hold"
+      f_is_scrap: "Scrap"
+      f_is_deliver: "Hand over"
+      f_has_settlement: "Has settlement"
+      f_customer_cause: "Customer's reason"
+      f_supplier_cause: "Supplier's / subcontractor's reason"
+      f_quality_cause: "Quality cause"
+      f_from_mrp: "From an MRP suggestion"
+      f_is_reflected: "Reflected in MRP"
+      f_is_unreflected: "Not reflected in MRP"
+      f_is_root: "Originating change"
+      f_cancel_quantity: "Canceled quantity"
+      f_old_quantity: "Quantity before"
+      f_new_quantity: "Quantity after"
+      f_old_date: "Delivery date before"
+      f_new_date: "Delivery date after"
+      f_reason: "Reason"
+  cancelopen:
+    title: "Open items"
+    fields:
+      f_symbol: "Symbol"
+      f_is_inventory_request: "Unreleased allocation reservation"
+      f_is_work_in_process: "Work in process"
+      f_is_hold: "Goods still on hold"
+      f_is_shipping_order: "Unshipped shipping order"
+      f_is_outsource_order: "Uncanceled outsourcing order"
+      f_is_supply_at_supplier: "Supplied material at the subcontractor"
+      f_is_customer_supply: "Customer-supplied material not returned"
+      f_cause_cancel: "Cancel"
+      f_cause_stop: "Stop"
+      f_cause_discontinue: "Discontinue"
+      f_item: "Item"
+      f_quantity: "Quantity"
+      f_since: "Cause date"
+      f_do_req_release: "Release"
+      f_do_req_hold: "Store"
+      f_do_lot_release: "Return to stock"
+      f_do_lot_hold: "Hold"
+      f_do_lot_scrap: "Scrap"
+      f_do_lot_deliver: "Hand over"
+      f_do_ship_cancel: "Cancel shipment"
+      f_do_pur_cancel: "Cancel order"
+  actreqrelease:
+    title: "Release allocation reservation"
+    fields:
+      f_target: "Target"
+      f_reason: "Reason"
+  actreqhold:
+    title: "Store allocation reservation"
+    fields:
+      f_target: "Target"
+      f_container: "Container to hold in"
+      f_reason: "Reason"
+  actlotrelease:
+    title: "Return to stock"
+    fields:
+      f_target: "Target"
+      f_reason: "Reason"
+  actlothold:
+    title: "Hold goods"
+    fields:
+      f_target: "Target"
+      f_container: "Container to hold in"
+      f_quantity: "Quantity"
+      f_reason: "Reason"
+  actlotscrap:
+    title: "Scrap goods"
+    fields:
+      f_target: "Target"
+      f_quantity: "Quantity"
+      f_reason: "Reason"
+  actlotdeliver:
+    title: "Hand over to customer"
+    fields:
+      f_target: "Target"
+      f_quantity: "Quantity"
+      f_reason: "Reason"
+  actshipcancel:
+    title: "Cancel shipping order"
+    fields:
+      f_target: "Target"
+      f_reason: "Reason"
+  actpurcancel:
+    title: "Cancel outsourcing order"
+    fields:
+      f_target: "Target"
+      f_quantity: "Quantity"
+      f_reason: "Reason"

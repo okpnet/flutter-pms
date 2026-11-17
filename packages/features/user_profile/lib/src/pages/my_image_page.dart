@@ -1,3 +1,4 @@
+import 'package:loadux_lib/loadux_lib.dart';
 import 'package:app_shell/app_shell.dart';
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter/material.dart';
@@ -147,7 +148,7 @@ class _MyImagePageState extends ConsumerState<MyImagePage> {
                       ],
                     ),
                   ],
-                  if (_busy) const LinearProgressIndicator(),
+                  if (_busy) const LoadingBar(),
                   if (_error != null)
                     Semantics(
                       liveRegion: true,

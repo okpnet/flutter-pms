@@ -3,10 +3,10 @@
 /// Source: lib/src/i18n
 /// To regenerate, run: `dart run slang`
 ///
-/// Locales: 1
-/// Strings: 90
+/// Locales: 2
+/// Strings: 180 (90 per locale)
 ///
-/// Built on 2026-11-16 at 21:21 UTC
+/// Built on 2026-11-17 at 02:32 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
@@ -17,6 +17,7 @@ import 'package:slang/generated.dart';
 import 'package:slang/slang.dart';
 export 'package:slang/slang.dart';
 
+import 'strings_en.g.dart' deferred as l_en;
 part 'strings_ja.g.dart';
 
 /// Supported locales.
@@ -26,7 +27,8 @@ part 'strings_ja.g.dart';
 /// - Locale locale = PlanChangeLocale.ja.flutterLocale // get flutter locale from enum
 /// - if (LocaleSettings.currentLocale == PlanChangeLocale.ja) // locale check
 enum PlanChangeLocale with BaseAppLocale<PlanChangeLocale, PlanChangeStrings> {
-	ja(languageCode: 'ja');
+	ja(languageCode: 'ja'),
+	en(languageCode: 'en');
 
 	const PlanChangeLocale({
 		required this.languageCode,
@@ -51,6 +53,13 @@ enum PlanChangeLocale with BaseAppLocale<PlanChangeLocale, PlanChangeStrings> {
 					cardinalResolver: cardinalResolver,
 					ordinalResolver: ordinalResolver,
 				);
+			case PlanChangeLocale.en:
+				await l_en.loadLibrary();
+				return l_en.PlanChangeStringsEn(
+					overrides: overrides,
+					cardinalResolver: cardinalResolver,
+					ordinalResolver: ordinalResolver,
+				);
 		}
 	}
 
@@ -63,6 +72,12 @@ enum PlanChangeLocale with BaseAppLocale<PlanChangeLocale, PlanChangeStrings> {
 		switch (this) {
 			case PlanChangeLocale.ja:
 				return PlanChangeStringsJa(
+					overrides: overrides,
+					cardinalResolver: cardinalResolver,
+					ordinalResolver: ordinalResolver,
+				);
+			case PlanChangeLocale.en:
+				return l_en.PlanChangeStringsEn(
 					overrides: overrides,
 					cardinalResolver: cardinalResolver,
 					ordinalResolver: ordinalResolver,

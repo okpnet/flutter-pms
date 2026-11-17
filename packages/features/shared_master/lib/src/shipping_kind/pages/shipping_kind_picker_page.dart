@@ -1,3 +1,4 @@
+import 'package:loadux_lib/loadux_lib.dart';
 import 'package:app_shell/app_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,7 +18,7 @@ class ShippingKindPickerPage extends ConsumerWidget {
     return ScreenScaffold(
       title: t.pickerTitle,
       body: kinds.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () => const LoadingIndicator.centered(),
         error: (e, _) => Center(child: Text('${t.loadFailed}: $e')),
         data: (list) => ListView(
           children: [

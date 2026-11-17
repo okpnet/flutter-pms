@@ -1,0 +1,139 @@
+# Quality control strings (English). Keys missing here fall back to the base language (ja).
+menu:
+  group: "Quality control"
+entity:
+  complaint:
+    title: "Nonconformities"
+    fields:
+      f_occurent_at: "Occurred on"
+      f_title: "Subject"
+      f_detail: "Details"
+      f_reporter_staff_id: "Reporter"
+      f_remarks: "Remarks"
+  compreceive:
+    title: "Nonconformity report receipts"
+    fields:
+      f_receive_at: "Received on"
+      f_receive_staff_id: "Received by"
+      f_detail: "Details"
+      f_remarks: "Remarks"
+  compstake:
+    title: "Stakeholder complaints"
+    fields:
+      f_stakeholder_id: "Stakeholder"
+      f_remarks: "Remarks"
+  compfile:
+    title: "Nonconformity report files"
+    fields:
+      f_fname: "File name"
+      f_date: "Registered on"
+  corder:
+    title: "Order complaints"
+    fields:
+      f_trans_complaint_id: "Nonconformity"
+      f_trans_order_id: "Order"
+      f_remarks: "Remarks"
+  corderimp:
+    title: "Imports"
+    fields:
+      f_kind: "Import kind"
+      f_title: "Import content"
+      f_date: "Imported on"
+  cproc:
+    title: "Process complaints"
+    fields:
+      f_trans_complaint_id: "Nonconformity"
+      f_mstr_task_id: "Task"
+      f_remarks: "Remarks"
+  cprocimp:
+    title: "Imports"
+    fields:
+      f_kind: "Import kind"
+      f_title: "Import content"
+      f_date: "Imported on"
+  cequip:
+    title: "Equipment complaints"
+    fields:
+      f_trans_complaint_id: "Nonconformity"
+      f_remarks: "Remarks"
+  cequipimp:
+    title: "Imports"
+    fields:
+      f_kind: "Import kind"
+      f_title: "Import content"
+      f_date: "Imported on"
+  orderrisk:
+    title: "Order risks"
+    fields:
+      f_trans_order_id: "Order"
+      f_trans_risk_id: "Risk"
+      f_remarks: "Remarks"
+  orderdetailrisk:
+    title: "Sales order line risks"
+    fields:
+      f_trans_order_detail_id: "Sales order line"
+      f_risk_id: "Risk"
+      f_remarks: "Remarks"
+  odrimp:
+    title: "Import: risks"
+    fields:
+      f_risk: "Risk"
+  taskrisk:
+    title: "Task risks"
+    fields:
+      f_mstr_task_id: "Task"
+      f_risk_id: "Risk"
+      f_remarks: "Remarks"
+  trimp:
+    title: "Import: risks"
+    fields:
+      f_risk: "Risk"
+  auditstd:
+    title: "Audit standards"
+    fields:
+      f_code: "Audit standard code"
+      f_control_code: "Control code"
+      f_name: "Audit standard name"
+      f_pronunciation: "Reading"
+      f_nickname: "Abbreviation"
+      f_category: "Category"
+      f_detail: "Details"
+      f_remarks: "Remarks"
+  auditstdimp:
+    title: "Import: audit standard items"
+    fields:
+      f_check: "Audit standard item"
+  auditteam:
+    title: "Audit teams"
+    fields:
+      f_name: "Team name"
+      f_trans_audit_id: "Audit"
+      f_remarks: "Remarks"
+  auditor:
+    title: "Auditors"
+    fields:
+      f_audit_std_id: "Audit standard"
+      f_ccategory: "Member category"
+      f_staff_id: "Audit member"
+      f_remarks: "Remarks"
+  audit:
+    title: "Audits"
+    fields:
+      f_audit_std_id: "Audit standard"
+      f_staff_id: "Audit lead"
+      f_scheduled_start_date: "Planned start date"
+      f_expected_end_date: "Planned end date"
+      f_title: "Subject"
+      f_detail: "Details"
+      f_info_department_id: "Organization"
+      f_mstr_stakeholder_id: "Stakeholder"
+      f_remarks: "Remarks"
+  auditteamlink:
+    title: "Audit teams"
+    fields:
+      f_team: "Audit team"
+  auditmember:
+    title: "Audit participants"
+    fields:
+      f_class: "Participation category"
+      f_remarks: "Remarks"

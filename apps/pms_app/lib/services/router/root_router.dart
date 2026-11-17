@@ -1,4 +1,5 @@
 // Project imports:
+import 'package:app_core/app_core_api.dart' show AccessDeniedDestination;
 import 'package:auth_files/auth_files.dart' show AuthFilesPaths;
 import 'package:backstage/backstage.dart' show BackstagePaths;
 import 'package:maintenance/maintenance.dart';
@@ -8,10 +9,20 @@ import 'package:pms_app/contents/_models/error/app_error.dart';
 import '../../contents/contents.dart';
 import '../../imports.dart';
 import '../features/feature_error.dart';
+import '../access/route_access.dart';
 import '../features/feature_modules.dart';
 import 'router.dart';
 
 part 'root_router.g.dart';
+
+/// ログイン前の画面。ログイン済みのときに開こうとしたら、ダッシュボードへ向ける。
+const _preLoginPaths = {
+  AuthFilesPaths.login,
+  AuthFilesPaths.register,
+  AuthFilesPaths.forgot,
+  AuthFilesPaths.forgotCode,
+  AuthFilesPaths.forgotReset,
+};
 
 ///GoRouterのメイン。ページはすべて機能(ライブラリ)のルート(`featureModules`・`standaloneFeatureModules`)で、アプリには持たない
 @Riverpod(keepAlive: true)
@@ -48,7 +59,12 @@ GoRouter rootRouter(Ref ref) {
       if (maintenance != null) return maintenance;
       // ログインしていなければ(ログイン前の画面を除いて)ログインへ向ける。
       // 接続先が未設定のときも同じ(開発用の例外はない。ログイン画面から裏設定の入口を通って接続先を設定する)
-      return authRedirect(
+      // ログイン済みなのに、ログイン前の画面(ログイン・登録・再設定)を開こうとしたときは、ダッシュボードへ
+      if (session == PageSessionStatus.valid &&
+          _preLoginPaths.contains(state.uri.path)) {
+        return DashboardConstant.path;
+      }
+      final auth = authRedirect(
         status: session,
         location: state.uri.toString(),
         loginPath: AuthFilesPaths.login,
@@ -64,6 +80,14 @@ GoRouter rootRouter(Ref ref) {
           BackstagePaths.backstage,
         ],
       );
+      if (auth != null) return auth;
+      // 権限の無いページを URL で直接開いたときは、権限なしの画面へ(メニュー・リンクからの遷移は、遷移の前に止める)
+      if (session == PageSessionStatus.valid &&
+          state.uri.path != featureLocationOf(const AccessDeniedDestination()) &&
+          !await routeAllowed(ref, state.uri.path)) {
+        return featureLocationOf(const AccessDeniedDestination());
+      }
+      return null;
     },
     //存在しないパス・ルートの構築失敗は app_core のエラー画面へ
     onException: (context, state, router) => router.go(

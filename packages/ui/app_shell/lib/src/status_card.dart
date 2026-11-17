@@ -1,3 +1,4 @@
+import 'package:loadux_lib/loadux_lib.dart';
 import 'package:flutter/material.dart';
 
 /// 状態を知らせる画面の部品。画面案(`tools/open-design`)のブート・ログアウト・エラーの構成。
@@ -66,7 +67,7 @@ class StatusCard extends StatelessWidget {
                     if (showProgress)
                       ClipRRect(
                         borderRadius: BorderRadius.circular(4),
-                        child: const LinearProgressIndicator(minHeight: 6),
+                        child: const LoadingBar(minHeight: 6),
                       ),
                     if (note != null && note!.isNotEmpty)
                       Text(

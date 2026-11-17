@@ -1,0 +1,63 @@
+# Production process strings (English). Keys missing here fall back to the base language (ja).
+menu:
+  group: "Process"
+entity:
+  taskgroup:
+    title: "Task groups"
+    fields:
+      f_name: "Group name"
+      f_desc: "Description"
+  task:
+    title: "Tasks"
+    fields:
+      f_code: "Task code"
+      f_name: "Task name"
+      f_pronunciation: "Reading"
+      f_nickname: "Abbreviation"
+      f_detail: "Details"
+      f_class: "Class"
+      f_default_time: "Standard time"
+      f_remarks: "Remarks"
+    reverse:
+      optask: "Selected tasks"
+      workplan: "Work plan lines"
+      cproc: "Process complaints"
+      taskrisk: "Task risks"
+  taskres:
+    title: "Task locations"
+    fields:
+      f_info_department_id: "Organization"
+      f_priority: "Priority"
+      f_remarks: "Remarks"
+  operation:
+    title: "Process operations"
+    fields:
+      f_control_code: "Control code"
+      f_name: "Operation name"
+      f_pronunciation: "Reading"
+      f_nickname: "Abbreviation"
+      f_detail: "Details"
+      f_remarks: "Remarks"
+  optask:
+    title: "Selected tasks"
+    fields:
+      f_task: "Task"
+      f_seq: "Order"
+  opapply:
+    title: "Process plans applied to items"
+    fields:
+      f_item: "Item"
+  taskavailable:
+    title: "Available equipment"
+    fields:
+      f_equipment: "Equipment"
+      f_delivery_interval: "Delivery interval (hours)"
+      f_remarks: "Remarks"
+  taskoutsource:
+    title: "Available outsourcing"
+    fields:
+      f_supplier: "External supplier"
+      f_delivery_interval: "Delivery interval (hours)"
+      f_material_supply: "Material supply"
+      f_paid_supply: "Paid supply"
+      f_remarks: "Remarks"

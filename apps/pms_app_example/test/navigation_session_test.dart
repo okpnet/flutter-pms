@@ -24,8 +24,7 @@ void main() {
     // ログイン済みでログインのパスを開く(戻る操作・URL の直接指定)
     await h.go(AuthFilesPaths.login);
     // 現状の記録(評価結果)。ログイン済みなのにログイン画面が開く場合は、指摘になる
-    // ignore: avoid_print
-    print('ログイン済みでログインのパスを開いたとき: ${h.location}');
+    expect(h.location, '/dashboard', reason: 'ログイン済みでは、ログインのパスはダッシュボードへ向く');
   });
 
   testWidgets('存在しないパスは、エラー画面へ', (tester) async {
@@ -94,13 +93,7 @@ void backStackTests() {
     final h = await ExampleHarness.start(tester);
     await h.login('admin', 'admin-pass');
     expect(h.location, '/dashboard');
-    // ignore: avoid_print
-    print('ログイン後に戻れる(canPop): ${h.router.canPop()}');
-    if (h.router.canPop()) {
-      h.router.pop();
-      await h.settle();
-      // ignore: avoid_print
-      print('戻ったあとのパス: ${h.location}');
-    }
+    // 積まずに入れ替えるため、戻ってログイン画面へ出られない
+    expect(h.router.canPop(), isFalse);
   });
 }

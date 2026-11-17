@@ -14,6 +14,11 @@ dashboard:
 boot:
   title: "{app}を起動しています…"
   message: データと設定を読み込んでいます。
+accessDenied:
+  title: このページを表示する権限がありません
+  message: アクセスできるページは、管理者が設定します。必要な場合は、管理者にお問い合わせください。
+  toDashboard: ダッシュボードへ
+  toLogin: ログインへ
 error:
   title: エラー
   message: アプリケーションでエラーが発生しました

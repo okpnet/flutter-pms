@@ -3,6 +3,7 @@ import 'package:auth_files/auth_files.dart' show AuthFilesPaths;
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:feature_shared/feature_shared.dart' show EntityListDestination, TopLevelDestination, commandBusProvider;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pms_app/contents/_shared/frames/app_main_frame.dart';
@@ -169,12 +170,45 @@ void main() {
     testWidgets('許可されていないページへ、URL で直接移動すると(現状の記録)', (tester) async {
       final h = await ExampleHarness.start(tester);
       await h.login('sato', 'sato-pass');
+      // URL で直接開くと、権限なしの画面へ
       await h.go('/e/item');
-      // ignore: avoid_print
-      print('許可なしのページ(/e/item)へ直接移動 → ${h.location}');
+      expect(h.location, '/access-denied');
+      await h.go('/e/item/new');
+      expect(h.location, '/access-denied');
       await h.go('/auth/admin/signups');
-      // ignore: avoid_print
-      print('管理者専用のページ(/auth/admin/signups)へ直接移動 → ${h.location}');
+      expect(h.location, '/access-denied', reason: '管理者専用');
+      // 許可されたページ・選択の画面・ダッシュボードは開く
+      await h.go('/e/order');
+      expect(h.location, '/e/order');
+      await h.go('/e/item/pick');
+      expect(h.location, '/e/item/pick');
+      await h.go('/dashboard');
+      expect(h.location, '/dashboard');
+      // 画面には、トップ(ダッシュボード)へ戻るボタンだけがある
+      await h.go('/e/item');
+      expect(find.text('ダッシュボードへ'), findsOneWidget);
+      expect(find.byType(FilledButton), findsOneWidget);
+      await tester.tap(find.text('ダッシュボードへ'));
+      await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 50)));
+      await h.settle();
+      expect(h.location, '/dashboard');
+    });
+
+    testWidgets('メニュー・リンクからの遷移は、遷移の前に止めて、いまの画面にとどまる', (tester) async {
+      final h = await ExampleHarness.start(tester);
+      await h.login('sato', 'sato-pass');
+      await h.go('/e/order');
+      await h.container
+          .read(commandBusProvider)
+          .execute(TopLevelDestination(EntityListDestination('item')));
+      await h.settle();
+      expect(h.location, '/e/order', reason: '許可の無いページへは遷移しない');
+      await h.go('/settings');
+      await h.container
+          .read(commandBusProvider)
+          .execute(TopLevelDestination(EntityListDestination('order')));
+      await h.settle();
+      expect(h.location, '/e/order', reason: '許可されたページへは遷移できる');
     });
   });
 

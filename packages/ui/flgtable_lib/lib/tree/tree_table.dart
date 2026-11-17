@@ -459,7 +459,7 @@ class _TreeTableState<T> extends _TableBaseState<T, TreeTable<T>> {
         height: rowHeight * 0.6,
         child:
             widget.loadingIndicator ??
-            const CircularProgressIndicator(strokeWidth: 2),
+            const LoadingIndicator(strokeWidth: 2),
       );
     } else {
       final text = node.childCount == 0

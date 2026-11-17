@@ -1,3 +1,4 @@
+import 'package:loadux_lib/loadux_lib.dart';
 import 'condition_editor.dart';
 import 'package:app_shell/app_shell.dart';
 import 'package:flgtable_lib/flgtable_lib.dart';
@@ -413,7 +414,7 @@ class _EntityEditPageState extends State<EntityEditPage> {
     return ScreenScaffold(
       title: scope.labels.entity(widget.entityKey),
       body: _loading
-          ? const Center(child: CircularProgressIndicator())
+          ? const LoadingIndicator.centered()
           : _loadError != null
           ? Center(child: Text(strings.loadFailed))
           : _notFound
@@ -811,7 +812,7 @@ class _ChildSectionState extends State<_ChildSection> {
                 return Center(child: Text(scope.strings.loadFailed));
               }
               if (data == null) {
-                return const Center(child: CircularProgressIndicator());
+                return const LoadingIndicator.centered();
               }
               return FlgTable<EntityRecord>(
                 key: ValueKey('${widget.definition.key}:$_generation'),
@@ -922,7 +923,7 @@ class _ReverseSectionState extends State<_ReverseSection> {
                 return Center(child: Text(scope.strings.loadFailed));
               }
               if (data == null) {
-                return const Center(child: CircularProgressIndicator());
+                return const LoadingIndicator.centered();
               }
               final definition = data.definition;
               if (definition == null) {

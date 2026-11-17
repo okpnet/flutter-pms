@@ -1,3 +1,4 @@
+import 'package:loadux_lib/loadux_lib.dart';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -125,7 +126,7 @@ class _BusyCardState extends State<_BusyCard> {
             const SizedBox(
               width: 48,
               height: 48,
-              child: CircularProgressIndicator(),
+              child: LoadingIndicator(),
             ),
             Text(widget.message, style: theme.textTheme.titleMedium),
             if (elapsed != null)

@@ -1,3 +1,4 @@
+import 'package:loadux_lib/loadux_lib.dart';
 import 'package:flutter/material.dart';
 
 /// 起動直後(状態管理・テーマの準備ができる前)に出す読み込み中の画面。
@@ -10,6 +11,6 @@ class BootSplash extends StatelessWidget {
   @override
   Widget build(BuildContext context) => const MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: Scaffold(body: Center(child: CircularProgressIndicator())),
+    home: Scaffold(body: LoadingIndicator.centered()),
   );
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loadux_lib/loadux_lib.dart' show LoadingTheme;
 
 import '../model/theme_definition.dart';
 import '../tokens/app_colors.dart';
@@ -41,6 +42,8 @@ abstract final class ThemeBuilder {
       fontFamily: definition.fontFamily,
       fontFamilyFallback: fontFamilyFallback,
       extensions: [
+        // 読み込み中の表示(loadux_lib)の見た目。色はテーマの主色
+        LoadingTheme(color: colors.primary),
         SpaceField(
           formFieldPd: metrics.formFieldPadding,
           menuFieldPd: metrics.menuFieldPadding,

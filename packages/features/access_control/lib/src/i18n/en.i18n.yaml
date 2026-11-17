@@ -1,0 +1,33 @@
+# Access control strings (English). Keys missing here fall back to the base language (ja).
+menu:
+  group: "Access control"
+entity:
+  accesspath:
+    title: "Access paths"
+    fields:
+      f_name_ja: "Page name (Japanese)"
+      f_name_en: "Page name (English)"
+      f_usecase_path: "Page path"
+      f_remarks: "Remarks"
+  deptaccesspath:
+    title: "Department access paths"
+    fields:
+      f_department: "Department"
+      f_access_path: "Access path"
+      f_write: "Write"
+      f_remarks: "Remarks"
+  staffaccesspermission:
+    title: "Staff access permissions"
+    fields:
+      f_staff: "Staff"
+      f_access_path: "Access path"
+      f_write: "Write"
+      f_remarks: "Remarks"
+  effectiveaccesspath:
+    title: "Effective access paths of staff"
+    fields:
+      f_staff: "Staff"
+      f_access_path: "Access path"
+      f_can_write: "Can write"
+      f_from_department: "Inherited from department"
+      f_from_staff: "Personal permission"
