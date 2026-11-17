@@ -357,9 +357,10 @@
   // 未処置一覧の行の操作(DB の関数の呼び出し。1回 = 1トランザクション。保存すると、計画変更が追記される。編集・削除は無い)。
   // 行のボタン(action)から、対象(行の id)と数量を初期値にして開く。ボタンは、行の種類(真偽の列)に合うものだけを出す。
   const op = (key, label, extra) => D.entities.push({
-    key, label, rows: [], noMenu: true, group: "planchange",
+    key, label, rows: [], noMenu: true, group: "planchange", confirmSave: true,
     fields: [
-      ["target", "対象", "t", { req: false, readOnly: true }],
+      ["target", "対象", "t", { req: false, readOnly: true, hidden: true }],
+      ["item", "品目", "r", { ref: "item", req: false, readOnly: true }],
       ...extra,
       ["reason", "理由", "t", { req: false }],
     ],
@@ -375,8 +376,12 @@
   op("actshipcancel", "出荷オーダーの取り消し", []);
   op("actpurcancel", "外注発注のキャンセル", [qty]);
   const co = D.entities.find((e) => e.key === "cancelopen");
-  const tgt = { target: "id" };
-  const tgtQty = { target: "id", quantity: "quantity" };
+  // 列が多いため、行のボタンは左端に出し、真偽の列はオンのときだけ印を出す
+  co.actionsFirst = true;
+  co.compactFlags = true;
+  D.entities.find((e) => e.key === "planchange").compactFlags = true;
+  const tgt = { target: "id", item: "item" };
+  const tgtQty = { target: "id", item: "item", quantity: "quantity" };
   const lot = ["is_work_in_process", "is_hold"];
   co.actions = [
     { key: "do_req_release", label: "解除", target: "actreqrelease", params: tgt, whenAny: ["is_inventory_request"] },

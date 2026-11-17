@@ -61,7 +61,7 @@ void main() {
   });
 
   group('検証用サーバー: 操作の実体', () {
-    serverTest('存在しない対象は保存に失敗する(データは変わらない)', (server) async {
+    serverTest('存在しない対象は、種類つきの失敗(対象が無い)になる(データは変わらない)', (server) async {
       final r = repo(server.provider.client, 'actshipcancel');
       await expectLater(
         r.save(
@@ -72,7 +72,7 @@ void main() {
             },
           ),
         ),
-        throwsA(isA<CancelOpenActionException>()),
+        throwsA(isA<EntityFailureException>()),
       );
     });
 

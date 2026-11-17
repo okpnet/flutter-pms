@@ -1,10 +1,10 @@
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter/material.dart';
-import 'package:item/item.dart';
 import 'package:logger_provider/logger_provider.dart';
+import 'package:item/item.dart';
 import 'package:plan_change/plan_change.dart';
-import 'package:theme_lib/theme_lib.dart';
 import 'package:work_record/work_record.dart';
+import 'package:theme_lib/theme_lib.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,8 +15,7 @@ Future<void> main() async {
 }
 
 /// 計画変更 を単体で確認するアプリ。本番(pms_app)と同じ配線で、この機能だけを載せる。
-/// 参照先が別の機能にある実体(品目・コンテナ)は、その機能も一緒に載せて選択肢を引けるようにしている。
-/// 取得元はサンプル(メモリ上)。未処置一覧の行のボタンから、操作の入力画面を開いて確認できる。
+/// 参照先が別の機能にある実体は、その機能も一緒に載せて選択肢を引けるようにしている。
 class ExampleApp extends StatelessWidget {
   const ExampleApp({super.key, required this.logger});
 

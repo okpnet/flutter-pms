@@ -25,6 +25,17 @@ children: items
 confirmDelete:
   title: Confirm deletion
   message: Delete "$name"?
+confirmSave:
+  title: Confirm
+  message: This cannot be undone (it is recorded as an append-only entry). Continue?
+  ok: Run
+  done: Done
+failure:
+  notFound: The target was not found (it may already have been processed)
+  notAllowed: Not allowed in the current state
+  invalidInput: The input is not valid
+  noLocation: The shelf has no location set
+  unavailable: Cannot connect to the server
 condition:
   between: Range
   yesNo: Yes / No

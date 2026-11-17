@@ -29,6 +29,7 @@ module.exports = function writeExamples({ PROJECTS, rootsOf, dependsOn, features
       extraOverrides = ', mrpGatewayProvider.overrideWithValue(DemoMrpGateway())';
     }
     for (const r of roots) {
+      if (r.noMenu) continue; // 行のボタンからだけ開く操作の実体は、起点の一覧に出さない
       entries.push(`FeatureHostEntry(${dq(r.label)}, EntityListDestination(${dq(r.key)}))`);
     }
     const title = PROJECTS[pkg].title;
@@ -96,7 +97,9 @@ module.exports = function writeExamples({ PROJECTS, rootsOf, dependsOn, features
       '}',
       '',
     ].join(nl);
-    write(path.join(dir, 'test', 'widget_test.dart'), test);
+    // 手書きのテスト(先頭付近に「手書きのテスト」の印がある)は上書きしない
+    const testFile = path.join(dir, 'test', 'widget_test.dart');
+    if (!(fs.existsSync(testFile) && fs.readFileSync(testFile, 'utf8').includes('手書きのテスト'))) write(testFile, test);
 
     // pubspec に、同時に載せる機能のパスを足す
     const pubFile = path.join(dir, 'pubspec.yaml');

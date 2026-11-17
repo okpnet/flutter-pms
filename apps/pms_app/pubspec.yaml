@@ -18,8 +18,6 @@ dependencies:
     path: ../../packages/ui/view_responsiveness
   theme_lib:
     path: ../../packages/ui/theme_lib
-  grid_extensions:
-    path: ../../packages/ui/grid_extensions
   logger_provider:
     path: ../../packages/infra/logger_provider
   data_strategist:

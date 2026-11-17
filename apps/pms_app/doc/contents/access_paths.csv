@@ -35,6 +35,14 @@
 /e/approvalpattern,承認パターン,Approval pattern,organization,false
 /e/planchange,計画変更の履歴,Plan change history,plan_change,false
 /e/cancelopen,未処置一覧,Open items after cancel,plan_change,false
+/e/actreqrelease,引当予約の解除,Release inventory request,plan_change,false
+/e/actreqhold,引当予約の保管,Hold inventory request,plan_change,false
+/e/actlotrelease,在庫にする,Release lot to stock,plan_change,false
+/e/actlothold,品物を押さえる,Hold lot,plan_change,false
+/e/actlotscrap,品物の廃棄,Scrap lot,plan_change,false
+/e/actlotdeliver,顧客への引き渡し,Deliver lot to customer,plan_change,false
+/e/actshipcancel,出荷オーダーの取り消し,Cancel shipping order line,plan_change,false
+/e/actpurcancel,外注発注のキャンセル,Cancel outsourced purchase line,plan_change,false
 /e/resplan,資材計画,Resource plan,production_plan,false
 /e/prodrez,生産引き当て予約,Production reservation,production_plan,false
 /e/purrez,購買引き当て予約,Purchase reservation,production_plan,false

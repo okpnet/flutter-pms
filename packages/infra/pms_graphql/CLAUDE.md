@@ -7,7 +7,7 @@
 `gqlib` は `graphql` をラップし、型付き・Result方式のクライアントとして
 提供する Flutter/Dart パッケージで、`flutter-pms` アプリ全体から利用されます。モノレポ内の
 `flutter_pub_lib/gqlib` に配置されており、兄弟パッケージとして `logger_provider`,
-`data_strategist`, `query_builder`, `ui_mapper`, `undo_redo`, `view_responsiveness`
+`data_strategist`, `query_builder`, `undo_redo`, `view_responsiveness`
 (`../` 配下) が存在します。`pubspec.yaml` の `logger_lib: path: ../../flutter_pub_lib/logger_lib`
 が示すとおり `logger_provider` へ相対パス依存しているため、`gqlib` を解決するにはこの兄弟パッケージの
 チェックアウトが存在している必要があります。

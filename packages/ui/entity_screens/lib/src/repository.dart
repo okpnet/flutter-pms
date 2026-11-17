@@ -148,7 +148,9 @@ class InMemoryEntityRepository implements IEntityRepository {
       FieldKind.number => _validateNumber(f, value),
       FieldKind.flag => value == flagOn ? null : EntityFieldError.invalidChoice,
       FieldKind.file =>
-        EntityFile.tryParse(value) == null ? EntityFieldError.invalidChoice : null,
+        EntityFile.tryParse(value) == null
+            ? EntityFieldError.invalidChoice
+            : null,
       FieldKind.date => _validateDate(f, value, record),
       FieldKind.choice =>
         f.options.contains(value) ? null : EntityFieldError.invalidChoice,

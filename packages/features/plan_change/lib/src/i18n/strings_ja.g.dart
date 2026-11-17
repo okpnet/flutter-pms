@@ -410,6 +410,9 @@ class PlanChangeStrings$entity$actreqrelease$fields$ja {
 	/// ja: '対象'
 	String get f_target => '対象';
 
+	/// ja: '品目'
+	String get f_item => '品目';
+
 	/// ja: '理由'
 	String get f_reason => '理由';
 }
@@ -424,6 +427,9 @@ class PlanChangeStrings$entity$actreqhold$fields$ja {
 
 	/// ja: '対象'
 	String get f_target => '対象';
+
+	/// ja: '品目'
+	String get f_item => '品目';
 
 	/// ja: '押さえる先のコンテナ'
 	String get f_container => '押さえる先のコンテナ';
@@ -443,6 +449,9 @@ class PlanChangeStrings$entity$actlotrelease$fields$ja {
 	/// ja: '対象'
 	String get f_target => '対象';
 
+	/// ja: '品目'
+	String get f_item => '品目';
+
 	/// ja: '理由'
 	String get f_reason => '理由';
 }
@@ -457,6 +466,9 @@ class PlanChangeStrings$entity$actlothold$fields$ja {
 
 	/// ja: '対象'
 	String get f_target => '対象';
+
+	/// ja: '品目'
+	String get f_item => '品目';
 
 	/// ja: '押さえる先のコンテナ'
 	String get f_container => '押さえる先のコンテナ';
@@ -479,6 +491,9 @@ class PlanChangeStrings$entity$actlotscrap$fields$ja {
 	/// ja: '対象'
 	String get f_target => '対象';
 
+	/// ja: '品目'
+	String get f_item => '品目';
+
 	/// ja: '数量'
 	String get f_quantity => '数量';
 
@@ -496,6 +511,9 @@ class PlanChangeStrings$entity$actlotdeliver$fields$ja {
 
 	/// ja: '対象'
 	String get f_target => '対象';
+
+	/// ja: '品目'
+	String get f_item => '品目';
 
 	/// ja: '数量'
 	String get f_quantity => '数量';
@@ -515,6 +533,9 @@ class PlanChangeStrings$entity$actshipcancel$fields$ja {
 	/// ja: '対象'
 	String get f_target => '対象';
 
+	/// ja: '品目'
+	String get f_item => '品目';
+
 	/// ja: '理由'
 	String get f_reason => '理由';
 }
@@ -529,6 +550,9 @@ class PlanChangeStrings$entity$actpurcancel$fields$ja {
 
 	/// ja: '対象'
 	String get f_target => '対象';
+
+	/// ja: '品目'
+	String get f_item => '品目';
 
 	/// ja: '数量'
 	String get f_quantity => '数量';
@@ -607,32 +631,40 @@ extension on PlanChangeStrings {
 			'entity.cancelopen.fields.f_do_pur_cancel' => '発注キャンセル',
 			'entity.actreqrelease.title' => '引当予約の解除',
 			'entity.actreqrelease.fields.f_target' => '対象',
+			'entity.actreqrelease.fields.f_item' => '品目',
 			'entity.actreqrelease.fields.f_reason' => '理由',
 			'entity.actreqhold.title' => '引当予約の保管',
 			'entity.actreqhold.fields.f_target' => '対象',
+			'entity.actreqhold.fields.f_item' => '品目',
 			'entity.actreqhold.fields.f_container' => '押さえる先のコンテナ',
 			'entity.actreqhold.fields.f_reason' => '理由',
 			'entity.actlotrelease.title' => '在庫にする',
 			'entity.actlotrelease.fields.f_target' => '対象',
+			'entity.actlotrelease.fields.f_item' => '品目',
 			'entity.actlotrelease.fields.f_reason' => '理由',
 			'entity.actlothold.title' => '品物を押さえる',
 			'entity.actlothold.fields.f_target' => '対象',
+			'entity.actlothold.fields.f_item' => '品目',
 			'entity.actlothold.fields.f_container' => '押さえる先のコンテナ',
 			'entity.actlothold.fields.f_quantity' => '数量',
 			'entity.actlothold.fields.f_reason' => '理由',
 			'entity.actlotscrap.title' => '品物の廃棄',
 			'entity.actlotscrap.fields.f_target' => '対象',
+			'entity.actlotscrap.fields.f_item' => '品目',
 			'entity.actlotscrap.fields.f_quantity' => '数量',
 			'entity.actlotscrap.fields.f_reason' => '理由',
 			'entity.actlotdeliver.title' => '顧客への引き渡し',
 			'entity.actlotdeliver.fields.f_target' => '対象',
+			'entity.actlotdeliver.fields.f_item' => '品目',
 			'entity.actlotdeliver.fields.f_quantity' => '数量',
 			'entity.actlotdeliver.fields.f_reason' => '理由',
 			'entity.actshipcancel.title' => '出荷オーダーの取り消し',
 			'entity.actshipcancel.fields.f_target' => '対象',
+			'entity.actshipcancel.fields.f_item' => '品目',
 			'entity.actshipcancel.fields.f_reason' => '理由',
 			'entity.actpurcancel.title' => '外注発注のキャンセル',
 			'entity.actpurcancel.fields.f_target' => '対象',
+			'entity.actpurcancel.fields.f_item' => '品目',
 			'entity.actpurcancel.fields.f_quantity' => '数量',
 			'entity.actpurcancel.fields.f_reason' => '理由',
 			_ => null,

@@ -26,6 +26,17 @@ children: 件
 confirmDelete:
   title: 削除の確認
   message: 「$name」を削除します。
+confirmSave:
+  title: 実行の確認
+  message: この操作は取り消せません(追記だけの記録になります)。実行しますか。
+  ok: 実行
+  done: 実行しました
+failure:
+  notFound: 対象が見つかりません(すでに処理された可能性があります)
+  notAllowed: 今の状態では実行できません
+  invalidInput: 入力が正しくありません
+  noLocation: 棚に場所が設定されていないため実行できません
+  unavailable: サーバーに接続できません
 condition:
   between: 範囲
   yesNo: 二値(Yes / No)

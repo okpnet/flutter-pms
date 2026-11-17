@@ -57,6 +57,8 @@ class EntityScreenStringsEn extends EntityScreenStrings with BaseTranslations<En
 	@override String get noData => 'No data';
 	@override String get children => 'items';
 	@override late final _EntityScreenStrings$confirmDelete$en confirmDelete = _EntityScreenStrings$confirmDelete$en._(_root);
+	@override late final _EntityScreenStrings$confirmSave$en confirmSave = _EntityScreenStrings$confirmSave$en._(_root);
+	@override late final _EntityScreenStrings$failure$en failure = _EntityScreenStrings$failure$en._(_root);
 	@override late final _EntityScreenStrings$condition$en condition = _EntityScreenStrings$condition$en._(_root);
 	@override String get yes => 'Yes';
 	@override String get no => 'No';
@@ -88,6 +90,33 @@ class _EntityScreenStrings$confirmDelete$en extends EntityScreenStrings$confirmD
 	// Translations
 	@override String get title => 'Confirm deletion';
 	@override String message({required Object name}) => 'Delete "${name}"?';
+}
+
+// Path: confirmSave
+class _EntityScreenStrings$confirmSave$en extends EntityScreenStrings$confirmSave$ja {
+	_EntityScreenStrings$confirmSave$en._(EntityScreenStringsEn root) : this._root = root, super.internal(root);
+
+	final EntityScreenStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Confirm';
+	@override String get message => 'This cannot be undone (it is recorded as an append-only entry). Continue?';
+	@override String get ok => 'Run';
+	@override String get done => 'Done';
+}
+
+// Path: failure
+class _EntityScreenStrings$failure$en extends EntityScreenStrings$failure$ja {
+	_EntityScreenStrings$failure$en._(EntityScreenStringsEn root) : this._root = root, super.internal(root);
+
+	final EntityScreenStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get notFound => 'The target was not found (it may already have been processed)';
+	@override String get notAllowed => 'Not allowed in the current state';
+	@override String get invalidInput => 'The input is not valid';
+	@override String get noLocation => 'The shelf has no location set';
+	@override String get unavailable => 'Cannot connect to the server';
 }
 
 // Path: condition
@@ -180,6 +209,15 @@ extension on EntityScreenStringsEn {
 			'children' => 'items',
 			'confirmDelete.title' => 'Confirm deletion',
 			'confirmDelete.message' => ({required Object name}) => 'Delete "${name}"?',
+			'confirmSave.title' => 'Confirm',
+			'confirmSave.message' => 'This cannot be undone (it is recorded as an append-only entry). Continue?',
+			'confirmSave.ok' => 'Run',
+			'confirmSave.done' => 'Done',
+			'failure.notFound' => 'The target was not found (it may already have been processed)',
+			'failure.notAllowed' => 'Not allowed in the current state',
+			'failure.invalidInput' => 'The input is not valid',
+			'failure.noLocation' => 'The shelf has no location set',
+			'failure.unavailable' => 'Cannot connect to the server',
 			'condition.between' => 'Range',
 			'condition.yesNo' => 'Yes / No',
 			'condition.value' => 'Enter a value',

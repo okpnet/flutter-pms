@@ -36,7 +36,7 @@ MRP のビジター品目(`mrpvisiter`、`v_mrp_visiter_item`)は、読み取り
 | コンテナ | `container` | ツリー構造 | 3 |  |
 | 引き当て | `invapply` | テーブル構造 | 4 | `invreq`, `staff` |
 | 引き当て予約 | `invreq` | テーブル構造 | 8 | `purrez`, `prodrez`, `resplan`, `staff` |
-| 成績書 | `certificate` | テーブル構造 | 4 |  |
+| 成績書 | `certificate` | テーブル構造 | 5 |  |
 | 作業実績 | `workrec` | テーブル構造 | 7 | `workplan`, `staff` |
 | 作業成績書 | `wrcert` | 子の台帳(親: 作業実績) | 2 | `certificate` |
 | ビジター品目 | `mrpvisiter` | テーブル構造 | 4 | `item` |

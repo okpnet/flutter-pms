@@ -93,6 +93,34 @@ class EntityValidationException implements Exception {
   String toString() => 'EntityValidationException($errors)';
 }
 
+/// 保存・実行の失敗の種類(入力の項目の誤りではないもの)。画面が、多言語の文に変換して出す。
+enum EntityFailureKind {
+  /// 対象が無い(すでに処理された・削除された)。
+  notFound,
+
+  /// 今の状態では実行できない。
+  notAllowed,
+
+  /// 入力・数量が正しくない(項目を特定できない)。
+  invalidInput,
+
+  /// 棚に場所が設定されていない。
+  noLocation,
+
+  /// サーバーに接続できない。
+  unavailable,
+}
+
+/// 保存・実行の失敗(種類つき)。項目の誤りは [EntityValidationException]、それ以外の失敗はこの例外で種類を渡す。
+class EntityFailureException implements Exception {
+  const EntityFailureException(this.kind);
+
+  final EntityFailureKind kind;
+
+  @override
+  String toString() => 'EntityFailureException(${kind.name})';
+}
+
 /// 削除できない理由。
 enum EntityBlockReason { hasChildren, referenced }
 

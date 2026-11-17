@@ -91,6 +91,7 @@ class FieldDefinition {
     this.reference,
     this.picker = false,
     this.readOnly = false,
+    this.hidden = false,
     this.toggle = false,
     this.disables,
     this.ge,
@@ -125,6 +126,9 @@ class FieldDefinition {
   /// 読み取り専用(集計・計算された値。DB のビューの集計列など)。
   /// 編集画面では表示だけ、台帳では列(読み取り専用の列)にする。入力・検証・保存の対象にしない。
   final bool readOnly;
+
+  /// 編集画面に出さない(値は初期値・読み込みのまま保持して保存に渡す。行の ID など、利用者に見せない値用)。
+  final bool hidden;
 
   /// [FieldKind.flag] をトグル(スイッチ)で入力する。false はチェックボックス。
   final bool toggle;
@@ -288,6 +292,9 @@ class EntityDefinition {
     this.viewOnly = false,
     this.rowActions = const [],
     this.inMenu = true,
+    this.actionsFirst = false,
+    this.compactFlags = false,
+    this.confirmSave = false,
   }) : assert(!(isTree && owner != null), 'ツリーと所有は同時に持てない');
 
   /// 実体のキー(全体で一意。画面のパスにも使う)。
@@ -315,6 +322,15 @@ class EntityDefinition {
 
   /// メニューに出すか。行のボタンからだけ開く操作の実体(例: 未処置の処置)は false にする。
   final bool inMenu;
+
+  /// 行のボタン([rowActions])の列を、表の左端に出すか(false は右端)。列が多く、右端だと横にスクロールしないと押せない台帳用。
+  final bool actionsFirst;
+
+  /// 台帳の真偽の列を、オンのときだけ印(✓)を出し、オフは空にするか(false は はい/いいえ)。真偽の列が多い台帳で、どれがオンかを見分けやすくする。
+  final bool compactFlags;
+
+  /// 保存の前に、実行の確認(取り消せない旨)を出し、成功したら完了を通知するか。追記だけの操作の実体用。
+  final bool confirmSave;
 
   /// 台帳の各行に出すボタン(別の実体の新規登録を開く)。
   final List<RowAction> rowActions;

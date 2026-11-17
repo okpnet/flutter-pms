@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart' show Size, TextButton, ValueKey;
+// 手書きのテスト(tools/entity_gen/examples.js は、この印があるテストを上書きしない)
+import 'package:flutter/material.dart' show Size, TextButton;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logger_provider/logger_provider.dart';
 import 'package:plan_change_example/main.dart';

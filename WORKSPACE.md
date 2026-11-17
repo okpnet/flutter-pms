@@ -11,7 +11,7 @@ flutter-pms/
 │   ├─ features/              ← 機能(1機能=1パッケージ)。lib/xxx_api.dart = 契約(遷移先・命令の型) / lib/xxx.dart = 実装の入口(アプリだけが読む)
 │   │   └─ sales, resource, item, ...
 │   ├─ core/                  ← baton_lib, feature_shared(機能とアプリの仲介)
-│   ├─ ui/                    ← theme_lib, view_responsiveness, ui_mapper, grid_extensions
+│   ├─ ui/                    ← theme_lib, view_responsiveness, loadux_lib, entity_screens ほか
 │   ├─ infra/                 ← pms_graphql, logger_provider
 │   ├─ model_providers/       ← 機能単位の GraphQL モデル(sales_model, resource_model, ...)
 │   └─ foundation/            ← query_builder, data_strategist, undo_redo

@@ -128,17 +128,21 @@ class _EntityListPageState extends State<EntityListPage> {
 
   Widget _table(_Loaded loaded) {
     final scope = widget.scope;
+    final actionColumns = [
+      if (widget.onAction != null)
+        for (final a in loaded.definition.rowActions) _actionColumn(loaded, a),
+    ];
     final columns = [
+      if (loaded.definition.actionsFirst) ...actionColumns,
       ...columnsOf(
         loaded.definition,
         scope.labels,
         loaded.names,
-        yes: scope.strings.yes,
-        no: scope.strings.no,
+        yes: loaded.definition.compactFlags ? '✓' : scope.strings.yes,
+        no: loaded.definition.compactFlags ? '' : scope.strings.no,
         onDownload: (file) => scope.downloadFile(context, file),
       ),
-      if (widget.onAction != null)
-        for (final a in loaded.definition.rowActions) _actionColumn(loaded, a),
+      if (!loaded.definition.actionsFirst) ...actionColumns,
     ];
     final config = TableConfig(
       sortEnabled: true,

@@ -44,14 +44,14 @@
 |---|---|---|---|---|
 | 計画変更の履歴 | `planchange` | テーブル構造 | 35 | `item` |
 | 未処置一覧 | `cancelopen` | テーブル構造 | 14 | `item` |
-| 引当予約の解除 | `actreqrelease` | テーブル構造 | 2 |  |
-| 引当予約の保管 | `actreqhold` | テーブル構造 | 3 | `container` |
-| 在庫にする | `actlotrelease` | テーブル構造 | 2 |  |
-| 品物を押さえる | `actlothold` | テーブル構造 | 4 | `container` |
-| 品物の廃棄 | `actlotscrap` | テーブル構造 | 3 |  |
-| 顧客への引き渡し | `actlotdeliver` | テーブル構造 | 3 |  |
-| 出荷オーダーの取り消し | `actshipcancel` | テーブル構造 | 2 |  |
-| 外注発注のキャンセル | `actpurcancel` | テーブル構造 | 3 |  |
+| 引当予約の解除 | `actreqrelease` | テーブル構造 | 3 | `item` |
+| 引当予約の保管 | `actreqhold` | テーブル構造 | 4 | `item`, `container` |
+| 在庫にする | `actlotrelease` | テーブル構造 | 3 | `item` |
+| 品物を押さえる | `actlothold` | テーブル構造 | 5 | `item`, `container` |
+| 品物の廃棄 | `actlotscrap` | テーブル構造 | 4 | `item` |
+| 顧客への引き渡し | `actlotdeliver` | テーブル構造 | 4 | `item` |
+| 出荷オーダーの取り消し | `actshipcancel` | テーブル構造 | 3 | `item` |
+| 外注発注のキャンセル | `actpurcancel` | テーブル構造 | 4 | `item` |
 <!-- entity_gen:end -->
 
 ## 規則/仕様

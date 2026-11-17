@@ -9,8 +9,7 @@ import '../entities/quality_definitions.dart';
 /// 品質管理の実体の取得元(GraphQL 版。読み取り専用)。アプリが [GraphQLClient] を渡して組み立て、
 /// `entityRepositoryOverridesProvider` に渡すと、サンプル(メモリ上)の代わりに使われる。
 ///
-/// 【入れ替え: 呼称の DB 関数】 書き込みは `doc/query/20261114_0002_appellation_functions.sql` の補助(`ap_appellation_set`・
-/// `ap_text_set`)を使う苦情・監査・監査基準の関数を足して適用したら、`~PageCall` を足して `save` を入れ替え、`viewOnly` を外す
+/// 【入れ替え: 呼称の DB 関数】 書き込みは、共通関数(`shared_appellation_save`・`shared_text_save`)で呼称・文章を作り、返った ID を本体のミューテーションに渡す形で、苦情・監査・監査基準の取得元の `save` を入れ替え、`viewOnly` を外す
 /// (`issue/202611.md` の 2-1)。
 ///
 /// 対象は苦情(`complaint`)・監査(`audit`)・監査基準(`auditstd`)。題名は多言語のラベル(`trans_label`)・詳細は多言語の文章

@@ -9,7 +9,8 @@ import 'cancel_open_actions.dart';
 ///
 /// 台帳・編集・削除は無い(追記のみ。R3)。一覧は常に空、1件の取得は null。保存は新規だけで、成功すると追記された
 /// 計画変更の ID を持つ [EntityRecord] を返す。対象(`target`)は、未処置一覧の行の id(`種類:UUID`)から UUID だけを取る。
-/// DB の失敗(errcode)は、数量の誤りだけを画面の検証エラーにし、それ以外は例外のまま投げる(画面は保存失敗を出す)。
+/// DB の失敗(errcode)は、数量の誤りを項目のエラー、それ以外を種類つきの失敗(`EntityFailureException`)にして、画面が多言語の文にする。
+/// 知らない errcode は、そのまま投げる(画面は「保存に失敗しました」)。
 ///
 /// パターン: Adapter(画面の [EntityRecord] と、DB の関数の呼び出しを変換する)
 List<IEntityRepository> operationRepositories(GraphQLClient client) {
@@ -112,14 +113,24 @@ class _OperationRepository implements IEntityRepository {
       );
       return EntityRecord(id: result.planChangeId, values: record.values);
     } on CancelOpenActionException catch (e) {
-      // OPR02: 数量・引数が不正(0 以下・残や在庫を超える)
+      // OPR02: 数量・引数が不正(0 以下・残や在庫を超える)。数量の項目があれば、項目のエラーにする
       if (e.errcode == 'OPR02' &&
           definition.fields.any((f) => f.key == 'quantity')) {
         throw const EntityValidationException({
           'quantity': EntityFieldError.aboveMaximum,
         });
       }
-      rethrow;
+      final kind = switch (e.errcode) {
+        'OPR01' => EntityFailureKind.notFound,
+        'OPR02' => EntityFailureKind.invalidInput,
+        // 担当者・マスタが無い / 今の状態では実行できない
+        'OPR00' || 'OPR03' => EntityFailureKind.notAllowed,
+        'VIS05' => EntityFailureKind.noLocation,
+        'NETWORK' => EntityFailureKind.unavailable,
+        _ => null,
+      };
+      if (kind == null) rethrow;
+      throw EntityFailureException(kind);
     }
   }
 }

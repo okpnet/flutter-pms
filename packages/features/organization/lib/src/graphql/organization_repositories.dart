@@ -9,8 +9,7 @@ import '../entities/organization_definitions.dart';
 /// 組織の実体の取得元(GraphQL 版。読み取り専用)。アプリが [GraphQLClient] を渡して組み立て、
 /// `entityRepositoryOverridesProvider` に渡すと、サンプル(メモリ上)の代わりに使われる。
 ///
-/// 【入れ替え: 呼称の DB 関数】 書き込みは `doc/query/20261114_0002_appellation_functions.sql` の補助(`ap_appellation_set`・
-/// `ap_text_set`)を使う職員・事業所・部署の関数を足して適用したら、`~PageCall` を足して `save` を入れ替え、`viewOnly` を外す
+/// 【入れ替え: 呼称の DB 関数】 書き込みは、共通関数(`shared_appellation_save`・`shared_text_save`)で呼称・文章を作り、返った ID を本体のミューテーションに渡す形で、職員・事業所・部署の取得元の `save` を入れ替え、`viewOnly` を外す
 /// (`issue/202611.md` の 2-1)。
 ///
 /// 対象は職員(`staff`)・事業所(`site`)・部署(`department`。ツリー)。名称・読み・略称は多言語の辞書で、言語コード `ja` の値を読む。

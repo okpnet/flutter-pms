@@ -132,7 +132,7 @@ function fromHtml(e) {
       ref = r.startsWith('@') ? COLL[r.slice(1).split(':')[0]] : r;
     }
     return {
-      key, label, kind: k, required: e.viewOnly || kind === 'c' ? false : extra.req !== false, readOnly: e.viewOnly || kind === 'c' ? true : extra.readOnly, options: k === 'choice' ? extra.opts : undefined, ref,
+      key, label, kind: k, required: e.viewOnly || kind === 'c' ? false : extra.req !== false, readOnly: e.viewOnly || kind === 'c' ? true : extra.readOnly, hidden: extra.hidden, options: k === 'choice' ? extra.opts : undefined, ref,
       toggle: extra.toggle, disables: extra.disables, ge: extra.ge, gt: extra.gt, le: extra.le, lt: extra.lt, notBefore: extra.after, needUnless: extra.needUnless, lockedBy: extra.lockedBy, uniq: extra.uniq, picker: extra.picker, exclusiveWith: extra.xor, optionFilters: extra.filterBy,
     };
   });
@@ -176,7 +176,7 @@ function fromHtml(e) {
   if (e.parent && e.tree) {
     return { key: e.key, label: e.label, isTree: true, hintParent: e.parent.ent, fields, rows };
   }
-  return { key: e.key, label: e.label, owner: e.parent?.ent, isTree: !!e.tree, viewOnly: !!e.viewOnly, noMenu: !!e.noMenu, group: e.group, fields, rows, rowActions };
+  return { key: e.key, label: e.label, owner: e.parent?.ent, isTree: !!e.tree, viewOnly: !!e.viewOnly, noMenu: !!e.noMenu, actionsFirst: !!e.actionsFirst, compactFlags: !!e.compactFlags, confirmSave: !!e.confirmSave, group: e.group, fields, rows, rowActions };
 }
 
 const htmlEntities = DOM.entities.filter((e) => !SKIP.has(e.key)).map(fromHtml);
@@ -463,6 +463,7 @@ function defsDart(pkg, list) {
           if (fl.ref) a.push(`reference: ${dq(fl.ref)}`);
           if (fl.picker) a.push('picker: true');
           if (fl.readOnly) a.push('readOnly: true');
+          if (fl.hidden) a.push('hidden: true');
           if (fl.toggle) a.push('toggle: true');
           if (fl.disables) a.push(`disables: ${dq(fl.disables)}`);
           if (fl.ge != null) a.push(`ge: ${fl.ge}`);
@@ -488,6 +489,9 @@ function defsDart(pkg, list) {
       }
       if (e.viewOnly) a.push('viewOnly: true');
       if (e.noMenu) a.push('inMenu: false');
+      if (e.actionsFirst) a.push('actionsFirst: true');
+      if (e.compactFlags) a.push('compactFlags: true');
+      if (e.confirmSave) a.push('confirmSave: true');
       if (e.rowActions) a.push(`rowActions: [${e.rowActions.map((r) => `RowAction(key: ${dq(r.key)}, target: ${dq(r.target)}, initialValues: {${Object.entries(r.params).map(([k, v]) => `${dq(k)}: ${v === 'id' ? 'RowAction.idSource' : dq(v)}`).join(', ')}}${r.whenAny ? `, whenAny: [${r.whenAny.map(dq).join(', ')}]` : ''})`).join(', ')}]`);
       if (uniq) a.push(`uniqueKeys: [${uniq.map((k) => `[${k.map(dq).join(', ')}]`).join(', ')}]`);
       const rev = REVERSE[e.key];
@@ -668,7 +672,7 @@ for (const pkg of Object.keys(PROJECTS)) {
   const m = moduleDart(pkg, entityOnly);
   write(path.join(dir, 'lib', 'src', m.file), m.text);
   write(path.join(dir, 'test', `${pkg}_entities_test.dart`), testDart(pkg, list, entityOnly));
-  rootsOf[pkg] = list.filter((e) => !e.owner || e.nest).map((e) => ({ key: e.key, label: e.label, first: firstText(e) }));
+  rootsOf[pkg] = list.filter((e) => !e.owner || e.nest).map((e) => ({ key: e.key, label: e.label, first: firstText(e), noMenu: e.noMenu }));
   const deps = new Set();
   for (const e of list) {
     for (const fl of e.fields) {

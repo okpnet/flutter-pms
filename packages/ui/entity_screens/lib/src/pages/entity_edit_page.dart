@@ -287,6 +287,7 @@ class _EntityEditPageState extends State<EntityEditPage> {
       });
       return;
     }
+    if (definition.confirmSave && !await _confirmSave()) return;
     try {
       await repository.save(
         EntityRecord(
@@ -306,11 +307,53 @@ class _EntityEditPageState extends State<EntityEditPage> {
         _failure = null;
       });
       return;
+    } on EntityFailureException catch (e) {
+      final f = _scope.strings.failure;
+      setState(() {
+        _failure = switch (e.kind) {
+          EntityFailureKind.notFound => f.notFound,
+          EntityFailureKind.notAllowed => f.notAllowed,
+          EntityFailureKind.invalidInput => f.invalidInput,
+          EntityFailureKind.noLocation => f.noLocation,
+          EntityFailureKind.unavailable => f.unavailable,
+        };
+      });
+      return;
     } catch (_) {
       setState(() => _failure = _scope.strings.saveFailed);
       return;
     }
-    if (mounted) Navigator.of(context).pop();
+    if (!mounted) return;
+    final messenger = ScaffoldMessenger.maybeOf(context);
+    Navigator.of(context).pop();
+    if (definition.confirmSave) {
+      messenger?.showSnackBar(
+        SnackBar(content: Text(_scope.strings.confirmSave.done)),
+      );
+    }
+  }
+
+  /// 実行の確認(取り消せない操作)。実行するときだけ true。
+  Future<bool> _confirmSave() async {
+    final strings = _scope.strings;
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(strings.confirmSave.title),
+        content: Text(strings.confirmSave.message),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(strings.cancel),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(strings.confirmSave.ok),
+          ),
+        ],
+      ),
+    );
+    return ok == true;
   }
 
   /// 子が存在する間は外せない真偽([FieldDefinition.lockedBy])を、外そうとしていないか確かめる。
@@ -438,7 +481,8 @@ class _EntityEditPageState extends State<EntityEditPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 12,
         children: [
-          for (final f in definition.fields) _field(definition, f),
+          for (final f in definition.fields)
+            if (!f.hidden) _field(definition, f),
           if (definition.isTree) _parentField(definition),
           if (_failure != null)
             Text(_failure!, style: TextStyle(color: theme.colorScheme.error)),
@@ -554,12 +598,12 @@ class _EntityEditPageState extends State<EntityEditPage> {
       (f.exclusiveWith != null &&
           (_chosen[f.exclusiveWith] ?? '').isNotEmpty) ||
       (_definition?.fields.any(
-        (o) =>
-            o.kind == FieldKind.flag &&
-            o.disables == f.key &&
-            _chosen[o.key] == flagOn,
-      ) ??
-      false);
+            (o) =>
+                o.kind == FieldKind.flag &&
+                o.disables == f.key &&
+                _chosen[o.key] == flagOn,
+          ) ??
+          false);
 
   /// 真偽の入力(チェックボックス・トグル)。理由のエラーは項目の下に出す。
   Widget _flagField(FieldDefinition f) {
@@ -652,7 +696,9 @@ class _EntityEditPageState extends State<EntityEditPage> {
         });
       } catch (_) {
         if (!mounted) return;
-        setState(() => _errors = {..._errors, f.key: EntityFieldError.uploadFailed});
+        setState(
+          () => _errors = {..._errors, f.key: EntityFieldError.uploadFailed},
+        );
       }
     }
 
@@ -680,7 +726,9 @@ class _EntityEditPageState extends State<EntityEditPage> {
             key: ValueKey('fileUpload:${f.key}'),
             icon: const Icon(Icons.upload_file),
             onPressed: upload,
-            label: Text(file == null ? strings.file.upload : strings.file.replace),
+            label: Text(
+              file == null ? strings.file.upload : strings.file.replace,
+            ),
           ),
         ],
       ),

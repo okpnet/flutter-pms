@@ -90,6 +90,8 @@ class EntityScreenStrings with BaseTranslations<EntityScreenLocale, EntityScreen
 	String get children => '件';
 
 	late final EntityScreenStrings$confirmDelete$ja confirmDelete = EntityScreenStrings$confirmDelete$ja.internal(_root);
+	late final EntityScreenStrings$confirmSave$ja confirmSave = EntityScreenStrings$confirmSave$ja.internal(_root);
+	late final EntityScreenStrings$failure$ja failure = EntityScreenStrings$failure$ja.internal(_root);
 	late final EntityScreenStrings$condition$ja condition = EntityScreenStrings$condition$ja.internal(_root);
 
 	/// ja: 'はい'
@@ -142,6 +144,51 @@ class EntityScreenStrings$confirmDelete$ja {
 
 	/// ja: '「$name」を削除します。'
 	String message({required Object name}) => '「${name}」を削除します。';
+}
+
+// Path: confirmSave
+class EntityScreenStrings$confirmSave$ja {
+	EntityScreenStrings$confirmSave$ja.internal(this._root);
+
+	final EntityScreenStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '実行の確認'
+	String get title => '実行の確認';
+
+	/// ja: 'この操作は取り消せません(追記だけの記録になります)。実行しますか。'
+	String get message => 'この操作は取り消せません(追記だけの記録になります)。実行しますか。';
+
+	/// ja: '実行'
+	String get ok => '実行';
+
+	/// ja: '実行しました'
+	String get done => '実行しました';
+}
+
+// Path: failure
+class EntityScreenStrings$failure$ja {
+	EntityScreenStrings$failure$ja.internal(this._root);
+
+	final EntityScreenStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '対象が見つかりません(すでに処理された可能性があります)'
+	String get notFound => '対象が見つかりません(すでに処理された可能性があります)';
+
+	/// ja: '今の状態では実行できません'
+	String get notAllowed => '今の状態では実行できません';
+
+	/// ja: '入力が正しくありません'
+	String get invalidInput => '入力が正しくありません';
+
+	/// ja: '棚に場所が設定されていないため実行できません'
+	String get noLocation => '棚に場所が設定されていないため実行できません';
+
+	/// ja: 'サーバーに接続できません'
+	String get unavailable => 'サーバーに接続できません';
 }
 
 // Path: condition
@@ -294,6 +341,15 @@ extension on EntityScreenStrings {
 			'children' => '件',
 			'confirmDelete.title' => '削除の確認',
 			'confirmDelete.message' => ({required Object name}) => '「${name}」を削除します。',
+			'confirmSave.title' => '実行の確認',
+			'confirmSave.message' => 'この操作は取り消せません(追記だけの記録になります)。実行しますか。',
+			'confirmSave.ok' => '実行',
+			'confirmSave.done' => '実行しました',
+			'failure.notFound' => '対象が見つかりません(すでに処理された可能性があります)',
+			'failure.notAllowed' => '今の状態では実行できません',
+			'failure.invalidInput' => '入力が正しくありません',
+			'failure.noLocation' => '棚に場所が設定されていないため実行できません',
+			'failure.unavailable' => 'サーバーに接続できません',
 			'condition.between' => '範囲',
 			'condition.yesNo' => '二値(Yes / No)',
 			'condition.value' => '値を入力',

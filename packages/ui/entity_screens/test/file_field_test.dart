@@ -50,7 +50,11 @@ const _definition = EntityDefinition(
   ],
 );
 
-final _old = EntityFile(id: 'f-old', name: 'old.pdf', mediaType: 'application/pdf');
+final _old = EntityFile(
+  id: 'f-old',
+  name: 'old.pdf',
+  mediaType: 'application/pdf',
+);
 
 EntityScope _scope(EntityCatalog catalog, IEntityFileTransfer transfer) =>
     EntityScope(
@@ -92,7 +96,11 @@ void main() {
     expect(EntityFile.tryParse(''), isNull);
     expect(EntityFile.tryParse('not json'), isNull);
     expect(EntityFile.tryParse('{"name":"x"}'), isNull);
-    expect(EntityFile(id: 'i', name: '').label, 'i', reason: '名前が無ければ ID');
+    expect(
+      EntityFile(id: 'i', name: '').label,
+      'i',
+      reason: '名前が無ければ ID',
+    );
   });
 
   testWidgets('台帳: ファイル名が表示され、押すとダウンロードする', (tester) async {

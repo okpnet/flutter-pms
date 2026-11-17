@@ -48,6 +48,7 @@
 
 
 
+
 ## example と多言語
 1.  ビジュアルテスト用に`example`(Windows 向け)を持つ。`flutter run -d windows`で起動し、`lib/main.dart`の`entries`に遷移先を足す(`packages/features/CLAUDE.md`の「機能プロジェクト共通」)。
 2.  表示する文字列は`lib/src/i18n`の言語ファイル(Yaml)に置く。画面を作るときに`slang.yaml`と言語ファイルを追加する(`sales`・`shared_master`を参考にする)。idは`String`(UUID)で扱う。
@@ -55,7 +56,7 @@
 ## 取得元(GraphQL 版。読み取り専用)
 `lib/src/graphql/production_process_repositories.dart` の `productionProcessRepositories(GraphQLClient)` が、工程(`task`。ツリー)・工程運用(`operation`)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
 1.  読み取り専用: 実体を `viewOnly`・各項目 `readOnly` にし、保存・削除は `UnsupportedError`。名称・読み・略称は多言語の辞書、詳細は多言語の文章(先頭の文)で、言語コード `ja` の値を読む。工程の親は工程ツリーの親の工程 ID(親ごとの絞り込みはサーバー側に無く、取得した中から選ぶ)。標準時間は DB の間隔(`interval`)を分に直した値。ほかの実体(工程グループ・工程場所・工程の選択・適用品目・使える設備・外部委託)は、サンプルのまま。
-1.  **【入れ替え: 呼称の DB 関数】** 書き込みは、`doc/query/20261114_0002_appellation_functions.sql` の補助を使う工程・工程運用の関数を足して適用したら、`~PageCall` で `save` を入れ替え、`viewOnly` を外す(`issue/202611.md` の 2-1)。
+1.  **【入れ替え: 呼称の DB 関数】** 書き込みは、共通関数(`shared_appellation_save`・`shared_text_save`)で呼称・文章を作り、返った ID を本体のミューテーションに渡す形で、工程・工程運用の取得元の `save` を入れ替え、`viewOnly` を外す(`issue/202611.md` の 2-1)。
 
 ## 規則/仕様
 1.  ディリクトリ/ファイル

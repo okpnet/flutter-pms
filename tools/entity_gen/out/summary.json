@@ -4,267 +4,316 @@
       {
         "key": "unit",
         "label": "単位",
-        "first": "キログラム"
+        "first": "キログラム",
+        "noMenu": false
       }
     ],
     "item": [
       {
         "key": "itemkind",
         "label": "品目区分",
-        "first": "PRD"
+        "first": "PRD",
+        "noMenu": false
       },
       {
         "key": "hscode",
         "label": "HSコード",
-        "first": "8466.93"
+        "first": "8466.93",
+        "noMenu": false
       },
       {
         "key": "item",
         "label": "品目",
-        "first": "I-1000"
+        "first": "I-1000",
+        "noMenu": false
       },
       {
         "key": "itemsizekind",
         "label": "品目大きさ区分",
-        "first": "ITE-001"
+        "first": "ITE-001",
+        "noMenu": false
       },
       {
         "key": "itemsupplier",
         "label": "品目仕入先",
-        "first": ""
+        "first": "",
+        "noMenu": false
       },
       {
         "key": "itemonhand",
         "label": "品目の在庫",
-        "first": "120"
+        "first": "120",
+        "noMenu": false
       }
     ],
     "production_process": [
       {
         "key": "taskgroup",
         "label": "工程グループ",
-        "first": "切削加工"
+        "first": "切削加工",
+        "noMenu": false
       },
       {
         "key": "task",
         "label": "工程",
-        "first": "T-100"
+        "first": "T-100",
+        "noMenu": false
       },
       {
         "key": "operation",
         "label": "工程運用",
-        "first": "OPE-001"
+        "first": "OPE-001",
+        "noMenu": false
       }
     ],
     "sales": [
       {
         "key": "order",
         "label": "受注",
-        "first": "SO-2610-001"
+        "first": "SO-2610-001",
+        "noMenu": false
       },
       {
         "key": "shipplan",
         "label": "出荷予定",
-        "first": "SP-001"
+        "first": "SP-001",
+        "noMenu": false
       }
     ],
     "shared_master": [
       {
         "key": "stakeholder",
         "label": "利害関係者",
-        "first": "C-001"
+        "first": "C-001",
+        "noMenu": false
       }
     ],
     "purchasing": [
       {
         "key": "unrec",
         "label": "非計上",
-        "first": ""
+        "first": "",
+        "noMenu": false
       },
       {
         "key": "purchase",
         "label": "発注",
-        "first": "24000"
+        "first": "24000",
+        "noMenu": false
       },
       {
         "key": "purchaserec",
         "label": "受入実績",
-        "first": "10"
+        "first": "10",
+        "noMenu": false
       }
     ],
     "production_plan": [
       {
         "key": "resplan",
         "label": "資材計画",
-        "first": "10"
+        "first": "10",
+        "noMenu": false
       },
       {
         "key": "prodrez",
         "label": "生産引き当て予約",
-        "first": ""
+        "first": "",
+        "noMenu": false
       },
       {
         "key": "purrez",
         "label": "購買引き当て予約",
-        "first": ""
+        "first": "",
+        "noMenu": false
       },
       {
         "key": "mrppending",
         "label": "要判断の提案",
-        "first": "100"
+        "first": "100",
+        "noMenu": false
       },
       {
         "key": "mrppurchase",
         "label": "発注予定",
-        "first": "PURCHASE_NEW"
+        "first": "PURCHASE_NEW",
+        "noMenu": false
       },
       {
         "key": "mrpissue",
         "label": "マスタ不備",
-        "first": "NO_SUPPLIER"
+        "first": "NO_SUPPLIER",
+        "noMenu": false
       },
       {
         "key": "mrpcoverage",
         "label": "資材計画の充足状況",
-        "first": "PURCHASE"
+        "first": "PURCHASE",
+        "noMenu": false
       },
       {
         "key": "stockrez",
         "label": "引当予約",
-        "first": "20"
+        "first": "20",
+        "noMenu": false
       }
     ],
     "plan_change": [
       {
         "key": "planchange",
         "label": "計画変更の履歴",
-        "first": "CH-0001"
+        "first": "CH-0001",
+        "noMenu": false
       },
       {
         "key": "cancelopen",
         "label": "未処置一覧",
-        "first": "CO-0001"
+        "first": "CO-0001",
+        "noMenu": false
       },
       {
         "key": "actreqrelease",
         "label": "引当予約の解除",
-        "first": ""
+        "first": "",
+        "noMenu": true
       },
       {
         "key": "actreqhold",
         "label": "引当予約の保管",
-        "first": ""
+        "first": "",
+        "noMenu": true
       },
       {
         "key": "actlotrelease",
         "label": "在庫にする",
-        "first": ""
+        "first": "",
+        "noMenu": true
       },
       {
         "key": "actlothold",
         "label": "品物を押さえる",
-        "first": ""
+        "first": "",
+        "noMenu": true
       },
       {
         "key": "actlotscrap",
         "label": "品物の廃棄",
-        "first": ""
+        "first": "",
+        "noMenu": true
       },
       {
         "key": "actlotdeliver",
         "label": "顧客への引き渡し",
-        "first": ""
+        "first": "",
+        "noMenu": true
       },
       {
         "key": "actshipcancel",
         "label": "出荷オーダーの取り消し",
-        "first": ""
+        "first": "",
+        "noMenu": true
       },
       {
         "key": "actpurcancel",
         "label": "外注発注のキャンセル",
-        "first": ""
+        "first": "",
+        "noMenu": true
       }
     ],
     "work_record": [
       {
         "key": "container",
         "label": "コンテナ",
-        "first": "CN-01"
+        "first": "CN-01",
+        "noMenu": false
       },
       {
         "key": "invapply",
         "label": "引き当て",
-        "first": ""
+        "first": "",
+        "noMenu": false
       },
       {
         "key": "invreq",
         "label": "引き当て予約",
-        "first": "300"
+        "first": "300",
+        "noMenu": false
       },
       {
         "key": "certificate",
         "label": "成績書",
-        "first": "CT-2610-01"
+        "first": "CT-2610-01",
+        "noMenu": false
       },
       {
         "key": "workrec",
         "label": "作業実績",
-        "first": "40"
+        "first": "40",
+        "noMenu": false
       },
       {
         "key": "mrpvisiter",
         "label": "ビジター品目",
-        "first": "2"
+        "first": "2",
+        "noMenu": false
       },
       {
         "key": "stockstatus",
         "label": "在庫状況",
-        "first": "120"
+        "first": "120",
+        "noMenu": false
       }
     ],
     "quality_common": [
       {
         "key": "disposal",
         "label": "異常処置",
-        "first": "寸法不良品の選別"
+        "first": "寸法不良品の選別",
+        "noMenu": false
       },
       {
         "key": "recur",
         "label": "再発防止処置",
-        "first": "測定手順の見直し"
+        "first": "測定手順の見直し",
+        "noMenu": false
       },
       {
         "key": "obsdisp",
         "label": "処置監視",
-        "first": ""
+        "first": "",
+        "noMenu": false
       },
       {
         "key": "obsprev",
         "label": "再発防止監視",
-        "first": ""
+        "first": "",
+        "noMenu": false
       },
       {
         "key": "risk",
         "label": "リスク",
-        "first": "主要材料の納期遅延"
+        "first": "主要材料の納期遅延",
+        "noMenu": false
       },
       {
         "key": "auditstdcheck",
         "label": "監査標準項目",
-        "first": "AC-01"
+        "first": "AC-01",
+        "noMenu": false
       }
     ],
     "quality_document": [
       {
         "key": "doctier",
         "label": "文書階層",
-        "first": "DOC-001"
+        "first": "DOC-001",
+        "noMenu": false
       },
       {
         "key": "doc",
         "label": "文書",
-        "first": "QM-01"
+        "first": "QM-01",
+        "noMenu": false
       },
       {
         "key": "doccontent",
@@ -274,81 +323,96 @@
       {
         "key": "report",
         "label": "レポート",
-        "first": "RT-01"
+        "first": "RT-01",
+        "noMenu": false
       }
     ],
     "quality": [
       {
         "key": "complaint",
         "label": "異常",
-        "first": "寸法公差の外れ"
+        "first": "寸法公差の外れ",
+        "noMenu": false
       },
       {
         "key": "corder",
         "label": "注文苦情",
-        "first": ""
+        "first": "",
+        "noMenu": false
       },
       {
         "key": "cproc",
         "label": "工程苦情",
-        "first": ""
+        "first": "",
+        "noMenu": false
       },
       {
         "key": "cequip",
         "label": "設備苦情",
-        "first": ""
+        "first": "",
+        "noMenu": false
       },
       {
         "key": "orderrisk",
         "label": "注文リスク",
-        "first": ""
+        "first": "",
+        "noMenu": false
       },
       {
         "key": "orderdetailrisk",
         "label": "受注明細リスク",
-        "first": ""
+        "first": "",
+        "noMenu": false
       },
       {
         "key": "taskrisk",
         "label": "工程リスク",
-        "first": ""
+        "first": "",
+        "noMenu": false
       },
       {
         "key": "auditstd",
         "label": "監査標準",
-        "first": "AS-01"
+        "first": "AS-01",
+        "noMenu": false
       },
       {
         "key": "auditteam",
         "label": "監査チーム",
-        "first": "品質監査チームA"
+        "first": "品質監査チームA",
+        "noMenu": false
       },
       {
         "key": "audit",
         "label": "監査",
-        "first": "件名1"
+        "first": "件名1",
+        "noMenu": false
       }
     ],
     "access_control": [
       {
         "key": "accesspath",
         "label": "アクセスパス",
-        "first": "単位台帳"
+        "first": "単位台帳",
+        "noMenu": false
       },
       {
         "key": "deptaccesspath",
         "label": "部署のアクセスパス",
-        "first": ""
+        "first": "",
+        "noMenu": false
       },
       {
         "key": "staffaccesspermission",
         "label": "担当者のアクセスパス許可",
-        "first": ""
+        "first": "",
+        "noMenu": false
       },
       {
         "key": "effectiveaccesspath",
         "label": "担当者の実効アクセスパス",
-        "first": ""
+        "first": "",
+        "noMenu": false
       }
     ],
     "resource": [

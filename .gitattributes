@@ -1,0 +1,2 @@
+# 生成器(melos run gql:build)が LF で書くファイル。改行コードだけの差分を出さない
+packages/model_providers/**/lib/src/contents/*_filter_spec.dart text eol=lf

@@ -6,6 +6,7 @@ const List<EntityDefinition> planChangeDefinitions = [
   EntityDefinition(
     key: 'planchange',
     viewOnly: true,
+    compactFlags: true,
     fields: [
       FieldDefinition(
         key: 'change_at',
@@ -213,53 +214,71 @@ const List<EntityDefinition> planChangeDefinitions = [
   EntityDefinition(
     key: 'cancelopen',
     viewOnly: true,
+    actionsFirst: true,
+    compactFlags: true,
     rowActions: [
       RowAction(
         key: 'do_req_release',
         target: 'actreqrelease',
-        initialValues: {'target': RowAction.idSource},
+        initialValues: {'target': RowAction.idSource, 'item': 'item'},
         whenAny: ['is_inventory_request'],
       ),
       RowAction(
         key: 'do_req_hold',
         target: 'actreqhold',
-        initialValues: {'target': RowAction.idSource},
+        initialValues: {'target': RowAction.idSource, 'item': 'item'},
         whenAny: ['is_inventory_request'],
       ),
       RowAction(
         key: 'do_lot_release',
         target: 'actlotrelease',
-        initialValues: {'target': RowAction.idSource},
+        initialValues: {'target': RowAction.idSource, 'item': 'item'},
         whenAny: ['is_work_in_process', 'is_hold'],
       ),
       RowAction(
         key: 'do_lot_hold',
         target: 'actlothold',
-        initialValues: {'target': RowAction.idSource, 'quantity': 'quantity'},
+        initialValues: {
+          'target': RowAction.idSource,
+          'item': 'item',
+          'quantity': 'quantity',
+        },
         whenAny: ['is_work_in_process'],
       ),
       RowAction(
         key: 'do_lot_scrap',
         target: 'actlotscrap',
-        initialValues: {'target': RowAction.idSource, 'quantity': 'quantity'},
+        initialValues: {
+          'target': RowAction.idSource,
+          'item': 'item',
+          'quantity': 'quantity',
+        },
         whenAny: ['is_work_in_process', 'is_hold'],
       ),
       RowAction(
         key: 'do_lot_deliver',
         target: 'actlotdeliver',
-        initialValues: {'target': RowAction.idSource, 'quantity': 'quantity'},
+        initialValues: {
+          'target': RowAction.idSource,
+          'item': 'item',
+          'quantity': 'quantity',
+        },
         whenAny: ['is_work_in_process', 'is_hold'],
       ),
       RowAction(
         key: 'do_ship_cancel',
         target: 'actshipcancel',
-        initialValues: {'target': RowAction.idSource},
+        initialValues: {'target': RowAction.idSource, 'item': 'item'},
         whenAny: ['is_shipping_order'],
       ),
       RowAction(
         key: 'do_pur_cancel',
         target: 'actpurcancel',
-        initialValues: {'target': RowAction.idSource, 'quantity': 'quantity'},
+        initialValues: {
+          'target': RowAction.idSource,
+          'item': 'item',
+          'quantity': 'quantity',
+        },
         whenAny: ['is_outsource_order'],
       ),
     ],
@@ -349,16 +368,42 @@ const List<EntityDefinition> planChangeDefinitions = [
   EntityDefinition(
     key: 'actreqrelease',
     inMenu: false,
+    confirmSave: true,
     fields: [
-      FieldDefinition(key: 'target', required: false, readOnly: true),
+      FieldDefinition(
+        key: 'target',
+        required: false,
+        readOnly: true,
+        hidden: true,
+      ),
+      FieldDefinition(
+        key: 'item',
+        kind: FieldKind.reference,
+        required: false,
+        reference: 'item',
+        readOnly: true,
+      ),
       FieldDefinition(key: 'reason', required: false),
     ],
   ),
   EntityDefinition(
     key: 'actreqhold',
     inMenu: false,
+    confirmSave: true,
     fields: [
-      FieldDefinition(key: 'target', required: false, readOnly: true),
+      FieldDefinition(
+        key: 'target',
+        required: false,
+        readOnly: true,
+        hidden: true,
+      ),
+      FieldDefinition(
+        key: 'item',
+        kind: FieldKind.reference,
+        required: false,
+        reference: 'item',
+        readOnly: true,
+      ),
       FieldDefinition(
         key: 'container',
         kind: FieldKind.reference,
@@ -370,16 +415,42 @@ const List<EntityDefinition> planChangeDefinitions = [
   EntityDefinition(
     key: 'actlotrelease',
     inMenu: false,
+    confirmSave: true,
     fields: [
-      FieldDefinition(key: 'target', required: false, readOnly: true),
+      FieldDefinition(
+        key: 'target',
+        required: false,
+        readOnly: true,
+        hidden: true,
+      ),
+      FieldDefinition(
+        key: 'item',
+        kind: FieldKind.reference,
+        required: false,
+        reference: 'item',
+        readOnly: true,
+      ),
       FieldDefinition(key: 'reason', required: false),
     ],
   ),
   EntityDefinition(
     key: 'actlothold',
     inMenu: false,
+    confirmSave: true,
     fields: [
-      FieldDefinition(key: 'target', required: false, readOnly: true),
+      FieldDefinition(
+        key: 'target',
+        required: false,
+        readOnly: true,
+        hidden: true,
+      ),
+      FieldDefinition(
+        key: 'item',
+        kind: FieldKind.reference,
+        required: false,
+        reference: 'item',
+        readOnly: true,
+      ),
       FieldDefinition(
         key: 'container',
         kind: FieldKind.reference,
@@ -397,8 +468,21 @@ const List<EntityDefinition> planChangeDefinitions = [
   EntityDefinition(
     key: 'actlotscrap',
     inMenu: false,
+    confirmSave: true,
     fields: [
-      FieldDefinition(key: 'target', required: false, readOnly: true),
+      FieldDefinition(
+        key: 'target',
+        required: false,
+        readOnly: true,
+        hidden: true,
+      ),
+      FieldDefinition(
+        key: 'item',
+        kind: FieldKind.reference,
+        required: false,
+        reference: 'item',
+        readOnly: true,
+      ),
       FieldDefinition(key: 'quantity', kind: FieldKind.number, gt: 0),
       FieldDefinition(key: 'reason', required: false),
     ],
@@ -406,8 +490,21 @@ const List<EntityDefinition> planChangeDefinitions = [
   EntityDefinition(
     key: 'actlotdeliver',
     inMenu: false,
+    confirmSave: true,
     fields: [
-      FieldDefinition(key: 'target', required: false, readOnly: true),
+      FieldDefinition(
+        key: 'target',
+        required: false,
+        readOnly: true,
+        hidden: true,
+      ),
+      FieldDefinition(
+        key: 'item',
+        kind: FieldKind.reference,
+        required: false,
+        reference: 'item',
+        readOnly: true,
+      ),
       FieldDefinition(key: 'quantity', kind: FieldKind.number, gt: 0),
       FieldDefinition(key: 'reason', required: false),
     ],
@@ -415,16 +512,42 @@ const List<EntityDefinition> planChangeDefinitions = [
   EntityDefinition(
     key: 'actshipcancel',
     inMenu: false,
+    confirmSave: true,
     fields: [
-      FieldDefinition(key: 'target', required: false, readOnly: true),
+      FieldDefinition(
+        key: 'target',
+        required: false,
+        readOnly: true,
+        hidden: true,
+      ),
+      FieldDefinition(
+        key: 'item',
+        kind: FieldKind.reference,
+        required: false,
+        reference: 'item',
+        readOnly: true,
+      ),
       FieldDefinition(key: 'reason', required: false),
     ],
   ),
   EntityDefinition(
     key: 'actpurcancel',
     inMenu: false,
+    confirmSave: true,
     fields: [
-      FieldDefinition(key: 'target', required: false, readOnly: true),
+      FieldDefinition(
+        key: 'target',
+        required: false,
+        readOnly: true,
+        hidden: true,
+      ),
+      FieldDefinition(
+        key: 'item',
+        kind: FieldKind.reference,
+        required: false,
+        reference: 'item',
+        readOnly: true,
+      ),
       FieldDefinition(key: 'quantity', kind: FieldKind.number, gt: 0),
       FieldDefinition(key: 'reason', required: false),
     ],
