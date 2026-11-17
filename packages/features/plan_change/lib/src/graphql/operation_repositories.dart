@@ -30,11 +30,18 @@ typedef _Operation =
     );
 
 class _Input {
-  const _Input(this.target, this.quantity, this.container, this.reason);
+  const _Input(
+    this.target,
+    this.quantity,
+    this.container,
+    this.location,
+    this.reason,
+  );
 
   final String target;
   final String quantity;
   final String? container;
+  final String? location;
   final String? reason;
 }
 
@@ -45,19 +52,29 @@ final Map<String, _Operation> _operations = {
   'actreqhold': (a, i) => a.holdInventoryRequest(
     i.target,
     containerId: i.container!,
+    locationId: i.location,
     reason: i.reason,
   ),
   'actlotrelease': (a, i) => a.releaseLot(i.target, reason: i.reason),
   'actlothold': (a, i) => a.holdLot(
     i.target,
     containerId: i.container!,
+    locationId: i.location,
     quantity: i.quantity.isEmpty ? null : i.quantity,
     reason: i.reason,
   ),
-  'actlotscrap': (a, i) =>
-      a.scrapLot(i.target, quantity: i.quantity, reason: i.reason),
-  'actlotdeliver': (a, i) =>
-      a.deliverLot(i.target, quantity: i.quantity, reason: i.reason),
+  'actlotscrap': (a, i) => a.scrapLot(
+    i.target,
+    quantity: i.quantity,
+    locationId: i.location,
+    reason: i.reason,
+  ),
+  'actlotdeliver': (a, i) => a.deliverLot(
+    i.target,
+    quantity: i.quantity,
+    locationId: i.location,
+    reason: i.reason,
+  ),
   'actshipcancel': (a, i) =>
       a.cancelShippingOrderDetail(i.target, reason: i.reason),
   'actpurcancel': (a, i) =>
@@ -100,6 +117,7 @@ class _OperationRepository implements IEntityRepository {
       throw UnsupportedError('${definition.key}: 追記のみの操作です(更新できません)');
     }
     final container = record.valueOf('container');
+    final location = record.valueOf('location');
     final reason = record.valueOf('reason');
     try {
       final result = await _operation(
@@ -108,6 +126,7 @@ class _OperationRepository implements IEntityRepository {
           targetOf(record.valueOf('target')),
           record.valueOf('quantity'),
           container.isEmpty ? null : container,
+          location.isEmpty ? null : location,
           reason.isEmpty ? null : reason,
         ),
       );

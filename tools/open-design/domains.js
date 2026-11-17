@@ -366,13 +366,15 @@
     ],
   });
   const qty = ["quantity", "数量", "n", { gt: 0 }];
+  // 棚に場所が無いロットを動かすと失敗する(VIS05)ため、任意の「場所」を渡せる。
+  const loc = ["location", "場所(棚に場所が無いとき)", "r", { ref: "location", req: false }];
   const cont = ["container", "押さえる先のコンテナ", "r", { ref: "container" }];
   op("actreqrelease", "引当予約の解除", []);
-  op("actreqhold", "引当予約の保管", [cont]);
+  op("actreqhold", "引当予約の保管", [cont, loc]);
   op("actlotrelease", "在庫にする", []);
-  op("actlothold", "品物を押さえる", [cont, ["quantity", "数量", "n", { req: false, gt: 0 }]]);
-  op("actlotscrap", "品物の廃棄", [qty]);
-  op("actlotdeliver", "顧客への引き渡し", [qty]);
+  op("actlothold", "品物を押さえる", [cont, ["quantity", "数量", "n", { req: false, gt: 0 }], loc]);
+  op("actlotscrap", "品物の廃棄", [qty, loc]);
+  op("actlotdeliver", "顧客への引き渡し", [qty, loc]);
   op("actshipcancel", "出荷オーダーの取り消し", []);
   op("actpurcancel", "外注発注のキャンセル", [qty]);
   const co = D.entities.find((e) => e.key === "cancelopen");

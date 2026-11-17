@@ -79,6 +79,7 @@ entity:
       f_target: "対象"
       f_item: "品目"
       f_container: "押さえる先のコンテナ"
+      f_location: "場所(棚に場所が無いとき)"
       f_reason: "理由"
   actlotrelease:
     title: "在庫にする"
@@ -93,6 +94,7 @@ entity:
       f_item: "品目"
       f_container: "押さえる先のコンテナ"
       f_quantity: "数量"
+      f_location: "場所(棚に場所が無いとき)"
       f_reason: "理由"
   actlotscrap:
     title: "品物の廃棄"
@@ -100,6 +102,7 @@ entity:
       f_target: "対象"
       f_item: "品目"
       f_quantity: "数量"
+      f_location: "場所(棚に場所が無いとき)"
       f_reason: "理由"
   actlotdeliver:
     title: "顧客への引き渡し"
@@ -107,6 +110,7 @@ entity:
       f_target: "対象"
       f_item: "品目"
       f_quantity: "数量"
+      f_location: "場所(棚に場所が無いとき)"
       f_reason: "理由"
   actshipcancel:
     title: "出荷オーダーの取り消し"

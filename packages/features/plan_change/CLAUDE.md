@@ -31,6 +31,9 @@
 ## example
 `example/`(Windows 向けのビジュアルテスト。`flutter run -d windows`。サンプルの取得元で、履歴・未処置一覧を開き、行のボタンから操作の入力画面を確認できる。`flutter test` は起動と画面遷移を確認する)。未処置一覧の行のボタンの列は、列が多いため表の右端にある。
 
+## 場所の選択
+ロットを動かす操作(引当予約の保管・押さえる・廃棄・引き渡し)の入力画面は、任意の「場所」(`location`。`resource` の場所の台帳から選ぶ)を持つ。棚に場所が無いロットで失敗(`VIS05`)したときに、場所を渡して直せる。空のときは渡さない(`p_location_id` を省く)。
+
 ## 未作成
 1.  履歴からの再 MRP の起動。支給材の処置(支給の画面)。引き渡しのときの精算の入力。操作の失敗の表示(いまは数量の誤りだけ項目のエラー、ほかは「保存に失敗しました」。errcode ごとの文は未作成)。
 
@@ -45,11 +48,11 @@
 | 計画変更の履歴 | `planchange` | テーブル構造 | 35 | `item` |
 | 未処置一覧 | `cancelopen` | テーブル構造 | 14 | `item` |
 | 引当予約の解除 | `actreqrelease` | テーブル構造 | 3 | `item` |
-| 引当予約の保管 | `actreqhold` | テーブル構造 | 4 | `item`, `container` |
+| 引当予約の保管 | `actreqhold` | テーブル構造 | 5 | `item`, `container`, `location` |
 | 在庫にする | `actlotrelease` | テーブル構造 | 3 | `item` |
-| 品物を押さえる | `actlothold` | テーブル構造 | 5 | `item`, `container` |
-| 品物の廃棄 | `actlotscrap` | テーブル構造 | 4 | `item` |
-| 顧客への引き渡し | `actlotdeliver` | テーブル構造 | 4 | `item` |
+| 品物を押さえる | `actlothold` | テーブル構造 | 6 | `item`, `container`, `location` |
+| 品物の廃棄 | `actlotscrap` | テーブル構造 | 5 | `item`, `location` |
+| 顧客への引き渡し | `actlotdeliver` | テーブル構造 | 5 | `item`, `location` |
 | 出荷オーダーの取り消し | `actshipcancel` | テーブル構造 | 3 | `item` |
 | 外注発注のキャンセル | `actpurcancel` | テーブル構造 | 4 | `item` |
 <!-- entity_gen:end -->

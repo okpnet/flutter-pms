@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:logger_provider/logger_provider.dart';
 import 'package:item/item.dart';
 import 'package:plan_change/plan_change.dart';
+import 'package:resource/resource.dart';
 import 'package:work_record/work_record.dart';
 import 'package:theme_lib/theme_lib.dart';
 
@@ -24,11 +25,8 @@ class ExampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => FeatureHost(
     title: '計画変更 (example)',
-    modules: const [PlanChangeModule(), ItemModule(), WorkRecordModule()],
-    entries: const [
-      FeatureHostEntry('計画変更の履歴', EntityListDestination('planchange')),
-      FeatureHostEntry('未処置一覧', EntityListDestination('cancelopen')),
-    ],
+    modules: const [PlanChangeModule(), ItemModule(), ResourceModule(), WorkRecordModule()],
+    entries: const [FeatureHostEntry('計画変更の履歴', EntityListDestination('planchange')), FeatureHostEntry('未処置一覧', EntityListDestination('cancelopen'))],
     logger: logger,
     // flgtable_lib / theme_lib が使うテーマ側のロガー
     overrides: [themeLoggerProvider.overrideWithValue(logger)],
