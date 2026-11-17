@@ -37,6 +37,8 @@ Future<void> main() async {
         ...backstageOverrides(backstage),
         ...sessionOverrides(url: values.maintenanceUrl ?? ''),
         ...dashboardOverrides(),
+        //ログインユーザーの表示(名前・所属・顔写真)
+        ...userSummaryOverrides(),
         //画面の取得元(GRAPHQL_URL を指定したときだけ GraphQL 版)
         ...graphqlOverrides(),
         //PocketBase への接続(POCKETBASE_URL を指定したときだけ)

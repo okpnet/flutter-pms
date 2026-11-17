@@ -84,9 +84,24 @@ class _LoginPageState extends ConsumerState<LoginPage> with BusyAction {
         await sessions.logout();
         throw JwtUnavailableException(e.logMessage);
       }
-      ref
-          .read(userSummaryProvider.notifier)
-          .set(UserSummary(name: session.username));
+      // 表示用の名前と所属は、アプリが差し込む関数で作る(引けなくても、ログインは止めない)
+      final request = UserSummaryRequest(
+        staffId: session.appUserId,
+        username: session.username,
+        name: session.name,
+      );
+      UserSummary summary;
+      try {
+        summary = await ref.read(userSummaryResolverProvider)(request);
+      } catch (e, st) {
+        ref
+            .read(loggerProvider)
+            .warn('[auth_files] ユーザーの表示情報を作れませんでした', ex: e, trace: st);
+        summary = UserSummary(
+          name: request.name.isNotEmpty ? request.name : request.username,
+        );
+      }
+      ref.read(userSummaryProvider.notifier).set(summary);
     }, operation: 'login');
     if (!ok || !mounted) return;
     _password.clear();

@@ -22,7 +22,6 @@ dependencies:
     path: ../../core/baton_lib
   flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   go_router: ^18.1.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
-  flutter_svg: ^2.3.0
   slang: ^4.19.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   dashboard_container:
     path: ../dashboard_container
@@ -41,4 +40,5 @@ dev_dependencies:
 flutter:
 
   assets:
-    - assets/access_denied.svg
+    - assets/access_denied_light.png
+    - assets/access_denied_dark.png

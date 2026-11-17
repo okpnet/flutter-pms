@@ -32,6 +32,8 @@ dependencies:
     path: ../../packages/infra/logger_provider
   pbapi:
     path: ../../packages/infra/pbapi
+  app_shell:
+    path: ../../packages/ui/app_shell
   theme_lib:
     path: ../../packages/ui/theme_lib
 

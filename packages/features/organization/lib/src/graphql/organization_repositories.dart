@@ -20,7 +20,7 @@ import '../entities/organization_definitions.dart';
 ///
 /// パターン: Adapter(生成された読み込みの結果と、画面の [EntityRecord] を変換する)
 List<IEntityRepository> organizationRepositories(GraphQLClient client) {
-  final language = _LanguageCode(client);
+  final language = LanguageCodeCache(client);
   return [
     _StaffRepository(_readOnly('staff'), client, language),
     _SiteRepository(_readOnly('site'), client, language),
@@ -53,8 +53,8 @@ EntityDefinition _readOnly(String key) {
 }
 
 /// 検証用 DB の言語コード `ja` の ID(読み込みの必須の条件)。最初の1回だけ引く。
-class _LanguageCode {
-  _LanguageCode(this._client);
+class LanguageCodeCache {
+  LanguageCodeCache(this._client);
 
   final GraphQLClient _client;
   Future<String>? _id;
@@ -90,7 +90,7 @@ abstract class _ReadOnlyRepository implements IEntityRepository {
   @override
   final EntityDefinition definition;
   final GraphQLClient client;
-  final _LanguageCode language;
+  final LanguageCodeCache language;
 
   @override
   Future<EntityRecord> save(EntityRecord record) =>

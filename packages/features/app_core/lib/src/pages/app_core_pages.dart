@@ -1,9 +1,7 @@
 import 'package:loadux_lib/loadux_lib.dart';
 import 'package:app_shell/app_shell.dart';
 import 'package:feature_shared/feature_shared.dart';
-import 'package:baton_lib/baton_lib.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:theme_lib/theme_lib.dart';
@@ -91,10 +89,13 @@ class AccessDeniedPage extends ConsumerWidget {
             children: [
               ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 480),
-                child: SvgPicture.asset(
-                  'assets/access_denied.svg',
+                // 画像(PNG)。ライト・ダークをテーマの明るさで切り替える
+                child: Image.asset(
+                  Theme.of(context).brightness == Brightness.dark
+                      ? 'assets/access_denied_dark.png'
+                      : 'assets/access_denied_light.png',
                   package: 'app_core',
-                  semanticsLabel: t.accessDenied.title,
+                  semanticLabel: t.accessDenied.title,
                 ),
               ),
               const SizedBox(height: 16),
@@ -294,6 +295,16 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           Text(t.user.title, style: Theme.of(context).textTheme.titleMedium),
           Text(t.user.note, style: Theme.of(context).textTheme.bodySmall),
           const SizedBox(height: 8),
+          // 現在のユーザーの表示(大)。名前・所属・顔写真は、ログインのときに決まる(引数・プロパティで変えられる)
+          if (ref.watch(userSummaryProvider) case final u?)
+            UserContainer(
+              user: AppUser(
+                name: u.name,
+                role: u.role,
+                photo: ref.watch(userPhotoProvider),
+              ),
+              size: UserContainerSize.large,
+            ),
           TextField(
             controller: _userName,
             decoration: InputDecoration(labelText: t.user.name),

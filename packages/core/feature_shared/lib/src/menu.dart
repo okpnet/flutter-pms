@@ -1,4 +1,5 @@
 import 'package:baton_lib/baton_lib.dart';
+import 'package:flutter/painting.dart' show ImageProvider;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// トップメニューの1項目。機能が提供し、アプリが集めてサイドバー・ハンバーガーメニューにする。
@@ -61,6 +62,41 @@ class UserSummary {
   final String name;
   final String role;
 }
+
+/// ログインの直後に、表示用のユーザー情報を作るための入力。
+class UserSummaryRequest {
+  const UserSummaryRequest({
+    required this.staffId,
+    required this.username,
+    this.name = '',
+  });
+
+  /// アプリの DB の担当者の ID。
+  final String staffId;
+
+  /// ログインに使ったユーザーID。
+  final String username;
+
+  /// 認証サーバーの氏名。空のときがある。
+  final String name;
+}
+
+/// 表示用のユーザー情報(名前と所属など)を作る関数。ログインの直後に呼ばれる。
+///
+/// 既定は、氏名(無ければユーザーID)だけ。アプリが [userSummaryResolverProvider] を差し替えて、
+/// 担当者のモデルから氏名・所属(部署)を引く。失敗したときは、ログインを止めず、既定の表示にする。
+typedef UserSummaryResolver = Future<UserSummary> Function(UserSummaryRequest request);
+
+final userSummaryResolverProvider = Provider<UserSummaryResolver>(
+  (ref) =>
+      (request) async => UserSummary(
+        name: request.name.isNotEmpty ? request.name : request.username,
+      ),
+);
+
+/// ログインユーザーの顔写真。設定画面の大きなユーザーパネルが使う。既定は写真なし(名前の頭文字)。
+/// 実体はアプリが差し込む(`user_profile` の顔写真)。
+final userPhotoProvider = Provider<ImageProvider?>((ref) => null);
 
 /// ログインユーザーの表示用の情報。標準値([standard])から始まり、設定画面で変更できる。
 /// ログアウトすると null(メニューもユーザーも出さない)。

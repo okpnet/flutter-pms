@@ -108,6 +108,7 @@ Future<List<Override>> exampleOverrides(
       ),
     ),
     ...dashboardOverrides(),
+    ...userSummaryOverrides(),
     ...graphqlOverrides(),
     pbConnectionProvider.overrideWithValue(connection),
     tokenStoreProvider.overrideWithValue(store),

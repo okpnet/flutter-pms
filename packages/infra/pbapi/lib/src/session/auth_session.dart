@@ -11,6 +11,7 @@ class AuthSession {
     required this.userId,
     required this.username,
     required this.appUserId,
+    this.name = '',
     this.role = 'user',
     this.expiresAt,
   });
@@ -26,6 +27,9 @@ class AuthSession {
 
   /// アプリのDB側のユーザーID(管理者が設定)。
   final String appUserId;
+
+  /// 氏名(PocketBase の `name`)。無いときは空(表示はユーザーIDにする)。
+  final String name;
 
   /// ユーザーの役割(PocketBase の `role`。`admin` は管理者)。権限の判定に使う。
   final String role;
@@ -45,6 +49,7 @@ class AuthSession {
       userId: record.id,
       username: record.getStringValue('username'),
       appUserId: record.getStringValue('app_user_id'),
+      name: record.getStringValue('name'),
       role: record.getStringValue('role', 'user'),
       expiresAt: _expiry(store.token),
     );

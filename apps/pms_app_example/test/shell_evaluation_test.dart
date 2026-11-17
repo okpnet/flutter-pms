@@ -1,6 +1,7 @@
 // 評価 1(テーマ)・2(ログインユーザー)・5(ファイルのアップロード)・7(権限とメニュー)・11(メニューの漏れ)。
 import 'package:auth_files/auth_files.dart' show AuthFilesPaths;
 import 'package:feature_shared/feature_shared.dart';
+import 'package:app_shell/app_shell.dart' show UserContainer;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:feature_shared/feature_shared.dart' show EntityListDestination, TopLevelDestination, commandBusProvider;
@@ -78,8 +79,14 @@ void main() {
       // 画面(枠)に出る名前・役割
       // ignore: avoid_print
       print('userSummary: name=${summary?.name} role=${summary?.role}');
-      expect(summary?.name, isNotEmpty);
-      expect(find.text(summary!.name), findsWidgets);
+      // 氏名は、認証サーバーの氏名(ユーザーIDではない)。所属は GraphQL に接続しないので空
+      expect(summary?.name, '佐藤');
+      expect(find.text('佐藤'), findsWidgets);
+
+      // 設定画面に、ユーザーパネル(大)で名前が出る
+      await h.go('/settings');
+      expect(find.byType(UserContainer), findsNWidgets(2), reason: '枠(中)と設定画面(大)');
+      expect(find.text('佐藤'), findsWidgets);
 
     });
 
