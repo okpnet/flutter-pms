@@ -16556,22 +16556,36 @@ CREATE OR REPLACE FUNCTION tests.lot_deliver(
     p_staff_id uuid DEFAULT NULL,
     p_parent_plan_change_id uuid DEFAULT NULL,
     p_remarks varchar DEFAULT NULL,
-    p_location_id uuid DEFAULT NULL
+    p_location_id uuid DEFAULT NULL,
+    p_settlement_kind_id uuid DEFAULT NULL,
+    p_settlement_amount numeric DEFAULT NULL,
+    p_order_detail_id uuid DEFAULT NULL
 ) RETURNS tests.trans_plan_change AS $$
 DECLARE
-    v_st record;
+    v_st record; v_settlement uuid := p_order_detail_settlement_id;
 BEGIN
     SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
+    -- 精算(請求書1行)を同じトランザクションで登録して、計画変更につなぐ。区分・金額・受注明細は、そろえて渡す
+    IF p_settlement_kind_id IS NOT NULL OR p_settlement_amount IS NOT NULL THEN
+        IF p_settlement_kind_id IS NULL OR p_settlement_amount IS NULL OR p_order_detail_id IS NULL THEN
+            RAISE EXCEPTION '精算は、精算区分・金額・受注明細をそろえて渡してください' USING ERRCODE = 'OPR02';
+        END IF;
+        IF p_order_detail_settlement_id IS NOT NULL THEN
+            RAISE EXCEPTION '精算の ID と、精算の登録(区分・金額)は、どちらか一方にしてください' USING ERRCODE = 'OPR02';
+        END IF;
+        v_settlement := (tests.order_detail_settle(p_order_detail_id, p_settlement_kind_id, p_settlement_amount,
+            p_quantity, NULL, NULL, p_reason, v_st.staff_id, p_remarks)).trans_order_detail_settlement_id;
+    END IF;
     PERFORM tests.op_unhold(p_visiter_id, v_st.staff_id, v_st.staff_history_id);
     PERFORM tests.visiter_issue(p_visiter_id, p_quantity, NULL, v_st.staff_id, p_location_id, NULL, p_remarks);
     RETURN tests.op_add_plan_change(v_st.staff_id, v_st.staff_history_id, p_visiter => p_visiter_id,
-        p_deliver => true, p_settlement => p_order_detail_settlement_id,
+        p_deliver => true, p_settlement => v_settlement,
         p_change_reason_id => p_change_reason_id, p_reason => p_reason,
         p_parent => p_parent_plan_change_id, p_remarks => p_remarks);
 END
 $$ LANGUAGE plpgsql VOLATILE;
 
-COMMENT ON FUNCTION tests.lot_deliver(uuid, numeric, uuid, uuid, varchar, uuid, uuid, varchar, uuid) IS '顧客への引き渡し。押さえていたロットは仮止めを外してから、ロットから払い出し(visiter_issue)、計画変更(deliver・精算)を記録する(1トランザクション)';
+COMMENT ON FUNCTION tests.lot_deliver(uuid, numeric, uuid, uuid, varchar, uuid, uuid, varchar, uuid, uuid, numeric, uuid) IS '顧客への引き渡し。押さえていたロットは仮止めを外してから、ロットから払い出し(visiter_issue)、計画変更(deliver・精算)を記録する(1トランザクション)。精算区分・金額・受注明細(p_settlement_kind_id・p_settlement_amount・p_order_detail_id)を渡すと、同じトランザクションで精算(請求書1行)も登録して計画変更につなぐ';
 
 CREATE OR REPLACE FUNCTION tests.return_register(
     p_return_kind_id uuid,

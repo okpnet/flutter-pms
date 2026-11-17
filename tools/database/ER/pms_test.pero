@@ -10170,15 +10170,16 @@
         "sqlite": ""
       },
       "bodies": {
-        "postgresql": "CREATE OR REPLACE FUNCTION tests.lot_deliver(\n    p_visiter_id uuid,\n    p_quantity numeric,\n    p_order_detail_settlement_id uuid DEFAULT NULL,\n    p_change_reason_id uuid DEFAULT NULL,\n    p_reason varchar DEFAULT NULL,\n    p_staff_id uuid DEFAULT NULL,\n    p_parent_plan_change_id uuid DEFAULT NULL,\n    p_remarks varchar DEFAULT NULL,\n    p_location_id uuid DEFAULT NULL\n) RETURNS tests.trans_plan_change AS $$\nDECLARE\n    v_st record;\nBEGIN\n    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);\n    PERFORM tests.op_unhold(p_visiter_id, v_st.staff_id, v_st.staff_history_id);\n    PERFORM tests.visiter_issue(p_visiter_id, p_quantity, NULL, v_st.staff_id, p_location_id, NULL, p_remarks);\n    RETURN tests.op_add_plan_change(v_st.staff_id, v_st.staff_history_id, p_visiter => p_visiter_id,\n        p_deliver => true, p_settlement => p_order_detail_settlement_id,\n        p_change_reason_id => p_change_reason_id, p_reason => p_reason,\n        p_parent => p_parent_plan_change_id, p_remarks => p_remarks);\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.lot_deliver(\n    p_visiter_id uuid,\n    p_quantity numeric,\n    p_order_detail_settlement_id uuid DEFAULT NULL,\n    p_change_reason_id uuid DEFAULT NULL,\n    p_reason varchar DEFAULT NULL,\n    p_staff_id uuid DEFAULT NULL,\n    p_parent_plan_change_id uuid DEFAULT NULL,\n    p_remarks varchar DEFAULT NULL,\n    p_location_id uuid DEFAULT NULL,\n    p_settlement_kind_id uuid DEFAULT NULL,\n    p_settlement_amount numeric DEFAULT NULL,\n    p_order_detail_id uuid DEFAULT NULL\n) RETURNS tests.trans_plan_change AS $$\nDECLARE\n    v_st record; v_settlement uuid := p_order_detail_settlement_id;\nBEGIN\n    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);\n    -- 精算(請求書1行)を同じトランザクションで登録して、計画変更につなぐ。区分・金額・受注明細は、そろえて渡す\n    IF p_settlement_kind_id IS NOT NULL OR p_settlement_amount IS NOT NULL THEN\n        IF p_settlement_kind_id IS NULL OR p_settlement_amount IS NULL OR p_order_detail_id IS NULL THEN\n            RAISE EXCEPTION '精算は、精算区分・金額・受注明細をそろえて渡してください' USING ERRCODE = 'OPR02';\n        END IF;\n        IF p_order_detail_settlement_id IS NOT NULL THEN\n            RAISE EXCEPTION '精算の ID と、精算の登録(区分・金額)は、どちらか一方にしてください' USING ERRCODE = 'OPR02';\n        END IF;\n        v_settlement := (tests.order_detail_settle(p_order_detail_id, p_settlement_kind_id, p_settlement_amount,\n            p_quantity, NULL, NULL, p_reason, v_st.staff_id, p_remarks)).trans_order_detail_settlement_id;\n    END IF;\n    PERFORM tests.op_unhold(p_visiter_id, v_st.staff_id, v_st.staff_history_id);\n    PERFORM tests.visiter_issue(p_visiter_id, p_quantity, NULL, v_st.staff_id, p_location_id, NULL, p_remarks);\n    RETURN tests.op_add_plan_change(v_st.staff_id, v_st.staff_history_id, p_visiter => p_visiter_id,\n        p_deliver => true, p_settlement => v_settlement,\n        p_change_reason_id => p_change_reason_id, p_reason => p_reason,\n        p_parent => p_parent_plan_change_id, p_remarks => p_remarks);\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
         "mysql": "",
         "sqlserver": "",
         "sqlite": ""
       },
-      "comment": "顧客への引き渡し。押さえていたロットは仮止めを外してから、ロットから払い出し(visiter_issue)、計画変更(deliver・精算)を記録する(1トランザクション)",
-      "args": "uuid, numeric, uuid, uuid, varchar, uuid, uuid, varchar, uuid",
+      "comment": "顧客への引き渡し。押さえていたロットは仮止めを外してから、ロットから払い出し(visiter_issue)、計画変更(deliver・精算)を記録する(1トランザクション)。精算区分・金額・受注明細(p_settlement_kind_id・p_settlement_amount・p_order_detail_id)を渡すと、同じトランザクションで精算(請求書1行)も登録して計画変更につなぐ",
+      "args": "uuid, numeric, uuid, uuid, varchar, uuid, uuid, varchar, uuid, uuid, numeric, uuid",
       "dependsOnTableIds": [
-        151
+        151,
+        133
       ],
       "schema": "tests"
     },
