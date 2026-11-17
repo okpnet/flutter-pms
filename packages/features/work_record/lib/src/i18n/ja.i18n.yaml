@@ -34,6 +34,7 @@ entity:
       f_serial: "シリアル番号"
       f_title: "件名"
       f_class: "区分"
+      f_file: "ファイル"
       f_remarks: "備考"
   workrec:
     title: "作業実績"

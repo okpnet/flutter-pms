@@ -7,6 +7,13 @@ add: 追加
 parent: 親
 noParent: 最上位(親なし)
 unselected: 未選択
+file:
+  upload: アップロード
+  replace: 差し替え
+  none: ファイルなし
+  uploadFailed: アップロードに失敗しました
+  downloadFailed: ダウンロードに失敗しました
+  downloaded: 保存しました
 pick: 選択
 pickTitle: ${name}の選択
 clear: 解除

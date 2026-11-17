@@ -49,6 +49,7 @@ class EntityScreenStringsEn extends EntityScreenStrings with BaseTranslations<En
 	@override String pickTitle({required Object name}) => 'Select ${name}';
 	@override String get clear => 'Clear';
 	@override String get unselected => 'Not selected';
+	@override late final _EntityScreenStrings$file$en file = _EntityScreenStrings$file$en._(_root);
 	@override String get notFound => 'Data not found';
 	@override String get loadFailed => 'Could not load';
 	@override String get saveFailed => 'Could not save';
@@ -61,6 +62,21 @@ class EntityScreenStringsEn extends EntityScreenStrings with BaseTranslations<En
 	@override String get no => 'No';
 	@override late final _EntityScreenStrings$nested$en nested = _EntityScreenStrings$nested$en._(_root);
 	@override late final _EntityScreenStrings$validation$en validation = _EntityScreenStrings$validation$en._(_root);
+}
+
+// Path: file
+class _EntityScreenStrings$file$en extends EntityScreenStrings$file$ja {
+	_EntityScreenStrings$file$en._(EntityScreenStringsEn root) : this._root = root, super.internal(root);
+
+	final EntityScreenStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get upload => 'Upload';
+	@override String get replace => 'Replace';
+	@override String get none => 'No file';
+	@override String get uploadFailed => 'Could not upload';
+	@override String get downloadFailed => 'Could not download';
+	@override String get downloaded => 'Saved';
 }
 
 // Path: confirmDelete
@@ -150,6 +166,12 @@ extension on EntityScreenStringsEn {
 			'pickTitle' => ({required Object name}) => 'Select ${name}',
 			'clear' => 'Clear',
 			'unselected' => 'Not selected',
+			'file.upload' => 'Upload',
+			'file.replace' => 'Replace',
+			'file.none' => 'No file',
+			'file.uploadFailed' => 'Could not upload',
+			'file.downloadFailed' => 'Could not download',
+			'file.downloaded' => 'Saved',
 			'notFound' => 'Data not found',
 			'loadFailed' => 'Could not load',
 			'saveFailed' => 'Could not save',

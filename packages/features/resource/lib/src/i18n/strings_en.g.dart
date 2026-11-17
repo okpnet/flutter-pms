@@ -473,8 +473,7 @@ class _ResourceStrings$entity$inspectionfile$fields$en extends ResourceStrings$e
 	final ResourceStringsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get f_fname => 'File name';
-	@override String get f_ftype => 'Type';
+	@override String get f_file => 'File';
 	@override String get f_regdate => 'Registered on';
 }
 
@@ -584,8 +583,7 @@ extension on ResourceStringsEn {
 			'entity.inspectionresult.fields.f_value' => 'Measured value / findings',
 			'entity.inspectionresult.fields.f_note' => 'Remarks',
 			'entity.inspectionfile.title' => 'Files',
-			'entity.inspectionfile.fields.f_fname' => 'File name',
-			'entity.inspectionfile.fields.f_ftype' => 'Type',
+			'entity.inspectionfile.fields.f_file' => 'File',
 			'entity.inspectionfile.fields.f_regdate' => 'Registered on',
 			'entity.workcalendar.title' => 'Work calendar',
 			'entity.workcalendar.fields.f_work_date' => 'Work date',

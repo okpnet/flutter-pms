@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../condition.dart';
 import '../definition.dart';
+import '../file_transfer.dart';
 import '../i18n/strings.g.dart';
 import '../record.dart';
 import 'entity_scope.dart';
@@ -126,7 +127,8 @@ class _EntityEditPageState extends State<EntityEditPage> {
               record?.valueOf(f.key) ?? widget.initialValues[f.key] ?? '';
           if (f.kind == FieldKind.choice ||
               f.kind == FieldKind.reference ||
-              f.kind == FieldKind.flag) {
+              f.kind == FieldKind.flag ||
+              f.kind == FieldKind.file) {
             _chosen[f.key] = value;
           } else {
             _text[f.key] = TextEditingController(text: value);
@@ -259,7 +261,8 @@ class _EntityEditPageState extends State<EntityEditPage> {
       f.key:
           (f.kind == FieldKind.choice ||
               f.kind == FieldKind.reference ||
-              f.kind == FieldKind.flag)
+              f.kind == FieldKind.flag ||
+              f.kind == FieldKind.file)
           ? (_chosen[f.key] ?? '')
           : (_text[f.key]?.text ?? ''),
   };
@@ -403,6 +406,7 @@ class _EntityEditPageState extends State<EntityEditPage> {
     EntityFieldError.invalidDate => s.validation.invalidDate,
     EntityFieldError.invalidChoice => s.validation.invalidChoice,
     EntityFieldError.invalidCondition => s.validation.invalidCondition,
+    EntityFieldError.uploadFailed => s.file.uploadFailed,
     EntityFieldError.parentCycle => s.validation.parentCycle,
     EntityFieldError.duplicate => s.validation.duplicate,
   };
@@ -521,6 +525,8 @@ class _EntityEditPageState extends State<EntityEditPage> {
         );
       case FieldKind.flag:
         return _flagField(f);
+      case FieldKind.file:
+        return _fileField(f, strings);
       case FieldKind.condition:
         return ConditionEditor(
           controller: _text[f.key]!,
@@ -606,7 +612,8 @@ class _EntityEditPageState extends State<EntityEditPage> {
     final raw =
         f.kind == FieldKind.choice ||
             f.kind == FieldKind.reference ||
-            f.kind == FieldKind.flag
+            f.kind == FieldKind.flag ||
+            f.kind == FieldKind.file
         ? (_chosen[f.key] ?? '')
         : (_text[f.key]?.text ?? '');
     final text = switch (f.kind) {
@@ -618,6 +625,7 @@ class _EntityEditPageState extends State<EntityEditPage> {
             raw,
       FieldKind.condition => raw.isEmpty ? raw : ConditionValue.displayOf(raw),
       FieldKind.flag => raw == flagOn ? _scope.strings.yes : _scope.strings.no,
+      FieldKind.file => EntityFile.tryParse(raw)?.label ?? '',
       _ => raw,
     };
     return InputDecorator(
@@ -626,6 +634,55 @@ class _EntityEditPageState extends State<EntityEditPage> {
         text.isEmpty ? '-' : text,
         key: ValueKey('readonly:${f.key}'),
         textAlign: f.kind == FieldKind.number ? TextAlign.end : TextAlign.start,
+      ),
+    );
+  }
+
+  /// ファイルの入力。ファイル名(押すとダウンロード)と、選んでアップロード(差し替え)するボタン。
+  /// ファイルの実体は、アップロードのときに保存先へ上がる(DB には ID だけを持つ。保存はこの項目の値を保存するとき)。
+  Widget _fileField(FieldDefinition f, EntityScreenStrings strings) {
+    final file = EntityFile.tryParse(_chosen[f.key] ?? '');
+    Future<void> upload() async {
+      try {
+        final uploaded = await _scope.fileTransfer.pickAndUpload();
+        if (uploaded == null || !mounted) return;
+        setState(() {
+          _chosen[f.key] = uploaded.toValue();
+          _errors = {..._errors}..remove(f.key);
+        });
+      } catch (_) {
+        if (!mounted) return;
+        setState(() => _errors = {..._errors, f.key: EntityFieldError.uploadFailed});
+      }
+    }
+
+    return InputDecorator(
+      decoration: InputDecoration(
+        labelText: _label(f),
+        errorText: _error(f.key),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: file == null
+                ? Text(strings.file.none)
+                : TextButton(
+                    key: ValueKey('fileName:${f.key}'),
+                    style: TextButton.styleFrom(
+                      alignment: Alignment.centerLeft,
+                      padding: EdgeInsets.zero,
+                    ),
+                    onPressed: () => _scope.downloadFile(context, file),
+                    child: Text(file.label, overflow: TextOverflow.ellipsis),
+                  ),
+          ),
+          TextButton.icon(
+            key: ValueKey('fileUpload:${f.key}'),
+            icon: const Icon(Icons.upload_file),
+            onPressed: upload,
+            label: Text(file == null ? strings.file.upload : strings.file.replace),
+          ),
+        ],
       ),
     );
   }
@@ -816,7 +873,12 @@ class _ChildSectionState extends State<_ChildSection> {
               }
               return FlgTable<EntityRecord>(
                 key: ValueKey('${widget.definition.key}:$_generation'),
-                columns: columnsOf(widget.definition, scope.labels, data.names),
+                columns: columnsOf(
+                  widget.definition,
+                  scope.labels,
+                  data.names,
+                  onDownload: (file) => scope.downloadFile(context, file),
+                ),
                 items: data.records,
                 rowKey: (r) => r.id,
                 config: const TableConfig(sortEnabled: true),
@@ -936,7 +998,12 @@ class _ReverseSectionState extends State<_ReverseSection> {
                     label: scope.labels.entity(definition.owner!),
                     getter: (r) => data.owners[r.parentId] ?? '',
                   ),
-                ...columnsOf(definition, scope.labels, data.names),
+                ...columnsOf(
+                  definition,
+                  scope.labels,
+                  data.names,
+                  onDownload: (file) => scope.downloadFile(context, file),
+                ),
               ];
               return FlgTable<EntityRecord>(
                 key: ValueKey('${widget.reverse.entity}:$_generation'),

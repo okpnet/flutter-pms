@@ -39,6 +39,7 @@ const List<EntityDefinition> workRecordDefinitions = [
         FieldDefinition(key: 'serial', required: false),
         FieldDefinition(key: 'title'),
         FieldDefinition(key: 'class', required: false),
+        FieldDefinition(key: 'file', kind: FieldKind.file, required: false),
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
       ],
     ),

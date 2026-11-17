@@ -135,6 +135,7 @@ class _EntityListPageState extends State<EntityListPage> {
         loaded.names,
         yes: scope.strings.yes,
         no: scope.strings.no,
+        onDownload: (file) => scope.downloadFile(context, file),
       ),
       if (widget.onAction != null)
         for (final a in loaded.definition.rowActions) _actionColumn(loaded, a),

@@ -60,6 +60,8 @@ class EntityScreenStrings with BaseTranslations<EntityScreenLocale, EntityScreen
 	/// ja: '未選択'
 	String get unselected => '未選択';
 
+	late final EntityScreenStrings$file$ja file = EntityScreenStrings$file$ja.internal(_root);
+
 	/// ja: '選択'
 	String get pick => '選択';
 
@@ -98,6 +100,33 @@ class EntityScreenStrings with BaseTranslations<EntityScreenLocale, EntityScreen
 
 	late final EntityScreenStrings$nested$ja nested = EntityScreenStrings$nested$ja.internal(_root);
 	late final EntityScreenStrings$validation$ja validation = EntityScreenStrings$validation$ja.internal(_root);
+}
+
+// Path: file
+class EntityScreenStrings$file$ja {
+	EntityScreenStrings$file$ja.internal(this._root);
+
+	final EntityScreenStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'アップロード'
+	String get upload => 'アップロード';
+
+	/// ja: '差し替え'
+	String get replace => '差し替え';
+
+	/// ja: 'ファイルなし'
+	String get none => 'ファイルなし';
+
+	/// ja: 'アップロードに失敗しました'
+	String get uploadFailed => 'アップロードに失敗しました';
+
+	/// ja: 'ダウンロードに失敗しました'
+	String get downloadFailed => 'ダウンロードに失敗しました';
+
+	/// ja: '保存しました'
+	String get downloaded => '保存しました';
 }
 
 // Path: confirmDelete
@@ -248,6 +277,12 @@ extension on EntityScreenStrings {
 			'parent' => '親',
 			'noParent' => '最上位(親なし)',
 			'unselected' => '未選択',
+			'file.upload' => 'アップロード',
+			'file.replace' => '差し替え',
+			'file.none' => 'ファイルなし',
+			'file.uploadFailed' => 'アップロードに失敗しました',
+			'file.downloadFailed' => 'ダウンロードに失敗しました',
+			'file.downloaded' => '保存しました',
 			'pick' => '選択',
 			'pickTitle' => ({required Object name}) => '${name}の選択',
 			'clear' => '解除',

@@ -116,8 +116,7 @@ entity:
   inspectionfile:
     title: "Files"
     fields:
-      f_fname: "File name"
-      f_ftype: "Type"
+      f_file: "File"
       f_regdate: "Registered on"
   workcalendar:
     title: "Work calendar"

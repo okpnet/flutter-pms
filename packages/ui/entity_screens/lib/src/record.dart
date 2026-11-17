@@ -51,6 +51,9 @@ enum EntityFieldError {
   /// 条件(演算子 + 値)として読めない。
   invalidCondition,
 
+  /// ファイルのアップロードに失敗した(保存先へ上げられなかった)。
+  uploadFailed,
+
   /// 下限([FieldDefinition.ge])を下回っている(以上でない)。
   belowMinimum,
 

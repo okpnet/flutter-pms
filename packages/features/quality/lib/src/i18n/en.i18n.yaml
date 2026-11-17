@@ -25,7 +25,7 @@ entity:
   compfile:
     title: "Nonconformity report files"
     fields:
-      f_fname: "File name"
+      f_file: "File"
       f_date: "Registered on"
   corder:
     title: "Order complaints"

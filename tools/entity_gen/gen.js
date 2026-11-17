@@ -119,7 +119,7 @@ const REVERSE = {
 
 /* ------------------------------------------------------------------ 内部形式への変換 */
 /** 画面案の種類 → 項目の種類。c(計算項目)は読み取り専用の数値にする(値は DB のビュー・GraphQL の集計で返す。サンプルは空)。 */
-const KIND = { t: 'text', x: 'multiline', n: 'number', d: 'date', s: 'choice', r: 'reference', b: 'flag', c: 'number' };
+const KIND = { t: 'text', x: 'multiline', n: 'number', d: 'date', s: 'choice', r: 'reference', b: 'flag', c: 'number', f: 'file' };
 
 const byLabel = (key) => DOM.entities.find((x) => x.key === key)?.label ?? key;
 
@@ -214,6 +214,12 @@ for (const e of htmlEntities) {
 }
 const empty = () => '';
 const FIELD_ADDITIONS = {
+  /* 共有ファイル(DB の trans_file_id。実体は PocketBase にあり、DB は ID だけを持つ。値は {id, name, mediaType} の JSON)。ファイルの項目 */
+  certificate: [{ after: 'class', field: { key: 'file', label: 'ファイル', kind: 'file', required: false }, sample: empty }],
+  doctier: [{ after: 'tier_number', field: { key: 'file', label: 'ファイル', kind: 'file', required: false }, sample: empty }],
+  doc: [{ after: 'mstr_document_tier_id', field: { key: 'file', label: 'ファイル', kind: 'file', required: false }, sample: empty }],
+  doccontent: [{ after: 'image_content', field: { key: 'file', label: 'ファイル', kind: 'file', required: false }, sample: empty }],
+  report: [{ after: 'is_default', field: { key: 'file', label: 'ファイル', kind: 'file', required: false }, sample: empty }],
   /* 発注明細・資材計画の品目(DB は mstr_item_id。model_providers は item_id で返す)。引当予約が、品目で在庫を絞るのに使う */
   purdetail: [
     { after: 'trans_resource_plan_id', field: { key: 'item', label: '品目', kind: 'reference', required: false, ref: 'item' }, sample: (i) => 'item' + (i % 2 + 1) },

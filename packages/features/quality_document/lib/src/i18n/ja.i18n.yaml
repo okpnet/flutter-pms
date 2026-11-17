@@ -14,6 +14,7 @@ entity:
       f_nickname: "略称"
       f_attributive_noun: "限定名詞"
       f_tier_number: "階層番号"
+      f_file: "ファイル"
       f_remarks: "備考"
   doc:
     title: "文書"
@@ -25,6 +26,7 @@ entity:
       f_pronunciation: "読み"
       f_nickname: "略称"
       f_mstr_document_tier_id: "文書階層"
+      f_file: "ファイル"
       f_remarks: "備考"
   doccontent:
     title: "文書コンテンツ"
@@ -37,6 +39,7 @@ entity:
       f_detail: "詳細"
       f_sequence: "シーケンス"
       f_image_content: "イメージコンテンツ"
+      f_file: "ファイル"
       f_remarks: "備考"
   report:
     title: "レポート"
@@ -46,4 +49,5 @@ entity:
       f_pronunciation: "読み"
       f_nickname: "略称"
       f_is_default: "デフォルト"
+      f_file: "ファイル"
       f_remarks: "備考"

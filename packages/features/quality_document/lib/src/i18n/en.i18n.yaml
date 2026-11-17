@@ -12,6 +12,7 @@ entity:
       f_nickname: "Abbreviation"
       f_attributive_noun: "Qualifying noun"
       f_tier_number: "Tier number"
+      f_file: "File"
       f_remarks: "Remarks"
   doc:
     title: "Documents"
@@ -23,6 +24,7 @@ entity:
       f_pronunciation: "Reading"
       f_nickname: "Abbreviation"
       f_mstr_document_tier_id: "Document tier"
+      f_file: "File"
       f_remarks: "Remarks"
   doccontent:
     title: "Document contents"
@@ -35,6 +37,7 @@ entity:
       f_detail: "Details"
       f_sequence: "Sequence"
       f_image_content: "Image content"
+      f_file: "File"
       f_remarks: "Remarks"
   report:
     title: "Reports"
@@ -44,4 +47,5 @@ entity:
       f_pronunciation: "Reading"
       f_nickname: "Abbreviation"
       f_is_default: "Default"
+      f_file: "File"
       f_remarks: "Remarks"

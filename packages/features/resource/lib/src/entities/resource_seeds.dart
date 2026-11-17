@@ -108,8 +108,8 @@ const Map<String, List<EntityRecord>> resourceSeeds = {
       EntityRecord(id: '5dc84e7a-0000-4000-8000-000000000002', values: {'date': '2026-10-15', 'staff': '675ca4d1-0000-4000-8000-000000000003', 'result': '要再点検', 'value': '', 'note': '回転数上昇時にわずかな異音。翌日に再確認する。'}, parentId: 'ee96bc5d-0000-4000-8000-000000000002'),
     ],
     'inspectionfile': [
-      EntityRecord(id: 'cda6a7cd-0000-4000-8000-000000000001', values: {'fname': '潤滑油量_20261015.jpg', 'ftype': '写真', 'regdate': '2026-10-15'}, parentId: '5dc84e7a-0000-4000-8000-000000000001'),
-      EntityRecord(id: 'cda6a7cd-0000-4000-8000-000000000002', values: {'fname': '日常点検表_20261015.pdf', 'ftype': '帳票', 'regdate': '2026-10-15'}, parentId: '5dc84e7a-0000-4000-8000-000000000002'),
+      EntityRecord(id: 'cda6a7cd-0000-4000-8000-000000000001', values: {'file': '{"id":"cda6a7cd-0000-4000-8000-000000000001","name":"潤滑油量_20261015.jpg","mediaType":"image/jpeg"}', 'regdate': '2026-10-15'}, parentId: '5dc84e7a-0000-4000-8000-000000000001'),
+      EntityRecord(id: 'cda6a7cd-0000-4000-8000-000000000002', values: {'file': '{"id":"cda6a7cd-0000-4000-8000-000000000002","name":"日常点検表_20261015.pdf","mediaType":"application/pdf"}', 'regdate': '2026-10-15'}, parentId: '5dc84e7a-0000-4000-8000-000000000002'),
     ],
     'workcalendar': [
       EntityRecord(id: '2d036236-0000-4000-8000-000000000001', values: {'work_date': '2026-11-02', 'equipment': '', 'start_time': '08:30', 'work_interval': '08:00', 'holiday': '', 'remarks': ''}),

@@ -32,6 +32,7 @@ entity:
       f_serial: "Serial number"
       f_title: "Subject"
       f_class: "Class"
+      f_file: "File"
       f_remarks: "Remarks"
   workrec:
     title: "Work records"

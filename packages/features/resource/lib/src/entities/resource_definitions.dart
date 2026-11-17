@@ -135,8 +135,7 @@ const List<EntityDefinition> resourceDefinitions = [
     EntityDefinition(
       key: 'inspectionfile', owner: 'inspectionresult',
       fields: [
-        FieldDefinition(key: 'fname'),
-        FieldDefinition(key: 'ftype', kind: FieldKind.choice, options: ['写真', '帳票']),
+        FieldDefinition(key: 'file', kind: FieldKind.file),
         FieldDefinition(key: 'regdate', kind: FieldKind.date),
       ],
     ),

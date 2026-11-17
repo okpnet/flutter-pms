@@ -149,6 +149,9 @@ class QualityDocumentStrings$entity$doctier$fields$ja {
 	/// ja: '階層番号'
 	String get f_tier_number => '階層番号';
 
+	/// ja: 'ファイル'
+	String get f_file => 'ファイル';
+
 	/// ja: '備考'
 	String get f_remarks => '備考';
 }
@@ -181,6 +184,9 @@ class QualityDocumentStrings$entity$doc$fields$ja {
 
 	/// ja: '文書階層'
 	String get f_mstr_document_tier_id => '文書階層';
+
+	/// ja: 'ファイル'
+	String get f_file => 'ファイル';
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
@@ -218,6 +224,9 @@ class QualityDocumentStrings$entity$doccontent$fields$ja {
 	/// ja: 'イメージコンテンツ'
 	String get f_image_content => 'イメージコンテンツ';
 
+	/// ja: 'ファイル'
+	String get f_file => 'ファイル';
+
 	/// ja: '備考'
 	String get f_remarks => '備考';
 }
@@ -245,6 +254,9 @@ class QualityDocumentStrings$entity$report$fields$ja {
 	/// ja: 'デフォルト'
 	String get f_is_default => 'デフォルト';
 
+	/// ja: 'ファイル'
+	String get f_file => 'ファイル';
+
 	/// ja: '備考'
 	String get f_remarks => '備考';
 }
@@ -266,6 +278,7 @@ extension on QualityDocumentStrings {
 			'entity.doctier.fields.f_nickname' => '略称',
 			'entity.doctier.fields.f_attributive_noun' => '限定名詞',
 			'entity.doctier.fields.f_tier_number' => '階層番号',
+			'entity.doctier.fields.f_file' => 'ファイル',
 			'entity.doctier.fields.f_remarks' => '備考',
 			'entity.doc.title' => '文書',
 			'entity.doc.fields.f_code' => 'コード',
@@ -275,6 +288,7 @@ extension on QualityDocumentStrings {
 			'entity.doc.fields.f_pronunciation' => '読み',
 			'entity.doc.fields.f_nickname' => '略称',
 			'entity.doc.fields.f_mstr_document_tier_id' => '文書階層',
+			'entity.doc.fields.f_file' => 'ファイル',
 			'entity.doc.fields.f_remarks' => '備考',
 			'entity.doccontent.title' => '文書コンテンツ',
 			'entity.doccontent.fields.f_doc' => '文書',
@@ -285,6 +299,7 @@ extension on QualityDocumentStrings {
 			'entity.doccontent.fields.f_detail' => '詳細',
 			'entity.doccontent.fields.f_sequence' => 'シーケンス',
 			'entity.doccontent.fields.f_image_content' => 'イメージコンテンツ',
+			'entity.doccontent.fields.f_file' => 'ファイル',
 			'entity.doccontent.fields.f_remarks' => '備考',
 			'entity.report.title' => 'レポート',
 			'entity.report.fields.f_code' => 'コード',
@@ -292,6 +307,7 @@ extension on QualityDocumentStrings {
 			'entity.report.fields.f_pronunciation' => '読み',
 			'entity.report.fields.f_nickname' => '略称',
 			'entity.report.fields.f_is_default' => 'デフォルト',
+			'entity.report.fields.f_file' => 'ファイル',
 			'entity.report.fields.f_remarks' => '備考',
 			_ => null,
 		};

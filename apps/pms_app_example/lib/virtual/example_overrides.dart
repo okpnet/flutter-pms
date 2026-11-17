@@ -109,6 +109,7 @@ Future<List<Override>> exampleOverrides(
     ),
     ...dashboardOverrides(),
     ...userSummaryOverrides(),
+    entityFileTransferProvider.overrideWith(PocketBaseEntityFileTransfer.new),
     ...graphqlOverrides(),
     pbConnectionProvider.overrideWithValue(connection),
     tokenStoreProvider.overrideWithValue(store),

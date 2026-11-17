@@ -162,8 +162,9 @@
       rows: [["complaint1", "2026-10-12", "E-0034", "電話"]] },
     { key: "compstake", label: "異常報告利害関係者", parent: { ent: "complaint", key: "complaint" }, fields: [["name", "名称"], ["relation", "関係", "s", { opts: ["顧客", "サプライヤー", "社内", "その他"] }]],
       rows: [["complaint1", "北斗機械株式会社", "顧客"]] },
-    { key: "compfile", label: "異常報告ファイル", parent: { ent: "complaint", key: "complaint" }, fields: [["fname", "ファイル名"], ["date", "登録日", "d"]],
-      rows: [["complaint1", "写真_001.jpg", "2026-10-12"]] },
+    { key: "compfile", label: "異常報告ファイル", parent: { ent: "complaint", key: "complaint" }, // ファイルの実体は PocketBase にあり、DB は ID だけを持つ(値は {id, name, mediaType} の JSON)
+      fields: [["file", "ファイル", "f"], ["date", "登録日", "d"]],
+      rows: [["complaint1", '{"id":"416e43ec-0000-4000-8000-000000000001","name":"写真_001.jpg","mediaType":"image/jpeg"}', "2026-10-12"]] },
     { key: "corder", label: "顧客クレーム", fields: [["no", "報告番号"], ["order", "受注", "r", { ref: "order" }], ["title", "件名"], ["status", "状態", "s", { opts: ST }]],
       rows: [["CC-2610-01", "order1", "梱包の破損", "対応中"]] },
     imp("corderimp", "取込", "corder"),

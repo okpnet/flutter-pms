@@ -123,6 +123,7 @@ class _QualityDocumentStrings$entity$doctier$fields$en extends QualityDocumentSt
 	@override String get f_nickname => 'Abbreviation';
 	@override String get f_attributive_noun => 'Qualifying noun';
 	@override String get f_tier_number => 'Tier number';
+	@override String get f_file => 'File';
 	@override String get f_remarks => 'Remarks';
 }
 
@@ -140,6 +141,7 @@ class _QualityDocumentStrings$entity$doc$fields$en extends QualityDocumentString
 	@override String get f_pronunciation => 'Reading';
 	@override String get f_nickname => 'Abbreviation';
 	@override String get f_mstr_document_tier_id => 'Document tier';
+	@override String get f_file => 'File';
 	@override String get f_remarks => 'Remarks';
 }
 
@@ -158,6 +160,7 @@ class _QualityDocumentStrings$entity$doccontent$fields$en extends QualityDocumen
 	@override String get f_detail => 'Details';
 	@override String get f_sequence => 'Sequence';
 	@override String get f_image_content => 'Image content';
+	@override String get f_file => 'File';
 	@override String get f_remarks => 'Remarks';
 }
 
@@ -173,6 +176,7 @@ class _QualityDocumentStrings$entity$report$fields$en extends QualityDocumentStr
 	@override String get f_pronunciation => 'Reading';
 	@override String get f_nickname => 'Abbreviation';
 	@override String get f_is_default => 'Default';
+	@override String get f_file => 'File';
 	@override String get f_remarks => 'Remarks';
 }
 
@@ -193,6 +197,7 @@ extension on QualityDocumentStringsEn {
 			'entity.doctier.fields.f_nickname' => 'Abbreviation',
 			'entity.doctier.fields.f_attributive_noun' => 'Qualifying noun',
 			'entity.doctier.fields.f_tier_number' => 'Tier number',
+			'entity.doctier.fields.f_file' => 'File',
 			'entity.doctier.fields.f_remarks' => 'Remarks',
 			'entity.doc.title' => 'Documents',
 			'entity.doc.fields.f_code' => 'Code',
@@ -202,6 +207,7 @@ extension on QualityDocumentStringsEn {
 			'entity.doc.fields.f_pronunciation' => 'Reading',
 			'entity.doc.fields.f_nickname' => 'Abbreviation',
 			'entity.doc.fields.f_mstr_document_tier_id' => 'Document tier',
+			'entity.doc.fields.f_file' => 'File',
 			'entity.doc.fields.f_remarks' => 'Remarks',
 			'entity.doccontent.title' => 'Document contents',
 			'entity.doccontent.fields.f_doc' => 'Document',
@@ -212,6 +218,7 @@ extension on QualityDocumentStringsEn {
 			'entity.doccontent.fields.f_detail' => 'Details',
 			'entity.doccontent.fields.f_sequence' => 'Sequence',
 			'entity.doccontent.fields.f_image_content' => 'Image content',
+			'entity.doccontent.fields.f_file' => 'File',
 			'entity.doccontent.fields.f_remarks' => 'Remarks',
 			'entity.report.title' => 'Reports',
 			'entity.report.fields.f_code' => 'Code',
@@ -219,6 +226,7 @@ extension on QualityDocumentStringsEn {
 			'entity.report.fields.f_pronunciation' => 'Reading',
 			'entity.report.fields.f_nickname' => 'Abbreviation',
 			'entity.report.fields.f_is_default' => 'Default',
+			'entity.report.fields.f_file' => 'File',
 			'entity.report.fields.f_remarks' => 'Remarks',
 			_ => null,
 		};

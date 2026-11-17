@@ -269,6 +269,9 @@ class WorkRecordStrings$entity$certificate$fields$ja {
 	/// ja: '区分'
 	String get f_class => '区分';
 
+	/// ja: 'ファイル'
+	String get f_file => 'ファイル';
+
 	/// ja: '備考'
 	String get f_remarks => '備考';
 }
@@ -403,6 +406,7 @@ extension on WorkRecordStrings {
 			'entity.certificate.fields.f_serial' => 'シリアル番号',
 			'entity.certificate.fields.f_title' => '件名',
 			'entity.certificate.fields.f_class' => '区分',
+			'entity.certificate.fields.f_file' => 'ファイル',
 			'entity.certificate.fields.f_remarks' => '備考',
 			'entity.workrec.title' => '作業実績',
 			'entity.workrec.fields.f_trans_work_plan_id' => '生産計画詳細',

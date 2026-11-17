@@ -27,7 +27,7 @@ entity:
   compfile:
     title: "異常報告ファイル"
     fields:
-      f_fname: "ファイル名"
+      f_file: "ファイル"
       f_date: "登録日"
   corder:
     title: "注文苦情"

@@ -32,7 +32,7 @@ const List<EntityDefinition> qualityDefinitions = [
     EntityDefinition(
       key: 'compfile', owner: 'complaint',
       fields: [
-        FieldDefinition(key: 'fname'),
+        FieldDefinition(key: 'file', kind: FieldKind.file),
         FieldDefinition(key: 'date', kind: FieldKind.date),
       ],
     ),

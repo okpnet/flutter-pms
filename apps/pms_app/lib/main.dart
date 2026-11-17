@@ -39,6 +39,8 @@ Future<void> main() async {
         ...dashboardOverrides(),
         //ログインユーザーの表示(名前・所属・顔写真)
         ...userSummaryOverrides(),
+        //ファイルの項目の出し入れ(PocketBase の共有ファイル)
+        entityFileTransferProvider.overrideWith(PocketBaseEntityFileTransfer.new),
         //画面の取得元(GRAPHQL_URL を指定したときだけ GraphQL 版)
         ...graphqlOverrides(),
         //PocketBase への接続(POCKETBASE_URL を指定したときだけ)

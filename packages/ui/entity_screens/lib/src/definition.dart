@@ -25,6 +25,10 @@ enum FieldKind {
 
   /// 真偽値(チェックボックス・トグル)。値は [flagOn](オン)または空(オフ)。
   flag,
+
+  /// ファイル(値は [EntityFile] の JSON)。台帳はファイル名を出し、押すとダウンロード、編集は選んでアップロードする。
+  /// 実体は別の保存先にあり、DB には ID だけを持つ([IEntityFileTransfer] がアプリから差し込まれる)。
+  file,
 }
 
 /// [FieldKind.flag] がオンのときの値。

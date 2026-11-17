@@ -654,11 +654,8 @@ class ResourceStrings$entity$inspectionfile$fields$ja {
 
 	// Translations
 
-	/// ja: 'ファイル名'
-	String get f_fname => 'ファイル名';
-
-	/// ja: '種類'
-	String get f_ftype => '種類';
+	/// ja: 'ファイル'
+	String get f_file => 'ファイル';
 
 	/// ja: '登録日'
 	String get f_regdate => '登録日';
@@ -782,8 +779,7 @@ extension on ResourceStrings {
 			'entity.inspectionresult.fields.f_value' => '測定値・所見',
 			'entity.inspectionresult.fields.f_note' => '備考',
 			'entity.inspectionfile.title' => 'ファイル',
-			'entity.inspectionfile.fields.f_fname' => 'ファイル名',
-			'entity.inspectionfile.fields.f_ftype' => '種類',
+			'entity.inspectionfile.fields.f_file' => 'ファイル',
 			'entity.inspectionfile.fields.f_regdate' => '登録日',
 			'entity.workcalendar.title' => '稼働カレンダー',
 			'entity.workcalendar.fields.f_work_date' => '稼働日',

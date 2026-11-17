@@ -14,7 +14,7 @@ const Map<String, List<EntityRecord>> qualitySeeds = {
       EntityRecord(id: '8b13dd18-0000-4000-8000-000000000001', values: {'stakeholder_id': '9c2cec53-0000-4000-8000-000000000001', 'remarks': ''}, parentId: '67abbefa-0000-4000-8000-000000000001'),
     ],
     'compfile': [
-      EntityRecord(id: '416e43ec-0000-4000-8000-000000000001', values: {'fname': '写真_001.jpg', 'date': '2026-10-12'}, parentId: '67abbefa-0000-4000-8000-000000000001'),
+      EntityRecord(id: '416e43ec-0000-4000-8000-000000000001', values: {'file': '{"id":"416e43ec-0000-4000-8000-000000000001","name":"写真_001.jpg","mediaType":"image/jpeg"}', 'date': '2026-10-12'}, parentId: '67abbefa-0000-4000-8000-000000000001'),
     ],
     'corder': [
       EntityRecord(id: '7e8a2aaa-0000-4000-8000-000000000001', values: {'trans_complaint_id': '67abbefa-0000-4000-8000-000000000001', 'trans_order_id': '732c1097-0000-4000-8000-000000000001', 'remarks': ''}),

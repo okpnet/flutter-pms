@@ -38,6 +38,7 @@ List<MenuEntry> _menuEntries(WidgetRef ref) => [
 ];
 
 void main() {
+  fileFieldTests();
   group('1. テーマ', () {
     testWidgets('テーマが適用され、選択・モードで変えられる', (tester) async {
       final h = await ExampleHarness.start(tester);
@@ -289,6 +290,51 @@ void main() {
             ..sort();
       // ignore: avoid_print
       print('メニューに出ないルート(${notInMenu.length} 件): ${notInMenu.join(', ')}');
+    });
+  });
+}
+
+// ファイルの項目(`FieldKind.file`)。実体は PocketBase(仮想)にあり、DB には ID だけを持つ。
+void fileFieldTests() {
+  group('ファイルの項目(点検ファイル)', () {
+    testWidgets('編集でアップロードすると、仮想の PocketBase に上がり、名前を押すとダウンロードできる', (tester) async {
+      final h = await ExampleHarness.start(tester);
+      await h.login('admin', 'admin-pass');
+      await h.go('/e/inspectionfile/cda6a7cd-0000-4000-8000-000000000001');
+      expect(find.byKey(const ValueKey('fileUpload:file')), findsOneWidget);
+      expect(find.text('潤滑油量_20261015.jpg'), findsOneWidget);
+
+      await tester.tap(find.byKey(const ValueKey('fileUpload:file')));
+      await tester.runAsync(
+        () => Future<void>.delayed(const Duration(milliseconds: 80)),
+      );
+      await h.settle();
+      expect(h.server.files, hasLength(1), reason: '仮想の PocketBase に上がる');
+      final id = h.server.files.single.appFileId;
+      expect(id, matches(RegExp(r'^[0-9a-f-]{36}$')), reason: 'ID は UUID(DB の trans_file_id にする)');
+      expect(find.text('sample.txt'), findsOneWidget);
+
+      // 名前を押すと、その ID でダウンロードして保存する
+      await tester.tap(find.byKey(const ValueKey('fileName:file')));
+      await tester.runAsync(
+        () => Future<void>.delayed(const Duration(milliseconds: 80)),
+      );
+      await h.settle();
+      expect(h.saver.saved.keys, contains('sample.txt'));
+    });
+
+    testWidgets('PocketBase に接続できないときは、アップロードに失敗して、項目にエラーが出る', (tester) async {
+      final h = await ExampleHarness.start(tester);
+      await h.login('admin', 'admin-pass');
+      await h.go('/e/inspectionfile/cda6a7cd-0000-4000-8000-000000000001');
+      h.server.setOffline(true);
+      await tester.tap(find.byKey(const ValueKey('fileUpload:file')));
+      await tester.runAsync(
+        () => Future<void>.delayed(const Duration(milliseconds: 80)),
+      );
+      await h.settle();
+      expect(h.server.files, isEmpty);
+      expect(find.text('アップロードに失敗しました'), findsOneWidget);
     });
   });
 }

@@ -45,7 +45,7 @@
 | 点検予定 | `inspectionschedule` | テーブル構造 | 3 | `inspectionoperation` |
 | 予定明細 | `scheduledetail` | 子の台帳(親: 点検予定) | 4 | `inspectionitem`, `staff` |
 | 点検実施 | `inspectionresult` | 子の台帳(親: 予定明細) | 5 | `staff` |
-| ファイル | `inspectionfile` | 子の台帳(親: 点検実施) | 3 |  |
+| ファイル | `inspectionfile` | 子の台帳(親: 点検実施) | 2 |  |
 | 稼働カレンダー | `workcalendar` | テーブル構造 | 6 | `equipment` |
 <!-- entity_gen:end -->
 

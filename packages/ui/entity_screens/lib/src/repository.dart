@@ -3,6 +3,7 @@ import 'package:data_strategist/lib.dart';
 import 'package:uuid/uuid.dart';
 
 import 'definition.dart';
+import 'file_transfer.dart';
 import 'record.dart';
 
 /// 実体の取得元(Repository)。一覧は [IDataRepository] で取得し、1件の取得・保存・削除を足す。
@@ -146,6 +147,8 @@ class InMemoryEntityRepository implements IEntityRepository {
     return switch (f.kind) {
       FieldKind.number => _validateNumber(f, value),
       FieldKind.flag => value == flagOn ? null : EntityFieldError.invalidChoice,
+      FieldKind.file =>
+        EntityFile.tryParse(value) == null ? EntityFieldError.invalidChoice : null,
       FieldKind.date => _validateDate(f, value, record),
       FieldKind.choice =>
         f.options.contains(value) ? null : EntityFieldError.invalidChoice,

@@ -370,7 +370,7 @@ class _QualityStrings$entity$compfile$fields$en extends QualityStrings$entity$co
 	final QualityStringsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get f_fname => 'File name';
+	@override String get f_file => 'File';
 	@override String get f_date => 'Registered on';
 }
 
@@ -616,7 +616,7 @@ extension on QualityStringsEn {
 			'entity.compstake.fields.f_stakeholder_id' => 'Stakeholder',
 			'entity.compstake.fields.f_remarks' => 'Remarks',
 			'entity.compfile.title' => 'Nonconformity report files',
-			'entity.compfile.fields.f_fname' => 'File name',
+			'entity.compfile.fields.f_file' => 'File',
 			'entity.compfile.fields.f_date' => 'Registered on',
 			'entity.corder.title' => 'Order complaints',
 			'entity.corder.fields.f_trans_complaint_id' => 'Nonconformity',

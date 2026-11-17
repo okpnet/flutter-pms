@@ -222,8 +222,9 @@ module.exports = function build(D, X) {
   });
   out.push({
     key: 'inspectionfile', label: 'ファイル', project: 'resource', owner: 'inspectionresult',
-    fields: [f('fname', 'ファイル名'), f('ftype', '種類', 'choice', { options: ['写真', '帳票'] }), f('regdate', '登録日', 'date')],
-    rows: D.inspFiles.map((x) => row(x.id, { fname: x.fname, ftype: x.ftype, regdate: x.regdate }, x.rec)),
+    // ファイルの実体は PocketBase にあり、DB は ID だけを持つ。値は {id, name, mediaType} の JSON(entity_screens の EntityFile)
+    fields: [f('file', 'ファイル', 'file'), f('regdate', '登録日', 'date')],
+    rows: D.inspFiles.map((x) => row(x.id, { file: JSON.stringify({ id: x.id, name: x.fname, mediaType: x.ftype === '写真' ? 'image/jpeg' : 'application/pdf' }), regdate: x.regdate }, x.rec)),
   });
 
   // 稼働カレンダー(mstr_work_calendar。設備が空の日は全体の稼働日)。画面案に無く、DB の変更で増えた(20261031_0001 の採択)

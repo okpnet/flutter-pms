@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
 import '../condition.dart';
 import 'package:flgtable_lib/flgtable_lib.dart';
 
 import '../catalog.dart';
 import '../definition.dart';
+import '../file_transfer.dart';
 import '../i18n/strings.g.dart';
 import '../record.dart';
 
@@ -12,11 +14,32 @@ class EntityScope {
     required this.catalog,
     required this.labels,
     required this.strings,
+    this.fileTransfer = const UnsupportedEntityFileTransfer(),
   });
 
   final EntityCatalog catalog;
   final EntityLabels labels;
   final EntityScreenStrings strings;
+
+  /// ファイルの項目([FieldKind.file])の出し入れ。
+  final IEntityFileTransfer fileTransfer;
+
+  /// [file] をダウンロードして保存する。成功・失敗は画面下の通知で知らせる(例外は外へ出さない)。
+  Future<void> downloadFile(BuildContext context, EntityFile file) async {
+    final messenger = ScaffoldMessenger.maybeOf(context);
+    try {
+      final saved = await fileTransfer.download(file);
+      if (saved) {
+        messenger?.showSnackBar(
+          SnackBar(content: Text(strings.file.downloaded)),
+        );
+      }
+    } catch (_) {
+      messenger?.showSnackBar(
+        SnackBar(content: Text(strings.file.downloadFailed)),
+      );
+    }
+  }
 }
 
 /// 参照項目の id → 表示名。項目のキーごとに持つ。
@@ -44,6 +67,7 @@ List<ColumnDefinition<EntityRecord>> columnsOf(
   ReferenceNames names, {
   String yes = 'はい',
   String no = 'いいえ',
+  Future<void> Function(EntityFile file)? onDownload,
 }) => [
   for (final f in definition.fields)
     ColumnDefinition<EntityRecord>(
@@ -55,8 +79,23 @@ List<ColumnDefinition<EntityRecord>> columnsOf(
         FieldKind.date => ColumnType.time,
         _ => ColumnType.string,
       },
+      // ファイルの列は、ファイル名を押すとダウンロードする(並べ替え・絞り込みはファイル名)
+      renderer: f.kind == FieldKind.file && onDownload != null
+          ? BuilderCellRenderer<EntityRecord>((context, cell) {
+              final file = EntityFile.tryParse(cell.item.valueOf(f.key));
+              if (file == null) return const SizedBox.shrink();
+              return TextButton(
+                key: ValueKey('file:${f.key}:${cell.item.id}'),
+                onPressed: () => onDownload(file),
+                child: Text(file.label, overflow: TextOverflow.ellipsis),
+              );
+            })
+          : null,
       getter: (r) {
         final value = r.valueOf(f.key);
+        if (f.kind == FieldKind.file) {
+          return EntityFile.tryParse(value)?.label ?? '';
+        }
         // 別の真偽(トグル)がオンで無効になっている項目は、定義した文言(f_<キー>__off)を出す
         final off = definition.fields.any(
           (o) =>

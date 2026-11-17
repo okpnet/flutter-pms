@@ -458,8 +458,8 @@ class QualityStrings$entity$compfile$fields$ja {
 
 	// Translations
 
-	/// ja: 'ファイル名'
-	String get f_fname => 'ファイル名';
+	/// ja: 'ファイル'
+	String get f_file => 'ファイル';
 
 	/// ja: '登録日'
 	String get f_date => '登録日';
@@ -819,7 +819,7 @@ extension on QualityStrings {
 			'entity.compstake.fields.f_stakeholder_id' => '利害関係者',
 			'entity.compstake.fields.f_remarks' => '備考',
 			'entity.compfile.title' => '異常報告ファイル',
-			'entity.compfile.fields.f_fname' => 'ファイル名',
+			'entity.compfile.fields.f_file' => 'ファイル',
 			'entity.compfile.fields.f_date' => '登録日',
 			'entity.corder.title' => '注文苦情',
 			'entity.corder.fields.f_trans_complaint_id' => '異常',

@@ -209,6 +209,7 @@ class _WorkRecordStrings$entity$certificate$fields$en extends WorkRecordStrings$
 	@override String get f_serial => 'Serial number';
 	@override String get f_title => 'Subject';
 	@override String get f_class => 'Class';
+	@override String get f_file => 'File';
 	@override String get f_remarks => 'Remarks';
 }
 
@@ -300,6 +301,7 @@ extension on WorkRecordStringsEn {
 			'entity.certificate.fields.f_serial' => 'Serial number',
 			'entity.certificate.fields.f_title' => 'Subject',
 			'entity.certificate.fields.f_class' => 'Class',
+			'entity.certificate.fields.f_file' => 'File',
 			'entity.certificate.fields.f_remarks' => 'Remarks',
 			'entity.workrec.title' => 'Work records',
 			'entity.workrec.fields.f_trans_work_plan_id' => 'Work plan line',

@@ -9,6 +9,13 @@ pick: Select
 pickTitle: Select $name
 clear: Clear
 unselected: Not selected
+file:
+  upload: Upload
+  replace: Replace
+  none: No file
+  uploadFailed: Could not upload
+  downloadFailed: Could not download
+  downloaded: Saved
 notFound: Data not found
 loadFailed: Could not load
 saveFailed: Could not save

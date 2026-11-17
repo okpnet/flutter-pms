@@ -75,6 +75,12 @@ final class EntityEditDestination extends PageDestination<void> {
   };
 }
 
+/// ファイルの項目(`FieldKind.file`)の出し入れ。実体はアプリが差し込む(PocketBase のファイル保存・OS のダイアログ)。
+/// 差し込まれていないときは、使うと失敗の通知になる。
+final entityFileTransferProvider = Provider<IEntityFileTransfer>(
+  (ref) => const UnsupportedEntityFileTransfer(),
+);
+
 /// 実体の画面共通の文字列。言語は [localeProvider] に従う。
 ///
 /// 基準言語以外は遅延読み込みのため、読み込みが終わるまでは基準言語(日本語)を返す。
@@ -432,5 +438,6 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
     catalog: ref.watch(entityCatalogProvider),
     labels: labelsOf(ref),
     strings: ref.watch(entityScreenStringsProvider),
+    fileTransfer: ref.watch(entityFileTransferProvider),
   );
 }

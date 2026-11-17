@@ -118,8 +118,7 @@ entity:
   inspectionfile:
     title: "ファイル"
     fields:
-      f_fname: "ファイル名"
-      f_ftype: "種類"
+      f_file: "ファイル"
       f_regdate: "登録日"
   workcalendar:
     title: "稼働カレンダー"
