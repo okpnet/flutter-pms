@@ -540,6 +540,7 @@
     ],
     "plan_change": [
       "item",
+      "resource",
       "work_record"
     ],
     "work_record": [

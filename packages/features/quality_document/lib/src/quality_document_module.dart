@@ -28,7 +28,6 @@ class QualityDocumentModule extends EntityFeatureModule {
   String get menuGroupId => 'quality_document';
 
   @override
-  String menuGroupLabel(WidgetRef ref) => QualityDocumentLabels(
-    ref.watch(qualityDocumentStringsProvider),
-  ).menuGroup;
+  String menuGroupLabel(WidgetRef ref) =>
+      QualityDocumentLabels(ref.watch(qualityDocumentStringsProvider)).menuGroup;
 }
