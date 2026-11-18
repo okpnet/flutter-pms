@@ -6,12 +6,12 @@
 ## 構成
 | 部品 | ファイル | 内容 |
 |---|---|---|
-| メニューのモデル | `lib/src/menu_model.dart` | `AppMenu`・`AppMenuGroup`・`AppMenuItem`、`AppUser`・`UserMenuAction` |
+| メニューのモデル | `lib/src/menu_model.dart` | `AppMenu`(`topItems`・`groups`・`bottomItems` = グループの後ろの 1 項目)・`AppMenuGroup`・`AppMenuItem`、`AppUser`・`UserMenuAction` |
 | タイトルバー | `lib/src/title_bar.dart` | `AppTitleBar`(ロゴ・タイトル・モバイルのハンバーガー・ユーザー) |
 | ログインユーザー | `lib/src/user_container.dart` | `UserContainer`(顔写真・名前・役割・ユーザーメニュー) |
 | サイドバー | `lib/src/side_bar.dart` | `SideBar`(通常 248、アイコンだけ 72) |
 | ハンバーガー | `lib/src/hamburger_menu.dart` | `HamburgerMenu`(サイドバーと同じメニューを共有。項目を選ぶと閉じる) |
-| 画面の骨組み | `lib/src/screen_scaffold.dart` | `ScreenScaffold`・`ScreenTitle`(機能の画面用。AppBar を使わない見出し + 本体。戻れるときは戻るボタン) |
+| 画面の骨組み | `lib/src/screen_scaffold.dart` | `ScreenScaffold`・`ScreenTitle`(機能の画面用。AppBar を使わない見出し + 本体。見出しは、上の文字(`overline`)・見出し・右の「時点」(`asOf`)・操作。戻れるときは、見出しの下に文字つきの「戻る」ボタン(`backLabel`。テストの `pageBack` のため、標準の戻るボタンと同じ説明を付ける)) |
 | フレーム | `lib/src/main_frame.dart` | `MultiMainFrame`・`SingleMainFrame`・`SelectionFrame` |
 | 文字列 | `lib/src/app_shell_labels.dart` | `AppShellLabels`(呼び出し側が言語ごとに渡す) |
 

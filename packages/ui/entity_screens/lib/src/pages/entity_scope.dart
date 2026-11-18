@@ -15,6 +15,7 @@ class EntityScope {
     required this.labels,
     required this.strings,
     this.fileTransfer = const UnsupportedEntityFileTransfer(),
+    this.groupLabel = '',
   });
 
   final EntityCatalog catalog;
@@ -23,6 +24,16 @@ class EntityScope {
 
   /// ファイルの項目([FieldKind.file])の出し入れ。
   final IEntityFileTransfer fileTransfer;
+
+  /// 画面の見出しの上に出す、メニューのグループの名前(例: 会社情報)。空のときは出さない。
+  final String groupLabel;
+
+  /// 見出しの右の「○ 時点」(今日の日付)。
+  String get asOfText {
+    final n = DateTime.now();
+    String two(int v) => v.toString().padLeft(2, '0');
+    return strings.asOf(date: '${n.year}-${two(n.month)}-${two(n.day)}');
+  }
 
   /// [file] をダウンロードして保存する。成功・失敗は画面下の通知で知らせる(例外は外へ出さない)。
   Future<void> downloadFile(BuildContext context, EntityFile file) async {

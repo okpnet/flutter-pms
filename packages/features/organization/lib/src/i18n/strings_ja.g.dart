@@ -35,8 +35,84 @@ class OrganizationStrings with BaseTranslations<OrganizationLocale, Organization
 	OrganizationStrings $copyWith({TranslationMetadata<OrganizationLocale, OrganizationStrings>? meta}) => OrganizationStrings(meta: meta ?? this.$meta);
 
 	// Translations
+	late final OrganizationStrings$home$ja home = OrganizationStrings$home$ja.internal(_root);
 	late final OrganizationStrings$menu$ja menu = OrganizationStrings$menu$ja.internal(_root);
 	late final OrganizationStrings$entity$ja entity = OrganizationStrings$entity$ja.internal(_root);
+}
+
+// Path: home
+class OrganizationStrings$home$ja {
+	OrganizationStrings$home$ja.internal(this._root);
+
+	final OrganizationStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '会社情報'
+	String get overview => '会社情報';
+
+	/// ja: '編集'
+	String get edit => '編集';
+
+	/// ja: '開く'
+	String get open => '開く';
+
+	/// ja: '登録がありません'
+	String get none => '登録がありません';
+
+	/// ja: '所在地'
+	String get address => '所在地';
+
+	/// ja: 'サマリ'
+	String get summary => 'サマリ';
+
+	/// ja: '作業者'
+	String get staff => '作業者';
+
+	/// ja: '事業所'
+	String get sites => '事業所';
+
+	/// ja: '部署'
+	String get departments => '部署';
+
+	/// ja: '役職'
+	String get positions => '役職';
+
+	/// ja: '名'
+	String get unitPerson => '名';
+
+	/// ja: '拠点'
+	String get unitSite => '拠点';
+
+	/// ja: '部署'
+	String get unitDepartment => '部署';
+
+	/// ja: '件'
+	String get unitPosition => '件';
+
+	/// ja: '件'
+	String get unitCase => '件';
+
+	/// ja: '${count}拠点'
+	String siteCount({required Object count}) => '${count}拠点';
+
+	/// ja: '部署の構成'
+	String get departmentStructure => '部署の構成';
+
+	/// ja: '全${count}部署'
+	String departmentCount({required Object count}) => '全${count}部署';
+
+	/// ja: '詳細'
+	String get detail => '詳細';
+
+	/// ja: '提供サービス・製品'
+	String get offerings => '提供サービス・製品';
+
+	/// ja: '承認'
+	String get approval => '承認';
+
+	/// ja: '配下 ${count}'
+	String below({required Object count}) => '配下 ${count}';
 }
 
 // Path: menu
@@ -660,6 +736,28 @@ class OrganizationStrings$entity$approver$fields$ja {
 extension on OrganizationStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'home.overview' => '会社情報',
+			'home.edit' => '編集',
+			'home.open' => '開く',
+			'home.none' => '登録がありません',
+			'home.address' => '所在地',
+			'home.summary' => 'サマリ',
+			'home.staff' => '作業者',
+			'home.sites' => '事業所',
+			'home.departments' => '部署',
+			'home.positions' => '役職',
+			'home.unitPerson' => '名',
+			'home.unitSite' => '拠点',
+			'home.unitDepartment' => '部署',
+			'home.unitPosition' => '件',
+			'home.unitCase' => '件',
+			'home.siteCount' => ({required Object count}) => '${count}拠点',
+			'home.departmentStructure' => '部署の構成',
+			'home.departmentCount' => ({required Object count}) => '全${count}部署',
+			'home.detail' => '詳細',
+			'home.offerings' => '提供サービス・製品',
+			'home.approval' => '承認',
+			'home.below' => ({required Object count}) => '配下 ${count}',
 			'menu.group' => '会社情報',
 			'entity.company.title' => '会社情報',
 			'entity.company.fields.f_name' => '会社名',

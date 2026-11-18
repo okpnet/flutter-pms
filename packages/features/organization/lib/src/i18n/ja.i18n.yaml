@@ -1,3 +1,27 @@
+# 会社情報の概要の画面(手書き。この行より上は、生成で書き換えない)
+home:
+  overview: 会社情報
+  edit: 編集
+  open: 開く
+  none: 登録がありません
+  address: 所在地
+  summary: サマリ
+  staff: 作業者
+  sites: 事業所
+  departments: 部署
+  positions: 役職
+  unitPerson: 名
+  unitSite: 拠点
+  unitDepartment: 部署
+  unitPosition: 件
+  unitCase: 件
+  siteCount: ${count}拠点
+  departmentStructure: 部署の構成
+  departmentCount: 全${count}部署
+  detail: 詳細
+  offerings: 提供サービス・製品
+  approval: 承認
+  below: 配下 ${count}
 # --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
 # 会社情報の実体と項目の表示名(日本語。基準言語)。
 # 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。

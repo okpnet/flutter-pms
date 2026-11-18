@@ -38,8 +38,40 @@ class OrganizationStringsEn extends OrganizationStrings with BaseTranslations<Or
 	OrganizationStringsEn $copyWith({TranslationMetadata<OrganizationLocale, OrganizationStrings>? meta}) => OrganizationStringsEn(meta: meta ?? this.$meta);
 
 	// Translations
+	@override late final _OrganizationStrings$home$en home = _OrganizationStrings$home$en._(_root);
 	@override late final _OrganizationStrings$menu$en menu = _OrganizationStrings$menu$en._(_root);
 	@override late final _OrganizationStrings$entity$en entity = _OrganizationStrings$entity$en._(_root);
+}
+
+// Path: home
+class _OrganizationStrings$home$en extends OrganizationStrings$home$ja {
+	_OrganizationStrings$home$en._(OrganizationStringsEn root) : this._root = root, super.internal(root);
+
+	final OrganizationStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get overview => 'Company';
+	@override String get edit => 'Edit';
+	@override String get open => 'Open';
+	@override String get none => 'Nothing registered';
+	@override String get address => 'Address';
+	@override String get summary => 'Summary';
+	@override String get staff => 'Staff';
+	@override String get sites => 'Sites';
+	@override String get departments => 'Departments';
+	@override String get positions => 'Positions';
+	@override String get unitPerson => '';
+	@override String get unitSite => 'sites';
+	@override String get unitDepartment => 'departments';
+	@override String get unitPosition => '';
+	@override String get unitCase => '';
+	@override String siteCount({required Object count}) => '${count} sites';
+	@override String get departmentStructure => 'Department structure';
+	@override String departmentCount({required Object count}) => '${count} departments';
+	@override String get detail => 'Details';
+	@override String get offerings => 'Services and products';
+	@override String get approval => 'Approval';
+	@override String below({required Object count}) => '${count} below';
 }
 
 // Path: menu
@@ -431,6 +463,28 @@ class _OrganizationStrings$entity$approver$fields$en extends OrganizationStrings
 extension on OrganizationStringsEn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'home.overview' => 'Company',
+			'home.edit' => 'Edit',
+			'home.open' => 'Open',
+			'home.none' => 'Nothing registered',
+			'home.address' => 'Address',
+			'home.summary' => 'Summary',
+			'home.staff' => 'Staff',
+			'home.sites' => 'Sites',
+			'home.departments' => 'Departments',
+			'home.positions' => 'Positions',
+			'home.unitPerson' => '',
+			'home.unitSite' => 'sites',
+			'home.unitDepartment' => 'departments',
+			'home.unitPosition' => '',
+			'home.unitCase' => '',
+			'home.siteCount' => ({required Object count}) => '${count} sites',
+			'home.departmentStructure' => 'Department structure',
+			'home.departmentCount' => ({required Object count}) => '${count} departments',
+			'home.detail' => 'Details',
+			'home.offerings' => 'Services and products',
+			'home.approval' => 'Approval',
+			'home.below' => ({required Object count}) => '${count} below',
 			'menu.group' => 'Company',
 			'entity.company.title' => 'Company information',
 			'entity.company.fields.f_name' => 'Company name',

@@ -1,3 +1,4 @@
+import 'finders.dart';
 import 'package:entity_screens/entity_screens.dart';
 import 'package:entity_screens/src/pages/entity_scope.dart' show columnsOf;
 import 'package:flutter/material.dart';
@@ -77,10 +78,10 @@ void main() {
           .data,
       '2400000',
     );
-    expect(find.widgetWithText(TextField, 'purchase.amount'), findsNothing);
+    expect(fieldByLabel('purchase.amount'), findsNothing);
 
     await tester.enterText(
-      find.widgetWithText(TextField, 'purchase.code *'),
+      fieldByLabel('purchase.code'),
       'P9',
     );
     await tester.tap(find.text('保存'));

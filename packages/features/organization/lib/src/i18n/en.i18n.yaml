@@ -1,3 +1,27 @@
+# Company overview screen (hand-written; not overwritten by generation)
+home:
+  overview: Company
+  edit: Edit
+  open: Open
+  none: Nothing registered
+  address: Address
+  summary: Summary
+  staff: Staff
+  sites: Sites
+  departments: Departments
+  positions: Positions
+  unitPerson: ""
+  unitSite: sites
+  unitDepartment: departments
+  unitPosition: ""
+  unitCase: ""
+  siteCount: ${count} sites
+  departmentStructure: Department structure
+  departmentCount: ${count} departments
+  detail: Details
+  offerings: Services and products
+  approval: Approval
+  below: ${count} below
 # Company information strings (English). Keys missing here fall back to the base language (ja).
 menu:
   group: "Company"

@@ -1,3 +1,4 @@
+import 'finders.dart';
 import 'package:entity_screens/entity_screens.dart';
 import 'package:entity_screens/src/pages/entity_scope.dart' show columnsOf;
 import 'package:flutter/material.dart';
@@ -202,7 +203,7 @@ void main() {
       );
       await tester.pumpAndSettle();
       TextField cost() =>
-          tester.widget(find.widgetWithText(TextField, 'sup.cost'));
+          tester.widget(fieldByLabel('sup.cost'));
       expect(cost().enabled, isTrue);
       expect(cost().controller!.text, '180');
 
@@ -233,7 +234,7 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      await tester.enterText(find.widgetWithText(TextField, 'sup.lot *'), '0');
+      await tester.enterText(fieldByLabel('sup.lot'), '0');
       await tester.tap(find.text('保存'));
       await tester.pumpAndSettle();
       expect(find.text('0 より大きい値を入力してください'), findsOneWidget);

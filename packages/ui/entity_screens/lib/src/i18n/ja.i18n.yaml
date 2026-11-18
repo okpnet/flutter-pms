@@ -1,5 +1,20 @@
 # 実体の画面に共通の文字列(日本語。基準言語)。
 create: 新規
+editMode: 編集
+editDone: 編集を終える
+editHint: 行をダブルクリック(長押し)すると、編集できます。
+editTitle: ${name}の編集
+newTitle: ${name}の登録
+belowLabel: 配下
+belowCount: 配下 ${count}
+requiredMark: 必須
+back: 戻る
+asOf: ${date} 時点
+searchTitle: ${name}を検索
+searchHint: 検索
+chipAll: すべて
+listTitle: ${name}の一覧
+listCount: 全${total}件のうち${shown}件を表示。
 actionMenu: 操作
 actionSelected: 選択中の行
 actionHint: 行を選ぶと、その行に使える操作を選べます。

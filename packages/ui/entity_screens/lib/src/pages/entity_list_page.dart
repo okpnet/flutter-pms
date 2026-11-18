@@ -22,6 +22,7 @@ class EntityListPage extends StatefulWidget {
     this.onReparent,
     this.showCreate = true,
     this.onAction,
+    this.twoModes = false,
   });
 
   final String entityKey;
@@ -42,6 +43,10 @@ class EntityListPage extends StatefulWidget {
   /// 新規登録のボタンを出すか。選択画面では出さない。
   final bool showCreate;
 
+  /// 閲覧と編集の 2 つのモードにするか(画面案)。true のとき、はじめは閲覧(新規・行を開く操作は無い)で、
+  /// 「編集」を押すと編集モード(新規・行を開く)になる。誤って編集の画面へ進まないため。選択画面は false(行を選ぶ)。
+  final bool twoModes;
+
   /// 行のボタン([EntityDefinition.rowActions])を押したときの処理。null のときはボタンを出さない。
   final Future<void> Function(RowAction action, EntityRecord record)? onAction;
 
@@ -58,6 +63,15 @@ class EntityListPage extends StatefulWidget {
 class _EntityListPageState extends State<EntityListPage> {
   late Future<_Loaded> _future = _load();
   int _generation = 0;
+
+  /// 検索の文字と、種別のチップ(選んだ選択肢。null = すべて)。
+  String _query = '';
+  String? _chip;
+
+  /// 編集モード([EntityListPage.twoModes] のとき)。
+  bool _editing = false;
+
+  bool get _canEdit => !widget.twoModes || _editing;
 
   /// 選択中の行(行のボタン([RowAction])は、行ごとに置かず、選んだ行への操作として上部のメニューに出す)。
   EntityRecord? _selected;
@@ -106,14 +120,9 @@ class _EntityListPageState extends State<EntityListPage> {
     final scope = widget.scope;
     return ScreenScaffold(
       title: widget.title ?? scope.labels.entity(widget.entityKey),
-      actions: [
-        if (widget.showCreate)
-          IconButton(
-            tooltip: scope.strings.create,
-            icon: const Icon(Icons.add),
-            onPressed: _create,
-          ),
-      ],
+      overline: scope.groupLabel.isEmpty ? null : scope.groupLabel,
+      asOf: scope.asOfText,
+      backLabel: scope.strings.back,
       body: FutureBuilder<_Loaded>(
         future: _future,
         builder: (context, snapshot) {
@@ -124,13 +133,180 @@ class _EntityListPageState extends State<EntityListPage> {
           if (loaded == null) {
             return const LoadingIndicator.centered();
           }
-          return _table(loaded);
+          return _page(loaded);
         },
       ),
     );
   }
 
-  Widget _table(_Loaded loaded) {
+  /// 検索の文字と、種別のチップで絞った行。
+  List<EntityRecord> _filtered(_Loaded loaded) {
+    final keyword = _query.trim().toLowerCase();
+    final chip = _chipField(loaded.definition);
+    return [
+      for (final r in loaded.records)
+        if ((_chip == null || chip == null || r.valueOf(chip.key) == _chip) &&
+            (keyword.isEmpty || _text(loaded, r).contains(keyword)))
+          r,
+    ];
+  }
+
+  /// 検索の対象の文字(行の値と、参照の表示名)。
+  String _text(_Loaded loaded, EntityRecord r) {
+    final b = StringBuffer();
+    for (final f in loaded.definition.fields) {
+      if (f.hidden) continue;
+      final v = r.valueOf(f.key);
+      b.write(' $v');
+      final name = loaded.names[f.key]?[v];
+      if (name != null) b.write(' $name');
+    }
+    return b.toString().toLowerCase();
+  }
+
+  /// 種別のチップにする項目(選択肢の項目のうち最初のもの)。
+  FieldDefinition? _chipField(EntityDefinition definition) => definition.fields
+      .where((f) => f.kind == FieldKind.choice && !f.hidden && f.options.isNotEmpty)
+      .firstOrNull;
+
+  /// 台帳の画面(画面案: 検索の枠 + 一覧の枠)。
+  Widget _page(_Loaded loaded) {
+    final scope = widget.scope;
+    final strings = scope.strings;
+    final theme = Theme.of(context);
+    final name = widget.title ?? scope.labels.entity(widget.entityKey);
+    final records = _filtered(loaded);
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // 木は、絞り込むと親が消えるため、検索の枠は出さない
+          if (!loaded.definition.isTree) ...[
+            _searchCard(loaded, name),
+            const SizedBox(height: 16),
+          ],
+          Expanded(
+            child: Card(
+              margin: EdgeInsets.zero,
+              clipBehavior: Clip.antiAlias,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 16, 20, 4),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            strings.listTitle(name: name),
+                            key: const ValueKey('listTitle'),
+                            style: theme.textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                        if (widget.twoModes && !loaded.definition.viewOnly)
+                          OutlinedButton.icon(
+                            key: const ValueKey('listEditMode'),
+                            icon: Icon(
+                              _editing ? Icons.check : Icons.edit_outlined,
+                              size: 18,
+                            ),
+                            label: Text(
+                              _editing ? strings.editDone : strings.editMode,
+                            ),
+                            onPressed: () => setState(() => _editing = !_editing),
+                          ),
+                        if (widget.showCreate && _canEdit) ...[
+                          const SizedBox(width: 8),
+                          FilledButton.icon(
+                            key: const ValueKey('listCreate'),
+                            icon: const Icon(Icons.add, size: 18),
+                            label: Text(strings.create),
+                            onPressed: _create,
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
+                    child: Text(
+                      '${strings.listCount(total: loaded.records.length, shown: records.length)}'
+                      '${widget.twoModes && _editing ? ' ${strings.editHint}' : ''}',
+                      key: const ValueKey('listCount'),
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ),
+                  const Divider(height: 1),
+                  Expanded(child: _table(loaded, records)),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// 検索の枠: 検索窓と、種別のチップ。
+  Widget _searchCard(_Loaded loaded, String name) {
+    final strings = widget.scope.strings;
+    final theme = Theme.of(context);
+    final chip = _chipField(loaded.definition);
+    return Card(
+      margin: EdgeInsets.zero,
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 12,
+          children: [
+            Text(
+              strings.searchTitle(name: name),
+              style: theme.textTheme.titleSmall?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            TextField(
+              key: const ValueKey('listSearch'),
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.search),
+                hintText: strings.searchHint,
+                isDense: true,
+              ),
+              onChanged: (v) => setState(() => _query = v),
+            ),
+            if (chip != null)
+              Wrap(
+                spacing: 8,
+                runSpacing: 4,
+                children: [
+                  ChoiceChip(
+                    key: const ValueKey('chip:all'),
+                    label: Text(strings.chipAll),
+                    selected: _chip == null,
+                    onSelected: (_) => setState(() => _chip = null),
+                  ),
+                  for (final o in chip.options)
+                    ChoiceChip(
+                      key: ValueKey('chip:$o'),
+                      label: Text(o),
+                      selected: _chip == o,
+                      onSelected: (_) => setState(() => _chip = o),
+                    ),
+                ],
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _table(_Loaded loaded, List<EntityRecord> records) {
     final scope = widget.scope;
     final columns = [
       ...columnsOf(
@@ -152,7 +328,7 @@ class _EntityListPageState extends State<EntityListPage> {
       dragEnabled: loaded.definition.isTree && widget.onReparent != null,
     );
     final events = TableEvents<EntityRecord>(
-      onRowActivated: _open,
+      onRowActivated: _canEdit ? _open : null,
       onSelectionChanged: hasActions
           ? (rows) => setState(() => _selected = rows.firstOrNull)
           : null,
@@ -160,7 +336,7 @@ class _EntityListPageState extends State<EntityListPage> {
     );
     // 再読み込みと、言語が変わった(名称が変わった)ときに表を作り直す
     final key = ValueKey(
-      '${widget.entityKey}:$_generation:${scope.labels.entity(widget.entityKey)}',
+      '${widget.entityKey}:$_generation:${scope.labels.entity(widget.entityKey)}:$_query:$_chip',
     );
 
     Widget withActions(Widget table) => !hasActions
@@ -178,7 +354,7 @@ class _EntityListPageState extends State<EntityListPage> {
         FlgTable<EntityRecord>(
           key: key,
           columns: columns,
-          items: loaded.records,
+          items: records,
           rowKey: (r) => r.id,
           config: config,
           events: events,
@@ -188,11 +364,24 @@ class _EntityListPageState extends State<EntityListPage> {
 
     // ツリー: 子の数を隠し列で渡す(子の無い行に展開の印を出さない)。
     final childCounts = <String?, int>{};
-    for (final r in loaded.records) {
+    for (final r in records) {
       childCounts[r.parentId] = (childCounts[r.parentId] ?? 0) + 1;
     }
     final treeColumns = [
       ...columns,
+      // 配下の件数(子のある行だけ)
+      ColumnDefinition<EntityRecord>(
+        key: _belowKey,
+        label: scope.strings.belowLabel,
+        readOnly: true,
+        sortable: false,
+        filterable: false,
+        exportable: false,
+        getter: (r) {
+          final n = childCounts[r.id] ?? 0;
+          return n == 0 ? '' : scope.strings.belowCount(count: n);
+        },
+      ),
       ColumnDefinition<EntityRecord>(
         key: _childCountKey,
         label: _childCountKey,
@@ -203,7 +392,7 @@ class _EntityListPageState extends State<EntityListPage> {
       ),
     ];
     final source = StaticTreeSource<EntityRecord>(
-      items: loaded.records,
+      items: records,
       columns: treeColumns,
       key: (r) => r.id,
       parentKey: (r) => r.parentId,
@@ -284,6 +473,7 @@ class _EntityListPageState extends State<EntityListPage> {
   }
 
   static const _childCountKey = '_childCount';
+  static const _belowKey = '_below';
 }
 
 class _Loaded {

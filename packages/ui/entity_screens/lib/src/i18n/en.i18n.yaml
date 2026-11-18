@@ -1,4 +1,19 @@
 create: New
+editMode: Edit
+editDone: Done editing
+editHint: Double-click (long press) a row to edit it.
+editTitle: Edit ${name}
+newTitle: New ${name}
+belowLabel: Below
+belowCount: ${count} below
+requiredMark: Required
+back: Back
+asOf: As of ${date}
+searchTitle: Search ${name}
+searchHint: Search
+chipAll: All
+listTitle: ${name} list
+listCount: Showing ${shown} of ${total}.
 actionMenu: Actions
 actionSelected: Selected row
 actionHint: Select a row to choose an action for it.

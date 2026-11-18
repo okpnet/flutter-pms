@@ -1,3 +1,4 @@
+import 'finders.dart';
 import 'package:entity_screens/entity_screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -276,7 +277,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('注記'), findsOneWidget);
       expect(find.text('注記A'), findsOneWidget);
-      await tester.enterText(find.widgetWithText(TextField, 'node.name *'), '');
+      await tester.enterText(fieldByLabel('node.name'), '');
       await tester.tap(find.text('保存'));
       await tester.pumpAndSettle();
       expect(find.text('必須です'), findsOneWidget);

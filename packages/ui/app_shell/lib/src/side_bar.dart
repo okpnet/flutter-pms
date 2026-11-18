@@ -37,6 +37,7 @@ class SideBar extends StatelessWidget {
             for (final item in menu.topItems) _item(context, item),
             for (final group in menu.groups)
               iconOnly ? _groupPopup(context, group) : _group(context, group),
+            for (final item in menu.bottomItems) _item(context, item),
           ],
         ),
       ),

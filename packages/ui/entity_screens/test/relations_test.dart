@@ -1,3 +1,4 @@
+import 'finders.dart';
 import 'package:entity_screens/entity_screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -212,12 +213,12 @@ void main() {
       await _pump(tester, _catalog());
       await _choose(tester, 'pur', 'P1 A');
       await _choose(tester, 'stock', 'S2 A');
-      await tester.enterText(find.widgetWithText(TextField, 'rez.qty *'), '6');
+      await tester.enterText(fieldByLabel('rez.qty'), '6');
       await tester.tap(find.text('保存'));
       await tester.pumpAndSettle();
       expect(find.text('5 以下で入力してください'), findsOneWidget);
 
-      await tester.enterText(find.widgetWithText(TextField, 'rez.qty *'), '5');
+      await tester.enterText(fieldByLabel('rez.qty'), '5');
       await tester.tap(find.text('保存'));
       await tester.pumpAndSettle();
       expect(find.text('5 以下で入力してください'), findsNothing);

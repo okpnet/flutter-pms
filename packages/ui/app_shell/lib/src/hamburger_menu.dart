@@ -34,6 +34,7 @@ class HamburgerMenu extends StatelessWidget {
             items: [for (final i in g.items) close(i)],
           ),
       ],
+      bottomItems: [for (final i in menu.bottomItems) close(i)],
     );
     return Drawer(
       child: SafeArea(

@@ -148,6 +148,13 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
   Future<void> Function(EntityRecord item, EntityRecord? newParent)?
   reparentHandler(WidgetRef ref, String entityKey) => null;
 
+  /// 台帳(`/e/<キー>`)の画面を、専用の画面に差し替える(絞り込みの無いときだけ)。null は、実体の定義から作る台帳。
+  /// 例: 会社情報(`company`)は、表ではなく、概要の画面を出す。画面の中で [entityScope] を使える。
+  Widget? customListPage(WidgetRef ref, String key) => null;
+
+  /// 実体の画面が使う共通のもの(登録簿・表示名・文字列)。専用の画面([customListPage])が使う。
+  EntityScope entityScope(WidgetRef ref) => _scope(ref);
+
   /// トップメニューのグループの識別子。空のときはメニューに出さない。
   String get menuGroupId => '';
 
@@ -343,6 +350,8 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
   Widget _list(String key, Map<String, String> filter) => Consumer(
     builder: (context, ref, _) {
       final bus = ref.read(commandBusProvider);
+      final custom = filter.isEmpty ? customListPage(ref, key) : null;
+      if (custom != null) return custom;
       return EntityListPage(
         // 絞り込みが変わったら(顧客台帳 ↔ 外部供給者台帳)画面を作り直す
         key: ValueKey('$key?$filter'),
@@ -351,6 +360,7 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
         filter: filter,
         title: listTitle(ref, key, filter),
         showCreate: !definitions.any((d) => d.key == key && d.viewOnly),
+        twoModes: true,
         onReparent: reparentHandler(ref, key),
         onOpen: (r) => bus.execute(EntityEditDestination(key, id: r.id)),
         onCreate: () =>
@@ -453,5 +463,6 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
     labels: labelsOf(ref),
     strings: ref.watch(entityScreenStringsProvider),
     fileTransfer: ref.watch(entityFileTransferProvider),
+    groupLabel: menuGroupLabel(ref),
   );
 }

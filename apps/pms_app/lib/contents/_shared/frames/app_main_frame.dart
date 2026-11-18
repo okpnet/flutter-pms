@@ -72,7 +72,65 @@ class AppMainFrame extends ConsumerWidget {
     }
   }
 
-  ///機能の項目をグループ(識別子)ごとにまとめる。出現順を保つ。
+  /// メニューのグループの並び(画面案 `tools/open-design`: 資源 → 業務のグループ → 会社情報)。
+  /// ここに無いグループは、出現順のまま、最後に置く。
+  static const _menuOrder = [
+    'resource',
+    'system',
+    'item',
+    'production_process',
+    'sales',
+    'purchasing',
+    'production_plan',
+    'plan_change',
+    'work_record',
+    'quality_common',
+    'quality_document',
+    'quality',
+    'access_control',
+    'organization',
+  ];
+
+  /// グループにせず、1 つの項目として、グループの後ろに並べるもの(画面案: 会社情報は、開閉しない 1 項目)。
+  static const _asItem = {'organization'};
+
+  /// メニューのグループのアイコン(画面案のアイコンに近いもの)。
+  static const _menuIcons = <String, IconData>{
+    'resource': Icons.inventory_2_outlined,
+    'system': Icons.storage_outlined,
+    'item': Icons.category_outlined,
+    'production_process': Icons.stacked_bar_chart_outlined,
+    'sales': Icons.receipt_long_outlined,
+    'purchasing': Icons.local_shipping_outlined,
+    'production_plan': Icons.calendar_month_outlined,
+    'plan_change': Icons.fact_check_outlined,
+    'work_record': Icons.build_outlined,
+    'quality_common': Icons.warning_amber_outlined,
+    'quality_document': Icons.list_alt_outlined,
+    'quality': Icons.verified_outlined,
+    'access_control': Icons.badge_outlined,
+    'organization': Icons.apartment_outlined,
+  };
+
+  List<MapEntry<String, List<MenuEntry>>> _ordered(
+    Map<String, List<MenuEntry>> groups,
+  ) {
+    int rank(String id) {
+      final i = _menuOrder.indexOf(id);
+      return i < 0 ? _menuOrder.length : i;
+    }
+
+    final entries = groups.entries.toList();
+    // 出現順を保つため、同じ順位のものは並べ替えない(List.sort は安定ではないので、添字で決める)
+    final index = {for (var i = 0; i < entries.length; i++) entries[i].key: i};
+    entries.sort((a, b) {
+      final c = rank(a.key).compareTo(rank(b.key));
+      return c != 0 ? c : index[a.key]!.compareTo(index[b.key]!);
+    });
+    return entries;
+  }
+
+  ///機能の項目をグループ(識別子)ごとにまとめる。
   AppMenu _menu(BuildContext context, WidgetRef ref, AppCoreStrings t) {
     final bus = ref.read(commandBusProvider);
     // 権限で許可されたページだけを出す。ページのアクセスごとに取り出し、持ち回らない。
@@ -100,10 +158,24 @@ class AppMainFrame extends ConsumerWidget {
           onSelected: () => context.go(DashboardConstant.path),
         ),
       ],
+      bottomItems: [
+        for (final entry in _ordered(groups))
+          if (_asItem.contains(entry.key))
+            AppMenuItem(
+              id: '${entry.value.first.groupId}/${entry.value.first.label}',
+              label: entry.value.first.label,
+              icon: _menuIcons[entry.key] ?? Icons.folder_outlined,
+              onSelected: () => bus.execute(
+                TopLevelDestination(entry.value.first.destination),
+              ),
+            ),
+      ],
       groups: [
-        for (final entry in groups.entries)
+        for (final entry in _ordered(groups))
+          if (!_asItem.contains(entry.key))
           AppMenuGroup(
             id: entry.key,
+            icon: _menuIcons[entry.key] ?? Icons.folder_outlined,
             label: entry.value.first.groupLabel,
             items: [
               for (final e in entry.value)

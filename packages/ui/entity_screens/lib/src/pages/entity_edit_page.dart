@@ -459,7 +459,12 @@ class _EntityEditPageState extends State<EntityEditPage> {
     final scope = _scope;
     final strings = scope.strings;
     return ScreenScaffold(
-      title: scope.labels.entity(widget.entityKey),
+      title: _isNew
+          ? strings.newTitle(name: scope.labels.entity(widget.entityKey))
+          : strings.editTitle(name: scope.labels.entity(widget.entityKey)),
+      overline: scope.labels.entity(widget.entityKey),
+      asOf: scope.asOfText,
+      backLabel: strings.back,
       body: _loading
           ? const LoadingIndicator.centered()
           : _loadError != null
@@ -476,28 +481,58 @@ class _EntityEditPageState extends State<EntityEditPage> {
     final strings = scope.strings;
     final theme = Theme.of(context);
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 12,
+        spacing: 16,
         children: [
-          for (final f in definition.fields)
-            if (!f.hidden) _field(definition, f),
-          if (definition.isTree) _parentField(definition),
-          if (_failure != null)
-            Text(_failure!, style: TextStyle(color: theme.colorScheme.error)),
-          if (!definition.viewOnly)
-            Row(
-              spacing: 12,
-              children: [
-                FilledButton(onPressed: _save, child: Text(strings.save)),
-                if (!_isNew)
-                  OutlinedButton(
-                    onPressed: _delete,
-                    child: Text(strings.delete),
+          // 画面案: 幅を絞ったカードに、項目名を枠の上に置いて並べ、保存の行が最後
+          Align(
+            alignment: Alignment.topLeft,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 760),
+              child: Card(
+                margin: EdgeInsets.zero,
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    spacing: 20,
+                    children: [
+                      for (final f in definition.fields)
+                        if (!f.hidden) _labeled(f, _field(definition, f)),
+                      if (definition.isTree)
+                        _labeledText(
+                          strings.parent,
+                          false,
+                          _parentField(definition),
+                        ),
+                      if (_failure != null)
+                        Text(
+                          _failure!,
+                          style: TextStyle(color: theme.colorScheme.error),
+                        ),
+                      if (!definition.viewOnly)
+                        Row(
+                          spacing: 12,
+                          children: [
+                            FilledButton(
+                              onPressed: _save,
+                              child: Text(strings.save),
+                            ),
+                            if (!_isNew)
+                              OutlinedButton(
+                                onPressed: _delete,
+                                child: Text(strings.delete),
+                              ),
+                          ],
+                        ),
+                    ],
                   ),
-              ],
+                ),
+              ),
             ),
+          ),
           if (!_isNew)
             for (final reverse in definition.reverseLists)
               _ReverseSection(
@@ -522,9 +557,50 @@ class _EntityEditPageState extends State<EntityEditPage> {
     );
   }
 
-  String _label(FieldDefinition f) {
-    final base = _scope.labels.field(widget.entityKey, f.key);
-    return f.required ? '$base *' : base;
+  String _label(FieldDefinition f) =>
+      _scope.labels.field(widget.entityKey, f.key);
+
+  /// 項目名を枠の上に出し、必須は「必須」のチップを添える(真偽の項目は、チェックの横に名前があるため、そのまま)。
+  Widget _labeled(FieldDefinition f, Widget field) => f.kind == FieldKind.flag && !f.readOnly
+      ? field
+      : _labeledText(_label(f), f.required && !f.readOnly, field);
+
+  Widget _labeledText(String label, bool required, Widget field) {
+    final theme = Theme.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: 8,
+      children: [
+        Row(
+          spacing: 8,
+          children: [
+            Flexible(
+              child: Text(
+                label,
+                style: theme.textTheme.labelLarge?.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            if (required)
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.primaryContainer,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Text(
+                  _scope.strings.requiredMark,
+                  style: theme.textTheme.labelSmall?.copyWith(
+                    color: theme.colorScheme.onPrimaryContainer,
+                  ),
+                ),
+              ),
+          ],
+        ),
+        field,
+      ],
+    );
   }
 
   String? _error(String key) {
@@ -550,7 +626,6 @@ class _EntityEditPageState extends State<EntityEditPage> {
               ? const TextInputType.numberWithOptions(decimal: true)
               : null,
           decoration: InputDecoration(
-            labelText: _label(f),
             errorText: _error(f.key),
           ),
         );
@@ -558,7 +633,6 @@ class _EntityEditPageState extends State<EntityEditPage> {
         return TextField(
           controller: _text[f.key],
           decoration: InputDecoration(
-            labelText: _label(f),
             hintText: 'yyyy-MM-dd',
             errorText: _error(f.key),
             suffixIcon: IconButton(
@@ -673,7 +747,7 @@ class _EntityEditPageState extends State<EntityEditPage> {
       _ => raw,
     };
     return InputDecorator(
-      decoration: InputDecoration(labelText: _label(f), enabled: false),
+      decoration: const InputDecoration(enabled: false),
       child: Text(
         text.isEmpty ? '-' : text,
         key: ValueKey('readonly:${f.key}'),
@@ -704,7 +778,6 @@ class _EntityEditPageState extends State<EntityEditPage> {
 
     return InputDecorator(
       decoration: InputDecoration(
-        labelText: _label(f),
         errorText: _error(f.key),
       ),
       child: Row(
@@ -744,7 +817,6 @@ class _EntityEditPageState extends State<EntityEditPage> {
         : options.where((o) => o.id == value).firstOrNull?.label ?? value;
     return InputDecorator(
       decoration: InputDecoration(
-        labelText: _label(f),
         errorText: _error(f.key),
       ),
       child: Row(
@@ -798,7 +870,6 @@ class _EntityEditPageState extends State<EntityEditPage> {
       initialValue: value,
       items: items,
       decoration: InputDecoration(
-        labelText: _label(f),
         errorText: _error(f.key),
       ),
       onChanged: enabled ? (v) => _onReferenceChanged(f, v ?? '') : null,
@@ -817,7 +888,6 @@ class _EntityEditPageState extends State<EntityEditPage> {
           DropdownMenuItem(value: o.id, child: Text(o.label)),
       ],
       decoration: InputDecoration(
-        labelText: strings.parent,
         errorText: _error(EntityValidationException.parentKey),
       ),
       onChanged: (v) => setState(() => _treeParent = v),
@@ -888,56 +958,80 @@ class _ChildSectionState extends State<_ChildSection> {
   @override
   Widget build(BuildContext context) {
     final scope = widget.scope;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Divider(),
-        Row(
+    final theme = Theme.of(context);
+    // 画面案: 枠(カード)に、見出し・右に「追加」・一覧。空のときは、空の表を出さず、短い文だけ
+    return Card(
+      margin: EdgeInsets.zero,
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Expanded(
-              child: Text(
-                scope.labels.entity(widget.definition.key),
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    scope.labels.entity(widget.definition.key),
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+                OutlinedButton.icon(
+                  onPressed: () => _open(null),
+                  icon: const Icon(Icons.add, size: 18),
+                  label: Text(scope.strings.add),
+                ),
+              ],
             ),
-            TextButton.icon(
-              onPressed: () => _open(null),
-              icon: const Icon(Icons.add),
-              label: Text(scope.strings.add),
+            const SizedBox(height: 12),
+            FutureBuilder<_ChildData>(
+              future: _future,
+              builder: (context, snapshot) {
+                final data = snapshot.data;
+                if (snapshot.hasError) {
+                  return Center(child: Text(scope.strings.loadFailed));
+                }
+                if (data == null) {
+                  return const SizedBox(
+                    height: 80,
+                    child: LoadingIndicator.centered(),
+                  );
+                }
+                if (data.records.isEmpty) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    child: Text(
+                      scope.strings.noData,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                  );
+                }
+                return SizedBox(
+                  height: (data.records.length * 40.0 + 48).clamp(120, 320),
+                  child: FlgTable<EntityRecord>(
+                    key: ValueKey('${widget.definition.key}:$_generation'),
+                    columns: columnsOf(
+                      widget.definition,
+                      scope.labels,
+                      data.names,
+                      onDownload: (file) => scope.downloadFile(context, file),
+                    ),
+                    items: data.records,
+                    rowKey: (r) => r.id,
+                    config: const TableConfig(sortEnabled: true),
+                    events: TableEvents<EntityRecord>(
+                      onRowActivated: (r) => _open(r.id),
+                    ),
+                  ),
+                );
+              },
             ),
           ],
         ),
-        SizedBox(
-          height: 240,
-          child: FutureBuilder<_ChildData>(
-            future: _future,
-            builder: (context, snapshot) {
-              final data = snapshot.data;
-              if (snapshot.hasError) {
-                return Center(child: Text(scope.strings.loadFailed));
-              }
-              if (data == null) {
-                return const LoadingIndicator.centered();
-              }
-              return FlgTable<EntityRecord>(
-                key: ValueKey('${widget.definition.key}:$_generation'),
-                columns: columnsOf(
-                  widget.definition,
-                  scope.labels,
-                  data.names,
-                  onDownload: (file) => scope.downloadFile(context, file),
-                ),
-                items: data.records,
-                rowKey: (r) => r.id,
-                config: const TableConfig(sortEnabled: true),
-                events: TableEvents<EntityRecord>(
-                  onRowActivated: (r) => _open(r.id),
-                ),
-              );
-            },
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
@@ -1015,56 +1109,76 @@ class _ReverseSectionState extends State<_ReverseSection> {
   @override
   Widget build(BuildContext context) {
     final scope = widget.scope;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Divider(),
-        Text(
-          scope.labels.reverse(widget.entityKey, widget.reverse.entity),
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-        SizedBox(
-          height: 240,
-          child: FutureBuilder<_ReverseData>(
-            future: _future,
-            builder: (context, snapshot) {
-              final data = snapshot.data;
-              if (snapshot.hasError) {
-                return Center(child: Text(scope.strings.loadFailed));
-              }
-              if (data == null) {
-                return const LoadingIndicator.centered();
-              }
-              final definition = data.definition;
-              if (definition == null) {
-                return Center(child: Text(scope.strings.noData));
-              }
-              final columns = [
-                if (definition.owner != null)
-                  ColumnDefinition<EntityRecord>(
-                    key: _ownerKey,
-                    label: scope.labels.entity(definition.owner!),
-                    getter: (r) => data.owners[r.parentId] ?? '',
+    final theme = Theme.of(context);
+    return Card(
+      margin: EdgeInsets.zero,
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              scope.labels.reverse(widget.entityKey, widget.reverse.entity),
+              style: theme.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 12),
+            FutureBuilder<_ReverseData>(
+              future: _future,
+              builder: (context, snapshot) {
+                final data = snapshot.data;
+                if (snapshot.hasError) {
+                  return Center(child: Text(scope.strings.loadFailed));
+                }
+                if (data == null) {
+                  return const SizedBox(
+                    height: 80,
+                    child: LoadingIndicator.centered(),
+                  );
+                }
+                final definition = data.definition;
+                if (definition == null || data.records.isEmpty) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    child: Text(
+                      scope.strings.noData,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                  );
+                }
+                final columns = [
+                  if (definition.owner != null)
+                    ColumnDefinition<EntityRecord>(
+                      key: _ownerKey,
+                      label: scope.labels.entity(definition.owner!),
+                      getter: (r) => data.owners[r.parentId] ?? '',
+                    ),
+                  ...columnsOf(
+                    definition,
+                    scope.labels,
+                    data.names,
+                    onDownload: (file) => scope.downloadFile(context, file),
                   ),
-                ...columnsOf(
-                  definition,
-                  scope.labels,
-                  data.names,
-                  onDownload: (file) => scope.downloadFile(context, file),
-                ),
-              ];
-              return FlgTable<EntityRecord>(
-                key: ValueKey('${widget.reverse.entity}:$_generation'),
-                columns: columns,
-                items: data.records,
-                rowKey: (r) => r.id,
-                config: const TableConfig(sortEnabled: true),
-                events: TableEvents<EntityRecord>(onRowActivated: _open),
-              );
-            },
-          ),
+                ];
+                return SizedBox(
+                  height: (data.records.length * 40.0 + 48).clamp(120, 320),
+                  child: FlgTable<EntityRecord>(
+                    key: ValueKey('${widget.reverse.entity}:$_generation'),
+                    columns: columns,
+                    items: data.records,
+                    rowKey: (r) => r.id,
+                    config: const TableConfig(sortEnabled: true),
+                    events: TableEvents<EntityRecord>(onRowActivated: _open),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

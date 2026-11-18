@@ -92,8 +92,12 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  String glyph(WidgetTester tester, int id) =>
-      tester.widget<Text>(find.byKey(Key('tree.icon.$id'))).data!;
+  /// 開閉の印を、従来の記号で返す(▶ = 縮小、▼ = 展開、▷ = 子なし。子なしは印を出さない空の枠)。
+  String glyph(WidgetTester tester, int id) {
+    final w = tester.widget(find.byKey(Key('tree.icon.$id')));
+    if (w is Icon) return w.icon == Icons.expand_more ? '▼' : '▶';
+    return '▷';
+  }
 
   double dx(WidgetTester tester, String name) =>
       tester.getTopLeft(find.text(name)).dx;

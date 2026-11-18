@@ -1,11 +1,13 @@
 import 'package:entity_screens/entity_screens.dart';
 import 'package:feature_shared/feature_shared.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'entities/organization_definitions.dart';
 import 'entities/organization_labels.dart';
 import 'entities/organization_seeds.dart';
 import 'i18n/strings_provider.dart';
+import 'page/company_home_page.dart';
 
 /// 会社情報をアプリへ組み込むための口。
 ///
@@ -26,6 +28,25 @@ class OrganizationModule extends EntityFeatureModule {
 
   @override
   String get menuGroupId => 'organization';
+
+  /// 会社情報の台帳(`/e/company`)は、表ではなく、概要の画面(画面案の「会社情報」)を出す。
+  @override
+  Widget? customListPage(WidgetRef ref, String key) =>
+      key == 'company' ? CompanyHomePage(scope: entityScope(ref)) : null;
+
+  /// メニューには、「会社情報」の 1 項目だけを出す(画面案どおり)。事業所・部署・承認・作業者などは、概要の画面から開く。
+  @override
+  List<MenuEntry> menuEntries(WidgetRef ref) {
+    final labels = labelsOf(ref);
+    return [
+      MenuEntry(
+        groupId: menuGroupId,
+        groupLabel: menuGroupLabel(ref),
+        label: labels.entity('company'),
+        destination: const EntityListDestination('company'),
+      ),
+    ];
+  }
 
   @override
   String menuGroupLabel(WidgetRef ref) =>

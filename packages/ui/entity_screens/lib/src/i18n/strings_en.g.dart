@@ -39,6 +39,21 @@ class EntityScreenStringsEn extends EntityScreenStrings with BaseTranslations<En
 
 	// Translations
 	@override String get create => 'New';
+	@override String get editMode => 'Edit';
+	@override String get editDone => 'Done editing';
+	@override String get editHint => 'Double-click (long press) a row to edit it.';
+	@override String editTitle({required Object name}) => 'Edit ${name}';
+	@override String newTitle({required Object name}) => 'New ${name}';
+	@override String get belowLabel => 'Below';
+	@override String belowCount({required Object count}) => '${count} below';
+	@override String get requiredMark => 'Required';
+	@override String get back => 'Back';
+	@override String asOf({required Object date}) => 'As of ${date}';
+	@override String searchTitle({required Object name}) => 'Search ${name}';
+	@override String get searchHint => 'Search';
+	@override String get chipAll => 'All';
+	@override String listTitle({required Object name}) => '${name} list';
+	@override String listCount({required Object shown, required Object total}) => 'Showing ${shown} of ${total}.';
 	@override String get actionMenu => 'Actions';
 	@override String get actionSelected => 'Selected row';
 	@override String get actionHint => 'Select a row to choose an action for it.';
@@ -188,6 +203,21 @@ extension on EntityScreenStringsEn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'create' => 'New',
+			'editMode' => 'Edit',
+			'editDone' => 'Done editing',
+			'editHint' => 'Double-click (long press) a row to edit it.',
+			'editTitle' => ({required Object name}) => 'Edit ${name}',
+			'newTitle' => ({required Object name}) => 'New ${name}',
+			'belowLabel' => 'Below',
+			'belowCount' => ({required Object count}) => '${count} below',
+			'requiredMark' => 'Required',
+			'back' => 'Back',
+			'asOf' => ({required Object date}) => 'As of ${date}',
+			'searchTitle' => ({required Object name}) => 'Search ${name}',
+			'searchHint' => 'Search',
+			'chipAll' => 'All',
+			'listTitle' => ({required Object name}) => '${name} list',
+			'listCount' => ({required Object shown, required Object total}) => 'Showing ${shown} of ${total}.',
 			'actionMenu' => 'Actions',
 			'actionSelected' => 'Selected row',
 			'actionHint' => 'Select a row to choose an action for it.',

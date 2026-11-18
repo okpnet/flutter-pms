@@ -462,16 +462,17 @@ class _TreeTableState<T> extends _TableBaseState<T, TreeTable<T>> {
             const LoadingIndicator(strokeWidth: 2),
       );
     } else {
-      final text = node.childCount == 0
-          ? '▷'
-          : node.expanded
-          ? '▼'
-          : '▶';
-      glyph = Text(
-        text,
-        key: Key('tree.icon.$key'),
-        style: TextStyle(fontSize: rowHeight * 0.6, height: 1),
-      );
+      // 文字より大きくならないよう、アイコンの大きさは、文字の大きさに合わせる(行の高さの 60% が上限)。
+      // 子が無い行は、印を出さない(開けないものを、開けそうに見せない)。
+      final fontSize = Theme.of(context).textTheme.bodyMedium?.fontSize ?? 14;
+      final iconSize = (fontSize * 1.4).clamp(0.0, rowHeight * 0.6);
+      glyph = node.childCount == 0
+          ? SizedBox(key: Key('tree.icon.$key'), width: iconSize, height: iconSize)
+          : Icon(
+              node.expanded ? Icons.expand_more : Icons.chevron_right,
+              key: Key('tree.icon.$key'),
+              size: iconSize,
+            );
     }
     return SizedBox(
       width: e.level * unit + box,

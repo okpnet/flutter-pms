@@ -39,6 +39,51 @@ class EntityScreenStrings with BaseTranslations<EntityScreenLocale, EntityScreen
 	/// ja: '新規'
 	String get create => '新規';
 
+	/// ja: '編集'
+	String get editMode => '編集';
+
+	/// ja: '編集を終える'
+	String get editDone => '編集を終える';
+
+	/// ja: '行をダブルクリック(長押し)すると、編集できます。'
+	String get editHint => '行をダブルクリック(長押し)すると、編集できます。';
+
+	/// ja: '${name}の編集'
+	String editTitle({required Object name}) => '${name}の編集';
+
+	/// ja: '${name}の登録'
+	String newTitle({required Object name}) => '${name}の登録';
+
+	/// ja: '配下'
+	String get belowLabel => '配下';
+
+	/// ja: '配下 ${count}'
+	String belowCount({required Object count}) => '配下 ${count}';
+
+	/// ja: '必須'
+	String get requiredMark => '必須';
+
+	/// ja: '戻る'
+	String get back => '戻る';
+
+	/// ja: '${date} 時点'
+	String asOf({required Object date}) => '${date} 時点';
+
+	/// ja: '${name}を検索'
+	String searchTitle({required Object name}) => '${name}を検索';
+
+	/// ja: '検索'
+	String get searchHint => '検索';
+
+	/// ja: 'すべて'
+	String get chipAll => 'すべて';
+
+	/// ja: '${name}の一覧'
+	String listTitle({required Object name}) => '${name}の一覧';
+
+	/// ja: '全${total}件のうち${shown}件を表示。'
+	String listCount({required Object total, required Object shown}) => '全${total}件のうち${shown}件を表示。';
+
 	/// ja: '操作'
 	String get actionMenu => '操作';
 
@@ -326,6 +371,21 @@ extension on EntityScreenStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'create' => '新規',
+			'editMode' => '編集',
+			'editDone' => '編集を終える',
+			'editHint' => '行をダブルクリック(長押し)すると、編集できます。',
+			'editTitle' => ({required Object name}) => '${name}の編集',
+			'newTitle' => ({required Object name}) => '${name}の登録',
+			'belowLabel' => '配下',
+			'belowCount' => ({required Object count}) => '配下 ${count}',
+			'requiredMark' => '必須',
+			'back' => '戻る',
+			'asOf' => ({required Object date}) => '${date} 時点',
+			'searchTitle' => ({required Object name}) => '${name}を検索',
+			'searchHint' => '検索',
+			'chipAll' => 'すべて',
+			'listTitle' => ({required Object name}) => '${name}の一覧',
+			'listCount' => ({required Object total, required Object shown}) => '全${total}件のうち${shown}件を表示。',
 			'actionMenu' => '操作',
 			'actionSelected' => '選択中の行',
 			'actionHint' => '行を選ぶと、その行に使える操作を選べます。',

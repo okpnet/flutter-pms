@@ -37,13 +37,21 @@ class AppMenuGroup {
 
 /// サイドバーとハンバーガーメニューが共有するメニュー。
 class AppMenu {
-  const AppMenu({this.topItems = const [], this.groups = const []});
+  const AppMenu({
+    this.topItems = const [],
+    this.groups = const [],
+    this.bottomItems = const [],
+  });
 
   /// グループに入らない項目(例: ダッシュボード)。グループの前に並ぶ。
   final List<AppMenuItem> topItems;
   final List<AppMenuGroup> groups;
 
-  bool get isEmpty => topItems.isEmpty && groups.isEmpty;
+  /// グループの後に並ぶ、グループに入らない項目(例: 会社情報)。
+  final List<AppMenuItem> bottomItems;
+
+  bool get isEmpty =>
+      topItems.isEmpty && groups.isEmpty && bottomItems.isEmpty;
 }
 
 /// ログインユーザーの表示用の情報。
