@@ -4,6 +4,11 @@ mrp:
   controlTitle: Material requirements planning (MRP)
   redoLabel: Run as a re-MRP
   redoNote: "Unchecked: calculates only the orders not yet planned (order MRP). Checked: rebuilds all demand after the orders were reviewed (re-MRP)."
+  redo:
+    targetsTitle: Order lines to rebuild
+    targetsNote: "When you choose order lines, only those lines and the material plans below them are rebuilt. When none are chosen, all demand is the target."
+    targetsAll: None chosen (all demand)
+    pick: Choose order lines
   run: Run MRP
   running: Calculating
   elapsed: Elapsed
@@ -16,6 +21,7 @@ mrp:
     warnHeavy: This is heavy and takes time.
     warnWide: It affects a wide range, including other users' work.
     warnRedo: Re-MRP rebuilds all demand, so the impact is even larger than a normal MRP.
+    warnScoped: "Only the $count chosen order lines and the material plans below them are rebuilt."
     warnLock: You cannot operate or interrupt while it runs.
     cancel: Cancel
     go: Run

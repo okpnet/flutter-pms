@@ -15,7 +15,17 @@ import 'mrp_models.dart';
 /// 実行する。実行中は画面全体の操作と戻る操作を無効にし([busyProvider])、「計算中」と経過時間を出す。
 /// 成功したらお知らせと結果の表を出し、失敗したら一般向けの警告(エラーコードは小さく添える)を出す。
 class MrpPage extends ConsumerStatefulWidget {
-  const MrpPage({super.key});
+  const MrpPage({
+    super.key,
+    this.initialRedo = false,
+    this.initialOrderDetailIds = const [],
+  });
+
+  /// 「再MRPとして実行する」にチェックを入れて開く。
+  final bool initialRedo;
+
+  /// 再MRP の対象にする受注明細(ほかの機能から、変更のあった受注明細を指定して開くとき)。
+  final List<String> initialOrderDetailIds;
 
   @override
   ConsumerState<MrpPage> createState() => _MrpPageState();
@@ -23,6 +33,10 @@ class MrpPage extends ConsumerStatefulWidget {
 
 class _MrpPageState extends ConsumerState<MrpPage> {
   bool _redo = false;
+
+  /// 再MRP の対象の受注明細(`p_order_detail_ids`)。空のときは、すべての需要を作り直す。
+  /// 表示名は、選んだときの名前(ほかの機能から渡されたときは、空で、ID を出す)。
+  List<({String id, String label})> _targets = const [];
   MrpRunResult? _result;
   MrpFailure? _failure;
   _Judgement? _judgement;
@@ -37,6 +51,10 @@ class _MrpPageState extends ConsumerState<MrpPage> {
   @override
   void initState() {
     super.initState();
+    _redo = widget.initialRedo || widget.initialOrderDetailIds.isNotEmpty;
+    _targets = [
+      for (final id in widget.initialOrderDetailIds) (id: id, label: ''),
+    ];
     // 前回の計算で、確定も破棄もしていないものがあれば引き継ぐ(失敗・窓口なしは、何も出さない)
     Future(() async {
       try {
@@ -198,6 +216,28 @@ class _MrpPageState extends ConsumerState<MrpPage> {
     });
   }
 
+  /// 再MRP の対象の受注明細の ID。再MRP でないとき(受注MRP)は、指定しても使わない。
+  List<String> get _targetIds =>
+      _redo ? [for (final x in _targets) x.id] : const [];
+
+  /// 対象の受注明細を、受注明細の台帳から選んで足す(選択の画面は、機能同士が依存しない CommandBus で開く)。
+  Future<void> _pickOrderDetail() async {
+    final Selection? sel;
+    try {
+      sel = await ref
+          .read(commandBusProvider)
+          .execute(const EntityPickerDestination('orderdetail'));
+    } catch (e, st) {
+      ref
+          .read(loggerProvider)
+          .error('[production_plan] 受注明細の選択を開けませんでした', ex: e, trace: st);
+      return;
+    }
+    if (sel == null || !mounted) return;
+    if (_targets.any((x) => x.id == sel!.id)) return;
+    setState(() => _targets = [..._targets, (id: sel!.id, label: sel.label)]);
+  }
+
   /// [execute] が true のとき、MRP を実行する(要判断が無ければ、そのまま確定する)。
   /// false のとき、計算だけして確定待ちにする(判断・確定は結果の画面から)。
   Future<void> _run({bool execute = true}) async {
@@ -215,7 +255,9 @@ class _MrpPageState extends ConsumerState<MrpPage> {
             for (final line in [
               t.confirm.warnHeavy,
               t.confirm.warnWide,
-              if (redo) t.confirm.warnRedo,
+              if (redo && _targetIds.isEmpty) t.confirm.warnRedo,
+              if (redo && _targetIds.isNotEmpty)
+                t.confirm.warnScoped(count: _targetIds.length),
               t.confirm.warnLock,
             ])
               Row(
@@ -261,12 +303,14 @@ class _MrpPageState extends ConsumerState<MrpPage> {
                       .execute(
                         mode: redo ? MrpMode.redo : MrpMode.order,
                         staffId: ref.read(mrpStaffIdProvider),
+                        orderDetailIds: _targetIds,
                       )
                 : ref
                       .read(mrpGatewayProvider)
                       .calculate(
                         mode: redo ? MrpMode.redo : MrpMode.order,
                         staffId: ref.read(mrpStaffIdProvider),
+                        orderDetailIds: _targetIds,
                       ),
           );
     } on MrpFailure catch (e, s) {
@@ -332,6 +376,7 @@ class _MrpPageState extends ConsumerState<MrpPage> {
                           : (v) => setState(() => _redo = v ?? false),
                     ),
                     Text(t.redoNote, style: theme.textTheme.bodySmall),
+                    if (_redo) _targetsView(t, busy),
                     Wrap(
                       spacing: 12,
                       runSpacing: 8,
@@ -424,6 +469,60 @@ class _MrpPageState extends ConsumerState<MrpPage> {
     _Judgement.rejected => t.decision.rejected as String,
     _Judgement.info => t.decision.info as String,
   };
+
+  /// 再MRP の対象の受注明細(指定しないときは、すべての需要)。
+  Widget _targetsView(dynamic t, bool busy) {
+    final theme = Theme.of(context);
+    return Column(
+      key: const ValueKey('mrpTargets'),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: 8,
+      children: [
+        Text(
+          t.redo.targetsTitle as String,
+          style: theme.textTheme.titleSmall,
+        ),
+        Text(
+          t.redo.targetsNote as String,
+          style: theme.textTheme.bodySmall,
+        ),
+        if (_targets.isEmpty)
+          Text(
+            t.redo.targetsAll as String,
+            key: const ValueKey('mrpTargetsAll'),
+          )
+        else
+          Wrap(
+            spacing: 8,
+            runSpacing: 4,
+            children: [
+              for (final x in _targets)
+                InputChip(
+                  key: ValueKey('mrpTarget:${x.id}'),
+                  label: Text(x.label.isEmpty ? x.id : x.label),
+                  onDeleted: busy
+                      ? null
+                      : () => setState(
+                          () => _targets = [
+                            for (final y in _targets)
+                              if (y.id != x.id) y,
+                          ],
+                        ),
+                ),
+            ],
+          ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: OutlinedButton.icon(
+            key: const ValueKey('mrpPickOrderDetail'),
+            icon: const Icon(Icons.add),
+            label: Text(t.redo.pick as String),
+            onPressed: busy ? null : _pickOrderDetail,
+          ),
+        ),
+      ],
+    );
+  }
 
   /// 調査のカード(MRP の前に、マスタの不備を調べる。読み取りだけ)。
   Widget _checkCard(dynamic t, bool busy) {

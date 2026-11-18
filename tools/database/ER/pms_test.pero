@@ -382,88 +382,6 @@
       "schema": ""
     },
     {
-      "id": "custom_1",
-      "displayName": "mrp_import_check",
-      "paramKind": "none",
-      "defaultParams": {},
-      "category": "string",
-      "physical": {
-        "postgresql": "mrp_import_check",
-        "mysql": "",
-        "sqlserver": "",
-        "sqlite": ""
-      },
-      "kind": "composite",
-      "fields": [
-        {
-          "name": "line_no",
-          "typeId": "integer",
-          "length": null,
-          "precision": null,
-          "scale": null
-        },
-        {
-          "name": "item_code",
-          "typeId": "varchar_nolen",
-          "length": null,
-          "precision": null,
-          "scale": null
-        },
-        {
-          "name": "item_id",
-          "typeId": "uuid",
-          "length": null,
-          "precision": null,
-          "scale": null
-        },
-        {
-          "name": "item_history_id",
-          "typeId": "uuid",
-          "length": null,
-          "precision": null,
-          "scale": null
-        },
-        {
-          "name": "issue_code",
-          "typeId": "varchar_nolen",
-          "length": null,
-          "precision": null,
-          "scale": null
-        },
-        {
-          "name": "severity",
-          "typeId": "smallint",
-          "length": null,
-          "precision": null,
-          "scale": null
-        },
-        {
-          "name": "message",
-          "typeId": "varchar_nolen",
-          "length": null,
-          "precision": null,
-          "scale": null
-        },
-        {
-          "name": "ref_table",
-          "typeId": "varchar_nolen",
-          "length": null,
-          "precision": null,
-          "scale": null
-        },
-        {
-          "name": "ref_id",
-          "typeId": "uuid",
-          "length": null,
-          "precision": null,
-          "scale": null
-        }
-      ],
-      "enumValues": [],
-      "comment": "受注取り込み確認",
-      "schema": ""
-    },
-    {
       "id": "varchar_nolen",
       "displayName": "varchar(長さなし)",
       "paramKind": "none",
@@ -9340,30 +9258,6 @@
         2924,
         3254,
         4183
-      ],
-      "schema": ""
-    },
-    {
-      "id": 4185,
-      "kind": "function",
-      "name": "mrp_check_order_import",
-      "external": false,
-      "call": {
-        "postgresql": "",
-        "mysql": "",
-        "sqlserver": "",
-        "sqlite": ""
-      },
-      "bodies": {
-        "postgresql": "CREATE OR REPLACE FUNCTION tests.mrp_check_order_import(p_lines jsonb)\r\nRETURNS SETOF tests.mrp_import_check AS $$\r\n    WITH ln AS (\r\n        SELECT\r\n            COALESCE(CASE WHEN a.e->>'line_no' ~ '^[0-9]+$' THEN (a.e->>'line_no')::integer END, a.ord::integer) AS line_no\r\n            , btrim(a.e->>'item_code') AS item_code\r\n            , a.e->>'quantity' AS qty_text\r\n            , CASE WHEN a.e->>'quantity' ~ '^-?[0-9]+(\\.[0-9]+)?$' THEN (a.e->>'quantity')::numeric END AS qty\r\n            , a.e->>'deadline' AS deadline_text\r\n            , CASE WHEN a.e->>'deadline' ~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}' THEN (a.e->>'deadline')::timestamp END AS deadline\r\n        FROM jsonb_array_elements(p_lines) WITH ORDINALITY AS a(e, ord)\r\n    ), m AS (\r\n        SELECT ln.*,\r\n               (SELECT COUNT(*) FROM tests.mstr_item AS i WHERE i.code = ln.item_code AND i.remove IS FALSE) AS n,\r\n               (SELECT i.mstr_item_id FROM tests.mstr_item AS i WHERE i.code = ln.item_code AND i.remove IS FALSE\r\n                ORDER BY i.update_at DESC LIMIT 1) AS item_id\r\n        FROM ln\r\n    ), r AS (\r\n        SELECT m.line_no, m.item_code, m.item_id,\r\n               CASE WHEN m.item_id IS NOT NULL THEN 'RESOLVED' ELSE 'ITEM_NOT_FOUND' END::varchar AS issue_code,\r\n               CASE WHEN m.item_id IS NOT NULL THEN 0 ELSE 1 END::smallint AS severity,\r\n               CASE WHEN m.item_id IS NOT NULL THEN '品目を特定しました'\r\n                    ELSE '品目コード ' || COALESCE(m.item_code, '(空)') || ' が品目マスタにありません。品目を登録してください' END::varchar AS message,\r\n               'mstr_item'::varchar AS ref_table, m.item_id AS ref_id\r\n        FROM m\r\n        UNION ALL\r\n        SELECT m.line_no, m.item_code, m.item_id, 'ITEM_CODE_DUPLICATED', 1,\r\n               '品目コード ' || m.item_code || ' に該当する品目が ' || m.n || ' 件あります(最新を仮に選択)', 'mstr_item', NULL\r\n        FROM m WHERE m.n > 1\r\n        UNION ALL\r\n        SELECT m.line_no, m.item_code, m.item_id, 'QUANTITY_INVALID', 1,\r\n               '数量が不正です(' || COALESCE(m.qty_text, '空') || ')', NULL, NULL\r\n        FROM m WHERE m.qty IS NULL OR m.qty <= 0\r\n        UNION ALL\r\n        SELECT m.line_no, m.item_code, m.item_id,\r\n               CASE WHEN m.deadline_text IS NULL OR m.deadline_text = '' THEN 'DEADLINE_MISSING' ELSE 'DEADLINE_INVALID' END,\r\n               2, CASE WHEN m.deadline_text IS NULL OR m.deadline_text = '' THEN '納期がありません(最短で計画します)'\r\n                       ELSE '納期の形式が不正です(' || m.deadline_text || ')' END, NULL, NULL\r\n        FROM m WHERE m.deadline IS NULL\r\n        UNION ALL\r\n        SELECT m.line_no, m.item_code, m.item_id, 'DEADLINE_PAST', 2, '納期が過ぎています', NULL, NULL\r\n        FROM m WHERE m.deadline < now()\r\n        UNION ALL\r\n        SELECT m.line_no, m.item_code, m.item_id, ci.issue_code, ci.severity,\r\n               CASE WHEN ci.item_id IS DISTINCT FROM m.item_id AND ci.item_code IS NOT NULL\r\n                    THEN '[' || ci.item_code || '] ' ELSE '' END || ci.message,\r\n               ci.ref_table, COALESCE(ci.ref_id, ci.item_id)\r\n        FROM m CROSS JOIN LATERAL tests.mrp_check_items(ARRAY[m.item_id]) AS ci\r\n        WHERE m.item_id IS NOT NULL\r\n          AND NOT (ci.issue_code = 'ITEM_CODE_DUPLICATED' AND ci.item_id = m.item_id)\r\n    )\r\n    SELECT r.line_no, r.item_code, r.item_id,\r\n           CASE WHEN r.item_id IS NOT NULL THEN tests.mrp_hist_item(r.item_id) END,\r\n           r.issue_code, r.severity, r.message, r.ref_table, r.ref_id\r\n    FROM r\r\n    ORDER BY r.line_no, r.severity, r.issue_code;\r\n$$ LANGUAGE sql STABLE;",
-        "mysql": "",
-        "sqlserver": "",
-        "sqlite": ""
-      },
-      "comment": "受注取り込み前の確認(品目コードの解決とマスタ不備)",
-      "args": "jsonb",
-      "dependsOnTableIds": [
-        3281
       ],
       "schema": ""
     },

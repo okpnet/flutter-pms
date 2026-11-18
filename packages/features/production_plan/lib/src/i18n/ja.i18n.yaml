@@ -5,6 +5,11 @@ mrp:
   controlTitle: 資材所要計算（MRP）
   redoLabel: 再MRPとして実行する
   redoNote: チェックなし：まだ計画していない受注だけを計算します（受注MRP）。チェックあり：受注を見直したあとに、すべての需要を作り直します（再MRP）。
+  redo:
+    targetsTitle: 再MRPの対象の受注明細
+    targetsNote: 指定すると、その受注明細と、その下位の資材計画だけを作り直します。指定しないときは、すべての需要が対象です。
+    targetsAll: 指定なし（すべての需要）
+    pick: 受注明細を選ぶ
   run: MRPを実行
   running: 計算中
   elapsed: 経過時間
@@ -17,6 +22,7 @@ mrp:
     warnHeavy: 処理が重く、時間がかかります。
     warnWide: 影響が広範囲で、他のユーザーの処理にも影響します。
     warnRedo: 再MRPは、すべての需要を作り直します。通常のMRPよりも、影響がさらに大きくなります。
+    warnScoped: 指定した$count件の受注明細と、その下位の資材計画だけを作り直します。
     warnLock: 実行中は操作も中断もできません。
     cancel: キャンセル
     go: 実行する

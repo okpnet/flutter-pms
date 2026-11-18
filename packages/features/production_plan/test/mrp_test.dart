@@ -377,4 +377,123 @@ void main() {
       expect(find.byKey(const ValueKey('mrpAwaiting')), findsNothing);
     });
   });
+
+  group('再MRP(対象の受注明細の指定)', () {
+    Future<void> pumpRedo(
+      WidgetTester tester,
+      DemoMrpGateway gateway,
+      MrpDestination destination,
+    ) async {
+      await tester.binding.setSurfaceSize(const Size(1400, 1600));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+      await tester.pumpWidget(
+        FeatureHost(
+          title: '生産計画',
+          modules: const [ProductionPlanModule()],
+          entries: [FeatureHostEntry('再MRPへ', destination)],
+          logger: const NoopLoggerProvider(),
+          overrides: [
+            themeLoggerProvider.overrideWithValue(const NoopLoggerProvider()),
+            mrpGatewayProvider.overrideWithValue(gateway),
+            mrpStaffIdProvider.overrideWithValue('staff-1'),
+          ],
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('再MRPへ'));
+      await tester.pumpAndSettle();
+    }
+
+    Future<void> tapKey(WidgetTester tester, String key) async {
+      final f = find.byKey(ValueKey(key));
+      await tester.ensureVisible(f);
+      await tester.pumpAndSettle();
+      await tester.tap(f);
+      await tester.pumpAndSettle();
+    }
+
+    test('遷移先は、再MRP・対象の受注明細をクエリに入れたパスになる', () {
+      expect(const MrpModule().locationOf(const MrpDestination()), '/mrp');
+      expect(
+        const MrpModule().locationOf(const MrpDestination(redo: true)),
+        '/mrp?redo=1',
+      );
+      expect(
+        const MrpModule().locationOf(
+          const MrpDestination(orderDetailIds: ['a', 'b']),
+        ),
+        '/mrp?redo=1&od=a%2Cb',
+      );
+      expect(
+        const MrpDestination(redo: true, orderDetailIds: ['a']).toJson(),
+        containsPair('orderDetailIds', ['a']),
+      );
+    });
+
+    testWidgets('対象の受注明細つきで開くと、再MRPにチェックが入り、対象が出る。その受注明細だけで実行する', (tester) async {
+      final gateway = DemoMrpGateway(duration: const Duration(milliseconds: 10));
+      await pumpRedo(
+        tester,
+        gateway,
+        const MrpDestination(orderDetailIds: ['od-1', 'od-2']),
+      );
+      expect(
+        tester.widget<CheckboxListTile>(find.byKey(const ValueKey('mrpRedo'))).value,
+        isTrue,
+      );
+      expect(find.byKey(const ValueKey('mrpTarget:od-1')), findsOneWidget);
+      expect(find.byKey(const ValueKey('mrpTarget:od-2')), findsOneWidget);
+      await tapKey(tester, 'mrpRun');
+      expect(find.text('指定した2件の受注明細と、その下位の資材計画だけを作り直します。'), findsOneWidget);
+      // 「すべての需要を作り直します」の警告は、対象を指定したときは出さない
+      expect(find.textContaining('すべての需要を作り直します。'), findsNothing);
+      await tapKey(tester, 'mrpGo');
+      expect(gateway.calls.single['mode'], 2);
+      expect(gateway.calls.single['orderDetailIds'], ['od-1', 'od-2']);
+    });
+
+    testWidgets('対象は、外せる。外すと、残りだけで実行する。すべて外すと、すべての需要', (tester) async {
+      final gateway = DemoMrpGateway(duration: const Duration(milliseconds: 10));
+      await pumpRedo(
+        tester,
+        gateway,
+        const MrpDestination(redo: true, orderDetailIds: ['od-1', 'od-2']),
+      );
+      await tester.tap(
+        find.descendant(
+          of: find.byKey(const ValueKey('mrpTarget:od-1')),
+          matching: find.byType(Icon),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.byKey(const ValueKey('mrpTarget:od-1')), findsNothing);
+      await tapKey(tester, 'mrpCalc');
+      await tapKey(tester, 'mrpGo');
+      expect(gateway.calls.single['orderDetailIds'], ['od-2']);
+      expect(gateway.calls.single['op'], 'calculate');
+    });
+
+    testWidgets('再MRPのチェックを外すと、対象は使わない(受注MRPは、受注明細を指定できない)', (tester) async {
+      final gateway = DemoMrpGateway(duration: const Duration(milliseconds: 10));
+      await pumpRedo(
+        tester,
+        gateway,
+        const MrpDestination(orderDetailIds: ['od-1']),
+      );
+      await tapKey(tester, 'mrpRedo');
+      expect(find.byKey(const ValueKey('mrpTargets')), findsNothing);
+      await tapKey(tester, 'mrpRun');
+      await tapKey(tester, 'mrpGo');
+      expect(gateway.calls.single['mode'], 1);
+      expect(gateway.calls.single['orderDetailIds'], isEmpty);
+    });
+
+    testWidgets('再MRPで、対象を指定しないときは、すべての需要と出す', (tester) async {
+      final gateway = DemoMrpGateway(duration: const Duration(milliseconds: 10));
+      await pumpRedo(tester, gateway, const MrpDestination(redo: true));
+      expect(find.byKey(const ValueKey('mrpTargetsAll')), findsOneWidget);
+      await tapKey(tester, 'mrpRun');
+      expect(find.textContaining('すべての需要を作り直します。'), findsWidgets);
+    });
+  });
 }

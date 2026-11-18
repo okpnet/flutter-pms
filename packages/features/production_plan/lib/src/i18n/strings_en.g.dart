@@ -53,6 +53,7 @@ class _ProductionPlanStrings$mrp$en extends ProductionPlanStrings$mrp$ja {
 	@override String get controlTitle => 'Material requirements planning (MRP)';
 	@override String get redoLabel => 'Run as a re-MRP';
 	@override String get redoNote => 'Unchecked: calculates only the orders not yet planned (order MRP). Checked: rebuilds all demand after the orders were reviewed (re-MRP).';
+	@override late final _ProductionPlanStrings$mrp$redo$en redo = _ProductionPlanStrings$mrp$redo$en._(_root);
 	@override String get run => 'Run MRP';
 	@override String get running => 'Calculating';
 	@override String get elapsed => 'Elapsed';
@@ -67,6 +68,19 @@ class _ProductionPlanStrings$mrp$en extends ProductionPlanStrings$mrp$ja {
 	@override late final _ProductionPlanStrings$mrp$step$en step = _ProductionPlanStrings$mrp$step$en._(_root);
 	@override late final _ProductionPlanStrings$mrp$state$en state = _ProductionPlanStrings$mrp$state$en._(_root);
 	@override late final _ProductionPlanStrings$mrp$decision$en decision = _ProductionPlanStrings$mrp$decision$en._(_root);
+}
+
+// Path: mrp.redo
+class _ProductionPlanStrings$mrp$redo$en extends ProductionPlanStrings$mrp$redo$ja {
+	_ProductionPlanStrings$mrp$redo$en._(ProductionPlanStringsEn root) : this._root = root, super.internal(root);
+
+	final ProductionPlanStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get targetsTitle => 'Order lines to rebuild';
+	@override String get targetsNote => 'When you choose order lines, only those lines and the material plans below them are rebuilt. When none are chosen, all demand is the target.';
+	@override String get targetsAll => 'None chosen (all demand)';
+	@override String get pick => 'Choose order lines';
 }
 
 // Path: mrp.empty
@@ -92,6 +106,7 @@ class _ProductionPlanStrings$mrp$confirm$en extends ProductionPlanStrings$mrp$co
 	@override String get warnHeavy => 'This is heavy and takes time.';
 	@override String get warnWide => 'It affects a wide range, including other users\' work.';
 	@override String get warnRedo => 'Re-MRP rebuilds all demand, so the impact is even larger than a normal MRP.';
+	@override String warnScoped({required Object count}) => 'Only the ${count} chosen order lines and the material plans below them are rebuilt.';
 	@override String get warnLock => 'You cannot operate or interrupt while it runs.';
 	@override String get cancel => 'Cancel';
 	@override String get go => 'Run';
@@ -269,6 +284,10 @@ extension on ProductionPlanStringsEn {
 			'mrp.controlTitle' => 'Material requirements planning (MRP)',
 			'mrp.redoLabel' => 'Run as a re-MRP',
 			'mrp.redoNote' => 'Unchecked: calculates only the orders not yet planned (order MRP). Checked: rebuilds all demand after the orders were reviewed (re-MRP).',
+			'mrp.redo.targetsTitle' => 'Order lines to rebuild',
+			'mrp.redo.targetsNote' => 'When you choose order lines, only those lines and the material plans below them are rebuilt. When none are chosen, all demand is the target.',
+			'mrp.redo.targetsAll' => 'None chosen (all demand)',
+			'mrp.redo.pick' => 'Choose order lines',
 			'mrp.run' => 'Run MRP',
 			'mrp.running' => 'Calculating',
 			'mrp.elapsed' => 'Elapsed',
@@ -279,6 +298,7 @@ extension on ProductionPlanStringsEn {
 			'mrp.confirm.warnHeavy' => 'This is heavy and takes time.',
 			'mrp.confirm.warnWide' => 'It affects a wide range, including other users\' work.',
 			'mrp.confirm.warnRedo' => 'Re-MRP rebuilds all demand, so the impact is even larger than a normal MRP.',
+			'mrp.confirm.warnScoped' => ({required Object count}) => 'Only the ${count} chosen order lines and the material plans below them are rebuilt.',
 			'mrp.confirm.warnLock' => 'You cannot operate or interrupt while it runs.',
 			'mrp.confirm.cancel' => 'Cancel',
 			'mrp.confirm.go' => 'Run',

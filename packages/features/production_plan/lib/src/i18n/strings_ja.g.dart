@@ -63,6 +63,8 @@ class ProductionPlanStrings$mrp$ja {
 	/// ja: 'チェックなし：まだ計画していない受注だけを計算します（受注MRP）。チェックあり：受注を見直したあとに、すべての需要を作り直します（再MRP）。'
 	String get redoNote => 'チェックなし：まだ計画していない受注だけを計算します（受注MRP）。チェックあり：受注を見直したあとに、すべての需要を作り直します（再MRP）。';
 
+	late final ProductionPlanStrings$mrp$redo$ja redo = ProductionPlanStrings$mrp$redo$ja.internal(_root);
+
 	/// ja: 'MRPを実行'
 	String get run => 'MRPを実行';
 
@@ -116,6 +118,27 @@ class ProductionPlanStrings$entity$ja {
 	late final ProductionPlanStrings$entity$stockrez$ja stockrez = ProductionPlanStrings$entity$stockrez$ja.internal(_root);
 }
 
+// Path: mrp.redo
+class ProductionPlanStrings$mrp$redo$ja {
+	ProductionPlanStrings$mrp$redo$ja.internal(this._root);
+
+	final ProductionPlanStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '再MRPの対象の受注明細'
+	String get targetsTitle => '再MRPの対象の受注明細';
+
+	/// ja: '指定すると、その受注明細と、その下位の資材計画だけを作り直します。指定しないときは、すべての需要が対象です。'
+	String get targetsNote => '指定すると、その受注明細と、その下位の資材計画だけを作り直します。指定しないときは、すべての需要が対象です。';
+
+	/// ja: '指定なし（すべての需要）'
+	String get targetsAll => '指定なし（すべての需要）';
+
+	/// ja: '受注明細を選ぶ'
+	String get pick => '受注明細を選ぶ';
+}
+
 // Path: mrp.empty
 class ProductionPlanStrings$mrp$empty$ja {
 	ProductionPlanStrings$mrp$empty$ja.internal(this._root);
@@ -153,6 +176,9 @@ class ProductionPlanStrings$mrp$confirm$ja {
 
 	/// ja: '再MRPは、すべての需要を作り直します。通常のMRPよりも、影響がさらに大きくなります。'
 	String get warnRedo => '再MRPは、すべての需要を作り直します。通常のMRPよりも、影響がさらに大きくなります。';
+
+	/// ja: '指定した$count件の受注明細と、その下位の資材計画だけを作り直します。'
+	String warnScoped({required Object count}) => '指定した${count}件の受注明細と、その下位の資材計画だけを作り直します。';
 
 	/// ja: '実行中は操作も中断もできません。'
 	String get warnLock => '実行中は操作も中断もできません。';
@@ -938,6 +964,10 @@ extension on ProductionPlanStrings {
 			'mrp.controlTitle' => '資材所要計算（MRP）',
 			'mrp.redoLabel' => '再MRPとして実行する',
 			'mrp.redoNote' => 'チェックなし：まだ計画していない受注だけを計算します（受注MRP）。チェックあり：受注を見直したあとに、すべての需要を作り直します（再MRP）。',
+			'mrp.redo.targetsTitle' => '再MRPの対象の受注明細',
+			'mrp.redo.targetsNote' => '指定すると、その受注明細と、その下位の資材計画だけを作り直します。指定しないときは、すべての需要が対象です。',
+			'mrp.redo.targetsAll' => '指定なし（すべての需要）',
+			'mrp.redo.pick' => '受注明細を選ぶ',
 			'mrp.run' => 'MRPを実行',
 			'mrp.running' => '計算中',
 			'mrp.elapsed' => '経過時間',
@@ -948,6 +978,7 @@ extension on ProductionPlanStrings {
 			'mrp.confirm.warnHeavy' => '処理が重く、時間がかかります。',
 			'mrp.confirm.warnWide' => '影響が広範囲で、他のユーザーの処理にも影響します。',
 			'mrp.confirm.warnRedo' => '再MRPは、すべての需要を作り直します。通常のMRPよりも、影響がさらに大きくなります。',
+			'mrp.confirm.warnScoped' => ({required Object count}) => '指定した${count}件の受注明細と、その下位の資材計画だけを作り直します。',
 			'mrp.confirm.warnLock' => '実行中は操作も中断もできません。',
 			'mrp.confirm.cancel' => 'キャンセル',
 			'mrp.confirm.go' => '実行する',

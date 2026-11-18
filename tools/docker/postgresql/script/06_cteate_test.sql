@@ -3,10 +3,6 @@ SET search_path TO tests, public;
 
 CREATE SCHEMA IF NOT EXISTS tests;
 
-CREATE TYPE tests.mrp_import_check AS (line_no integer, item_code varchar, item_id uuid, item_history_id uuid, issue_code varchar, severity smallint, message varchar, ref_table varchar, ref_id uuid);
-
-COMMENT ON TYPE tests.mrp_import_check IS '受注取り込み確認';
-
 CREATE OR REPLACE FUNCTION tests.to_base33(n bigint, min_len int default 4) RETURNs varchar AS
 $BODY$
 DECLARE
@@ -20381,66 +20377,6 @@ RETURNS SETOF tests.v_mrp_master_issue AS $$
 $$ LANGUAGE sql STABLE;
 
 COMMENT ON FUNCTION tests.mrp_check_items(uuid[]) IS '品目(下位含む)のマスタ不備';
-
-CREATE OR REPLACE FUNCTION tests.mrp_check_order_import(p_lines jsonb)
-RETURNS SETOF tests.mrp_import_check AS $$
-    WITH ln AS (
-        SELECT
-            COALESCE(CASE WHEN a.e->>'line_no' ~ '^[0-9]+$' THEN (a.e->>'line_no')::integer END, a.ord::integer) AS line_no
-            , btrim(a.e->>'item_code') AS item_code
-            , a.e->>'quantity' AS qty_text
-            , CASE WHEN a.e->>'quantity' ~ '^-?[0-9]+(\.[0-9]+)?$' THEN (a.e->>'quantity')::numeric END AS qty
-            , a.e->>'deadline' AS deadline_text
-            , CASE WHEN a.e->>'deadline' ~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}' THEN (a.e->>'deadline')::timestamp END AS deadline
-        FROM jsonb_array_elements(p_lines) WITH ORDINALITY AS a(e, ord)
-    ), m AS (
-        SELECT ln.*,
-               (SELECT COUNT(*) FROM tests.mstr_item AS i WHERE i.code = ln.item_code AND i.remove IS FALSE) AS n,
-               (SELECT i.mstr_item_id FROM tests.mstr_item AS i WHERE i.code = ln.item_code AND i.remove IS FALSE
-                ORDER BY i.update_at DESC LIMIT 1) AS item_id
-        FROM ln
-    ), r AS (
-        SELECT m.line_no, m.item_code, m.item_id,
-               CASE WHEN m.item_id IS NOT NULL THEN 'RESOLVED' ELSE 'ITEM_NOT_FOUND' END::varchar AS issue_code,
-               CASE WHEN m.item_id IS NOT NULL THEN 0 ELSE 1 END::smallint AS severity,
-               CASE WHEN m.item_id IS NOT NULL THEN '品目を特定しました'
-                    ELSE '品目コード ' || COALESCE(m.item_code, '(空)') || ' が品目マスタにありません。品目を登録してください' END::varchar AS message,
-               'mstr_item'::varchar AS ref_table, m.item_id AS ref_id
-        FROM m
-        UNION ALL
-        SELECT m.line_no, m.item_code, m.item_id, 'ITEM_CODE_DUPLICATED', 1,
-               '品目コード ' || m.item_code || ' に該当する品目が ' || m.n || ' 件あります(最新を仮に選択)', 'mstr_item', NULL
-        FROM m WHERE m.n > 1
-        UNION ALL
-        SELECT m.line_no, m.item_code, m.item_id, 'QUANTITY_INVALID', 1,
-               '数量が不正です(' || COALESCE(m.qty_text, '空') || ')', NULL, NULL
-        FROM m WHERE m.qty IS NULL OR m.qty <= 0
-        UNION ALL
-        SELECT m.line_no, m.item_code, m.item_id,
-               CASE WHEN m.deadline_text IS NULL OR m.deadline_text = '' THEN 'DEADLINE_MISSING' ELSE 'DEADLINE_INVALID' END,
-               2, CASE WHEN m.deadline_text IS NULL OR m.deadline_text = '' THEN '納期がありません(最短で計画します)'
-                       ELSE '納期の形式が不正です(' || m.deadline_text || ')' END, NULL, NULL
-        FROM m WHERE m.deadline IS NULL
-        UNION ALL
-        SELECT m.line_no, m.item_code, m.item_id, 'DEADLINE_PAST', 2, '納期が過ぎています', NULL, NULL
-        FROM m WHERE m.deadline < now()
-        UNION ALL
-        SELECT m.line_no, m.item_code, m.item_id, ci.issue_code, ci.severity,
-               CASE WHEN ci.item_id IS DISTINCT FROM m.item_id AND ci.item_code IS NOT NULL
-                    THEN '[' || ci.item_code || '] ' ELSE '' END || ci.message,
-               ci.ref_table, COALESCE(ci.ref_id, ci.item_id)
-        FROM m CROSS JOIN LATERAL tests.mrp_check_items(ARRAY[m.item_id]) AS ci
-        WHERE m.item_id IS NOT NULL
-          AND NOT (ci.issue_code = 'ITEM_CODE_DUPLICATED' AND ci.item_id = m.item_id)
-    )
-    SELECT r.line_no, r.item_code, r.item_id,
-           CASE WHEN r.item_id IS NOT NULL THEN tests.mrp_hist_item(r.item_id) END,
-           r.issue_code, r.severity, r.message, r.ref_table, r.ref_id
-    FROM r
-    ORDER BY r.line_no, r.severity, r.issue_code;
-$$ LANGUAGE sql STABLE;
-
-COMMENT ON FUNCTION tests.mrp_check_order_import(jsonb) IS '受注取り込み前の確認(品目コードの解決とマスタ不備)';
 
 CREATE OR REPLACE FUNCTION tests.trans_order_detail_master_error_count(od tests.trans_order_detail)
 RETURNS integer AS $$

@@ -21,7 +21,8 @@
         1.  判断(`decide` = `mrp_set_decision`): 表示中(検索・判断で絞った)の要判断の提案を、まとめて採用・却下する。画面は状態の値を持たず、`p_decision` の引数(採用 1・却下 2)にだけ使う。要判断が残る間は、「確定する」を押せない。
         1.  確定・破棄: 確定(`commit` = `mrp_commit`。採用された提案を計画データに反映する)、「要判断を却下して確定」(`p_force`。要判断を却下として確定し、計算後のデータ更新の確認も省く)、破棄(`discard` = `mrp_discard`。計画データは変わらない)。いずれも確認のダイアログを出す。確定の失敗は、`MRP01`(要判断が残っている)・`MRP03`(計算のあとにデータが更新された・失効した・確定済み)ごとに、取れる対応が分かる文を出す。
         1.  前回の計算で確定も破棄もしていない実行(`openRun`。`v_mrp_run` の `is_calculated`)は、画面を開いたときに引き継ぐ。
-        1.  `mrp_equipment_load`(設備の確定済みの負荷)・`mrp_check_order_import`(取り込み前の確認)は、この手続きに使わず、前者は削除した。設備の空きの調査は、`mrp_run` の内部で行い、結果は `trans_mrp_load`(`MrpLoadPage`)に残る。
+        1.  再MRP: 「再MRPとして実行する」のチェックで、受注MRP(`p_mode` 1)と切り替える。再MRP のときは、対象の受注明細を指定できる(`p_order_detail_ids`。指定すると、その受注明細と、その下位の資材計画だけを作り直す。指定しないときは、すべての需要)。受注明細は、受注明細の台帳を選択の画面(`EntityPickerDestination('orderdetail')`。機能同士が依存しない CommandBus)で開いて選ぶ。ほかの機能からは、`MrpDestination(redo: true, orderDetailIds: […])`(パスは `/mrp?redo=1&od=<id>,<id>`)で、対象つきで開ける。受注MRP のときは、受注明細を指定できない(指定しても使わない)。調査・評価・判断・確定・破棄は、受注MRP と共通。
+        1.  `mrp_equipment_load`(設備の確定済みの負荷)・`mrp_check_order_import`(取り込み前の確認)は、この手続きに使わず、どちらも削除した。設備の空きの調査は、`mrp_run` の内部で行い、結果は `trans_mrp_load`(`MrpLoadPage`)に残る。
         1.  `mrp_purge`(破棄・失効して 30 日を過ぎた実行の削除)は、`mrp_run` の中で、新規 MRP(`p_mode` 1)のときだけ呼ぶ(失敗しても MRP は続ける)。画面は呼ばない。
 
 ## 参照するモデル

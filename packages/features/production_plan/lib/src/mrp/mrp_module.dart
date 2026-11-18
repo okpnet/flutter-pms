@@ -13,15 +13,44 @@ class MrpModule implements FeatureModule, MenuContributor {
 
   static const path = '/mrp';
 
+  /// 再MRP の対象の受注明細を渡すクエリ。例: `/mrp?redo=1&od=<id>,<id>`
+  static const redoQuery = 'redo';
+  static const orderDetailsQuery = 'od';
+
+  /// 遷移先からパスを作る。再MRP・対象の受注明細があれば、クエリに入れる。
+  static String locationFor(MrpDestination d) {
+    final ids = [for (final id in d.orderDetailIds) if (id.isNotEmpty) id];
+    final redo = d.redo || ids.isNotEmpty;
+    if (!redo) return path;
+    return Uri(
+      path: path,
+      queryParameters: {
+        redoQuery: '1',
+        if (ids.isNotEmpty) orderDetailsQuery: ids.join(','),
+      },
+    ).toString();
+  }
+
   @override
   List<RouteBase> get routes => [
-    GoRoute(path: path, builder: (context, state) => const MrpPage()),
+    GoRoute(
+      path: path,
+      builder: (context, state) {
+        final od = state.uri.queryParameters[orderDetailsQuery] ?? '';
+        final ids = [for (final id in od.split(',')) if (id.isNotEmpty) id];
+        return MrpPage(
+          initialRedo:
+              state.uri.queryParameters[redoQuery] == '1' || ids.isNotEmpty,
+          initialOrderDetailIds: ids,
+        );
+      },
+    ),
   ];
 
   @override
   String? locationOf(PageDestination<Object?> destination) =>
       switch (destination) {
-        MrpDestination() => path,
+        final MrpDestination d => locationFor(d),
         _ => null,
       };
 
