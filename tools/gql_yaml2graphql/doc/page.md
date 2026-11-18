@@ -497,12 +497,44 @@
     +   担当者実効アクセスパス台帳[StaffEffectiveAccessPathPage]
 
 1.  2026-11 追加分(受注・発注まわりの計画変更・精算・返品・支給・操作の DB 関数、書き込み用の登録(Create)など。モデルパッケージの YAML ごと)
+    1.  organization_model/staff_icon.yaml
+        +   StaffIcon 台帳[StaffIconPage]
+        +   StaffIcon 情報[StaffIconPageEdit]
+        +   StaffIconAppellation 登録・更新(共通関数)[StaffIconAppellationSavePageCall]
+        +   OrganizationFileBody 項目[OrganizationFileBodyFields]<!--ファイル(trans_file)の名前・種類-->
     1.  organization_model/staff.yaml
         +   StaffHistoryLatest 台帳[StaffHistoryLatestPage]<!--更新者の履歴IDに使う。担当者の最新の履歴IDを読む-->
     1.  plan_change_model/plan_change.yaml
         +   PlanChange 台帳[PlanChangePage]
         +   PlanChangeUnreflected 台帳[PlanChangeUnreflectedPage]
         +   PlanChange 情報[PlanChangePageEdit]
+        +   PlanChangeItem 項目[PlanChangeItemFields]<!--計画変更の品目(コードと名称だけ)-->
+        +   PlanChangeOrderDetail 項目[PlanChangeOrderDetailFields]<!--受注明細(記号だけ)-->
+        +   CancelOpenItem 台帳[CancelOpenItemPage]<!--未処置一覧(キャンセル・停止・打ち切りのあと)-->
+        +   PlanChangeSettlementKind 台帳[PlanChangeSettlementKindPage]<!--引き渡しの精算の選択肢-->
+        +   InventoryRequestRelease 登録[PlanChangeInventoryRequestReleasePageCall]
+        +   InventoryRequestHold 登録[PlanChangeInventoryRequestHoldPageCall]
+        +   LotRelease 登録[PlanChangeLotReleasePageCall]
+        +   LotHold 登録[PlanChangeLotHoldPageCall]
+        +   LotScrap 登録[PlanChangeLotScrapPageCall]
+        +   LotDeliver 登録[PlanChangeLotDeliverPageCall]<!--精算(区分・金額・受注明細)も同じトランザクションで登録できる-->
+        +   ShippingOrderDetailCancel 登録[PlanChangeShippingOrderDetailCancelPageCall]
+        +   PurchaseDetailCancel 登録[PlanChangePurchaseDetailCancelPageCall]
+    1.  production_plan_model/order_detail_planning.yaml
+        +   OrderDetailPlanning 台帳[OrderDetailPlanningPage]<!--受注明細の計画状況(未計画かどうか)-->
+    1.  quality_document_model/document.yaml
+        +   QualityDocumentFileBody 項目[QualityDocumentFileBodyFields]<!--ファイル(trans_file)の名前・種類-->
+        +   DocumentReport 台帳[DocumentReportPage]
+    1.  quality_model/complaint.yaml
+        +   ComplaintFileBody 項目[ComplaintFileBodyFields]<!--ファイル(trans_file)の名前・種類-->
+    1.  resource_model/equipment_tag.yaml
+        +   EquipmentTag 台帳[EquipmentTagPage]
+        +   EquipmentTag 情報[EquipmentTagPageEdit]
+        +   EquipmentTagAppellation 登録・更新(共通関数)[EquipmentTagAppellationSavePageCall]
+        +   ResourceFileBody 項目[ResourceFileBodyFields]<!--ファイル(trans_file)の名前・種類-->
+    1.  resource_model/maintenance.yaml
+        +   InspectionFile 情報[InspectionFilePageEdit]
+        +   InspectionFileLabel 登録・更新(共通関数)[InspectionFileLabelSavePageCall]
     1.  production_plan_model/plan.yaml
         +   OperationsPlanSetStop 登録[OperationsPlanSetStopPageCall]
         +   OperationsPlanDiscontinue 登録[OperationsPlanDiscontinuePageCall]
@@ -565,9 +597,5 @@
     1.  work_record_model/owner.yaml
         +   VisiterOwner 台帳[VisiterOwnerPage]
         +   ExternalProperty 台帳[ExternalPropertyPage]
-        +   InventoryRequestRelease 登録[InventoryRequestReleasePageCall]
-        +   InventoryRequestHold 登録[InventoryRequestHoldPageCall]
-        +   LotRelease 登録[LotReleasePageCall]
-        +   LotHold 登録[LotHoldPageCall]
-        +   LotScrap 登録[LotScrapPageCall]
-        +   LotDeliver 登録[LotDeliverPageCall]
+        +   VisiterOwnerRebuild 登録[VisiterOwnerRebuildPageCall]<!--管理者だけ。所有者の決め直し-->
+        +   WorkRecordFileBody 項目[WorkRecordFileBodyFields]<!--ファイル(trans_file)の名前・種類-->
