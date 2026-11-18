@@ -11,8 +11,9 @@ import '../i18n/strings_provider.dart';
 ///
 /// 会社の情報・サマリ(従業員数・事業所数・部署数・役職数)・事業所のタイル・部署の構成・提供サービス・製品・役職を、
 /// 1 つの画面に並べ、事業所・部署・承認パターン・職員は、ここから開く(戻るボタンで戻る)。
-/// 項目は DB の列(会社・事業所・部署などの実体の項目)だけを使う。画面案にあって DB に無いもの
-/// (従業員の区分の内訳・外部委託業者数・顧客数・代表者の役職)は、出さない。
+/// 項目は DB の列(会社・事業所・部署などの実体の項目)だけを使う。事業所の在籍人数は、割当から数える(編集不要の集計)。
+/// 画面案にあって取得できないもの(従業員の区分の内訳・外部委託業者数・顧客数・代表者の役職)は、出さない
+/// (`issue/20261118_0002.md` の 5-2)。
 ///
 /// パターン: Facade(複数の実体の取得元を、1 つの概要の画面にまとめる)
 class CompanyHomePage extends ConsumerStatefulWidget {
@@ -33,6 +34,15 @@ class _CompanyHomePageState extends ConsumerState<CompanyHomePage> {
     return repository.find(take: 100000);
   }
 
+  /// 取得できない実体(権限・通信)は、空として扱う(在籍人数の集計だけが欠ける。概要の画面は出す)。
+  Future<List<EntityRecord>> _allOrEmpty(String key) async {
+    try {
+      return await _all(key);
+    } on Object {
+      return const [];
+    }
+  }
+
   Future<_Data> _load() async {
     final companies = await _all('company');
     return _Data(
@@ -42,7 +52,20 @@ class _CompanyHomePageState extends ConsumerState<CompanyHomePage> {
       positions: await _all('position'),
       provisions: await _all('provision'),
       staffCount: (await _all('staff')).length,
+      siteHeadcounts: _headcounts(await _allOrEmpty('assignment')),
     );
+  }
+
+  /// 事業所ごとの在籍人数(割当の担当者の数。同じ担当者は 1 人)。事業所の台帳の列は無いため、割当から数える(編集不要の集計)。
+  Map<String, int> _headcounts(List<EntityRecord> assignments) {
+    final staffBySite = <String, Set<String>>{};
+    for (final a in assignments) {
+      final site = a.valueOf('site');
+      final staff = a.valueOf('staff');
+      if (site.isEmpty || staff.isEmpty) continue;
+      staffBySite.putIfAbsent(site, () => {}).add(staff);
+    }
+    return {for (final e in staffBySite.entries) e.key: e.value.length};
   }
 
   /// ほかの画面を開く。戻ってきたら、概要を読み直す。
@@ -129,13 +152,23 @@ class _CompanyHomePageState extends ConsumerState<CompanyHomePage> {
                       spacing: 40,
                       runSpacing: 16,
                       children: [
-                        _Fact(label('pronunciation'), _field(company, 'pronunciation')),
+                        _Fact(
+                          label('pronunciation'),
+                          _field(company, 'pronunciation'),
+                        ),
                         _Fact(label('nickname'), _field(company, 'nickname')),
                         _Fact(label('ceo'), _field(company, 'ceo')),
-                        _Fact(label('web_page'), _field(company, 'web_page'), link: true),
+                        _Fact(
+                          label('web_page'),
+                          _field(company, 'web_page'),
+                          link: true,
+                        ),
                         _Fact(t.address as String, _address(company)),
                         _Fact(label('phone'), _field(company, 'phone')),
-                        _Fact(label('fax_number'), _field(company, 'fax_number')),
+                        _Fact(
+                          label('fax_number'),
+                          _field(company, 'fax_number'),
+                        ),
                       ],
                     ),
                     if (_field(company, 'remarks').isNotEmpty)
@@ -147,7 +180,9 @@ class _CompanyHomePageState extends ConsumerState<CompanyHomePage> {
         // --- サマリ ---
         Text(
           t.summary as String,
-          style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
+          style: theme.textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.w700,
+          ),
         ),
         const SizedBox(height: 12),
         Wrap(
@@ -186,7 +221,8 @@ class _CompanyHomePageState extends ConsumerState<CompanyHomePage> {
               unit: t.unitPosition as String,
               onTap: company == null
                   ? null
-                  : () => _open(EntityEditDestination('company', id: company.id)),
+                  : () =>
+                        _open(EntityEditDestination('company', id: company.id)),
             ),
           ],
         ),
@@ -215,6 +251,8 @@ class _CompanyHomePageState extends ConsumerState<CompanyHomePage> {
                   code: _field(s, 'code'),
                   name: _field(s, 'name'),
                   address: _address(s),
+                  headcount:
+                      '${d.siteHeadcounts[s.id] ?? 0}${t.unitPerson as String}',
                   detail: t.detail as String,
                   onTap: () => _open(EntityEditDestination('site', id: s.id)),
                 ),
@@ -296,7 +334,8 @@ class _CompanyHomePageState extends ConsumerState<CompanyHomePage> {
           action: _EditButton(
             key: const ValueKey('homeApprovalEdit'),
             label: t.open as String,
-            onPressed: () => _open(const EntityListDestination('approvalpattern')),
+            onPressed: () =>
+                _open(const EntityListDestination('approvalpattern')),
           ),
         ),
       ],
@@ -311,7 +350,10 @@ class _CompanyHomePageState extends ConsumerState<CompanyHomePage> {
     for (final r in d.departments) {
       children[r.parentId] = (children[r.parentId] ?? 0) + 1;
     }
-    final tops = [for (final r in d.departments) if (r.parentId == null) r];
+    final tops = [
+      for (final r in d.departments)
+        if (r.parentId == null) r,
+    ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -346,6 +388,7 @@ class _Data {
     required this.positions,
     required this.provisions,
     required this.staffCount,
+    required this.siteHeadcounts,
   });
 
   final EntityRecord? company;
@@ -354,11 +397,18 @@ class _Data {
   final List<EntityRecord> positions;
   final List<EntityRecord> provisions;
   final int staffCount;
+  final Map<String, int> siteHeadcounts;
 }
 
 /// 枠(カード)。見出しとアイコン・右の操作は、あるときだけ。
 class _Card extends StatelessWidget {
-  const _Card({super.key, this.title, this.icon, this.action, required this.child});
+  const _Card({
+    super.key,
+    this.title,
+    this.icon,
+    this.action,
+    required this.child,
+  });
 
   final String? title;
   final IconData? icon;
@@ -416,7 +466,9 @@ class _Section extends StatelessWidget {
       children: [
         Text(
           title,
-          style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
+          style: theme.textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.w700,
+          ),
         ),
         ?action,
         const Spacer(),
@@ -472,7 +524,9 @@ class _Fact extends StatelessWidget {
             value.isEmpty ? '-' : value,
             style: theme.textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.w700,
-              color: link && value.isNotEmpty ? theme.colorScheme.primary : null,
+              color: link && value.isNotEmpty
+                  ? theme.colorScheme.primary
+                  : null,
             ),
           ),
         ],
@@ -556,6 +610,7 @@ class _SiteTile extends StatelessWidget {
     required this.code,
     required this.name,
     required this.address,
+    required this.headcount,
     required this.detail,
     required this.onTap,
   });
@@ -563,6 +618,7 @@ class _SiteTile extends StatelessWidget {
   final String code;
   final String name;
   final String address;
+  final String headcount;
   final String detail;
   final VoidCallback onTap;
 
@@ -594,6 +650,18 @@ class _SiteTile extends StatelessWidget {
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
+                ),
+                Row(
+                  key: const ValueKey('siteHeadcount'),
+                  children: [
+                    Icon(
+                      Icons.people_outline,
+                      size: 16,
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(headcount, style: theme.textTheme.bodySmall),
+                  ],
                 ),
                 Align(
                   alignment: Alignment.centerRight,
