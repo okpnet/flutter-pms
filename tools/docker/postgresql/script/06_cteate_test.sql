@@ -3821,8 +3821,8 @@ ALTER TABLE tests.trans_visiter_owner ADD CONSTRAINT trans_visiter_owner_ix1 UNI
 
 ALTER TABLE tests.trans_visiter_owner ADD CONSTRAINT trans_visiter_owner_ix2 UNIQUE (symbol);
 
-COMMENT ON TABLE tests.trans_visiter_owner IS '支給所有権
-@omit create,update,delete';
+COMMENT ON TABLE tests.trans_visiter_owner IS '@omit create,update,delete
+支給所有権';
 
 COMMENT ON COLUMN tests.trans_visiter_owner.trans_visiter_owner_id IS '支給所有権ID';
 
@@ -13578,22 +13578,31 @@ COMMENT ON COLUMN tests.trans_mrp_load.remove IS '削除';
 
 CREATE OR REPLACE FUNCTION tests.mrp_purge(p_keep_days integer DEFAULT 30) RETURNS integer AS $$
 DECLARE
-    v_n integer;
+    v_run uuid;
+    v_n integer := 0;
 BEGIN
-    DROP TABLE IF EXISTS _mrp_purge;
-    CREATE TEMP TABLE _mrp_purge ON COMMIT DROP AS
-    SELECT trans_mrp_run_id FROM tests.trans_mrp_run
-    WHERE status IN (2, 3) AND run_at < now() - make_interval(days => p_keep_days);
-    DELETE FROM tests.trans_mrp_pegging WHERE trans_mrp_run_id IN (SELECT trans_mrp_run_id FROM _mrp_purge);
-    DELETE FROM tests.trans_mrp_load WHERE trans_mrp_run_id IN (SELECT trans_mrp_run_id FROM _mrp_purge);
-    -- 提案と提案工程は相互に参照する (FKは DEFERRABLE なので同じトランザクションでまとめて消せる)
-    DELETE FROM tests.trans_mrp_suggestion_task WHERE trans_mrp_suggestion_id IN (
-        SELECT trans_mrp_suggestion_id FROM tests.trans_mrp_suggestion
-        WHERE trans_mrp_run_id IN (SELECT trans_mrp_run_id FROM _mrp_purge));
-    DELETE FROM tests.trans_mrp_suggestion WHERE trans_mrp_run_id IN (SELECT trans_mrp_run_id FROM _mrp_purge);
-    DELETE FROM tests.trans_mrp_run WHERE trans_mrp_run_id IN (SELECT trans_mrp_run_id FROM _mrp_purge);
-    GET DIAGNOSTICS v_n = ROW_COUNT;
-    DROP TABLE _mrp_purge;
+    FOR v_run IN
+        SELECT r.trans_mrp_run_id FROM tests.trans_mrp_run AS r
+        WHERE r.status IN (2, 3) AND r.run_at < now() - make_interval(days => p_keep_days)
+        ORDER BY r.run_at
+    LOOP
+        -- 実行ごとに、取り消せる単位(サブトランザクション)で削除する。消せない参照が残る実行だけを残し、ほかの実行は消す
+        BEGIN
+            DELETE FROM tests.trans_mrp_pegging WHERE trans_mrp_run_id = v_run;
+            DELETE FROM tests.trans_mrp_load WHERE trans_mrp_run_id = v_run;
+            -- 提案と提案工程は相互に参照する (FKは DEFERRABLE なので、同じ実行の中でまとめて消す)
+            DELETE FROM tests.trans_mrp_suggestion_task WHERE trans_mrp_suggestion_id IN (
+                SELECT trans_mrp_suggestion_id FROM tests.trans_mrp_suggestion WHERE trans_mrp_run_id = v_run);
+            DELETE FROM tests.trans_mrp_suggestion WHERE trans_mrp_run_id = v_run;
+            DELETE FROM tests.trans_mrp_run WHERE trans_mrp_run_id = v_run;
+            -- 遅延の外部キーを、ここで検査する(違反は、この実行の削除だけを取り消す)
+            SET CONSTRAINTS ALL IMMEDIATE;
+            SET CONSTRAINTS ALL DEFERRED;
+            v_n := v_n + 1;
+        EXCEPTION WHEN foreign_key_violation THEN
+            RAISE NOTICE 'mrp_purge: 実行 % は、参照が残っているため削除しません', v_run;
+        END;
+    END LOOP;
     RETURN v_n;
 END
 $$ LANGUAGE plpgsql VOLATILE;
@@ -16529,9 +16538,19 @@ CREATE OR REPLACE FUNCTION tests.lot_deliver(
     p_order_detail_id uuid DEFAULT NULL
 ) RETURNS tests.trans_plan_change AS $$
 DECLARE
-    v_st record; v_settlement uuid := p_order_detail_settlement_id;
+    v_st record; v_settlement uuid := p_order_detail_settlement_id; v_od uuid;
 BEGIN
     SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
+    -- 精算につなぐ受注明細の品目と、引き渡すロットの品目が合っているか(ロットの品目が分かるときだけ)
+    v_od := COALESCE(p_order_detail_id,
+                     (SELECT s.trans_order_detail_id FROM tests.trans_order_detail_settlement AS s
+                      WHERE s.trans_order_detail_settlement_id = p_order_detail_settlement_id));
+    IF v_od IS NOT NULL AND EXISTS (
+           SELECT 1 FROM tests.v_visiter_item AS vi
+           INNER JOIN tests.trans_order_detail AS od ON od.trans_order_detail_id = v_od
+           WHERE vi.trans_visiter_id = p_visiter_id AND vi.mstr_item_id IS NOT NULL AND vi.mstr_item_id <> od.item_id) THEN
+        RAISE EXCEPTION 'ロットの品目と、精算の受注明細の品目が違います' USING ERRCODE = 'OPR02';
+    END IF;
     -- 精算(請求書1行)を同じトランザクションで登録して、計画変更につなぐ。区分・金額・受注明細は、そろえて渡す
     IF p_settlement_kind_id IS NOT NULL OR p_settlement_amount IS NOT NULL THEN
         IF p_settlement_kind_id IS NULL OR p_settlement_amount IS NULL OR p_order_detail_id IS NULL THEN
@@ -20550,12 +20569,10 @@ BEGIN
         ON o.trans_order_id = od.trans_order_id AND o.remove IS FALSE
     INNER JOIN tests.v_order_detail_balance AS ob
         ON ob.trans_order_detail_id = od.trans_order_detail_id
-    LEFT JOIN LATERAL (
-        SELECT x.* FROM tests.trans_resource_plan AS x
-        WHERE x.trans_order_detail_id = od.trans_order_detail_id
-          AND x.remove IS FALSE AND x.parent_trans_operations_plan_id IS NULL
-        ORDER BY x.register_at DESC LIMIT 1
-    ) AS rp ON TRUE
+    LEFT JOIN tests.v_order_detail_plan AS pl
+        ON pl.trans_order_detail_id = od.trans_order_detail_id
+    LEFT JOIN tests.trans_resource_plan AS rp
+        ON rp.trans_resource_plan_id = pl.trans_resource_plan_id
     WHERE od.remove IS FALSE
       AND ob.quantity - ob.cancel_quantity + ob.replacement_quantity > 0
       AND NOT (od.stop IS TRUE AND rp.trans_resource_plan_id IS NULL)
@@ -22485,6 +22502,58 @@ COMMENT ON COLUMN tests.v_mrp_suggestion.is_safety_stock IS '計画区分: 安�
 COMMENT ON COLUMN tests.v_mrp_suggestion.is_dependent_demand IS '計画区分: 従属';
 COMMENT ON COLUMN tests.v_mrp_suggestion.run_open IS 'MRP 実行が計算済み(確定・破棄を待っている)';
 COMMENT ON COLUMN tests.v_mrp_suggestion.run_committed IS 'MRP 実行が確定済み';
+
+CREATE VIEW tests.v_order_detail_plan AS
+SELECT
+    od.trans_order_detail_id
+    , rp.trans_resource_plan_id
+    , (rp.trans_resource_plan_id IS NOT NULL) AS planned
+FROM tests.trans_order_detail AS od
+LEFT JOIN LATERAL (
+    SELECT x.trans_resource_plan_id FROM tests.trans_resource_plan AS x
+    WHERE x.trans_order_detail_id = od.trans_order_detail_id
+      AND x.remove IS FALSE AND x.parent_trans_operations_plan_id IS NULL
+    ORDER BY x.register_at DESC, x.trans_resource_plan_id LIMIT 1
+) AS rp ON TRUE;
+
+COMMENT ON VIEW tests.v_order_detail_plan IS '@primaryKey trans_order_detail_id
+@foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)
+@foreignKey (trans_resource_plan_id) references trans_resource_plan (trans_resource_plan_id)
+受注明細の資材計画(受注明細に直接つながる最新の資材計画。mrp_run の受注の需要が使う)';
+
+COMMENT ON COLUMN tests.v_order_detail_plan.trans_resource_plan_id IS '受注明細に直接つながる最新の資材計画(論理削除と、下位の部品の資材計画を除く。無ければ NULL)';
+COMMENT ON COLUMN tests.v_order_detail_plan.planned IS '計画済み(資材計画が有る。MRP が計画した)';
+
+CREATE VIEW tests.v_order_detail_planning AS
+SELECT
+    ob.trans_order_detail_id
+    , ob.symbol
+    , ob.trans_order_id
+    , ob.item_id
+    , pl.trans_resource_plan_id
+    , pl.planned
+    , (ob.quantity - ob.cancel_quantity + ob.replacement_quantity > 0) AS has_demand
+    , ob.stop AS stopped
+    , (NOT pl.planned
+       AND ob.quantity - ob.cancel_quantity + ob.replacement_quantity > 0
+       AND ob.stop IS NOT TRUE) AS to_plan
+FROM tests.v_order_detail_balance AS ob
+INNER JOIN tests.trans_order AS o ON o.trans_order_id = ob.trans_order_id AND o.remove IS FALSE
+INNER JOIN tests.v_order_detail_plan AS pl ON pl.trans_order_detail_id = ob.trans_order_detail_id;
+
+COMMENT ON VIEW tests.v_order_detail_planning IS '@primaryKey trans_order_detail_id
+@unique symbol
+@foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)
+@foreignKey (trans_order_id) references trans_order (trans_order_id)
+@foreignKey (item_id) references mstr_item (mstr_item_id)
+@foreignKey (trans_resource_plan_id) references trans_resource_plan (trans_resource_plan_id)
+受注明細の計画状況(MRP の対象になるか)';
+
+COMMENT ON COLUMN tests.v_order_detail_planning.trans_resource_plan_id IS '受注明細に直接つながる最新の資材計画(無ければ NULL)';
+COMMENT ON COLUMN tests.v_order_detail_planning.planned IS '計画済み(資材計画が有る)';
+COMMENT ON COLUMN tests.v_order_detail_planning.has_demand IS '需要が有る(数量 − キャンセル数量 + 代品ありの返品 > 0。全部キャンセル済みは false)';
+COMMENT ON COLUMN tests.v_order_detail_planning.stopped IS '停止中(MRP は停止中の受注明細を凍結する)';
+COMMENT ON COLUMN tests.v_order_detail_planning.to_plan IS '次の受注 MRP が計画する(未計画・需要が有る・停止していない。mrp_run の受注の需要の判定と同じ)';
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_shared_dictionary() RETURNS trigger AS
 $BODY$
