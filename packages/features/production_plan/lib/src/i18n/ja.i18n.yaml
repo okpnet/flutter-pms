@@ -34,6 +34,8 @@ mrp:
   failure:
     title: 計算を完了できませんでした
     message: しばらく時間をおいて、もう一度実行してください。
+    pendingRemains: 要判断の提案が残っています。採用か却下を決めてから確定してください。
+    cannotCommit: 計算のあとにデータが更新された、または新しく計算したため、この結果は確定できません。もう一度計算してください。
     code: エラーコード
   result:
     title: MRPの結果（提案の一覧）
@@ -69,6 +71,37 @@ mrp:
     subjectEquipment: 設備(過負荷)
     subjectStock: 在庫(過剰)
     subjectMaster: マスタ(不備)
+  check:
+    title: 1. 調査（マスタの不備）
+    note: MRPの前に、品目のマスタの不備（工程・仕入先・カレンダーなど）を調べます。調べるだけで、何も変えません。不備があってもMRPは実行できますが、結果に「マスタ不備」の提案として出ます。
+    run: 不備を調べる
+    running: 調査中
+    none: 不備は見つかりませんでした。
+    count: 不備の件数
+    more: 重いものから30件までを表示しています。
+  step:
+    calc: 計算して確認する
+    calcNote: 「MRPを実行」は、要判断が無ければそのまま確定します。「計算して確認する」は、計算だけして、結果を確認・判断してから確定または破棄します。
+    ok: 実行する
+    awaitingTitle: 確定待ちです
+    awaitingNote: 要判断の提案の採用・却下を決めてから、確定します。確定するまで、計画データは変わりません。確定しないで新しく計算すると、この結果は失効します。
+    resumed: 前回の計算の確定待ちを引き継ぎました。
+    pendingLeft: 判断が残っている提案
+    adoptShown: 表示中の要判断を採用
+    rejectShown: 表示中の要判断を却下
+    commit: 確定する
+    commitTitle: 確定しますか？
+    commitNote: 採用された提案が、資材計画・発注・生産計画・引当予約に反映されます。
+    commitForce: 要判断を却下して確定
+    commitForceTitle: 要判断を却下して確定しますか？
+    commitForceNote: 要判断のまま残っている提案は、すべて却下として確定します。また、計算のあとにデータが更新されたかの確認を省きます。
+    discard: 破棄する
+    discardTitle: この結果を破棄しますか？
+    discardNote: 計画データは変わりません。
+  state:
+    title: 状態
+    committed: 確定済み
+    awaiting: 確定待ち
   decision:
     pending: 要判断
     adopted: 採用

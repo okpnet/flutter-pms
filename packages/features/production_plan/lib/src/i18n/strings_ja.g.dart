@@ -79,6 +79,9 @@ class ProductionPlanStrings$mrp$ja {
 	late final ProductionPlanStrings$mrp$failure$ja failure = ProductionPlanStrings$mrp$failure$ja.internal(_root);
 	late final ProductionPlanStrings$mrp$result$ja result = ProductionPlanStrings$mrp$result$ja.internal(_root);
 	late final ProductionPlanStrings$mrp$columns$ja columns = ProductionPlanStrings$mrp$columns$ja.internal(_root);
+	late final ProductionPlanStrings$mrp$check$ja check = ProductionPlanStrings$mrp$check$ja.internal(_root);
+	late final ProductionPlanStrings$mrp$step$ja step = ProductionPlanStrings$mrp$step$ja.internal(_root);
+	late final ProductionPlanStrings$mrp$state$ja state = ProductionPlanStrings$mrp$state$ja.internal(_root);
 	late final ProductionPlanStrings$mrp$decision$ja decision = ProductionPlanStrings$mrp$decision$ja.internal(_root);
 }
 
@@ -220,6 +223,12 @@ class ProductionPlanStrings$mrp$failure$ja {
 	/// ja: 'しばらく時間をおいて、もう一度実行してください。'
 	String get message => 'しばらく時間をおいて、もう一度実行してください。';
 
+	/// ja: '要判断の提案が残っています。採用か却下を決めてから確定してください。'
+	String get pendingRemains => '要判断の提案が残っています。採用か却下を決めてから確定してください。';
+
+	/// ja: '計算のあとにデータが更新された、または新しく計算したため、この結果は確定できません。もう一度計算してください。'
+	String get cannotCommit => '計算のあとにデータが更新された、または新しく計算したため、この結果は確定できません。もう一度計算してください。';
+
 	/// ja: 'エラーコード'
 	String get code => 'エラーコード';
 }
@@ -336,6 +345,117 @@ class ProductionPlanStrings$mrp$columns$ja {
 
 	/// ja: 'マスタ(不備)'
 	String get subjectMaster => 'マスタ(不備)';
+}
+
+// Path: mrp.check
+class ProductionPlanStrings$mrp$check$ja {
+	ProductionPlanStrings$mrp$check$ja.internal(this._root);
+
+	final ProductionPlanStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '1. 調査（マスタの不備）'
+	String get title => '1. 調査（マスタの不備）';
+
+	/// ja: 'MRPの前に、品目のマスタの不備（工程・仕入先・カレンダーなど）を調べます。調べるだけで、何も変えません。不備があってもMRPは実行できますが、結果に「マスタ不備」の提案として出ます。'
+	String get note => 'MRPの前に、品目のマスタの不備（工程・仕入先・カレンダーなど）を調べます。調べるだけで、何も変えません。不備があってもMRPは実行できますが、結果に「マスタ不備」の提案として出ます。';
+
+	/// ja: '不備を調べる'
+	String get run => '不備を調べる';
+
+	/// ja: '調査中'
+	String get running => '調査中';
+
+	/// ja: '不備は見つかりませんでした。'
+	String get none => '不備は見つかりませんでした。';
+
+	/// ja: '不備の件数'
+	String get count => '不備の件数';
+
+	/// ja: '重いものから30件までを表示しています。'
+	String get more => '重いものから30件までを表示しています。';
+}
+
+// Path: mrp.step
+class ProductionPlanStrings$mrp$step$ja {
+	ProductionPlanStrings$mrp$step$ja.internal(this._root);
+
+	final ProductionPlanStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '計算して確認する'
+	String get calc => '計算して確認する';
+
+	/// ja: '「MRPを実行」は、要判断が無ければそのまま確定します。「計算して確認する」は、計算だけして、結果を確認・判断してから確定または破棄します。'
+	String get calcNote => '「MRPを実行」は、要判断が無ければそのまま確定します。「計算して確認する」は、計算だけして、結果を確認・判断してから確定または破棄します。';
+
+	/// ja: '実行する'
+	String get ok => '実行する';
+
+	/// ja: '確定待ちです'
+	String get awaitingTitle => '確定待ちです';
+
+	/// ja: '要判断の提案の採用・却下を決めてから、確定します。確定するまで、計画データは変わりません。確定しないで新しく計算すると、この結果は失効します。'
+	String get awaitingNote => '要判断の提案の採用・却下を決めてから、確定します。確定するまで、計画データは変わりません。確定しないで新しく計算すると、この結果は失効します。';
+
+	/// ja: '前回の計算の確定待ちを引き継ぎました。'
+	String get resumed => '前回の計算の確定待ちを引き継ぎました。';
+
+	/// ja: '判断が残っている提案'
+	String get pendingLeft => '判断が残っている提案';
+
+	/// ja: '表示中の要判断を採用'
+	String get adoptShown => '表示中の要判断を採用';
+
+	/// ja: '表示中の要判断を却下'
+	String get rejectShown => '表示中の要判断を却下';
+
+	/// ja: '確定する'
+	String get commit => '確定する';
+
+	/// ja: '確定しますか？'
+	String get commitTitle => '確定しますか？';
+
+	/// ja: '採用された提案が、資材計画・発注・生産計画・引当予約に反映されます。'
+	String get commitNote => '採用された提案が、資材計画・発注・生産計画・引当予約に反映されます。';
+
+	/// ja: '要判断を却下して確定'
+	String get commitForce => '要判断を却下して確定';
+
+	/// ja: '要判断を却下して確定しますか？'
+	String get commitForceTitle => '要判断を却下して確定しますか？';
+
+	/// ja: '要判断のまま残っている提案は、すべて却下として確定します。また、計算のあとにデータが更新されたかの確認を省きます。'
+	String get commitForceNote => '要判断のまま残っている提案は、すべて却下として確定します。また、計算のあとにデータが更新されたかの確認を省きます。';
+
+	/// ja: '破棄する'
+	String get discard => '破棄する';
+
+	/// ja: 'この結果を破棄しますか？'
+	String get discardTitle => 'この結果を破棄しますか？';
+
+	/// ja: '計画データは変わりません。'
+	String get discardNote => '計画データは変わりません。';
+}
+
+// Path: mrp.state
+class ProductionPlanStrings$mrp$state$ja {
+	ProductionPlanStrings$mrp$state$ja.internal(this._root);
+
+	final ProductionPlanStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '状態'
+	String get title => '状態';
+
+	/// ja: '確定済み'
+	String get committed => '確定済み';
+
+	/// ja: '確定待ち'
+	String get awaiting => '確定待ち';
 }
 
 // Path: mrp.decision
@@ -842,6 +962,8 @@ extension on ProductionPlanStrings {
 			'mrp.mode.redo' => '再MRP',
 			'mrp.failure.title' => '計算を完了できませんでした',
 			'mrp.failure.message' => 'しばらく時間をおいて、もう一度実行してください。',
+			'mrp.failure.pendingRemains' => '要判断の提案が残っています。採用か却下を決めてから確定してください。',
+			'mrp.failure.cannotCommit' => '計算のあとにデータが更新された、または新しく計算したため、この結果は確定できません。もう一度計算してください。',
 			'mrp.failure.code' => 'エラーコード',
 			'mrp.result.title' => 'MRPの結果（提案の一覧）',
 			'mrp.result.search' => '検索',
@@ -875,6 +997,34 @@ extension on ProductionPlanStrings {
 			'mrp.columns.subjectEquipment' => '設備(過負荷)',
 			'mrp.columns.subjectStock' => '在庫(過剰)',
 			'mrp.columns.subjectMaster' => 'マスタ(不備)',
+			'mrp.check.title' => '1. 調査（マスタの不備）',
+			'mrp.check.note' => 'MRPの前に、品目のマスタの不備（工程・仕入先・カレンダーなど）を調べます。調べるだけで、何も変えません。不備があってもMRPは実行できますが、結果に「マスタ不備」の提案として出ます。',
+			'mrp.check.run' => '不備を調べる',
+			'mrp.check.running' => '調査中',
+			'mrp.check.none' => '不備は見つかりませんでした。',
+			'mrp.check.count' => '不備の件数',
+			'mrp.check.more' => '重いものから30件までを表示しています。',
+			'mrp.step.calc' => '計算して確認する',
+			'mrp.step.calcNote' => '「MRPを実行」は、要判断が無ければそのまま確定します。「計算して確認する」は、計算だけして、結果を確認・判断してから確定または破棄します。',
+			'mrp.step.ok' => '実行する',
+			'mrp.step.awaitingTitle' => '確定待ちです',
+			'mrp.step.awaitingNote' => '要判断の提案の採用・却下を決めてから、確定します。確定するまで、計画データは変わりません。確定しないで新しく計算すると、この結果は失効します。',
+			'mrp.step.resumed' => '前回の計算の確定待ちを引き継ぎました。',
+			'mrp.step.pendingLeft' => '判断が残っている提案',
+			'mrp.step.adoptShown' => '表示中の要判断を採用',
+			'mrp.step.rejectShown' => '表示中の要判断を却下',
+			'mrp.step.commit' => '確定する',
+			'mrp.step.commitTitle' => '確定しますか？',
+			'mrp.step.commitNote' => '採用された提案が、資材計画・発注・生産計画・引当予約に反映されます。',
+			'mrp.step.commitForce' => '要判断を却下して確定',
+			'mrp.step.commitForceTitle' => '要判断を却下して確定しますか？',
+			'mrp.step.commitForceNote' => '要判断のまま残っている提案は、すべて却下として確定します。また、計算のあとにデータが更新されたかの確認を省きます。',
+			'mrp.step.discard' => '破棄する',
+			'mrp.step.discardTitle' => 'この結果を破棄しますか？',
+			'mrp.step.discardNote' => '計画データは変わりません。',
+			'mrp.state.title' => '状態',
+			'mrp.state.committed' => '確定済み',
+			'mrp.state.awaiting' => '確定待ち',
 			'mrp.decision.pending' => '要判断',
 			'mrp.decision.adopted' => '採用',
 			'mrp.decision.rejected' => '却下',

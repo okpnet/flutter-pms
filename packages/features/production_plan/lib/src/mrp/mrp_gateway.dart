@@ -15,6 +15,43 @@ abstract interface class IMrpGateway {
     List<String> orderDetailIds = const [],
     bool acceptLate = false,
   });
+
+  /// 調査: 品目のマスタの不備を調べる(DB の `mrp_check_items`。読み取りだけで、何も変えない)。
+  /// [itemIds] が空のときは、すべての品目。
+  Future<List<MrpIssue>> check({List<String> itemIds = const []});
+
+  /// 評価: MRP を計算だけする(DB の `mrp_run`)。結果は確定待ち(計算済み)で、計画データは変わらない。
+  /// 続けて、要判断の採否([decide])のあと、確定([commit])または破棄([discard])する。
+  Future<MrpRunResult> calculate({
+    required MrpMode mode,
+    required String staffId,
+    List<String> orderDetailIds = const [],
+    bool acceptLate = false,
+  });
+
+  /// 確定待ちの実行 [runId] の、要判断の提案の採否を変える(DB の `mrp_set_decision`)。
+  /// [suggestionIds] が空のときは、実行のすべての提案(情報の提案は変わらない)。
+  Future<void> decide({
+    required String runId,
+    required bool adopt,
+    required String staffId,
+    List<String> suggestionIds = const [],
+  });
+
+  /// 実行 [runId] を確定する(DB の `mrp_commit`)。採用された提案を計画データに反映する。
+  /// 要判断が残っている・計算のあとにデータが更新されたときは、[MrpFailure](`MRP01`・`MRP03`)。
+  /// [force] は、要判断を却下として確定し、計算後の更新の確認を省く。
+  Future<MrpRunResult> commit({
+    required String runId,
+    required String staffId,
+    bool force = false,
+  });
+
+  /// 実行 [runId] を破棄する(DB の `mrp_discard`)。計画データは変わらない。
+  Future<void> discard({required String runId, required String staffId});
+
+  /// 確定待ちの実行(前回の計算で、確定も破棄もしていないもの)。無ければ null。
+  Future<MrpRunResult?> openRun();
 }
 
 /// 実体が差し込まれていないときの窓口。実行すると失敗にする(確かめていない結果を出さないため)。
@@ -30,6 +67,44 @@ class UnavailableMrpGateway implements IMrpGateway {
     List<String> orderDetailIds = const [],
     bool acceptLate = false,
   }) async => throw const MrpFailure('MRP_UNAVAILABLE', '窓口が差し込まれていません');
+
+  static const _failure = MrpFailure('MRP_UNAVAILABLE', '窓口が差し込まれていません');
+
+  @override
+  Future<List<MrpIssue>> check({List<String> itemIds = const []}) async =>
+      throw _failure;
+
+  @override
+  Future<MrpRunResult> calculate({
+    required MrpMode mode,
+    required String staffId,
+    List<String> orderDetailIds = const [],
+    bool acceptLate = false,
+  }) async => throw _failure;
+
+  @override
+  Future<void> decide({
+    required String runId,
+    required bool adopt,
+    required String staffId,
+    List<String> suggestionIds = const [],
+  }) async => throw _failure;
+
+  @override
+  Future<MrpRunResult> commit({
+    required String runId,
+    required String staffId,
+    bool force = false,
+  }) async => throw _failure;
+
+  @override
+  Future<void> discard({
+    required String runId,
+    required String staffId,
+  }) async => throw _failure;
+
+  @override
+  Future<MrpRunResult?> openRun() async => throw _failure;
 }
 
 /// 確認用の窓口(example・テスト用)。決めた時間だけ待ち、決めた結果または失敗を返す。
@@ -70,12 +145,156 @@ class DemoMrpGateway implements IMrpGateway {
     await Future<void>.delayed(duration);
     final code = failure;
     if (code != null) throw MrpFailure(code, '確認用の失敗');
+    // DB の `mrp_execute` と同じ: 要判断が無ければ、そのまま確定する(あれば確定待ちで返す)
+    final result = _newRun(mode, suggestions, commitIfNoPending: true);
+    _open = result.isCommitted ? null : result;
+    return result;
+  }
+
+  /// 確認用の調査の結果(マスタの不備)。既定は架空の 2 件。
+  List<MrpIssue> issues = const [
+    MrpIssue(
+      itemCode: 'S-3001',
+      message: '品目工程運用明細の工程運用明細または工程が削除されています',
+      severity: 1,
+      issueCode: 'ROUTING_TASK_REMOVED',
+    ),
+    MrpIssue(
+      itemCode: 'M-1002',
+      message: '仕入先が登録されていません',
+      severity: 2,
+      issueCode: 'SUPPLIER_NOT_FOUND',
+    ),
+  ];
+
+  /// 確定([commit])が失敗するコード(例: `MRP01` 要判断が残っている、`MRP03` 確定できない)。指定すると確定が必ず失敗する。
+  String? commitFailure;
+
+  /// check・decide・commit・discard の呼び出しの記録(確認用。`'commit:<runId>:force=false'` など)。
+  final List<String> operations = [];
+
+  MrpRunResult? _open;
+  int _seq = 0;
+
+  MrpRunResult _newRun(
+    MrpMode mode,
+    List<MrpSuggestion> source, {
+    required bool commitIfNoPending,
+  }) {
+    _seq++;
+    final list = [
+      for (var i = 0; i < source.length; i++)
+        source[i].id.isEmpty
+            ? source[i].withId('demo-s-$_seq-$i')
+            : source[i],
+    ];
+    final committed =
+        commitIfNoPending && !list.any((s) => s.undecided);
     return MrpRunResult(
       executedAt: _now(),
       mode: mode,
-      suggestions: suggestions,
+      suggestions: list,
+      runId: 'demo-run-$_seq',
+      isCommitted: committed,
     );
   }
+
+  @override
+  Future<List<MrpIssue>> check({List<String> itemIds = const []}) async {
+    operations.add('check:${itemIds.join(',')}');
+    await Future<void>.delayed(duration);
+    return issues;
+  }
+
+  @override
+  Future<MrpRunResult> calculate({
+    required MrpMode mode,
+    required String staffId,
+    List<String> orderDetailIds = const [],
+    bool acceptLate = false,
+  }) async {
+    calls.add({
+      'mode': mode.code,
+      'staffId': staffId,
+      'orderDetailIds': orderDetailIds,
+      'acceptLate': acceptLate,
+      'op': 'calculate',
+    });
+    await Future<void>.delayed(duration);
+    final code = failure;
+    if (code != null) throw MrpFailure(code, '確認用の失敗');
+    // 新しい計算は、前の確定待ちを失効させる(DB の `mrp_run`)
+    final result = _newRun(mode, suggestions, commitIfNoPending: false);
+    _open = result;
+    return result;
+  }
+
+  @override
+  Future<void> decide({
+    required String runId,
+    required bool adopt,
+    required String staffId,
+    List<String> suggestionIds = const [],
+  }) async {
+    operations.add(
+      'decide:$runId:${adopt ? 'adopt' : 'reject'}:${suggestionIds.join(',')}',
+    );
+    final run = _open;
+    if (run == null || run.runId != runId) {
+      throw const MrpFailure('MRP03', '確定待ちの実行ではありません');
+    }
+    _open = run.copyWith(
+      suggestions: [
+        for (final s in run.suggestions)
+          suggestionIds.isEmpty || suggestionIds.contains(s.id)
+              ? s.decided(adopt: adopt)
+              : s,
+      ],
+    );
+  }
+
+  @override
+  Future<MrpRunResult> commit({
+    required String runId,
+    required String staffId,
+    bool force = false,
+  }) async {
+    operations.add('commit:$runId:force=$force');
+    final code = commitFailure;
+    if (code != null) throw MrpFailure(code, '確認用の失敗');
+    final run = _open;
+    if (run == null || run.runId != runId) {
+      throw const MrpFailure('MRP03', '確定待ちの実行ではありません');
+    }
+    // DB の `mrp_commit`: 要判断が残っていると確定できない(force は、却下として確定する)
+    if (!force && run.suggestions.any((s) => s.undecided)) {
+      throw const MrpFailure('MRP01', '要判断が残っています');
+    }
+    final done = run.copyWith(
+      suggestions: [
+        for (final s in run.suggestions) s.decided(adopt: false),
+      ],
+      isCommitted: true,
+    );
+    _open = null;
+    return done;
+  }
+
+  @override
+  Future<void> discard({
+    required String runId,
+    required String staffId,
+  }) async {
+    operations.add('discard:$runId');
+    final run = _open;
+    if (run == null || run.runId != runId) {
+      throw const MrpFailure('MRP03', '確定待ちの実行ではありません');
+    }
+    _open = null;
+  }
+
+  @override
+  Future<MrpRunResult?> openRun() async => _open;
 
   static final demoSuggestions = <MrpSuggestion>[
     MrpSuggestion(

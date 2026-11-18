@@ -63,6 +63,9 @@ class _ProductionPlanStrings$mrp$en extends ProductionPlanStrings$mrp$ja {
 	@override late final _ProductionPlanStrings$mrp$failure$en failure = _ProductionPlanStrings$mrp$failure$en._(_root);
 	@override late final _ProductionPlanStrings$mrp$result$en result = _ProductionPlanStrings$mrp$result$en._(_root);
 	@override late final _ProductionPlanStrings$mrp$columns$en columns = _ProductionPlanStrings$mrp$columns$en._(_root);
+	@override late final _ProductionPlanStrings$mrp$check$en check = _ProductionPlanStrings$mrp$check$en._(_root);
+	@override late final _ProductionPlanStrings$mrp$step$en step = _ProductionPlanStrings$mrp$step$en._(_root);
+	@override late final _ProductionPlanStrings$mrp$state$en state = _ProductionPlanStrings$mrp$state$en._(_root);
 	@override late final _ProductionPlanStrings$mrp$decision$en decision = _ProductionPlanStrings$mrp$decision$en._(_root);
 }
 
@@ -130,6 +133,8 @@ class _ProductionPlanStrings$mrp$failure$en extends ProductionPlanStrings$mrp$fa
 	// Translations
 	@override String get title => 'The calculation could not be completed';
 	@override String get message => 'Please wait a while and run it again.';
+	@override String get pendingRemains => 'Suggestions that need a decision remain. Adopt or reject them, then commit.';
+	@override String get cannotCommit => 'This result cannot be committed because data changed after the calculation, or a newer calculation exists. Please calculate again.';
 	@override String get code => 'Error code';
 }
 
@@ -183,6 +188,61 @@ class _ProductionPlanStrings$mrp$columns$en extends ProductionPlanStrings$mrp$co
 	@override String get subjectMaster => 'Master data (issue)';
 }
 
+// Path: mrp.check
+class _ProductionPlanStrings$mrp$check$en extends ProductionPlanStrings$mrp$check$ja {
+	_ProductionPlanStrings$mrp$check$en._(ProductionPlanStringsEn root) : this._root = root, super.internal(root);
+
+	final ProductionPlanStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '1. Check (master data problems)';
+	@override String get note => 'Before MRP, checks item master problems (routings, suppliers, calendars, and so on). It only reads and changes nothing. MRP can still run with problems, and they appear as "master problem" suggestions in the result.';
+	@override String get run => 'Check for problems';
+	@override String get running => 'Checking';
+	@override String get none => 'No problems were found.';
+	@override String get count => 'Problems';
+	@override String get more => 'Showing up to 30, most serious first.';
+}
+
+// Path: mrp.step
+class _ProductionPlanStrings$mrp$step$en extends ProductionPlanStrings$mrp$step$ja {
+	_ProductionPlanStrings$mrp$step$en._(ProductionPlanStringsEn root) : this._root = root, super.internal(root);
+
+	final ProductionPlanStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get calc => 'Calculate and review';
+	@override String get calcNote => '"Run MRP" commits straight away when nothing needs a decision. "Calculate and review" only calculates; you review and decide, then commit or discard.';
+	@override String get ok => 'Run';
+	@override String get awaitingTitle => 'Waiting to be committed';
+	@override String get awaitingNote => 'Decide to adopt or reject the suggestions that need a decision, then commit. Planning data does not change until you commit. Calculating again without committing invalidates this result.';
+	@override String get resumed => 'Picked up the previous calculation that was waiting to be committed.';
+	@override String get pendingLeft => 'Suggestions still waiting for a decision';
+	@override String get adoptShown => 'Adopt the shown suggestions';
+	@override String get rejectShown => 'Reject the shown suggestions';
+	@override String get commit => 'Commit';
+	@override String get commitTitle => 'Commit this result?';
+	@override String get commitNote => 'Adopted suggestions are applied to material plans, purchase orders, production plans, and allocation reservations.';
+	@override String get commitForce => 'Reject pending and commit';
+	@override String get commitForceTitle => 'Reject the pending suggestions and commit?';
+	@override String get commitForceNote => 'Every suggestion still waiting for a decision is committed as rejected, and the check for data updated after the calculation is skipped.';
+	@override String get discard => 'Discard';
+	@override String get discardTitle => 'Discard this result?';
+	@override String get discardNote => 'Planning data does not change.';
+}
+
+// Path: mrp.state
+class _ProductionPlanStrings$mrp$state$en extends ProductionPlanStrings$mrp$state$ja {
+	_ProductionPlanStrings$mrp$state$en._(ProductionPlanStringsEn root) : this._root = root, super.internal(root);
+
+	final ProductionPlanStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Status';
+	@override String get committed => 'Committed';
+	@override String get awaiting => 'Waiting to be committed';
+}
+
 // Path: mrp.decision
 class _ProductionPlanStrings$mrp$decision$en extends ProductionPlanStrings$mrp$decision$ja {
 	_ProductionPlanStrings$mrp$decision$en._(ProductionPlanStringsEn root) : this._root = root, super.internal(root);
@@ -233,6 +293,8 @@ extension on ProductionPlanStringsEn {
 			'mrp.mode.redo' => 'Re-MRP',
 			'mrp.failure.title' => 'The calculation could not be completed',
 			'mrp.failure.message' => 'Please wait a while and run it again.',
+			'mrp.failure.pendingRemains' => 'Suggestions that need a decision remain. Adopt or reject them, then commit.',
+			'mrp.failure.cannotCommit' => 'This result cannot be committed because data changed after the calculation, or a newer calculation exists. Please calculate again.',
 			'mrp.failure.code' => 'Error code',
 			'mrp.result.title' => 'MRP result (suggestions)',
 			'mrp.result.search' => 'Search',
@@ -266,6 +328,34 @@ extension on ProductionPlanStringsEn {
 			'mrp.columns.subjectEquipment' => 'Equipment (overload)',
 			'mrp.columns.subjectStock' => 'Stock (excess)',
 			'mrp.columns.subjectMaster' => 'Master data (issue)',
+			'mrp.check.title' => '1. Check (master data problems)',
+			'mrp.check.note' => 'Before MRP, checks item master problems (routings, suppliers, calendars, and so on). It only reads and changes nothing. MRP can still run with problems, and they appear as "master problem" suggestions in the result.',
+			'mrp.check.run' => 'Check for problems',
+			'mrp.check.running' => 'Checking',
+			'mrp.check.none' => 'No problems were found.',
+			'mrp.check.count' => 'Problems',
+			'mrp.check.more' => 'Showing up to 30, most serious first.',
+			'mrp.step.calc' => 'Calculate and review',
+			'mrp.step.calcNote' => '"Run MRP" commits straight away when nothing needs a decision. "Calculate and review" only calculates; you review and decide, then commit or discard.',
+			'mrp.step.ok' => 'Run',
+			'mrp.step.awaitingTitle' => 'Waiting to be committed',
+			'mrp.step.awaitingNote' => 'Decide to adopt or reject the suggestions that need a decision, then commit. Planning data does not change until you commit. Calculating again without committing invalidates this result.',
+			'mrp.step.resumed' => 'Picked up the previous calculation that was waiting to be committed.',
+			'mrp.step.pendingLeft' => 'Suggestions still waiting for a decision',
+			'mrp.step.adoptShown' => 'Adopt the shown suggestions',
+			'mrp.step.rejectShown' => 'Reject the shown suggestions',
+			'mrp.step.commit' => 'Commit',
+			'mrp.step.commitTitle' => 'Commit this result?',
+			'mrp.step.commitNote' => 'Adopted suggestions are applied to material plans, purchase orders, production plans, and allocation reservations.',
+			'mrp.step.commitForce' => 'Reject pending and commit',
+			'mrp.step.commitForceTitle' => 'Reject the pending suggestions and commit?',
+			'mrp.step.commitForceNote' => 'Every suggestion still waiting for a decision is committed as rejected, and the check for data updated after the calculation is skipped.',
+			'mrp.step.discard' => 'Discard',
+			'mrp.step.discardTitle' => 'Discard this result?',
+			'mrp.step.discardNote' => 'Planning data does not change.',
+			'mrp.state.title' => 'Status',
+			'mrp.state.committed' => 'Committed',
+			'mrp.state.awaiting' => 'Waiting to be committed',
 			'mrp.decision.pending' => 'Needs decision',
 			'mrp.decision.adopted' => 'Adopted',
 			'mrp.decision.rejected' => 'Rejected',

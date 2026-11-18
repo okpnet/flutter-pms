@@ -15,6 +15,14 @@
     4.  失敗したら、エラーコードに関わらず「しばらく時間をおいて、もう一度実行してください」を出し、エラーコード(想定: 57014=タイムアウト、MRP00=引数エラー)を小さく添える。失敗後は操作が元に戻り、再実行できる。
     5.  実行は窓口(`IMrpGateway`、`mrpGatewayProvider`)で行う。実体は `GraphqlMrpGateway`(`lib/src/mrp/graphql_mrp_gateway.dart`。メソッド `mrpExecute` で計算し、`MrpSuggestionPage`(ビュー `v_mrp_suggestion`)で実行の提案を読む)で、アプリが `GraphQLClient` と品目名の言語(`languageCodeId`)を渡して差し込む。既定は実体なし(失敗にする)。実行者は `mrpStaffIdProvider`。失敗のコードは、サーバーの SQLSTATE(`MRP00` など。PostGraphile の `--extended-errors errcode` が付ける `extensions.exception.errcode`)、通信の制限時間 `57014`、認証エラー `HTTP_<ステータス>`、それ以外の通信の失敗 `NETWORK`。
     6.  通信テストは `test/graphql_mrp_gateway_test.dart`。検証用サーバーでは提案の読み込みだけ(`mrpExecute` はデータを変更するため実行しない)、実行・通信の異常は代役サーバーで確認する。
+    7.  **手続き(調査 → 評価 → 判断 → 確定・破棄)**。MRP は重いため、利用者が押して実行する(受注の決定などで自動では起動しない。新しい受注は、次の受注MRP(`p_mode` 1)で、まだ計画していない受注として自動で対象になる)。画面は、次の順で進める。窓口 `IMrpGateway` の操作は、DB の関数 1 つに 1 対 1 に対応し、状態は DB の実行(`trans_mrp_run`。ビュー `v_mrp_run` の `is_calculated`・`is_committed`)が持つ。
+        1.  調査(`check` = `mrp_check_items`。読み取りだけ): 品目のマスタの不備を調べる。MRP は、不備があっても実行でき(MRP の中で同じ検査をして「マスタ不備」の提案を出す)、これは早めに気づいて直すための確認。文は DB が持つ(画面で組み立てない)。重大度は並べ替えだけに使う。
+        1.  評価: 「MRPを実行」(`execute` = `mrp_execute`。要判断が無ければ、そのまま確定する)、または「計算して確認する」(`calculate` = `mrp_run`。計算だけで、計画データは変わらない)。結果は「確定待ち」(`MrpRunResult.awaitingCommit`)になる。新しく計算すると、前の確定待ちは失効する。
+        1.  判断(`decide` = `mrp_set_decision`): 表示中(検索・判断で絞った)の要判断の提案を、まとめて採用・却下する。画面は状態の値を持たず、`p_decision` の引数(採用 1・却下 2)にだけ使う。要判断が残る間は、「確定する」を押せない。
+        1.  確定・破棄: 確定(`commit` = `mrp_commit`。採用された提案を計画データに反映する)、「要判断を却下して確定」(`p_force`。要判断を却下として確定し、計算後のデータ更新の確認も省く)、破棄(`discard` = `mrp_discard`。計画データは変わらない)。いずれも確認のダイアログを出す。確定の失敗は、`MRP01`(要判断が残っている)・`MRP03`(計算のあとにデータが更新された・失効した・確定済み)ごとに、取れる対応が分かる文を出す。
+        1.  前回の計算で確定も破棄もしていない実行(`openRun`。`v_mrp_run` の `is_calculated`)は、画面を開いたときに引き継ぐ。
+        1.  `mrp_equipment_load`(設備の確定済みの負荷)・`mrp_check_order_import`(取り込み前の確認)は、この手続きに使わず、前者は削除した。設備の空きの調査は、`mrp_run` の内部で行い、結果は `trans_mrp_load`(`MrpLoadPage`)に残る。
+        1.  `mrp_purge`(破棄・失効して 30 日を過ぎた実行の削除)は、`mrp_run` の中で、新規 MRP(`p_mode` 1)のときだけ呼ぶ(失敗しても MRP は続ける)。画面は呼ばない。
 
 ## 参照するモデル
 `packages/model_providers/*_model/gql/` の次を列・フィールドの参照元とし、モデルは `lib/src/graphql` のクラスを使う。

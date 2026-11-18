@@ -221,4 +221,160 @@ void main() {
     expect(find.byKey(const ValueKey('mrpFailure')), findsOneWidget);
     expect(find.text('MRPが成功しました'), findsNothing);
   });
+
+  group('手続き(調査 → 評価 → 判断 → 確定・破棄)', () {
+    Future<void> tapKey(WidgetTester tester, String key) async {
+      final f = find.byKey(ValueKey(key));
+      await tester.ensureVisible(f);
+      await tester.pumpAndSettle();
+      await tester.tap(f);
+      await tester.pumpAndSettle();
+    }
+
+    Future<void> calculate(WidgetTester tester) async {
+      await tapKey(tester, 'mrpCalc');
+      await tapKey(tester, 'mrpGo');
+    }
+
+    testWidgets('調査: マスタの不備を調べる。何も変えず、結果を出す', (tester) async {
+      final gateway = DemoMrpGateway(duration: const Duration(milliseconds: 10));
+      await _pump(tester, gateway);
+      expect(find.byKey(const ValueKey('mrpCheckCard')), findsOneWidget);
+      await tapKey(tester, 'mrpCheck');
+      expect(gateway.operations, ['check:']);
+      expect(find.text('不備の件数: 2件'), findsOneWidget);
+      expect(find.textContaining('S-3001'), findsOneWidget);
+      expect(find.textContaining('品目工程運用明細の工程運用明細または工程が削除されています'), findsOneWidget);
+      // 計算・確定はしていない
+      expect(gateway.calls, isEmpty);
+    });
+
+    testWidgets('調査: 不備が無いときは、無いと出す', (tester) async {
+      final gateway = DemoMrpGateway(duration: const Duration(milliseconds: 10))
+        ..issues = const [];
+      await _pump(tester, gateway);
+      await tapKey(tester, 'mrpCheck');
+      expect(find.byKey(const ValueKey('mrpCheckNone')), findsOneWidget);
+    });
+
+    testWidgets('評価: 計算だけして確定待ちにする。要判断が残る間は、確定できない', (tester) async {
+      final gateway = DemoMrpGateway(duration: const Duration(milliseconds: 10));
+      await _pump(tester, gateway);
+      await calculate(tester);
+      expect(gateway.calls.single['op'], 'calculate');
+      expect(find.byKey(const ValueKey('mrpAwaiting')), findsOneWidget);
+      expect(find.text('状態: 確定待ち'), findsOneWidget);
+      expect(find.text('判断が残っている提案: 3件'), findsOneWidget);
+      // 要判断が残っているので、確定は押せない
+      expect(
+        tester.widget<ButtonStyleButton>(find.byKey(const ValueKey('mrpCommit'))).onPressed,
+        isNull,
+      );
+      expect(find.byKey(const ValueKey('mrpCommitForce')), findsOneWidget);
+    });
+
+    testWidgets('判断: 表示中の要判断をまとめて採用し、確定する', (tester) async {
+      final gateway = DemoMrpGateway(duration: const Duration(milliseconds: 10));
+      await _pump(tester, gateway);
+      await calculate(tester);
+      await tapKey(tester, 'mrpAdoptAll');
+      expect(gateway.operations.single, startsWith('decide:demo-run-1:adopt:'));
+      expect(find.text('判断が残っている提案: 0件'), findsOneWidget);
+      expect(
+        tester.widget<ButtonStyleButton>(find.byKey(const ValueKey('mrpCommit'))).onPressed,
+        isNotNull,
+      );
+      // 確定(確認のあと)
+      await tapKey(tester, 'mrpCommit');
+      expect(find.text('確定しますか？'), findsOneWidget);
+      await tapKey(tester, 'mrpStepOk');
+      expect(gateway.operations.last, 'commit:demo-run-1:force=false');
+      expect(find.text('状態: 確定済み'), findsOneWidget);
+      expect(find.byKey(const ValueKey('mrpAwaiting')), findsNothing);
+    });
+
+    testWidgets('判断: 検索で絞った提案だけを却下できる', (tester) async {
+      final gateway = DemoMrpGateway(duration: const Duration(milliseconds: 10));
+      await _pump(tester, gateway);
+      await calculate(tester);
+      await tester.enterText(find.byKey(const ValueKey('mrpSearch')), 'カバー');
+      await tester.pumpAndSettle();
+      await tapKey(tester, 'mrpRejectAll');
+      // 1 件だけ(カバー部品)が却下になり、残りは要判断のまま
+      expect(gateway.operations.single, contains(':reject:'));
+      expect(gateway.operations.single.split(':').last.split(',').length, 1);
+      expect(find.text('判断が残っている提案: 2件'), findsOneWidget);
+    });
+
+    testWidgets('実行: 要判断を却下として確定(force)できる', (tester) async {
+      final gateway = DemoMrpGateway(duration: const Duration(milliseconds: 10));
+      await _pump(tester, gateway);
+      await calculate(tester);
+      await tapKey(tester, 'mrpCommitForce');
+      expect(find.text('要判断を却下して確定しますか？'), findsOneWidget);
+      await tapKey(tester, 'mrpStepOk');
+      expect(gateway.operations.last, 'commit:demo-run-1:force=true');
+      expect(find.text('状態: 確定済み'), findsOneWidget);
+    });
+
+    testWidgets('実行: 確認でやめると、確定しない', (tester) async {
+      final gateway = DemoMrpGateway(duration: const Duration(milliseconds: 10));
+      await _pump(tester, gateway);
+      await calculate(tester);
+      await tapKey(tester, 'mrpCommitForce');
+      await tapKey(tester, 'mrpStepCancel');
+      expect(gateway.operations, isEmpty);
+      expect(find.byKey(const ValueKey('mrpAwaiting')), findsOneWidget);
+    });
+
+    testWidgets('実行: 破棄すると、結果を消す(計画データは変わらない)', (tester) async {
+      final gateway = DemoMrpGateway(duration: const Duration(milliseconds: 10));
+      await _pump(tester, gateway);
+      await calculate(tester);
+      await tapKey(tester, 'mrpDiscard');
+      expect(find.text('この結果を破棄しますか？'), findsOneWidget);
+      await tapKey(tester, 'mrpStepOk');
+      expect(gateway.operations.single, 'discard:demo-run-1');
+      expect(find.byKey(const ValueKey('mrpAwaiting')), findsNothing);
+      expect(find.text('まだ実行していません'), findsOneWidget);
+    });
+
+    for (final c in [
+      ('MRP01', '要判断の提案が残っています。採用か却下を決めてから確定してください。'),
+      ('MRP03', '計算のあとにデータが更新された、または新しく計算したため、この結果は確定できません。もう一度計算してください。'),
+    ]) {
+      testWidgets('確定の失敗(${c.$1})は、取れる対応が分かる文を出す。確定待ちは残る', (tester) async {
+        final gateway = DemoMrpGateway(duration: const Duration(milliseconds: 10));
+        await _pump(tester, gateway);
+        await calculate(tester);
+        gateway.commitFailure = c.$1;
+        await tapKey(tester, 'mrpCommitForce');
+        await tapKey(tester, 'mrpStepOk');
+        expect(find.text(c.$2), findsOneWidget);
+        expect(find.text('エラーコード: ${c.$1}'), findsOneWidget);
+        expect(find.byKey(const ValueKey('mrpAwaiting')), findsOneWidget);
+      });
+    }
+
+    testWidgets('前回の計算の確定待ちを、開いたときに引き継ぐ', (tester) async {
+      final gateway = DemoMrpGateway(duration: const Duration(milliseconds: 10));
+      await tester.runAsync(() => gateway.calculate(mode: MrpMode.order, staffId: 'staff-1'));
+      await _pump(tester, gateway);
+      expect(find.byKey(const ValueKey('mrpResumed')), findsOneWidget);
+      expect(find.byKey(const ValueKey('mrpAwaiting')), findsOneWidget);
+      expect(find.text('状態: 確定待ち'), findsOneWidget);
+    });
+
+    testWidgets('MRPを実行: 要判断が無ければ、そのまま確定済みになる(確定待ちを出さない)', (tester) async {
+      final gateway = DemoMrpGateway(
+        duration: const Duration(milliseconds: 10),
+        suggestions: [DemoMrpGateway.demoSuggestions.first],
+      );
+      await _pump(tester, gateway);
+      await tapKey(tester, 'mrpRun');
+      await tapKey(tester, 'mrpGo');
+      expect(find.text('状態: 確定済み'), findsOneWidget);
+      expect(find.byKey(const ValueKey('mrpAwaiting')), findsNothing);
+    });
+  });
 }

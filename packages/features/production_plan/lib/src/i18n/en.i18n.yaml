@@ -33,6 +33,8 @@ mrp:
   failure:
     title: The calculation could not be completed
     message: Please wait a while and run it again.
+    pendingRemains: Suggestions that need a decision remain. Adopt or reject them, then commit.
+    cannotCommit: This result cannot be committed because data changed after the calculation, or a newer calculation exists. Please calculate again.
     code: Error code
   result:
     title: MRP result (suggestions)
@@ -68,6 +70,37 @@ mrp:
     subjectEquipment: Equipment (overload)
     subjectStock: Stock (excess)
     subjectMaster: Master data (issue)
+  check:
+    title: 1. Check (master data problems)
+    note: Before MRP, checks item master problems (routings, suppliers, calendars, and so on). It only reads and changes nothing. MRP can still run with problems, and they appear as "master problem" suggestions in the result.
+    run: Check for problems
+    running: Checking
+    none: No problems were found.
+    count: Problems
+    more: Showing up to 30, most serious first.
+  step:
+    calc: Calculate and review
+    calcNote: '"Run MRP" commits straight away when nothing needs a decision. "Calculate and review" only calculates; you review and decide, then commit or discard.'
+    ok: Run
+    awaitingTitle: Waiting to be committed
+    awaitingNote: Decide to adopt or reject the suggestions that need a decision, then commit. Planning data does not change until you commit. Calculating again without committing invalidates this result.
+    resumed: Picked up the previous calculation that was waiting to be committed.
+    pendingLeft: Suggestions still waiting for a decision
+    adoptShown: Adopt the shown suggestions
+    rejectShown: Reject the shown suggestions
+    commit: Commit
+    commitTitle: Commit this result?
+    commitNote: Adopted suggestions are applied to material plans, purchase orders, production plans, and allocation reservations.
+    commitForce: Reject pending and commit
+    commitForceTitle: Reject the pending suggestions and commit?
+    commitForceNote: Every suggestion still waiting for a decision is committed as rejected, and the check for data updated after the calculation is skipped.
+    discard: Discard
+    discardTitle: Discard this result?
+    discardNote: Planning data does not change.
+  state:
+    title: Status
+    committed: Committed
+    awaiting: Waiting to be committed
   decision:
     pending: Needs decision
     adopted: Adopted

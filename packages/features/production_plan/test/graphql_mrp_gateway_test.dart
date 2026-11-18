@@ -223,8 +223,8 @@ void main() {
       expect(result.suggestions.last.isException, isTrue);
       expect(result.suggestions.last.subjectEquipment, isTrue);
       expect(result.lateCount, 1);
-      // mutation と提案の読み込みの2回。
-      expect(server.requestCount, 2);
+      // mutation・実行の状態の読み込み・提案の読み込みの3回。
+      expect(server.requestCount, 3);
       expect(server.requests.first.body, contains('mrpExecute'));
       expect(server.requests.first.body, contains('"pMode":1'));
       expect(server.requests.first.body, contains('"pAcceptLate":true'));
@@ -288,6 +288,176 @@ void main() {
         _clientTo(server.url, headers: {'Authorization': 'Bearer t'}),
       ).execute(mode: MrpMode.order, staffId: '');
       expect(server.requests.first.authorization, 'Bearer t');
+    });
+  });
+
+  group('代役サーバー(手続き: 調査・計算・判断・確定・破棄)', () {
+    late FaultyGraphqlServer server;
+
+    Map<String, Object?> runRow({bool committed = false, bool calculated = true}) => {
+      '__typename': 'VMrpRun',
+      'transMrpRunId': 'bbbbbbbb-0000-0000-0000-000000000001',
+      'isCalculated': calculated,
+      'isCommitted': committed,
+      'isDiscarded': false,
+      'isExpired': false,
+      'isOrderRun': true,
+      'isRerun': false,
+      'runAt': '2026-10-30T09:00:00',
+      'suggestionCount': 1,
+      'pendingCount': 1,
+      'lateCount': 0,
+      'overloadCount': 0,
+    };
+
+    Map<String, Object?> payload(String field, {bool committed = false}) => {
+      '__typename': 'Mutation',
+      field: {
+        '__typename': '${field[0].toUpperCase()}${field.substring(1)}Payload',
+        'transMrpRun': {
+          '__typename': 'TransMrpRun',
+          'transMrpRunId': 'bbbbbbbb-0000-0000-0000-000000000001',
+          'runAt': '2026-10-30T09:00:00',
+          'status': committed ? 1 : 0,
+        },
+      },
+      'allVMrpRuns': {
+        '__typename': 'VMrpRunsConnection',
+        'totalCount': 1,
+        'pageInfo': {'__typename': 'PageInfo', 'hasNextPage': false, 'endCursor': null},
+        'nodes': [runRow(committed: committed, calculated: !committed)],
+      },
+      'allVMrpSuggestions': {
+        '__typename': 'VMrpSuggestionsConnection',
+        'totalCount': 1,
+        'pageInfo': {'__typename': 'PageInfo', 'hasNextPage': false, 'endCursor': null},
+        'nodes': [_suggestion(seq: 1)],
+      },
+    };
+
+    setUp(() async => server = await FaultyGraphqlServer.start());
+    tearDown(() => server.close());
+
+    test('計算だけ(mrpRun)。確定も破棄もしない。結果は確定待ちで、提案の ID を持つ', () async {
+      server.data = payload('mrpRun');
+      final result = await _gateway(_clientTo(server.url)).calculate(
+        mode: MrpMode.redo,
+        staffId: 'staff-1',
+      );
+      expect(server.requests.first.body, contains('mrpRun'));
+      expect(server.requests.first.body, isNot(contains('mrpExecute')));
+      expect(server.requests.first.body, contains('"pMode":2'));
+      expect(result.runId, 'bbbbbbbb-0000-0000-0000-000000000001');
+      expect(result.isCommitted, isFalse);
+      expect(result.awaitingCommit, isTrue);
+      expect(result.executedAt, DateTime.parse('2026-10-30T09:00:00'));
+      expect(result.suggestions.single.id, 'aaaaaaaa-0000-0000-0000-000000000001');
+    });
+
+    test('採否の変更(mrpSetDecision)。採用は 1、却下は 2。提案の ID を渡す', () async {
+      server.data = {
+        '__typename': 'Mutation',
+        'mrpSetDecision': {'__typename': 'MrpSetDecisionPayload', 'transMrpSuggestions': []},
+      };
+      final gateway = _gateway(_clientTo(server.url));
+      await gateway.decide(
+        runId: 'run-1',
+        adopt: true,
+        staffId: 'staff-1',
+        suggestionIds: const ['s-1', 's-2'],
+      );
+      expect(server.requests.last.body, contains('mrpSetDecision'));
+      expect(server.requests.last.body, contains('"pDecision":1'));
+      expect(server.requests.last.body, contains('"pRunId":"run-1"'));
+      expect(server.requests.last.body, contains('"pSuggestionIds":["s-1","s-2"]'));
+      await gateway.decide(runId: 'run-1', adopt: false, staffId: '');
+      expect(server.requests.last.body, contains('"pDecision":2'));
+      // 空の staffId・提案の ID は送らない(省略 = JWT の担当者・すべての提案)
+      expect(server.requests.last.body, isNot(contains('pStaffId')));
+      expect(server.requests.last.body, isNot(contains('pSuggestionIds')));
+    });
+
+    test('確定(mrpCommit)。force を渡す。確定済みの結果を返す', () async {
+      server.data = payload('mrpCommit', committed: true);
+      final result = await _gateway(_clientTo(server.url)).commit(
+        runId: 'run-1',
+        staffId: 'staff-1',
+        force: true,
+      );
+      expect(server.requests.first.body, contains('mrpCommit'));
+      expect(server.requests.first.body, contains('"pForce":true'));
+      expect(result.isCommitted, isTrue);
+      expect(result.awaitingCommit, isFalse);
+    });
+
+    test('確定の失敗(MRP01・MRP03)は、サーバーのコードを失敗のコードにする', () {
+      for (final code in ['MRP01', 'MRP03']) {
+        final failure = GraphqlMrpGateway.failureOf(
+          OperationException(
+            graphqlErrors: [
+              GraphQLError(
+                message: '確定できません',
+                extensions: {
+                  'exception': {'errcode': code},
+                },
+              ),
+            ],
+          ),
+        );
+        expect(failure?.code, code);
+      }
+    });
+
+    test('破棄(mrpDiscard)', () async {
+      server.data = payload('mrpDiscard');
+      await _gateway(_clientTo(server.url)).discard(runId: 'run-1', staffId: 'staff-1');
+      expect(server.requests.first.body, contains('mrpDiscard'));
+      expect(server.requests.first.body, contains('"pRunId":"run-1"'));
+    });
+
+    test('確定待ちの実行(openRun)。計算済みの実行を読む。無ければ null', () async {
+      server.data = payload('mrpRun');
+      final open = await _gateway(_clientTo(server.url)).openRun();
+      expect(server.requests.first.body, contains('isCalculated'));
+      expect(open?.awaitingCommit, isTrue);
+      server.data = {
+        '__typename': 'Query',
+        'allVMrpRuns': {
+          '__typename': 'VMrpRunsConnection',
+          'totalCount': 0,
+          'pageInfo': {'__typename': 'PageInfo', 'hasNextPage': false, 'endCursor': null},
+          'nodes': <Object?>[],
+        },
+      };
+      expect(await _gateway(_clientTo(server.url)).openRun(), isNull);
+    });
+
+    test('調査(mrpCheckItems)。不備を機能の型で受け取る。品目を指定できる', () async {
+      server.data = {
+        '__typename': 'Query',
+        'mrpCheckItems': {
+          '__typename': 'VMrpMasterIssuesConnection',
+          'nodes': [
+            {
+              '__typename': 'VMrpMasterIssue',
+              'issueKey': 'k-1',
+              'itemId': 'dddddddd-0000-0000-0000-000000000001',
+              'itemCode': 'S-3001',
+              'issueCode': 'ROUTING_TASK_REMOVED',
+              'severity': 1,
+              'message': '工程が削除されています',
+              'refTable': 'mstr_item_operation_task',
+              'refId': null,
+            },
+          ],
+        },
+      };
+      final issues = await _gateway(_clientTo(server.url)).check(itemIds: const ['i-1']);
+      expect(server.requests.first.body, contains('mrpCheckItems'));
+      expect(server.requests.first.body, contains('"pItemIds":["i-1"]'));
+      expect(issues.single.itemCode, 'S-3001');
+      expect(issues.single.message, '工程が削除されています');
+      expect(issues.single.severity, 1);
     });
   });
 }

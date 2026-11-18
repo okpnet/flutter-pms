@@ -3126,6 +3126,8 @@ CREATE TABLE tests.trans_mrp_suggestion_task (
 
 CREATE INDEX trans_mrp_suggestion_task_ix2 ON tests.trans_mrp_suggestion_task (trans_mrp_suggestion_id);
 
+CREATE INDEX trans_mrp_suggestion_task_ix3 ON tests.trans_mrp_suggestion_task (outsource_trans_mrp_suggestion_id);
+
 ALTER TABLE tests.trans_mrp_suggestion_task ADD CONSTRAINT trans_mrp_suggestion_task_ix1 UNIQUE (symbol);
 
 COMMENT ON TABLE tests.trans_mrp_suggestion_task IS 'MRP提案工程';
@@ -3217,6 +3219,8 @@ CREATE TABLE tests.trans_mrp_suggestion (
 );
 
 CREATE INDEX trans_mrp_suggestion_ix3 ON tests.trans_mrp_suggestion (trans_resource_plan_id);
+
+CREATE INDEX trans_mrp_suggestion_ix4 ON tests.trans_mrp_suggestion (parent_trans_mrp_suggestion_id);
 
 ALTER TABLE tests.trans_mrp_suggestion ADD CONSTRAINT trans_mrp_suggestion_ix1 UNIQUE (symbol);
 
@@ -3384,6 +3388,10 @@ CREATE INDEX trans_plan_change_ix93 ON tests.trans_plan_change (trans_operations
 
 CREATE INDEX trans_plan_change_ix94 ON tests.trans_plan_change (parent_trans_plan_change_id);
 
+CREATE INDEX trans_plan_change_ix95 ON tests.trans_plan_change (trans_mrp_suggestion_id);
+
+CREATE INDEX trans_plan_change_ix96 ON tests.trans_plan_change (reflected_trans_mrp_run_id);
+
 ALTER TABLE tests.trans_plan_change ADD CONSTRAINT trans_plan_change_ix1 UNIQUE (symbol);
 
 COMMENT ON TABLE tests.trans_plan_change IS '計画変更';
@@ -3475,7 +3483,8 @@ CREATE OR REPLACE FUNCTION tests.op_add_plan_change(
     p_scrap boolean DEFAULT false, p_deliver boolean DEFAULT false,
     p_container uuid DEFAULT NULL, p_settlement uuid DEFAULT NULL,
     p_change_reason_id uuid DEFAULT NULL, p_reason varchar DEFAULT NULL,
-    p_stakeholder_id uuid DEFAULT NULL, p_parent uuid DEFAULT NULL, p_remarks varchar DEFAULT NULL
+    p_stakeholder_id uuid DEFAULT NULL, p_parent uuid DEFAULT NULL, p_remarks varchar DEFAULT NULL,
+    p_suggestion uuid DEFAULT NULL, p_run uuid DEFAULT NULL
 ) RETURNS tests.trans_plan_change AS $$
 DECLARE
     v_row tests.trans_plan_change;
@@ -3500,7 +3509,7 @@ BEGIN
         old_quantity, new_quantity, cancel_quantity, old_date, new_date, old_stop, new_stop,
         discontinue, release, hold, scrap, deliver, trans_container_id, trans_order_detail_settlement_id,
         change_reason_history_id, change_reason_id, reason, stakeholder_history_id, stakeholder_id,
-        staff_history_id, staff_id, remarks, update_user_id, update_user_history_id)
+        staff_history_id, staff_id, remarks, trans_mrp_suggestion_id, reflected_trans_mrp_run_id, update_user_id, update_user_history_id)
     VALUES (
         p_parent, now(),
         p_order_detail, p_purchase_detail, p_operations_plan, p_inventory_request, p_visiter,
@@ -3508,13 +3517,13 @@ BEGIN
         COALESCE(p_discontinue, false), COALESCE(p_release, false), COALESCE(p_hold, false),
         COALESCE(p_scrap, false), COALESCE(p_deliver, false), p_container, p_settlement,
         v_reason_hist, p_change_reason_id, p_reason, v_stakeholder_hist, p_stakeholder_id,
-        p_staff_hist, p_staff, p_remarks, p_staff, p_staff_hist)
+        p_staff_hist, p_staff, p_remarks, p_suggestion, p_run, p_staff, p_staff_hist)
     RETURNING * INTO v_row;
     RETURN v_row;
 END
 $$ LANGUAGE plpgsql VOLATILE;
 
-COMMENT ON FUNCTION tests.op_add_plan_change(uuid, uuid, uuid, uuid, uuid, uuid, uuid, numeric, numeric, numeric, timestamp, timestamp, boolean, boolean, boolean, boolean, boolean, boolean, boolean, uuid, uuid, uuid, varchar, uuid, uuid, varchar) IS '@omit';
+COMMENT ON FUNCTION tests.op_add_plan_change(uuid, uuid, uuid, uuid, uuid, uuid, uuid, numeric, numeric, numeric, timestamp, timestamp, boolean, boolean, boolean, boolean, boolean, boolean, boolean, uuid, uuid, uuid, varchar, uuid, uuid, varchar, uuid, uuid) IS '@omit';
 
 CREATE OR REPLACE FUNCTION tests.operations_plan_set_stop(
     p_operations_plan_id uuid,
@@ -5223,47 +5232,6 @@ END
 $$ LANGUAGE plpgsql VOLATILE;
 
 COMMENT ON FUNCTION tests.mrp_plan_task(uuid, uuid, numeric, timestamp, boolean, uuid, uuid) IS '@omit';
-
-CREATE OR REPLACE FUNCTION tests.mrp_equipment_load(p_from date, p_to date)
-RETURNS TABLE (equipment_id uuid, load_date date, capacity_hours numeric, load_hours numeric, load_rate numeric) AS $$
-    WITH wp AS (
-        SELECT w.trans_work_plan_id, ea.mstr_equipment_id AS eq, w.start_at, w.completion_at,
-               EXTRACT(EPOCH FROM w.interval_plan) / 3600 AS plan_h
-        FROM tests.trans_work_plan AS w
-        INNER JOIN tests.mstr_equipment_available AS ea
-            ON ea.mstr_equipment_available_id = w.mstr_equipment_available_id
-        INNER JOIN tests.trans_operations_plan AS op
-            ON op.trans_operations_plan_id = w.trans_operations_plan_id AND op.remove IS FALSE
-           AND op.stop IS NOT TRUE AND op.discontinue IS NOT TRUE
-        WHERE w.remove IS FALSE
-          AND w.start_at IS NOT NULL AND w.completion_at > w.start_at
-          AND w.start_at::date <= p_to AND w.completion_at::date >= p_from
-          AND COALESCE((SELECT SUM(r.qty) FROM tests.trans_work_record AS r
-                        WHERE r.trans_work_plan_id = w.trans_work_plan_id AND r.remove IS FALSE), 0)
-              < COALESCE(NULLIF(op.quantity, 0), 1)
-    ), sp AS (
-        SELECT wp.trans_work_plan_id, wp.eq, s.load_date, s.hours, wp.plan_h,
-               SUM(s.hours) OVER (PARTITION BY wp.trans_work_plan_id) AS win_h
-        FROM wp CROSS JOIN LATERAL tests.mrp_spread(wp.eq, wp.start_at, wp.completion_at) AS s
-    ), agg AS (
-        SELECT sp.eq, sp.load_date,
-               SUM(sp.hours * CASE WHEN sp.win_h > 0 AND sp.plan_h IS NOT NULL THEN sp.plan_h / sp.win_h ELSE 1 END) AS h
-        FROM sp WHERE sp.load_date BETWEEN p_from AND p_to
-        GROUP BY sp.eq, sp.load_date
-    )
-    SELECT e.mstr_equipment_id, g.d::date,
-           tests.mrp_capacity(e.mstr_equipment_id, g.d::date),
-           ROUND(COALESCE(a.h, 0), 2),
-           CASE WHEN tests.mrp_capacity(e.mstr_equipment_id, g.d::date) > 0
-                THEN ROUND(COALESCE(a.h, 0) / tests.mrp_capacity(e.mstr_equipment_id, g.d::date) * 100, 2) END
-    FROM tests.mstr_equipment AS e
-    CROSS JOIN generate_series(p_from, p_to, INTERVAL '1 day') AS g(d)
-    LEFT JOIN agg AS a ON a.eq = e.mstr_equipment_id AND a.load_date = g.d::date
-    WHERE e.remove IS FALSE
-      AND EXISTS (SELECT 1 FROM agg AS a2 WHERE a2.eq = e.mstr_equipment_id);
-$$ LANGUAGE sql STABLE;
-
-COMMENT ON FUNCTION tests.mrp_equipment_load(date, date) IS '工程負荷(確定済み・設備×日)';
 
 CREATE TABLE tests.history_mstr_work_calendar (
   history_id uuid DEFAULT gen_random_uuid() NOT NULL,
@@ -13518,6 +13486,10 @@ CREATE TABLE tests.trans_mrp_pegging (
 
 CREATE INDEX trans_mrp_pegging_ix2 ON tests.trans_mrp_pegging (trans_mrp_run_id, demand_trans_mrp_suggestion_id);
 
+CREATE INDEX trans_mrp_pegging_ix3 ON tests.trans_mrp_pegging (demand_trans_mrp_suggestion_id);
+
+CREATE INDEX trans_mrp_pegging_ix4 ON tests.trans_mrp_pegging (supply_trans_mrp_suggestion_id);
+
 ALTER TABLE tests.trans_mrp_pegging ADD CONSTRAINT trans_mrp_pegging_ix1 UNIQUE (symbol);
 
 COMMENT ON TABLE tests.trans_mrp_pegging IS 'MRPペギング';
@@ -15296,21 +15268,20 @@ COMMENT ON VIEW tests.v_purchase_detail_balance IS '@primaryKey trans_purchase_d
 CREATE OR REPLACE FUNCTION tests.mrp_cancel_purchase_detail(p_pd uuid, p_suggestion uuid, p_run uuid,
                                                             p_staff uuid, p_staff_hist uuid, p_reason varchar)
 RETURNS void AS $$
-DECLARE v_old numeric; v_rem numeric; v_qty numeric;
+DECLARE v_rem numeric; v_qty numeric;
 BEGIN
-    SELECT pd.cancel_quantity, b.remaining_quantity, b.quantity INTO v_old, v_rem, v_qty
-    FROM tests.trans_purchase_detail AS pd
-    INNER JOIN tests.v_purchase_detail_balance AS b ON b.trans_purchase_detail_id = pd.trans_purchase_detail_id
-    WHERE pd.trans_purchase_detail_id = p_pd;
+    SELECT b.remaining_quantity, b.quantity INTO v_rem, v_qty
+    FROM tests.v_purchase_detail_balance AS b
+    WHERE b.trans_purchase_detail_id = p_pd;
     IF NOT FOUND OR COALESCE(v_rem, 0) <= 0 THEN RETURN; END IF;
     UPDATE tests.trans_purchase_detail
     SET cancel_quantity = LEAST(COALESCE(cancel_quantity, 0) + v_rem, v_qty),
         update_user_id = p_staff, update_user_history_id = p_staff_hist
     WHERE trans_purchase_detail_id = p_pd;
-    INSERT INTO tests.trans_plan_change (trans_purchase_detail_id, cancel_quantity, old_quantity, new_quantity, reason,
-                                         staff_history_id, staff_id, trans_mrp_suggestion_id, reflected_trans_mrp_run_id,
-                                         update_user_id, update_user_history_id)
-    VALUES (p_pd, v_rem, v_qty, v_qty, p_reason, p_staff_hist, p_staff, p_suggestion, p_run, p_staff, p_staff_hist);
+    -- 計画変更の追記は、操作の関数と同じ入口(op_add_plan_change)。MRP の提案・実行の ID を付ける
+    PERFORM tests.op_add_plan_change(p_staff, p_staff_hist, p_purchase_detail => p_pd,
+        p_old_quantity => v_qty, p_new_quantity => v_qty, p_cancel_quantity => v_rem,
+        p_reason => p_reason, p_suggestion => p_suggestion, p_run => p_run);
 END
 $$ LANGUAGE plpgsql VOLATILE;
 
@@ -20526,6 +20497,17 @@ BEGIN
 
     -- 同時実行させない。古い未確定の実行は失効させる。
     PERFORM pg_advisory_xact_lock(hashtext('tests.mrp'));
+    -- 新規 MRP(受注 MRP)のときだけ、破棄・失効して 30 日を過ぎた実行を削除する(mrp_purge)。
+    -- 削除に失敗しても MRP は続ける。外部キーは遅延(コミットで検査)のため、いったん即時にして、この中で失敗を捕まえる。
+    IF p_mode = 1 THEN
+        BEGIN
+            PERFORM tests.mrp_purge();
+            SET CONSTRAINTS ALL IMMEDIATE;
+            SET CONSTRAINTS ALL DEFERRED;
+        EXCEPTION WHEN OTHERS THEN
+            RAISE WARNING 'mrp_run: mrp_purge に失敗しました (%): %', SQLSTATE, SQLERRM;
+        END;
+    END IF;
     UPDATE tests.trans_mrp_run SET status = 3 WHERE status = 0;
 
     INSERT INTO tests.trans_mrp_run (run_mode, status, run_at, staff_history_id, staff_id, params, remarks,

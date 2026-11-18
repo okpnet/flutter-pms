@@ -48,7 +48,11 @@ class MrpSuggestion {
     this.late = false,
     this.message = '',
     this.symbol = '',
+    this.id = '',
   });
+
+  /// 提案の ID(`trans_mrp_suggestion_id`)。採否の変更([IMrpGateway.decide])に使う。無いときは空。
+  final String id;
 
   final String itemCode;
   final String itemName;
@@ -130,7 +134,51 @@ class MrpSuggestion {
     'late': late,
     'message': message,
     'symbol': symbol,
+    'id': id,
   };
+
+  /// 採否を変えた写し。要判断(未判断)の提案だけが変わる(情報の提案・判断済みはそのまま)。
+  ///
+  /// 採否の記録は DB(`mrp_set_decision`)が持ち、これは確認用の窓口([DemoMrpGateway])と画面の即時の反映のための写し。
+  MrpSuggestion decided({required bool adopt}) =>
+      !undecided ? this : _copy(undecided: false, adopted: adopt, rejected: !adopt);
+
+  /// 提案の ID を付けた写し。
+  MrpSuggestion withId(String newId) => _copy(id: newId);
+
+  MrpSuggestion _copy({String? id, bool? undecided, bool? adopted, bool? rejected}) =>
+      MrpSuggestion(
+        id: id ?? this.id,
+        itemCode: itemCode,
+        itemName: itemName,
+        quantity: quantity,
+        allocation: allocation,
+        isPurchase: isPurchase,
+        isProduction: isProduction,
+        isOutsource: isOutsource,
+        isPlan: isPlan,
+        isException: isException,
+        isSupplyRequest: isSupplyRequest,
+        isNew: isNew,
+        isChange: isChange,
+        isCancel: isCancel,
+        isKeep: isKeep,
+        isOption: isOption,
+        subjectEquipment: subjectEquipment,
+        subjectStock: subjectStock,
+        subjectMaster: subjectMaster,
+        needUser: needUser,
+        undecided: undecided ?? this.undecided,
+        adopted: adopted ?? this.adopted,
+        rejected: rejected ?? this.rejected,
+        isInfo: isInfo,
+        needDate: needDate,
+        releaseDate: releaseDate,
+        dueDate: dueDate,
+        late: late,
+        message: message,
+        symbol: symbol,
+      );
 }
 
 /// MRP の実行結果(`trans_mrp_run` と、その提案の一覧)。
@@ -139,11 +187,32 @@ class MrpRunResult {
     required this.executedAt,
     required this.mode,
     required this.suggestions,
+    this.runId = '',
+    this.isCommitted = false,
   });
 
   final DateTime executedAt;
   final MrpMode mode;
   final List<MrpSuggestion> suggestions;
+
+  /// 実行の ID(`trans_mrp_run_id`)。確定・破棄・採否の変更に使う。無いときは空。
+  final String runId;
+
+  /// 確定済み(ビュー `v_mrp_run` の `is_committed`)。false は、確定も破棄もされていない(計算済み。判断・確定を待つ)。
+  final bool isCommitted;
+
+  /// 確定待ち(計算済みで、まだ確定・破棄されていない)。実行の ID があるときだけ。
+  bool get awaitingCommit => runId.isNotEmpty && !isCommitted;
+
+  /// 提案を差し替えた写し(採否の変更の反映用)。
+  MrpRunResult copyWith({List<MrpSuggestion>? suggestions, bool? isCommitted}) =>
+      MrpRunResult(
+        executedAt: executedAt,
+        mode: mode,
+        suggestions: suggestions ?? this.suggestions,
+        runId: runId,
+        isCommitted: isCommitted ?? this.isCommitted,
+      );
 
   int get suggestionCount => suggestions.length;
 
@@ -156,6 +225,8 @@ class MrpRunResult {
   Map<String, Object?> toJson() => {
     'executedAt': executedAt.toIso8601String(),
     'mode': mode.name,
+    'runId': runId,
+    'isCommitted': isCommitted,
     'suggestions': [for (final s in suggestions) s.toJson()],
   };
 }
@@ -177,4 +248,31 @@ class MrpFailure implements Exception {
 
   @override
   String toString() => 'MrpFailure($code) $detail';
+}
+/// MRP の前の調査の結果の 1 件(品目のマスタの不備。DB の `mrp_check_items`)。
+///
+/// 文(`message`)は DB が持つ(画面で組み立てない)。[severity] は並べ替え専用で、値で分岐しない。
+class MrpIssue {
+  const MrpIssue({
+    required this.itemCode,
+    required this.message,
+    this.severity = 0,
+    this.issueCode = '',
+  });
+
+  final String itemCode;
+  final String message;
+
+  /// DB の重大度(小さいほど重い)。並べ替えにだけ使う。
+  final int severity;
+
+  /// 不備の種類の識別子(画面は表示だけで、値で分岐しない)。
+  final String issueCode;
+
+  Map<String, Object?> toJson() => {
+    'itemCode': itemCode,
+    'message': message,
+    'severity': severity,
+    'issueCode': issueCode,
+  };
 }

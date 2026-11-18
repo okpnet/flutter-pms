@@ -22,7 +22,6 @@ export 'src/graphql/mrp_method/mrp_check_items.graphql.dart';
 export 'src/graphql/mrp_method/mrp_check_order_import.graphql.dart';
 export 'src/graphql/mrp_method/mrp_commit.graphql.dart';
 export 'src/graphql/mrp_method/mrp_discard.graphql.dart';
-export 'src/graphql/mrp_method/mrp_equipment_load.graphql.dart';
 export 'src/graphql/mrp_method/mrp_execute.graphql.dart';
 export 'src/graphql/mrp_method/mrp_purge.graphql.dart';
 export 'src/graphql/mrp_method/mrp_run.graphql.dart';

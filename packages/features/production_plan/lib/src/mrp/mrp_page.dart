@@ -28,7 +28,179 @@ class _MrpPageState extends ConsumerState<MrpPage> {
   _Judgement? _judgement;
   String _search = '';
 
-  Future<void> _run() async {
+  /// 調査(マスタの不備)の結果。まだ調べていないときは null。
+  List<MrpIssue>? _issues;
+
+  /// 前回の計算の確定待ちを、開いたときに引き継いだ。
+  bool _resumed = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // 前回の計算で、確定も破棄もしていないものがあれば引き継ぐ(失敗・窓口なしは、何も出さない)
+    Future(() async {
+      try {
+        final open = await ref.read(mrpGatewayProvider).openRun();
+        if (open != null && mounted && _result == null) {
+          setState(() {
+            _result = open;
+            _resumed = true;
+          });
+        }
+      } on Object {
+        // 引き継ぎは補助の機能。失敗しても画面は通常どおり使える
+      }
+    });
+  }
+
+  /// 窓口の操作を、画面全体を止めて行う。失敗は [MrpFailure] にして画面に出す(操作は元に戻る)。
+  Future<({bool ok, T? value})> _guarded<T>(
+    String label,
+    Future<T> Function() job,
+  ) async {
+    setState(() => _failure = null);
+    try {
+      final value = await ref.read(busyProvider.notifier).run(label, job);
+      return (ok: true, value: value);
+    } on MrpFailure catch (e, st) {
+      _failure = e;
+      ref
+          .read(loggerProvider)
+          .error('[production_plan] MRPが失敗しました', ex: e, trace: st);
+    } catch (e, st) {
+      _failure = const MrpFailure('UNKNOWN');
+      ref
+          .read(loggerProvider)
+          .error('[production_plan] MRPが失敗しました', ex: e, trace: st);
+    }
+    if (mounted) setState(() {});
+    return (ok: false, value: null);
+  }
+
+  Future<bool> _confirm(String title, List<String> lines) async {
+    final t = ref.read(productionPlanStringsProvider).mrp;
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 8,
+          children: [for (final l in lines) Text(l)],
+        ),
+        actions: [
+          TextButton(
+            key: const ValueKey('mrpStepCancel'),
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(t.confirm.cancel),
+          ),
+          FilledButton(
+            key: const ValueKey('mrpStepOk'),
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(t.step.ok),
+          ),
+        ],
+      ),
+    );
+    return ok == true && mounted;
+  }
+
+  /// 調査: マスタの不備を調べる(読み取りだけ)。
+  Future<void> _checkMaster() async {
+    final t = ref.read(productionPlanStringsProvider).mrp;
+    final r = await _guarded(
+      t.check.running,
+      () => ref.read(mrpGatewayProvider).check(),
+    );
+    if (!r.ok || !mounted) return;
+    setState(() => _issues = r.value ?? const []);
+  }
+
+  /// 判断: 表示中の要判断の提案を、まとめて採用・却下する。
+  Future<void> _decide(
+    MrpRunResult run,
+    List<MrpSuggestion> rows,
+    bool adopt,
+  ) async {
+    final t = ref.read(productionPlanStringsProvider).mrp;
+    final targets = [
+      for (final x in rows)
+        if (x.undecided && x.id.isNotEmpty) x.id,
+    ];
+    if (targets.isEmpty) return;
+    final r = await _guarded(
+      t.running,
+      () => ref
+          .read(mrpGatewayProvider)
+          .decide(
+            runId: run.runId,
+            adopt: adopt,
+            staffId: ref.read(mrpStaffIdProvider),
+            suggestionIds: targets,
+          ),
+    );
+    if (!r.ok || !mounted) return;
+    final ids = targets.toSet();
+    setState(() {
+      _result = run.copyWith(
+        suggestions: [
+          for (final x in run.suggestions)
+            ids.contains(x.id) ? x.decided(adopt: adopt) : x,
+        ],
+      );
+    });
+  }
+
+  /// 実行: 確定する(採用された提案を計画データに反映する)。[force] は、要判断を却下として確定する。
+  Future<void> _commit(MrpRunResult run, {bool force = false}) async {
+    final t = ref.read(productionPlanStringsProvider).mrp;
+    final ok = await _confirm(
+      force ? t.step.commitForceTitle : t.step.commitTitle,
+      [t.step.commitNote, if (force) t.step.commitForceNote],
+    );
+    if (!ok) return;
+    final r = await _guarded(
+      t.running,
+      () => ref
+          .read(mrpGatewayProvider)
+          .commit(
+            runId: run.runId,
+            staffId: ref.read(mrpStaffIdProvider),
+            force: force,
+          ),
+    );
+    if (!r.ok || !mounted) return;
+    setState(() {
+      _resumed = false;
+      _result = r.value ?? run.copyWith(isCommitted: true);
+    });
+  }
+
+  /// 実行: 破棄する(計画データは変わらない)。
+  Future<void> _discard(MrpRunResult run) async {
+    final t = ref.read(productionPlanStringsProvider).mrp;
+    final ok = await _confirm(t.step.discardTitle, [t.step.discardNote]);
+    if (!ok) return;
+    final r = await _guarded(
+      t.running,
+      () => ref
+          .read(mrpGatewayProvider)
+          .discard(
+            runId: run.runId,
+            staffId: ref.read(mrpStaffIdProvider),
+          ),
+    );
+    if (!r.ok || !mounted) return;
+    setState(() {
+      _resumed = false;
+      _result = null;
+    });
+  }
+
+  /// [execute] が true のとき、MRP を実行する(要判断が無ければ、そのまま確定する)。
+  /// false のとき、計算だけして確定待ちにする(判断・確定は結果の画面から)。
+  Future<void> _run({bool execute = true}) async {
     final t = ref.read(productionPlanStringsProvider).mrp;
     final redo = _redo;
     final ok = await showDialog<bool>(
@@ -83,12 +255,19 @@ class _MrpPageState extends ConsumerState<MrpPage> {
           .read(busyProvider.notifier)
           .run(
             t.running,
-            () => ref
-                .read(mrpGatewayProvider)
-                .execute(
-                  mode: redo ? MrpMode.redo : MrpMode.order,
-                  staffId: ref.read(mrpStaffIdProvider),
-                ),
+            () => execute
+                ? ref
+                      .read(mrpGatewayProvider)
+                      .execute(
+                        mode: redo ? MrpMode.redo : MrpMode.order,
+                        staffId: ref.read(mrpStaffIdProvider),
+                      )
+                : ref
+                      .read(mrpGatewayProvider)
+                      .calculate(
+                        mode: redo ? MrpMode.redo : MrpMode.order,
+                        staffId: ref.read(mrpStaffIdProvider),
+                      ),
           );
     } on MrpFailure catch (e, s) {
       failure = e;
@@ -108,6 +287,7 @@ class _MrpPageState extends ConsumerState<MrpPage> {
       _failure = failure;
       _judgement = null;
       _search = '';
+      _resumed = false;
     });
   }
 
@@ -131,6 +311,8 @@ class _MrpPageState extends ConsumerState<MrpPage> {
         body: ListView(
           padding: const EdgeInsets.all(16),
           children: [
+            _checkCard(t, busy),
+            const SizedBox(height: 12),
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(16),
@@ -150,15 +332,25 @@ class _MrpPageState extends ConsumerState<MrpPage> {
                           : (v) => setState(() => _redo = v ?? false),
                     ),
                     Text(t.redoNote, style: theme.textTheme.bodySmall),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: FilledButton.icon(
-                        key: const ValueKey('mrpRun'),
-                        icon: const Icon(Icons.play_arrow),
-                        label: Text(t.run),
-                        onPressed: busy ? null : _run,
-                      ),
+                    Wrap(
+                      spacing: 12,
+                      runSpacing: 8,
+                      children: [
+                        FilledButton.icon(
+                          key: const ValueKey('mrpRun'),
+                          icon: const Icon(Icons.play_arrow),
+                          label: Text(t.run),
+                          onPressed: busy ? null : _run,
+                        ),
+                        OutlinedButton.icon(
+                          key: const ValueKey('mrpCalc'),
+                          icon: const Icon(Icons.fact_check_outlined),
+                          label: Text(t.step.calc),
+                          onPressed: busy ? null : () => _run(execute: false),
+                        ),
+                      ],
                     ),
+                    Text(t.step.calcNote, style: theme.textTheme.bodySmall),
                   ],
                 ),
               ),
@@ -205,8 +397,12 @@ class _MrpPageState extends ConsumerState<MrpPage> {
                 ),
               ],
             ),
-            // エラーコードに関わらず、一般向けの警告
-            Text(t.failure.message as String),
+            // エラーコードに関わらず、一般向けの警告(確定の失敗は、取れる対応が違うため、理由に合わせる)
+            Text(switch (f.code) {
+              'MRP01' => t.failure.pendingRemains as String,
+              'MRP03' => t.failure.cannotCommit as String,
+              _ => t.failure.message as String,
+            }),
             Text(
               '${t.failure.code}: ${f.code}',
               key: const ValueKey('mrpErrorCode'),
@@ -228,6 +424,125 @@ class _MrpPageState extends ConsumerState<MrpPage> {
     _Judgement.rejected => t.decision.rejected as String,
     _Judgement.info => t.decision.info as String,
   };
+
+  /// 調査のカード(MRP の前に、マスタの不備を調べる。読み取りだけ)。
+  Widget _checkCard(dynamic t, bool busy) {
+    final theme = Theme.of(context);
+    final issues = _issues;
+    return Card(
+      key: const ValueKey('mrpCheckCard'),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 8,
+          children: [
+            Text(t.check.title as String, style: theme.textTheme.titleMedium),
+            Text(t.check.note as String, style: theme.textTheme.bodySmall),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: OutlinedButton.icon(
+                key: const ValueKey('mrpCheck'),
+                icon: const Icon(Icons.search),
+                label: Text(t.check.run as String),
+                onPressed: busy ? null : _checkMaster,
+              ),
+            ),
+            if (issues != null && issues.isEmpty)
+              Text(
+                t.check.none as String,
+                key: const ValueKey('mrpCheckNone'),
+              ),
+            if (issues != null && issues.isNotEmpty) ...[
+              Text(
+                '${t.check.count}: ${issues.length}${t.success.unit}',
+                key: const ValueKey('mrpCheckCount'),
+              ),
+              // 重い順(DB の重大度。並べ替えだけに使い、値で分岐しない)
+              for (final i
+                  in ([...issues]..sort((a, b) => a.severity.compareTo(b.severity))).take(30))
+                Text('${i.itemCode}  ${i.message}'),
+              if (issues.length > 30)
+                Text(t.check.more as String, style: theme.textTheme.bodySmall),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// 確定待ちのカード(判断 → 確定・破棄)。
+  Widget _awaitingCard(dynamic t, MrpRunResult r, List<MrpSuggestion> rows) {
+    final theme = Theme.of(context);
+    final busy = ref.watch(busyProvider).isBusy;
+    final pending = r.pendingCount;
+    final visiblePending = rows.where((x) => x.undecided).length;
+    return Card(
+      key: const ValueKey('mrpAwaiting'),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 8,
+          children: [
+            Text(
+              t.step.awaitingTitle as String,
+              style: theme.textTheme.titleMedium,
+            ),
+            if (_resumed)
+              Text(t.step.resumed as String, key: const ValueKey('mrpResumed')),
+            Text(t.step.awaitingNote as String),
+            Text(
+              '${t.step.pendingLeft}: $pending${t.success.unit}',
+              key: const ValueKey('mrpPendingCount'),
+            ),
+            Wrap(
+              spacing: 12,
+              runSpacing: 8,
+              children: [
+                OutlinedButton(
+                  key: const ValueKey('mrpAdoptAll'),
+                  onPressed: busy || visiblePending == 0
+                      ? null
+                      : () => _decide(r, rows, true),
+                  child: Text(t.step.adoptShown as String),
+                ),
+                OutlinedButton(
+                  key: const ValueKey('mrpRejectAll'),
+                  onPressed: busy || visiblePending == 0
+                      ? null
+                      : () => _decide(r, rows, false),
+                  child: Text(t.step.rejectShown as String),
+                ),
+              ],
+            ),
+            Wrap(
+              spacing: 12,
+              runSpacing: 8,
+              children: [
+                FilledButton(
+                  key: const ValueKey('mrpCommit'),
+                  onPressed: busy || pending > 0 ? null : () => _commit(r),
+                  child: Text(t.step.commit as String),
+                ),
+                if (pending > 0)
+                  OutlinedButton(
+                    key: const ValueKey('mrpCommitForce'),
+                    onPressed: busy ? null : () => _commit(r, force: true),
+                    child: Text(t.step.commitForce as String),
+                  ),
+                TextButton(
+                  key: const ValueKey('mrpDiscard'),
+                  onPressed: busy ? null : () => _discard(r),
+                  child: Text(t.step.discard as String),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   List<Widget> _resultViews(dynamic t, MrpRunResult r) {
     final theme = Theme.of(context);
@@ -403,10 +718,19 @@ class _MrpPageState extends ConsumerState<MrpPage> {
               Text('${t.success.count}: ${r.suggestionCount}$unit'),
               Text('${t.success.pending}: ${r.pendingCount}$unit'),
               Text('${t.success.late}: ${r.lateCount}$unit'),
+              if (r.runId.isNotEmpty)
+                Text(
+                  '${t.state.title}: ${r.isCommitted ? t.state.committed : t.state.awaiting}',
+                  key: const ValueKey('mrpState'),
+                ),
             ],
           ),
         ),
       ),
+      if (r.awaitingCommit) ...[
+        const SizedBox(height: 12),
+        _awaitingCard(t, r, rows),
+      ],
       const SizedBox(height: 12),
       Text(t.result.title as String, style: theme.textTheme.titleMedium),
       const SizedBox(height: 8),

@@ -4,7 +4,7 @@
 import 'package:data_test_harness/data_test_harness.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql/client.dart';
-import 'package:work_record_model/work_record_model.dart';
+import 'package:plan_change_model/plan_change_model.dart';
 
 const _zeroId = '00000000-0000-0000-0000-000000000000';
 
@@ -25,8 +25,8 @@ void main() {
     serverTest('存在しない引当予約の解除は OPR01', (server) async {
       final result = await server.provider.client.mutate(
         MutationOptions(
-          document: documentNodeMutationInventoryRequestReleasePageCall,
-          variables: Variables$Mutation$InventoryRequestReleasePageCall(pInventoryRequestId: _zeroId).toJson(),
+          document: documentNodeMutationPlanChangeInventoryRequestReleasePageCall,
+          variables: Variables$Mutation$PlanChangeInventoryRequestReleasePageCall(pInventoryRequestId: _zeroId).toJson(),
           fetchPolicy: FetchPolicy.noCache,
         ),
       );
@@ -36,8 +36,8 @@ void main() {
     serverTest('存在しない引当予約の保管は OPR01', (server) async {
       final result = await server.provider.client.mutate(
         MutationOptions(
-          document: documentNodeMutationInventoryRequestHoldPageCall,
-          variables: Variables$Mutation$InventoryRequestHoldPageCall(pInventoryRequestId: _zeroId, pContainerId: _zeroId).toJson(),
+          document: documentNodeMutationPlanChangeInventoryRequestHoldPageCall,
+          variables: Variables$Mutation$PlanChangeInventoryRequestHoldPageCall(pInventoryRequestId: _zeroId, pContainerId: _zeroId).toJson(),
           fetchPolicy: FetchPolicy.noCache,
         ),
       );
@@ -47,8 +47,8 @@ void main() {
     serverTest('存在しないロットを在庫にするは OPR01', (server) async {
       final result = await server.provider.client.mutate(
         MutationOptions(
-          document: documentNodeMutationLotReleasePageCall,
-          variables: Variables$Mutation$LotReleasePageCall(pVisiterId: _zeroId).toJson(),
+          document: documentNodeMutationPlanChangeLotReleasePageCall,
+          variables: Variables$Mutation$PlanChangeLotReleasePageCall(pVisiterId: _zeroId).toJson(),
           fetchPolicy: FetchPolicy.noCache,
         ),
       );
@@ -58,8 +58,8 @@ void main() {
     serverTest('存在しない棚への保管は OPR01', (server) async {
       final result = await server.provider.client.mutate(
         MutationOptions(
-          document: documentNodeMutationLotHoldPageCall,
-          variables: Variables$Mutation$LotHoldPageCall(pVisiterId: _zeroId, pContainerId: _zeroId, pQuantity: '1').toJson(),
+          document: documentNodeMutationPlanChangeLotHoldPageCall,
+          variables: Variables$Mutation$PlanChangeLotHoldPageCall(pVisiterId: _zeroId, pContainerId: _zeroId, pQuantity: '1').toJson(),
           fetchPolicy: FetchPolicy.noCache,
         ),
       );
