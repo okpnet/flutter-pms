@@ -123,6 +123,7 @@ class TableEvents<T> {
     this.onBeforeSort,
     this.onAfterSort,
     this.onRowActivated,
+    this.onSelectionChanged,
     this.onBeforeDrop,
     this.onAfterDrop,
     this.onDragOver,
@@ -142,6 +143,10 @@ class TableEvents<T> {
 
   /// 左ダブルクリック/ロングタップ。
   final EventCallback<T>? onRowActivated;
+
+  /// 行の選択が変わったとき。引数は、選択中の行(選択方式が`none`のときは通知しない。`single`は 0 または 1 件)。
+  /// 選択した行に対する操作を、画面の上部のボタン・メニューに出すために使う。
+  final EventCallback<List<T>>? onSelectionChanged;
   final EventCallback<BeforeDropEvent<T>>? onBeforeDrop;
   final EventCallback<AfterDropEvent<T>>? onAfterDrop;
   final EventCallback<DragOverEvent<T>>? onDragOver;

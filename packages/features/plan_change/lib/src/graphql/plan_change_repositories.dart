@@ -120,6 +120,9 @@ class _PlanChangeRepository extends _ReadOnlyRepository {
             n.isShippingOrderDetail,
           ),
           'item': _ReadOnlyRepository.text(n.itemId),
+          'root_order_detail': _ReadOnlyRepository.text(
+            n.rootTransOrderDetailId,
+          ),
           'is_cancel': _ReadOnlyRepository.flag(n.isCancel),
           'is_quantity_change': _ReadOnlyRepository.flag(n.isQuantityChange),
           'is_date_change': _ReadOnlyRepository.flag(n.isDateChange),

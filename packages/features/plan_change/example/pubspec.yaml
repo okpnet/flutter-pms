@@ -19,6 +19,9 @@ dependencies:
   plan_change:
     path: ..
 
+  production_plan:
+    path: ../../production_plan
+
   work_record:
     path: ../../work_record
 

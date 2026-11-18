@@ -176,7 +176,7 @@ function fromHtml(e) {
   if (e.parent && e.tree) {
     return { key: e.key, label: e.label, isTree: true, hintParent: e.parent.ent, fields, rows };
   }
-  return { key: e.key, label: e.label, owner: e.parent?.ent, isTree: !!e.tree, viewOnly: !!e.viewOnly, noMenu: !!e.noMenu, actionsFirst: !!e.actionsFirst, compactFlags: !!e.compactFlags, confirmSave: !!e.confirmSave, group: e.group, fields, rows, rowActions };
+  return { key: e.key, label: e.label, owner: e.parent?.ent, isTree: !!e.tree, viewOnly: !!e.viewOnly, noMenu: !!e.noMenu, compactFlags: !!e.compactFlags, confirmSave: !!e.confirmSave, group: e.group, fields, rows, rowActions };
 }
 
 const htmlEntities = DOM.entities.filter((e) => !SKIP.has(e.key)).map(fromHtml);
@@ -489,7 +489,6 @@ function defsDart(pkg, list) {
       }
       if (e.viewOnly) a.push('viewOnly: true');
       if (e.noMenu) a.push('inMenu: false');
-      if (e.actionsFirst) a.push('actionsFirst: true');
       if (e.compactFlags) a.push('compactFlags: true');
       if (e.confirmSave) a.push('confirmSave: true');
       if (e.rowActions) a.push(`rowActions: [${e.rowActions.map((r) => `RowAction(key: ${dq(r.key)}, target: ${dq(r.target)}, initialValues: {${Object.entries(r.params).map(([k, v]) => `${dq(k)}: ${v === 'id' ? 'RowAction.idSource' : dq(v)}`).join(', ')}}${r.whenAny ? `, whenAny: [${r.whenAny.map(dq).join(', ')}]` : ''})`).join(', ')}]`);

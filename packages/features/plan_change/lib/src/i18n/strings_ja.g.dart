@@ -245,6 +245,12 @@ class PlanChangeStrings$entity$planchange$fields$ja {
 	/// ja: '品目'
 	String get f_item => '品目';
 
+	/// ja: '最上位の受注明細'
+	String get f_root_order_detail => '最上位の受注明細';
+
+	/// ja: '再MRPへ'
+	String get f_do_remrp => '再MRPへ';
+
 	/// ja: 'キャンセル'
 	String get f_is_cancel => 'キャンセル';
 
@@ -592,6 +598,8 @@ extension on PlanChangeStrings {
 			'entity.planchange.fields.f_is_visiter' => 'ロット',
 			'entity.planchange.fields.f_is_shipping_order_detail' => '出荷オーダー明細',
 			'entity.planchange.fields.f_item' => '品目',
+			'entity.planchange.fields.f_root_order_detail' => '最上位の受注明細',
+			'entity.planchange.fields.f_do_remrp' => '再MRPへ',
 			'entity.planchange.fields.f_is_cancel' => 'キャンセル',
 			'entity.planchange.fields.f_is_quantity_change' => '数量の変更',
 			'entity.planchange.fields.f_is_date_change' => '納期の変更',

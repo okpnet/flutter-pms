@@ -1,4 +1,7 @@
 create: New
+actionMenu: Actions
+actionSelected: Selected row
+actionHint: Select a row to choose an action for it.
 save: Save
 delete: Delete
 cancel: Cancel

@@ -298,6 +298,7 @@
     ["is_visiter", "ロット", "b"],
     ["is_shipping_order_detail", "出荷オーダー明細", "b"],
     ["item", "品目", "r", { ref: "item", req: false }],
+    ["root_order_detail", "最上位の受注明細", "t", { req: false, readOnly: true, hidden: true }],
     // 動き
     ["is_cancel", "キャンセル", "b"],
     ["is_quantity_change", "数量の変更", "b"],
@@ -378,10 +379,12 @@
   op("actshipcancel", "出荷オーダーの取り消し", []);
   op("actpurcancel", "外注発注のキャンセル", [qty]);
   const co = D.entities.find((e) => e.key === "cancelopen");
-  // 列が多いため、行のボタンは左端に出し、真偽の列はオンのときだけ印を出す
-  co.actionsFirst = true;
+  // 列が多いため、真偽の列はオンのときだけ印を出す(行への操作は、台帳の上部のメニュー)
   co.compactFlags = true;
-  D.entities.find((e) => e.key === "planchange").compactFlags = true;
+  const pc = D.entities.find((e) => e.key === "planchange");
+  pc.compactFlags = true;
+  // 行への操作(台帳の上部のメニューで、選んだ行に対して選ぶ)。target が空の操作は、実体の画面ではなく、機能が処理する(再MRP の画面へ進む)
+  pc.actions = [{ key: "do_remrp", label: "再MRPへ", target: "", params: { order_detail: "root_order_detail" }, whenAny: ["is_unreflected"] }];
   const tgt = { target: "id", item: "item" };
   const tgtQty = { target: "id", item: "item", quantity: "quantity" };
   const lot = ["is_work_in_process", "is_hold"];

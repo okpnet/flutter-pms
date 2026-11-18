@@ -42,7 +42,19 @@ Widget _host(Widget child) => ProviderScope(
 );
 
 void main() {
-  testWidgets('行のボタンを押すと、行の値を初期値にした指定が渡される', (tester) async {
+  Future<void> select(WidgetTester tester, String text) async {
+    await tester.tap(find.text(text));
+    // 行のダブルクリックと区別するため、タップの間隔を空ける
+    await tester.pump(const Duration(milliseconds: 400));
+    await tester.pumpAndSettle();
+  }
+
+  Future<void> openMenu(WidgetTester tester) async {
+    await tester.tap(find.byKey(const ValueKey('actionMenu')));
+    await tester.pumpAndSettle();
+  }
+
+  testWidgets('行を選んで、上部のメニューから操作すると、その行の値を初期値にした指定が渡される', (tester) async {
     await tester.binding.setSurfaceSize(const Size(900, 900));
     addTearDown(() => tester.binding.setSurfaceSize(null));
     final catalog = EntityCatalog()
@@ -74,14 +86,26 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    expect(find.text('引当予約'), findsWidgets);
-    await tester.tap(find.byKey(const ValueKey('action:reserve:s2')));
+    // 行ごとのボタンは無い。行を選ぶまで、メニューは押せない
+    expect(find.byKey(const ValueKey('action:reserve:s2')), findsNothing);
+    expect(
+      tester.widget<OutlinedButton>(find.byKey(const ValueKey('actionMenu'))).onPressed,
+      isNull,
+    );
+    expect(find.text('行を選ぶと、その行に使える操作を選べます。'), findsOneWidget);
+
+    await select(tester, 'S2');
+    // 選んだ行が分かる(どの行への操作かを確認できる)
+    expect(find.text('選択中の行: S2'), findsOneWidget);
+    await openMenu(tester);
+    expect(find.text('引当予約'), findsOneWidget);
+    await tester.tap(find.byKey(const ValueKey('action:reserve')));
     await tester.pumpAndSettle();
     expect(got?.target, 'rez');
     expect(initial, {'stock': 's2', 'item': 'B'});
   });
 
-  test('onAction が無いときは、ボタンの列を出さない(toJson にも指定が出る)', () {
+  test('rowActions は、toJson に指定が出る', () {
     expect(_stock.toJson()['rowActions'], [
       {
         'key': 'reserve',
@@ -141,8 +165,46 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    expect(find.byKey(const ValueKey('action:reserve:r1')), findsOneWidget);
-    expect(find.byKey(const ValueKey('action:reserve:r2')), findsNothing);
+    // どれかの真偽がオンの行を選んだときだけ、その操作がメニューに出る(行の種類に合わない操作は出さない)
+    await select(tester, 'R1');
+    await openMenu(tester);
+    expect(find.byKey(const ValueKey('action:reserve')), findsOneWidget);
+    await tester.tapAt(Offset.zero); // メニューを閉じる
+    await tester.pumpAndSettle();
+    await select(tester, 'R2');
+    // 使える操作が無い行では、メニューを押せない
+    expect(
+      tester.widget<OutlinedButton>(find.byKey(const ValueKey('actionMenu'))).onPressed,
+      isNull,
+    );
     expect(def.rowActions.single.toJson()['whenAny'], ['is_a']);
+  });
+  testWidgets('onAction が無いときは、操作バーを出さない', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(900, 900));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    final catalog = EntityCatalog()
+      ..register(
+        InMemoryEntityRepository(_stock, [
+          const EntityRecord(id: 's1', values: {'code': 'S1', 'item': 'A'}),
+        ]),
+      );
+    await tester.pumpWidget(
+      _host(
+        EntityListPage(
+          entityKey: 'stock',
+          scope: EntityScope(
+            catalog: catalog,
+            labels: _Labels(),
+            strings: EntityScreenLocale.ja.buildSync(),
+          ),
+          showCreate: false,
+          onOpen: (r) async {},
+          onCreate: () async {},
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey('actionMenu')), findsNothing);
+    expect(find.byKey(const ValueKey('actionSelection')), findsNothing);
   });
 }

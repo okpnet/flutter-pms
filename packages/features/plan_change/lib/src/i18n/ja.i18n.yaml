@@ -16,6 +16,8 @@ entity:
       f_is_visiter: "ロット"
       f_is_shipping_order_detail: "出荷オーダー明細"
       f_item: "品目"
+      f_root_order_detail: "最上位の受注明細"
+      f_do_remrp: "再MRPへ"
       f_is_cancel: "キャンセル"
       f_is_quantity_change: "数量の変更"
       f_is_date_change: "納期の変更"

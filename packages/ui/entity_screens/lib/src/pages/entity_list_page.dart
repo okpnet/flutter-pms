@@ -59,6 +59,9 @@ class _EntityListPageState extends State<EntityListPage> {
   late Future<_Loaded> _future = _load();
   int _generation = 0;
 
+  /// 選択中の行(行のボタン([RowAction])は、行ごとに置かず、選んだ行への操作として上部のメニューに出す)。
+  EntityRecord? _selected;
+
   Future<_Loaded> _load() async {
     final catalog = widget.scope.catalog;
     final repository = catalog.repository(widget.entityKey);
@@ -73,6 +76,7 @@ class _EntityListPageState extends State<EntityListPage> {
 
   void _reload() => setState(() {
     _generation++;
+    _selected = null;
     _future = _load();
   });
 
@@ -128,12 +132,7 @@ class _EntityListPageState extends State<EntityListPage> {
 
   Widget _table(_Loaded loaded) {
     final scope = widget.scope;
-    final actionColumns = [
-      if (widget.onAction != null)
-        for (final a in loaded.definition.rowActions) _actionColumn(loaded, a),
-    ];
     final columns = [
-      if (loaded.definition.actionsFirst) ...actionColumns,
       ...columnsOf(
         loaded.definition,
         scope.labels,
@@ -142,15 +141,21 @@ class _EntityListPageState extends State<EntityListPage> {
         no: loaded.definition.compactFlags ? '' : scope.strings.no,
         onDownload: (file) => scope.downloadFile(context, file),
       ),
-      if (!loaded.definition.actionsFirst) ...actionColumns,
     ];
+    final hasActions =
+        widget.onAction != null && loaded.definition.rowActions.isNotEmpty;
     final config = TableConfig(
       sortEnabled: true,
       filterEnabled: true,
+      // 行のボタンが有るときは、行を選んで、上部のメニューから操作する
+      rowSelection: hasActions ? RowSelectionMode.single : RowSelectionMode.none,
       dragEnabled: loaded.definition.isTree && widget.onReparent != null,
     );
     final events = TableEvents<EntityRecord>(
       onRowActivated: _open,
+      onSelectionChanged: hasActions
+          ? (rows) => setState(() => _selected = rows.firstOrNull)
+          : null,
       onAfterParentChange: loaded.definition.isTree ? _reparent : null,
     );
     // 再読み込みと、言語が変わった(名称が変わった)ときに表を作り直す
@@ -158,14 +163,26 @@ class _EntityListPageState extends State<EntityListPage> {
       '${widget.entityKey}:$_generation:${scope.labels.entity(widget.entityKey)}',
     );
 
+    Widget withActions(Widget table) => !hasActions
+        ? table
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _actionBar(loaded, columns),
+              Expanded(child: table),
+            ],
+          );
+
     if (!loaded.definition.isTree) {
-      return FlgTable<EntityRecord>(
-        key: key,
-        columns: columns,
-        items: loaded.records,
-        rowKey: (r) => r.id,
-        config: config,
-        events: events,
+      return withActions(
+        FlgTable<EntityRecord>(
+          key: key,
+          columns: columns,
+          items: loaded.records,
+          rowKey: (r) => r.id,
+          config: config,
+          events: events,
+        ),
       );
     }
 
@@ -191,39 +208,77 @@ class _EntityListPageState extends State<EntityListPage> {
       key: (r) => r.id,
       parentKey: (r) => r.parentId,
     );
-    return TreeTable<EntityRecord>(
-      key: key,
-      columns: treeColumns,
-      treeLoader: source.loader,
-      rowKey: (r) => r.id,
-      config: config,
-      events: events,
-      treeConfig: const TreeConfig(childCountColumnKey: _childCountKey),
+    return withActions(
+      TreeTable<EntityRecord>(
+        key: key,
+        columns: treeColumns,
+        treeLoader: source.loader,
+        rowKey: (r) => r.id,
+        config: config,
+        events: events,
+        treeConfig: const TreeConfig(childCountColumnKey: _childCountKey),
+      ),
     );
   }
 
-  /// 行のボタンの列。並べ替え・絞り込み・出力の対象にしない。
-  ColumnDefinition<EntityRecord> _actionColumn(_Loaded loaded, RowAction a) {
-    final label = widget.scope.labels.field(widget.entityKey, a.key);
-    return ColumnDefinition<EntityRecord>(
-      key: '_action:${a.key}',
-      label: label,
-      readOnly: true,
-      sortable: false,
-      filterable: false,
-      exportable: false,
-      getter: (_) => '',
-      renderer: BuilderCellRenderer<EntityRecord>(
-        (context, cell) => !a.visibleFor(cell.item)
-            ? const SizedBox.shrink()
-            : TextButton(
-                key: ValueKey('action:${a.key}:${cell.item.id}'),
-                onPressed: () async {
-                  await widget.onAction!(a, cell.item);
-                  if (mounted) _reload();
-                },
-                child: Text(label),
-              ),
+  /// 上部の操作バー: 選んだ行と、その行に使える操作のメニュー。
+  ///
+  /// 行ごとにボタンを置くと、上下の行と間違えて押すため、行を選んでから、メニューで操作を選ぶ。
+  /// 選んだ行は、バーに名前を出す(どの行への操作かを確認できる)。
+  Widget _actionBar(_Loaded loaded, List<ColumnDefinition<EntityRecord>> columns) {
+    final strings = widget.scope.strings;
+    final record = _selected;
+    final actions = record == null
+        ? const <RowAction>[]
+        : [
+            for (final a in loaded.definition.rowActions)
+              if (a.visibleFor(record)) a,
+          ];
+    final String text;
+    if (record == null) {
+      text = strings.actionHint;
+    } else {
+      final first = columns.firstOrNull;
+      final name = first == null ? record.id : first.read(record);
+      text = '${strings.actionSelected}: ${name.isEmpty ? record.id : name}';
+    }
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+      child: Row(
+        spacing: 12,
+        children: [
+          Expanded(
+            child: Text(
+              text,
+              key: const ValueKey('actionSelection'),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          MenuAnchor(
+            menuChildren: [
+              for (final a in actions)
+                MenuItemButton(
+                  key: ValueKey('action:${a.key}'),
+                  onPressed: () async {
+                    await widget.onAction!(a, record!);
+                    if (mounted) _reload();
+                  },
+                  child: Text(widget.scope.labels.field(widget.entityKey, a.key)),
+                ),
+            ],
+            builder: (context, controller, _) => OutlinedButton.icon(
+              key: const ValueKey('actionMenu'),
+              icon: const Icon(Icons.arrow_drop_down),
+              label: Text(strings.actionMenu),
+              // 行を選んでいて、その行に使える操作があるときだけ
+              onPressed: actions.isEmpty
+                  ? null
+                  : () => controller.isOpen
+                        ? controller.close()
+                        : controller.open(),
+            ),
+          ),
+        ],
       ),
     );
   }

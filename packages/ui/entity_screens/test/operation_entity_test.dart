@@ -119,7 +119,7 @@ void main() {
     expect(find.text('保存に失敗しました'), findsNothing);
   });
 
-  testWidgets('compactFlags は、オンのときだけ印を出し、オフは空。actionsFirst はボタンの列が先頭', (
+  testWidgets('compactFlags は、オンのときだけ印を出し、オフは空。行のボタンの列は出さない(操作は上部のメニュー)', (
     tester,
   ) async {
     await tester.binding.setSurfaceSize(const Size(1200, 600));
@@ -128,7 +128,6 @@ void main() {
       key: 'open',
       viewOnly: true,
       compactFlags: true,
-      actionsFirst: true,
       fields: [
         FieldDefinition(key: 'code'),
         FieldDefinition(key: 'is_a', kind: FieldKind.flag),
@@ -160,9 +159,8 @@ void main() {
     expect(find.text('✓'), findsOneWidget);
     expect(find.text('はい'), findsNothing);
     expect(find.text('いいえ'), findsNothing);
-    // ボタンの列(op.go)が、データの列(open.code)より左にある
-    final goX = tester.getTopLeft(find.text('open.go').first).dx;
-    final codeX = tester.getTopLeft(find.text('open.code').first).dx;
-    expect(goX, lessThan(codeX));
+    // 行ごとのボタンの列は無い(操作は、行を選んで、上部のメニューから)
+    expect(find.text('open.go'), findsNothing);
+    expect(find.byKey(const ValueKey('actionMenu')), findsOneWidget);
   });
 }

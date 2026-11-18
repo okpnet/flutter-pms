@@ -8,7 +8,8 @@
 1.  未処置一覧(`cancelopen`。`v_cancel_open_item`): テーブル構造・読み取り専用。キャンセル・停止・打ち切りのあと、処置が済んでいないもの 7 種(未解除の引当予約・仕掛品・押さえたままの品・未出荷の出荷オーダー・未キャンセルの外注発注・外注先にある支給材・顧客支給材の未返却)を、種類の列(チェック。ちょうど 1 つ)で出す。原因(キャンセル・停止・打ち切り)・数量・品目・原因の日つき。
 1.  種類・動き・処置は、コード値(文字列・整数)で持たず、DB のビューの boolean の列をそのまま出す。表示の文を画面で組み立てない(ルートの `CLAUDE.md` の R1・R2)。
 1.  メニューは「計画変更」のグループ(「生産計画」の次)。
-1.  未処置一覧の行には、種類(列のチェック)に合う操作のボタンを出す(`RowAction.whenAny`)。押すと、操作の実体(`actreqrelease`・`actreqhold`・`actlotrelease`・`actlothold`・`actlotscrap`・`actlotdeliver`・`actshipcancel`・`actpurcancel`)の新規登録を、対象と数量を初期値にして開く。操作の実体はメニューに出さず(`inMenu: false`)、保存すると DB の関数が呼ばれて計画変更が追記される(編集・削除は無い)。引当予約は「解除」「保管」、仕掛品・押さえた品は「在庫にする」「廃棄」「引き渡し」(仕掛品は「押さえる」も)、出荷オーダーは「出荷取り消し」、外注発注は「発注キャンセル」。支給材(外注先・顧客)の処置は、支給の画面(段階 4 の別画面)で行う。
+1.  **履歴**の、MRP に未反映の行(`is_unreflected`)も、行を選んで、上部のメニューの「再MRPへ」で、その行の最上位の受注明細(`root_order_detail`。ビュー `v_plan_change` の `root_trans_order_detail_id`。台帳には出さない隠し項目)を対象にして、資材所要計算の再MRP の画面(`production_plan` の契約 `MrpDestination(redo: true, orderDetailIds: […])`)へ進む(`PlanChangeModule.handleRowAction`)。最上位の受注明細が無い行は、何もしない。
+1.  未処置一覧は、**行を選んで、画面の上部の「操作」メニューから**、選んだ行の種類(列のチェック)に合う操作を選ぶ(`RowAction.whenAny`。行ごとのボタンは置かない。上下の行と間違えて押さないため。選んだ行は、上部に名前を出す)。選ぶと、操作の実体(`actreqrelease`・`actreqhold`・`actlotrelease`・`actlothold`・`actlotscrap`・`actlotdeliver`・`actshipcancel`・`actpurcancel`)の新規登録を、対象と数量を初期値にして開く。操作の実体はメニューに出さず(`inMenu: false`)、保存すると DB の関数が呼ばれて計画変更が追記される(編集・削除は無い)。引当予約は「解除」「保管」、仕掛品・押さえた品は「在庫にする」「廃棄」「引き渡し」(仕掛品は「押さえる」も)、出荷オーダーは「出荷取り消し」、外注発注は「発注キャンセル」。支給材(外注先・顧客)の処置は、支給の画面(段階 4 の別画面)で行う。
 
 ## 参照するモデル
 `packages/model_providers/plan_change_model/gql/plan_change.yaml` の `PlanChangePage`・`CancelOpenItemPage`(ビュー `v_plan_change`・`v_cancel_open_item`)。モデルは `lib/src/graphql` のクラスを使う。
@@ -29,7 +30,7 @@
 未処置一覧の種類ごとに、DB の関数を呼ぶ(`lib/src/graphql/cancel_open_actions.dart`。モデルは `plan_change_model` の `PlanChange*PageCall` 8 本)。引当予約の解除・保管、ロットの在庫にする・押さえる・廃棄・引き渡し、出荷オーダー明細の取り消し、外注発注明細のキャンセル。呼ぶ関数は画面が列のチェック(種類)で選び、この中では状態を判定しない。失敗は `CancelOpenActionException`(`errcode`: `OPR00`〜`OPR03`・`VIS05`)で、画面は errcode で表示する文を選ぶ。テストは `test/cancel_open_actions_test.dart`(存在しない対象で `OPR01`)。操作の実体(画面からの保存)は `lib/src/graphql/operation_repositories.dart`(`operationRepositories`)で、`CancelOpenActions` を呼ぶ。テストは `test/operation_repositories_test.dart`(仕掛品を在庫にして計画変更が追記される確認は、未処置の仕掛品がある DB のときだけ実行する)。
 
 ## example
-`example/`(Windows 向けのビジュアルテスト。`flutter run -d windows`。サンプルの取得元で、履歴・未処置一覧を開き、行のボタンから操作の入力画面を確認できる。`flutter test` は起動と画面遷移を確認する)。未処置一覧の行のボタンの列は、列が多いため表の右端にある。
+`example/`(Windows 向けのビジュアルテスト。`flutter run -d windows`。サンプルの取得元で、履歴・未処置一覧を開き、行を選んで、上部のメニューから操作の入力画面を確認できる。`flutter test` は起動と画面遷移を確認する)。
 
 ## 場所の選択
 ロットを動かす操作(引当予約の保管・押さえる・廃棄・引き渡し)の入力画面は、任意の「場所」(`location`。`resource` の場所の台帳から選ぶ)を持つ。棚に場所が無いロットで失敗(`VIS05`)したときに、場所を渡して直せる。空のときは渡さない(`p_location_id` を省く)。

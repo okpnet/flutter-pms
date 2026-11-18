@@ -1661,4 +1661,74 @@ void main() {
     expect(find.text('ID'), findsWidgets);
     expect(find.text('名前'), findsNWidgets(1)); // ソート不可の列は並び替え候補にない(検索の列名のみ)
   });
+  testWidgets('行を選ぶと、選択中の行を通知する(single は 1 件、multiple は増減)', (tester) async {
+    big(tester);
+    final single = <List<String>>[];
+    await tester.pumpWidget(
+      host(
+        FlgTable<TP>(
+          columns: cols(),
+          items: people(),
+          rowKey: (p) => p.id,
+          config: const TableConfig(rowSelection: RowSelectionMode.single),
+          events: TableEvents<TP>(
+            onSelectionChanged: (items) => single.add([for (final x in items) x.name]),
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.text('p1'));
+    await tester.pump(tap400);
+    await tester.tap(find.text('p2'));
+    await tester.pump(tap400);
+    expect(single, [
+      ['p1'],
+      ['p2'],
+    ]);
+
+    final multi = <List<String>>[];
+    await tester.pumpWidget(
+      host(
+        FlgTable<TP>(
+          key: const Key('multi-notify'),
+          columns: cols(),
+          items: people(),
+          rowKey: (p) => p.id,
+          config: const TableConfig(rowSelection: RowSelectionMode.multiple),
+          events: TableEvents<TP>(
+            onSelectionChanged: (items) => multi.add([for (final x in items) x.name]),
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.text('p1'));
+    await tester.pump(tap400);
+    await tester.tap(find.text('p2'));
+    await tester.pump(tap400);
+    await tester.tap(find.text('p1'));
+    await tester.pump(tap400);
+    expect(multi, [
+      ['p1'],
+      ['p1', 'p2'],
+      ['p2'],
+    ]);
+  });
+
+  testWidgets('選択方式が none のときは、選択の通知をしない', (tester) async {
+    big(tester);
+    var count = 0;
+    await tester.pumpWidget(
+      host(
+        FlgTable<TP>(
+          columns: cols(),
+          items: people(),
+          rowKey: (p) => p.id,
+          events: TableEvents<TP>(onSelectionChanged: (_) => count++),
+        ),
+      ),
+    );
+    await tester.tap(find.text('p1'));
+    await tester.pump(tap400);
+    expect(count, 0);
+  });
 }

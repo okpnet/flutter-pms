@@ -355,16 +355,30 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
         onOpen: (r) => bus.execute(EntityEditDestination(key, id: r.id)),
         onCreate: () =>
             bus.execute(EntityEditDestination(key, initialValues: filter)),
-        // 行のボタン: 別の実体の新規登録を、行の値を初期値にして開く(開く先は別の機能でもよい)
-        onAction: (action, r) => bus.execute(
-          EntityEditDestination(
-            action.target,
-            initialValues: action.initialValuesOf(r),
-          ),
-        ),
+        // 行への操作(台帳の上部のメニューで、選んだ行に対して選ぶ): 別の実体の新規登録を、行の値を初期値にして開く
+        // (開く先は別の機能でもよい)。機能が処理する操作([handleRowAction])は、そちらを使う
+        onAction: (action, r) async {
+          if (await handleRowAction(ref, action, r)) return;
+          await bus.execute(
+            EntityEditDestination(
+              action.target,
+              initialValues: action.initialValuesOf(r),
+            ),
+          );
+        },
       );
     },
   );
+
+  /// 行への操作を、機能が処理する(処理したら true)。既定は処理しない(実体の新規登録の画面を開く)。
+  ///
+  /// 実体の画面ではなく、別の機能の画面などへ進む操作(`RowAction.target` が空)で、上書きする。
+  /// 機能同士は、契約(`xxx_api.dart`)の遷移先を CommandBus で開く。
+  Future<bool> handleRowAction(
+    WidgetRef ref,
+    RowAction action,
+    EntityRecord record,
+  ) async => false;
 
   /// 表の中の表の画面(親の表の各行に、子の表を入れる)。
   Widget _nested(String key) => Consumer(

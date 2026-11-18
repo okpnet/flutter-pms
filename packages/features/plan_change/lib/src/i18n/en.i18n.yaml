@@ -14,6 +14,8 @@ entity:
       f_is_visiter: "Lot"
       f_is_shipping_order_detail: "Shipping order line"
       f_item: "Item"
+      f_root_order_detail: "Top-level order line"
+      f_do_remrp: "Go to re-MRP"
       f_is_cancel: "Cancel"
       f_is_quantity_change: "Quantity change"
       f_is_date_change: "Delivery date change"

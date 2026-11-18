@@ -197,6 +197,8 @@ class _PlanChangeStrings$entity$planchange$fields$en extends PlanChangeStrings$e
 	@override String get f_is_visiter => 'Lot';
 	@override String get f_is_shipping_order_detail => 'Shipping order line';
 	@override String get f_item => 'Item';
+	@override String get f_root_order_detail => 'Top-level order line';
+	@override String get f_do_remrp => 'Go to re-MRP';
 	@override String get f_is_cancel => 'Cancel';
 	@override String get f_is_quantity_change => 'Quantity change';
 	@override String get f_is_date_change => 'Delivery date change';
@@ -369,6 +371,8 @@ extension on PlanChangeStringsEn {
 			'entity.planchange.fields.f_is_visiter' => 'Lot',
 			'entity.planchange.fields.f_is_shipping_order_detail' => 'Shipping order line',
 			'entity.planchange.fields.f_item' => 'Item',
+			'entity.planchange.fields.f_root_order_detail' => 'Top-level order line',
+			'entity.planchange.fields.f_do_remrp' => 'Go to re-MRP',
 			'entity.planchange.fields.f_is_cancel' => 'Cancel',
 			'entity.planchange.fields.f_is_quantity_change' => 'Quantity change',
 			'entity.planchange.fields.f_is_date_change' => 'Delivery date change',

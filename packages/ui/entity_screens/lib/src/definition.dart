@@ -248,7 +248,8 @@ class RowAction {
   /// ボタンの識別子(名称を引くキー。実体の項目のキーと重ならない名前にする)。
   final String key;
 
-  /// 新規登録を開く実体のキー。
+  /// 新規登録を開く実体のキー。空のときは、実体の画面を開かず、機能が処理する
+  /// (`EntityFeatureModule.handleRowAction`。例: 別の機能の画面へ進む)。
   final String target;
 
   /// [target] の項目のキー → 初期値にする、この行の項目のキー(`id` はこの行の id)。
@@ -292,7 +293,6 @@ class EntityDefinition {
     this.viewOnly = false,
     this.rowActions = const [],
     this.inMenu = true,
-    this.actionsFirst = false,
     this.compactFlags = false,
     this.confirmSave = false,
   }) : assert(!(isTree && owner != null), 'ツリーと所有は同時に持てない');
@@ -322,9 +322,6 @@ class EntityDefinition {
 
   /// メニューに出すか。行のボタンからだけ開く操作の実体(例: 未処置の処置)は false にする。
   final bool inMenu;
-
-  /// 行のボタン([rowActions])の列を、表の左端に出すか(false は右端)。列が多く、右端だと横にスクロールしないと押せない台帳用。
-  final bool actionsFirst;
 
   /// 台帳の真偽の列を、オンのときだけ印(✓)を出し、オフは空にするか(false は はい/いいえ)。真偽の列が多い台帳で、どれがオンかを見分けやすくする。
   final bool compactFlags;

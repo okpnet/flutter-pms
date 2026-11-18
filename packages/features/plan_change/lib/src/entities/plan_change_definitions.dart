@@ -4,7 +4,7 @@ import 'package:entity_screens/entity_screens.dart';
 /// 計画変更の実体の定義。キーは graphql_provider_lib のビュー(DB の列)に合わせる。
 const List<EntityDefinition> planChangeDefinitions = [
     EntityDefinition(
-      key: 'planchange', viewOnly: true, compactFlags: true,
+      key: 'planchange', viewOnly: true, compactFlags: true, rowActions: [RowAction(key: 'do_remrp', target: '', initialValues: {'order_detail': 'root_order_detail'}, whenAny: ['is_unreflected'])],
       fields: [
         FieldDefinition(key: 'change_at', kind: FieldKind.date, required: false, readOnly: true),
         FieldDefinition(key: 'symbol', required: false, readOnly: true),
@@ -15,6 +15,7 @@ const List<EntityDefinition> planChangeDefinitions = [
         FieldDefinition(key: 'is_visiter', kind: FieldKind.flag, required: false, readOnly: true),
         FieldDefinition(key: 'is_shipping_order_detail', kind: FieldKind.flag, required: false, readOnly: true),
         FieldDefinition(key: 'item', kind: FieldKind.reference, required: false, reference: 'item', readOnly: true),
+        FieldDefinition(key: 'root_order_detail', required: false, readOnly: true, hidden: true),
         FieldDefinition(key: 'is_cancel', kind: FieldKind.flag, required: false, readOnly: true),
         FieldDefinition(key: 'is_quantity_change', kind: FieldKind.flag, required: false, readOnly: true),
         FieldDefinition(key: 'is_date_change', kind: FieldKind.flag, required: false, readOnly: true),
@@ -44,7 +45,7 @@ const List<EntityDefinition> planChangeDefinitions = [
       ],
     ),
     EntityDefinition(
-      key: 'cancelopen', viewOnly: true, actionsFirst: true, compactFlags: true, rowActions: [RowAction(key: 'do_req_release', target: 'actreqrelease', initialValues: {'target': RowAction.idSource, 'item': 'item'}, whenAny: ['is_inventory_request']), RowAction(key: 'do_req_hold', target: 'actreqhold', initialValues: {'target': RowAction.idSource, 'item': 'item'}, whenAny: ['is_inventory_request']), RowAction(key: 'do_lot_release', target: 'actlotrelease', initialValues: {'target': RowAction.idSource, 'item': 'item'}, whenAny: ['is_work_in_process', 'is_hold']), RowAction(key: 'do_lot_hold', target: 'actlothold', initialValues: {'target': RowAction.idSource, 'item': 'item', 'quantity': 'quantity'}, whenAny: ['is_work_in_process']), RowAction(key: 'do_lot_scrap', target: 'actlotscrap', initialValues: {'target': RowAction.idSource, 'item': 'item', 'quantity': 'quantity'}, whenAny: ['is_work_in_process', 'is_hold']), RowAction(key: 'do_lot_deliver', target: 'actlotdeliver', initialValues: {'target': RowAction.idSource, 'item': 'item', 'quantity': 'quantity'}, whenAny: ['is_work_in_process', 'is_hold']), RowAction(key: 'do_ship_cancel', target: 'actshipcancel', initialValues: {'target': RowAction.idSource, 'item': 'item'}, whenAny: ['is_shipping_order']), RowAction(key: 'do_pur_cancel', target: 'actpurcancel', initialValues: {'target': RowAction.idSource, 'item': 'item', 'quantity': 'quantity'}, whenAny: ['is_outsource_order'])],
+      key: 'cancelopen', viewOnly: true, compactFlags: true, rowActions: [RowAction(key: 'do_req_release', target: 'actreqrelease', initialValues: {'target': RowAction.idSource, 'item': 'item'}, whenAny: ['is_inventory_request']), RowAction(key: 'do_req_hold', target: 'actreqhold', initialValues: {'target': RowAction.idSource, 'item': 'item'}, whenAny: ['is_inventory_request']), RowAction(key: 'do_lot_release', target: 'actlotrelease', initialValues: {'target': RowAction.idSource, 'item': 'item'}, whenAny: ['is_work_in_process', 'is_hold']), RowAction(key: 'do_lot_hold', target: 'actlothold', initialValues: {'target': RowAction.idSource, 'item': 'item', 'quantity': 'quantity'}, whenAny: ['is_work_in_process']), RowAction(key: 'do_lot_scrap', target: 'actlotscrap', initialValues: {'target': RowAction.idSource, 'item': 'item', 'quantity': 'quantity'}, whenAny: ['is_work_in_process', 'is_hold']), RowAction(key: 'do_lot_deliver', target: 'actlotdeliver', initialValues: {'target': RowAction.idSource, 'item': 'item', 'quantity': 'quantity'}, whenAny: ['is_work_in_process', 'is_hold']), RowAction(key: 'do_ship_cancel', target: 'actshipcancel', initialValues: {'target': RowAction.idSource, 'item': 'item'}, whenAny: ['is_shipping_order']), RowAction(key: 'do_pur_cancel', target: 'actpurcancel', initialValues: {'target': RowAction.idSource, 'item': 'item', 'quantity': 'quantity'}, whenAny: ['is_outsource_order'])],
       fields: [
         FieldDefinition(key: 'symbol', required: false, readOnly: true),
         FieldDefinition(key: 'is_inventory_request', kind: FieldKind.flag, required: false, readOnly: true),

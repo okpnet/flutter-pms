@@ -1050,6 +1050,17 @@ abstract class _TableBaseState<T, W extends TableWidgetBase<T>>
       case RowSelectionMode.multiple:
         if (!_selected.remove(key)) _selected.add(key);
     }
+    _notifySelection();
+  }
+
+  /// 選択中の行を通知する(選択方式が`none`のときは通知しない)。
+  void _notifySelection() {
+    final callback = _events.onSelectionChanged;
+    if (callback == null || _cfg.rowSelection == RowSelectionMode.none) return;
+    callback([
+      for (final k in _selected)
+        if (_findItem(k) case final T item) item,
+    ]);
   }
 
   void _startEdit(T item, ColumnDefinition<T> col) {

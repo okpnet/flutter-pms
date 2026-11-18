@@ -1,5 +1,8 @@
 # 実体の画面に共通の文字列(日本語。基準言語)。
 create: 新規
+actionMenu: 操作
+actionSelected: 選択中の行
+actionHint: 行を選ぶと、その行に使える操作を選べます。
 save: 保存
 delete: 削除
 cancel: キャンセル

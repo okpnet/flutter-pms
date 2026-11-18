@@ -39,6 +39,9 @@ class EntityScreenStringsEn extends EntityScreenStrings with BaseTranslations<En
 
 	// Translations
 	@override String get create => 'New';
+	@override String get actionMenu => 'Actions';
+	@override String get actionSelected => 'Selected row';
+	@override String get actionHint => 'Select a row to choose an action for it.';
 	@override String get save => 'Save';
 	@override String get delete => 'Delete';
 	@override String get cancel => 'Cancel';
@@ -185,6 +188,9 @@ extension on EntityScreenStringsEn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'create' => 'New',
+			'actionMenu' => 'Actions',
+			'actionSelected' => 'Selected row',
+			'actionHint' => 'Select a row to choose an action for it.',
 			'save' => 'Save',
 			'delete' => 'Delete',
 			'cancel' => 'Cancel',

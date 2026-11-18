@@ -39,6 +39,15 @@ class EntityScreenStrings with BaseTranslations<EntityScreenLocale, EntityScreen
 	/// ja: '新規'
 	String get create => '新規';
 
+	/// ja: '操作'
+	String get actionMenu => '操作';
+
+	/// ja: '選択中の行'
+	String get actionSelected => '選択中の行';
+
+	/// ja: '行を選ぶと、その行に使える操作を選べます。'
+	String get actionHint => '行を選ぶと、その行に使える操作を選べます。';
+
 	/// ja: '保存'
 	String get save => '保存';
 
@@ -317,6 +326,9 @@ extension on EntityScreenStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'create' => '新規',
+			'actionMenu' => '操作',
+			'actionSelected' => '選択中の行',
+			'actionHint' => '行を選ぶと、その行に使える操作を選べます。',
 			'save' => '保存',
 			'delete' => '削除',
 			'cancel' => 'キャンセル',
