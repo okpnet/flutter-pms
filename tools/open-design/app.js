@@ -1748,7 +1748,8 @@
   };
   const MRP_DEC = { 0: ["要判断", "alert", "warn"], 1: ["採用", "check", "ok"], 2: ["却下", "close", "mute"], 9: ["情報", "", "mute"] };
   const MRP_ERR = { timeout: "57014", args: "MRP00" }; // DB処理中のタイムアウト / 引数エラー
-  const mrpState = { running: false, redo: false, result: null, error: null, t0: 0 };
+  // issues: 調査(マスタの不備)の結果。targets: 再MRP の対象の受注明細(空 = すべての需要)。calc / nextCalc: 計算して確認する(確定は後で)
+  const mrpState = { running: false, redo: false, result: null, error: null, t0: 0, issues: null, targets: [], calc: false, nextCalc: false };
   let mrpTick = null;
   const mrpDt = (iso) => (iso ? fmtDate(iso) : "―");
   const mrpT = makeTable({
@@ -1769,6 +1770,63 @@
     ],
   });
 
+  /* 手続き: 1 調査(mrp_check_items)→ 2 評価(mrp_execute / mrp_run)→ 3 判断(mrp_set_decision)→ 4 確定・破棄(mrp_commit / mrp_discard) */
+  D.mrpIssues ??= [
+    { code: "S-3001", message: "品目工程運用明細の工程運用明細または工程が削除されています", sev: 1 },
+    { code: "M-1002", message: "仕入先が登録されていません", sev: 2 },
+  ];
+  D.mrpTargets ??= [
+    { id: "od-1", name: "受注 SO-0012 / 精密切削部品 A型" },
+    { id: "od-2", name: "受注 SO-0015 / カバー部品 B型" },
+    { id: "od-3", name: "受注 SO-0018 / SUS304丸棒 φ20" },
+  ];
+  const mrpPending = () => (mrpState.result?.rows ?? []).filter((r) => r.decision === 0).length;
+  function mrpCheckCard() {
+    const is = mrpState.issues;
+    const list = is == null ? "" : is.length === 0
+      ? `<p id="mrp-check-none">不備は見つかりませんでした。</p>`
+      : `<p id="mrp-check-count"><strong>不備の件数：${is.length}件</strong></p>
+         <ul class="warn-list">${[...is].sort((a, b) => a.sev - b.sev).map((i) => `<li>${icon("alert")}<span>${esc(i.code)}　${esc(i.message)}</span></li>`).join("")}</ul>`;
+    return `<section class="card mrp-ctl" aria-labelledby="h-mrp-check">
+        <h2 class="sec-title" id="h-mrp-check">1. 調査（マスタの不備）</h2>
+        <p class="note">MRPの前に、品目のマスタの不備（工程・仕入先・カレンダーなど）を調べます。調べるだけで、何も変えません。不備があってもMRPは実行できますが、結果に「マスタ不備」の提案として出ます。</p>
+        <div class="form-actions"><button class="btn" type="button" id="mrp-check">${icon("search")}<span>不備を調べる</span></button></div>
+        ${list}
+      </section>`;
+  }
+  function mrpTargetsBlock() {
+    if (!mrpState.redo) return "";
+    const t = mrpState.targets;
+    const opts = D.mrpTargets.filter((x) => !t.some((y) => y.id === x.id)).map((x) => `<option value="${esc(x.id)}">${esc(x.name)}</option>`).join("");
+    return `<div class="mrp-targets" id="mrp-targets">
+        <h3 class="sec-sub">再MRPの対象の受注明細</h3>
+        <p class="note">指定すると、その受注明細と、その下位の資材計画だけを作り直します。指定しないときは、すべての需要が対象です。</p>
+        ${t.length === 0 ? `<p id="mrp-targets-all">指定なし（すべての需要）</p>`
+          : `<div class="chip-row">${t.map((x) => `<span class="chip">${esc(x.name)} <button type="button" class="btn-icon" data-mrp-rm="${esc(x.id)}" aria-label="${esc(x.name)}を対象から外す">${icon("close")}</button></span>`).join("")}</div>`}
+        <label class="field"><span>受注明細を選ぶ</span><select id="mrp-target-add"><option value="">選択してください</option>${opts}</select></label>
+      </div>`;
+  }
+  function mrpAwaitingCard() {
+    const r = mrpState.result;
+    if (!r?.awaiting) return "";
+    const pend = mrpPending();
+    return `<section class="card mrp-ctl" id="mrp-awaiting" aria-labelledby="h-mrp-wait">
+        <h2 class="sec-title" id="h-mrp-wait">確定待ちです</h2>
+        <p>要判断の提案の採用・却下を決めてから、確定します。確定するまで、計画データは変わりません。確定しないで新しく計算すると、この結果は失効します。</p>
+        <p><strong>判断が残っている提案：${pend}件</strong></p>
+        <div class="form-actions">
+          <button class="btn" type="button" id="mrp-adopt" ${pend ? "" : "disabled"}>表示中の要判断を採用</button>
+          <button class="btn" type="button" id="mrp-reject" ${pend ? "" : "disabled"}>表示中の要判断を却下</button>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" type="button" id="mrp-commit" ${pend ? "disabled" : ""}>確定する</button>
+          ${pend ? `<button class="btn" type="button" id="mrp-force">要判断を却下して確定</button>` : ""}
+          <button class="btn" type="button" id="mrp-discard">破棄する</button>
+        </div>
+        <p class="note">確定すると、採用された提案が、資材計画・発注・生産計画・引当予約に反映されます。要判断を却下して確定すると、残っている提案はすべて却下として確定し、計算のあとにデータが更新されたかの確認を省きます。</p>
+      </section>`;
+  }
+
   function mrpScreen() {
     const st = mrpState;
     const err = st.error
@@ -1779,14 +1837,17 @@
     const ok = r ? `<div class="flash mrp-ok" role="status" id="mrp-status" tabindex="-1">${icon("check")}<div class="od-fill"><strong>MRPが成功しました</strong>
           <p>${esc(r.at)} に${r.mode === 2 ? "再MRP" : "受注MRP"}を実行し、${r.rows.length}件の提案を作成しました。${r.pending
             ? `要判断の提案が${r.pending}件あります。内容を確認して、採否を決めてください。` : "要判断の提案はなく、確定まで完了しました。"}${r.late ? `納期に遅れる提案が${r.late}件あります。` : ""}</p></div></div>
-        ${tableCard(mrpT, false, "h-mrp-res", "MRPの結果（提案の一覧）", "")}` : "";
-    return `<section class="card mrp-ctl" aria-labelledby="h-mrp">
+        ${mrpAwaitingCard()}${tableCard(mrpT, false, "h-mrp-res", "MRPの結果（提案の一覧）", "")}` : "";
+    return `${mrpCheckCard()}<section class="card mrp-ctl" aria-labelledby="h-mrp">
         <h2 class="sec-title" id="h-mrp">資材所要計算（MRP）</h2>
         <p>受注と、在庫・発注残・生産残をもとに、必要な資材を計算し、発注や生産の提案を作ります。</p>
         <label class="col-opt mrp-redo"><input type="checkbox" id="mrp-redo" ${st.redo ? "checked" : ""}>再MRPとして実行する</label>
         <p class="note">チェックなし：まだ計画していない受注だけを計算します（受注MRP）。<br>チェックあり：受注を見直したあとに、すべての需要を作り直します（再MRP）。</p>
+        ${mrpTargetsBlock()}
         <p class="note">処理が重く、他のユーザーの作業にも影響します。実行前に確認を表示します。</p>
-        <div class="form-actions"><button class="btn btn-primary" type="button" id="mrp-run">${icon("production")}<span>MRPを実行</span></button></div>
+        <div class="form-actions"><button class="btn btn-primary" type="button" id="mrp-run">${icon("production")}<span>MRPを実行</span></button>
+          <button class="btn" type="button" id="mrp-calc">${icon("check")}<span>計算して確認する</span></button></div>
+        <p class="note">「MRPを実行」は、要判断が無ければ、そのまま確定します。「計算して確認する」は、計算だけして、結果を確認・判断してから、確定または破棄します。</p>
       </section>
       ${err}${ok}
       ${!r && !err ? `<section class="card">${emptyState("まだ実行していません", "「MRPを実行」を押すと、計算の結果がここに表示されます。")}</section>` : ""}`;
@@ -1800,12 +1861,13 @@
       extra: `<ul class="warn-list" aria-label="実行前にご確認ください">
           ${li("処理が重く、完了まで数分かかることがあります。")}
           ${li("<strong>影響が広範囲に及び、ほかのユーザーが行っている処理にも影響します。</strong>動作が遅くなったり、待たされたりすることがあります。")}
-          ${redo ? li("<strong>再MRPは、すべての需要を作り直します。</strong>通常のMRPよりも、影響がさらに大きくなります。") : ""}
+          ${redo && !mrpState.targets.length ? li("<strong>再MRPは、すべての需要を作り直します。</strong>通常のMRPよりも、影響がさらに大きくなります。") : ""}
+          ${redo && mrpState.targets.length ? li(`<strong>指定した${mrpState.targets.length}件の受注明細と、その下位の資材計画だけを作り直します。</strong>`) : ""}
           ${li("実行中は、画面のどこも操作できません。途中で止めることもできません。")}
         </ul>
         <p>本当に実行してよろしいですか？</p>
         <div class="form-actions sheet-actions"><button class="btn" type="button" data-close>キャンセル</button><button class="btn btn-danger" type="button" id="mrp-go">実行する</button></div>`,
-      onMount: (rootEl) => rootEl.querySelector("#mrp-go").addEventListener("click", () => { closeSheet(false); startMrp(); }),
+      onMount: (rootEl) => rootEl.querySelector("#mrp-go").addEventListener("click", () => { closeSheet(false); startMrp(mrpState.nextCalc); }),
     });
   }
 
@@ -1858,7 +1920,8 @@
     const el = document.getElementById("mrp-elapsed");
     if (el) el.textContent = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
   }
-  function startMrp() {
+  function startMrp(calc = false) {
+    mrpState.calc = calc;
     mrpState.running = true;
     mrpState.error = null;
     mrpState.result = null;
@@ -1879,6 +1942,8 @@
         mode: mrpState.redo ? 2 : 1, rows,
         at: `${n.getFullYear()}年${n.getMonth() + 1}月${n.getDate()}日 ${String(n.getHours()).padStart(2, "0")}:${String(n.getMinutes()).padStart(2, "0")}`,
         pending: rows.filter((r) => r.decision === 0).length, late: rows.filter((r) => r.late).length,
+        // 計算して確認する、または要判断が残るときは、確定待ち(計画データは変わらない)
+        awaiting: mrpState.calc || rows.some((r) => r.decision === 0),
       };
     } else mrpState.error = { code: MRP_ERR[outcome] ?? "MRP00" };
     render();
@@ -3731,8 +3796,23 @@
       window.addEventListener("keydown", key);
       move(e);
     }));
-    document.getElementById("mrp-redo")?.addEventListener("change", (e) => { mrpState.redo = e.target.checked; });
-    document.getElementById("mrp-run")?.addEventListener("click", (e) => openMrpConfirm(e.currentTarget));
+    document.getElementById("mrp-redo")?.addEventListener("change", (e) => { mrpState.redo = e.target.checked; render(); document.getElementById("mrp-redo")?.focus(); });
+    document.getElementById("mrp-run")?.addEventListener("click", (e) => { mrpState.nextCalc = false; openMrpConfirm(e.currentTarget); });
+    document.getElementById("mrp-calc")?.addEventListener("click", (e) => { mrpState.nextCalc = true; openMrpConfirm(e.currentTarget); });
+    document.getElementById("mrp-check")?.addEventListener("click", () => { mrpState.issues = D.mrpIssues.map((x) => ({ ...x })); render(); document.getElementById("mrp-check")?.focus(); });
+    document.getElementById("mrp-target-add")?.addEventListener("change", (e) => {
+      const t = D.mrpTargets.find((x) => x.id === e.target.value);
+      if (t && !mrpState.targets.some((x) => x.id === t.id)) mrpState.targets.push({ ...t });
+      render();
+      document.getElementById("mrp-target-add")?.focus();
+    });
+    document.querySelectorAll("[data-mrp-rm]").forEach((b) => b.addEventListener("click", () => { mrpState.targets = mrpState.targets.filter((x) => x.id !== b.dataset.mrpRm); render(); }));
+    const mrpDecide = (to) => { (mrpState.result?.rows ?? []).forEach((r) => { if (r.decision === 0) r.decision = to; }); mrpState.result.pending = mrpPending(); render(); document.getElementById("mrp-awaiting")?.focus(); };
+    document.getElementById("mrp-adopt")?.addEventListener("click", () => mrpDecide(1));
+    document.getElementById("mrp-reject")?.addEventListener("click", () => mrpDecide(2));
+    document.getElementById("mrp-commit")?.addEventListener("click", () => { mrpState.result.awaiting = false; mrpState.result.committed = true; render(); document.getElementById("mrp-status")?.focus(); });
+    document.getElementById("mrp-force")?.addEventListener("click", () => { mrpDecide(2); mrpState.result.awaiting = false; mrpState.result.committed = true; render(); });
+    document.getElementById("mrp-discard")?.addEventListener("click", () => { mrpState.result = null; render(); });
     document.querySelectorAll('[role="tablist"]').forEach((tl) => tl.addEventListener("keydown", (e) => {
       const tabs = [...tl.querySelectorAll('[role="tab"]')];
       const i = tabs.indexOf(document.activeElement);
