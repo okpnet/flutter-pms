@@ -130,6 +130,36 @@ class AppMainFrame extends ConsumerWidget {
     return entries;
   }
 
+  /// 項目の遷移先のパス(取れないときは null)。
+  String? _pathOf(MenuEntry entry) {
+    final Object target = entry.destination;
+    final inner = target is TopLevelDestination
+        ? target.inner
+        : entry.destination;
+    try {
+      return Uri.parse(featureLocationOf(inner)).path;
+    } on StateError {
+      return null;
+    }
+  }
+
+  /// いまのページ [current] に対応する項目の id(選択中の強調に使う)。パスが前方一致する項目のうち、最も長いもの。
+  /// 編集画面(`/e/xxx/<id>`)でも、その台帳の項目が選ばれる。
+  String? _selectedId(String current, Iterable<MenuEntry> entries) {
+    String? best;
+    var bestLength = -1;
+    for (final e in entries) {
+      final p = _pathOf(e);
+      if (p == null || p.isEmpty) continue;
+      if ((current == p || current.startsWith('$p/')) &&
+          p.length > bestLength) {
+        best = '${e.groupId}/${e.label}';
+        bestLength = p.length;
+      }
+    }
+    return best;
+  }
+
   ///機能の項目をグループ(識別子)ごとにまとめる。
   AppMenu _menu(BuildContext context, WidgetRef ref, AppCoreStrings t) {
     final bus = ref.read(commandBusProvider);
@@ -149,10 +179,13 @@ class AppMainFrame extends ConsumerWidget {
         groups.putIfAbsent(entry.groupId, () => []).add(entry);
       }
     }
+    final current = GoRouterState.of(context).uri.path;
+    final selectedId = _selectedId(current, groups.values.expand((e) => e));
     return AppMenu(
       topItems: [
         AppMenuItem(
           id: 'dashboard',
+          selected: current == DashboardConstant.path,
           label: t.shell.dashboard,
           icon: Icons.dashboard_outlined,
           onSelected: () => context.go(DashboardConstant.path),
@@ -163,6 +196,9 @@ class AppMainFrame extends ConsumerWidget {
           if (_asItem.contains(entry.key))
             AppMenuItem(
               id: '${entry.value.first.groupId}/${entry.value.first.label}',
+              selected:
+                  selectedId ==
+                  '${entry.value.first.groupId}/${entry.value.first.label}',
               label: entry.value.first.label,
               icon: _menuIcons[entry.key] ?? Icons.folder_outlined,
               onSelected: () => bus.execute(
@@ -173,20 +209,21 @@ class AppMainFrame extends ConsumerWidget {
       groups: [
         for (final entry in _ordered(groups))
           if (!_asItem.contains(entry.key))
-          AppMenuGroup(
-            id: entry.key,
-            icon: _menuIcons[entry.key] ?? Icons.folder_outlined,
-            label: entry.value.first.groupLabel,
-            items: [
-              for (final e in entry.value)
-                AppMenuItem(
-                  id: '${e.groupId}/${e.label}',
-                  label: e.label,
-                  onSelected: () =>
-                      bus.execute(TopLevelDestination(e.destination)),
-                ),
-            ],
-          ),
+            AppMenuGroup(
+              id: entry.key,
+              icon: _menuIcons[entry.key] ?? Icons.folder_outlined,
+              label: entry.value.first.groupLabel,
+              items: [
+                for (final e in entry.value)
+                  AppMenuItem(
+                    id: '${e.groupId}/${e.label}',
+                    selected: selectedId == '${e.groupId}/${e.label}',
+                    label: e.label,
+                    onSelected: () =>
+                        bus.execute(TopLevelDestination(e.destination)),
+                  ),
+              ],
+            ),
       ],
     );
   }

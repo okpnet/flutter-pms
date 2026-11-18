@@ -232,6 +232,37 @@ void main() {
     });
   });
 
+  group('サイドメニューの選択中の強調', () {
+    testWidgets('いまのページの項目が強調され(編集画面でも台帳の項目)、別のページでは外れる', (tester) async {
+      await tester.binding.setSurfaceSize(const Size(1600, 1000));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+      final h = await ExampleHarness.start(tester);
+      await h.login('admin', 'admin-pass');
+      h.container.read(sidebarIconOnlyProvider.notifier).set(false);
+      await h.settle();
+      // この画面の大きさでは、サイドバーはアイコンだけ(選択中は、アイコンが主色)。広い画面は、選択中の行の背景(ListTile.selected)
+      Color primary() =>
+          Theme.of(tester.element(find.byType(AppMainFrame))).colorScheme.primary;
+      int selectedCount() =>
+          tester
+              .widgetList<ListTile>(find.byType(ListTile))
+              .where((t) => t.selected)
+              .length +
+          tester
+              .widgetList<IconButton>(find.byType(IconButton))
+              .where((b) => b.color == primary())
+              .length;
+      await h.go('/dashboard');
+      expect(selectedCount(), 1, reason: 'ダッシュボード');
+      await h.go('/e/company');
+      expect(selectedCount(), 1, reason: '台帳の項目');
+      await h.go('/e/company/new');
+      expect(selectedCount(), 1, reason: '新規の画面でも、同じ台帳の項目');
+      await h.go('/settings');
+      expect(selectedCount(), 0, reason: '設定は、メニューの項目ではない');
+    });
+  });
+
   group('11. サイドメニューの項目', () {
     testWidgets('すべての項目が解決でき、重複が無く、開くとエラー画面にならない', (tester) async {
       final h = await ExampleHarness.start(tester);

@@ -488,7 +488,7 @@ class _EntityEditPageState extends State<EntityEditPage> {
         children: [
           // 画面案: 幅を絞ったカードに、項目名を枠の上に置いて並べ、保存の行が最後
           Align(
-            alignment: Alignment.topLeft,
+            alignment: Alignment.topCenter,
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 760),
               child: Card(
