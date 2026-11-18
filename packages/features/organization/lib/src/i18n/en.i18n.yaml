@@ -21,6 +21,7 @@ home:
   detail: Details
   offerings: Services and products
   approval: Approval
+  approvalPathApproval: Access path approvals
   below: ${count} below
 # Company information strings (English). Keys missing here fall back to the base language (ja).
 menu:
@@ -144,4 +145,15 @@ entity:
       f_department: "Department"
       f_position: "Position"
       f_priority: "Priority"
+      f_remarks: "Remarks"
+  accesspathapproval:
+    title: "Access path approvals"
+    fields:
+      f_name: "Name"
+      f_access_path: "Access path"
+      f_remarks: "Remarks"
+  approvalscope:
+    title: "Approval scopes"
+    fields:
+      f_access_path_approval: "Access path approval"
       f_remarks: "Remarks"

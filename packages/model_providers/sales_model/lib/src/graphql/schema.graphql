@@ -1847,6 +1847,8 @@ input TransOrderDetailFilter {
   vOrderDetailBalanceByTransOrderDetailIdExists: Boolean
   vOrderDetailOrderDetailRiskCountByTransOrderDetailId: VOrderDetailOrderDetailRiskCountFilter
   vOrderDetailOrderDetailRiskCountByTransOrderDetailIdExists: Boolean
+  vOrderDetailPlanByTransOrderDetailIdExists: Boolean
+  vOrderDetailPlanningByTransOrderDetailIdExists: Boolean
   vOrderDetailShippingOrderDetailCountByTransOrderDetailId: VOrderDetailShippingOrderDetailCountFilter
   vOrderDetailShippingOrderDetailCountByTransOrderDetailIdExists: Boolean
   vPlanChangesByTransOrderDetailIdExist: Boolean
@@ -1973,6 +1975,7 @@ input TransOrderFilter {
   vOrderComplaintOrderCountByTransOrderId: VOrderComplaintOrderCountFilter
   vOrderComplaintOrderCountByTransOrderIdExists: Boolean
   vOrderDetailBalancesByTransOrderIdExist: Boolean
+  vOrderDetailPlanningsByTransOrderIdExist: Boolean
   vOrderOrderDetailCountByTransOrderId: VOrderOrderDetailCountFilter
   vOrderOrderDetailCountByTransOrderIdExists: Boolean
   vOrderOrderRiskCountByTransOrderId: VOrderOrderRiskCountFilter

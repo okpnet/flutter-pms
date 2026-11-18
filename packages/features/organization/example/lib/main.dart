@@ -1,6 +1,7 @@
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:logger_provider/logger_provider.dart';
+import 'package:access_control/access_control.dart';
 import 'package:organization/organization.dart';
 import 'package:resource/resource.dart';
 import 'package:theme_lib/theme_lib.dart';
@@ -23,8 +24,8 @@ class ExampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => FeatureHost(
     title: '会社情報 (example)',
-    modules: const [OrganizationModule(), ResourceModule()],
-    entries: const [FeatureHostEntry('会社情報', EntityListDestination('company')), FeatureHostEntry('事業所', EntityListDestination('site')), FeatureHostEntry('部署区分', EntityListDestination('deptkind')), FeatureHostEntry('部署', EntityListDestination('department')), FeatureHostEntry('作業者', EntityListDestination('staff')), FeatureHostEntry('承認パターン', EntityListDestination('approvalpattern'))],
+    modules: const [OrganizationModule(), AccessControlModule(), ResourceModule()],
+    entries: const [FeatureHostEntry('会社情報', EntityListDestination('company')), FeatureHostEntry('事業所', EntityListDestination('site')), FeatureHostEntry('部署区分', EntityListDestination('deptkind')), FeatureHostEntry('部署', EntityListDestination('department')), FeatureHostEntry('作業者', EntityListDestination('staff')), FeatureHostEntry('承認パターン', EntityListDestination('approvalpattern')), FeatureHostEntry('アクセスパスの承認', EntityListDestination('accesspathapproval'))],
     logger: logger,
     // flgtable_lib / theme_lib が使うテーマ側のロガー
     overrides: [themeLoggerProvider.overrideWithValue(logger)],

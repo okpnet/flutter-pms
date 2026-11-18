@@ -331,7 +331,7 @@
     ["new_date", "変更後の納期", "d", { req: false }],
     ["reason", "理由", "t", { req: false }],
   ], [
-    ["2026-11-10", "CH-0001", "1", "", "", "", "", "", "item1", "1", "", "", "", "", "", "", "", "", "", "", "", "", "1", "", "", "", "", "1", "1", "5", "", "", "", "", "顧客の都合でキャンセル"],
+    ["2026-11-10", "CH-0001", "1", "", "", "", "", "", "item1", "7d1b0000-0000-4000-8000-000000000001", "", "", "", "", "", "", "", "", "", "", "", "", "1", "", "", "", "", "1", "1", "5", "", "", "", "", "顧客の都合でキャンセル"],
     ["2026-11-10", "CH-0002", "", "", "1", "", "", "", "item1", "", "", "", "", "", "", "", "1", "", "", "", "", "", "1", "", "", "", "", "", "", "", "", "", "", "", ""],
   ]);
   view("cancelopen", "未処置一覧", [
@@ -366,6 +366,16 @@
       ["reason", "理由", "t", { req: false }],
     ],
   });
+  // 精算区分(引き渡しのときの精算の選択肢。DB の mstr_settlement_kind。読み取りのみ。メニューには出さない)
+  D.entities.push({
+    key: "settlementkind", label: "精算区分", viewOnly: true, noMenu: true, group: "planchange",
+    fields: [
+      ["code", "コード", "t"],
+      ["name", "名称", "t"],
+      ["delivery", "品物の引き渡しも行う", "b"],
+    ],
+    rows: [["SK-DELIVERY", "引き渡しの精算", "1"], ["SK-OTHER", "その他の精算", ""]],
+  });
   const qty = ["quantity", "数量", "n", { gt: 0 }];
   // 棚に場所が無いロットを動かすと失敗する(VIS05)ため、任意の「場所」を渡せる。
   const loc = ["location", "場所(棚に場所が無いとき)", "r", { ref: "location", req: false }];
@@ -375,7 +385,13 @@
   op("actlotrelease", "在庫にする", []);
   op("actlothold", "品物を押さえる", [cont, ["quantity", "数量", "n", { req: false, gt: 0 }], loc]);
   op("actlotscrap", "品物の廃棄", [qty, loc]);
-  op("actlotdeliver", "顧客への引き渡し", [qty, loc]);
+  // 引き渡しの精算(任意。区分と金額は、そろえて入れる。受注明細は一覧の行から引く)。同じトランザクションで精算も登録する。
+  op("actlotdeliver", "顧客への引き渡し", [
+    qty, loc,
+    ["settlement_kind", "精算区分", "r", { ref: "settlementkind", req: false }],
+    ["settlement_amount", "精算の金額", "n", { req: false, ge: 0 }],
+    ["order_detail", "受注明細", "t", { req: false, readOnly: true, hidden: true }],
+  ]);
   op("actshipcancel", "出荷オーダーの取り消し", []);
   op("actpurcancel", "外注発注のキャンセル", [qty]);
   const co = D.entities.find((e) => e.key === "cancelopen");
@@ -387,6 +403,10 @@
   pc.actions = [{ key: "do_remrp", label: "再MRPへ", target: "", params: { order_detail: "root_order_detail" }, whenAny: ["is_unreflected"] }];
   const tgt = { target: "id", item: "item" };
   const tgtQty = { target: "id", item: "item", quantity: "quantity" };
+  const tgtQtyOd = { ...tgtQty, order_detail: "order_detail" };
+  // 未処置一覧の行に、受注明細の ID(引き渡しの精算に使う。画面には出さない)
+  co.fields.push(["order_detail", "受注明細", "t", { req: false, hidden: true }]);
+  co.rows.forEach((r) => r.push(""));
   const lot = ["is_work_in_process", "is_hold"];
   co.actions = [
     { key: "do_req_release", label: "解除", target: "actreqrelease", params: tgt, whenAny: ["is_inventory_request"] },
@@ -394,7 +414,7 @@
     { key: "do_lot_release", label: "在庫にする", target: "actlotrelease", params: tgt, whenAny: lot },
     { key: "do_lot_hold", label: "押さえる", target: "actlothold", params: tgtQty, whenAny: ["is_work_in_process"] },
     { key: "do_lot_scrap", label: "廃棄", target: "actlotscrap", params: tgtQty, whenAny: lot },
-    { key: "do_lot_deliver", label: "引き渡し", target: "actlotdeliver", params: tgtQty, whenAny: lot },
+    { key: "do_lot_deliver", label: "引き渡し", target: "actlotdeliver", params: tgtQtyOd, whenAny: lot },
     { key: "do_ship_cancel", label: "出荷取り消し", target: "actshipcancel", params: tgt, whenAny: ["is_shipping_order"] },
     { key: "do_pur_cancel", label: "発注キャンセル", target: "actpurcancel", params: tgtQty, whenAny: ["is_outsource_order"] },
   ];

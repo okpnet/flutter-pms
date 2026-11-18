@@ -25,7 +25,10 @@
 | 作業者の資格 | `stafflicense` | 子の台帳(親: 作業者) | 8 | `license` |
 | 承認パターン | `approvalpattern` | テーブル構造 | 3 |  |
 | 承認できる人 | `approver` | 子の台帳(親: 承認パターン) | 7 | `department`, `position` |
+| アクセスパスの承認 | `accesspathapproval` | テーブル構造 | 3 | `accesspath` |
+| 承認の範囲 | `approvalscope` | 子の台帳(親: 承認パターン) | 2 | `accesspathapproval` |
 <!-- entity_gen:end -->
+
 
 
 
@@ -35,6 +38,9 @@
 
 ## 会社情報の概要の画面
 `/e/company`(メニューの「会社情報」。メニューには、この 1 項目だけを出す)は、表ではなく、概要の画面(`lib/src/page/company_home_page.dart` の `CompanyHomePage`。`OrganizationModule.customListPage`)。会社の情報(DB の列: 名称・読み・略称・代表者名・ホームページ・所在地・電話・FAX・備考)・サマリ(作業者・事業所・部署・役職の件数。押すと一覧)・事業所のタイル・部署の構成・提供サービス・製品・承認(承認パターンへ)。事業所・部署・承認パターン・作業者・会社の編集は、ここから開く(各台帳は `/e/<キー>` のまま)。**項目は DB の列だけ**(画面案の「従業員の区分の内訳」「外部委託業者数」「顧客数」「代表者の役職」「事業所の種別・在籍人数」は、DB に列が無いため出さない)。文字列は `home:`(`lib/src/i18n/*.i18n.yaml` の、生成の印より上の手書きの部分)。
+
+## 承認の範囲
+承認の範囲(`approvalscope`。承認パターンの子の台帳。DB の `mstr_approval_scope_pattern`)は、**承認パターンを、どのアクセスパスの承認に使うか**の対応(アクセスパスの承認 + 備考)。画面案の段階・承認する役職・対象の組織・配下を含むか、は DB に列が無いため持たない(DB を優先)。参照先の「アクセスパスの承認」(`accesspathapproval`。DB の `info_access_path_approval`。名称・アクセスパス・備考)も実体として持ち、会社情報の概要の「承認」の下から開く。どちらも、いまはサンプルの取得元(GraphQL 版は未作成。モデルは `approval.yaml` の `ApprovalScopePage`・`ApprovalScopePageEdit` のみで、`info_access_path_approval` のモデルは無い)。
 
 ## example と多言語
 1.  ビジュアルテスト用に`example`(Windows 向け)を持つ。`flutter run -d windows`で起動し、`lib/main.dart`の`entries`に遷移先を足す(`packages/features/CLAUDE.md`の「機能プロジェクト共通」)。

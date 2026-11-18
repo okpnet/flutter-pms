@@ -16,6 +16,7 @@ export 'src/graphql/plan_change_page/plan_change_page_edit.graphql.dart';
 export 'src/graphql/plan_change_page/plan_change_page_read.graphql.dart';
 export 'src/graphql/plan_change_page/plan_change_page_remove.graphql.dart';
 export 'src/graphql/plan_change_purchase_detail_cancel_page/plan_change_purchase_detail_cancel_page_call.graphql.dart';
+export 'src/graphql/plan_change_settlement_kind_page/plan_change_settlement_kind_page_read.graphql.dart';
 export 'src/graphql/plan_change_shipping_order_detail_cancel_page/plan_change_shipping_order_detail_cancel_page_call.graphql.dart';
 export 'src/graphql/plan_change_unreflected_page/plan_change_unreflected_page_read.graphql.dart';
 export 'src/graphql/schema.graphql.dart';

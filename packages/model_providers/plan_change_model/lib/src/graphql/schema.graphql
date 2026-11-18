@@ -14,6 +14,34 @@ scalar Datetime
 
 scalar UUID
 
+enum MstrSettlementKindsOrderBy {
+  NATURAL
+  MSTR_SETTLEMENT_KIND_ID_ASC
+  MSTR_SETTLEMENT_KIND_ID_DESC
+  CODE_ASC
+  CODE_DESC
+  NAMES_ASC
+  NAMES_DESC
+  DELIVERY_ASC
+  DELIVERY_DESC
+  REVISION_ASC
+  REVISION_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 enum VCancelOpenItemsOrderBy {
   NATURAL
   OPEN_ITEM_ID_ASC
@@ -249,6 +277,20 @@ type MstrItem {
   sharedAppellationByNames: SharedAppellation
 }
 
+type MstrSettlementKind {
+  mstrSettlementKindId: UUID!
+  code: String!
+  delivery: Boolean
+  symbol: String
+  sharedAppellationByNames: SharedAppellation
+}
+
+type MstrSettlementKindsConnection {
+  nodes: [MstrSettlementKind]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type Mutation {
   createTransPlanChange(input: CreateTransPlanChangeInput!): CreateTransPlanChangePayload
   updateTransPlanChangeByTransPlanChangeId(input: UpdateTransPlanChangeByTransPlanChangeIdInput!): UpdateTransPlanChangePayload
@@ -272,6 +314,7 @@ type PurchaseDetailCancelPayload {
 }
 
 type Query {
+  allMstrSettlementKinds(first: Int, offset: Int, orderBy: [MstrSettlementKindsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrSettlementKindFilter): MstrSettlementKindsConnection
   allVCancelOpenItems(first: Int, offset: Int, orderBy: [VCancelOpenItemsOrderBy!] = [PRIMARY_KEY_ASC], filter: VCancelOpenItemFilter): VCancelOpenItemsConnection
   allVPlanChanges(first: Int, offset: Int, orderBy: [VPlanChangesOrderBy!] = [PRIMARY_KEY_ASC], filter: VPlanChangeFilter): VPlanChangesConnection
   allVPlanChangeUnreflecteds(first: Int, offset: Int, orderBy: [VPlanChangeUnreflectedsOrderBy!] = [PRIMARY_KEY_ASC], filter: VPlanChangeUnreflectedFilter): VPlanChangeUnreflectedsConnection
@@ -552,6 +595,9 @@ input LotDeliverInput {
   pParentPlanChangeId: UUID
   pRemarks: String
   pLocationId: UUID
+  pSettlementKindId: UUID
+  pSettlementAmount: BigFloat
+  pOrderDetailId: UUID
 }
 
 input LotHoldInput {
@@ -635,6 +681,7 @@ input MstrItemFilter {
   vMrpVisiterItemsByItemIdExist: Boolean
   vOperationsPlanUnreservedsByMstrItemIdExist: Boolean
   vOrderDetailBalancesByItemIdExist: Boolean
+  vOrderDetailPlanningsByItemIdExist: Boolean
   vPlanChangesByItemIdExist: Boolean
   vPurchaseAmountsByMstrItemIdExist: Boolean
   vPurchaseDeliveryCompliancesByMstrItemIdExist: Boolean
@@ -656,6 +703,10 @@ input MstrItemFilter {
   and: [MstrItemFilter!]
   or: [MstrItemFilter!]
   not: MstrItemFilter
+}
+
+input MstrSettlementKindFilter {
+  remove: BooleanFilter
 }
 
 input PurchaseDetailCancelInput {
@@ -879,6 +930,8 @@ input TransOrderDetailFilter {
   vMrpSuggestionsByTransOrderDetailIdExist: Boolean
   vOrderDetailBalanceByTransOrderDetailIdExists: Boolean
   vOrderDetailOrderDetailRiskCountByTransOrderDetailIdExists: Boolean
+  vOrderDetailPlanByTransOrderDetailIdExists: Boolean
+  vOrderDetailPlanningByTransOrderDetailIdExists: Boolean
   vOrderDetailShippingOrderDetailCountByTransOrderDetailIdExists: Boolean
   vPlanChangesByTransOrderDetailIdExist: Boolean
   vPlanChangesByRootTransOrderDetailIdExist: Boolean

@@ -516,6 +516,30 @@ enum VMrpSuggestionsOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum VOrderDetailPlanningsOrderBy {
+  NATURAL
+  TRANS_ORDER_DETAIL_ID_ASC
+  TRANS_ORDER_DETAIL_ID_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  TRANS_ORDER_ID_ASC
+  TRANS_ORDER_ID_DESC
+  ITEM_ID_ASC
+  ITEM_ID_DESC
+  TRANS_RESOURCE_PLAN_ID_ASC
+  TRANS_RESOURCE_PLAN_ID_DESC
+  PLANNED_ASC
+  PLANNED_DESC
+  HAS_DEMAND_ASC
+  HAS_DEMAND_DESC
+  STOPPED_ASC
+  STOPPED_DESC
+  TO_PLAN_ASC
+  TO_PLAN_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 enum VResourcePlanCoveragesOrderBy {
   NATURAL
   TRANS_RESOURCE_PLAN_ID_ASC
@@ -644,36 +668,8 @@ type MrpDiscardPayload {
   transMrpRun: TransMrpRun
 }
 
-type MrpEquipmentLoadConnection {
-  nodes: [MrpEquipmentLoadRecord]!
-}
-
-type MrpEquipmentLoadRecord {
-  equipmentId: UUID
-  loadDate: Date
-  capacityHours: BigFloat
-  loadHours: BigFloat
-  loadRate: BigFloat
-}
-
 type MrpExecutePayload {
   transMrpRun: TransMrpRun
-}
-
-type MrpImportCheck {
-  lineNo: Int
-  itemCode: String
-  itemId: UUID
-  itemHistoryId: UUID
-  issueCode: String
-  severity: Int
-  message: String
-  refTable: String
-  refId: UUID
-}
-
-type MrpImportChecksConnection {
-  nodes: [MrpImportCheck]!
 }
 
 type MrpPurgePayload {
@@ -789,6 +785,7 @@ type Query {
   allVMrpPurchasePlans(first: Int, offset: Int, orderBy: [VMrpPurchasePlansOrderBy!] = [PRIMARY_KEY_ASC], filter: VMrpPurchasePlanFilter): VMrpPurchasePlansConnection
   allVMrpRuns(first: Int, offset: Int, orderBy: [VMrpRunsOrderBy!] = [PRIMARY_KEY_ASC], filter: VMrpRunFilter): VMrpRunsConnection
   allVMrpSuggestions(first: Int, offset: Int, orderBy: [VMrpSuggestionsOrderBy!] = [PRIMARY_KEY_ASC], filter: VMrpSuggestionFilter): VMrpSuggestionsConnection
+  allVOrderDetailPlannings(first: Int, offset: Int, orderBy: [VOrderDetailPlanningsOrderBy!] = [PRIMARY_KEY_ASC], filter: VOrderDetailPlanningFilter): VOrderDetailPlanningsConnection
   allVResourcePlanCoverages(first: Int, offset: Int, orderBy: [VResourcePlanCoveragesOrderBy!] = [PRIMARY_KEY_ASC], filter: VResourcePlanCoverageFilter): VResourcePlanCoveragesConnection
   allVWorkPlanDeliveryCompliances(first: Int, offset: Int, orderBy: [VWorkPlanDeliveryCompliancesOrderBy!] = [PRIMARY_KEY_ASC], filter: VWorkPlanDeliveryComplianceFilter): VWorkPlanDeliveryCompliancesConnection
   transOperationsPlanByTransOperationsPlanId(transOperationsPlanId: UUID!): TransOperationsPlan
@@ -797,8 +794,6 @@ type Query {
   transResourcePlanByTransResourcePlanId(transResourcePlanId: UUID!): TransResourcePlan
   transWorkPlanByTransWorkPlanId(transWorkPlanId: UUID!): TransWorkPlan
   mrpCheckItems(pItemIds: [UUID], first: Int): VMrpMasterIssuesConnection
-  mrpCheckOrderImport(pLines: JSON, first: Int): MrpImportChecksConnection
-  mrpEquipmentLoad(pFrom: Date, pTo: Date, first: Int): MrpEquipmentLoadConnection
 }
 
 type SharedAppellation {
@@ -1258,6 +1253,24 @@ type VMrpSuggestionsConnection {
 
 type VOperationsPlanWorkPlanCount {
   transOperationsPlanId: UUID
+}
+
+type VOrderDetailPlanning {
+  transOrderDetailId: UUID!
+  symbol: String
+  transOrderId: UUID
+  itemId: UUID
+  transResourcePlanId: UUID
+  planned: Boolean
+  hasDemand: Boolean
+  stopped: Boolean
+  toPlan: Boolean
+}
+
+type VOrderDetailPlanningsConnection {
+  nodes: [VOrderDetailPlanning]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type VResourcePlanCoverage {
@@ -1991,6 +2004,7 @@ input MstrItemFilter {
   vMrpVisiterItemsByItemIdExist: Boolean
   vOperationsPlanUnreservedsByMstrItemIdExist: Boolean
   vOrderDetailBalancesByItemIdExist: Boolean
+  vOrderDetailPlanningsByItemIdExist: Boolean
   vPlanChangesByItemIdExist: Boolean
   vPurchaseAmountsByMstrItemIdExist: Boolean
   vPurchaseDeliveryCompliancesByMstrItemIdExist: Boolean
@@ -2583,6 +2597,8 @@ input TransOrderDetailFilter {
   vMrpSuggestionsByTransOrderDetailIdExist: Boolean
   vOrderDetailBalanceByTransOrderDetailIdExists: Boolean
   vOrderDetailOrderDetailRiskCountByTransOrderDetailIdExists: Boolean
+  vOrderDetailPlanByTransOrderDetailIdExists: Boolean
+  vOrderDetailPlanningByTransOrderDetailIdExists: Boolean
   vOrderDetailShippingOrderDetailCountByTransOrderDetailIdExists: Boolean
   vPlanChangesByTransOrderDetailIdExist: Boolean
   vPlanChangesByRootTransOrderDetailIdExist: Boolean
@@ -2714,6 +2730,8 @@ input TransResourcePlanFilter {
   transSupplyDetailsByTransResourcePlanIdExist: Boolean
   vMrpPendingSuggestionsByTransResourcePlanIdExist: Boolean
   vMrpSuggestionsByTransResourcePlanIdExist: Boolean
+  vOrderDetailPlansByTransResourcePlanIdExist: Boolean
+  vOrderDetailPlanningsByTransResourcePlanIdExist: Boolean
   vResourcePlanCoverageByTransResourcePlanIdExists: Boolean
   vSupplyDetailBalancesByTransResourcePlanIdExist: Boolean
   transOperationsPlanByParentTransOperationsPlanIdExists: Boolean
@@ -3067,6 +3085,25 @@ input VOperationsPlanWorkPlanCountFilter {
   and: [VOperationsPlanWorkPlanCountFilter!]
   or: [VOperationsPlanWorkPlanCountFilter!]
   not: VOperationsPlanWorkPlanCountFilter
+}
+
+input VOrderDetailPlanningFilter {
+  transOrderDetailId: UUIDFilter
+  symbol: StringFilter
+  transOrderId: UUIDFilter
+  itemId: UUIDFilter
+  transResourcePlanId: UUIDFilter
+  planned: BooleanFilter
+  hasDemand: BooleanFilter
+  stopped: BooleanFilter
+  toPlan: BooleanFilter
+  transOrderDetailByTransOrderDetailIdExists: Boolean
+  transOrderByTransOrderIdExists: Boolean
+  mstrItemByItemIdExists: Boolean
+  transResourcePlanByTransResourcePlanIdExists: Boolean
+  and: [VOrderDetailPlanningFilter!]
+  or: [VOrderDetailPlanningFilter!]
+  not: VOrderDetailPlanningFilter
 }
 
 input VResourcePlanCoverageFilter {

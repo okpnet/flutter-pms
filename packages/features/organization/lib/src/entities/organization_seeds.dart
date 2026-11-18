@@ -130,4 +130,12 @@ const Map<String, List<EntityRecord>> organizationSeeds = {
       EntityRecord(id: '880e1bd8-0000-4000-8000-000000000005', values: {'name': '生産管理部 生産管理部長', 'pronunciation': '', 'nickname': '', 'department': 'cf3da547-0000-4000-8000-000000000002', 'position': '934f4e0a-0000-4000-8000-000000000001', 'priority': '1', 'remarks': ''}, parentId: 'c1404734-0000-4000-8000-000000000003'),
       EntityRecord(id: '880e1bd8-0000-4000-8000-000000000006', values: {'name': '品質保証部 品質保証責任者', 'pronunciation': '', 'nickname': '', 'department': 'cf3da547-0000-4000-8000-000000000007', 'position': '934f4e0a-0000-4000-8000-000000000003', 'priority': '2', 'remarks': ''}, parentId: 'c1404734-0000-4000-8000-000000000003'),
     ],
+    'accesspathapproval': [
+      EntityRecord(id: '84805c57-0000-4000-8000-000000000001', values: {'name': '受注の承認', 'access_path': '1a31253c-0000-4000-8000-000000000001', 'remarks': ''}),
+      EntityRecord(id: '84805c57-0000-4000-8000-000000000002', values: {'name': '発注の承認', 'access_path': '1a31253c-0000-4000-8000-000000000002', 'remarks': ''}),
+    ],
+    'approvalscope': [
+      EntityRecord(id: 'd55c0102-0000-4000-8000-000000000001', values: {'access_path_approval': '84805c57-0000-4000-8000-000000000001', 'remarks': ''}, parentId: 'c1404734-0000-4000-8000-000000000001'),
+      EntityRecord(id: 'd55c0102-0000-4000-8000-000000000002', values: {'access_path_approval': '84805c57-0000-4000-8000-000000000002', 'remarks': ''}, parentId: 'c1404734-0000-4000-8000-000000000002'),
+    ],
 };

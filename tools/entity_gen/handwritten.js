@@ -156,6 +156,19 @@ module.exports = function build(D, X) {
     rows: D.apScopes.map((a) => row(a.id, { name: `${deptName[a.dept] ?? ''} ${posName[a.pos] ?? ''}`.trim(), pronunciation: '', nickname: '', department: a.dept, position: a.pos, priority: String(a.step), remarks: '' }, a.ap)),
   });
 
+  // 承認の範囲(DB の mstr_approval_scope_pattern): 承認パターンを、どのアクセスパスの承認に使うか(承認パターン × アクセスパス承認情報)。
+  // 画面案の段階・承認する役職・対象の組織・配下を含むか、は DB に列が無いため持たない(DB を優先)。
+  out.push({
+    key: 'accesspathapproval', label: 'アクセスパスの承認', project: 'organization',
+    fields: [f('name', '名称'), f('access_path', 'アクセスパス', 'reference', { ref: 'accesspath' }), f('remarks', '備考', 'multiline', { req: false })],
+    rows: [row('apa1', { name: '受注の承認', access_path: 'accesspath1', remarks: '' }), row('apa2', { name: '発注の承認', access_path: 'accesspath2', remarks: '' })],
+  });
+  out.push({
+    key: 'approvalscope', label: '承認の範囲', project: 'organization', owner: 'approvalpattern',
+    fields: [f('access_path_approval', 'アクセスパスの承認', 'reference', { ref: 'accesspathapproval' }), f('remarks', '備考', 'multiline', { req: false })],
+    rows: (D.apPatterns.slice(0, 2)).map((p, i) => row('asp' + (i + 1), { access_path_approval: 'apa' + (i + 1), remarks: '' }, p.id)),
+  });
+
   /* ---------------------------------------------------------------- resource */
   out.push({
     key: 'capability', label: '力量', project: 'resource',

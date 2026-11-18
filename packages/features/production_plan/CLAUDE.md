@@ -71,6 +71,7 @@
 
 
 
+
 ## 取得元(GraphQL 版)
 `lib/src/graphql/production_plan_repositories.dart` の `productionPlanRepositories(GraphQLClient, {AuditUserSource? auditUser})` が、資材計画(`resplan`)・生産計画(`opsplan`)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
 1.  書き込み: 資材計画・生産計画は、登録・更新・削除(論理削除。`remove = true`)ができる。履歴ID+IDの参照(品目)は、画面の ID から最新の履歴(`revision` が最大)を引いて送る。更新者(`update_user_id`・`update_user_history_id`)は、ログイン中の担当者(アプリの認証のセッションの担当者の ID と、その最新の履歴の ID。`pms_graphql` の `AuditUserResolver`)を、アプリが `auditUser` として渡し、登録・更新・論理削除で送る(渡されていない・ログインしていないときは送らない)。必須・数値・日付の検証は取得元が行い、`EntityValidationException` で返す。キャンセル・停止・打ち切り・残など操作の DB 関数やビューで決まる項目は読み取り専用で、ここから書かない。

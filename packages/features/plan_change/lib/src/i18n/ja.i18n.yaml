@@ -17,7 +17,6 @@ entity:
       f_is_shipping_order_detail: "出荷オーダー明細"
       f_item: "品目"
       f_root_order_detail: "最上位の受注明細"
-      f_do_remrp: "再MRPへ"
       f_is_cancel: "キャンセル"
       f_is_quantity_change: "数量の変更"
       f_is_date_change: "納期の変更"
@@ -44,6 +43,7 @@ entity:
       f_old_date: "変更前の納期"
       f_new_date: "変更後の納期"
       f_reason: "理由"
+      f_do_remrp: "再MRPへ"
   cancelopen:
     title: "未処置一覧"
     fields:
@@ -61,6 +61,7 @@ entity:
       f_item: "品目"
       f_quantity: "数量"
       f_since: "原因の日"
+      f_order_detail: "受注明細"
       f_do_req_release: "解除"
       f_do_req_hold: "保管"
       f_do_lot_release: "在庫にする"
@@ -69,6 +70,12 @@ entity:
       f_do_lot_deliver: "引き渡し"
       f_do_ship_cancel: "出荷取り消し"
       f_do_pur_cancel: "発注キャンセル"
+  settlementkind:
+    title: "精算区分"
+    fields:
+      f_code: "コード"
+      f_name: "名称"
+      f_delivery: "品物の引き渡しも行う"
   actreqrelease:
     title: "引当予約の解除"
     fields:
@@ -113,6 +120,9 @@ entity:
       f_item: "品目"
       f_quantity: "数量"
       f_location: "場所(棚に場所が無いとき)"
+      f_settlement_kind: "精算区分"
+      f_settlement_amount: "精算の金額"
+      f_order_detail: "受注明細"
       f_reason: "理由"
   actshipcancel:
     title: "出荷オーダーの取り消し"

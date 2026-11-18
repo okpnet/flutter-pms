@@ -35,13 +35,19 @@ class _Input {
     this.quantity,
     this.container,
     this.location,
-    this.reason,
-  );
+    this.reason, {
+    this.settlementKind,
+    this.settlementAmount,
+    this.orderDetail,
+  });
 
   final String target;
   final String quantity;
   final String? container;
   final String? location;
+  final String? settlementKind;
+  final String? settlementAmount;
+  final String? orderDetail;
   final String? reason;
 }
 
@@ -73,6 +79,9 @@ final Map<String, _Operation> _operations = {
     i.target,
     quantity: i.quantity,
     locationId: i.location,
+    settlementKindId: i.settlementKind,
+    settlementAmount: i.settlementAmount,
+    orderDetailId: i.orderDetail,
     reason: i.reason,
   ),
   'actshipcancel': (a, i) =>
@@ -119,6 +128,16 @@ class _OperationRepository implements IEntityRepository {
     final container = record.valueOf('container');
     final location = record.valueOf('location');
     final reason = record.valueOf('reason');
+    // 精算は、区分と金額をそろえて入れる(どちらか一方だけは、項目のエラー)
+    final kind = record.valueOf('settlement_kind');
+    final amount = record.valueOf('settlement_amount');
+    if (definition.fields.any((f) => f.key == 'settlement_kind') &&
+        kind.isEmpty != amount.isEmpty) {
+      throw EntityValidationException({
+        if (kind.isEmpty) 'settlement_kind': EntityFieldError.required,
+        if (amount.isEmpty) 'settlement_amount': EntityFieldError.required,
+      });
+    }
     try {
       final result = await _operation(
         _actions,
@@ -128,6 +147,11 @@ class _OperationRepository implements IEntityRepository {
           container.isEmpty ? null : container,
           location.isEmpty ? null : location,
           reason.isEmpty ? null : reason,
+          settlementKind: kind.isEmpty ? null : kind,
+          settlementAmount: amount.isEmpty ? null : amount,
+          orderDetail: record.valueOf('order_detail').isEmpty
+              ? null
+              : record.valueOf('order_detail'),
         ),
       );
       return EntityRecord(id: result.planChangeId, values: record.values);

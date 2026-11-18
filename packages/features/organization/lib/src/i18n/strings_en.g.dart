@@ -71,6 +71,7 @@ class _OrganizationStrings$home$en extends OrganizationStrings$home$ja {
 	@override String get detail => 'Details';
 	@override String get offerings => 'Services and products';
 	@override String get approval => 'Approval';
+	@override String get approvalPathApproval => 'Access path approvals';
 	@override String below({required Object count}) => '${count} below';
 }
 
@@ -104,6 +105,8 @@ class _OrganizationStrings$entity$en extends OrganizationStrings$entity$ja {
 	@override late final _OrganizationStrings$entity$stafflicense$en stafflicense = _OrganizationStrings$entity$stafflicense$en._(_root);
 	@override late final _OrganizationStrings$entity$approvalpattern$en approvalpattern = _OrganizationStrings$entity$approvalpattern$en._(_root);
 	@override late final _OrganizationStrings$entity$approver$en approver = _OrganizationStrings$entity$approver$en._(_root);
+	@override late final _OrganizationStrings$entity$accesspathapproval$en accesspathapproval = _OrganizationStrings$entity$accesspathapproval$en._(_root);
+	@override late final _OrganizationStrings$entity$approvalscope$en approvalscope = _OrganizationStrings$entity$approvalscope$en._(_root);
 }
 
 // Path: entity.company
@@ -248,6 +251,28 @@ class _OrganizationStrings$entity$approver$en extends OrganizationStrings$entity
 	// Translations
 	@override String get title => 'Approvers';
 	@override late final _OrganizationStrings$entity$approver$fields$en fields = _OrganizationStrings$entity$approver$fields$en._(_root);
+}
+
+// Path: entity.accesspathapproval
+class _OrganizationStrings$entity$accesspathapproval$en extends OrganizationStrings$entity$accesspathapproval$ja {
+	_OrganizationStrings$entity$accesspathapproval$en._(OrganizationStringsEn root) : this._root = root, super.internal(root);
+
+	final OrganizationStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Access path approvals';
+	@override late final _OrganizationStrings$entity$accesspathapproval$fields$en fields = _OrganizationStrings$entity$accesspathapproval$fields$en._(_root);
+}
+
+// Path: entity.approvalscope
+class _OrganizationStrings$entity$approvalscope$en extends OrganizationStrings$entity$approvalscope$ja {
+	_OrganizationStrings$entity$approvalscope$en._(OrganizationStringsEn root) : this._root = root, super.internal(root);
+
+	final OrganizationStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Approval scopes';
+	@override late final _OrganizationStrings$entity$approvalscope$fields$en fields = _OrganizationStrings$entity$approvalscope$fields$en._(_root);
 }
 
 // Path: entity.company.fields
@@ -455,6 +480,29 @@ class _OrganizationStrings$entity$approver$fields$en extends OrganizationStrings
 	@override String get f_remarks => 'Remarks';
 }
 
+// Path: entity.accesspathapproval.fields
+class _OrganizationStrings$entity$accesspathapproval$fields$en extends OrganizationStrings$entity$accesspathapproval$fields$ja {
+	_OrganizationStrings$entity$accesspathapproval$fields$en._(OrganizationStringsEn root) : this._root = root, super.internal(root);
+
+	final OrganizationStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_name => 'Name';
+	@override String get f_access_path => 'Access path';
+	@override String get f_remarks => 'Remarks';
+}
+
+// Path: entity.approvalscope.fields
+class _OrganizationStrings$entity$approvalscope$fields$en extends OrganizationStrings$entity$approvalscope$fields$ja {
+	_OrganizationStrings$entity$approvalscope$fields$en._(OrganizationStringsEn root) : this._root = root, super.internal(root);
+
+	final OrganizationStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_access_path_approval => 'Access path approval';
+	@override String get f_remarks => 'Remarks';
+}
+
 /// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -484,6 +532,7 @@ extension on OrganizationStringsEn {
 			'home.detail' => 'Details',
 			'home.offerings' => 'Services and products',
 			'home.approval' => 'Approval',
+			'home.approvalPathApproval' => 'Access path approvals',
 			'home.below' => ({required Object count}) => '${count} below',
 			'menu.group' => 'Company',
 			'entity.company.title' => 'Company information',
@@ -578,6 +627,13 @@ extension on OrganizationStringsEn {
 			'entity.approver.fields.f_position' => 'Position',
 			'entity.approver.fields.f_priority' => 'Priority',
 			'entity.approver.fields.f_remarks' => 'Remarks',
+			'entity.accesspathapproval.title' => 'Access path approvals',
+			'entity.accesspathapproval.fields.f_name' => 'Name',
+			'entity.accesspathapproval.fields.f_access_path' => 'Access path',
+			'entity.accesspathapproval.fields.f_remarks' => 'Remarks',
+			'entity.approvalscope.title' => 'Approval scopes',
+			'entity.approvalscope.fields.f_access_path_approval' => 'Access path approval',
+			'entity.approvalscope.fields.f_remarks' => 'Remarks',
 			_ => null,
 		};
 	}

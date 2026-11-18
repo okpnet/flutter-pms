@@ -1781,6 +1781,7 @@ input MstrItemFilter {
   vMrpVisiterItemsByItemIdExist: Boolean
   vOperationsPlanUnreservedsByMstrItemIdExist: Boolean
   vOrderDetailBalancesByItemIdExist: Boolean
+  vOrderDetailPlanningsByItemIdExist: Boolean
   vPlanChangesByItemIdExist: Boolean
   vPurchaseAmountsByMstrItemIdExist: Boolean
   vPurchaseDeliveryCompliancesByMstrItemIdExist: Boolean

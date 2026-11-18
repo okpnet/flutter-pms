@@ -172,6 +172,12 @@
         "noMenu": false
       },
       {
+        "key": "settlementkind",
+        "label": "精算区分",
+        "first": "SK-DELIVERY",
+        "noMenu": true
+      },
+      {
         "key": "actreqrelease",
         "label": "引当予約の解除",
         "first": "",
@@ -502,6 +508,11 @@
         "key": "approvalpattern",
         "label": "承認パターン",
         "first": "購買申請"
+      },
+      {
+        "key": "accesspathapproval",
+        "label": "アクセスパスの承認",
+        "first": "受注の承認"
       }
     ]
   },
@@ -569,6 +580,7 @@
       "organization"
     ],
     "organization": [
+      "access_control",
       "resource"
     ]
   },

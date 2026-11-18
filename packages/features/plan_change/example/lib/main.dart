@@ -4,7 +4,6 @@ import 'package:logger_provider/logger_provider.dart';
 import 'package:item/item.dart';
 import 'package:plan_change/plan_change.dart';
 import 'package:production_plan/production_plan.dart';
-import 'package:production_plan/production_plan_api.dart';
 import 'package:resource/resource.dart';
 import 'package:work_record/work_record.dart';
 import 'package:theme_lib/theme_lib.dart';

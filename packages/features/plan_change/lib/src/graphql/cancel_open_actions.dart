@@ -170,11 +170,15 @@ class CancelOpenActions {
     return _result(r.parsedData?.lotScrap?.transPlanChange);
   }
 
-  /// 顧客への引き渡し(ロットから払い出す)。精算があるときは、先に精算を登録して [settlementId] を渡す。
+  /// 顧客への引き渡し(ロットから払い出す)。精算は、登録済みの [settlementId] を渡すか、
+  /// [settlementKindId]・[settlementAmount]・[orderDetailId] をそろえて渡す(DB の関数が、同じトランザクションで精算も登録する)。
   Future<CancelOpenActionResult> deliverLot(
     String visiterId, {
     required String quantity,
     String? settlementId,
+    String? settlementKindId,
+    String? settlementAmount,
+    String? orderDetailId,
     String? locationId,
     String? changeReasonId,
     String? reason,
@@ -185,6 +189,9 @@ class CancelOpenActions {
           pVisiterId: visiterId,
           pQuantity: quantity,
           pOrderDetailSettlementId: settlementId,
+          pSettlementKindId: settlementKindId,
+          pSettlementAmount: settlementAmount,
+          pOrderDetailId: orderDetailId,
           pLocationId: locationId,
           pChangeReasonId: changeReasonId,
           pReason: reason,

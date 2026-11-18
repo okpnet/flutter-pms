@@ -1,0 +1,45 @@
+# plan_change_settlement_kind_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #PlanChangeSettlementKindPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query PlanChangeSettlementKindPageRead(
+  $first: Int!
+  $offset: Int
+  $orderBy: [MstrSettlementKindsOrderBy!]
+  $languageCodeId: UUID!
+  $removed: Boolean = false
+) {
+  allMstrSettlementKinds(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { remove: { equalTo: $removed } }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      mstrSettlementKindId
+      code
+      symbol
+      delivery
+
+      labels: sharedAppellationByNames {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -150,4 +150,19 @@ const List<EntityDefinition> organizationDefinitions = [
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
       ],
     ),
+    EntityDefinition(
+      key: 'accesspathapproval',
+      fields: [
+        FieldDefinition(key: 'name'),
+        FieldDefinition(key: 'access_path', kind: FieldKind.reference, reference: 'accesspath'),
+        FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
+      ],
+    ),
+    EntityDefinition(
+      key: 'approvalscope', owner: 'approvalpattern',
+      fields: [
+        FieldDefinition(key: 'access_path_approval', kind: FieldKind.reference, reference: 'accesspathapproval'),
+        FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
+      ],
+    ),
 ];

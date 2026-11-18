@@ -111,6 +111,9 @@ class OrganizationStrings$home$ja {
 	/// ja: '承認'
 	String get approval => '承認';
 
+	/// ja: 'アクセスパスの承認'
+	String get approvalPathApproval => 'アクセスパスの承認';
+
 	/// ja: '配下 ${count}'
 	String below({required Object count}) => '配下 ${count}';
 }
@@ -148,6 +151,8 @@ class OrganizationStrings$entity$ja {
 	late final OrganizationStrings$entity$stafflicense$ja stafflicense = OrganizationStrings$entity$stafflicense$ja.internal(_root);
 	late final OrganizationStrings$entity$approvalpattern$ja approvalpattern = OrganizationStrings$entity$approvalpattern$ja.internal(_root);
 	late final OrganizationStrings$entity$approver$ja approver = OrganizationStrings$entity$approver$ja.internal(_root);
+	late final OrganizationStrings$entity$accesspathapproval$ja accesspathapproval = OrganizationStrings$entity$accesspathapproval$ja.internal(_root);
+	late final OrganizationStrings$entity$approvalscope$ja approvalscope = OrganizationStrings$entity$approvalscope$ja.internal(_root);
 }
 
 // Path: entity.company
@@ -345,6 +350,34 @@ class OrganizationStrings$entity$approver$ja {
 	String get title => '承認できる人';
 
 	late final OrganizationStrings$entity$approver$fields$ja fields = OrganizationStrings$entity$approver$fields$ja.internal(_root);
+}
+
+// Path: entity.accesspathapproval
+class OrganizationStrings$entity$accesspathapproval$ja {
+	OrganizationStrings$entity$accesspathapproval$ja.internal(this._root);
+
+	final OrganizationStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'アクセスパスの承認'
+	String get title => 'アクセスパスの承認';
+
+	late final OrganizationStrings$entity$accesspathapproval$fields$ja fields = OrganizationStrings$entity$accesspathapproval$fields$ja.internal(_root);
+}
+
+// Path: entity.approvalscope
+class OrganizationStrings$entity$approvalscope$ja {
+	OrganizationStrings$entity$approvalscope$ja.internal(this._root);
+
+	final OrganizationStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '承認の範囲'
+	String get title => '承認の範囲';
+
+	late final OrganizationStrings$entity$approvalscope$fields$ja fields = OrganizationStrings$entity$approvalscope$fields$ja.internal(_root);
 }
 
 // Path: entity.company.fields
@@ -728,6 +761,39 @@ class OrganizationStrings$entity$approver$fields$ja {
 	String get f_remarks => '備考';
 }
 
+// Path: entity.accesspathapproval.fields
+class OrganizationStrings$entity$accesspathapproval$fields$ja {
+	OrganizationStrings$entity$accesspathapproval$fields$ja.internal(this._root);
+
+	final OrganizationStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '名称'
+	String get f_name => '名称';
+
+	/// ja: 'アクセスパス'
+	String get f_access_path => 'アクセスパス';
+
+	/// ja: '備考'
+	String get f_remarks => '備考';
+}
+
+// Path: entity.approvalscope.fields
+class OrganizationStrings$entity$approvalscope$fields$ja {
+	OrganizationStrings$entity$approvalscope$fields$ja.internal(this._root);
+
+	final OrganizationStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'アクセスパスの承認'
+	String get f_access_path_approval => 'アクセスパスの承認';
+
+	/// ja: '備考'
+	String get f_remarks => '備考';
+}
+
 /// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -757,6 +823,7 @@ extension on OrganizationStrings {
 			'home.detail' => '詳細',
 			'home.offerings' => '提供サービス・製品',
 			'home.approval' => '承認',
+			'home.approvalPathApproval' => 'アクセスパスの承認',
 			'home.below' => ({required Object count}) => '配下 ${count}',
 			'menu.group' => '会社情報',
 			'entity.company.title' => '会社情報',
@@ -855,6 +922,13 @@ extension on OrganizationStrings {
 			'entity.approver.fields.f_position' => '役職',
 			'entity.approver.fields.f_priority' => '優先順位',
 			'entity.approver.fields.f_remarks' => '備考',
+			'entity.accesspathapproval.title' => 'アクセスパスの承認',
+			'entity.accesspathapproval.fields.f_name' => '名称',
+			'entity.accesspathapproval.fields.f_access_path' => 'アクセスパス',
+			'entity.accesspathapproval.fields.f_remarks' => '備考',
+			'entity.approvalscope.title' => '承認の範囲',
+			'entity.approvalscope.fields.f_access_path_approval' => 'アクセスパスの承認',
+			'entity.approvalscope.fields.f_remarks' => '備考',
 			_ => null,
 		};
 	}

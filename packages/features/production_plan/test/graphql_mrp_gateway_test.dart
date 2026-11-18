@@ -183,6 +183,76 @@ void main() {
     }
   });
 
+  group('検証用サーバー(MRP の手続き: 計算 → 破棄。計画データは変わらない)', () {
+    serverTest('計算して破棄しても、計画(資材計画・生産計画・発注明細)の件数は変わらない', (server) async {
+      final client = _clientTo(server.url, headers: server.provider.headers);
+      Future<List<int>> counts() async {
+        final r = await client.query(
+          QueryOptions(
+            document: gql(
+              r'''query { a: allTransResourcePlans { totalCount } b: allTransOperationsPlans { totalCount } c: allTransPurchaseDetails { totalCount } }''',
+            ),
+            fetchPolicy: FetchPolicy.noCache,
+          ),
+        );
+        expect(r.hasException, isFalse, reason: '${r.exception}');
+        return [
+          for (final k in ['a', 'b', 'c']) r.data![k]['totalCount'] as int,
+        ];
+      }
+
+      final lang = await client.query(
+        QueryOptions(
+          document: gql(
+            r'''query { allSharedLanguageCodes { nodes { sharedLanguageCodeId code } } }''',
+          ),
+          fetchPolicy: FetchPolicy.noCache,
+        ),
+      );
+      expect(lang.hasException, isFalse, reason: '${server.url} ${lang.exception}');
+      final languageId =
+          (lang.data!['allSharedLanguageCodes']['nodes'] as List).firstWhere(
+                (n) => (n['code'] as String).toUpperCase() == 'JA',
+              )['sharedLanguageCodeId']
+              as String;
+      final staff = await client.query(
+        QueryOptions(
+          document: gql(
+            r'''query { allInfoStaffs(filter: {code: {equalTo: "ADMIN"}}) { nodes { infoStaffId } } }''',
+          ),
+          fetchPolicy: FetchPolicy.noCache,
+        ),
+      );
+      final staffId =
+          (staff.data!['allInfoStaffs']['nodes'] as List).first['infoStaffId']
+              as String;
+      final gateway = GraphqlMrpGateway(
+        client: client,
+        languageCodeId: languageId,
+      );
+
+      final before = await counts();
+      final calculated = await gateway.calculate(
+        mode: MrpMode.order,
+        staffId: staffId,
+      );
+      expect(calculated.suggestions, isNotEmpty);
+      // 計算のあと(確定待ち)も、計画は変わらない
+      expect(await counts(), before);
+      final open = await gateway.openRun();
+      expect(open?.runId, calculated.runId, reason: '確定待ちの実行を引き継げる');
+
+      await gateway.discard(runId: calculated.runId, staffId: staffId);
+      expect(await counts(), before, reason: '破棄しても計画は変わらない');
+      final after = await gateway.openRun();
+      expect(
+        after?.runId == calculated.runId,
+        isFalse,
+        reason: '破棄した実行は、確定待ちではない',
+      );
+    }, timeout: const Timeout(Duration(minutes: 6)));
+  });
+
   group('代役サーバー', () {
     late FaultyGraphqlServer server;
 
@@ -203,11 +273,9 @@ void main() {
     tearDown(() => server.close());
 
     test('実行して提案を機能の型で受け取る', () async {
-      final result = await _gateway(_clientTo(server.url)).execute(
-        mode: MrpMode.order,
-        staffId: 'staff-1',
-        acceptLate: true,
-      );
+      final result = await _gateway(
+        _clientTo(server.url),
+      ).execute(mode: MrpMode.order, staffId: 'staff-1', acceptLate: true);
       expect(result.mode, MrpMode.order);
       expect(result.executedAt, DateTime.parse('2026-10-30T09:00:00'));
       expect(result.suggestionCount, 2);
@@ -294,7 +362,10 @@ void main() {
   group('代役サーバー(手続き: 調査・計算・判断・確定・破棄)', () {
     late FaultyGraphqlServer server;
 
-    Map<String, Object?> runRow({bool committed = false, bool calculated = true}) => {
+    Map<String, Object?> runRow({
+      bool committed = false,
+      bool calculated = true,
+    }) => {
       '__typename': 'VMrpRun',
       'transMrpRunId': 'bbbbbbbb-0000-0000-0000-000000000001',
       'isCalculated': calculated,
@@ -324,13 +395,21 @@ void main() {
       'allVMrpRuns': {
         '__typename': 'VMrpRunsConnection',
         'totalCount': 1,
-        'pageInfo': {'__typename': 'PageInfo', 'hasNextPage': false, 'endCursor': null},
+        'pageInfo': {
+          '__typename': 'PageInfo',
+          'hasNextPage': false,
+          'endCursor': null,
+        },
         'nodes': [runRow(committed: committed, calculated: !committed)],
       },
       'allVMrpSuggestions': {
         '__typename': 'VMrpSuggestionsConnection',
         'totalCount': 1,
-        'pageInfo': {'__typename': 'PageInfo', 'hasNextPage': false, 'endCursor': null},
+        'pageInfo': {
+          '__typename': 'PageInfo',
+          'hasNextPage': false,
+          'endCursor': null,
+        },
         'nodes': [_suggestion(seq: 1)],
       },
     };
@@ -340,10 +419,9 @@ void main() {
 
     test('計算だけ(mrpRun)。確定も破棄もしない。結果は確定待ちで、提案の ID を持つ', () async {
       server.data = payload('mrpRun');
-      final result = await _gateway(_clientTo(server.url)).calculate(
-        mode: MrpMode.redo,
-        staffId: 'staff-1',
-      );
+      final result = await _gateway(
+        _clientTo(server.url),
+      ).calculate(mode: MrpMode.redo, staffId: 'staff-1');
       expect(server.requests.first.body, contains('mrpRun'));
       expect(server.requests.first.body, isNot(contains('mrpExecute')));
       expect(server.requests.first.body, contains('"pMode":2'));
@@ -351,13 +429,19 @@ void main() {
       expect(result.isCommitted, isFalse);
       expect(result.awaitingCommit, isTrue);
       expect(result.executedAt, DateTime.parse('2026-10-30T09:00:00'));
-      expect(result.suggestions.single.id, 'aaaaaaaa-0000-0000-0000-000000000001');
+      expect(
+        result.suggestions.single.id,
+        'aaaaaaaa-0000-0000-0000-000000000001',
+      );
     });
 
     test('採否の変更(mrpSetDecision)。採用は 1、却下は 2。提案の ID を渡す', () async {
       server.data = {
         '__typename': 'Mutation',
-        'mrpSetDecision': {'__typename': 'MrpSetDecisionPayload', 'transMrpSuggestions': []},
+        'mrpSetDecision': {
+          '__typename': 'MrpSetDecisionPayload',
+          'transMrpSuggestions': [],
+        },
       };
       final gateway = _gateway(_clientTo(server.url));
       await gateway.decide(
@@ -369,7 +453,10 @@ void main() {
       expect(server.requests.last.body, contains('mrpSetDecision'));
       expect(server.requests.last.body, contains('"pDecision":1'));
       expect(server.requests.last.body, contains('"pRunId":"run-1"'));
-      expect(server.requests.last.body, contains('"pSuggestionIds":["s-1","s-2"]'));
+      expect(
+        server.requests.last.body,
+        contains('"pSuggestionIds":["s-1","s-2"]'),
+      );
       await gateway.decide(runId: 'run-1', adopt: false, staffId: '');
       expect(server.requests.last.body, contains('"pDecision":2'));
       // 空の staffId・提案の ID は送らない(省略 = JWT の担当者・すべての提案)
@@ -379,11 +466,9 @@ void main() {
 
     test('確定(mrpCommit)。force を渡す。確定済みの結果を返す', () async {
       server.data = payload('mrpCommit', committed: true);
-      final result = await _gateway(_clientTo(server.url)).commit(
-        runId: 'run-1',
-        staffId: 'staff-1',
-        force: true,
-      );
+      final result = await _gateway(
+        _clientTo(server.url),
+      ).commit(runId: 'run-1', staffId: 'staff-1', force: true);
       expect(server.requests.first.body, contains('mrpCommit'));
       expect(server.requests.first.body, contains('"pForce":true'));
       expect(result.isCommitted, isTrue);
@@ -410,7 +495,9 @@ void main() {
 
     test('破棄(mrpDiscard)', () async {
       server.data = payload('mrpDiscard');
-      await _gateway(_clientTo(server.url)).discard(runId: 'run-1', staffId: 'staff-1');
+      await _gateway(
+        _clientTo(server.url),
+      ).discard(runId: 'run-1', staffId: 'staff-1');
       expect(server.requests.first.body, contains('mrpDiscard'));
       expect(server.requests.first.body, contains('"pRunId":"run-1"'));
     });
@@ -425,7 +512,11 @@ void main() {
         'allVMrpRuns': {
           '__typename': 'VMrpRunsConnection',
           'totalCount': 0,
-          'pageInfo': {'__typename': 'PageInfo', 'hasNextPage': false, 'endCursor': null},
+          'pageInfo': {
+            '__typename': 'PageInfo',
+            'hasNextPage': false,
+            'endCursor': null,
+          },
           'nodes': <Object?>[],
         },
       };
@@ -452,7 +543,9 @@ void main() {
           ],
         },
       };
-      final issues = await _gateway(_clientTo(server.url)).check(itemIds: const ['i-1']);
+      final issues = await _gateway(
+        _clientTo(server.url),
+      ).check(itemIds: const ['i-1']);
       expect(server.requests.first.body, contains('mrpCheckItems'));
       expect(server.requests.first.body, contains('"pItemIds":["i-1"]'));
       expect(issues.single.itemCode, 'S-3001');

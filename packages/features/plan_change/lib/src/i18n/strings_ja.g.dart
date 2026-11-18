@@ -60,6 +60,7 @@ class PlanChangeStrings$entity$ja {
 	// Translations
 	late final PlanChangeStrings$entity$planchange$ja planchange = PlanChangeStrings$entity$planchange$ja.internal(_root);
 	late final PlanChangeStrings$entity$cancelopen$ja cancelopen = PlanChangeStrings$entity$cancelopen$ja.internal(_root);
+	late final PlanChangeStrings$entity$settlementkind$ja settlementkind = PlanChangeStrings$entity$settlementkind$ja.internal(_root);
 	late final PlanChangeStrings$entity$actreqrelease$ja actreqrelease = PlanChangeStrings$entity$actreqrelease$ja.internal(_root);
 	late final PlanChangeStrings$entity$actreqhold$ja actreqhold = PlanChangeStrings$entity$actreqhold$ja.internal(_root);
 	late final PlanChangeStrings$entity$actlotrelease$ja actlotrelease = PlanChangeStrings$entity$actlotrelease$ja.internal(_root);
@@ -96,6 +97,20 @@ class PlanChangeStrings$entity$cancelopen$ja {
 	String get title => '未処置一覧';
 
 	late final PlanChangeStrings$entity$cancelopen$fields$ja fields = PlanChangeStrings$entity$cancelopen$fields$ja.internal(_root);
+}
+
+// Path: entity.settlementkind
+class PlanChangeStrings$entity$settlementkind$ja {
+	PlanChangeStrings$entity$settlementkind$ja.internal(this._root);
+
+	final PlanChangeStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '精算区分'
+	String get title => '精算区分';
+
+	late final PlanChangeStrings$entity$settlementkind$fields$ja fields = PlanChangeStrings$entity$settlementkind$fields$ja.internal(_root);
 }
 
 // Path: entity.actreqrelease
@@ -248,9 +263,6 @@ class PlanChangeStrings$entity$planchange$fields$ja {
 	/// ja: '最上位の受注明細'
 	String get f_root_order_detail => '最上位の受注明細';
 
-	/// ja: '再MRPへ'
-	String get f_do_remrp => '再MRPへ';
-
 	/// ja: 'キャンセル'
 	String get f_is_cancel => 'キャンセル';
 
@@ -328,6 +340,9 @@ class PlanChangeStrings$entity$planchange$fields$ja {
 
 	/// ja: '理由'
 	String get f_reason => '理由';
+
+	/// ja: '再MRPへ'
+	String get f_do_remrp => '再MRPへ';
 }
 
 // Path: entity.cancelopen.fields
@@ -380,6 +395,9 @@ class PlanChangeStrings$entity$cancelopen$fields$ja {
 	/// ja: '原因の日'
 	String get f_since => '原因の日';
 
+	/// ja: '受注明細'
+	String get f_order_detail => '受注明細';
+
 	/// ja: '解除'
 	String get f_do_req_release => '解除';
 
@@ -403,6 +421,24 @@ class PlanChangeStrings$entity$cancelopen$fields$ja {
 
 	/// ja: '発注キャンセル'
 	String get f_do_pur_cancel => '発注キャンセル';
+}
+
+// Path: entity.settlementkind.fields
+class PlanChangeStrings$entity$settlementkind$fields$ja {
+	PlanChangeStrings$entity$settlementkind$fields$ja.internal(this._root);
+
+	final PlanChangeStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'コード'
+	String get f_code => 'コード';
+
+	/// ja: '名称'
+	String get f_name => '名称';
+
+	/// ja: '品物の引き渡しも行う'
+	String get f_delivery => '品物の引き渡しも行う';
 }
 
 // Path: entity.actreqrelease.fields
@@ -536,6 +572,15 @@ class PlanChangeStrings$entity$actlotdeliver$fields$ja {
 	/// ja: '場所(棚に場所が無いとき)'
 	String get f_location => '場所(棚に場所が無いとき)';
 
+	/// ja: '精算区分'
+	String get f_settlement_kind => '精算区分';
+
+	/// ja: '精算の金額'
+	String get f_settlement_amount => '精算の金額';
+
+	/// ja: '受注明細'
+	String get f_order_detail => '受注明細';
+
 	/// ja: '理由'
 	String get f_reason => '理由';
 }
@@ -599,7 +644,6 @@ extension on PlanChangeStrings {
 			'entity.planchange.fields.f_is_shipping_order_detail' => '出荷オーダー明細',
 			'entity.planchange.fields.f_item' => '品目',
 			'entity.planchange.fields.f_root_order_detail' => '最上位の受注明細',
-			'entity.planchange.fields.f_do_remrp' => '再MRPへ',
 			'entity.planchange.fields.f_is_cancel' => 'キャンセル',
 			'entity.planchange.fields.f_is_quantity_change' => '数量の変更',
 			'entity.planchange.fields.f_is_date_change' => '納期の変更',
@@ -626,6 +670,7 @@ extension on PlanChangeStrings {
 			'entity.planchange.fields.f_old_date' => '変更前の納期',
 			'entity.planchange.fields.f_new_date' => '変更後の納期',
 			'entity.planchange.fields.f_reason' => '理由',
+			'entity.planchange.fields.f_do_remrp' => '再MRPへ',
 			'entity.cancelopen.title' => '未処置一覧',
 			'entity.cancelopen.fields.f_symbol' => 'シンボル',
 			'entity.cancelopen.fields.f_is_inventory_request' => '未解除の引当予約',
@@ -641,6 +686,7 @@ extension on PlanChangeStrings {
 			'entity.cancelopen.fields.f_item' => '品目',
 			'entity.cancelopen.fields.f_quantity' => '数量',
 			'entity.cancelopen.fields.f_since' => '原因の日',
+			'entity.cancelopen.fields.f_order_detail' => '受注明細',
 			'entity.cancelopen.fields.f_do_req_release' => '解除',
 			'entity.cancelopen.fields.f_do_req_hold' => '保管',
 			'entity.cancelopen.fields.f_do_lot_release' => '在庫にする',
@@ -649,6 +695,10 @@ extension on PlanChangeStrings {
 			'entity.cancelopen.fields.f_do_lot_deliver' => '引き渡し',
 			'entity.cancelopen.fields.f_do_ship_cancel' => '出荷取り消し',
 			'entity.cancelopen.fields.f_do_pur_cancel' => '発注キャンセル',
+			'entity.settlementkind.title' => '精算区分',
+			'entity.settlementkind.fields.f_code' => 'コード',
+			'entity.settlementkind.fields.f_name' => '名称',
+			'entity.settlementkind.fields.f_delivery' => '品物の引き渡しも行う',
 			'entity.actreqrelease.title' => '引当予約の解除',
 			'entity.actreqrelease.fields.f_target' => '対象',
 			'entity.actreqrelease.fields.f_item' => '品目',
@@ -681,6 +731,9 @@ extension on PlanChangeStrings {
 			'entity.actlotdeliver.fields.f_item' => '品目',
 			'entity.actlotdeliver.fields.f_quantity' => '数量',
 			'entity.actlotdeliver.fields.f_location' => '場所(棚に場所が無いとき)',
+			'entity.actlotdeliver.fields.f_settlement_kind' => '精算区分',
+			'entity.actlotdeliver.fields.f_settlement_amount' => '精算の金額',
+			'entity.actlotdeliver.fields.f_order_detail' => '受注明細',
 			'entity.actlotdeliver.fields.f_reason' => '理由',
 			'entity.actshipcancel.title' => '出荷オーダーの取り消し',
 			'entity.actshipcancel.fields.f_target' => '対象',

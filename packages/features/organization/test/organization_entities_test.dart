@@ -9,7 +9,7 @@ void main() {
   const module = OrganizationModule();
 
   test('台帳を持つ実体のルートがある(子の台帳は編集だけ)', () {
-    expect(module.entityKeys, ['company','site','deptkind','department','staff','approvalpattern']);
+    expect(module.entityKeys, ['company','site','deptkind','department','staff','approvalpattern','accesspathapproval']);
     expect(module.routes, isNotEmpty);
   });
 

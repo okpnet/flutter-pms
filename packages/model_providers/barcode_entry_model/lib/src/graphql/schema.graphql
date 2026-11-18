@@ -1407,6 +1407,7 @@ input MstrItemFilter {
   vMrpVisiterItemsByItemIdExist: Boolean
   vOperationsPlanUnreservedsByMstrItemIdExist: Boolean
   vOrderDetailBalancesByItemIdExist: Boolean
+  vOrderDetailPlanningsByItemIdExist: Boolean
   vPlanChangesByItemIdExist: Boolean
   vPurchaseAmountsByMstrItemIdExist: Boolean
   vPurchaseDeliveryCompliancesByMstrItemIdExist: Boolean
@@ -1987,6 +1988,8 @@ input TransResourcePlanFilter {
   transSupplyDetailsByTransResourcePlanIdExist: Boolean
   vMrpPendingSuggestionsByTransResourcePlanIdExist: Boolean
   vMrpSuggestionsByTransResourcePlanIdExist: Boolean
+  vOrderDetailPlansByTransResourcePlanIdExist: Boolean
+  vOrderDetailPlanningsByTransResourcePlanIdExist: Boolean
   vResourcePlanCoverageByTransResourcePlanIdExists: Boolean
   vSupplyDetailBalancesByTransResourcePlanIdExist: Boolean
   transOperationsPlanByParentTransOperationsPlanIdExists: Boolean

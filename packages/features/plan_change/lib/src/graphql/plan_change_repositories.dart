@@ -20,6 +20,8 @@ List<IEntityRepository> planChangeRepositories(GraphQLClient client) {
   return [
     _PlanChangeRepository(_definition('planchange'), client, language),
     _CancelOpenRepository(_definition('cancelopen'), client, language),
+    // 引き渡しの精算の選択肢(精算区分。読み取りのみ)
+    _SettlementKindRepository(_definition('settlementkind'), client, language),
     // 未処置一覧の行の操作(保存すると DB の関数を呼ぶ。追記のみ)
     ...operationRepositories(client),
   ];
@@ -103,54 +105,51 @@ abstract class _ReadOnlyRepository implements IEntityRepository {
 class _PlanChangeRepository extends _ReadOnlyRepository {
   _PlanChangeRepository(super.definition, super.client, super.language);
 
-  EntityRecord _record(Query$PlanChangePageRead$allVPlanChanges$nodes n) =>
-      EntityRecord(
-        id: n.transPlanChangeId,
-        values: {
-          'change_at': _ReadOnlyRepository.date(n.changeAt),
-          'symbol': _ReadOnlyRepository.text(n.symbol),
-          'is_order_detail': _ReadOnlyRepository.flag(n.isOrderDetail),
-          'is_purchase_detail': _ReadOnlyRepository.flag(n.isPurchaseDetail),
-          'is_operations_plan': _ReadOnlyRepository.flag(n.isOperationsPlan),
-          'is_inventory_request': _ReadOnlyRepository.flag(
-            n.isInventoryRequest,
-          ),
-          'is_visiter': _ReadOnlyRepository.flag(n.isVisiter),
-          'is_shipping_order_detail': _ReadOnlyRepository.flag(
-            n.isShippingOrderDetail,
-          ),
-          'item': _ReadOnlyRepository.text(n.itemId),
-          'root_order_detail': _ReadOnlyRepository.text(
-            n.rootTransOrderDetailId,
-          ),
-          'is_cancel': _ReadOnlyRepository.flag(n.isCancel),
-          'is_quantity_change': _ReadOnlyRepository.flag(n.isQuantityChange),
-          'is_date_change': _ReadOnlyRepository.flag(n.isDateChange),
-          'is_postpone': _ReadOnlyRepository.flag(n.isPostpone),
-          'is_advance': _ReadOnlyRepository.flag(n.isAdvance),
-          'is_stop': _ReadOnlyRepository.flag(n.isStop),
-          'is_resume': _ReadOnlyRepository.flag(n.isResume),
-          'is_discontinue': _ReadOnlyRepository.flag(n.isDiscontinue),
-          'is_release': _ReadOnlyRepository.flag(n.isRelease),
-          'is_hold': _ReadOnlyRepository.flag(n.isHold),
-          'is_scrap': _ReadOnlyRepository.flag(n.isScrap),
-          'is_deliver': _ReadOnlyRepository.flag(n.isDeliver),
-          'has_settlement': _ReadOnlyRepository.flag(n.hasSettlement),
-          'customer_cause': _ReadOnlyRepository.flag(n.customerCause),
-          'supplier_cause': _ReadOnlyRepository.flag(n.supplierCause),
-          'quality_cause': _ReadOnlyRepository.flag(n.qualityCause),
-          'from_mrp': _ReadOnlyRepository.flag(n.fromMrp),
-          'is_reflected': _ReadOnlyRepository.flag(n.isReflected),
-          'is_unreflected': _ReadOnlyRepository.flag(n.isUnreflected),
-          'is_root': _ReadOnlyRepository.flag(n.isRoot),
-          'cancel_quantity': _ReadOnlyRepository.number(n.cancelQuantity),
-          'old_quantity': _ReadOnlyRepository.number(n.oldQuantity),
-          'new_quantity': _ReadOnlyRepository.number(n.newQuantity),
-          'old_date': _ReadOnlyRepository.date(n.oldDate),
-          'new_date': _ReadOnlyRepository.date(n.newDate),
-          'reason': _ReadOnlyRepository.text(n.reason),
-        },
-      );
+  EntityRecord _record(
+    Query$PlanChangePageRead$allVPlanChanges$nodes n,
+  ) => EntityRecord(
+    id: n.transPlanChangeId,
+    values: {
+      'change_at': _ReadOnlyRepository.date(n.changeAt),
+      'symbol': _ReadOnlyRepository.text(n.symbol),
+      'is_order_detail': _ReadOnlyRepository.flag(n.isOrderDetail),
+      'is_purchase_detail': _ReadOnlyRepository.flag(n.isPurchaseDetail),
+      'is_operations_plan': _ReadOnlyRepository.flag(n.isOperationsPlan),
+      'is_inventory_request': _ReadOnlyRepository.flag(n.isInventoryRequest),
+      'is_visiter': _ReadOnlyRepository.flag(n.isVisiter),
+      'is_shipping_order_detail': _ReadOnlyRepository.flag(
+        n.isShippingOrderDetail,
+      ),
+      'item': _ReadOnlyRepository.text(n.itemId),
+      'root_order_detail': _ReadOnlyRepository.text(n.rootTransOrderDetailId),
+      'is_cancel': _ReadOnlyRepository.flag(n.isCancel),
+      'is_quantity_change': _ReadOnlyRepository.flag(n.isQuantityChange),
+      'is_date_change': _ReadOnlyRepository.flag(n.isDateChange),
+      'is_postpone': _ReadOnlyRepository.flag(n.isPostpone),
+      'is_advance': _ReadOnlyRepository.flag(n.isAdvance),
+      'is_stop': _ReadOnlyRepository.flag(n.isStop),
+      'is_resume': _ReadOnlyRepository.flag(n.isResume),
+      'is_discontinue': _ReadOnlyRepository.flag(n.isDiscontinue),
+      'is_release': _ReadOnlyRepository.flag(n.isRelease),
+      'is_hold': _ReadOnlyRepository.flag(n.isHold),
+      'is_scrap': _ReadOnlyRepository.flag(n.isScrap),
+      'is_deliver': _ReadOnlyRepository.flag(n.isDeliver),
+      'has_settlement': _ReadOnlyRepository.flag(n.hasSettlement),
+      'customer_cause': _ReadOnlyRepository.flag(n.customerCause),
+      'supplier_cause': _ReadOnlyRepository.flag(n.supplierCause),
+      'quality_cause': _ReadOnlyRepository.flag(n.qualityCause),
+      'from_mrp': _ReadOnlyRepository.flag(n.fromMrp),
+      'is_reflected': _ReadOnlyRepository.flag(n.isReflected),
+      'is_unreflected': _ReadOnlyRepository.flag(n.isUnreflected),
+      'is_root': _ReadOnlyRepository.flag(n.isRoot),
+      'cancel_quantity': _ReadOnlyRepository.number(n.cancelQuantity),
+      'old_quantity': _ReadOnlyRepository.number(n.oldQuantity),
+      'new_quantity': _ReadOnlyRepository.number(n.newQuantity),
+      'old_date': _ReadOnlyRepository.date(n.oldDate),
+      'new_date': _ReadOnlyRepository.date(n.newDate),
+      'reason': _ReadOnlyRepository.text(n.reason),
+    },
+  );
 
   Future<List<EntityRecord>> _read(
     int first,
@@ -219,6 +218,8 @@ class _CancelOpenRepository extends _ReadOnlyRepository {
       'item': _ReadOnlyRepository.text(n.itemId),
       'quantity': _ReadOnlyRepository.number(n.quantity),
       'since': _ReadOnlyRepository.date(n.since),
+      // 引き渡しの精算に使う受注明細(画面には出さない)
+      'order_detail': _ReadOnlyRepository.text(n.transOrderDetailId),
     },
   );
 
@@ -262,5 +263,72 @@ class _CancelOpenRepository extends _ReadOnlyRepository {
       'openItemId': {'equalTo': id},
     });
     return rows.isEmpty ? null : rows.first;
+  }
+}
+
+/// 精算区分(`mstr_settlement_kind`)。引き渡しの入力の選択肢。名称は呼称(辞書)の言語コード `ja` の値。
+class _SettlementKindRepository extends _ReadOnlyRepository {
+  _SettlementKindRepository(super.definition, super.client, super.language);
+
+  EntityRecord _record(
+    Query$PlanChangeSettlementKindPageRead$allMstrSettlementKinds$nodes n,
+  ) {
+    final labels = n.toJson()['labels'];
+    final nodes =
+        (((labels as Map?)?['sharedDictionaryBySharedDictionaryNameId']
+                    as Map?)?['value']
+                as Map?)?['nodes']
+            as List?;
+    final name = nodes != null && nodes.isNotEmpty
+        ? _ReadOnlyRepository.text((nodes.first as Map)['dictionaryValue'])
+        : '';
+    return EntityRecord(
+      id: n.mstrSettlementKindId,
+      values: {
+        'code': _ReadOnlyRepository.text(n.code),
+        'name': name,
+        'delivery': _ReadOnlyRepository.flag(n.delivery),
+      },
+    );
+  }
+
+  Future<List<EntityRecord>> _read(int first, int offset) async {
+    final result = await client.query$PlanChangeSettlementKindPageRead(
+      Options$Query$PlanChangeSettlementKindPageRead(
+        variables: Variables$Query$PlanChangeSettlementKindPageRead(
+          first: first,
+          offset: offset,
+          languageCodeId: await language.id,
+        ),
+        fetchPolicy: FetchPolicy.noCache,
+      ),
+    );
+    final e = result.exception;
+    if (e != null) throw e;
+    return [
+      for (final n
+          in result.parsedData?.allMstrSettlementKinds?.nodes ??
+              const <
+                Query$PlanChangeSettlementKindPageRead$allMstrSettlementKinds$nodes?
+              >[])
+        ?n == null ? null : _record(n),
+    ];
+  }
+
+  @override
+  Future<List<EntityRecord>> find({
+    required int take,
+    int skip = 0,
+    Expression? predicate,
+    SortExpression? orders,
+  }) => _read(take, skip);
+
+  @override
+  Future<EntityRecord?> findById(String id) async {
+    final rows = await _read(200, 0);
+    for (final r in rows) {
+      if (r.id == id) return r;
+    }
+    return null;
   }
 }

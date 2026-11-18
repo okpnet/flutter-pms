@@ -21,6 +21,7 @@ home:
   detail: 詳細
   offerings: 提供サービス・製品
   approval: 承認
+  approvalPathApproval: アクセスパスの承認
   below: 配下 ${count}
 # --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
 # 会社情報の実体と項目の表示名(日本語。基準言語)。
@@ -152,4 +153,15 @@ entity:
       f_department: "部署"
       f_position: "役職"
       f_priority: "優先順位"
+      f_remarks: "備考"
+  accesspathapproval:
+    title: "アクセスパスの承認"
+    fields:
+      f_name: "名称"
+      f_access_path: "アクセスパス"
+      f_remarks: "備考"
+  approvalscope:
+    title: "承認の範囲"
+    fields:
+      f_access_path_approval: "アクセスパスの承認"
       f_remarks: "備考"

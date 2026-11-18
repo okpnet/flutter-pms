@@ -60,6 +60,8 @@ const EN = {
   department: 'Department',
   staff: 'Staff',
   approvalpattern: 'Approval pattern',
+  approvalscope: 'Approval scope',
+  accesspathapproval: 'Access path approval',
   resplan: 'Resource plan',
   prodrez: 'Production reservation',
   purrez: 'Purchase reservation',

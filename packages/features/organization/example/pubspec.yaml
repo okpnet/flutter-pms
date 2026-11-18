@@ -22,6 +22,9 @@ dependencies:
   resource:
     path: ../../resource
 
+  access_control:
+    path: ../../access_control
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
