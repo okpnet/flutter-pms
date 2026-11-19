@@ -12,6 +12,7 @@ import '../../../services/features/feature_modules.dart';
 import '../../../services/graphql/graphql_overrides.dart'
     show pocketbaseEnabledProvider;
 import '../../controls/route/dashboard_constant.dart';
+import 'menu_icons.dart';
 
 ///アプリの枠。タイトルバー・サイドバー(狭いときはハンバーガー)・ログインユーザーは`app_shell`の部品を使う。
 ///メニューの項目は機能(ライブラリ)の`MenuContributor`が提供し、設定・ログアウトは`app_core`へ遷移する。
@@ -130,6 +131,15 @@ class AppMainFrame extends ConsumerWidget {
     return entries;
   }
 
+  /// 項目のアイコン(画面案の項目のアイコン。台帳の実体のキーから引く。無ければ null)。
+  IconData? _itemIcon(MenuEntry entry) {
+    final Object target = entry.destination;
+    final inner = target is TopLevelDestination
+        ? target.inner
+        : entry.destination;
+    return inner is EntityListDestination ? menuIconOf(inner.entityKey) : null;
+  }
+
   /// 項目の遷移先のパス(取れないときは null)。
   String? _pathOf(MenuEntry entry) {
     final Object target = entry.destination;
@@ -219,6 +229,7 @@ class AppMainFrame extends ConsumerWidget {
                     id: '${e.groupId}/${e.label}',
                     selected: selectedId == '${e.groupId}/${e.label}',
                     label: e.label,
+                    icon: _itemIcon(e) ?? _menuIcons[entry.key],
                     onSelected: () =>
                         bus.execute(TopLevelDestination(e.destination)),
                   ),
