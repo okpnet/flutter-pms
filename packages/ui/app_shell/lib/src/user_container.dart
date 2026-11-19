@@ -183,6 +183,9 @@ class UserContainer extends StatelessWidget {
     if (actions.isEmpty) return child;
     return PopupMenuButton<UserMenuAction>(
       tooltip: labels.userMenu,
+      // 担当者(ボタン)の直下に出す(ボタンに重ねない)
+      position: PopupMenuPosition.under,
+      offset: const Offset(0, 4),
       onSelected: (a) => a.onSelected(),
       itemBuilder: (context) => [
         for (final a in actions)

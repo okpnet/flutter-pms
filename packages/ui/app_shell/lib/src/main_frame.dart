@@ -13,7 +13,7 @@ import 'user_container.dart';
 /// 画面の幅に応じて、モバイルはサイドバーをハンバーガーメニューにし、
 /// タブレット(または [sidebarIconOnly])はアイコンだけのサイドバー、PC は通常のサイドバーにする。
 /// ユーザー([user])が null(ログインしていない・権限が無い)のときは、サイドバーもハンバーガーも出さない。
-class MultiMainFrame extends StatelessWidget {
+class MultiMainFrame extends StatefulWidget {
   const MultiMainFrame({
     super.key,
     required this.title,
@@ -42,31 +42,39 @@ class MultiMainFrame extends StatelessWidget {
   final AppShellLabels labels;
 
   @override
+  State<MultiMainFrame> createState() => _MultiMainFrameState();
+}
+
+class _MultiMainFrameState extends State<MultiMainFrame> {
+  // 再構築のたびに作り直さない(作り直すと、開いているメニューの選択が捨てられる)
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
   Widget build(BuildContext context) {
     final point = MediaBreakPoint.of(MediaQuery.sizeOf(context).width);
     final mobile = point == MediaBreakPoint.mobile;
-    final hasMenu = user != null && !menu.isEmpty;
-    final iconOnly = point == MediaBreakPoint.tablet || sidebarIconOnly;
-    final scaffoldKey = GlobalKey<ScaffoldState>();
+    final hasMenu = widget.user != null && !widget.menu.isEmpty;
+    final iconOnly = point == MediaBreakPoint.tablet || widget.sidebarIconOnly;
 
     return Scaffold(
-      key: scaffoldKey,
+      key: _scaffoldKey,
       appBar: AppTitleBar(
-        title: title,
-        logo: logo,
-        user: user,
-        userActions: userActions,
+        title: widget.title,
+        logo: widget.logo,
+        user: widget.user,
+        userActions: widget.userActions,
         showHamburger: mobile && hasMenu,
-        onOpenMenu: () => scaffoldKey.currentState?.openDrawer(),
+        onOpenMenu: () => _scaffoldKey.currentState?.openDrawer(),
         compactUser: mobile,
-        userSize: userSize,
-        labels: labels,
+        userSize: widget.userSize,
+        labels: widget.labels,
       ),
-      drawer: mobile && hasMenu ? HamburgerMenu(menu: menu) : null,
+      drawer: mobile && hasMenu ? HamburgerMenu(menu: widget.menu) : null,
       body: Row(
         children: [
-          if (!mobile && hasMenu) SideBar(menu: menu, iconOnly: iconOnly),
-          Expanded(child: body),
+          if (!mobile && hasMenu)
+            SideBar(menu: widget.menu, iconOnly: iconOnly),
+          Expanded(child: widget.body),
         ],
       ),
     );
