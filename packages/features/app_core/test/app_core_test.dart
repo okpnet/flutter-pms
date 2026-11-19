@@ -55,13 +55,17 @@ void main() {
     expect(find.text('使用言語'), findsOneWidget);
     expect(find.text('アプリケーションのバージョン'), findsOneWidget);
 
-    await tester.tap(find.text('English'));
+    await tester.tap(find.byKey(const ValueKey('languageSelect')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('English').last);
     await tester.pumpAndSettle();
     expect(container.read(localeProvider).languageCode, 'en');
     // 文字列も英語になる
     expect(find.text('Language'), findsOneWidget);
 
-    await tester.tap(find.text('日本語'));
+    await tester.tap(find.byKey(const ValueKey('languageSelect')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('日本語').last);
     await tester.pumpAndSettle();
     expect(container.read(localeProvider).languageCode, 'ja');
   });

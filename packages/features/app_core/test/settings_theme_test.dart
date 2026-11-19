@@ -143,11 +143,14 @@ void main() {
     testWidgets('登録されているテーマが並び、選ぶと即時に切り替わる', (tester) async {
       final container = await open(tester);
       expect(find.text('テーマ'), findsOneWidget);
+      // 選択中のテーマが出ており、開くと全部が並ぶ
       expect(find.text('Default'), findsOneWidget);
+      await tester.tap(find.byKey(const ValueKey('themeSelect')));
+      await tester.pumpAndSettle();
       expect(find.text('Ocean'), findsOneWidget);
       expect(container.read(themeManagerProvider).activeId, 'default');
 
-      await tester.tap(find.text('Ocean'));
+      await tester.tap(find.text('Ocean').last);
       await tester.pumpAndSettle();
       expect(container.read(themeManagerProvider).activeId, 'ocean');
       expect(

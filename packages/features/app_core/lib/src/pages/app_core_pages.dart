@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:theme_lib/theme_lib.dart';
+import 'package:view_responsiveness/constants/media_break_point.dart';
 
 import '../app_core_destinations.dart';
 import '../i18n/strings_provider.dart';
@@ -198,87 +199,177 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     }
   }
 
+  /// 区分の間の区切り。上下に余白を取り、ボタンなどに接しないようにする。
+  Widget _gap() => const Padding(
+    padding: EdgeInsets.symmetric(vertical: 24),
+    child: Divider(height: 1),
+  );
+
+  Widget _heading(BuildContext context, String text) => Padding(
+    padding: const EdgeInsets.only(bottom: 12),
+    child: Text(text, style: Theme.of(context).textTheme.titleMedium),
+  );
+
+  /// 項目名つきの小さな見出し。
+  Widget _caption(BuildContext context, String text) => Padding(
+    padding: const EdgeInsets.only(bottom: 4),
+    child: Text(text, style: Theme.of(context).textTheme.labelLarge),
+  );
+
+  /// 選択肢を横に並べるラジオボタン。
+  Widget _radioRow<T>({
+    required T groupValue,
+    required ValueChanged<T> onChanged,
+    required List<(T, String)> options,
+  }) {
+    return RadioGroup<T>(
+      groupValue: groupValue,
+      onChanged: (v) {
+        if (v != null) onChanged(v);
+      },
+      child: Wrap(
+        spacing: 24,
+        runSpacing: 4,
+        children: [
+          for (final (value, label) in options)
+            InkWell(
+              onTap: () => onChanged(value),
+              borderRadius: BorderRadius.circular(8),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Radio<T>(value: value),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: Text(label),
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  /// 配色のテーマの選択肢。項目の背景をそのテーマの色にして、選ぶ前に見分けられるようにする。
+  Widget _themeDropdown(ThemeState themeState, ThemeManager manager) {
+    final themes = themeState.themes.values.toList();
+    Widget swatch(ThemeDefinition d) {
+      final scheme = ColorScheme.fromSeed(seedColor: d.light.seed);
+      return Container(
+        width: double.infinity,
+        height: 36,
+        alignment: Alignment.centerLeft,
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        decoration: BoxDecoration(
+          color: scheme.primaryContainer,
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: Text(d.name, style: TextStyle(color: scheme.onPrimaryContainer)),
+      );
+    }
+
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 320),
+        child: DropdownButtonFormField<String>(
+          key: const ValueKey('themeSelect'),
+          initialValue: themeState.activeId,
+          isExpanded: true,
+          // 選んだ項目の表示と、メニューの各項目を、テーマの色で出す
+          selectedItemBuilder: (context) => [for (final d in themes) swatch(d)],
+          items: [
+            for (final d in themes)
+              DropdownMenuItem(value: d.id, child: swatch(d)),
+          ],
+          onChanged: (id) {
+            if (id != null) manager.select(id);
+          },
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final t = ref.watch(appCoreStringsProvider).settings;
     final iconOnly = ref.watch(sidebarIconOnlyProvider);
     final themeState = ref.watch(themeManagerProvider);
     final themeManager = ref.read(themeManagerProvider.notifier);
+    final textTheme = Theme.of(context).textTheme;
     return ScreenScaffold(
       title: t.title,
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(vertical: 16),
         children: [
-          Text(t.note, style: Theme.of(context).textTheme.bodySmall),
-          const SizedBox(height: 16),
-          Text(
-            t.language.title,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          RadioGroup<_LanguageChoice>(
-            groupValue: _choiceOf(),
-            onChanged: (v) {
-              if (v != null) _select(v);
-            },
-            child: Column(
-              children: [
-                RadioListTile<_LanguageChoice>(
-                  value: _LanguageChoice.system,
-                  title: Text(t.language.system),
-                ),
-                RadioListTile<_LanguageChoice>(
-                  value: _LanguageChoice.ja,
-                  title: Text(t.language.ja),
-                ),
-                RadioListTile<_LanguageChoice>(
-                  value: _LanguageChoice.en,
-                  title: Text(t.language.en),
-                ),
-              ],
+          Text(t.note, style: textTheme.bodySmall),
+          const SizedBox(height: 24),
+          _heading(context, t.language.title),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 320),
+              child: DropdownButtonFormField<_LanguageChoice>(
+                key: const ValueKey('languageSelect'),
+                initialValue: _choiceOf(),
+                isExpanded: true,
+                decoration: const InputDecoration(isDense: true),
+                items: [
+                  DropdownMenuItem(
+                    value: _LanguageChoice.system,
+                    child: Text(t.language.system),
+                  ),
+                  DropdownMenuItem(
+                    value: _LanguageChoice.ja,
+                    child: Text(t.language.ja),
+                  ),
+                  DropdownMenuItem(
+                    value: _LanguageChoice.en,
+                    child: Text(t.language.en),
+                  ),
+                ],
+                onChanged: (v) {
+                  if (v != null) _select(v);
+                },
+              ),
             ),
           ),
-          const Divider(),
-          Text(t.layout.title, style: Theme.of(context).textTheme.titleMedium),
+          _gap(),
+          _heading(context, t.layout.title),
           SwitchListTile(
+            contentPadding: EdgeInsets.zero,
             title: Text(t.layout.sidebarIconOnly),
             value: iconOnly,
             onChanged: ref.read(sidebarIconOnlyProvider.notifier).set,
           ),
-          const Divider(),
-          Text(
-            t.calendar.title,
-            style: Theme.of(context).textTheme.titleMedium,
+          _gap(),
+          _heading(context, t.calendar.title),
+          _caption(context, t.calendar.firstWeekday),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: SegmentedButton<int>(
+              key: const ValueKey('calendarFirstWeekday'),
+              segments: [
+                ButtonSegment(
+                  value: DateTime.sunday,
+                  label: Text(t.calendar.sunday),
+                ),
+                ButtonSegment(
+                  value: DateTime.monday,
+                  label: Text(t.calendar.monday),
+                ),
+              ],
+              selected: {ref.watch(calendarFirstWeekdayProvider)},
+              onSelectionChanged: (v) =>
+                  ref.read(calendarFirstWeekdayProvider.notifier).set(v.first),
+            ),
           ),
-          const SizedBox(height: 8),
-          Text(
-            t.calendar.firstWeekday,
-            style: Theme.of(context).textTheme.labelLarge,
-          ),
-          const SizedBox(height: 4),
-          SegmentedButton<int>(
-            key: const ValueKey('calendarFirstWeekday'),
-            segments: [
-              ButtonSegment(
-                value: DateTime.sunday,
-                label: Text(t.calendar.sunday),
-              ),
-              ButtonSegment(
-                value: DateTime.monday,
-                label: Text(t.calendar.monday),
-              ),
-            ],
-            selected: {ref.watch(calendarFirstWeekdayProvider)},
-            onSelectionChanged: (v) =>
-                ref.read(calendarFirstWeekdayProvider.notifier).set(v.first),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            t.calendar.visibleWeekdays,
-            style: Theme.of(context).textTheme.labelLarge,
-          ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 16),
+          _caption(context, t.calendar.visibleWeekdays),
           Wrap(
             spacing: 8,
+            runSpacing: 8,
             children: [
               for (var w = 1; w <= 7; w++)
                 FilterChip(
@@ -293,61 +384,33 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 ),
             ],
           ),
-          const Divider(),
-          Text(t.theme.title, style: Theme.of(context).textTheme.titleMedium),
-          Text(t.theme.note, style: Theme.of(context).textTheme.bodySmall),
-          const SizedBox(height: 8),
-          Text(
-            t.theme.mode.title,
-            style: Theme.of(context).textTheme.labelLarge,
+          _gap(),
+          _heading(context, t.theme.title),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: Text(t.theme.note, style: textTheme.bodySmall),
           ),
-          RadioGroup<ThemeMode>(
+          _caption(context, t.theme.mode.title),
+          _radioRow<ThemeMode>(
             groupValue: themeState.mode,
-            onChanged: (v) {
-              if (v != null) themeManager.setMode(v);
-            },
-            child: Column(
-              children: [
-                RadioListTile<ThemeMode>(
-                  value: ThemeMode.system,
-                  title: Text(t.theme.mode.system),
-                ),
-                RadioListTile<ThemeMode>(
-                  value: ThemeMode.light,
-                  title: Text(t.theme.mode.light),
-                ),
-                RadioListTile<ThemeMode>(
-                  value: ThemeMode.dark,
-                  title: Text(t.theme.mode.dark),
-                ),
-              ],
-            ),
+            onChanged: themeManager.setMode,
+            options: [
+              (ThemeMode.system, t.theme.mode.system),
+              (ThemeMode.light, t.theme.mode.light),
+              (ThemeMode.dark, t.theme.mode.dark),
+            ],
           ),
-          Text(
-            t.theme.selection,
-            style: Theme.of(context).textTheme.labelLarge,
-          ),
+          const SizedBox(height: 16),
+          _caption(context, t.theme.selection),
           // 登録されているテーマ(組み込みの既定と、取り込んだ追加のテーマ)から選ぶ。
           // テーマの中身の編集は、このアプリでは行わない(別のアプリケーションで行う)。
-          RadioGroup<String>(
-            groupValue: themeState.activeId,
-            onChanged: (id) {
-              if (id != null) themeManager.select(id);
-            },
-            child: Column(
-              children: [
-                for (final theme in themeState.themes.values)
-                  RadioListTile<String>(
-                    value: theme.id,
-                    title: Text(theme.name),
-                  ),
-              ],
-            ),
+          _themeDropdown(themeState, themeManager),
+          _gap(),
+          _heading(context, t.user.title),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: Text(t.user.note, style: textTheme.bodySmall),
           ),
-          const Divider(),
-          Text(t.user.title, style: Theme.of(context).textTheme.titleMedium),
-          Text(t.user.note, style: Theme.of(context).textTheme.bodySmall),
-          const SizedBox(height: 8),
           // 現在のユーザーの表示(大)。名前・所属・顔写真は、ログインのときに決まる(引数・プロパティで変えられる)
           if (ref.watch(userSummaryProvider) case final u?)
             UserContainer(
@@ -360,25 +423,40 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             ),
           // ユーザーの画像(user_profile の部品。アプリが差し込む。変更できるのは裏設定が許すときだけ)
           if (ref.watch(userImageSlotProvider) case final slot?) slot(context),
-          TextField(
-            controller: _userName,
-            decoration: InputDecoration(labelText: t.user.name),
+          const SizedBox(height: 16),
+          // 入力項目は横に並べる(狭いスマートフォンの幅だけ縦)
+          LayoutBuilder(
+            builder: (context, c) {
+              final name = TextField(
+                controller: _userName,
+                decoration: InputDecoration(labelText: t.user.name),
+              );
+              final role = TextField(
+                controller: _userRole,
+                decoration: InputDecoration(labelText: t.user.role),
+              );
+              return MediaBreakPoint.of(c.maxWidth) == MediaBreakPoint.mobile
+                  ? Column(spacing: 12, children: [name, role])
+                  : Row(
+                      spacing: 16,
+                      children: [
+                        Expanded(child: name),
+                        Expanded(child: role),
+                      ],
+                    );
+            },
           ),
-          TextField(
-            controller: _userRole,
-            decoration: InputDecoration(labelText: t.user.role),
+          const SizedBox(height: 24),
+          ActionButtons(
+            primaryLabel: t.user.apply,
+            onPrimary: _applyUser,
+            secondaryLabel: t.user.reset,
+            onSecondary: _resetUser,
           ),
-          const SizedBox(height: 8),
-          Row(
-            spacing: 8,
-            children: [
-              FilledButton(onPressed: _applyUser, child: Text(t.user.apply)),
-              OutlinedButton(onPressed: _resetUser, child: Text(t.user.reset)),
-            ],
-          ),
-          const Divider(),
-          Text(t.about.title, style: Theme.of(context).textTheme.titleMedium),
+          _gap(),
+          _heading(context, t.about.title),
           ListTile(
+            contentPadding: EdgeInsets.zero,
             title: Text(t.about.version),
             trailing: const Text(appVersion),
           ),

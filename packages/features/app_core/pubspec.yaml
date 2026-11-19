@@ -14,6 +14,8 @@ dependencies:
     path: ../../ui/loadux_lib
   flutter:
     sdk: flutter
+  view_responsiveness:
+    path: ../../ui/view_responsiveness
   app_shell:
     path: ../../ui/app_shell
   feature_shared:

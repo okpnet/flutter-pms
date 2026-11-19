@@ -3,6 +3,8 @@
 /// - [AppMenu] / [AppMenuGroup] / [AppMenuItem]: サイドバーとハンバーガーメニューが共有するメニューの表示用モデル
 /// - [AppUser] / [UserMenuAction]: ログインユーザーの表示用モデル
 /// - [AppTitleBar] / [SideBar] / [HamburgerMenu] / [UserContainer]: 部品
+/// - [ActionButtons]: 主・副の操作を、同じ幅で中央に横並びにするボタンの配置
+/// - [ActionButtons]: 主・副の操作を、同じ幅で中央に横並びにするボタンの配置
 /// - [BusyOverlay]: 長時間の処理中に、画面全体の操作と戻る操作を無効にして「計算中」を示す覆い
 /// - [ScreenScaffold] / [ScreenTitle]: 機能の画面の骨組みと見出し(AppBar を使わない)
 /// - [MultiMainFrame] / [SingleMainFrame] / [SelectionFrame]: フレーム(画面の枠)
@@ -10,6 +12,8 @@
 /// 機能・認証の実体は知らない。表示する項目、権限の判定、ユーザー情報は、呼び出し側(アプリ)が渡す。
 library;
 
+export 'src/action_buttons.dart';
+export 'src/action_buttons.dart';
 export 'src/app_shell_labels.dart';
 export 'src/breadcrumbs.dart';
 export 'src/content_width.dart';

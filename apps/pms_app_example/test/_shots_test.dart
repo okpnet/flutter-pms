@@ -54,6 +54,7 @@ void main() {
       'department': '/e/department',
       'department_edit': '/e/department/cf3da547-0000-4000-8000-000000000001',
       'workcalendar': '/e/workcalendar',
+      'settings': '/settings',
       'approval': '/e/approvalpattern',
       'approval_edit': '/e/approvalpattern/c1404734-0000-4000-8000-000000000001',
     };
