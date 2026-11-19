@@ -64,6 +64,19 @@ cd tools/config_user_generator; dart run bin/config_user_generator.dart   # 裏�
 
 PocketBase のクライアントは `packages/infra/pbapi`(公式 SDK の `pocketbase` を使う。新規登録・パスワード・ログイン/ログアウト・セッション確認・共有ファイル・個人ファイル)。トークンは秘密情報として扱い、保存先は `ITokenStore` で差し替える。アプリの既定は OS の安全な保管庫(`auth_files` の `SecureTokenStore`、`flutter_secure_storage`)で、ログインは次の起動でも続く。ログアウトは `auth_files` の `authFilesSignOut`(`app_core` の `signOutProvider` に差し込む)がセッションと保管庫を破棄する。共有ファイルの選択・保存は `file_picker`(`auth_files`)。接続先は `https`(ローカルのネットワークのみ `http` 可)。ログイン・登録・再設定の画面は `packages/features/auth_files`。詳細は [packages/infra/pbapi/CLAUDE.md](packages/infra/pbapi/CLAUDE.md) を参照。
 
+### アカウント管理(管理者だけ)
+新規申請(`activate`=アカウントの作成・`reject`)とパスワードを忘れた依頼(再設定コードの発行)の画面は「アカウント管理」(`auth_files` の `AdminSignupsPage`・`AdminResetsPage`。画面の名称に「承認」を使わない)。パスが `/auth/admin/…` の画面は管理者だけが開ける(`pms_app` の `isAdminOnlyPath`)。
+
+### 作業者(担当者)の新規登録とログインの開始
+作業者(`info_staff`)の新規登録は、アプリで管理者が行う。作業者が自分でユーザーを作ることはできない(本人が申請する方式は、管理者の承認のために別に残してある)。
+1.  管理者が、アプリで作業者を登録する(DB の `info_staff`。GraphQL の登録。会社は必須)。返った担当者の ID が、PocketBase の `app_user_id` になる。
+1.  管理者が、その担当者の ID を `app_user_id` にして、PocketBase のユーザーを作り、有効化コードを発行する(`pbapi` の `AdminService.createUser`。ユーザーID・氏名・任意のメール。`role=admin` を付けられるのは superuser だけ)。画面は未作成(`createUser` は無い)。応答のコード(12文字・1回限り・72時間)を、作業者へ渡す(メールあり・SMTP 有効ならサーバーが送る。`mailed=false` は手渡し)。
+1.  作業者が、ログイン前の「コードを入力」の画面で、ユーザーID・コード・新しいパスワードを入れて有効化する(`AccountService.acceptCode`)。以後は、ユーザーIDとパスワードでログインする。コードを無くしたときは、管理者が同じ `app_user_id` でコードを発行し直す(前のコードは無効になる)。
+1.  順番は「DB に作業者を登録 → PocketBase のユーザーを作る」で固定。DB の登録が失敗したら PocketBase は作らない。PocketBase の作成が失敗しても、DB の作業者は残る(同じ `app_user_id` で何度でも作り直せる)。
+1.  つなぎは PocketBase 側の `app_user_id`(= DB の担当者の ID)だけ。DB の `info_staff` に PocketBase のユーザーの ID は持たない(列が無い)。
+1.  ログイン後の GraphQL の JWT の `staff_id` は `app_user_id` から作るため、担当者の ID と食い違うと、DB の関数が担当者を見つけられず `OPR00` になる。更新者・担当者の履歴 ID は、その担当者の最新の履歴から引く。
+1.  作業者の編集画面(`organization`)は、DB の担当者の登録・更新だけを行う。ユーザーの作成(コードの発行)は、別の操作として、登録のあとに画面から行う。
+
 GraphQL(PostGraphile)には PocketBase が発行した短期の JWT(`SessionService.graphqlToken`、`GET /api/app/graphql-token`、既定15分)を `Authorization: Bearer` で送る。JWT はメモリ上(Riverpod のサービス)にだけ置き、暗号化・永続化はしない。JWT を用意できないとき(未ログイン・破棄)は通信せず、`pms_graphql` の `SessionUnavailableException` を投げる。結果の型は `SessionExpiredError`(期限切れ=401・不正=403・セッション無し=`missing`)、`PermissionDeniedError`(DB の権限なし。JWT なしの匿名を含む)、`NetworkError`(認証サーバーに接続できないだけ)。PocketBase → PostGraphile → 全モデルの検証は `packages/infra/jwt_verification_test`(テスト専用。実行方法と実施ログは同プロジェクトの `CLAUDE.md`・`doc/`)。JWT の鍵(`PB_GRAPHQL_JWT_SECRET`)を Git に入れない(`tools/docker/postgraphile/.env` は追跡されているため注意)。
 
 ## バーコードの体系
@@ -271,7 +284,7 @@ DB(`tools/docker/postgresql/script`、スキーマ `tests`)の仕様。正は DD
 1.  マスタ・Info・trans は、極力ミューテーション(PostGraphile の自動 CRUD の create・update)で対応する。マスタごと・テーブルごとの保存関数は作らない。呼称・文章・ラベルを持つ列は、共通関数で作り、返った ID を本体の create の列(`names`・`details` など)に渡す。更新は、渡した列だけが変わる(null で消える)。削除は `remove = true`。
 1.  複数の表にまたがり影響が大きいもの(MRP・棚移動・キャンセル・停止・支給・返品・精算など、trans で同時実行と金額に関わるもの)は、DB 関数にする(上の「操作の DB 関数」)。
 1.  理由: Info・マスタは、同時に変更される可能性が低く、影響が限定的。trans は、棚移動が同時に起こる可能性が高く、MRP でも参照・変更され、変更されると金銭に直結する。関数が増えすぎると、DB の保守性が下がる。関数を足す前に、ミューテーションで足りるかを確認する。
-1.  コードの重複は、DB の部分一意索引(`remove = false` の行だけ。`<表>_ix_code_active`。`06_cteate_test.sql`。DB に適用済み。利害関係者・力量・資格・場所・作業者・事業所・部署)で止める。重複のエラー(`23505`)は、索引の名前で、画面の検証エラーに変換する。体系(ツリー)の循環(自分自身・子孫を親にする)は DB に検査が無く、クライアントで検査する。
+1.  コードの重複は、DB の部分一意索引(`remove = false` の行だけ。`<表>_ix_code_active`。`06_cteate_test.sql`。DB に適用済み。利害関係者・力量・資格・場所・作業者・事業所・部署)で止める。重複のエラー(`23505`)は、索引の名前で、画面の検証エラーに変換する。体系(ツリー)の循環(自分自身・子孫を親にする)は、クライアントで保存・親の付け替えの前に検査する(`entity_screens` の `TreeCycleGuard`。DB の体系の閉包 `hrchy_xxx`(祖先と子孫のすべての組)を引く。`isAncestorOf(自分, 新しい親)` が真なら、親の項目の `parentCycle`)。DB のトリガー `trg_00_tree_cycle`(体系の7表 `*_tree` の INSERT・UPDATE の前。errcode `TRE01`、文は「体系の循環」)は最後の砦で、すり抜けたときも同じ検証エラーにする(`TreeCycleGuard.isTriggerMessage`)。
 1.  共通関数とミューテーションは別のトランザクション。本体の登録が失敗すると、呼称・文章が参照されない行(孤児)として残る(マスタ・Info は許容する)。同じ値の更新は、履歴のトリガーが握りつぶし、応答の行が null になる(エラーではない)ため、更新後に読み直す。
 1.  更新者(`update_user_id`・`update_user_history_id`)は、ログイン中のユーザーの ID を保持している状態(認証のセッション。`pbapi` の `SessionService.current.appUserId` = アプリの DB の担当者の ID)から貰う。履歴の ID は、その担当者の最新の履歴を、`organization_model` の生成モデル(`StaffHistoryLatestPage`。`organization` 機能の `staffHistoryLookup` が包む)で引く。アプリの `currentUserHolderProvider`(`CurrentUserHolder`。言語コードは `localeProvider` から呼ぶたびに取り直す)を、`auditUserProvider` が取得元の `auditUser` の形にして渡す(`pms_graphql` の `AuditUserResolver` は、テストの道具(`data_test_harness`)だけが使う)。ミューテーションの Edit・Remove に更新者を含めるには、YAML の定義に `withUpdater: true` を付ける(生成器。既定では監査列を含めない)。DB のトリガーで埋める方式は採らない。 ログイン中のユーザーの状態は `packages/core/current_user`(`CurrentUserHolder`。認証側は `IUserIdentitySource`、データ側は履歴の ID を引く関数。アプリが `pbapi`・GraphQL をつなぐ。権限は保持しない)。
 1.  詳細(マスタごとの本体の列、取得元の取り込み手順、DB への依頼)は `tools/docker/postgresql/issue/20261115_0001.md`。
