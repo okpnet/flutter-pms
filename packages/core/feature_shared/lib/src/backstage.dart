@@ -12,6 +12,7 @@ class BackstageValues {
     this.maintenanceUrl,
     this.logLevel,
     this.sidebarIconOnly,
+    this.themes = const [],
   });
 
   /// ユーザーが自分の画像を変更できるか。
@@ -32,6 +33,10 @@ class BackstageValues {
   /// サイドバーをアイコンだけにする既定(ユーザーの設定が優先する)。
   final bool? sidebarIconOnly;
 
+  /// 取り込む追加のテーマ(テーマの JSON の文字列。`theme_lib` の `ThemeManager.importJson` に渡す)。
+  /// 暗号化した設定ファイルの `themes` から来る。
+  final List<String> themes;
+
   Map<String, Object?> toJson() => {
     'isChangeUserImage': isChangeUserImage,
     'graphqlUrl': graphqlUrl,
@@ -39,6 +44,7 @@ class BackstageValues {
     'maintenanceUrl': maintenanceUrl,
     'logLevel': logLevel,
     'sidebarIconOnly': sidebarIconOnly,
+    'themes': themes.isEmpty ? null : themes.length,
   };
 }
 

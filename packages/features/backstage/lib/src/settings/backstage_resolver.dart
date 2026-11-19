@@ -95,5 +95,10 @@ class BackstageResolver {
     maintenanceUrl: _of(BackstageField.maintenanceUrl).$1 as String?,
     logLevel: _of(BackstageField.logLevel).$1 as String?,
     sidebarIconOnly: _of(BackstageField.sidebarIconOnly).$1 as bool?,
+    themes: [
+      // 追加のテーマは、各層のものを、すべて取り込む(アセット → 保管庫 → 起動時の順)
+      for (final layer in [defaults, stored, launch])
+        ...?layer?.themes,
+    ],
   );
 }

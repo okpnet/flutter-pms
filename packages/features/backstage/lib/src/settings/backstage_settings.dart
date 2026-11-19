@@ -15,7 +15,11 @@ class BackstageSettings {
     this.maintenanceUrl,
     this.logLevel,
     this.sidebarIconOnly,
+    this.themes = const [],
   });
+
+  /// 取り込む追加のテーマ(テーマの JSON の文字列)。
+  final List<String> themes;
 
   final bool? isChangeUserImage;
   final String? graphqlUrl;
@@ -30,7 +34,8 @@ class BackstageSettings {
       pocketbaseUrl == null &&
       maintenanceUrl == null &&
       logLevel == null &&
-      sidebarIconOnly == null;
+      sidebarIconOnly == null &&
+      themes.isEmpty;
 
   /// 型の違う値・空の文字列は無いものとして読む(壊れた保存値でアプリを止めない)。
   factory BackstageSettings.fromJson(Map<String, Object?> json) {
@@ -47,7 +52,23 @@ class BackstageSettings {
       maintenanceUrl: s('maintenanceUrl'),
       logLevel: s('logLevel'),
       sidebarIconOnly: b('sidebarIconOnly'),
+      themes: _themes(json['themes']),
     );
+  }
+
+  /// `themes`(テーマの JSON の配列。要素は JSON のオブジェクトか、JSON の文字列)を、文字列の並びにする。
+  /// 読めない要素は捨てる(壊れた値でアプリを止めない)。
+  static List<String> _themes(Object? value) {
+    if (value is! List) return const [];
+    final result = <String>[];
+    for (final item in value) {
+      if (item is Map) {
+        result.add(jsonEncode(item));
+      } else if (item is String && item.trim().isNotEmpty) {
+        result.add(item);
+      }
+    }
+    return result;
   }
 
   /// JSON 文字列から読む。読めない(壊れている)ときは null。
@@ -69,6 +90,7 @@ class BackstageSettings {
     if (maintenanceUrl != null) 'maintenanceUrl': maintenanceUrl,
     if (logLevel != null) 'logLevel': logLevel,
     if (sidebarIconOnly != null) 'sidebarIconOnly': sidebarIconOnly,
+    if (themes.isNotEmpty) 'themes': [for (final t in themes) jsonDecode(t)],
   };
 
   @override

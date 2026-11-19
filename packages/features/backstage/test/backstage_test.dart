@@ -53,6 +53,7 @@ ProviderContainer _container(BackstageBoot boot, [List<Override> extra = const [
 }
 
 void main() {
+  _themesTests();
   group('PBKDF2 とハッシュの照合', () {
     test('PBKDF2-HMAC-SHA256 の既知の値(RFC 6070 を SHA-256 にしたテストベクトル)', () {
       String hex(List<int> b) =>
@@ -566,4 +567,33 @@ void main() {
 
 class _SignIn extends PageDestination<void> {
   const _SignIn();
+}
+
+void _themesTests() {
+  group('追加のテーマ(暗号化した設定ファイルの themes)', () {
+    test('JSON のオブジェクトも文字列も読め、読めない要素は捨てる。保存の形に戻せる', () {
+      final s = BackstageSettings.fromJson({
+        'themes': [
+          {'id': 'night', 'name': 'Night', 'light': {'seedColor': '#112233'}},
+          '{"id":"day","name":"Day","light":{"seedColor":"#445566"}}',
+          5,
+          '',
+        ],
+      });
+      expect(s.themes.length, 2);
+      expect(s.isEmpty, isFalse);
+      expect(BackstageSettings.fromJson(s.toJson()), s);
+    });
+
+    test('各層のテーマは、すべて取り込む(アセット → 保管庫 → 起動時)', () {
+      const t1 = '{"id":"a"}';
+      const t2 = '{"id":"b"}';
+      final values = const BackstageResolver(
+        launch: BackstageSettings(),
+        stored: BackstageSettings(themes: [t2]),
+        defaults: BackstageSettings(themes: [t1]),
+      ).resolve();
+      expect(values.themes, [t1, t2]);
+    });
+  });
 }

@@ -91,6 +91,14 @@ class _AppMain extends ConsumerState {
     for (final failure in themeFailures) {
       ref.read(loggerProvider).error('[pms_app] テーマを取り込めませんでした: $failure');
     }
+    //裏設定(暗号化した設定ファイル)で追加したテーマ。取り込めないものがあっても起動は止めず、ログに残す
+    for (final theme in ref.read(backstageValuesProvider).themes) {
+      try {
+        ref.read(themeManagerProvider.notifier).importJson(theme, activate: false);
+      } catch (e) {
+        ref.read(loggerProvider).error('[pms_app] 裏設定のテーマを取り込めませんでした: $e');
+      }
+    }
     await yieldToFrame();
     //保存した設定(言語・サイドバー・テーマ・ユーザー)を復元してから、変更の保存を始める
     await ref

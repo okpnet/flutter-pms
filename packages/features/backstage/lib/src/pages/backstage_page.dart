@@ -79,6 +79,8 @@ class _BackstagePageState extends ConsumerState<BackstagePage> {
     maintenanceUrl: _textOrNull(BackstageField.maintenanceUrl),
     logLevel: _logLevel,
     sidebarIconOnly: _sidebarIconOnly,
+    // テーマは画面で編集しない(暗号化した設定ファイルから来る)。保存で消さない
+    themes: ref.read(backstageControllerProvider).themes,
   );
 
   Future<void> _save() async {
