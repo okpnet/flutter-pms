@@ -119,7 +119,10 @@ class FieldRow extends StatelessWidget {
             ),
           ],
         ),
+        // 包みの Focus 自身はタブの停止位置にしない(子の TextField のフォーカスの変化だけ受ける)
         Focus(
+          canRequestFocus: false,
+          skipTraversal: true,
           onFocusChange: (hasFocus) {
             if (!hasFocus) onBlur?.call();
           },
