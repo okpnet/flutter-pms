@@ -1,3 +1,113 @@
+register:
+  title: 実績登録
+  empty: 生産計画がありません。
+  loadFailed: 読み込めませんでした。
+  retry: 再読み込み
+  plan:
+    no: 計画番号
+    item: 品目
+    order: 注文
+    customer: 顧客
+    quantity: 生産数量
+    completed: 最終工程の完了
+    due: 完了期限
+    inProgress: 実施中の工程
+  step:
+    sequence: 工程順
+    process: 工程
+    status: 状態
+    planned: 予定作業時間(分)
+    startPlan: 開始予定
+    finishPlan: 完了予定
+    equipment: 設備
+    rounds: 実績(回数)
+    staff: 担当者
+    container: コンテナ
+    startedAt: 開始
+    finishedAt: 完了
+    actions: 実績登録
+  status:
+    notStarted: 未着手
+    inProgress: 実施中
+    completed: 完了
+  action:
+    start: 開始
+    finish: 終了
+    search: 探して開始
+    history: 実績
+    cancel: キャンセル
+    close: 閉じる
+  history:
+    title: "実績: ${process}"
+    empty: 実績はまだありません。
+    round: 回数
+    resultNo: 実績番号
+    startedAt: 開始
+    finishedAt: 終了
+    staff: 担当者
+    container: コンテナ(払出元)
+    startQuantity: 開始数量
+    doneQuantity: 完了数量
+    defect: 不適合
+    handover: 引継ぎ
+  start:
+    title: "開始: ${process}"
+    staff: 担当者
+    quantity: 開始数量
+    quantityAll: 全量
+    quantityHint: "取り出せる最大 ${max}(コンテナの在庫 ${stock}、計画の残り ${remaining})"
+    container: 取り出すコンテナ
+    reserved: 引当あり
+    stock: "在庫 ${n}"
+    change: コンテナを変更・検索
+    none: 取り出せるコンテナがありません。
+    submit: 開始(コンテナ払出)
+  finish:
+    title: "終了: ${process}"
+    taken: "取り出した数量 ${n}(払出元 ${container})"
+    done: 完了数量
+    destination: 払出先のコンテナ
+    shortfall: "完了数量が取り出した数量より ${n} 少ない"
+    intentional: 意図的
+    nonconforming: 不適合
+    intentionalReason: 理由
+    intentionalNote: 差の数量を払出元のコンテナへ返します(次の開始で、引継ぎとして取り出せます)。
+    defectQuantity: 不適合の数量
+    defectReason: 不適合の理由
+    defectContainer: 不適合を払い出すコンテナ
+    returnNote: "不適合に満たない ${n} は払出元へ返します。"
+    submit: 終了を登録(コンテナ払出)
+  picker:
+    title: コンテナの選択
+    name: コンテナ
+    location: 場所
+    contents: 内容
+    quantity: 在庫数
+    reserved: 引当
+    reason: 取り出せない理由
+    unavailable: このコンテナは取り出せません。
+  outcome:
+    title: 登録結果
+    startedTitle: 開始を登録しました
+    finishedTitle: 終了を登録しました
+    result: "実績 ${no}(第${round}回)"
+    issuedFrom: "${container} から ${n} を払い出しました"
+    issuedTo: "${container} へ ${n} を払い出しました"
+    defect: "工程異常 ${no}: ${n} を ${container} へ払い出しました"
+    returned: "${container} へ ${n} を返しました"
+    stepCompleted: この工程は完了しました。
+    updated: "更新件数 ${n} 件"
+  error:
+    required: 入力してください。
+    notPositive: 1 以上を入力してください。
+    overStock: コンテナの在庫を超えています。
+    overRemaining: 計画の残りを超えています。
+    overTaken: 取り出した数量を超えています。
+    notAvailable: このコンテナは取り出せません。
+    reasonRequired: 理由を選んでください。
+    overShortfall: 不足している数量を超えています。
+    shortfallRequired: 意図的か不適合かを選んでください。
+    failed: "登録できませんでした: ${reason}。入力は残してあります。もう一度登録できます。"
 # --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
 # 作業実績の実体と項目の表示名(日本語。基準言語)。
 # 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。

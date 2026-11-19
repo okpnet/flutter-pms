@@ -67,3 +67,113 @@ entity:
       f_avail: "Available to issue"
       f_reserved: "Reserved"
       f_reserve: "Allocation reservation"
+register:
+  title: Record results
+  empty: There are no production plans.
+  loadFailed: Could not load.
+  retry: Reload
+  plan:
+    no: Plan no.
+    item: Item
+    order: Order
+    customer: Customer
+    quantity: Planned qty
+    completed: Completed (last step)
+    due: Due
+    inProgress: Steps in progress
+  step:
+    sequence: Step
+    process: Process
+    status: Status
+    planned: Planned minutes
+    startPlan: Planned start
+    finishPlan: Planned finish
+    equipment: Equipment
+    rounds: Results
+    staff: Staff
+    container: Container
+    startedAt: Started
+    finishedAt: Finished
+    actions: Record
+  status:
+    notStarted: Not started
+    inProgress: In progress
+    completed: Done
+  action:
+    start: Start
+    finish: Finish
+    search: Find & start
+    history: Results
+    cancel: Cancel
+    close: Close
+  history:
+    title: "Results: ${process}"
+    empty: No results yet.
+    round: Round
+    resultNo: Result no.
+    startedAt: Started
+    finishedAt: Finished
+    staff: Staff
+    container: Container (source)
+    startQuantity: Start qty
+    doneQuantity: Done qty
+    defect: Nonconforming
+    handover: Handover
+  start:
+    title: "Start: ${process}"
+    staff: Staff
+    quantity: Start quantity
+    quantityAll: All
+    quantityHint: "Up to ${max} (container stock ${stock}, plan remaining ${remaining})"
+    container: Container to take from
+    reserved: Reserved
+    stock: "Stock ${n}"
+    change: Change / search containers
+    none: No container to take from.
+    submit: Start (issue from container)
+  finish:
+    title: "Finish: ${process}"
+    taken: "Taken ${n} (from ${container})"
+    done: Completed quantity
+    destination: Destination container
+    shortfall: "Completed is ${n} less than taken"
+    intentional: Intentional
+    nonconforming: Nonconforming
+    intentionalReason: Reason
+    intentionalNote: The difference goes back to the source container (picked up as a handover next time).
+    defectQuantity: Nonconforming quantity
+    defectReason: Nonconforming reason
+    defectContainer: Container for nonconforming
+    returnNote: "${n} short of nonconforming goes back to the source."
+    submit: Register finish (issue to container)
+  picker:
+    title: Select a container
+    name: Container
+    location: Location
+    contents: Contents
+    quantity: Stock
+    reserved: Reserved
+    reason: Why unavailable
+    unavailable: This container cannot be taken from.
+  outcome:
+    title: Result
+    startedTitle: Start registered
+    finishedTitle: Finish registered
+    result: "Result ${no} (round ${round})"
+    issuedFrom: "Issued ${n} from ${container}"
+    issuedTo: "Issued ${n} to ${container}"
+    defect: "Process defect ${no}: issued ${n} to ${container}"
+    returned: "Returned ${n} to ${container}"
+    stepCompleted: This step is complete.
+    updated: "${n} records updated"
+  error:
+    required: Required.
+    notPositive: Enter 1 or more.
+    overStock: More than the container stock.
+    overRemaining: More than the plan remaining.
+    overTaken: More than taken.
+    notAvailable: This container cannot be taken from.
+    reasonRequired: Select a reason.
+    overShortfall: More than the shortfall.
+    shortfallRequired: Choose intentional or nonconforming.
+    failed: "Could not register: ${reason}. Your input is kept; you can try again."

@@ -19,6 +19,12 @@ dependencies:
   slang: ^4.19.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   entity_screens:
     path: ../../ui/entity_screens
+  app_shell:
+    path: ../../ui/app_shell
+  flgtable_lib:
+    path: ../../ui/flgtable_lib
+  loadux_lib:
+    path: ../../ui/loadux_lib
   data_strategist:
     path: ../../foundation/data_strategist
   graphql: ^5.2.3
@@ -28,6 +34,10 @@ dependencies:
     path: ../../model_providers/work_record_model
 
 dev_dependencies:
+  logger_provider:
+    path: ../../infra/logger_provider
+  theme_lib:
+    path: ../../ui/theme_lib
   data_test_harness:
     path: ../../infra/data_test_harness
   flutter_test:
