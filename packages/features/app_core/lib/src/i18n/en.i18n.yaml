@@ -33,6 +33,13 @@ settings:
   layout:
     title: Screen
     sidebarIconOnly: Show only icons in the sidebar
+  calendar:
+    title: Calendar
+    firstWeekday: First day of the week
+    visibleWeekdays: Days to show
+    sunday: Sunday
+    monday: Monday
+    weekdays: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
   theme:
     title: Theme
     note: Switches the colors and shapes. Light and dark can also follow the operating system.

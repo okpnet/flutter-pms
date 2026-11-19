@@ -7,7 +7,7 @@
 1.  ブート画面(シングルメインフレーム): 読み込み中の表示。`BootDestination` → `/boot`。画面案(`tools/open-design` の `#/boot`)の構成で、中央のカードに、進行中の表示・見出し(「{アプリ名}を起動しています…」。アプリ名は自分の文字列の`app.title`を slang の引数にする)・説明・進行バーを置く
 2.  ダッシュボード(マルチメインフレーム): `DashboardDestination` → `/dashboard`。件数のコンテナ(`dashboard_container`)の領域を置き、「配置を編集」で編集に切り替える(コンテナ・項目の追加・削除・並び替え・大きさ。変更は設定として保存し、表示するときに設定から読み込む)。件数の元(`countSourcesProvider`)はアプリが差し込む
 3.  エラー画面(シングルメインフレーム): アプリケーションエラーの表示。`ErrorDestination({message})` → `/error`。画面案(`tools/open-design` の `#/error`)の構成で、中央のカードに、丸いアイコン(`errorContainer` の地に `onErrorContainer`)・見出し・エラーの内容・ボタンを置く。色は `Theme` から取る
-4.  設定(マルチメインフレーム): 使用言語(実行環境に従う/日本語/English)、サイドバーをアイコンだけにする設定、テーマ(表示モード: 実行環境に従う/ライト/ダーク、配色のテーマ: `theme_lib` に登録されているテーマから選ぶ)、ログインユーザー(ユーザー名・役割を設定値として与える。標準値へ戻せる。ユーザーの画像の枠は、アプリが `userImageSlotProvider`(`feature_shared`)に差し込んだとき、このユーザー欄に出す)、バージョン情報(`--dart-define=APP_VERSION=x.y.z`)。`SettingsDestination` → `/settings`。使用者全体ではなく、使用ユーザーにだけ影響する設定。テーマの中身(色・数値)の編集は、別のアプリケーションで行い、この設定画面には持たない
+4.  設定(マルチメインフレーム): 使用言語(実行環境に従う/日本語/English)、サイドバーをアイコンだけにする設定、カレンダー(週の最初の曜日: 日曜/月曜、表示する曜日。`feature_shared` の `calendarFirstWeekdayProvider`・`calendarVisibleWeekdaysProvider`。稼働カレンダーなどが読む。保存と復元は他の設定と同じ)、テーマ(表示モード: 実行環境に従う/ライト/ダーク、配色のテーマ: `theme_lib` に登録されているテーマから選ぶ)、ログインユーザー(ユーザー名・役割を設定値として与える。標準値へ戻せる。ユーザーの画像の枠は、アプリが `userImageSlotProvider`(`feature_shared`)に差し込んだとき、このユーザー欄に出す)、バージョン情報(`--dart-define=APP_VERSION=x.y.z`)。`SettingsDestination` → `/settings`。使用者全体ではなく、使用ユーザーにだけ影響する設定。テーマの中身(色・数値)の編集は、別のアプリケーションで行い、この設定画面には持たない
 5.  ログイン・ログアウトの画面は持たない。`auth_files` にある(ログイン前後の画面・セッションの処理を1か所にまとめるため)。ログイン画面の遷移先を、他の機能が `auth_files` に依存せずに指せるよう、`signInDestinationProvider`(アプリが `LoginDestination` を指定する)だけを持つ。ログイン状態は `userSummaryProvider`(`feature_shared`)で提供する
 
 ## 構成

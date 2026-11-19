@@ -15,7 +15,6 @@ final class SettingsDestination extends PageDestination<void> {
   const SettingsDestination();
 }
 
-
 /// 権限の無いページを開こうとしたときの画面へ(アクセス拒否の画像と、トップへ戻るボタンだけを持つ)。
 final class AccessDeniedDestination extends PageDestination<void> {
   const AccessDeniedDestination();

@@ -168,6 +168,7 @@ class AppCoreStrings$settings$ja {
 
 	late final AppCoreStrings$settings$language$ja language = AppCoreStrings$settings$language$ja.internal(_root);
 	late final AppCoreStrings$settings$layout$ja layout = AppCoreStrings$settings$layout$ja.internal(_root);
+	late final AppCoreStrings$settings$calendar$ja calendar = AppCoreStrings$settings$calendar$ja.internal(_root);
 	late final AppCoreStrings$settings$theme$ja theme = AppCoreStrings$settings$theme$ja.internal(_root);
 	late final AppCoreStrings$settings$user$ja user = AppCoreStrings$settings$user$ja.internal(_root);
 	late final AppCoreStrings$settings$about$ja about = AppCoreStrings$settings$about$ja.internal(_root);
@@ -207,6 +208,40 @@ class AppCoreStrings$settings$layout$ja {
 
 	/// ja: 'サイドバーをアイコンだけにする'
 	String get sidebarIconOnly => 'サイドバーをアイコンだけにする';
+}
+
+// Path: settings.calendar
+class AppCoreStrings$settings$calendar$ja {
+	AppCoreStrings$settings$calendar$ja.internal(this._root);
+
+	final AppCoreStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'カレンダー'
+	String get title => 'カレンダー';
+
+	/// ja: '週の最初の曜日'
+	String get firstWeekday => '週の最初の曜日';
+
+	/// ja: '表示する曜日'
+	String get visibleWeekdays => '表示する曜日';
+
+	/// ja: '日曜'
+	String get sunday => '日曜';
+
+	/// ja: '月曜'
+	String get monday => '月曜';
+
+	List<String> get weekdays => [
+		'月',
+		'火',
+		'水',
+		'木',
+		'金',
+		'土',
+		'日',
+	];
 }
 
 // Path: settings.theme
@@ -326,6 +361,18 @@ extension on AppCoreStrings {
 			'settings.language.en' => 'English',
 			'settings.layout.title' => '画面',
 			'settings.layout.sidebarIconOnly' => 'サイドバーをアイコンだけにする',
+			'settings.calendar.title' => 'カレンダー',
+			'settings.calendar.firstWeekday' => '週の最初の曜日',
+			'settings.calendar.visibleWeekdays' => '表示する曜日',
+			'settings.calendar.sunday' => '日曜',
+			'settings.calendar.monday' => '月曜',
+			'settings.calendar.weekdays.0' => '月',
+			'settings.calendar.weekdays.1' => '火',
+			'settings.calendar.weekdays.2' => '水',
+			'settings.calendar.weekdays.3' => '木',
+			'settings.calendar.weekdays.4' => '金',
+			'settings.calendar.weekdays.5' => '土',
+			'settings.calendar.weekdays.6' => '日',
 			'settings.theme.title' => 'テーマ',
 			'settings.theme.note' => '配色と形を切り替えます。ライト・ダークは実行環境の設定にも従えます。',
 			'settings.theme.mode.title' => '表示モード',

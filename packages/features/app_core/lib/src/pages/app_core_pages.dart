@@ -116,7 +116,11 @@ class AccessDeniedPage extends ConsumerWidget {
                       : login;
                   bus.execute(TopLevelDestination(top));
                 },
-                child: Text(signedIn ? t.accessDenied.toDashboard : t.accessDenied.toLogin),
+                child: Text(
+                  signedIn
+                      ? t.accessDenied.toDashboard
+                      : t.accessDenied.toLogin,
+                ),
               ),
             ],
           ),
@@ -239,6 +243,55 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             title: Text(t.layout.sidebarIconOnly),
             value: iconOnly,
             onChanged: ref.read(sidebarIconOnlyProvider.notifier).set,
+          ),
+          const Divider(),
+          Text(
+            t.calendar.title,
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          const SizedBox(height: 8),
+          Text(
+            t.calendar.firstWeekday,
+            style: Theme.of(context).textTheme.labelLarge,
+          ),
+          const SizedBox(height: 4),
+          SegmentedButton<int>(
+            key: const ValueKey('calendarFirstWeekday'),
+            segments: [
+              ButtonSegment(
+                value: DateTime.sunday,
+                label: Text(t.calendar.sunday),
+              ),
+              ButtonSegment(
+                value: DateTime.monday,
+                label: Text(t.calendar.monday),
+              ),
+            ],
+            selected: {ref.watch(calendarFirstWeekdayProvider)},
+            onSelectionChanged: (v) =>
+                ref.read(calendarFirstWeekdayProvider.notifier).set(v.first),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            t.calendar.visibleWeekdays,
+            style: Theme.of(context).textTheme.labelLarge,
+          ),
+          const SizedBox(height: 4),
+          Wrap(
+            spacing: 8,
+            children: [
+              for (var w = 1; w <= 7; w++)
+                FilterChip(
+                  key: ValueKey('calendarWeekday$w'),
+                  label: Text(t.calendar.weekdays[w - 1]),
+                  selected: ref
+                      .watch(calendarVisibleWeekdaysProvider)
+                      .contains(w),
+                  onSelected: (_) => ref
+                      .read(calendarVisibleWeekdaysProvider.notifier)
+                      .toggle(w),
+                ),
+            ],
           ),
           const Divider(),
           Text(t.theme.title, style: Theme.of(context).textTheme.titleMedium),

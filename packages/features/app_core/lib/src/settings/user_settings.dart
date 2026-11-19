@@ -37,6 +37,9 @@ class UserSettingsOriginator implements SettingsOriginator {
       userRole: user?.role,
       themeId: theme.activeId,
       themeMode: theme.mode.name,
+      calendarFirstWeekday: _ref.read(calendarFirstWeekdayProvider),
+      calendarVisibleWeekdays:
+          (_ref.read(calendarVisibleWeekdaysProvider).toList()..sort()),
     );
   }
 
@@ -58,6 +61,12 @@ class UserSettingsOriginator implements SettingsOriginator {
       locale.useSystemLocale();
     }
     _ref.read(sidebarIconOnlyProvider.notifier).set(model.sidebarIconOnly);
+    _ref
+        .read(calendarFirstWeekdayProvider.notifier)
+        .set(model.calendarFirstWeekday);
+    _ref
+        .read(calendarVisibleWeekdaysProvider.notifier)
+        .set(model.calendarVisibleWeekdays.toSet());
     _restoreTheme(model);
     final name = model.userName;
     if (name != null) {
@@ -99,6 +108,8 @@ final userSettingsAutoSaveProvider = Provider<void>((ref) {
   ref.listen(localeFollowsSystemProvider, (_, _) => save());
   ref.listen(sidebarIconOnlyProvider, (_, _) => save());
   ref.listen(themeManagerProvider, (_, _) => save());
+  ref.listen(calendarFirstWeekdayProvider, (_, _) => save());
+  ref.listen(calendarVisibleWeekdaysProvider, (_, _) => save());
   // ログアウト(null)では保存しない(次回起動で標準値に戻るのを妨げないため)
   ref.listen(userSummaryProvider, (_, user) {
     if (user != null) save();

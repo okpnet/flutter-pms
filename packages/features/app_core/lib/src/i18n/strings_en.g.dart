@@ -130,6 +130,7 @@ class _AppCoreStrings$settings$en extends AppCoreStrings$settings$ja {
 	@override String get note => 'These settings affect only the user who is signed in, not all users.';
 	@override late final _AppCoreStrings$settings$language$en language = _AppCoreStrings$settings$language$en._(_root);
 	@override late final _AppCoreStrings$settings$layout$en layout = _AppCoreStrings$settings$layout$en._(_root);
+	@override late final _AppCoreStrings$settings$calendar$en calendar = _AppCoreStrings$settings$calendar$en._(_root);
 	@override late final _AppCoreStrings$settings$theme$en theme = _AppCoreStrings$settings$theme$en._(_root);
 	@override late final _AppCoreStrings$settings$user$en user = _AppCoreStrings$settings$user$en._(_root);
 	@override late final _AppCoreStrings$settings$about$en about = _AppCoreStrings$settings$about$en._(_root);
@@ -157,6 +158,29 @@ class _AppCoreStrings$settings$layout$en extends AppCoreStrings$settings$layout$
 	// Translations
 	@override String get title => 'Screen';
 	@override String get sidebarIconOnly => 'Show only icons in the sidebar';
+}
+
+// Path: settings.calendar
+class _AppCoreStrings$settings$calendar$en extends AppCoreStrings$settings$calendar$ja {
+	_AppCoreStrings$settings$calendar$en._(AppCoreStringsEn root) : this._root = root, super.internal(root);
+
+	final AppCoreStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Calendar';
+	@override String get firstWeekday => 'First day of the week';
+	@override String get visibleWeekdays => 'Days to show';
+	@override String get sunday => 'Sunday';
+	@override String get monday => 'Monday';
+	@override List<String> get weekdays => [
+		'Mon',
+		'Tue',
+		'Wed',
+		'Thu',
+		'Fri',
+		'Sat',
+		'Sun',
+	];
 }
 
 // Path: settings.theme
@@ -245,6 +269,18 @@ extension on AppCoreStringsEn {
 			'settings.language.en' => 'English',
 			'settings.layout.title' => 'Screen',
 			'settings.layout.sidebarIconOnly' => 'Show only icons in the sidebar',
+			'settings.calendar.title' => 'Calendar',
+			'settings.calendar.firstWeekday' => 'First day of the week',
+			'settings.calendar.visibleWeekdays' => 'Days to show',
+			'settings.calendar.sunday' => 'Sunday',
+			'settings.calendar.monday' => 'Monday',
+			'settings.calendar.weekdays.0' => 'Mon',
+			'settings.calendar.weekdays.1' => 'Tue',
+			'settings.calendar.weekdays.2' => 'Wed',
+			'settings.calendar.weekdays.3' => 'Thu',
+			'settings.calendar.weekdays.4' => 'Fri',
+			'settings.calendar.weekdays.5' => 'Sat',
+			'settings.calendar.weekdays.6' => 'Sun',
 			'settings.theme.title' => 'Theme',
 			'settings.theme.note' => 'Switches the colors and shapes. Light and dark can also follow the operating system.',
 			'settings.theme.mode.title' => 'Appearance',

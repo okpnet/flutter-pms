@@ -13,6 +13,8 @@ class UserSettingsModel {
     this.userRole,
     this.themeId,
     this.themeMode = 'system',
+    this.calendarFirstWeekday = DateTime.sunday,
+    this.calendarVisibleWeekdays = const [1, 2, 3, 4, 5, 6, 7],
   });
 
   /// 値の形式の版。
@@ -39,6 +41,12 @@ class UserSettingsModel {
   /// 表示モード: `system`(実行環境に従う)・`light`・`dark`。
   final String themeMode;
 
+  /// カレンダーの週の左端の曜日(1 = 月曜 … 7 = 日曜)。
+  final int calendarFirstWeekday;
+
+  /// カレンダーに表示する曜日(1 = 月曜 … 7 = 日曜。昇順。空にはならない)。
+  final List<int> calendarVisibleWeekdays;
+
   /// 型が違う・無い項目は標準値にする(壊れた保存で起動を止めない)。
   factory UserSettingsModel.fromJson(Map<String, Object?> json) {
     final name = json['userName'];
@@ -46,6 +54,14 @@ class UserSettingsModel {
     final role = json['userRole'];
     final themeId = json['themeId'];
     final themeMode = json['themeMode'];
+    final firstWeekday = json['calendarFirstWeekday'];
+    final visible = json['calendarVisibleWeekdays'];
+    final visibleDays = visible is List
+        ? ({
+            for (final w in visible)
+              if (w is int && w >= 1 && w <= 7) w,
+          }.toList()..sort())
+        : <int>[];
     return UserSettingsModel(
       followsSystemLocale: json['followsSystemLocale'] is bool
           ? json['followsSystemLocale']! as bool
@@ -60,6 +76,13 @@ class UserSettingsModel {
       themeMode: themeMode is String && _themeModes.contains(themeMode)
           ? themeMode
           : 'system',
+      calendarFirstWeekday:
+          firstWeekday is int && firstWeekday >= 1 && firstWeekday <= 7
+          ? firstWeekday
+          : DateTime.sunday,
+      calendarVisibleWeekdays: visibleDays.isEmpty
+          ? const [1, 2, 3, 4, 5, 6, 7]
+          : visibleDays,
     );
   }
 
@@ -71,6 +94,8 @@ class UserSettingsModel {
     'userRole': ?userRole,
     'themeId': ?themeId,
     'themeMode': themeMode,
+    'calendarFirstWeekday': calendarFirstWeekday,
+    'calendarVisibleWeekdays': calendarVisibleWeekdays,
   };
 
   @override
@@ -82,7 +107,13 @@ class UserSettingsModel {
       other.userName == userName &&
       other.userRole == userRole &&
       other.themeId == themeId &&
-      other.themeMode == themeMode;
+      other.themeMode == themeMode &&
+      other.calendarFirstWeekday == calendarFirstWeekday &&
+      _sameDays(other.calendarVisibleWeekdays, calendarVisibleWeekdays);
+
+  static bool _sameDays(List<int> a, List<int> b) =>
+      a.length == b.length &&
+      Iterable<int>.generate(a.length).every((i) => a[i] == b[i]);
 
   @override
   int get hashCode => Object.hash(
@@ -93,6 +124,8 @@ class UserSettingsModel {
     userRole,
     themeId,
     themeMode,
+    calendarFirstWeekday,
+    Object.hashAll(calendarVisibleWeekdays),
   );
 
   @override
