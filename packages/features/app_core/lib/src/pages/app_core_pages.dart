@@ -300,167 +300,173 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     final textTheme = Theme.of(context).textTheme;
     return ScreenScaffold(
       title: t.title,
-      body: ListView(
+      // 項目は少ないので、全部を組み立てる(画面の外の項目も、見つけられるように)
+      body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 16),
-        children: [
-          Text(t.note, style: textTheme.bodySmall),
-          const SizedBox(height: 24),
-          _heading(context, t.language.title),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 320),
-              child: DropdownButtonFormField<_LanguageChoice>(
-                key: const ValueKey('languageSelect'),
-                initialValue: _choiceOf(),
-                isExpanded: true,
-                decoration: const InputDecoration(isDense: true),
-                items: [
-                  DropdownMenuItem(
-                    value: _LanguageChoice.system,
-                    child: Text(t.language.system),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(t.note, style: textTheme.bodySmall),
+            const SizedBox(height: 24),
+            _heading(context, t.language.title),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 320),
+                child: DropdownButtonFormField<_LanguageChoice>(
+                  key: const ValueKey('languageSelect'),
+                  initialValue: _choiceOf(),
+                  isExpanded: true,
+                  decoration: const InputDecoration(isDense: true),
+                  items: [
+                    DropdownMenuItem(
+                      value: _LanguageChoice.system,
+                      child: Text(t.language.system),
+                    ),
+                    DropdownMenuItem(
+                      value: _LanguageChoice.ja,
+                      child: Text(t.language.ja),
+                    ),
+                    DropdownMenuItem(
+                      value: _LanguageChoice.en,
+                      child: Text(t.language.en),
+                    ),
+                  ],
+                  onChanged: (v) {
+                    if (v != null) _select(v);
+                  },
+                ),
+              ),
+            ),
+            _gap(),
+            _heading(context, t.layout.title),
+            SwitchListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(t.layout.sidebarIconOnly),
+              value: iconOnly,
+              onChanged: ref.read(sidebarIconOnlyProvider.notifier).set,
+            ),
+            _gap(),
+            _heading(context, t.calendar.title),
+            _caption(context, t.calendar.firstWeekday),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: SegmentedButton<int>(
+                key: const ValueKey('calendarFirstWeekday'),
+                segments: [
+                  ButtonSegment(
+                    value: DateTime.sunday,
+                    label: Text(t.calendar.sunday),
                   ),
-                  DropdownMenuItem(
-                    value: _LanguageChoice.ja,
-                    child: Text(t.language.ja),
-                  ),
-                  DropdownMenuItem(
-                    value: _LanguageChoice.en,
-                    child: Text(t.language.en),
+                  ButtonSegment(
+                    value: DateTime.monday,
+                    label: Text(t.calendar.monday),
                   ),
                 ],
-                onChanged: (v) {
-                  if (v != null) _select(v);
-                },
+                selected: {ref.watch(calendarFirstWeekdayProvider)},
+                onSelectionChanged: (v) => ref
+                    .read(calendarFirstWeekdayProvider.notifier)
+                    .set(v.first),
               ),
             ),
-          ),
-          _gap(),
-          _heading(context, t.layout.title),
-          SwitchListTile(
-            contentPadding: EdgeInsets.zero,
-            title: Text(t.layout.sidebarIconOnly),
-            value: iconOnly,
-            onChanged: ref.read(sidebarIconOnlyProvider.notifier).set,
-          ),
-          _gap(),
-          _heading(context, t.calendar.title),
-          _caption(context, t.calendar.firstWeekday),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: SegmentedButton<int>(
-              key: const ValueKey('calendarFirstWeekday'),
-              segments: [
-                ButtonSegment(
-                  value: DateTime.sunday,
-                  label: Text(t.calendar.sunday),
-                ),
-                ButtonSegment(
-                  value: DateTime.monday,
-                  label: Text(t.calendar.monday),
-                ),
+            const SizedBox(height: 16),
+            _caption(context, t.calendar.visibleWeekdays),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                for (var w = 1; w <= 7; w++)
+                  FilterChip(
+                    key: ValueKey('calendarWeekday$w'),
+                    label: Text(t.calendar.weekdays[w - 1]),
+                    selected: ref
+                        .watch(calendarVisibleWeekdaysProvider)
+                        .contains(w),
+                    onSelected: (_) => ref
+                        .read(calendarVisibleWeekdaysProvider.notifier)
+                        .toggle(w),
+                  ),
               ],
-              selected: {ref.watch(calendarFirstWeekdayProvider)},
-              onSelectionChanged: (v) =>
-                  ref.read(calendarFirstWeekdayProvider.notifier).set(v.first),
             ),
-          ),
-          const SizedBox(height: 16),
-          _caption(context, t.calendar.visibleWeekdays),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              for (var w = 1; w <= 7; w++)
-                FilterChip(
-                  key: ValueKey('calendarWeekday$w'),
-                  label: Text(t.calendar.weekdays[w - 1]),
-                  selected: ref
-                      .watch(calendarVisibleWeekdaysProvider)
-                      .contains(w),
-                  onSelected: (_) => ref
-                      .read(calendarVisibleWeekdaysProvider.notifier)
-                      .toggle(w),
+            _gap(),
+            _heading(context, t.theme.title),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: Text(t.theme.note, style: textTheme.bodySmall),
+            ),
+            _caption(context, t.theme.mode.title),
+            _radioRow<ThemeMode>(
+              groupValue: themeState.mode,
+              onChanged: themeManager.setMode,
+              options: [
+                (ThemeMode.system, t.theme.mode.system),
+                (ThemeMode.light, t.theme.mode.light),
+                (ThemeMode.dark, t.theme.mode.dark),
+              ],
+            ),
+            const SizedBox(height: 16),
+            _caption(context, t.theme.selection),
+            // 登録されているテーマ(組み込みの既定と、取り込んだ追加のテーマ)から選ぶ。
+            // テーマの中身の編集は、このアプリでは行わない(別のアプリケーションで行う)。
+            _themeDropdown(themeState, themeManager),
+            _gap(),
+            _heading(context, t.user.title),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: Text(t.user.note, style: textTheme.bodySmall),
+            ),
+            // 現在のユーザーの表示(大)。名前・所属・顔写真は、ログインのときに決まる(引数・プロパティで変えられる)
+            if (ref.watch(userSummaryProvider) case final u?)
+              UserContainer(
+                user: AppUser(
+                  name: u.name,
+                  role: u.role,
+                  photo: ref.watch(userPhotoProvider),
                 ),
-            ],
-          ),
-          _gap(),
-          _heading(context, t.theme.title),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16),
-            child: Text(t.theme.note, style: textTheme.bodySmall),
-          ),
-          _caption(context, t.theme.mode.title),
-          _radioRow<ThemeMode>(
-            groupValue: themeState.mode,
-            onChanged: themeManager.setMode,
-            options: [
-              (ThemeMode.system, t.theme.mode.system),
-              (ThemeMode.light, t.theme.mode.light),
-              (ThemeMode.dark, t.theme.mode.dark),
-            ],
-          ),
-          const SizedBox(height: 16),
-          _caption(context, t.theme.selection),
-          // 登録されているテーマ(組み込みの既定と、取り込んだ追加のテーマ)から選ぶ。
-          // テーマの中身の編集は、このアプリでは行わない(別のアプリケーションで行う)。
-          _themeDropdown(themeState, themeManager),
-          _gap(),
-          _heading(context, t.user.title),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 12),
-            child: Text(t.user.note, style: textTheme.bodySmall),
-          ),
-          // 現在のユーザーの表示(大)。名前・所属・顔写真は、ログインのときに決まる(引数・プロパティで変えられる)
-          if (ref.watch(userSummaryProvider) case final u?)
-            UserContainer(
-              user: AppUser(
-                name: u.name,
-                role: u.role,
-                photo: ref.watch(userPhotoProvider),
+                size: UserContainerSize.large,
               ),
-              size: UserContainerSize.large,
+            // ユーザーの画像(user_profile の部品。アプリが差し込む。変更できるのは裏設定が許すときだけ)
+            if (ref.watch(userImageSlotProvider) case final slot?)
+              slot(context),
+            const SizedBox(height: 16),
+            // 入力項目は横に並べる(狭いスマートフォンの幅だけ縦)
+            LayoutBuilder(
+              builder: (context, c) {
+                final name = TextField(
+                  controller: _userName,
+                  decoration: InputDecoration(labelText: t.user.name),
+                );
+                final role = TextField(
+                  controller: _userRole,
+                  decoration: InputDecoration(labelText: t.user.role),
+                );
+                return MediaBreakPoint.of(c.maxWidth) == MediaBreakPoint.mobile
+                    ? Column(spacing: 12, children: [name, role])
+                    : Row(
+                        spacing: 16,
+                        children: [
+                          Expanded(child: name),
+                          Expanded(child: role),
+                        ],
+                      );
+              },
             ),
-          // ユーザーの画像(user_profile の部品。アプリが差し込む。変更できるのは裏設定が許すときだけ)
-          if (ref.watch(userImageSlotProvider) case final slot?) slot(context),
-          const SizedBox(height: 16),
-          // 入力項目は横に並べる(狭いスマートフォンの幅だけ縦)
-          LayoutBuilder(
-            builder: (context, c) {
-              final name = TextField(
-                controller: _userName,
-                decoration: InputDecoration(labelText: t.user.name),
-              );
-              final role = TextField(
-                controller: _userRole,
-                decoration: InputDecoration(labelText: t.user.role),
-              );
-              return MediaBreakPoint.of(c.maxWidth) == MediaBreakPoint.mobile
-                  ? Column(spacing: 12, children: [name, role])
-                  : Row(
-                      spacing: 16,
-                      children: [
-                        Expanded(child: name),
-                        Expanded(child: role),
-                      ],
-                    );
-            },
-          ),
-          const SizedBox(height: 24),
-          ActionButtons(
-            primaryLabel: t.user.apply,
-            onPrimary: _applyUser,
-            secondaryLabel: t.user.reset,
-            onSecondary: _resetUser,
-          ),
-          _gap(),
-          _heading(context, t.about.title),
-          ListTile(
-            contentPadding: EdgeInsets.zero,
-            title: Text(t.about.version),
-            trailing: const Text(appVersion),
-          ),
-        ],
+            const SizedBox(height: 24),
+            ActionButtons(
+              primaryLabel: t.user.apply,
+              onPrimary: _applyUser,
+              secondaryLabel: t.user.reset,
+              onSecondary: _resetUser,
+            ),
+            _gap(),
+            _heading(context, t.about.title),
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(t.about.version),
+              trailing: const Text(appVersion),
+            ),
+          ],
+        ),
       ),
     );
   }
