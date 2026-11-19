@@ -1,0 +1,48 @@
+# capability_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #CapabilityPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation CapabilityPageCreate(
+  $code: String!
+  $names: UUID
+  $details: UUID
+  $referenceValue: BigFloat!
+  $max: BigFloat
+  $min: BigFloat
+  $step: BigFloat
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  createMstrCapability(
+    input: {
+      mstrCapability: {
+        code: $code
+        names: $names
+        details: $details
+        referenceValue: $referenceValue
+        max: $max
+        min: $min
+        step: $step
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    mstrCapability {
+      mstrCapabilityId
+      code
+      names
+      details
+      referenceValue
+      max
+      min
+      step
+      remarks
+      updateUserId
+      updateUserHistoryId
+    }
+  }
+}

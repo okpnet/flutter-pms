@@ -696,6 +696,14 @@ enum VInspectionStatusesOrderBy {
   LAST_IMPLEMENT_DATE_DESC
 }
 
+type CreateMstrCapabilityPayload {
+  mstrCapability: MstrCapability
+}
+
+type CreateMstrLicensePayload {
+  mstrLicense: MstrLicense
+}
+
 type CreateTransInspectRecordPayload {
   transInspectRecord: TransInspectRecord
 }
@@ -835,6 +843,8 @@ type MstrCapabilitiesConnection {
 type MstrCapability {
   mstrCapabilityId: UUID!
   code: String!
+  names: UUID!
+  details: UUID
   referenceValue: BigFloat!
   max: BigFloat
   min: BigFloat
@@ -1076,6 +1086,8 @@ type MstrItemTaskCostsConnection {
 type MstrLicense {
   mstrLicenseId: UUID!
   code: String
+  names: UUID!
+  details: UUID
   publicLicense: Boolean
   customerLicense: Boolean
   organizationLicense: Boolean
@@ -1220,6 +1232,8 @@ type MstrWorkCalendarsConnection {
 }
 
 type Mutation {
+  createMstrCapability(input: CreateMstrCapabilityInput!): CreateMstrCapabilityPayload
+  createMstrLicense(input: CreateMstrLicenseInput!): CreateMstrLicensePayload
   createTransInspectRecord(input: CreateTransInspectRecordInput!): CreateTransInspectRecordPayload
   updateMstrCapabilityByMstrCapabilityId(input: UpdateMstrCapabilityByMstrCapabilityIdInput!): UpdateMstrCapabilityPayload
   updateMstrEquipmentByMstrEquipmentId(input: UpdateMstrEquipmentByMstrEquipmentIdInput!): UpdateMstrEquipmentPayload
@@ -1242,6 +1256,7 @@ type Mutation {
   updateTransInspectSchByTransInspectSchId(input: UpdateTransInspectSchByTransInspectSchIdInput!): UpdateTransInspectSchPayload
   updateTransInspectSchDetailByTransInspectSchDetailId(input: UpdateTransInspectSchDetailByTransInspectSchDetailIdInput!): UpdateTransInspectSchDetailPayload
   sharedAppellationSave(input: SharedAppellationSaveInput!): SharedAppellationSavePayload
+  sharedTextSave(input: SharedTextSaveInput!): SharedTextSavePayload
   transLabelSave(input: TransLabelSaveInput!): TransLabelSavePayload
 }
 
@@ -1318,6 +1333,10 @@ type SharedDictionaryValuesConnection {
 type SharedText {
   sharedTextId: UUID!
   sharedTextValuesBySharedTextId(condition: SharedTextValueCondition): SharedTextValuesConnection!
+}
+
+type SharedTextSavePayload {
+  sharedText: SharedText
 }
 
 type SharedTextValue {
@@ -1744,6 +1763,14 @@ input BooleanFilter {
   lessThanOrEqualTo: Boolean
   greaterThan: Boolean
   greaterThanOrEqualTo: Boolean
+}
+
+input CreateMstrCapabilityInput {
+  mstrCapability: MstrCapabilityInput!
+}
+
+input CreateMstrLicenseInput {
+  mstrLicense: MstrLicenseInput!
 }
 
 input CreateTransInspectRecordInput {
@@ -2413,24 +2440,31 @@ input MstrCapabilityFilter {
   not: MstrCapabilityFilter
 }
 
-input MstrCapabilityFk1Input {
-  updateBySharedTextId: SharedTextOnMstrCapabilityForMstrCapabilityFk1UsingSharedTextPkUpdate
-}
-
-input MstrCapabilityFk2Input {
-  updateBySharedAppellationsId: SharedAppellationOnMstrCapabilityForMstrCapabilityFk2UsingSharedAppellationsPkUpdate
+input MstrCapabilityInput {
+  code: String!
+  names: UUID
+  details: UUID
+  referenceValue: BigFloat!
+  max: BigFloat
+  min: BigFloat
+  step: BigFloat
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
 }
 
 input MstrCapabilityPatch {
   code: String
+  names: UUID
+  details: UUID
   referenceValue: BigFloat
   max: BigFloat
   min: BigFloat
   step: BigFloat
   remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
   remove: Boolean
-  sharedAppellationToNames: MstrCapabilityFk2Input
-  sharedTextToDetails: MstrCapabilityFk1Input
 }
 
 input MstrCapabilityToManyMstrStaffCapabilityFilter {
@@ -2936,24 +2970,29 @@ input MstrLicenseFilter {
   not: MstrLicenseFilter
 }
 
-input MstrLicenseFk1Input {
-  updateBySharedTextId: SharedTextOnMstrLicenseForMstrLicenseFk1UsingSharedTextPkUpdate
-}
-
-input MstrLicenseFk2Input {
-  updateBySharedAppellationsId: SharedAppellationOnMstrLicenseForMstrLicenseFk2UsingSharedAppellationsPkUpdate
+input MstrLicenseInput {
+  code: String
+  names: UUID
+  details: UUID
+  publicLicense: Boolean
+  customerLicense: Boolean
+  organizationLicense: Boolean
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
 }
 
 input MstrLicensePatch {
   code: String
+  names: UUID
+  details: UUID
   publicLicense: Boolean
   customerLicense: Boolean
   organizationLicense: Boolean
-  updateInterval: IntervalInput
   remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
   remove: Boolean
-  sharedAppellationToNames: MstrLicenseFk2Input
-  sharedTextToDetails: MstrLicenseFk1Input
 }
 
 input MstrLocationFilter {
@@ -3247,11 +3286,6 @@ input SharedAppellationOnInfoAddressForInfoAddressFk3UsingSharedAppellationsPkUp
   sharedAppellationsId: UUID!
 }
 
-input SharedAppellationOnMstrCapabilityForMstrCapabilityFk2UsingSharedAppellationsPkUpdate {
-  sharedAppellationPatch: updateSharedAppellationOnMstrCapabilityForMstrCapabilityFk2Patch!
-  sharedAppellationsId: UUID!
-}
-
 input SharedAppellationOnMstrEquipmentKindForMstrEquipmentKindFk1UsingSharedAppellationsPkUpdate {
   sharedAppellationPatch: updateSharedAppellationOnMstrEquipmentKindForMstrEquipmentKindFk1Patch!
   sharedAppellationsId: UUID!
@@ -3274,11 +3308,6 @@ input SharedAppellationOnMstrInspectionOperationForMstrInspectionOperationFk1Usi
 
 input SharedAppellationOnMstrItemForMstrItemFk5UsingSharedAppellationsPkUpdate {
   sharedAppellationPatch: updateSharedAppellationOnMstrItemForMstrItemFk5Patch!
-  sharedAppellationsId: UUID!
-}
-
-input SharedAppellationOnMstrLicenseForMstrLicenseFk2UsingSharedAppellationsPkUpdate {
-  sharedAppellationPatch: updateSharedAppellationOnMstrLicenseForMstrLicenseFk2Patch!
   sharedAppellationsId: UUID!
 }
 
@@ -3425,19 +3454,16 @@ input SharedTextFilter {
   not: SharedTextFilter
 }
 
-input SharedTextOnMstrCapabilityForMstrCapabilityFk1UsingSharedTextPkUpdate {
-  sharedTextPatch: updateSharedTextOnMstrCapabilityForMstrCapabilityFk1Patch!
-  sharedTextId: UUID!
-}
-
 input SharedTextOnMstrItemForMstrItemFk1UsingSharedTextPkUpdate {
   sharedTextPatch: updateSharedTextOnMstrItemForMstrItemFk1Patch!
   sharedTextId: UUID!
 }
 
-input SharedTextOnMstrLicenseForMstrLicenseFk1UsingSharedTextPkUpdate {
-  sharedTextPatch: updateSharedTextOnMstrLicenseForMstrLicenseFk1Patch!
-  sharedTextId: UUID!
+input SharedTextSaveInput {
+  pTextId: UUID
+  pValues: JSON
+  pStaffId: UUID
+  pStaffHistoryId: UUID
 }
 
 input SharedTextToManySharedTextValueFilter {
@@ -4489,12 +4515,6 @@ input updateSharedAppellationOnInfoAddressForInfoAddressFk3Patch {
   sharedDictionaryToSharedDictionaryNicknameId: SharedAppellationsFk2Input
 }
 
-input updateSharedAppellationOnMstrCapabilityForMstrCapabilityFk2Patch {
-  sharedDictionaryToSharedDictionaryNameId: SharedAppellationsFk1Input
-  sharedDictionaryToSharedDictionaryPronunciationId: SharedAppellationsFk3Input
-  sharedDictionaryToSharedDictionaryNicknameId: SharedAppellationsFk2Input
-}
-
 input updateSharedAppellationOnMstrEquipmentKindForMstrEquipmentKindFk1Patch {
   sharedDictionaryToSharedDictionaryNameId: SharedAppellationsFk1Input
   sharedDictionaryToSharedDictionaryPronunciationId: SharedAppellationsFk3Input
@@ -4525,12 +4545,6 @@ input updateSharedAppellationOnMstrItemForMstrItemFk5Patch {
   sharedDictionaryToSharedDictionaryNicknameId: SharedAppellationsFk2Input
 }
 
-input updateSharedAppellationOnMstrLicenseForMstrLicenseFk2Patch {
-  sharedDictionaryToSharedDictionaryNameId: SharedAppellationsFk1Input
-  sharedDictionaryToSharedDictionaryPronunciationId: SharedAppellationsFk3Input
-  sharedDictionaryToSharedDictionaryNicknameId: SharedAppellationsFk2Input
-}
-
 input updateSharedAppellationOnMstrLocationForMstrLocationFk1Patch {
   sharedDictionaryToSharedDictionaryNameId: SharedAppellationsFk1Input
   sharedDictionaryToSharedDictionaryPronunciationId: SharedAppellationsFk3Input
@@ -4555,15 +4569,7 @@ input updateSharedDictionaryOnSharedAppellationForSharedAppellationsFk3Patch {
   sharedDictionaryValuesUsingSharedDictionaryId: SharedDictionaryValueFk1InverseInput
 }
 
-input updateSharedTextOnMstrCapabilityForMstrCapabilityFk1Patch {
-  sharedTextValuesUsingSharedTextId: SharedTextValueFk1InverseInput
-}
-
 input updateSharedTextOnMstrItemForMstrItemFk1Patch {
-  sharedTextValuesUsingSharedTextId: SharedTextValueFk1InverseInput
-}
-
-input updateSharedTextOnMstrLicenseForMstrLicenseFk1Patch {
   sharedTextValuesUsingSharedTextId: SharedTextValueFk1InverseInput
 }
 

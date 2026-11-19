@@ -194,7 +194,8 @@ class _WorkCalendarPageState extends ConsumerState<WorkCalendarPage> {
       backLabel: scope.strings.back,
       body: LayoutBuilder(
         builder: (context, constraints) {
-          final wide = MediaBreakPoint.of(constraints.maxWidth) == MediaBreakPoint.pc;
+          final wide =
+              MediaBreakPoint.of(constraints.maxWidth) == MediaBreakPoint.pc;
           final calendar = _calendarCard(t);
           final panel = _panel(t);
           return SingleChildScrollView(

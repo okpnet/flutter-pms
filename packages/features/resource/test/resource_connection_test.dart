@@ -40,8 +40,8 @@ void main() {
           cache: GraphQLCache(),
         ),
       );
-      // 書き込めるのは設備タグ・点検ファイルだけ(equipment_tag_test.dart・inspection_file_test.dart)。ほかは読み取り専用
-      const writable = {'equiptag', 'inspectionfile'};
+      // 書き込めるのは設備タグ・点検ファイル・力量・資格だけ(equipment_tag_test.dart・inspection_file_test.dart・capability_test.dart・license_test.dart)。ほかは読み取り専用
+      const writable = {'equiptag', 'inspectionfile', 'capability', 'license'};
       expect(
         repos.map((r) => r.definition.key),
         containsAll([

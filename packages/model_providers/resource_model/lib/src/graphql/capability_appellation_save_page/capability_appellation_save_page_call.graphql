@@ -1,0 +1,28 @@
+# capability_appellation_save_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #CapabilityAppellationSavePageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation CapabilityAppellationSavePageCall(
+  $pAppellationId: UUID
+  $pName: JSON
+  $pPronunciation: JSON
+  $pNickname: JSON
+  $pStaffId: UUID
+  $pStaffHistoryId: UUID
+) {
+  sharedAppellationSave(
+    input: {
+      pAppellationId: $pAppellationId
+      pName: $pName
+      pPronunciation: $pPronunciation
+      pNickname: $pNickname
+      pStaffId: $pStaffId
+      pStaffHistoryId: $pStaffHistoryId
+    }
+  ) {
+    sharedAppellation {
+      sharedAppellationsId
+    }
+  }
+}

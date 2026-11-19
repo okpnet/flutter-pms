@@ -11,7 +11,9 @@ export 'strings.g.dart' show ResourceStrings;
 /// 基準言語以外は遅延読み込み(slang の生成物)のため、読み込みが終わるまでは
 /// 基準言語の文字列を返し、終わった時点で差し替える。
 final resourceStringsProvider =
-    NotifierProvider<ResourceStringsNotifier, ResourceStrings>(ResourceStringsNotifier.new);
+    NotifierProvider<ResourceStringsNotifier, ResourceStrings>(
+      ResourceStringsNotifier.new,
+    );
 
 class ResourceStringsNotifier extends Notifier<ResourceStrings> {
   @override

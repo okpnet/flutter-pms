@@ -6,11 +6,13 @@
 mutation CapabilityPageRemove(
   $mstrCapabilityId: UUID!
   $remove: Boolean!
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
 ) {
   updateMstrCapabilityByMstrCapabilityId(
     input: {
       mstrCapabilityId: $mstrCapabilityId
-      mstrCapabilityPatch: { remove: $remove }
+      mstrCapabilityPatch: { remove: $remove, updateUserId: $updateUserId, updateUserHistoryId: $updateUserHistoryId }
     }
   ) {
     mstrCapability {

@@ -57,11 +57,17 @@ void main() {
     await tester.tap(find.byKey(const ValueKey('calendarApply')));
     await tester.pumpAndSettle();
     expect(find.text('反映しました'), findsOneWidget);
-    expect(find.descendant(of: _day(day), matching: find.text('設備点検日')), findsOneWidget); // 休日のセルに備考が出る
+    expect(
+      find.descendant(of: _day(day), matching: find.text('設備点検日')),
+      findsOneWidget,
+    ); // 休日のセルに備考が出る
 
     await tester.tap(find.byKey(const ValueKey('calendarReset')));
     await tester.pumpAndSettle();
-    expect(find.descendant(of: _day(day), matching: find.text('設備点検日')), findsNothing);
+    expect(
+      find.descendant(of: _day(day), matching: find.text('設備点検日')),
+      findsNothing,
+    );
   });
 
   testWidgets('時刻が HH:MM でないときは、保存せずに知らせる', (tester) async {

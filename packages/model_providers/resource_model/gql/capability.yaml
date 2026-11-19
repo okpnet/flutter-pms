@@ -52,25 +52,20 @@ CapabilityPage: &CapabilityPage
       arrayType: toFirstOne
       <<: *UpdateStaffReadFields
 
-# 力量書き込み
+# 力量の更新(平らな列だけ。渡した列だけが変わる。名称(names)・詳細(details)の ID は、共通関数で作る・変える)。論理削除は CapabilityPageRemove(remove = true)
 # 力量評価項目を定義する
 CapabilityPageEdit:
   kind: edit
   from: mstr_capability
   requiredWhere:
-    - mstr_capability_id  
+    - mstr_capability_id
   generateRfe: true
+  withUpdater: true # 更新者(update_user_id・update_user_history_id)を、Edit・Remove の引数にする(ログイン中の担当者を渡す)
   columns:
     - mstr_capability_id
     - code
-    - name: labels
-      arrayType: toFirstOne
-      using: names
-      <<: *AppellationLabelsEditFields
-    - name: detailTexts
-      arrayType: toFirstOne
-      using: details
-      <<: *FixTextEditFields
+    - names
+    - details
     - reference_value
     - max
     - min
@@ -79,6 +74,37 @@ CapabilityPageEdit:
     - update_user_id
     - update_user_history_id
     - remove
+
+# 力量の登録(kind: create)。記号(symbol)は DB が採番する
+CapabilityPageCreate:
+  kind: create
+  from: mstr_capability
+  columns:
+    - code
+    - names
+    - details
+    - reference_value
+    - max
+    - min
+    - step
+    - remarks
+    - update_user_id
+    - update_user_history_id
+
+# 共通関数(kind: function)。呼称・文章(言語別の値)を作る・変える。返った ID を、本体の names・details に渡す(CLAUDE.md「登録・更新の方式」)
+CapabilityAppellationSavePageCall:
+  kind: function
+  mutation: sharedAppellationSave
+  returns: sharedAppellation
+  columns:
+    - shared_appellations_id
+
+CapabilityTextSavePageCall:
+  kind: function
+  mutation: sharedTextSave
+  returns: sharedText
+  columns:
+    - shared_text_id
 
 # 力量と担当者の読み込み
 # 担当者に適用した力量項目、及び力量評価結果を反映する

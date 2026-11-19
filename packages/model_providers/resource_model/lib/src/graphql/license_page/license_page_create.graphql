@@ -1,0 +1,45 @@
+# license_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #LicensePageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation LicensePageCreate(
+  $code: String
+  $names: UUID
+  $details: UUID
+  $publicLicense: Boolean
+  $customerLicense: Boolean
+  $organizationLicense: Boolean
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  createMstrLicense(
+    input: {
+      mstrLicense: {
+        code: $code
+        names: $names
+        details: $details
+        publicLicense: $publicLicense
+        customerLicense: $customerLicense
+        organizationLicense: $organizationLicense
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    mstrLicense {
+      mstrLicenseId
+      code
+      names
+      details
+      publicLicense
+      customerLicense
+      organizationLicense
+      remarks
+      updateUserId
+      updateUserHistoryId
+    }
+  }
+}

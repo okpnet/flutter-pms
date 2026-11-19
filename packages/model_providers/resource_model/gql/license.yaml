@@ -52,7 +52,7 @@ LicensePage: &LicensePage
       arrayType: toFirstOne
       <<: *UpdateStaffReadFields
 
-# 資格書き込み
+# 資格の更新(平らな列だけ。渡した列だけが変わる。名称(names)・詳細(details)の ID は、共通関数で作る・変える)。論理削除は LicensePageRemove(remove = true)
 # 作業に必要な公的、私的をとわず資格を定義する
 LicensePageEdit:
   kind: edit
@@ -60,25 +60,49 @@ LicensePageEdit:
   requiredWhere:
     - mstr_license_id
   generateRfe: true
+  withUpdater: true # 更新者を、Edit・Remove の引数にする(ログイン中の担当者を渡す)
   columns:
     - mstr_license_id
     - code
-    - name: labels
-      arrayType: toFirstOne
-      using: names
-      <<: *AppellationLabelsEditFields
-    - name: detailTexts
-      arrayType: toFirstOne
-      using: details
-      <<: *FixTextEditFields
+    - names
+    - details
     - public_license
     - customer_license
     - organization_license
-    - update_interval 
     - remarks
     - update_user_id
     - update_user_history_id
     - remove
+
+# 資格の登録(kind: create)。記号(symbol)は DB が採番する
+LicensePageCreate:
+  kind: create
+  from: mstr_license
+  columns:
+    - code
+    - names
+    - details
+    - public_license
+    - customer_license
+    - organization_license
+    - remarks
+    - update_user_id
+    - update_user_history_id
+
+# 共通関数(kind: function)。呼称・文章(言語別の値)を作る・変える。返った ID を、本体の names・details に渡す
+LicenseAppellationSavePageCall:
+  kind: function
+  mutation: sharedAppellationSave
+  returns: sharedAppellation
+  columns:
+    - shared_appellations_id
+
+LicenseTextSavePageCall:
+  kind: function
+  mutation: sharedTextSave
+  returns: sharedText
+  columns:
+    - shared_text_id
 
 # 資格を持つ担当者の読み込み
 # 資格を持っている担当者が該当する

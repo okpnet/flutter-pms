@@ -6,11 +6,13 @@
 mutation LicensePageRemove(
   $mstrLicenseId: UUID!
   $remove: Boolean!
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
 ) {
   updateMstrLicenseByMstrLicenseId(
     input: {
       mstrLicenseId: $mstrLicenseId
-      mstrLicensePatch: { remove: $remove }
+      mstrLicensePatch: { remove: $remove, updateUserId: $updateUserId, updateUserHistoryId: $updateUserHistoryId }
     }
   ) {
     mstrLicense {

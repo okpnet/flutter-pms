@@ -7,8 +7,10 @@ import 'package:resource_model/resource_model.dart';
 import 'package:pms_graphql/pms_graphql.dart' show AuditUserSource;
 
 import '../entities/resource_definitions.dart';
+import 'capability_repository.dart';
 import 'equipment_tag_repository.dart';
 import 'inspection_repositories.dart';
+import 'license_repository.dart';
 
 /// 資源の実体の取得元(GraphQL 版。読み取り専用)。アプリが [GraphQLClient] を渡して組み立て、
 /// `entityRepositoryOverridesProvider` に渡すと、サンプル(メモリ上)の代わりに使われる。
@@ -44,8 +46,20 @@ List<IEntityRepository> resourceRepositories(
       auditUser,
       fileTransfer,
     ),
-    _CapabilityRepository(_readOnly('capability'), client, language),
-    _LicenseRepository(_readOnly('license'), client, language),
+    // 力量(書き込みできる。呼称は共通関数、本体はミューテーション)
+    CapabilityRepository(
+      resourceDefinitions.firstWhere((d) => d.key == 'capability'),
+      client,
+      () => language.id,
+      auditUser,
+    ),
+    // 資格(書き込みできる。呼称は共通関数、本体はミューテーション)
+    LicenseRepository(
+      resourceDefinitions.firstWhere((d) => d.key == 'license'),
+      client,
+      () => language.id,
+      auditUser,
+    ),
     _LocationRepository(_readOnly('location'), client, language),
     _EquipmentRepository(_readOnly('equipment'), client, language),
   ];
@@ -125,172 +139,11 @@ abstract class _ReadOnlyRepository implements IEntityRepository {
 
   static String text(Object? v) => v == null ? '' : '$v';
 
-  /// DB の numeric(文字列)を、画面の数値の形にする(小数の 0 は省く)。
-  static String number(Object? v) {
-    final s = text(v);
-    if (s.isEmpty) return '';
-    final n = num.tryParse(s);
-    if (n == null) return s;
-    return n == n.roundToDouble() ? '${n.round()}' : '$n';
-  }
-
-  /// 画面の選択(はい/いいえ)の値。
-  static String yesNo(bool? v) => v == null ? '' : (v ? 'はい' : 'いいえ');
-
-  /// 多言語の文章(`value.nodes[0].leadText`)の先頭の文。
-  static String lead(dynamic textValue) {
-    final nodes = textValue?.value?.nodes as List?;
-    return nodes == null || nodes.isEmpty ? '' : text(nodes.first.leadText);
-  }
-
   /// 辞書(`value.nodes[0].dictionaryValue`)の言語コード指定の値。
   static String dict(dynamic dictionary) {
     // 言語を絞った問い合わせは、絞った言語(ja)の値になる。言語ごとの値を取る問い合わせになれば、代替も効く
     return LocalizedValues.fromDictionary(dictionary).resolve('ja');
   }
-}
-
-class _CapabilityRepository extends _ReadOnlyRepository {
-  _CapabilityRepository(super.definition, super.client, super.language);
-
-  EntityRecord _record(Query$CapabilityPageRead$allMstrCapabilities$nodes n) {
-    final l = n.labels;
-    return EntityRecord(
-      id: n.mstrCapabilityId,
-      values: {
-        'code': _ReadOnlyRepository.text(n.code),
-        'name': _ReadOnlyRepository.dict(
-          l?.sharedDictionaryBySharedDictionaryNameId,
-        ),
-        'pronunciation': _ReadOnlyRepository.dict(
-          l?.sharedDictionaryBySharedDictionaryPronunciationId,
-        ),
-        'detail': _ReadOnlyRepository.lead(n.detailTexts),
-        'reference_value': _ReadOnlyRepository.number(n.referenceValue),
-        'max': _ReadOnlyRepository.number(n.max),
-        'min': _ReadOnlyRepository.number(n.min),
-        'step': _ReadOnlyRepository.number(n.step),
-        'remarks': _ReadOnlyRepository.text(n.remarks),
-      },
-    );
-  }
-
-  Future<List<EntityRecord>> _read(
-    int first,
-    int offset,
-    Map<String, dynamic> filter,
-  ) async {
-    final result = await client.query$CapabilityPageRead(
-      Options$Query$CapabilityPageRead(
-        variables: Variables$Query$CapabilityPageRead.fromJson({
-          'first': first,
-          'offset': offset,
-          'languageCodeId': await language.id,
-          if (filter.isNotEmpty) 'filter': filter,
-        }),
-        fetchPolicy: FetchPolicy.noCache,
-      ),
-    );
-    final e = result.exception;
-    if (e != null) throw e;
-    return [
-      for (final n
-          in result.parsedData?.allMstrCapabilities?.nodes ??
-              const <Query$CapabilityPageRead$allMstrCapabilities$nodes?>[])
-        if (n != null) _record(n),
-    ];
-  }
-
-  @override
-  Future<List<EntityRecord>> find({
-    required int take,
-    int skip = 0,
-    Expression? predicate,
-    SortExpression? orders,
-  }) => _read(take, skip, const {});
-
-  @override
-  Future<EntityRecord?> findById(String id) async {
-    final rows = await _read(1, 0, {
-      'mstrCapabilityId': {'equalTo': id},
-    });
-    return rows.isEmpty ? null : rows.first;
-  }
-
-  @override
-  Future<List<EntityRecord>> findByParent(String? parentId) async => const [];
-}
-
-class _LicenseRepository extends _ReadOnlyRepository {
-  _LicenseRepository(super.definition, super.client, super.language);
-
-  EntityRecord _record(Query$LicensePageRead$allMstrLicenses$nodes n) {
-    final l = n.labels;
-    return EntityRecord(
-      id: n.mstrLicenseId,
-      values: {
-        'code': _ReadOnlyRepository.text(n.code),
-        'name': _ReadOnlyRepository.dict(
-          l?.sharedDictionaryBySharedDictionaryNameId,
-        ),
-        'pronunciation': _ReadOnlyRepository.dict(
-          l?.sharedDictionaryBySharedDictionaryPronunciationId,
-        ),
-        'detail': _ReadOnlyRepository.lead(n.detailTexts),
-        'public_license': _ReadOnlyRepository.yesNo(n.publicLicense),
-        'customer_license': _ReadOnlyRepository.yesNo(n.customerLicense),
-        'organization_license': _ReadOnlyRepository.yesNo(
-          n.organizationLicense,
-        ),
-        'remarks': _ReadOnlyRepository.text(n.remarks),
-      },
-    );
-  }
-
-  Future<List<EntityRecord>> _read(
-    int first,
-    int offset,
-    Map<String, dynamic> filter,
-  ) async {
-    final result = await client.query$LicensePageRead(
-      Options$Query$LicensePageRead(
-        variables: Variables$Query$LicensePageRead.fromJson({
-          'first': first,
-          'offset': offset,
-          'languageCodeId': await language.id,
-          if (filter.isNotEmpty) 'filter': filter,
-        }),
-        fetchPolicy: FetchPolicy.noCache,
-      ),
-    );
-    final e = result.exception;
-    if (e != null) throw e;
-    return [
-      for (final n
-          in result.parsedData?.allMstrLicenses?.nodes ??
-              const <Query$LicensePageRead$allMstrLicenses$nodes?>[])
-        if (n != null) _record(n),
-    ];
-  }
-
-  @override
-  Future<List<EntityRecord>> find({
-    required int take,
-    int skip = 0,
-    Expression? predicate,
-    SortExpression? orders,
-  }) => _read(take, skip, const {});
-
-  @override
-  Future<EntityRecord?> findById(String id) async {
-    final rows = await _read(1, 0, {
-      'mstrLicenseId': {'equalTo': id},
-    });
-    return rows.isEmpty ? null : rows.first;
-  }
-
-  @override
-  Future<List<EntityRecord>> findByParent(String? parentId) async => const [];
 }
 
 class _LocationRepository extends _ReadOnlyRepository {
