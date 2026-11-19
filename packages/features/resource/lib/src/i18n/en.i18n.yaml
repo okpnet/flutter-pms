@@ -1,3 +1,23 @@
+calendar:
+  equipment: Equipment
+  allEquipment: All (every equipment)
+  holiday: Holiday
+  startTime: Start time
+  workInterval: Working hours
+  remarks: Remarks
+  noSelection: "Select a day to change it here. Drag (or Shift + click) to select a range."
+  selectedOne: "Selected: ${date}"
+  selectedRange: "Selected: ${from} - ${to} (${count} days)"
+  apply: Apply to selected days
+  reset: Reset to default
+  importHolidays: Import public holidays
+  importHint: "Registers the public holidays of the shown year as holidays (registered days are kept)."
+  importDone: Registered ${count} holidays
+  saved: Applied
+  failed: Could not save ${count} days
+  invalidTime: "Enter the time as HH:MM (e.g. 08:30)"
+  legend: "Holidays are red. Choose an equipment to see its special days only."
+  defaultNote: "Days without a record count as 8 hours on weekdays and 0 on weekends."
 # Resources strings (English). Keys missing here fall back to the base language (ja).
 menu:
   group: "Resources"

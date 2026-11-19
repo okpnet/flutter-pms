@@ -1,7 +1,9 @@
 import 'package:entity_screens/entity_screens.dart';
+import 'package:flutter/widgets.dart';
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'calendar/work_calendar_page.dart';
 import 'entities/resource_definitions.dart';
 import 'entities/resource_labels.dart';
 import 'entities/resource_seeds.dart';
@@ -23,6 +25,11 @@ class ResourceModule extends EntityFeatureModule {
   @override
   EntityLabels labelsOf(WidgetRef ref) =>
       ResourceLabels(ref.watch(resourceStringsProvider));
+
+  /// 稼働カレンダー(`/e/workcalendar`)は、表ではなく、実際のカレンダー表示を出す。
+  @override
+  Widget? customListPage(WidgetRef ref, String key) =>
+      key == 'workcalendar' ? WorkCalendarPage(scope: entityScope(ref)) : null;
 
   @override
   String get menuGroupId => 'resource';

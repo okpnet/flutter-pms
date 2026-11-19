@@ -30,6 +30,10 @@ dependencies:
   slang: ^4.19.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   entity_screens:
     path: ../../ui/entity_screens
+  calendar_lib:
+    path: ../../ui/calendar_lib
+  app_shell:
+    path: ../../ui/app_shell
 
 dev_dependencies:
   data_test_harness:

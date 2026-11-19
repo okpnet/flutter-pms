@@ -23,6 +23,7 @@
 
 ## 稼働カレンダー
 稼働カレンダー(`workcalendar`、DB の `mstr_work_calendar`)は台帳と編集。項目は稼働日・設備(空は全体の稼働日)・開始時刻・稼働時間(HH:MM)・休業日(真偽)・備考。
+画面(`/e/workcalendar`)は、表ではなく、実際のカレンダー表示(`packages/ui/calendar_lib`。`ResourceModule.customListPage` → `WorkCalendarPage`)。日を選ぶ・ドラッグ(Shift + 押す)で範囲を選び、休日・始業時刻・稼働時間・備考を一括で反映する(日ごとの保存。保存できなかった日は件数で知らせる。1 つのトランザクションにしない)。「既定に戻す」は登録の削除。設備を選ぶと、その設備だけの特別な日(上書き)を扱う。「祝日を取り込む」は、表示中の年の日本の祝日(`japaneseHolidays`)を休日として登録する(登録済みの日は変えない)。週の最初の曜日・表示する曜日は設定画面の値(`calendarFirstWeekdayProvider`・`calendarVisibleWeekdaysProvider`)。取得元は `WorkCalendarSource`(`IEntityRepository` を `ICalendarSource` にする Adapter)で、メモリでも GraphQL でも同じに動く(稼働カレンダーの GraphQL の取得元は未作成。モデル `resource_model` の `WorkCalendarPage`・`WorkCalendarPageEdit` がある)。
 
 <!-- entity_gen:begin -->
 ## 実体の画面(生成)

@@ -35,8 +35,75 @@ class ResourceStrings with BaseTranslations<ResourceLocale, ResourceStrings> {
 	ResourceStrings $copyWith({TranslationMetadata<ResourceLocale, ResourceStrings>? meta}) => ResourceStrings(meta: meta ?? this.$meta);
 
 	// Translations
+	late final ResourceStrings$calendar$ja calendar = ResourceStrings$calendar$ja.internal(_root);
 	late final ResourceStrings$menu$ja menu = ResourceStrings$menu$ja.internal(_root);
 	late final ResourceStrings$entity$ja entity = ResourceStrings$entity$ja.internal(_root);
+}
+
+// Path: calendar
+class ResourceStrings$calendar$ja {
+	ResourceStrings$calendar$ja.internal(this._root);
+
+	final ResourceStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '設備'
+	String get equipment => '設備';
+
+	/// ja: '全体(すべての設備)'
+	String get allEquipment => '全体(すべての設備)';
+
+	/// ja: '休日'
+	String get holiday => '休日';
+
+	/// ja: '始業時刻'
+	String get startTime => '始業時刻';
+
+	/// ja: '稼働時間'
+	String get workInterval => '稼働時間';
+
+	/// ja: '備考'
+	String get remarks => '備考';
+
+	/// ja: '日を選ぶと、ここで変更できます。範囲は、ドラッグ(または Shift を押しながら押す)で選びます。'
+	String get noSelection => '日を選ぶと、ここで変更できます。範囲は、ドラッグ(または Shift を押しながら押す)で選びます。';
+
+	/// ja: '選択中: ${date}'
+	String selectedOne({required Object date}) => '選択中: ${date}';
+
+	/// ja: '選択中: ${from} 〜 ${to}(${count} 日)'
+	String selectedRange({required Object from, required Object to, required Object count}) => '選択中: ${from} 〜 ${to}(${count} 日)';
+
+	/// ja: '選んだ日に反映'
+	String get apply => '選んだ日に反映';
+
+	/// ja: '既定に戻す'
+	String get reset => '既定に戻す';
+
+	/// ja: '祝日を取り込む'
+	String get importHolidays => '祝日を取り込む';
+
+	/// ja: '表示中の年の祝日を、休日として登録します(登録済みの日は変えません)。'
+	String get importHint => '表示中の年の祝日を、休日として登録します(登録済みの日は変えません)。';
+
+	/// ja: '${count} 日の祝日を登録しました'
+	String importDone({required Object count}) => '${count} 日の祝日を登録しました';
+
+	/// ja: '反映しました'
+	String get saved => '反映しました';
+
+	/// ja: '${count} 日を保存できませんでした'
+	String failed({required Object count}) => '${count} 日を保存できませんでした';
+
+	/// ja: '時刻は HH:MM(例 08:30)で入力してください'
+	String get invalidTime => '時刻は HH:MM(例 08:30)で入力してください';
+
+	/// ja: '休日・祝日は赤、設備を選ぶと、その設備だけの特別な日を表示します。'
+	String get legend => '休日・祝日は赤、設備を選ぶと、その設備だけの特別な日を表示します。';
+
+	/// ja: '登録の無い日は、平日 8 時間・土日 0 時間として扱われます。'
+	String get defaultNote => '登録の無い日は、平日 8 時間・土日 0 時間として扱われます。';
 }
 
 // Path: menu
@@ -729,6 +796,25 @@ class ResourceStrings$entity$workcalendar$fields$ja {
 extension on ResourceStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'calendar.equipment' => '設備',
+			'calendar.allEquipment' => '全体(すべての設備)',
+			'calendar.holiday' => '休日',
+			'calendar.startTime' => '始業時刻',
+			'calendar.workInterval' => '稼働時間',
+			'calendar.remarks' => '備考',
+			'calendar.noSelection' => '日を選ぶと、ここで変更できます。範囲は、ドラッグ(または Shift を押しながら押す)で選びます。',
+			'calendar.selectedOne' => ({required Object date}) => '選択中: ${date}',
+			'calendar.selectedRange' => ({required Object from, required Object to, required Object count}) => '選択中: ${from} 〜 ${to}(${count} 日)',
+			'calendar.apply' => '選んだ日に反映',
+			'calendar.reset' => '既定に戻す',
+			'calendar.importHolidays' => '祝日を取り込む',
+			'calendar.importHint' => '表示中の年の祝日を、休日として登録します(登録済みの日は変えません)。',
+			'calendar.importDone' => ({required Object count}) => '${count} 日の祝日を登録しました',
+			'calendar.saved' => '反映しました',
+			'calendar.failed' => ({required Object count}) => '${count} 日を保存できませんでした',
+			'calendar.invalidTime' => '時刻は HH:MM(例 08:30)で入力してください',
+			'calendar.legend' => '休日・祝日は赤、設備を選ぶと、その設備だけの特別な日を表示します。',
+			'calendar.defaultNote' => '登録の無い日は、平日 8 時間・土日 0 時間として扱われます。',
 			'menu.group' => '資源',
 			'entity.capability.title' => '力量',
 			'entity.capability.fields.f_code' => '力量コード',

@@ -1,3 +1,24 @@
+# 稼働カレンダーの画面(手書き。生成の印より上)
+calendar:
+  equipment: 設備
+  allEquipment: 全体(すべての設備)
+  holiday: 休日
+  startTime: 始業時刻
+  workInterval: 稼働時間
+  remarks: 備考
+  noSelection: 日を選ぶと、ここで変更できます。範囲は、ドラッグ(または Shift を押しながら押す)で選びます。
+  selectedOne: "選択中: ${date}"
+  selectedRange: "選択中: ${from} 〜 ${to}(${count} 日)"
+  apply: 選んだ日に反映
+  reset: 既定に戻す
+  importHolidays: 祝日を取り込む
+  importHint: 表示中の年の祝日を、休日として登録します(登録済みの日は変えません)。
+  importDone: ${count} 日の祝日を登録しました
+  saved: 反映しました
+  failed: ${count} 日を保存できませんでした
+  invalidTime: 時刻は HH:MM(例 08:30)で入力してください
+  legend: 休日・祝日は赤、設備を選ぶと、その設備だけの特別な日を表示します。
+  defaultNote: 登録の無い日は、平日 8 時間・土日 0 時間として扱われます。
 # --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
 # 資源の実体と項目の表示名(日本語。基準言語)。
 # 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。

@@ -14,6 +14,7 @@ export 'src/i18n/strings.g.dart' show EntityScreenStrings, EntityScreenLocale;
 export 'src/pages/entity_edit_page.dart';
 export 'src/pages/entity_list_page.dart';
 export 'src/pages/entity_nested_page.dart';
-export 'src/pages/entity_scope.dart' show EntityScope;
+export 'src/pages/entity_scope.dart'
+    show EntityScope, loadReferenceOptions, namesOf, ReferenceNames, columnsOf;
 export 'src/record.dart';
 export 'src/repository.dart';

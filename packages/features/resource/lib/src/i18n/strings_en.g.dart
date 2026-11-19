@@ -38,8 +38,37 @@ class ResourceStringsEn extends ResourceStrings with BaseTranslations<ResourceLo
 	ResourceStringsEn $copyWith({TranslationMetadata<ResourceLocale, ResourceStrings>? meta}) => ResourceStringsEn(meta: meta ?? this.$meta);
 
 	// Translations
+	@override late final _ResourceStrings$calendar$en calendar = _ResourceStrings$calendar$en._(_root);
 	@override late final _ResourceStrings$menu$en menu = _ResourceStrings$menu$en._(_root);
 	@override late final _ResourceStrings$entity$en entity = _ResourceStrings$entity$en._(_root);
+}
+
+// Path: calendar
+class _ResourceStrings$calendar$en extends ResourceStrings$calendar$ja {
+	_ResourceStrings$calendar$en._(ResourceStringsEn root) : this._root = root, super.internal(root);
+
+	final ResourceStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get equipment => 'Equipment';
+	@override String get allEquipment => 'All (every equipment)';
+	@override String get holiday => 'Holiday';
+	@override String get startTime => 'Start time';
+	@override String get workInterval => 'Working hours';
+	@override String get remarks => 'Remarks';
+	@override String get noSelection => 'Select a day to change it here. Drag (or Shift + click) to select a range.';
+	@override String selectedOne({required Object date}) => 'Selected: ${date}';
+	@override String selectedRange({required Object from, required Object to, required Object count}) => 'Selected: ${from} - ${to} (${count} days)';
+	@override String get apply => 'Apply to selected days';
+	@override String get reset => 'Reset to default';
+	@override String get importHolidays => 'Import public holidays';
+	@override String get importHint => 'Registers the public holidays of the shown year as holidays (registered days are kept).';
+	@override String importDone({required Object count}) => 'Registered ${count} holidays';
+	@override String get saved => 'Applied';
+	@override String failed({required Object count}) => 'Could not save ${count} days';
+	@override String get invalidTime => 'Enter the time as HH:MM (e.g. 08:30)';
+	@override String get legend => 'Holidays are red. Choose an equipment to see its special days only.';
+	@override String get defaultNote => 'Days without a record count as 8 hours on weekdays and 0 on weekends.';
 }
 
 // Path: menu
@@ -500,6 +529,25 @@ class _ResourceStrings$entity$workcalendar$fields$en extends ResourceStrings$ent
 extension on ResourceStringsEn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'calendar.equipment' => 'Equipment',
+			'calendar.allEquipment' => 'All (every equipment)',
+			'calendar.holiday' => 'Holiday',
+			'calendar.startTime' => 'Start time',
+			'calendar.workInterval' => 'Working hours',
+			'calendar.remarks' => 'Remarks',
+			'calendar.noSelection' => 'Select a day to change it here. Drag (or Shift + click) to select a range.',
+			'calendar.selectedOne' => ({required Object date}) => 'Selected: ${date}',
+			'calendar.selectedRange' => ({required Object from, required Object to, required Object count}) => 'Selected: ${from} - ${to} (${count} days)',
+			'calendar.apply' => 'Apply to selected days',
+			'calendar.reset' => 'Reset to default',
+			'calendar.importHolidays' => 'Import public holidays',
+			'calendar.importHint' => 'Registers the public holidays of the shown year as holidays (registered days are kept).',
+			'calendar.importDone' => ({required Object count}) => 'Registered ${count} holidays',
+			'calendar.saved' => 'Applied',
+			'calendar.failed' => ({required Object count}) => 'Could not save ${count} days',
+			'calendar.invalidTime' => 'Enter the time as HH:MM (e.g. 08:30)',
+			'calendar.legend' => 'Holidays are red. Choose an equipment to see its special days only.',
+			'calendar.defaultNote' => 'Days without a record count as 8 hours on weekdays and 0 on weekends.',
 			'menu.group' => 'Resources',
 			'entity.capability.title' => 'Capabilities',
 			'entity.capability.fields.f_code' => 'Capability code',
