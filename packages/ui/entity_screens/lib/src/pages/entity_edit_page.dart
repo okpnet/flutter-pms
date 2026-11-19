@@ -515,14 +515,7 @@ class _EntityEditPageState extends State<EntityEditPage> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     spacing: 20,
                     children: [
-                      for (final f in definition.fields)
-                        if (!f.hidden) _labeled(f, _field(definition, f)),
-                      if (definition.isTree)
-                        _labeledText(
-                          strings.parent,
-                          false,
-                          _parentField(definition),
-                        ),
+                      _fieldGrid(definition, strings),
                       if (_failure != null)
                         Text(
                           _failure!,
@@ -578,6 +571,34 @@ class _EntityEditPageState extends State<EntityEditPage> {
                 ),
         ],
       ),
+    );
+  }
+
+  /// 項目を並べる。広いとき(520 以上)は 2 列で、複数行・ファイルは全幅。狭いときは 1 列。
+  Widget _fieldGrid(EntityDefinition definition, EntityScreenStrings strings) {
+    final items = <(Widget, bool)>[
+      for (final f in definition.fields)
+        if (!f.hidden)
+          (
+            _labeled(f, _field(definition, f)),
+            f.kind == FieldKind.multiline || f.kind == FieldKind.file,
+          ),
+      if (definition.isTree)
+        (_labeledText(strings.parent, false, _parentField(definition)), false),
+    ];
+    return LayoutBuilder(
+      builder: (context, c) {
+        final twoColumns = c.maxWidth >= 520;
+        final colWidth = twoColumns ? (c.maxWidth - 24) / 2 : c.maxWidth;
+        return Wrap(
+          spacing: 24,
+          runSpacing: 20,
+          children: [
+            for (final (w, full) in items)
+              SizedBox(width: full ? c.maxWidth : colWidth, child: w),
+          ],
+        );
+      },
     );
   }
 

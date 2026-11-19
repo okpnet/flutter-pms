@@ -59,11 +59,13 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byKey(const ValueKey('screenBreadcrumb')), findsNothing);
   });
-  test('内容の幅: スマートフォンは 95%、それ以外は 90%、上限 1600', () {
+  test('内容の幅: スマートフォンは 95%、それ以外は 95%(1100 以下)から 85%(1800 以上)、上限 1600', () {
     expect(ContentWidth.of(400, screenWidth: 400), closeTo(380, 0.001));
-    expect(ContentWidth.of(1000, screenWidth: 1000), closeTo(900, 0.001));
-    expect(ContentWidth.of(900, screenWidth: 800), closeTo(810, 0.001));
+    expect(ContentWidth.of(1000, screenWidth: 1000), closeTo(950, 0.001));
+    expect(ContentWidth.of(900, screenWidth: 800), closeTo(855, 0.001));
     expect(ContentWidth.of(3000, screenWidth: 3000), 1600);
+    expect(ContentWidth.of(2000, screenWidth: 2000), closeTo(1600, 0.001));
+    expect(ContentWidth.of(1800, screenWidth: 1800), closeTo(1530, 0.001));
   });
 
   testWidgets('ScreenScaffold: 見出しと本体が、内容の幅で中央に置かれる', (tester) async {
@@ -79,7 +81,7 @@ void main() {
       ),
     );
     final body = tester.getRect(find.byKey(const ValueKey('body')));
-    expect(body.width, closeTo(1260, 0.01)); // 1400 の 90%
+    expect(body.width, closeTo(1270, 0.1)); // 1400 の約 90.7%
     expect(body.center.dx, closeTo(700, 0.01));
   });
 }

@@ -210,7 +210,11 @@ class _CompanyHomePageState extends ConsumerState<CompanyHomePage> {
           ),
         ),
         const SizedBox(height: 12),
-        Wrap(
+        LayoutBuilder(builder: (context, c) {
+          // 広いときは 4 列、狭いときは 2 列(スマートフォンの幅)
+          final cols = c.maxWidth >= 720 ? 4 : 2;
+          final tileWidth = (c.maxWidth - 16 * (cols - 1)) / cols;
+          return Wrap(
           spacing: 16,
           runSpacing: 16,
           children: [
@@ -246,8 +250,9 @@ class _CompanyHomePageState extends ConsumerState<CompanyHomePage> {
               unit: t.unitPosition as String,
               onTap: () => _open(const EntityListDestination('position')),
             ),
-          ],
-        ),
+          ].map((t) => SizedBox(width: tileWidth, child: t)).toList(),
+          );
+        }),
         const SizedBox(height: 24),
         // --- 事業所 ---
         _Section(
@@ -584,7 +589,7 @@ class _Tile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return SizedBox(
-      width: 240,
+      width: double.infinity,
       child: Card(
         margin: EdgeInsets.zero,
         clipBehavior: Clip.antiAlias,

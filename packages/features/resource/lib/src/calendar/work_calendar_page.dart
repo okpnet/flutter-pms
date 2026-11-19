@@ -318,50 +318,53 @@ class _WorkCalendarPageState extends ConsumerState<WorkCalendarPage> {
               key: const ValueKey('calendarSummary'),
               style: theme.textTheme.titleSmall,
             ),
-            SwitchListTile(
-              key: const ValueKey('calendarHoliday'),
-              contentPadding: EdgeInsets.zero,
-              title: Text(t.calendar.holiday),
-              value: _holiday,
-              onChanged: enabled ? (v) => setState(() => _holiday = v) : null,
-            ),
-            TextField(
-              key: const ValueKey('calendarStart'),
-              controller: _start,
-              enabled: enabled && !_holiday,
-              decoration: InputDecoration(
-                labelText: t.calendar.startTime,
-                isDense: true,
+            // 日を選ぶまでは、入力欄を出さない(空の無効な欄を並べない)
+            if (range != null) ...[
+              SwitchListTile(
+                key: const ValueKey('calendarHoliday'),
+                contentPadding: EdgeInsets.zero,
+                title: Text(t.calendar.holiday),
+                value: _holiday,
+                onChanged: enabled ? (v) => setState(() => _holiday = v) : null,
               ),
-            ),
-            TextField(
-              key: const ValueKey('calendarInterval'),
-              controller: _interval,
-              enabled: enabled && !_holiday,
-              decoration: InputDecoration(
-                labelText: t.calendar.workInterval,
-                isDense: true,
+              TextField(
+                key: const ValueKey('calendarStart'),
+                controller: _start,
+                enabled: enabled && !_holiday,
+                decoration: InputDecoration(
+                  labelText: t.calendar.startTime,
+                  isDense: true,
+                ),
               ),
-            ),
-            TextField(
-              key: const ValueKey('calendarRemarks'),
-              controller: _remarks,
-              enabled: enabled,
-              decoration: InputDecoration(
-                labelText: t.calendar.remarks,
-                isDense: true,
+              TextField(
+                key: const ValueKey('calendarInterval'),
+                controller: _interval,
+                enabled: enabled && !_holiday,
+                decoration: InputDecoration(
+                  labelText: t.calendar.workInterval,
+                  isDense: true,
+                ),
               ),
-            ),
-            FilledButton(
-              key: const ValueKey('calendarApply'),
-              onPressed: enabled ? () => _apply(t) : null,
-              child: Text(t.calendar.apply),
-            ),
-            OutlinedButton(
-              key: const ValueKey('calendarReset'),
-              onPressed: enabled ? () => _reset(t) : null,
-              child: Text(t.calendar.reset),
-            ),
+              TextField(
+                key: const ValueKey('calendarRemarks'),
+                controller: _remarks,
+                enabled: enabled,
+                decoration: InputDecoration(
+                  labelText: t.calendar.remarks,
+                  isDense: true,
+                ),
+              ),
+              FilledButton(
+                key: const ValueKey('calendarApply'),
+                onPressed: enabled ? () => _apply(t) : null,
+                child: Text(t.calendar.apply),
+              ),
+              OutlinedButton(
+                key: const ValueKey('calendarReset'),
+                onPressed: enabled ? () => _reset(t) : null,
+                child: Text(t.calendar.reset),
+              ),
+            ],
             const Divider(),
             Text(
               t.calendar.importHint,

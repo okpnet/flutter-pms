@@ -17,7 +17,11 @@ abstract final class ContentWidth {
   /// 利用できる幅 [available] に対する内容の幅。[screenWidth] は画面の幅(スマートフォンかの判定)。
   static double of(double available, {required double screenWidth}) {
     final mobile = MediaBreakPoint.of(screenWidth) == MediaBreakPoint.mobile;
-    final w = available * (mobile ? mobileFactor : factor);
+    // スマートフォンは 95%。それ以外は画面が広いほど余白を増やし、95%(1100 以下)から 85%(1800 以上)へ連続して変える
+    final f = mobile
+        ? mobileFactor
+        : (0.95 - (screenWidth - 1100) / 700 * 0.10).clamp(0.85, 0.95);
+    final w = available * f;
     return w > maxWidth ? maxWidth : w;
   }
 

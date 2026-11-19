@@ -11,7 +11,7 @@
 | ログインユーザー | `lib/src/user_container.dart` | `UserContainer`(顔写真・名前・役割・ユーザーメニュー) |
 | サイドバー | `lib/src/side_bar.dart` | `SideBar`(通常 248、アイコンだけ 72) |
 | ハンバーガー | `lib/src/hamburger_menu.dart` | `HamburgerMenu`(サイドバーと同じメニューを共有。項目を選ぶと閉じる) |
-| 画面の骨組み | `lib/src/screen_scaffold.dart` | `ScreenScaffold`・`ScreenTitle`(機能の画面用。AppBar を使わない見出し + 本体。見出しは、上の文字(`overline`)・見出し・右の「時点」(`asOf`)・操作。戻れるときは、見出しの下に文字つきの「戻る」ボタン(`backLabel`。テストの `pageBack` のため、標準の戻るボタンと同じ説明を付ける)。見出しと本体は、内容の幅(`ContentWidth`: スマートフォン 95%・それ以外 90%・上限 1600)で中央に置く。パンくず(`breadcrumbs`)は、通常「ルート(小)▶ 子(小)▶ 見出し(大)」の 1 行、スマートフォンは見出しだけで、押すと下に「ルート▶ 子▶」が開く) |
+| 画面の骨組み | `lib/src/screen_scaffold.dart` | `ScreenScaffold`・`ScreenTitle`(機能の画面用。AppBar を使わない見出し + 本体。見出しは、上の文字(`overline`)・見出し・右の「時点」(`asOf`)・操作。戻れるときは、見出しの下に文字つきの「戻る」ボタン(`backLabel`。テストの `pageBack` のため、標準の戻るボタンと同じ説明を付ける)。見出しと本体は、内容の幅(`ContentWidth`: スマートフォン 95%・それ以外は画面が広いほど狭め 95%→85%・上限 1600)で中央に置く。パンくず(`breadcrumbs`)は、通常「ルート(小)▶ 子(小)▶ 見出し(大)」の 1 行、スマートフォンは見出しだけで、押すと下に「ルート▶ 子▶」が開く) |
 | フレーム | `lib/src/main_frame.dart` | `MultiMainFrame`・`SingleMainFrame`・`SelectionFrame` |
 | 文字列 | `lib/src/app_shell_labels.dart` | `AppShellLabels`(呼び出し側が言語ごとに渡す) |
 
