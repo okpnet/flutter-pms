@@ -462,7 +462,14 @@ class _EntityEditPageState extends State<EntityEditPage> {
       title: _isNew
           ? strings.newTitle(name: scope.labels.entity(widget.entityKey))
           : strings.editTitle(name: scope.labels.entity(widget.entityKey)),
-      overline: scope.labels.entity(widget.entityKey),
+      breadcrumbs: [
+        if (scope.groupLabel.isNotEmpty) BreadcrumbItem(scope.groupLabel),
+        BreadcrumbItem(
+          scope.labels.entity(widget.entityKey),
+          onTap: () => Navigator.of(context).maybePop(),
+        ),
+        BreadcrumbItem(_isNew ? strings.create : strings.editMode),
+      ],
       asOf: scope.asOfText,
       backLabel: strings.backToList,
       body: _loading
@@ -568,7 +575,8 @@ class _EntityEditPageState extends State<EntityEditPage> {
       _scope.labels.field(widget.entityKey, f.key);
 
   /// 項目名を枠の上に出し、必須は「必須」のチップを添える(真偽の項目は、チェックの横に名前があるため、そのまま)。
-  Widget _labeled(FieldDefinition f, Widget field) => f.kind == FieldKind.flag && !f.readOnly
+  Widget _labeled(FieldDefinition f, Widget field) =>
+      f.kind == FieldKind.flag && !f.readOnly
       ? field
       : _labeledText(_label(f), f.required && !f.readOnly, field);
 
@@ -632,9 +640,7 @@ class _EntityEditPageState extends State<EntityEditPage> {
           keyboardType: f.kind == FieldKind.number
               ? const TextInputType.numberWithOptions(decimal: true)
               : null,
-          decoration: InputDecoration(
-            errorText: _error(f.key),
-          ),
+          decoration: InputDecoration(errorText: _error(f.key)),
         );
       case FieldKind.date:
         return TextField(
@@ -784,9 +790,7 @@ class _EntityEditPageState extends State<EntityEditPage> {
     }
 
     return InputDecorator(
-      decoration: InputDecoration(
-        errorText: _error(f.key),
-      ),
+      decoration: InputDecoration(errorText: _error(f.key)),
       child: Row(
         children: [
           Expanded(
@@ -823,9 +827,7 @@ class _EntityEditPageState extends State<EntityEditPage> {
         ? strings.unselected
         : options.where((o) => o.id == value).firstOrNull?.label ?? value;
     return InputDecorator(
-      decoration: InputDecoration(
-        errorText: _error(f.key),
-      ),
+      decoration: InputDecoration(errorText: _error(f.key)),
       child: Row(
         children: [
           Expanded(child: Text(label)),
@@ -876,9 +878,7 @@ class _EntityEditPageState extends State<EntityEditPage> {
       key: ValueKey('${f.key}:${options.length}'),
       initialValue: value,
       items: items,
-      decoration: InputDecoration(
-        errorText: _error(f.key),
-      ),
+      decoration: InputDecoration(errorText: _error(f.key)),
       onChanged: enabled ? (v) => _onReferenceChanged(f, v ?? '') : null,
     );
   }

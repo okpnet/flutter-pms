@@ -130,7 +130,10 @@ class _EntityListPageState extends State<EntityListPage> {
     final scope = widget.scope;
     return ScreenScaffold(
       title: widget.title ?? scope.labels.entity(widget.entityKey),
-      overline: scope.groupLabel.isEmpty ? null : scope.groupLabel,
+      // いまの画面は見出しに出るので、パンくずは上の階層(グループ)だけ
+      breadcrumbs: [
+        if (scope.groupLabel.isNotEmpty) BreadcrumbItem(scope.groupLabel),
+      ],
       asOf: scope.asOfText,
       backLabel: scope.strings.back,
       body: FutureBuilder<_Loaded>(
