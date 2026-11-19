@@ -57,4 +57,20 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byKey(const ValueKey('homeCompanyName')), findsOneWidget);
   });
+  testWidgets('会社の編集は、会社の項目だけ。提供・役職は、概要から開く独立したページ', (tester) async {
+    await _open(tester);
+    await tester.tap(find.byKey(const ValueKey('homeCompanyEdit')));
+    await tester.pumpAndSettle();
+    expect(find.text('会社情報の編集'), findsOneWidget);
+    // 子の台帳(提供・役割)の枠を、会社の編集の下に並べない
+    expect(find.text('提供'), findsNothing);
+    expect(find.text('役割(役職)'), findsNothing);
+    await tester.tap(find.byKey(const ValueKey('screenBack')));
+    await tester.pumpAndSettle();
+    // 概要の「役職」の件数から、役職の台帳へ
+    await tester.tap(find.byKey(const ValueKey('homePositionCount')));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey('listTitle')), findsOneWidget);
+    expect(find.text('役割(役職)の一覧'), findsOneWidget);
+  });
 }

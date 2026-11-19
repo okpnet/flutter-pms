@@ -294,6 +294,7 @@ class EntityDefinition {
     this.isTree = false,
     this.treeTitle = const [],
     this.treeTags,
+    this.inlineInOwner = true,
     this.uniqueKeys = const [],
     this.reverseLists = const [],
     this.nest,
@@ -321,6 +322,10 @@ class EntityDefinition {
   /// 木の行の右端にタグで出す、子の台帳の実体のキー(例: 部署区分の割当)。
   /// タグの文字は、その子の台帳の最初の参照の項目の表示名。
   final String? treeTags;
+
+  /// 子の台帳を、親の編集画面の下に並べるか(既定は並べる)。false の子は、独立したページ
+  /// (台帳 `/e/<キー>`・編集 `/e/<キー>/<id>`)として開く(親の編集のバランスを保つため。例: 会社の提供・役職)。
+  final bool inlineInOwner;
 
   /// 重複を認めない項目の組(DB の一意制約・画面案の「重複不可」)。
   /// 範囲は、所有される実体なら同じ親の中、それ以外は全体。空の値は対象にしない。

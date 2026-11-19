@@ -219,10 +219,7 @@ class _CompanyHomePageState extends ConsumerState<CompanyHomePage> {
               title: t.positions as String,
               value: '${d.positions.length}',
               unit: t.unitPosition as String,
-              onTap: company == null
-                  ? null
-                  : () =>
-                        _open(EntityEditDestination('company', id: company.id)),
+              onTap: () => _open(const EntityListDestination('position')),
             ),
           ],
         ),
@@ -285,7 +282,7 @@ class _CompanyHomePageState extends ConsumerState<CompanyHomePage> {
                   key: const ValueKey('homeOfferingsEdit'),
                   label: t.edit as String,
                   onPressed: () =>
-                      _open(EntityEditDestination('company', id: company.id)),
+                      _open(const EntityListDestination('provision')),
                 ),
         ),
         const SizedBox(height: 12),

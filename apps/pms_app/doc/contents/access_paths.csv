@@ -29,6 +29,8 @@
 /e/itemonhand,品目の在庫,Item on hand,item,false
 /e/company,会社情報,Company,organization,false
 /e/site,事業所,Site,organization,false
+/e/provision,提供,Provision,organization,false
+/e/position,役割(役職),Position,organization,false
 /e/deptkind,部署区分,Department kind,organization,false
 /e/department,部署,Department,organization,false
 /e/staff,作業者,Staff,organization,false

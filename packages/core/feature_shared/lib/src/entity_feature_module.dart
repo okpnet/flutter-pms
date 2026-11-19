@@ -186,6 +186,12 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
   /// 別のグループ(表の中の表の [NestedList.menuGroup])の表示名。機能が言語ごとの文字列で返す。
   String menuGroupLabelFor(WidgetRef ref, String groupId) => groupId;
 
+  /// 独立した台帳のページを持つ子の台帳のキー(メニューには出さない。親の概要などから開く)。
+  List<String> get standaloneChildKeys => [
+    for (final d in definitions)
+      if (d.isChild && !d.inlineInOwner) d.key,
+  ];
+
   /// 台帳から開ける実体のキー(子の台帳を除く。表の中の表で出す子の台帳は含む)。
   List<String> get entityKeys => [
     for (final d in definitions)
@@ -250,7 +256,8 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
   @override
   List<RouteBase> get routes => [
     for (final d in definitions)
-      if (!d.isChild)
+      // 親の編集の下に並べない子の台帳(inlineInOwner が false)は、独立した台帳のページを持つ
+      if (!d.isChild || !d.inlineInOwner)
         GoRoute(
           path: listPath(d.key),
           builder: (context, state) =>
@@ -304,7 +311,8 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
   String? locationOf(PageDestination<Object?> destination) =>
       switch (destination) {
         EntityListDestination(:final entityKey, :final filter)
-            when entityKeys.contains(entityKey) =>
+            when entityKeys.contains(entityKey) ||
+                standaloneChildKeys.contains(entityKey) =>
           listPath(entityKey, filter: filter),
         EntityPickerDestination(:final entityKey)
             when pickAliases.containsKey(entityKey) =>
@@ -363,8 +371,29 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
         twoModes: true,
         onReparent: reparentHandler(ref, key),
         onOpen: (r) => bus.execute(EntityEditDestination(key, id: r.id)),
-        onCreate: () =>
-            bus.execute(EntityEditDestination(key, initialValues: filter)),
+        onCreate: () async {
+          // 親の編集画面の外から開く子の台帳(親が 1 件だけ。例: 会社の提供・役職)は、親を自動で入れる
+          final owner = definitions
+              .where((d) => d.key == key)
+              .firstOrNull
+              ?.owner;
+          String? parentId;
+          if (owner != null) {
+            final owners = await _scope(
+              ref,
+            ).catalog.repository(owner)?.find(take: 2);
+            if (owners != null && owners.length == 1) {
+              parentId = owners.first.id;
+            }
+          }
+          await bus.execute(
+            EntityEditDestination(
+              key,
+              parentId: parentId,
+              initialValues: filter,
+            ),
+          );
+        },
         // 行への操作(台帳の上部のメニューで、選んだ行に対して選ぶ): 別の実体の新規登録を、行の値を初期値にして開く
         // (開く先は別の機能でもよい)。機能が処理する操作([handleRowAction])は、そちらを使う
         onAction: (action, r) async {
@@ -426,9 +455,9 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
               final label = repository == null
                   ? r.id
                   : EntityCatalog.displayLabel(repository.definition, r);
-              Navigator.of(context).pop(
-                Selection(entityKey: asKey, id: r.id, label: label),
-              );
+              Navigator.of(
+                context,
+              ).pop(Selection(entityKey: asKey, id: r.id, label: label));
             },
             onCreate: () async {},
           );

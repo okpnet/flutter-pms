@@ -77,12 +77,12 @@ module.exports = function build(D, X) {
     rows: [row('company1', { name: C.name, pronunciation: C.pronunciation ?? '', nickname: C.nickname ?? '', ceo: C.ceo, web_page: C.web_page ?? '', ...splitAddress(C.address, C.tel ?? '', C.fax ?? ''), remarks: C.remarks ?? '' })],
   });
   out.push({
-    key: 'provision', label: '提供', project: 'organization', owner: 'company',
+    key: 'provision', label: '提供', project: 'organization', owner: 'company', inlineInOwner: false,
     fields: [f('kind', '種別', 'choice', { options: ['製品', 'サービス'] }), f('code', '提供コード'), f('name', '名称'), f('detail', '詳細', 'multiline')],
     rows: D.offerings.map((o, i) => row(`provision${i + 1}`, { kind: o.kind, code: seq('PV-', i), name: o.name, detail: o.desc }, 'company1')),
   });
   out.push({
-    key: 'position', label: '役割(役職)', project: 'organization', owner: 'company',
+    key: 'position', label: '役割(役職)', project: 'organization', owner: 'company', inlineInOwner: false,
     fields: [f('name', '役割名称'), f('pronunciation', '読み', 'text', { req: false }), f('priority', '順位', 'number'), f('remarks', '備考', 'multiline', { req: false })],
     rows: D.positions.map((p, i) => row(p.id, { name: p.name, pronunciation: rd(p.name), priority: String(i + 1), remarks: p.desc }, 'company1')),
   });

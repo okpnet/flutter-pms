@@ -22,7 +22,7 @@ const List<EntityDefinition> organizationDefinitions = [
       ],
     ),
     EntityDefinition(
-      key: 'provision', owner: 'company',
+      key: 'provision', owner: 'company', inlineInOwner: false,
       fields: [
         FieldDefinition(key: 'kind', kind: FieldKind.choice, options: ['製品', 'サービス']),
         FieldDefinition(key: 'code'),
@@ -31,7 +31,7 @@ const List<EntityDefinition> organizationDefinitions = [
       ],
     ),
     EntityDefinition(
-      key: 'position', owner: 'company',
+      key: 'position', owner: 'company', inlineInOwner: false,
       fields: [
         FieldDefinition(key: 'name'),
         FieldDefinition(key: 'pronunciation', required: false),

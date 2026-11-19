@@ -454,14 +454,22 @@ class _EntityEditPageState extends State<EntityEditPage> {
     EntityFieldError.duplicate => s.validation.duplicate,
   };
 
+  /// 見出しに入れる名前。「○○情報の編集」の「情報」が重ならないよう、名前が「情報」で終わるときは除く。
+  String _titleName(EntityScope scope) {
+    final name = scope.labels.entity(widget.entityKey);
+    return name.endsWith('情報') && name.length > 2
+        ? name.substring(0, name.length - 2)
+        : name;
+  }
+
   @override
   Widget build(BuildContext context) {
     final scope = _scope;
     final strings = scope.strings;
     return ScreenScaffold(
       title: _isNew
-          ? strings.newTitle(name: scope.labels.entity(widget.entityKey))
-          : strings.editTitle(name: scope.labels.entity(widget.entityKey)),
+          ? strings.newTitle(name: _titleName(scope))
+          : strings.editTitle(name: _titleName(scope)),
       breadcrumbs: [
         if (scope.groupLabel.isNotEmpty) BreadcrumbItem(scope.groupLabel),
         BreadcrumbItem(
@@ -559,13 +567,14 @@ class _EntityEditPageState extends State<EntityEditPage> {
               ),
           if (!_isNew)
             for (final child in scope.catalog.childrenOf(widget.entityKey))
-              _ChildSection(
-                key: ValueKey('child:${child.key}'),
-                definition: child,
-                ownerId: widget.id!,
-                scope: scope,
-                onOpen: widget.onOpenChild,
-              ),
+              if (child.inlineInOwner)
+                _ChildSection(
+                  key: ValueKey('child:${child.key}'),
+                  definition: child,
+                  ownerId: widget.id!,
+                  scope: scope,
+                  onOpen: widget.onOpenChild,
+                ),
         ],
       ),
     );

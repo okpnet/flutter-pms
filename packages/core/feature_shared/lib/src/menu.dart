@@ -85,7 +85,8 @@ class UserSummaryRequest {
 ///
 /// 既定は、氏名(無ければユーザーID)だけ。アプリが [userSummaryResolverProvider] を差し替えて、
 /// 担当者のモデルから氏名・所属(部署)を引く。失敗したときは、ログインを止めず、既定の表示にする。
-typedef UserSummaryResolver = Future<UserSummary> Function(UserSummaryRequest request);
+typedef UserSummaryResolver =
+    Future<UserSummary> Function(UserSummaryRequest request);
 
 final userSummaryResolverProvider = Provider<UserSummaryResolver>(
   (ref) =>
