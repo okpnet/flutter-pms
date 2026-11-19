@@ -29599,6 +29599,35 @@ LANGUAGE plpgsql VOLATILE;
 
 CREATE TRIGGER trg_02_history_mstr_document_content BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_document_content FOR EACH ROW EXECUTE FUNCTION tests.trg_02_history_mstr_document_content();
 
+CREATE OR REPLACE FUNCTION tests.trg_00_tree_cycle() RETURNS trigger AS
+$BODY$
+DECLARE
+    v_base text := regexp_replace(TG_TABLE_NAME, '_tree$', '');
+    v_json jsonb := to_jsonb(NEW);
+    v_id text := v_json ->> (v_base || '_id');
+    v_parent text := v_json ->> ('parent_' || v_base || '_id');
+    v_found boolean;
+BEGIN
+    --削除する行・親が無い行は循環しない
+    IF (v_json ->> 'remove')::boolean IS TRUE OR v_parent IS NULL THEN
+        RETURN NEW;
+    END IF;
+    IF v_id = v_parent THEN
+        RAISE EXCEPTION '体系の循環: 自分自身を親にできません(%)', TG_TABLE_NAME USING ERRCODE = 'TRE01';
+    END IF;
+    --親が自分の子孫(体系の閉包に、祖先=自分・子孫=親の行がある)なら循環する
+    EXECUTE format(
+        'SELECT EXISTS (SELECT 1 FROM tests.%I WHERE %I = $1::uuid AND %I = $2::uuid AND remove IS FALSE)',
+        'hrchy_' || v_base, 'ancestor_' || v_base || '_id', 'descendant_' || v_base || '_id')
+    INTO v_found USING v_id, v_parent;
+    IF v_found THEN
+        RAISE EXCEPTION '体系の循環: 自分の子孫を親にできません(%)', TG_TABLE_NAME USING ERRCODE = 'TRE01';
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_document_content_tree() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -29816,6 +29845,8 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 
 CREATE TRIGGER trg_03_hierarchy_mstr_document_content_tree AFTER INSERT OR UPDATE OR DELETE ON tests.mstr_document_content_tree FOR EACH ROW EXECUTE FUNCTION tests.trg_03_hierarchy_mstr_document_content_tree();
+
+CREATE TRIGGER trg_00_cycle_mstr_document_content_tree BEFORE INSERT OR UPDATE ON tests.mstr_document_content_tree FOR EACH ROW EXECUTE FUNCTION tests.trg_00_tree_cycle();
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_document_content_tree() RETURNS trigger AS
 $BODY$
@@ -30125,6 +30156,8 @@ LANGUAGE plpgsql VOLATILE;
 
 CREATE TRIGGER trg_03_hierarchy_mstr_document_tree AFTER INSERT OR UPDATE OR DELETE ON tests.mstr_document_tree FOR EACH ROW EXECUTE FUNCTION tests.trg_03_hierarchy_mstr_document_tree();
 
+CREATE TRIGGER trg_00_cycle_mstr_document_tree BEFORE INSERT OR UPDATE ON tests.mstr_document_tree FOR EACH ROW EXECUTE FUNCTION tests.trg_00_tree_cycle();
+
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_document_tree() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -30345,6 +30378,8 @@ LANGUAGE plpgsql VOLATILE;
 
 CREATE TRIGGER trg_03_hierarchy_trans_container_tree AFTER INSERT OR UPDATE OR DELETE ON tests.trans_container_tree FOR EACH ROW EXECUTE FUNCTION tests.trg_03_hierarchy_trans_container_tree();
 
+CREATE TRIGGER trg_00_cycle_trans_container_tree BEFORE INSERT OR UPDATE ON tests.trans_container_tree FOR EACH ROW EXECUTE FUNCTION tests.trg_00_tree_cycle();
+
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_location_tree() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -30562,6 +30597,8 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 
 CREATE TRIGGER trg_03_hierarchy_mstr_location_tree AFTER INSERT OR UPDATE OR DELETE ON tests.mstr_location_tree FOR EACH ROW EXECUTE FUNCTION tests.trg_03_hierarchy_mstr_location_tree();
+
+CREATE TRIGGER trg_00_cycle_mstr_location_tree BEFORE INSERT OR UPDATE ON tests.mstr_location_tree FOR EACH ROW EXECUTE FUNCTION tests.trg_00_tree_cycle();
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_location_tree() RETURNS trigger AS
 $BODY$
@@ -30803,6 +30840,8 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 
 CREATE TRIGGER trg_03_hierarchy_info_department_tree AFTER INSERT OR UPDATE OR DELETE ON tests.info_department_tree FOR EACH ROW EXECUTE FUNCTION tests.trg_03_hierarchy_info_department_tree();
+
+CREATE TRIGGER trg_00_cycle_info_department_tree BEFORE INSERT OR UPDATE ON tests.info_department_tree FOR EACH ROW EXECUTE FUNCTION tests.trg_00_tree_cycle();
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_department_tree() RETURNS trigger AS
 $BODY$
@@ -32651,6 +32690,8 @@ LANGUAGE plpgsql VOLATILE;
 
 CREATE TRIGGER trg_03_hierarchy_mstr_task_tree AFTER INSERT OR UPDATE OR DELETE ON tests.mstr_task_tree FOR EACH ROW EXECUTE FUNCTION tests.trg_03_hierarchy_mstr_task_tree();
 
+CREATE TRIGGER trg_00_cycle_mstr_task_tree BEFORE INSERT OR UPDATE ON tests.mstr_task_tree FOR EACH ROW EXECUTE FUNCTION tests.trg_00_tree_cycle();
+
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_task_tree() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -33191,6 +33232,8 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 
 CREATE TRIGGER trg_03_hierarchy_mstr_item_tree AFTER INSERT OR UPDATE OR DELETE ON tests.mstr_item_tree FOR EACH ROW EXECUTE FUNCTION tests.trg_03_hierarchy_mstr_item_tree();
+
+CREATE TRIGGER trg_00_cycle_mstr_item_tree BEFORE INSERT OR UPDATE ON tests.mstr_item_tree FOR EACH ROW EXECUTE FUNCTION tests.trg_00_tree_cycle();
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_item_tree() RETURNS trigger AS
 $BODY$

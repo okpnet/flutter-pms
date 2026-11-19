@@ -18,3 +18,4 @@ export 'src/pages/entity_scope.dart'
     show EntityScope, loadReferenceOptions, namesOf, ReferenceNames, columnsOf;
 export 'src/record.dart';
 export 'src/repository.dart';
+export 'src/tree_cycle_guard.dart';

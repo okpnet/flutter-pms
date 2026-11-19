@@ -2,7 +2,7 @@
   "formatVersion": 3,
   "appVersion": "0.1.0",
   "id": 538067658,
-  "nextId": 6029,
+  "nextId": 6037,
   "properties": {
     "outputFileName": "pms_test",
     "outputFolder": "",
@@ -10549,6 +10549,28 @@
         446
       ],
       "schema": "tests"
+    },
+    {
+      "id": 6029,
+      "kind": "trigger",
+      "name": "trg_00_tree_cycle",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_00_tree_cycle() RETURNS trigger AS\r\n$BODY$\r\nDECLARE\r\n    v_base text := regexp_replace(TG_TABLE_NAME, '_tree$', '');\r\n    v_json jsonb := to_jsonb(NEW);\r\n    v_id text := v_json ->> (v_base || '_id');\r\n    v_parent text := v_json ->> ('parent_' || v_base || '_id');\r\n    v_found boolean;\r\nBEGIN\r\n    --削除する行・親が無い行は循環しない\r\n    IF (v_json ->> 'remove')::boolean IS TRUE OR v_parent IS NULL THEN\r\n        RETURN NEW;\r\n    END IF;\r\n    IF v_id = v_parent THEN\r\n        RAISE EXCEPTION '体系の循環: 自分自身を親にできません(%)', TG_TABLE_NAME USING ERRCODE = 'TRE01';\r\n    END IF;\r\n    --親が自分の子孫(体系の閉包に、祖先=自分・子孫=親の行がある)なら循環する\r\n    EXECUTE format(\r\n        'SELECT EXISTS (SELECT 1 FROM tests.%I WHERE %I = $1::uuid AND %I = $2::uuid AND remove IS FALSE)',\r\n        'hrchy_' || v_base, 'ancestor_' || v_base || '_id', 'descendant_' || v_base || '_id')\r\n    INTO v_found USING v_id, v_parent;\r\n    IF v_found THEN\r\n        RAISE EXCEPTION '体系の循環: 自分の子孫を親にできません(%)', TG_TABLE_NAME USING ERRCODE = 'TRE01';\r\n    END IF;\r\n    RETURN NEW;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "",
+      "args": "",
+      "dependsOnTableIds": [],
+      "schema": ""
     }
   ],
   "commonColumnPatterns": [
@@ -25696,6 +25718,28 @@
           "when": "",
           "args": "",
           "updateColumnIds": []
+        },
+        {
+          "id": 6030,
+          "source": "public",
+          "methodId": 6029,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_00_cycle_mstr_document_content_tree",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT",
+            "UPDATE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
         }
       ]
     },
@@ -26793,6 +26837,28 @@
           "when": "",
           "args": "",
           "updateColumnIds": []
+        },
+        {
+          "id": 6031,
+          "source": "public",
+          "methodId": 6029,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_00_cycle_mstr_document_tree",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT",
+            "UPDATE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
         }
       ]
     },
@@ -27405,6 +27471,28 @@
           "when": "",
           "args": "",
           "updateColumnIds": []
+        },
+        {
+          "id": 6032,
+          "source": "public",
+          "methodId": 6029,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_00_cycle_trans_container_tree",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT",
+            "UPDATE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
         }
       ]
     },
@@ -27733,6 +27821,28 @@
             "INSERT",
             "UPDATE",
             "DELETE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        },
+        {
+          "id": 6033,
+          "source": "public",
+          "methodId": 6029,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_00_cycle_mstr_location_tree",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT",
+            "UPDATE"
           ],
           "forEach": "ROW",
           "when": "",
@@ -28076,6 +28186,28 @@
             "INSERT",
             "UPDATE",
             "DELETE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        },
+        {
+          "id": 6034,
+          "source": "public",
+          "methodId": 6029,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_00_cycle_info_department_tree",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT",
+            "UPDATE"
           ],
           "forEach": "ROW",
           "when": "",
@@ -55397,6 +55529,28 @@
           "when": "",
           "args": "",
           "updateColumnIds": []
+        },
+        {
+          "id": 6036,
+          "source": "public",
+          "methodId": 6029,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_00_cycle_mstr_item_tree",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT",
+            "UPDATE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
         }
       ]
     },
@@ -56097,6 +56251,28 @@
             "INSERT",
             "UPDATE",
             "DELETE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        },
+        {
+          "id": 6035,
+          "source": "public",
+          "methodId": 6029,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_00_cycle_mstr_task_tree",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT",
+            "UPDATE"
           ],
           "forEach": "ROW",
           "when": "",
