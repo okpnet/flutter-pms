@@ -145,22 +145,14 @@ class _MyImagePanelState extends ConsumerState<MyImagePanel> {
                 if (!canChange) Text(t.myImage.readOnly),
                 if (canChange && summary != null) ...[
                   Text(t.myImage.note, style: theme.textTheme.bodySmall),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      FilledButton.icon(
-                        onPressed: _busy ? null : _choose,
-                        icon: const Icon(Icons.upload_file),
-                        label: Text(t.myImage.choose),
-                      ),
-                      OutlinedButton(
-                        onPressed: _busy || avatar == null || avatar.isDefault
-                            ? null
-                            : _reset,
-                        child: Text(t.myImage.reset),
-                      ),
-                    ],
+                  ActionButtons(
+                    primaryIcon: Icons.upload_file,
+                    primaryLabel: t.myImage.choose,
+                    onPrimary: _busy ? null : _choose,
+                    secondaryLabel: t.myImage.reset,
+                    onSecondary: _busy || avatar == null || avatar.isDefault
+                        ? null
+                        : _reset,
                   ),
                 ],
                 if (_busy) const LoadingBar(),

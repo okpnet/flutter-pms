@@ -355,15 +355,14 @@ class _WorkCalendarPageState extends ConsumerState<WorkCalendarPage> {
                   isDense: true,
                 ),
               ),
-              FilledButton(
-                key: const ValueKey('calendarApply'),
-                onPressed: enabled ? () => _apply(t) : null,
-                child: Text(t.calendar.apply),
-              ),
-              OutlinedButton(
-                key: const ValueKey('calendarReset'),
-                onPressed: enabled ? () => _reset(t) : null,
-                child: Text(t.calendar.reset),
+              ActionButtons(
+                primaryKey: const ValueKey('calendarApply'),
+                primaryLabel: t.calendar.apply,
+                onPrimary: enabled ? () => _apply(t) : null,
+                secondaryKey: const ValueKey('calendarReset'),
+                secondaryLabel: t.calendar.reset,
+                onSecondary: enabled ? () => _reset(t) : null,
+                buttonWidth: 140,
               ),
             ],
             const Divider(),

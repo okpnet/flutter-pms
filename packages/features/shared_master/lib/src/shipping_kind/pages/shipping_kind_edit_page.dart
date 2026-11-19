@@ -131,24 +131,15 @@ class _ShippingKindEditPageState extends ConsumerState<ShippingKindEditPage> {
     final id = widget.id;
     if (id == null) return;
     final t = ref.read(sharedMasterStringsProvider);
-    final ok = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(t.shippingKind.confirmDelete.title),
-        content: Text(t.shippingKind.confirmDelete.message(name: _name.text)),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(t.common.cancel),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(t.common.delete),
-          ),
-        ],
-      ),
+    final ok = await showConfirmDialog(
+      context,
+      title: t.shippingKind.confirmDelete.title,
+      message: t.shippingKind.confirmDelete.message(name: _name.text),
+      confirmLabel: t.common.delete,
+      cancelLabel: t.common.cancel,
+      destructive: true,
     );
-    if (ok != true) return;
+    if (!ok) return;
     try {
       await ref.read(shippingKindRepositoryProvider).remove(id);
     } on ShippingKindInUseException {
@@ -202,19 +193,11 @@ class _ShippingKindEditPageState extends ConsumerState<ShippingKindEditPage> {
                         color: Theme.of(context).colorScheme.error,
                       ),
                     ),
-                  Row(
-                    spacing: 12,
-                    children: [
-                      FilledButton(
-                        onPressed: _save,
-                        child: Text(t.common.save),
-                      ),
-                      if (!_isNew)
-                        OutlinedButton(
-                          onPressed: _delete,
-                          child: Text(t.common.delete),
-                        ),
-                    ],
+                  ActionButtons(
+                    primaryLabel: t.common.save,
+                    onPrimary: _save,
+                    dangerLabel: _isNew ? null : t.common.delete,
+                    onDanger: _delete,
                   ),
                 ],
               ),

@@ -13,11 +13,11 @@
 library;
 
 export 'src/action_buttons.dart';
-export 'src/action_buttons.dart';
 export 'src/app_shell_labels.dart';
 export 'src/breadcrumbs.dart';
 export 'src/content_width.dart';
 export 'src/busy_overlay.dart';
+export 'src/confirm_dialog.dart';
 export 'src/hamburger_menu.dart';
 export 'src/main_frame.dart';
 export 'src/menu_model.dart';

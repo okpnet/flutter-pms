@@ -337,24 +337,13 @@ class _EntityEditPageState extends State<EntityEditPage> {
   /// 実行の確認(取り消せない操作)。実行するときだけ true。
   Future<bool> _confirmSave() async {
     final strings = _scope.strings;
-    final ok = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(strings.confirmSave.title),
-        content: Text(strings.confirmSave.message),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(strings.cancel),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(strings.confirmSave.ok),
-          ),
-        ],
-      ),
+    return showConfirmDialog(
+      context,
+      title: strings.confirmSave.title,
+      message: strings.confirmSave.message,
+      confirmLabel: strings.confirmSave.ok,
+      cancelLabel: strings.cancel,
     );
-    return ok == true;
   }
 
   /// 子が存在する間は外せない真偽([FieldDefinition.lockedBy])を、外そうとしていないか確かめる。
@@ -383,24 +372,15 @@ class _EntityEditPageState extends State<EntityEditPage> {
     if (id == null) return;
     final strings = _scope.strings;
     final name = _displayName();
-    final ok = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(strings.confirmDelete.title),
-        content: Text(strings.confirmDelete.message(name: name)),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(strings.cancel),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(strings.delete),
-          ),
-        ],
-      ),
+    final ok = await showConfirmDialog(
+      context,
+      title: strings.confirmDelete.title,
+      message: strings.confirmDelete.message(name: name),
+      confirmLabel: strings.delete,
+      cancelLabel: strings.cancel,
+      destructive: true,
     );
-    if (ok != true) return;
+    if (!ok) return;
     try {
       await _scope.catalog.delete(widget.entityKey, id);
     } on EntityInUseException catch (e) {
@@ -524,25 +504,11 @@ class _EntityEditPageState extends State<EntityEditPage> {
                         ),
                       // 画面案: 保存は右、削除は左(危険な操作を保存から離す)。新規の「追加」は、既存のテストと操作の文言を保つため、「保存」のまま
                       if (!definition.viewOnly)
-                        Row(
-                          children: [
-                            if (!_isNew)
-                              OutlinedButton(
-                                onPressed: _delete,
-                                style: OutlinedButton.styleFrom(
-                                  foregroundColor: theme.colorScheme.error,
-                                  side: BorderSide(
-                                    color: theme.colorScheme.error,
-                                  ),
-                                ),
-                                child: Text(strings.delete),
-                              ),
-                            const Spacer(),
-                            FilledButton(
-                              onPressed: _save,
-                              child: Text(strings.save),
-                            ),
-                          ],
+                        ActionButtons(
+                          primaryLabel: strings.save,
+                          onPrimary: _save,
+                          dangerLabel: _isNew ? null : strings.delete,
+                          onDanger: _delete,
                         ),
                     ],
                   ),

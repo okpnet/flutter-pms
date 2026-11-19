@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  _confirmTests();
   testWidgets('主・副のボタンは同じ幅で、中央に横並びになる', (tester) async {
     var primary = 0;
     var secondary = 0;
@@ -32,5 +33,70 @@ void main() {
     await tester.tap(find.text('設定する'));
     await tester.tap(find.text('標準に戻す'));
     expect([primary, secondary], [1, 1]);
+  });
+}
+
+void _confirmTests() {
+  testWidgets('保存・削除・補助の並びと色: 同じ幅で、削除はエラーの色', (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: SizedBox(
+            width: 900,
+            child: ActionButtons(
+              primaryLabel: '保存',
+              onPrimary: () {},
+              dangerLabel: '削除',
+              onDanger: () {},
+              tertiaryLabel: '終了',
+              onTertiary: () {},
+            ),
+          ),
+        ),
+      ),
+    );
+    final p = tester.getRect(find.byKey(const ValueKey('actionPrimary')));
+    final d = tester.getRect(find.byKey(const ValueKey('actionDanger')));
+    final t = tester.getRect(find.byKey(const ValueKey('actionTertiary')));
+    expect(p.width, d.width);
+    expect(d.width, t.width);
+    expect(p.left, lessThan(d.left));
+    expect(d.left, lessThan(t.left));
+    final style = tester
+        .widget<OutlinedButton>(find.byKey(const ValueKey('actionDanger')))
+        .style!;
+    final scheme = Theme.of(tester.element(find.text('削除'))).colorScheme;
+    expect(style.foregroundColor!.resolve({}), scheme.error);
+  });
+
+  testWidgets('確認のダイアログ: 実行は true、取り消しは false', (tester) async {
+    bool? result;
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Builder(
+          builder: (context) => TextButton(
+            onPressed: () async => result = await showConfirmDialog(
+              context,
+              title: '確認',
+              message: '消しますか',
+              confirmLabel: '削除',
+              cancelLabel: '取り消し',
+              destructive: true,
+            ),
+            child: const Text('開く'),
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.text('開く'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('取り消し'));
+    await tester.pumpAndSettle();
+    expect(result, false);
+    await tester.tap(find.text('開く'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('削除'));
+    await tester.pumpAndSettle();
+    expect(result, true);
   });
 }

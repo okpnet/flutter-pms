@@ -1,5 +1,6 @@
 import 'package:app_core/app_core_api.dart';
 import 'package:feature_shared/feature_shared.dart';
+import 'package:app_shell/app_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -279,26 +280,16 @@ class _BackstagePageState extends ConsumerState<BackstagePage> {
                     (v) => _sidebarIconOnly = v,
                   ),
                   const SizedBox(height: 8),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      FilledButton(
-                        key: const ValueKey('save'),
-                        onPressed: _busy ? null : _save,
-                        child: Text(t.buttons.save),
-                      ),
-                      OutlinedButton(
-                        key: const ValueKey('reset'),
-                        onPressed: _busy ? null : _reset,
-                        child: Text(t.buttons.reset),
-                      ),
-                      TextButton(
-                        key: const ValueKey('exit'),
-                        onPressed: _busy ? null : _leave,
-                        child: Text(t.buttons.exit),
-                      ),
-                    ],
+                  ActionButtons(
+                    primaryKey: const ValueKey('save'),
+                    primaryLabel: t.buttons.save,
+                    onPrimary: _busy ? null : _save,
+                    secondaryKey: const ValueKey('reset'),
+                    secondaryLabel: t.buttons.reset,
+                    onSecondary: _busy ? null : _reset,
+                    tertiaryKey: const ValueKey('exit'),
+                    tertiaryLabel: t.buttons.exit,
+                    onTertiary: _busy ? null : _leave,
                   ),
                 ],
               ),
