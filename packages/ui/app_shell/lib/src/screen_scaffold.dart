@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:view_responsiveness/constants/media_break_point.dart';
 
 import 'breadcrumbs.dart';
+import 'content_width.dart';
 
 /// 機能の画面の骨組み(画面案 `tools/open-design` の画面の枠)。AppBar を使わず、画面の見出しと本体を縦に並べる。
 ///
@@ -41,18 +42,38 @@ class ScreenScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    body: Column(
-      children: [
-        ScreenTitle(
-          title: title,
-          actions: actions,
-          overline: overline,
-          breadcrumbs: breadcrumbs,
-          asOf: asOf,
-          backLabel: backLabel,
-        ),
-        Expanded(child: body),
-      ],
+    body: LayoutBuilder(
+      builder: (context, constraints) {
+        // 内容の幅: スマートフォンは 95%、それ以外は 90%(上限 1600)で中央([ContentWidth])。
+        // 見出しの背景は、全幅に敷く
+        final width = ContentWidth.ofContext(context, constraints.maxWidth);
+        return Column(
+          children: [
+            Material(
+              color: Theme.of(context).colorScheme.surface,
+              child: Center(
+                child: SizedBox(
+                  width: width,
+                  child: ScreenTitle(
+                    title: title,
+                    actions: actions,
+                    overline: overline,
+                    breadcrumbs: breadcrumbs,
+                    asOf: asOf,
+                    backLabel: backLabel,
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: SizedBox(width: width, child: body),
+              ),
+            ),
+          ],
+        );
+      },
     ),
   );
 }
@@ -85,7 +106,7 @@ class ScreenTitle extends StatelessWidget {
       color: scheme.onSurfaceVariant,
     );
     return Material(
-      color: scheme.surface,
+      color: Colors.transparent,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
         child: Column(
@@ -175,15 +196,20 @@ class _TitleBlockState extends State<_TitleBlock> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (crumbs.isEmpty && widget.overline != null && widget.overline!.isNotEmpty)
+        if (crumbs.isEmpty &&
+            widget.overline != null &&
+            widget.overline!.isNotEmpty)
           Text(
             widget.overline!,
             key: const ValueKey('screenOverline'),
             style: widget.muted,
             overflow: TextOverflow.ellipsis,
           ),
-        if (crumbs.isNotEmpty && !mobile) Breadcrumbs(items: crumbs),
-        if (crumbs.isNotEmpty && mobile)
+        // 通常: 「ルート(小)▶ 子(小)▶ 見出し(大)」を 1 行に並べる
+        if (crumbs.isNotEmpty && !mobile)
+          Breadcrumbs(items: crumbs, title: title)
+        // スマートフォン: 見出しだけ。押すと、下にパンくず(「ルート▶ 子▶」)が開く
+        else if (crumbs.isNotEmpty)
           InkWell(
             key: const ValueKey('screenTitleToggle'),
             onTap: () => setState(() => _open = !_open),
@@ -208,7 +234,7 @@ class _TitleBlockState extends State<_TitleBlock> {
             child: _open
                 ? Padding(
                     padding: const EdgeInsets.only(top: 4),
-                    child: Breadcrumbs(items: crumbs),
+                    child: Breadcrumbs(items: crumbs, trailingSeparator: true),
                   )
                 : const SizedBox(width: double.infinity),
           ),

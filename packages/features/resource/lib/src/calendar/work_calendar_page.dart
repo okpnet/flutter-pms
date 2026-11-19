@@ -201,7 +201,7 @@ class _WorkCalendarPageState extends ConsumerState<WorkCalendarPage> {
             child: Align(
               alignment: Alignment.topCenter,
               child: SizedBox(
-                width: EntityListPage.contentWidth(constraints.maxWidth),
+                width: constraints.maxWidth,
                 child: wide
                     ? Row(
                         crossAxisAlignment: CrossAxisAlignment.start,

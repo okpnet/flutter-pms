@@ -148,22 +148,47 @@ class _CompanyHomePageState extends ConsumerState<CompanyHomePage> {
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    Wrap(
-                      spacing: 40,
-                      runSpacing: 16,
-                      children: [
+                    // 読みやすい行の構成(折り返しで途中で切れない): 読みと略称 / 代表者 / ホームページ / 所在地 / 電話と FAX
+                    _FactRow(
+                      key: const ValueKey('homeRowNames'),
+                      facts: [
                         _Fact(
                           label('pronunciation'),
                           _field(company, 'pronunciation'),
                         ),
                         _Fact(label('nickname'), _field(company, 'nickname')),
-                        _Fact(label('ceo'), _field(company, 'ceo')),
+                      ],
+                    ),
+                    _FactRow(
+                      key: const ValueKey('homeRowCeo'),
+                      facts: [
+                        _Fact(label('ceo'), _field(company, 'ceo'), wide: true),
+                      ],
+                    ),
+                    _FactRow(
+                      key: const ValueKey('homeRowWeb'),
+                      facts: [
                         _Fact(
                           label('web_page'),
                           _field(company, 'web_page'),
                           link: true,
+                          wide: true,
                         ),
-                        _Fact(t.address as String, _address(company)),
+                      ],
+                    ),
+                    _FactRow(
+                      key: const ValueKey('homeRowAddress'),
+                      facts: [
+                        _Fact(
+                          t.address as String,
+                          _address(company),
+                          wide: true,
+                        ),
+                      ],
+                    ),
+                    _FactRow(
+                      key: const ValueKey('homeRowContact'),
+                      facts: [
                         _Fact(label('phone'), _field(company, 'phone')),
                         _Fact(
                           label('fax_number'),
@@ -497,17 +522,23 @@ class _EditButton extends StatelessWidget {
 
 /// 項目名と値。空の値は「-」。
 class _Fact extends StatelessWidget {
-  const _Fact(this.label, this.value, {this.link = false});
+  const _Fact(this.label, this.value, {this.link = false, this.wide = false});
 
   final String label;
   final String value;
   final bool link;
 
+  /// 1 行に 1 項目だけのとき、幅を制限しない(長い所在地などを折り返さない)。
+  final bool wide;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return ConstrainedBox(
-      constraints: const BoxConstraints(minWidth: 200, maxWidth: 420),
+      constraints: BoxConstraints(
+        minWidth: 200,
+        maxWidth: wide ? double.infinity : 420,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -704,4 +735,15 @@ class _Chip extends StatelessWidget {
       ),
     );
   }
+}
+
+/// 項目を 1 行に並べる(幅が足りないときだけ、行の中で折り返す)。
+class _FactRow extends StatelessWidget {
+  const _FactRow({super.key, required this.facts});
+
+  final List<_Fact> facts;
+
+  @override
+  Widget build(BuildContext context) =>
+      Wrap(spacing: 40, runSpacing: 12, children: facts);
 }

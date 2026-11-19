@@ -73,4 +73,21 @@ void main() {
     expect(find.byKey(const ValueKey('listTitle')), findsOneWidget);
     expect(find.text('役割(役職)の一覧'), findsOneWidget);
   });
+  testWidgets('会社の概要の項目は、行ごとに並ぶ(読みと略称 / 代表者 / ホームページ / 所在地 / 電話と FAX)', (tester) async {
+    await _open(tester);
+    double top(String key) => tester.getTopLeft(find.byKey(ValueKey(key))).dy;
+    final rows = ['homeRowNames', 'homeRowCeo', 'homeRowWeb', 'homeRowAddress', 'homeRowContact'];
+    for (var i = 1; i < rows.length; i++) {
+      expect(top(rows[i]), greaterThan(top(rows[i - 1])), reason: rows[i]);
+    }
+    // 読みと略称は同じ行(2 項目が横に並ぶ)、電話と FAX も同じ行
+    for (final key in ['homeRowNames', 'homeRowContact']) {
+      final tops = find
+          .descendant(of: find.byKey(ValueKey(key)), matching: find.byType(Column))
+          .evaluate()
+          .map((e) => tester.getTopLeft(find.byWidget(e.widget)).dy)
+          .toSet();
+      expect(tops.length, 1, reason: key);
+    }
+  });
 }

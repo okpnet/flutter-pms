@@ -505,7 +505,8 @@ class _EntityEditPageState extends State<EntityEditPage> {
           Align(
             alignment: Alignment.topCenter,
             child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 760),
+              // 幅は内容の幅(ScreenScaffold)いっぱい。子の台帳の枠と幅をそろえる
+              constraints: const BoxConstraints(),
               child: Card(
                 margin: EdgeInsets.zero,
                 child: Padding(

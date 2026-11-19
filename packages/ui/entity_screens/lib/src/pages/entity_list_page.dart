@@ -60,13 +60,6 @@ class EntityListPage extends StatefulWidget {
   /// 検索窓の幅(20〜30 文字ぶん)。
   static const double searchWidth = 320;
 
-  /// 一覧の内容の最大の幅。
-  static const double maxContentWidth = 1200;
-
-  /// 画面の幅 [available] に対する、内容の幅。広い画面は 80%(上限 [maxContentWidth])、狭い画面は全幅。
-  static double contentWidth(double available) =>
-      available < 900 ? available : (available * 0.8).clamp(0, maxContentWidth);
-
   @override
   State<EntityListPage> createState() => _EntityListPageState();
 }
@@ -230,8 +223,8 @@ class _EntityListPageState extends State<EntityListPage> {
       builder: (context, constraints) => Align(
         alignment: Alignment.topCenter,
         child: SizedBox(
-          // 広い画面では、幅の 80%(上限 maxContentWidth)に収め、中央に置く(両端の圧迫感を減らす)
-          width: EntityListPage.contentWidth(constraints.maxWidth),
+          // 内容の幅(スマートフォン 95%・それ以外 90%・上限 1600)は、見出しの枠(ScreenScaffold)が決める
+          width: constraints.maxWidth,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
             child: Column(

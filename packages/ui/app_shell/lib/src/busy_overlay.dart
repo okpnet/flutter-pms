@@ -123,11 +123,7 @@ class _BusyCardState extends State<_BusyCard> {
           mainAxisSize: MainAxisSize.min,
           spacing: 12,
           children: [
-            const SizedBox(
-              width: 48,
-              height: 48,
-              child: LoadingIndicator(),
-            ),
+            const SizedBox(width: 48, height: 48, child: LoadingIndicator()),
             Text(widget.message, style: theme.textTheme.titleMedium),
             if (elapsed != null)
               Text(

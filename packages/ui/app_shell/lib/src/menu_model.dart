@@ -50,8 +50,7 @@ class AppMenu {
   /// グループの後に並ぶ、グループに入らない項目(例: 会社情報)。
   final List<AppMenuItem> bottomItems;
 
-  bool get isEmpty =>
-      topItems.isEmpty && groups.isEmpty && bottomItems.isEmpty;
+  bool get isEmpty => topItems.isEmpty && groups.isEmpty && bottomItems.isEmpty;
 }
 
 /// ログインユーザーの表示用の情報。

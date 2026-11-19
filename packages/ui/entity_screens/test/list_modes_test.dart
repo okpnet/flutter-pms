@@ -86,11 +86,6 @@ void main() {
     );
   });
 
-  test('一覧の幅: 広い画面は 80%(上限 1200)、狭い画面は全幅', () {
-    expect(EntityListPage.contentWidth(1150), 920);
-    expect(EntityListPage.contentWidth(2000), 1200);
-    expect(EntityListPage.contentWidth(800), 800);
-  });
 
   testWidgets('検索の文字と、種別のチップで絞り込める', (tester) async {
     await _pump(tester, twoModes: false);

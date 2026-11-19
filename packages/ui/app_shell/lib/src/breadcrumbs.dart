@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// パンくずリストの 1 項目。[onTap] があれば、押せる(戻り先)。無ければ、押せない(いまの画面・画面を持たないグループ)。
+/// パンくずリストの 1 項目。[onTap] があれば、押せる(戻り先)。無ければ、押せない(画面を持たないグループ)。
 class BreadcrumbItem {
   const BreadcrumbItem(this.label, {this.onTap});
 
@@ -10,12 +10,26 @@ class BreadcrumbItem {
   Map<String, Object?> toJson() => {'label': label, 'tappable': onTap != null};
 }
 
-/// パンくずリスト(「資源 ▶ 設備 ▶ 編集」)。左から右へ、小さな塗りの三角を挟んで並べる。
-/// 最後の項目(いまの画面)は押せず、少し濃い色で出す。
+/// パンくずリスト + 見出し。「ルート(小)▶ 子(小)▶ 見出し(大)」を、1 行に左から右へ並べる
+/// (区切りは小さな塗りの三角)。
+///
+/// [title] を渡すと、最後の三角のあとに見出しを置く(文字の基線をそろえる)。渡さないときは、項目だけを並べる
+/// ([trailingSeparator] が真なら、最後の項目のあとにも三角を付ける。スマートフォンで見出しの下に開く行)。
 class Breadcrumbs extends StatelessWidget {
-  const Breadcrumbs({super.key, required this.items});
+  const Breadcrumbs({
+    super.key,
+    required this.items,
+    this.title,
+    this.trailingSeparator = false,
+  });
 
   final List<BreadcrumbItem> items;
+
+  /// 見出し(大きな文字)。
+  final Widget? title;
+
+  /// 見出しが無いとき、最後の項目のあとにも三角を付ける。
+  final bool trailingSeparator;
 
   @override
   Widget build(BuildContext context) {
@@ -23,26 +37,38 @@ class Breadcrumbs extends StatelessWidget {
     final muted = theme.textTheme.bodySmall?.copyWith(
       color: theme.colorScheme.onSurfaceVariant,
     );
-    final last = items.length - 1;
-    return Wrap(
+    return Row(
       key: const ValueKey('screenBreadcrumb'),
-      crossAxisAlignment: WrapCrossAlignment.center,
-      spacing: 8,
-      runSpacing: 2,
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.baseline,
+      textBaseline: TextBaseline.alphabetic,
       children: [
         for (var i = 0; i < items.length; i++) ...[
           if (i > 0) _separator(theme),
-          _crumb(context, i, items[i], i == last, muted),
+          Flexible(child: _crumb(context, i, items[i], muted)),
         ],
+        if (title != null) ...[
+          if (items.isNotEmpty) _separator(theme),
+          Flexible(child: title!),
+        ] else if (trailingSeparator && items.isNotEmpty)
+          _separator(theme),
       ],
     );
   }
 
+  /// 小さな三角(▶)。文字と基線がそろうよう、文字で描く。
   Widget _separator(ThemeData theme) {
     final size = (theme.textTheme.bodySmall?.fontSize ?? 12) * 0.7;
-    return CustomPaint(
-      size: Size(size, size),
-      painter: _TrianglePainter(theme.colorScheme.onSurfaceVariant),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Text(
+        '▶',
+        key: const ValueKey('crumbSeparator'),
+        style: TextStyle(
+          fontSize: size,
+          color: theme.colorScheme.onSurfaceVariant,
+        ),
+      ),
     );
   }
 
@@ -50,17 +76,17 @@ class Breadcrumbs extends StatelessWidget {
     BuildContext context,
     int i,
     BreadcrumbItem item,
-    bool isLast,
     TextStyle? muted,
   ) {
     final scheme = Theme.of(context).colorScheme;
-    final text = Text(
-      item.label,
-      key: ValueKey('crumb:$i'),
-      style: isLast ? muted?.copyWith(color: scheme.onSurface) : muted,
-      overflow: TextOverflow.ellipsis,
-    );
-    if (item.onTap == null || isLast) return text;
+    if (item.onTap == null) {
+      return Text(
+        item.label,
+        key: ValueKey('crumb:$i'),
+        style: muted,
+        overflow: TextOverflow.ellipsis,
+      );
+    }
     return InkWell(
       onTap: item.onTap,
       borderRadius: BorderRadius.circular(4),
@@ -72,23 +98,4 @@ class Breadcrumbs extends StatelessWidget {
       ),
     );
   }
-}
-
-class _TrianglePainter extends CustomPainter {
-  _TrianglePainter(this.color);
-
-  final Color color;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final path = Path()
-      ..moveTo(size.width * 0.25, 0)
-      ..lineTo(size.width * 0.9, size.height / 2)
-      ..lineTo(size.width * 0.25, size.height)
-      ..close();
-    canvas.drawPath(path, Paint()..color = color);
-  }
-
-  @override
-  bool shouldRepaint(_TrianglePainter old) => old.color != color;
 }
