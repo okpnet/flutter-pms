@@ -60,6 +60,7 @@ query LocationPageRead(
         office: infoOfficeByInfoOfficeId {
           infoOfficeId
           infoCompanyId
+          infoAddressId
           code
 
           labels: sharedAppellationByNames {

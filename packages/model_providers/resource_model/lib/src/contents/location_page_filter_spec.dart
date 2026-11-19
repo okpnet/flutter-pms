@@ -21,6 +21,7 @@ abstract class LocationPageFilterSpec {
     'department||infoOfficeId': FlatFilterPath([FilterStep('infoDepartmentByInfoDepartmentId')], 'infoOfficeId'),
     'department||office||infoOfficeId': FlatFilterPath([FilterStep('infoDepartmentByInfoDepartmentId'), FilterStep('infoOfficeByInfoOfficeId')], 'infoOfficeId'),
     'department||office||infoCompanyId': FlatFilterPath([FilterStep('infoDepartmentByInfoDepartmentId'), FilterStep('infoOfficeByInfoOfficeId')], 'infoCompanyId'),
+    'department||office||infoAddressId': FlatFilterPath([FilterStep('infoDepartmentByInfoDepartmentId'), FilterStep('infoOfficeByInfoOfficeId')], 'infoAddressId'),
     'department||office||code': FlatFilterPath([FilterStep('infoDepartmentByInfoDepartmentId'), FilterStep('infoOfficeByInfoOfficeId')], 'code'),
     'department||office||labels||sharedAppellationsId': FlatFilterPath([FilterStep('infoDepartmentByInfoDepartmentId'), FilterStep('infoOfficeByInfoOfficeId'), FilterStep('sharedAppellationByNames')], 'sharedAppellationsId'),
     'department||office||labels||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId': FlatFilterPath([FilterStep('infoDepartmentByInfoDepartmentId'), FilterStep('infoOfficeByInfoOfficeId'), FilterStep('sharedAppellationByNames'), FilterStep('sharedDictionaryBySharedDictionaryNameId')], 'sharedDictionaryId'),

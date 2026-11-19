@@ -323,6 +323,7 @@ mutation LocationPageEdit(
         office: infoOfficeByInfoOfficeId {
           infoOfficeId
           infoCompanyId
+          infoAddressId
           code
 
           labels: sharedAppellationByNames {

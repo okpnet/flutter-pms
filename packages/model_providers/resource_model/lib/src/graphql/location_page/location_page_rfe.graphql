@@ -34,6 +34,7 @@ query LocationPageRfe(
       office: infoOfficeByInfoOfficeId {
         infoOfficeId
         infoCompanyId
+        infoAddressId
         code
 
         labels: sharedAppellationByNames {

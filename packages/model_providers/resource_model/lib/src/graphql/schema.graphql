@@ -796,6 +796,7 @@ type InfoOffice {
   infoOfficeId: UUID!
   infoCompanyId: UUID!
   code: String!
+  infoAddressId: UUID
   symbol: String
   remarks: String
   updateAt: Datetime
