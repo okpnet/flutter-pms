@@ -102,7 +102,7 @@ module.exports = function build(D, X) {
     rows: D.deptKinds.map((k) => row(k.id, { name: k.name, detail: '' })),
   });
   out.push({
-    key: 'department', label: '部署', project: 'organization', isTree: true,
+    key: 'department', label: '部署', project: 'organization', isTree: true, treeTitle: ['code', 'name'], treeTags: 'departmentkind',
     fields: [f('code', '組織コード'), f('name', '組織名称'), f('pronunciation', '読み', 'text', { req: false }), f('nickname', '略称', 'text', { req: false }), f('site', '事業所', 'reference', { ref: 'site', req: false })],
     rows: D.departments.map((d, i) => row(d.id, { code: seq('DP', i), name: d.name, pronunciation: rd(d.name), nickname: '', site: DEPT_OFFICE[d.id] ?? '' }, d.parent)),
   });

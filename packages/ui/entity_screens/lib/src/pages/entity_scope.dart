@@ -83,50 +83,50 @@ List<ColumnDefinition<EntityRecord>> columnsOf(
   for (final f in definition.fields)
     if (f.inList)
       ColumnDefinition<EntityRecord>(
-      key: f.key,
-      label: labels.field(definition.key, f.key),
-      readOnly: f.readOnly,
-      type: switch (f.kind) {
-        FieldKind.number => ColumnType.number,
-        FieldKind.date => ColumnType.time,
-        _ => ColumnType.string,
-      },
-      // ファイルの列は、ファイル名を押すとダウンロードする(並べ替え・絞り込みはファイル名)
-      renderer: f.kind == FieldKind.file && onDownload != null
-          ? BuilderCellRenderer<EntityRecord>((context, cell) {
-              final file = EntityFile.tryParse(cell.item.valueOf(f.key));
-              if (file == null) return const SizedBox.shrink();
-              return TextButton(
-                key: ValueKey('file:${f.key}:${cell.item.id}'),
-                onPressed: () => onDownload(file),
-                child: Text(file.label, overflow: TextOverflow.ellipsis),
-              );
-            })
-          : null,
-      getter: (r) {
-        final value = r.valueOf(f.key);
-        if (f.kind == FieldKind.file) {
-          return EntityFile.tryParse(value)?.label ?? '';
-        }
-        // 別の真偽(トグル)がオンで無効になっている項目は、定義した文言(f_<キー>__off)を出す
-        final off = definition.fields.any(
-          (o) =>
-              o.kind == FieldKind.flag &&
-              o.disables == f.key &&
-              r.valueOf(o.key) == flagOn,
-        );
-        if (off) {
-          final text = labels.field(definition.key, '${f.key}__off');
-          if (text != '${f.key}__off') return text;
-        }
-        if (f.kind == FieldKind.reference) {
-          return names[f.key]?[value] ?? value;
-        }
-        if (f.kind == FieldKind.flag) return value == flagOn ? yes : no;
-        if (f.kind == FieldKind.condition && value.isNotEmpty) {
-          return ConditionValue.displayOf(value);
-        }
-        return value;
-      },
-    ),
+        key: f.key,
+        label: labels.field(definition.key, f.key),
+        readOnly: f.readOnly,
+        type: switch (f.kind) {
+          FieldKind.number => ColumnType.number,
+          FieldKind.date => ColumnType.time,
+          _ => ColumnType.string,
+        },
+        // ファイルの列は、ファイル名を押すとダウンロードする(並べ替え・絞り込みはファイル名)
+        renderer: f.kind == FieldKind.file && onDownload != null
+            ? BuilderCellRenderer<EntityRecord>((context, cell) {
+                final file = EntityFile.tryParse(cell.item.valueOf(f.key));
+                if (file == null) return const SizedBox.shrink();
+                return TextButton(
+                  key: ValueKey('file:${f.key}:${cell.item.id}'),
+                  onPressed: () => onDownload(file),
+                  child: Text(file.label, overflow: TextOverflow.ellipsis),
+                );
+              })
+            : null,
+        getter: (r) {
+          final value = r.valueOf(f.key);
+          if (f.kind == FieldKind.file) {
+            return EntityFile.tryParse(value)?.label ?? '';
+          }
+          // 別の真偽(トグル)がオンで無効になっている項目は、定義した文言(f_<キー>__off)を出す
+          final off = definition.fields.any(
+            (o) =>
+                o.kind == FieldKind.flag &&
+                o.disables == f.key &&
+                r.valueOf(o.key) == flagOn,
+          );
+          if (off) {
+            final text = labels.field(definition.key, '${f.key}__off');
+            if (text != '${f.key}__off') return text;
+          }
+          if (f.kind == FieldKind.reference) {
+            return names[f.key]?[value] ?? value;
+          }
+          if (f.kind == FieldKind.flag) return value == flagOn ? yes : no;
+          if (f.kind == FieldKind.condition && value.isNotEmpty) {
+            return ConditionValue.displayOf(value);
+          }
+          return value;
+        },
+      ),
 ];

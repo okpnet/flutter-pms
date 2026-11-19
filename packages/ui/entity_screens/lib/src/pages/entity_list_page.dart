@@ -3,6 +3,7 @@ import 'package:app_shell/app_shell.dart';
 import 'package:flgtable_lib/tree_table_lib.dart';
 import 'package:flutter/material.dart';
 
+import '../catalog.dart';
 import '../definition.dart';
 import '../record.dart';
 import 'entity_scope.dart';
@@ -95,7 +96,38 @@ class _EntityListPageState extends State<EntityListPage> {
       for (final r in await repository.find(take: 100000))
         if (widget.filter.entries.every((e) => r.valueOf(e.key) == e.value)) r,
     ];
-    return _Loaded(repository.definition, records, namesOf(options));
+    return _Loaded(
+      repository.definition,
+      records,
+      namesOf(options),
+      await _loadTags(catalog, repository.definition),
+    );
+  }
+
+  /// 木の行のタグ(親の id → タグの文字)。子の台帳([EntityDefinition.treeTags])の最初の参照の項目の表示名。
+  Future<Map<String, List<String>>> _loadTags(
+    EntityCatalog catalog,
+    EntityDefinition definition,
+  ) async {
+    final childKey = definition.treeTags;
+    if (childKey == null) return const {};
+    final repository = catalog.repository(childKey);
+    if (repository == null) return const {};
+    final reference = repository.definition.fields
+        .where((f) => f.kind == FieldKind.reference)
+        .firstOrNull;
+    if (reference == null) return const {};
+    final names = namesOf(
+      await loadReferenceOptions(catalog, repository.definition),
+    );
+    final tags = <String, List<String>>{};
+    for (final r in await repository.find(take: 100000)) {
+      final parent = r.parentId;
+      if (parent == null) continue;
+      final value = r.valueOf(reference.key);
+      (tags[parent] ??= []).add(names[reference.key]?[value] ?? value);
+    }
+    return tags;
   }
 
   void _reload() => setState(() {
@@ -404,7 +436,9 @@ class _EntityListPageState extends State<EntityListPage> {
       childCounts[r.parentId] = (childCounts[r.parentId] ?? 0) + 1;
     }
     final treeColumns = [
-      ...columns,
+      ...(loaded.definition.treeTitle.isEmpty
+          ? columns
+          : _treeRowColumns(loaded, childCounts)),
       // 配下の件数(子のある行だけ)
       ColumnDefinition<EntityRecord>(
         key: _belowKey,
@@ -413,6 +447,15 @@ class _EntityListPageState extends State<EntityListPage> {
         sortable: false,
         filterable: false,
         exportable: false,
+        // 1 列の木のときは、配下の件数をチップで出す
+        renderer: loaded.definition.treeTitle.isEmpty
+            ? null
+            : BuilderCellRenderer<EntityRecord>((context, cell) {
+                final n = childCounts[cell.item.id] ?? 0;
+                return n == 0
+                    ? const SizedBox.shrink()
+                    : _smallChip(context, scope.strings.belowCount(count: n));
+              }),
         getter: (r) {
           final n = childCounts[r.id] ?? 0;
           return n == 0 ? '' : scope.strings.belowCount(count: n);
@@ -441,7 +484,81 @@ class _EntityListPageState extends State<EntityListPage> {
         rowKey: (r) => r.id,
         config: config,
         events: events,
-        treeConfig: const TreeConfig(childCountColumnKey: _childCountKey),
+        treeConfig: const TreeConfig(
+          childCountColumnKey: _childCountKey,
+          initiallyExpanded: true,
+        ),
+      ),
+    );
+  }
+
+  /// 1 列の木の列(画面案: 「組織コード 組織名称」を太字、右端にタグ)。
+  List<ColumnDefinition<EntityRecord>> _treeRowColumns(
+    _Loaded loaded,
+    Map<String?, int> childCounts,
+  ) {
+    final scope = widget.scope;
+    final definition = loaded.definition;
+    String title(EntityRecord r) => [
+      for (final k in definition.treeTitle)
+        if (r.valueOf(k).isNotEmpty) r.valueOf(k),
+    ].join(' ');
+    return [
+      ColumnDefinition<EntityRecord>(
+        key: 'treeTitle',
+        label: scope.labels.entity(widget.entityKey),
+        readOnly: true,
+        sortable: false,
+        filterable: false,
+        getter: title,
+        renderer: BuilderCellRenderer<EntityRecord>(
+          (context, cell) => Text(
+            title(cell.item),
+            style: Theme.of(
+              context,
+            ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ),
+      if (definition.treeTags != null)
+        ColumnDefinition<EntityRecord>(
+          key: 'treeTags',
+          label: scope.labels.entity(definition.treeTags!),
+          readOnly: true,
+          sortable: false,
+          filterable: false,
+          exportable: false,
+          getter: (r) => (loaded.tags[r.id] ?? const []).join(' '),
+          renderer: BuilderCellRenderer<EntityRecord>(
+            (context, cell) => Wrap(
+              spacing: 6,
+              runSpacing: 2,
+              children: [
+                for (final t in loaded.tags[cell.item.id] ?? const <String>[])
+                  _smallChip(context, t),
+              ],
+            ),
+          ),
+        ),
+    ];
+  }
+
+  /// 小さな丸いチップ(タグ・配下の件数)。
+  Widget _smallChip(BuildContext context, String text) {
+    final scheme = Theme.of(context).colorScheme;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 1),
+      decoration: BoxDecoration(
+        color: scheme.secondaryContainer,
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Text(
+        text,
+        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+          color: scheme.onSecondaryContainer,
+          fontWeight: FontWeight.w700,
+        ),
       ),
     );
   }
@@ -518,9 +635,12 @@ class _EntityListPageState extends State<EntityListPage> {
 }
 
 class _Loaded {
-  const _Loaded(this.definition, this.records, this.names);
+  const _Loaded(this.definition, this.records, this.names, this.tags);
 
   final EntityDefinition definition;
   final List<EntityRecord> records;
   final ReferenceNames names;
+
+  /// 木の行のタグ(親の id → タグの文字)。
+  final Map<String, List<String>> tags;
 }

@@ -292,6 +292,8 @@ class EntityDefinition {
     required this.fields,
     this.owner,
     this.isTree = false,
+    this.treeTitle = const [],
+    this.treeTags,
     this.uniqueKeys = const [],
     this.reverseLists = const [],
     this.nest,
@@ -311,6 +313,14 @@ class EntityDefinition {
 
   /// 同じ実体の中で親子(ツリー)を持つか。
   final bool isTree;
+
+  /// 木の台帳の行の見出し(項目のキーの並び。値を空白でつなぎ、太字で出す。例: 組織コード + 組織名称)。
+  /// 空のときは、項目を列として並べる(表の形)。あれば、1 列の木(見出し + タグ + 配下の件数)で出す。
+  final List<String> treeTitle;
+
+  /// 木の行の右端にタグで出す、子の台帳の実体のキー(例: 部署区分の割当)。
+  /// タグの文字は、その子の台帳の最初の参照の項目の表示名。
+  final String? treeTags;
 
   /// 重複を認めない項目の組(DB の一意制約・画面案の「重複不可」)。
   /// 範囲は、所有される実体なら同じ親の中、それ以外は全体。空の値は対象にしない。

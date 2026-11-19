@@ -483,6 +483,8 @@ function defsDart(pkg, list) {
       const a = [`key: ${dq(e.key)}`];
       if (e.owner) a.push(`owner: ${dq(e.owner)}`);
       if (e.isTree) a.push('isTree: true');
+      if (e.treeTitle) a.push(`treeTitle: [${e.treeTitle.map(dq).join(', ')}]`);
+      if (e.treeTags) a.push(`treeTags: ${dq(e.treeTags)}`);
       const uniq = UNIQUE[e.key] ?? (e.fields.some((x) => x.uniq) ? e.fields.filter((x) => x.uniq).map((x) => [x.key]) : null);
       if (e.nest) {
         const where = Object.entries(e.nest.where).map(([k, v]) => `${dq(k)}: ${dq(v)}`).join(', ');
