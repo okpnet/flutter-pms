@@ -242,21 +242,25 @@ class _WorkCalendarPageState extends ConsumerState<WorkCalendarPage> {
               firstWeekday: ref.watch(calendarFirstWeekdayProvider),
               visibleWeekdays: ref.watch(calendarVisibleWeekdaysProvider),
               showJapaneseHolidays: true,
-              header: DropdownButton<String>(
-                key: const ValueKey('calendarEquipment'),
-                value: _equipment,
-                items: [
-                  DropdownMenuItem(
-                    value: '',
-                    child: Text(t.calendar.allEquipment),
-                  ),
-                  for (final o in _equipments)
-                    DropdownMenuItem(value: o.id, child: Text(o.label)),
-                ],
-                onChanged: (v) {
-                  _controller.clearSelection();
-                  setState(() => _equipment = v ?? '');
-                },
+              header: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 260),
+                child: DropdownButton<String>(
+                  key: const ValueKey('calendarEquipment'),
+                  isExpanded: true,
+                  value: _equipment,
+                  items: [
+                    DropdownMenuItem(
+                      value: '',
+                      child: Text(t.calendar.allEquipment),
+                    ),
+                    for (final o in _equipments)
+                      DropdownMenuItem(value: o.id, child: Text(o.label)),
+                  ],
+                  onChanged: (v) {
+                    _controller.clearSelection();
+                    setState(() => _equipment = v ?? '');
+                  },
+                ),
               ),
               cellBuilder: (context, day) => day.value == null || day.holiday
                   ? null

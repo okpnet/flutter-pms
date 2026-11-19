@@ -398,7 +398,8 @@ class _CalendarViewState<T> extends State<CalendarView<T>> {
         child: Text(widget.labels.today),
       ),
       const Spacer(),
-      ?widget.header,
+      // 幅が足りないときは縮む(はみ出さない)
+      if (widget.header != null) Flexible(child: widget.header!),
     ],
   );
 
