@@ -4,6 +4,7 @@ import 'package:backstage/backstage.dart';
 import 'package:dashboard_container/dashboard_container_api.dart';
 import 'package:logger_provider/logger_provider.dart';
 import 'package:settings_keeper/settings_keeper.dart';
+import 'package:user_profile/user_profile.dart' show MyImagePanel;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pms_app/services/services.dart';
 
@@ -52,6 +53,8 @@ Future<void> main() async {
         appNameProvider.overrideWith(
           (ref) => ref.watch(appCoreStringsProvider).app.title,
         ),
+        //設定画面のユーザーの画像(変更できるかは裏設定の isChangeUserImage)
+        userImageSlotProvider.overrideWithValue((_) => const MyImagePanel()),
         //設定の保存先は shared_preferences
         settingsStorageProvider.overrideWithValue(
           SharedPreferencesSettingsStorage(SharedPreferencesAsync()),

@@ -28,7 +28,7 @@
 |---|---|---|---|
 | 自分のイメージ | `MyImageDestination` | `/profile/image` | 枠の中 |
 | 表示パターン(確認用) | `UserDisplayDestination` | `/profile/display` | 枠の中 |
-メニューの項目は持たず、アプリのユーザーメニュー(`pms_app` の `AppMainFrame`)の「自分のイメージ」から開く。顔写真は `AppMainFrame` が `userAvatarProvider` を `AppUser.photo` へ渡す。
+メニューの項目は持たず、アプリのユーザーメニュー(`pms_app` の `AppMainFrame`)の「自分のイメージ」から開く。画像の枠(`MyImagePanel`)は、設定画面のユーザー欄にも置く(`feature_shared` の `userImageSlotProvider` をアプリが差し込む。変更できるかは `isChangeUserImage`。変更できないときは、変更の操作を出さず案内だけ)。顔写真は `AppMainFrame` が `userAvatarProvider` を `AppUser.photo` へ渡す。
 
 ## 構成
 | 種別 | ファイル | 内容 |

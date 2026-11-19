@@ -305,6 +305,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
               ),
               size: UserContainerSize.large,
             ),
+          // ユーザーの画像(user_profile の部品。アプリが差し込む。変更できるのは裏設定が許すときだけ)
+          if (ref.watch(userImageSlotProvider) case final slot?) slot(context),
           TextField(
             controller: _userName,
             decoration: InputDecoration(labelText: t.user.name),

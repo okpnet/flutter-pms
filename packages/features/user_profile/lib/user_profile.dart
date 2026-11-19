@@ -15,5 +15,6 @@ export 'src/avatar/image_policy.dart';
 export 'src/avatar/user_avatar_provider.dart';
 export 'src/i18n/strings_provider.dart'
     show UserProfileStrings, userProfileStringsProvider;
+export 'src/pages/my_image_page.dart' show MyImagePanel;
 export 'src/user_profile_module.dart' show UserProfileModule;
 export 'src/user_profile_paths.dart';

@@ -16,14 +16,31 @@ import '../i18n/strings_provider.dart';
 /// 現在の画像(と名前・役割のプレビュー)を見せる。変更できるのは [isChangeUserImageProvider] が true のときだけ
 /// (標準は変更できず、管理者が変更する)。変更できるときは、画像ファイルを選ぶ(PNG・JPEG・GIF・WebP、2MBまで)と
 /// 縮小して登録し、アプリバーとダッシュボードの顔写真が変わる。「初期のイメージに戻す」で登録を削除する。
-class MyImagePage extends ConsumerStatefulWidget {
+class MyImagePage extends StatelessWidget {
   const MyImagePage({super.key});
 
   @override
-  ConsumerState<MyImagePage> createState() => _MyImagePageState();
+  Widget build(BuildContext context) => Consumer(
+    builder: (context, ref, _) => ScreenScaffold(
+      title: ref.watch(userProfileStringsProvider).myImage.title,
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: const [MyImagePanel()],
+      ),
+    ),
+  );
 }
 
-class _MyImagePageState extends ConsumerState<MyImagePage> {
+/// 自分のイメージの枠(現在の画像・名前・役割。変更できるときだけ、選ぶ・初期に戻す)。
+/// 自分のイメージの画面と、設定画面(アプリが差し込む)の両方に置く。
+class MyImagePanel extends ConsumerStatefulWidget {
+  const MyImagePanel({super.key});
+
+  @override
+  ConsumerState<MyImagePanel> createState() => _MyImagePanelState();
+}
+
+class _MyImagePanelState extends ConsumerState<MyImagePanel> {
   bool _busy = false;
   String? _error;
   String? _notice;
@@ -86,91 +103,88 @@ class _MyImagePageState extends ConsumerState<MyImagePage> {
     final summary = ref.watch(userSummaryProvider);
     final canChange = ref.watch(isChangeUserImageProvider);
     final theme = Theme.of(context);
-    return ScreenScaffold(
-      title: t.myImage.title,
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 12,
-                children: [
-                  Text(t.myImage.title, style: theme.textTheme.titleMedium),
-                  if (summary == null || avatar == null)
-                    Text(t.myImage.noSession)
-                  else
-                    Row(
-                      spacing: 16,
-                      children: [
-                        Semantics(
-                          label: t.myImage.current,
-                          image: true,
-                          child: CircleAvatar(
-                            radius: 48,
-                            backgroundImage: avatar.image,
-                          ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 12,
+              children: [
+                Text(t.myImage.title, style: theme.textTheme.titleMedium),
+                if (summary == null || avatar == null)
+                  Text(t.myImage.noSession)
+                else
+                  Row(
+                    spacing: 16,
+                    children: [
+                      Semantics(
+                        label: t.myImage.current,
+                        image: true,
+                        child: CircleAvatar(
+                          radius: 48,
+                          backgroundImage: avatar.image,
                         ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                summary.name,
-                                style: theme.textTheme.titleMedium,
-                              ),
-                              if (summary.role.isNotEmpty) Text(summary.role),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  if (!canChange) Text(t.myImage.readOnly),
-                  if (canChange && summary != null) ...[
-                    Text(t.myImage.note, style: theme.textTheme.bodySmall),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: [
-                        FilledButton.icon(
-                          onPressed: _busy ? null : _choose,
-                          icon: const Icon(Icons.upload_file),
-                          label: Text(t.myImage.choose),
-                        ),
-                        OutlinedButton(
-                          onPressed: _busy || avatar == null || avatar.isDefault
-                              ? null
-                              : _reset,
-                          child: Text(t.myImage.reset),
-                        ),
-                      ],
-                    ),
-                  ],
-                  if (_busy) const LoadingBar(),
-                  if (_error != null)
-                    Semantics(
-                      liveRegion: true,
-                      child: Text(
-                        _error!,
-                        style: TextStyle(color: theme.colorScheme.error),
                       ),
-                    ),
-                  if (_notice != null)
-                    Semantics(
-                      liveRegion: true,
-                      child: Text(
-                        _notice!,
-                        style: TextStyle(color: theme.colorScheme.primary),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              summary.name,
+                              style: theme.textTheme.titleMedium,
+                            ),
+                            if (summary.role.isNotEmpty) Text(summary.role),
+                          ],
+                        ),
                       ),
-                    ),
+                    ],
+                  ),
+                if (!canChange) Text(t.myImage.readOnly),
+                if (canChange && summary != null) ...[
+                  Text(t.myImage.note, style: theme.textTheme.bodySmall),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      FilledButton.icon(
+                        onPressed: _busy ? null : _choose,
+                        icon: const Icon(Icons.upload_file),
+                        label: Text(t.myImage.choose),
+                      ),
+                      OutlinedButton(
+                        onPressed: _busy || avatar == null || avatar.isDefault
+                            ? null
+                            : _reset,
+                        child: Text(t.myImage.reset),
+                      ),
+                    ],
+                  ),
                 ],
-              ),
+                if (_busy) const LoadingBar(),
+                if (_error != null)
+                  Semantics(
+                    liveRegion: true,
+                    child: Text(
+                      _error!,
+                      style: TextStyle(color: theme.colorScheme.error),
+                    ),
+                  ),
+                if (_notice != null)
+                  Semantics(
+                    liveRegion: true,
+                    child: Text(
+                      _notice!,
+                      style: TextStyle(color: theme.colorScheme.primary),
+                    ),
+                  ),
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

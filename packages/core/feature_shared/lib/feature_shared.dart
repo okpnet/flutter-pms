@@ -18,6 +18,7 @@ export 'package:selection_result/selection_result.dart';
 
 export 'src/backstage.dart';
 export 'src/app_name.dart';
+export 'src/user_image_slot.dart';
 export 'src/busy.dart';
 
 export 'src/command_bus_provider.dart';

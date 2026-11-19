@@ -3,6 +3,7 @@ import 'package:app_core/app_core_api.dart';
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logger_provider/logger_provider.dart';
 import 'package:settings_keeper/settings_keeper.dart';
@@ -92,7 +93,10 @@ void main() {
   });
 
   group('設定画面', () {
-    Future<ProviderContainer> open(WidgetTester tester) async {
+    Future<ProviderContainer> open(
+      WidgetTester tester, {
+      List<Override> extra = const [],
+    }) async {
       await tester.binding.setSurfaceSize(const Size(900, 2200));
       addTearDown(() => tester.binding.setSurfaceSize(null));
       await tester.pumpWidget(
@@ -102,6 +106,7 @@ void main() {
           entries: const [FeatureHostEntry('設定', SettingsDestination())],
           overrides: [
             themeLoggerProvider.overrideWithValue(const NoopLoggerProvider()),
+            ...extra,
           ],
           themeOf: (ref) => ref.watch(lightThemeProvider),
           darkThemeOf: (ref) => ref.watch(darkThemeProvider),
@@ -117,6 +122,23 @@ void main() {
       await tester.pumpAndSettle();
       return container;
     }
+
+    testWidgets('ユーザーの画像の部品を差し込むと、設定のユーザー欄に出る(差し込まなければ出ない)', (tester) async {
+      await open(tester);
+      expect(find.byKey(const ValueKey('imageSlot')), findsNothing);
+    });
+
+    testWidgets('差し込んだユーザーの画像の部品が、設定に出る', (tester) async {
+      await open(
+        tester,
+        extra: [
+          userImageSlotProvider.overrideWithValue(
+            (_) => const SizedBox(key: ValueKey('imageSlot'), height: 10),
+          ),
+        ],
+      );
+      expect(find.byKey(const ValueKey('imageSlot')), findsOneWidget);
+    });
 
     testWidgets('登録されているテーマが並び、選ぶと即時に切り替わる', (tester) async {
       final container = await open(tester);
