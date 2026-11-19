@@ -14,6 +14,8 @@ dependencies:
     path: ../loadux_lib
   flutter:
     sdk: flutter
+  view_responsiveness:
+    path: ../view_responsiveness
   app_shell:
     path: ../app_shell
   flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml

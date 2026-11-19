@@ -3,6 +3,7 @@ import 'package:calendar_lib/calendar_lib.dart';
 import 'package:entity_screens/entity_screens.dart';
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter/material.dart';
+import 'package:view_responsiveness/constants/media_break_point.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../i18n/strings_provider.dart';
@@ -193,7 +194,7 @@ class _WorkCalendarPageState extends ConsumerState<WorkCalendarPage> {
       backLabel: scope.strings.back,
       body: LayoutBuilder(
         builder: (context, constraints) {
-          final wide = constraints.maxWidth >= 900;
+          final wide = MediaBreakPoint.of(constraints.maxWidth) == MediaBreakPoint.pc;
           final calendar = _calendarCard(t);
           final panel = _panel(t);
           return SingleChildScrollView(

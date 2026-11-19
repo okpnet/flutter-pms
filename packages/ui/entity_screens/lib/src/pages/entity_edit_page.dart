@@ -3,6 +3,7 @@ import 'condition_editor.dart';
 import 'package:app_shell/app_shell.dart';
 import 'package:flgtable_lib/flgtable_lib.dart';
 import 'package:flutter/material.dart';
+import 'package:view_responsiveness/constants/media_break_point.dart';
 
 import '../condition.dart';
 import '../definition.dart';
@@ -574,7 +575,7 @@ class _EntityEditPageState extends State<EntityEditPage> {
     );
   }
 
-  /// 項目を並べる。広いとき(520 以上)は 2 列で、複数行・ファイルは全幅。狭いときは 1 列。
+  /// 項目を並べる。広いときは 2 列(view_responsiveness の区分が mobile でないとき)で、複数行・ファイルは全幅。狭いときは 1 列。
   Widget _fieldGrid(EntityDefinition definition, EntityScreenStrings strings) {
     final items = <(Widget, bool)>[
       for (final f in definition.fields)
@@ -588,7 +589,7 @@ class _EntityEditPageState extends State<EntityEditPage> {
     ];
     return LayoutBuilder(
       builder: (context, c) {
-        final twoColumns = c.maxWidth >= 520;
+        final twoColumns = MediaBreakPoint.of(c.maxWidth) != MediaBreakPoint.mobile;
         final colWidth = twoColumns ? (c.maxWidth - 24) / 2 : c.maxWidth;
         return Wrap(
           spacing: 24,

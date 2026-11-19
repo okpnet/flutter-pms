@@ -2,6 +2,7 @@ import 'package:app_shell/app_shell.dart';
 import 'package:entity_screens/entity_screens.dart';
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter/material.dart';
+import 'package:view_responsiveness/constants/media_break_point.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loadux_lib/loadux_lib.dart';
 
@@ -212,7 +213,7 @@ class _CompanyHomePageState extends ConsumerState<CompanyHomePage> {
         const SizedBox(height: 12),
         LayoutBuilder(builder: (context, c) {
           // 広いときは 4 列、狭いときは 2 列(スマートフォンの幅)
-          final cols = c.maxWidth >= 720 ? 4 : 2;
+          final cols = MediaBreakPoint.of(c.maxWidth) == MediaBreakPoint.mobile ? 2 : 4;
           final tileWidth = (c.maxWidth - 16 * (cols - 1)) / cols;
           return Wrap(
           spacing: 16,
