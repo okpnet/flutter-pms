@@ -71,9 +71,25 @@ void main() {
     expect(find.text('会社情報'), findsOneWidget); // 上の文字
     expect(find.byKey(const ValueKey('screenTitle')), findsOneWidget);
     expect(find.byKey(const ValueKey('screenAsOf')), findsOneWidget);
-    expect(find.text('事業所を検索'), findsOneWidget);
     expect(find.text('事業所の一覧'), findsOneWidget);
     expect(find.text('全3件のうち3件を表示。'), findsOneWidget);
+    // 検索窓は一覧のカードの見出しの中にある(別のカードにしない)
+    expect(
+      find.descendant(
+        of: find.ancestor(
+          of: find.byKey(const ValueKey('listTitle')),
+          matching: find.byType(Card),
+        ),
+        matching: find.byKey(const ValueKey('listSearch')),
+      ),
+      findsOneWidget,
+    );
+  });
+
+  test('一覧の幅: 広い画面は 80%(上限 1200)、狭い画面は全幅', () {
+    expect(EntityListPage.contentWidth(1150), 920);
+    expect(EntityListPage.contentWidth(2000), 1200);
+    expect(EntityListPage.contentWidth(800), 800);
   });
 
   testWidgets('検索の文字と、種別のチップで絞り込める', (tester) async {

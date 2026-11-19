@@ -56,6 +56,16 @@ class EntityListPage extends StatefulWidget {
   final Future<void> Function(EntityRecord item, EntityRecord? newParent)?
   onReparent;
 
+  /// 検索窓の幅(20〜30 文字ぶん)。
+  static const double searchWidth = 320;
+
+  /// 一覧の内容の最大の幅。
+  static const double maxContentWidth = 1200;
+
+  /// 画面の幅 [available] に対する、内容の幅。広い画面は 80%(上限 [maxContentWidth])、狭い画面は全幅。
+  static double contentWidth(double available) =>
+      available < 900 ? available : (available * 0.8).clamp(0, maxContentWidth);
+
   @override
   State<EntityListPage> createState() => _EntityListPageState();
 }
@@ -166,7 +176,9 @@ class _EntityListPageState extends State<EntityListPage> {
 
   /// 種別のチップにする項目(選択肢の項目のうち最初のもの)。
   FieldDefinition? _chipField(EntityDefinition definition) => definition.fields
-      .where((f) => f.kind == FieldKind.choice && !f.hidden && f.options.isNotEmpty)
+      .where(
+        (f) => f.kind == FieldKind.choice && !f.hidden && f.options.isNotEmpty,
+      )
       .firstOrNull;
 
   /// 台帳の画面(画面案: 検索の枠 + 一覧の枠)。
@@ -176,129 +188,138 @@ class _EntityListPageState extends State<EntityListPage> {
     final theme = Theme.of(context);
     final name = widget.title ?? scope.labels.entity(widget.entityKey);
     final records = _filtered(loaded);
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // 木は、絞り込むと親が消えるため、検索の枠は出さない
-          if (!loaded.definition.isTree) ...[
-            _searchCard(loaded, name),
-            const SizedBox(height: 16),
-          ],
-          Expanded(
-            child: Card(
-              margin: EdgeInsets.zero,
-              clipBehavior: Clip.antiAlias,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 16, 20, 4),
-                    child: Row(
+    final chip = loaded.definition.isTree
+        ? null
+        : _chipField(loaded.definition);
+    return LayoutBuilder(
+      builder: (context, constraints) => Align(
+        alignment: Alignment.topCenter,
+        child: SizedBox(
+          // 広い画面では、幅の 80%(上限 maxContentWidth)に収め、中央に置く(両端の圧迫感を減らす)
+          width: EntityListPage.contentWidth(constraints.maxWidth),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                  child: Card(
+                    margin: EdgeInsets.zero,
+                    clipBehavior: Clip.antiAlias,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Expanded(
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 16, 20, 4),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  strings.listTitle(name: name),
+                                  key: const ValueKey('listTitle'),
+                                  style: theme.textTheme.titleLarge?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                              // 検索は表の見出しの中央に置く(表との結びつきを強くする)。木は、絞り込むと親が消えるため出さない
+                              if (!loaded.definition.isTree) ...[
+                                SizedBox(
+                                  width: EntityListPage.searchWidth,
+                                  child: _searchField(),
+                                ),
+                                const SizedBox(width: 12),
+                              ],
+                              if (widget.twoModes &&
+                                  !loaded.definition.viewOnly)
+                                OutlinedButton.icon(
+                                  key: const ValueKey('listEditMode'),
+                                  icon: Icon(
+                                    _editing
+                                        ? Icons.check
+                                        : Icons.edit_outlined,
+                                    size: 18,
+                                  ),
+                                  label: Text(
+                                    _editing
+                                        ? strings.editDone
+                                        : strings.editMode,
+                                  ),
+                                  onPressed: () =>
+                                      setState(() => _editing = !_editing),
+                                ),
+                              if (widget.showCreate && _canEdit) ...[
+                                const SizedBox(width: 8),
+                                FilledButton.icon(
+                                  key: const ValueKey('listCreate'),
+                                  icon: const Icon(Icons.add, size: 18),
+                                  label: Text(strings.create),
+                                  onPressed: _create,
+                                ),
+                              ],
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
                           child: Text(
-                            strings.listTitle(name: name),
-                            key: const ValueKey('listTitle'),
-                            style: theme.textTheme.titleLarge?.copyWith(
-                              fontWeight: FontWeight.w700,
+                            '${strings.listCount(total: loaded.records.length, shown: records.length)}'
+                            '${widget.twoModes && _editing ? ' ${strings.editHint}' : ''}',
+                            key: const ValueKey('listCount'),
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: theme.colorScheme.onSurfaceVariant,
                             ),
                           ),
                         ),
-                        if (widget.twoModes && !loaded.definition.viewOnly)
-                          OutlinedButton.icon(
-                            key: const ValueKey('listEditMode'),
-                            icon: Icon(
-                              _editing ? Icons.check : Icons.edit_outlined,
-                              size: 18,
-                            ),
-                            label: Text(
-                              _editing ? strings.editDone : strings.editMode,
-                            ),
-                            onPressed: () => setState(() => _editing = !_editing),
-                          ),
-                        if (widget.showCreate && _canEdit) ...[
-                          const SizedBox(width: 8),
-                          FilledButton.icon(
-                            key: const ValueKey('listCreate'),
-                            icon: const Icon(Icons.add, size: 18),
-                            label: Text(strings.create),
-                            onPressed: _create,
-                          ),
-                        ],
+                        if (chip != null) _chipBand(chip),
+                        const Divider(height: 1),
+                        Expanded(child: _table(loaded, records)),
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
-                    child: Text(
-                      '${strings.listCount(total: loaded.records.length, shown: records.length)}'
-                      '${widget.twoModes && _editing ? ' ${strings.editHint}' : ''}',
-                      key: const ValueKey('listCount'),
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                  ),
-                  const Divider(height: 1),
-                  Expanded(child: _table(loaded, records)),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
 
-  /// 検索の枠: 検索窓と、種別のチップ。
-  Widget _searchCard(_Loaded loaded, String name) {
+  /// 検索窓(表の見出しの中央)。
+  Widget _searchField() => TextField(
+    key: const ValueKey('listSearch'),
+    decoration: InputDecoration(
+      prefixIcon: const Icon(Icons.search),
+      hintText: widget.scope.strings.searchHint,
+      isDense: true,
+    ),
+    onChanged: (v) => setState(() => _query = v),
+  );
+
+  /// 種別のチップ(表の直上の細い帯)。
+  Widget _chipBand(FieldDefinition chip) {
     final strings = widget.scope.strings;
-    final theme = Theme.of(context);
-    final chip = _chipField(loaded.definition);
-    return Card(
-      margin: EdgeInsets.zero,
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 12,
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Wrap(
+          spacing: 8,
+          runSpacing: 4,
           children: [
-            Text(
-              strings.searchTitle(name: name),
-              style: theme.textTheme.titleSmall?.copyWith(
-                fontWeight: FontWeight.w700,
-              ),
+            ChoiceChip(
+              key: const ValueKey('chip:all'),
+              label: Text(strings.chipAll),
+              selected: _chip == null,
+              onSelected: (_) => setState(() => _chip = null),
             ),
-            TextField(
-              key: const ValueKey('listSearch'),
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search),
-                hintText: strings.searchHint,
-                isDense: true,
-              ),
-              onChanged: (v) => setState(() => _query = v),
-            ),
-            if (chip != null)
-              Wrap(
-                spacing: 8,
-                runSpacing: 4,
-                children: [
-                  ChoiceChip(
-                    key: const ValueKey('chip:all'),
-                    label: Text(strings.chipAll),
-                    selected: _chip == null,
-                    onSelected: (_) => setState(() => _chip = null),
-                  ),
-                  for (final o in chip.options)
-                    ChoiceChip(
-                      key: ValueKey('chip:$o'),
-                      label: Text(o),
-                      selected: _chip == o,
-                      onSelected: (_) => setState(() => _chip = o),
-                    ),
-                ],
+            for (final o in chip.options)
+              ChoiceChip(
+                key: ValueKey('chip:$o'),
+                label: Text(o),
+                selected: _chip == o,
+                onSelected: (_) => setState(() => _chip = o),
               ),
           ],
         ),
@@ -324,7 +345,9 @@ class _EntityListPageState extends State<EntityListPage> {
       sortEnabled: true,
       filterEnabled: true,
       // 行のボタンが有るときは、行を選んで、上部のメニューから操作する
-      rowSelection: hasActions ? RowSelectionMode.single : RowSelectionMode.none,
+      rowSelection: hasActions
+          ? RowSelectionMode.single
+          : RowSelectionMode.none,
       dragEnabled: loaded.definition.isTree && widget.onReparent != null,
     );
     final events = TableEvents<EntityRecord>(
@@ -414,7 +437,10 @@ class _EntityListPageState extends State<EntityListPage> {
   ///
   /// 行ごとにボタンを置くと、上下の行と間違えて押すため、行を選んでから、メニューで操作を選ぶ。
   /// 選んだ行は、バーに名前を出す(どの行への操作かを確認できる)。
-  Widget _actionBar(_Loaded loaded, List<ColumnDefinition<EntityRecord>> columns) {
+  Widget _actionBar(
+    _Loaded loaded,
+    List<ColumnDefinition<EntityRecord>> columns,
+  ) {
     final strings = widget.scope.strings;
     final record = _selected;
     final actions = record == null
@@ -452,7 +478,9 @@ class _EntityListPageState extends State<EntityListPage> {
                     await widget.onAction!(a, record!);
                     if (mounted) _reload();
                   },
-                  child: Text(widget.scope.labels.field(widget.entityKey, a.key)),
+                  child: Text(
+                    widget.scope.labels.field(widget.entityKey, a.key),
+                  ),
                 ),
             ],
             builder: (context, controller, _) => OutlinedButton.icon(
