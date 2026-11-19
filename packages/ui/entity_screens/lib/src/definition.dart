@@ -92,6 +92,7 @@ class FieldDefinition {
     this.picker = false,
     this.readOnly = false,
     this.hidden = false,
+    this.inList = true,
     this.toggle = false,
     this.disables,
     this.ge,
@@ -129,6 +130,10 @@ class FieldDefinition {
 
   /// 編集画面に出さない(値は初期値・読み込みのまま保持して保存に渡す。行の ID など、利用者に見せない値用)。
   final bool hidden;
+
+  /// 台帳(一覧)に列として出すか。false の項目は、編集・検索の対象のまま、一覧の列にしない
+  /// (列が多いと横にあふれて読みにくいため。住所の細かい項目など)。
+  final bool inList;
 
   /// [FieldKind.flag] をトグル(スイッチ)で入力する。false はチェックボックス。
   final bool toggle;

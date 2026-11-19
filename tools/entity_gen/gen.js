@@ -464,6 +464,7 @@ function defsDart(pkg, list) {
           if (fl.picker) a.push('picker: true');
           if (fl.readOnly) a.push('readOnly: true');
           if (fl.hidden) a.push('hidden: true');
+          if (fl.inList === false) a.push('inList: false');
           if (fl.toggle) a.push('toggle: true');
           if (fl.disables) a.push(`disables: ${dq(fl.disables)}`);
           if (fl.ge != null) a.push(`ge: ${fl.ge}`);

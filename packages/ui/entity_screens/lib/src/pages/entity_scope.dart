@@ -81,7 +81,8 @@ List<ColumnDefinition<EntityRecord>> columnsOf(
   Future<void> Function(EntityFile file)? onDownload,
 }) => [
   for (final f in definition.fields)
-    ColumnDefinition<EntityRecord>(
+    if (f.inList)
+      ColumnDefinition<EntityRecord>(
       key: f.key,
       label: labels.field(definition.key, f.key),
       readOnly: f.readOnly,

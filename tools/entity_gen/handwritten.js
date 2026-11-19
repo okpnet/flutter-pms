@@ -15,18 +15,19 @@ const f = (key, label, kind = 'text', o = {}) => ({
   options: o.options,
   ref: o.ref,
   picker: o.picker,
+  inList: o.inList,
 });
 
 /** 住所(info_address の列。名称は DB のコメント): 国・郵便番号・住所1・住所2・建物・電話番号・FAX。
  *  住所1・住所2・建物は、呼称(多言語の辞書)。住所1 = 都道府県と市区町村(例 東京都千代田区)、住所2 = 町名・番地・号(例 千代田1-1-1)として使う。 */
 const addressFields = () => [
-  f('country_code_2', '国', 'text', { req: false }),
+  f('country_code_2', '国', 'text', { req: false, inList: false }),
   f('zip_code', '郵便番号', 'text', { req: false }),
   f('address1', '住所1', 'text', { req: false }),
   f('address2', '住所2', 'text', { req: false }),
-  f('building', '建物', 'text', { req: false }),
-  f('phone', '電話番号', 'text', { req: false }),
-  f('fax_number', 'FAX', 'text', { req: false }),
+  f('building', '建物', 'text', { req: false, inList: false }),
+  f('phone', '電話番号', 'text', { req: false, inList: false }),
+  f('fax_number', 'FAX', 'text', { req: false, inList: false }),
 ];
 /** 1つの文字列の住所を、上の項目に分ける(画面案のサンプル用)。住所1 = 都道府県 + 市区町村、住所2 = 残り。 */
 const splitAddress = (text = '', tel = '', fax = '') => {
@@ -92,7 +93,7 @@ module.exports = function build(D, X) {
   });
   out.push({
     key: 'site', label: '事業所', project: 'organization',
-    fields: [f('code', '事業所コード'), f('name', '事業所名称'), f('pronunciation', '読み', 'text', { req: false }), f('nickname', '略称', 'text', { req: false }), ...addressFields()],
+    fields: [f('code', '事業所コード'), f('name', '事業所名称'), f('pronunciation', '読み', 'text', { req: false }), f('nickname', '略称', 'text', { req: false, inList: false }), ...addressFields()],
     rows: D.sites.map((s) => row(s.id, { code: (X.siteCode?.[s.id] ?? ['', ''])[0] || s.id.toUpperCase(), name: s.name, pronunciation: (X.siteCode?.[s.id] ?? ['', ''])[1], nickname: '', ...splitAddress(s.address) })),
   });
   out.push({

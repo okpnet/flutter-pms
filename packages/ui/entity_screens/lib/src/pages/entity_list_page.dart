@@ -205,7 +205,8 @@ class _EntityListPageState extends State<EntityListPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Expanded(
+                SizedBox(
+                  height: _cardHeight(constraints.maxHeight, records.length),
                   child: Card(
                     margin: EdgeInsets.zero,
                     clipBehavior: Clip.antiAlias,
@@ -287,6 +288,15 @@ class _EntityListPageState extends State<EntityListPage> {
         ),
       ),
     );
+  }
+
+  /// 一覧のカードの高さ。行数に合わせる(行が少ないとき、表の下に空白を作らない)。上限は画面の残り。
+  double _cardHeight(double available, int rows) {
+    const head = 150.0; // 見出し・件数・区切り・チップ
+    const rowHeight = 44.0;
+    final want = head + (rows + 1) * rowHeight;
+    final max = available - 32; // 上下の余白
+    return want < max ? want : max;
   }
 
   /// 検索窓(表の見出しの中央)。
