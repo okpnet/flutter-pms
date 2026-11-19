@@ -14,6 +14,8 @@ scalar Cursor
 
 scalar Datetime
 
+scalar JSON
+
 scalar UUID
 
 enum MstrEquipmentAvailablesOrderBy {
@@ -498,6 +500,10 @@ enum VItemOnHandsOrderBy {
   PRIMARY_KEY_DESC
 }
 
+type CreateMstrItemKindPayload {
+  mstrItemKind: MstrItemKind
+}
+
 type HistoryInfoStaff {
   historyId: UUID!
   infoStaffId: UUID!
@@ -621,6 +627,7 @@ type MstrItemActualSizesConnection {
 type MstrItemKind {
   mstrItemKindId: UUID!
   code: String
+  names: UUID!
   symbol: String
   remarks: String
   updateAt: Datetime
@@ -926,6 +933,7 @@ type MstrTasksConnection {
 }
 
 type Mutation {
+  createMstrItemKind(input: CreateMstrItemKindInput!): CreateMstrItemKindPayload
   updateMstrEquipmentAvailableByMstrEquipmentAvailableId(input: UpdateMstrEquipmentAvailableByMstrEquipmentAvailableIdInput!): UpdateMstrEquipmentAvailablePayload
   updateMstrItemByMstrItemId(input: UpdateMstrItemByMstrItemIdInput!): UpdateMstrItemPayload
   updateMstrItemActualSizeByMstrItemActualSizeId(input: UpdateMstrItemActualSizeByMstrItemActualSizeIdInput!): UpdateMstrItemActualSizePayload
@@ -942,6 +950,7 @@ type Mutation {
   updateMstrTaskGroupByMstrTaskGroupId(input: UpdateMstrTaskGroupByMstrTaskGroupIdInput!): UpdateMstrTaskGroupPayload
   updateMstrTaskLocationByMstrTaskLocationId(input: UpdateMstrTaskLocationByMstrTaskLocationIdInput!): UpdateMstrTaskLocationPayload
   updateMstrTaskTreeByMstrTaskTreeId(input: UpdateMstrTaskTreeByMstrTaskTreeIdInput!): UpdateMstrTaskTreePayload
+  sharedAppellationSave(input: SharedAppellationSaveInput!): SharedAppellationSavePayload
 }
 
 type PageInfo {
@@ -988,6 +997,10 @@ type SharedAppellation {
   sharedDictionaryBySharedDictionaryNameId: SharedDictionary
   sharedDictionaryBySharedDictionaryPronunciationId: SharedDictionary
   sharedDictionaryBySharedDictionaryNicknameId: SharedDictionary
+}
+
+type SharedAppellationSavePayload {
+  sharedAppellation: SharedAppellation
 }
 
 type SharedDictionary {
@@ -1224,6 +1237,10 @@ input BooleanFilter {
   lessThanOrEqualTo: Boolean
   greaterThan: Boolean
   greaterThanOrEqualTo: Boolean
+}
+
+input CreateMstrItemKindInput {
+  mstrItemKind: MstrItemKindInput!
 }
 
 input DatetimeFilter {
@@ -1851,15 +1868,21 @@ input MstrItemKindFilter {
   not: MstrItemKindFilter
 }
 
-input MstrItemKindFk1Input {
-  updateBySharedAppellationsId: SharedAppellationOnMstrItemKindForMstrItemKindFk1UsingSharedAppellationsPkUpdate
+input MstrItemKindInput {
+  code: String
+  names: UUID
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
 }
 
 input MstrItemKindPatch {
   code: String
+  names: UUID
   remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
   remove: Boolean
-  sharedAppellationToNames: MstrItemKindFk1Input
 }
 
 input MstrItemLotFilter {
@@ -2544,11 +2567,6 @@ input SharedAppellationOnMstrItemForMstrItemFk5UsingSharedAppellationsPkUpdate {
   sharedAppellationsId: UUID!
 }
 
-input SharedAppellationOnMstrItemKindForMstrItemKindFk1UsingSharedAppellationsPkUpdate {
-  sharedAppellationPatch: updateSharedAppellationOnMstrItemKindForMstrItemKindFk1Patch!
-  sharedAppellationsId: UUID!
-}
-
 input SharedAppellationOnMstrItemOperationForMstrItemOperationFk2UsingSharedAppellationsPkUpdate {
   sharedAppellationPatch: updateSharedAppellationOnMstrItemOperationForMstrItemOperationFk2Patch!
   sharedAppellationsId: UUID!
@@ -2624,6 +2642,15 @@ input SharedAppellationPatch {
   sharedDictionaryToSharedDictionaryNameId: SharedAppellationsFk1Input
   sharedDictionaryToSharedDictionaryPronunciationId: SharedAppellationsFk3Input
   sharedDictionaryToSharedDictionaryNicknameId: SharedAppellationsFk2Input
+}
+
+input SharedAppellationSaveInput {
+  pAppellationId: UUID
+  pName: JSON
+  pPronunciation: JSON
+  pNickname: JSON
+  pStaffId: UUID
+  pStaffHistoryId: UUID
 }
 
 input SharedAppellationSharedAppellationsIx1Connect {
@@ -3501,12 +3528,6 @@ input updateMstrOperationTaskOnMstrOperationTaskForMstrOperationTaskFk3Patch {
 }
 
 input updateSharedAppellationOnMstrItemForMstrItemFk5Patch {
-  sharedDictionaryToSharedDictionaryNameId: SharedAppellationsFk1Input
-  sharedDictionaryToSharedDictionaryPronunciationId: SharedAppellationsFk3Input
-  sharedDictionaryToSharedDictionaryNicknameId: SharedAppellationsFk2Input
-}
-
-input updateSharedAppellationOnMstrItemKindForMstrItemKindFk1Patch {
   sharedDictionaryToSharedDictionaryNameId: SharedAppellationsFk1Input
   sharedDictionaryToSharedDictionaryPronunciationId: SharedAppellationsFk3Input
   sharedDictionaryToSharedDictionaryNicknameId: SharedAppellationsFk2Input

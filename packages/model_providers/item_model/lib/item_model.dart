@@ -17,6 +17,8 @@ export 'src/contents/task_group_page_filter_spec.dart';
 export 'src/contents/task_outsource_available_page_filter_spec.dart';
 export 'src/contents/task_page_filter_spec.dart';
 export 'src/contents/task_resource_page_filter_spec.dart';
+export 'src/graphql/item_kind_appellation_save_page/item_kind_appellation_save_page_call.graphql.dart';
+export 'src/graphql/item_kind_page/item_kind_page_create.graphql.dart';
 export 'src/graphql/item_kind_page/item_kind_page_edit.graphql.dart';
 export 'src/graphql/item_kind_page/item_kind_page_read.graphql.dart';
 export 'src/graphql/item_kind_page/item_kind_page_remove.graphql.dart';

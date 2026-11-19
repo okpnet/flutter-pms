@@ -4,7 +4,10 @@ import 'package:entity_screens/entity_screens.dart';
 import 'package:graphql/client.dart';
 import 'package:item_model/item_model.dart';
 
+import 'package:pms_graphql/pms_graphql.dart' show AuditUserSource;
+
 import '../entities/item_definitions.dart';
+import 'item_kind_repository.dart';
 
 /// 品目の実体の取得元(GraphQL 版。読み取り専用)。アプリが [GraphQLClient] を渡して組み立て、
 /// `entityRepositoryOverridesProvider` に渡すと、サンプル(メモリ上)の代わりに使われる。
@@ -17,10 +20,19 @@ import '../entities/item_definitions.dart';
 /// サンプルのまま。生成された型は、この中だけで使い、外へ出さない。抽出条件・並び順は無視する(サンプルと同じ)。
 ///
 /// パターン: Adapter(生成された読み込みの結果と、画面の [EntityRecord] を変換する)
-List<IEntityRepository> itemRepositories(GraphQLClient client) {
+List<IEntityRepository> itemRepositories(
+  GraphQLClient client, {
+  AuditUserSource? auditUser,
+}) {
   final language = _LanguageCode(client);
   return [
-    _ItemKindRepository(_readOnly('itemkind'), client, language),
+    // 品目区分(書き込みできる。呼称は共通関数、本体はミューテーション)
+    ItemKindRepository(
+      itemDefinitions.firstWhere((d) => d.key == 'itemkind'),
+      client,
+      () => language.id,
+      auditUser,
+    ),
     _ItemRepository(_readOnly('item'), client, language),
   ];
 }
@@ -107,75 +119,6 @@ abstract class _ReadOnlyRepository implements IEntityRepository {
   }
 
   static String yesNo(bool? v) => v == null ? '' : (v ? 'はい' : 'いいえ');
-}
-
-class _ItemKindRepository extends _ReadOnlyRepository {
-  _ItemKindRepository(super.definition, super.client, super.language);
-
-  EntityRecord _record(Query$ItemKindPageRead$allMstrItemKinds$nodes n) {
-    final l = n.labels;
-    return EntityRecord(
-      id: n.mstrItemKindId,
-      values: {
-        'code': _ReadOnlyRepository.text(n.code),
-        'name': _ReadOnlyRepository.dict(
-          l?.sharedDictionaryBySharedDictionaryNameId,
-        ),
-        'pronunciation': _ReadOnlyRepository.dict(
-          l?.sharedDictionaryBySharedDictionaryPronunciationId,
-        ),
-        'nickname': _ReadOnlyRepository.dict(
-          l?.sharedDictionaryBySharedDictionaryNicknameId,
-        ),
-        'remarks': _ReadOnlyRepository.text(n.remarks),
-      },
-    );
-  }
-
-  Future<List<EntityRecord>> _read(
-    int first,
-    int offset,
-    Map<String, dynamic> filter,
-  ) async {
-    final result = await client.query$ItemKindPageRead(
-      Options$Query$ItemKindPageRead(
-        variables: Variables$Query$ItemKindPageRead.fromJson({
-          'first': first,
-          'offset': offset,
-          'languageCodeId': await language.id,
-          if (filter.isNotEmpty) 'filter': filter,
-        }),
-        fetchPolicy: FetchPolicy.noCache,
-      ),
-    );
-    final e = result.exception;
-    if (e != null) throw e;
-    return [
-      for (final n
-          in result.parsedData?.allMstrItemKinds?.nodes ??
-              const <Query$ItemKindPageRead$allMstrItemKinds$nodes?>[])
-        if (n != null) _record(n),
-    ];
-  }
-
-  @override
-  Future<List<EntityRecord>> find({
-    required int take,
-    int skip = 0,
-    Expression? predicate,
-    SortExpression? orders,
-  }) => _read(take, skip, const {});
-
-  @override
-  Future<EntityRecord?> findById(String id) async {
-    final rows = await _read(1, 0, {
-      'mstrItemKindId': {'equalTo': id},
-    });
-    return rows.isEmpty ? null : rows.first;
-  }
-
-  @override
-  Future<List<EntityRecord>> findByParent(String? parentId) async => const [];
 }
 
 class _ItemRepository extends _ReadOnlyRepository {

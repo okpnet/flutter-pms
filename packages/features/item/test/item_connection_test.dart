@@ -29,12 +29,21 @@ void main() {
     });
 
     test('実体は読み取り専用: 新規・保存・削除を出さず、書き込もうとすると失敗する', () {
-      final repos = itemRepositories(GraphQLClient(link: HttpLink('http://localhost:1'), cache: GraphQLCache()));
+      final repos = itemRepositories(
+        GraphQLClient(
+          link: HttpLink('http://localhost:1'),
+          cache: GraphQLCache(),
+        ),
+      );
       expect(repos.map((r) => r.definition.key), ['itemkind', 'item']);
-      for (final r in repos) {
+      // 書き込めるのは品目区分だけ(item_kind_test.dart)。品目は読み取り専用
+      for (final r in repos.where((r) => r.definition.key != 'itemkind')) {
         expect(r.definition.viewOnly, isTrue);
         expect(r.definition.fields.every((f) => f.readOnly), isTrue);
-        expect(() => r.save(const EntityRecord(id: '', values: {})), throwsUnsupportedError);
+        expect(
+          () => r.save(const EntityRecord(id: '', values: {})),
+          throwsUnsupportedError,
+        );
         expect(() => r.remove('x'), throwsUnsupportedError);
       }
       expect(repos.last.definition.isTree, isTrue);

@@ -64,7 +64,7 @@
 ## 取得元(GraphQL 版。読み取り専用)
 `lib/src/graphql/item_repositories.dart` の `itemRepositories(GraphQLClient)` が、品目区分(`itemkind`)・品目(`item`)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
 1.  読み取り専用: 実体を `viewOnly`・各項目 `readOnly` にし、保存・削除は `UnsupportedError`。名称・読み・略称は多言語の辞書、詳細は多言語の文章(先頭の文)で、言語コード `ja` の値を読む。品目の親は品目ツリー(`mstr_item_tree`)の親の品目 ID(親ごとの絞り込みはサーバー側に無く、取得した中から選ぶ)。ほかの実体(品目HS・工程・サイズ・仕入先・作業単価・在庫など)は、サンプルのまま。
-1.  **【入れ替え: 呼称の DB 関数】** 書き込みは、共通関数(`shared_appellation_save`・`shared_text_save`)で呼称・文章を作り、返った ID を本体のミューテーションに渡す形で、品目・品目区分の取得元の `save` を入れ替え、`viewOnly` を外す(`issue/C_202611.md` の 2-1)。
+1.  **品目区分は書き込みできる**(2026-11-19。`item_kind_repository.dart`。通信テスト `test/item_kind_test.dart`)。名称・読み・略称は共通関数 `shared_appellation_save`(`ja` の値だけ入れ替わる)、本体は登録(`ItemKindPageCreate`)・更新(`ItemKindPageEdit`。変えた項目だけ)・論理削除(`ItemKindPageRemove`)。更新者は `auditUser`(`itemRepositories(client, auditUser:)`)。コードは任意で、重複を止める一意索引は無い。**品目(ツリー)は未実施**(親の付け替え・循環の検査・区分や単位の参照が要る)。
 1.  生成された型は、この中だけで使い、外へ出さない。言語コード `ja` の ID は、最初の1回だけ引く。
 ## example と多言語
 1.  ビジュアルテスト用に`example`(Windows 向け)を持つ。`flutter run -d windows`で起動し、`lib/main.dart`の`entries`に遷移先を足す(`packages/features/CLAUDE.md`の「機能プロジェクト共通」)。

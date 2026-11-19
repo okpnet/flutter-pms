@@ -6,11 +6,13 @@
 mutation ItemKindPageRemove(
   $mstrItemKindId: UUID!
   $remove: Boolean!
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
 ) {
   updateMstrItemKindByMstrItemKindId(
     input: {
       mstrItemKindId: $mstrItemKindId
-      mstrItemKindPatch: { remove: $remove }
+      mstrItemKindPatch: { remove: $remove, updateUserId: $updateUserId, updateUserHistoryId: $updateUserHistoryId }
     }
   ) {
     mstrItemKind {

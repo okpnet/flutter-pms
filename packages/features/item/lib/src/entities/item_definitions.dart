@@ -3,129 +3,283 @@ import 'package:entity_screens/entity_screens.dart';
 
 /// 品目の実体の定義。キーは graphql_provider_lib のビュー(DB の列)に合わせる。
 const List<EntityDefinition> itemDefinitions = [
-    EntityDefinition(
-      key: 'itemkind',
-      fields: [
-        FieldDefinition(key: 'code', required: false),
-        FieldDefinition(key: 'name'),
-        FieldDefinition(key: 'pronunciation', required: false),
-        FieldDefinition(key: 'nickname', required: false),
-        FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
-      ],
+  EntityDefinition(
+    key: 'itemkind',
+    fields: [
+      FieldDefinition(key: 'code', required: false),
+      FieldDefinition(key: 'name'),
+      FieldDefinition(key: 'pronunciation', required: false),
+      FieldDefinition(key: 'nickname', required: false),
+      FieldDefinition(
+        key: 'remarks',
+        kind: FieldKind.multiline,
+        required: false,
+      ),
+    ],
+  ),
+  EntityDefinition(
+    key: 'hscode',
+    fields: [
+      FieldDefinition(key: 'code', required: false),
+      FieldDefinition(
+        key: 'mstr_item_id',
+        kind: FieldKind.reference,
+        reference: 'item',
+      ),
+      FieldDefinition(key: 'iso3166_3', required: false),
+      FieldDefinition(
+        key: 'remarks',
+        kind: FieldKind.multiline,
+        required: false,
+      ),
+    ],
+  ),
+  EntityDefinition(
+    key: 'item',
+    isTree: true,
+    reverseLists: [
+      ReverseList(entity: 'itemoptask', field: 'mstr_item_id'),
+      ReverseList(entity: 'opapply', field: 'item'),
+      ReverseList(entity: 'purchaseline', field: 'item'),
+      ReverseList(entity: 'equipment', field: 'item'),
+    ],
+    fields: [
+      FieldDefinition(key: 'code'),
+      FieldDefinition(key: 'identification', required: false),
+      FieldDefinition(key: 'control_code', required: false),
+      FieldDefinition(key: 'label_code', required: false),
+      FieldDefinition(key: 'name'),
+      FieldDefinition(key: 'pronunciation', required: false),
+      FieldDefinition(key: 'nickname', required: false),
+      FieldDefinition(
+        key: 'mstr_item_kind_id',
+        kind: FieldKind.reference,
+        reference: 'itemkind',
+      ),
+      FieldDefinition(
+        key: 'catalog_item',
+        kind: FieldKind.choice,
+        required: false,
+        options: ['はい', 'いいえ'],
+      ),
+      FieldDefinition(
+        key: 'detail',
+        kind: FieldKind.multiline,
+        required: false,
+      ),
+      FieldDefinition(
+        key: 'shared_unit_id',
+        kind: FieldKind.reference,
+        required: false,
+        reference: 'unit',
+      ),
+      FieldDefinition(
+        key: 'remarks',
+        kind: FieldKind.multiline,
+        required: false,
+      ),
+    ],
+  ),
+  EntityDefinition(
+    key: 'itemhs',
+    owner: 'item',
+    fields: [
+      FieldDefinition(
+        key: 'hs',
+        kind: FieldKind.reference,
+        reference: 'hscode',
+      ),
+    ],
+  ),
+  EntityDefinition(
+    key: 'itemsizekind',
+    fields: [
+      FieldDefinition(key: 'code'),
+      FieldDefinition(key: 'pronunciation', required: false),
+      FieldDefinition(key: 'nickname', required: false),
+      FieldDefinition(key: 'names'),
+      FieldDefinition(
+        key: 'shared_unit_id',
+        kind: FieldKind.reference,
+        reference: 'unit',
+      ),
+      FieldDefinition(
+        key: 'remarks',
+        kind: FieldKind.multiline,
+        required: false,
+      ),
+    ],
+  ),
+  EntityDefinition(
+    key: 'itemsize',
+    owner: 'item',
+    uniqueKeys: [
+      ['mstr_item_size_kind_id'],
+    ],
+    fields: [
+      FieldDefinition(
+        key: 'mstr_item_size_kind_id',
+        kind: FieldKind.reference,
+        reference: 'itemsizekind',
+      ),
+      FieldDefinition(
+        key: 'detail',
+        kind: FieldKind.multiline,
+        required: false,
+      ),
+      FieldDefinition(
+        key: 'remarks',
+        kind: FieldKind.multiline,
+        required: false,
+      ),
+    ],
+  ),
+  EntityDefinition(
+    key: 'itempack',
+    owner: 'item',
+    fields: [
+      FieldDefinition(key: 'label'),
+      FieldDefinition(key: 'w', kind: FieldKind.number),
+      FieldDefinition(key: 'd', kind: FieldKind.number),
+      FieldDefinition(key: 'h', kind: FieldKind.number),
+      FieldDefinition(
+        key: 'unit',
+        kind: FieldKind.reference,
+        reference: 'unit',
+      ),
+    ],
+  ),
+  EntityDefinition(
+    key: 'itemop',
+    owner: 'item',
+    fields: [
+      FieldDefinition(key: 'control_code', required: false),
+      FieldDefinition(key: 'name'),
+      FieldDefinition(key: 'pronunciation', required: false),
+      FieldDefinition(key: 'nickname', required: false),
+      FieldDefinition(
+        key: 'mstr_operation_id',
+        kind: FieldKind.reference,
+        reference: 'operation',
+      ),
+      FieldDefinition(
+        key: 'detail',
+        kind: FieldKind.multiline,
+        required: false,
+      ),
+      FieldDefinition(
+        key: 'remarks',
+        kind: FieldKind.multiline,
+        required: false,
+      ),
+    ],
+  ),
+  EntityDefinition(
+    key: 'itemmaker',
+    owner: 'item',
+    fields: [
+      FieldDefinition(key: 'maker'),
+      FieldDefinition(key: 'partno'),
+    ],
+  ),
+  EntityDefinition(
+    key: 'itemoptask',
+    owner: 'itemop',
+    fields: [
+      FieldDefinition(
+        key: 'mstr_item_id',
+        kind: FieldKind.reference,
+        reference: 'item',
+      ),
+      FieldDefinition(key: 'sequence', kind: FieldKind.number, required: false),
+      FieldDefinition(
+        key: 'default_interval',
+        kind: FieldKind.number,
+        required: false,
+      ),
+      FieldDefinition(
+        key: 'remarks',
+        kind: FieldKind.multiline,
+        required: false,
+      ),
+    ],
+  ),
+  EntityDefinition(
+    key: 'itemsupplier',
+    owner: 'item',
+    nest: NestedList(
+      parent: 'item',
+      where: {'catalog_item': '1'},
+      menuGroup: 'purchasing',
     ),
-    EntityDefinition(
-      key: 'hscode',
-      fields: [
-        FieldDefinition(key: 'code', required: false),
-        FieldDefinition(key: 'mstr_item_id', kind: FieldKind.reference, reference: 'item'),
-        FieldDefinition(key: 'iso3166_3', required: false),
-        FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
-      ],
-    ),
-    EntityDefinition(
-      key: 'item', isTree: true, reverseLists: [ReverseList(entity: 'itemoptask', field: 'mstr_item_id'), ReverseList(entity: 'opapply', field: 'item'), ReverseList(entity: 'purchaseline', field: 'item'), ReverseList(entity: 'equipment', field: 'item')],
-      fields: [
-        FieldDefinition(key: 'code'),
-        FieldDefinition(key: 'identification', required: false),
-        FieldDefinition(key: 'control_code', required: false),
-        FieldDefinition(key: 'label_code', required: false),
-        FieldDefinition(key: 'name'),
-        FieldDefinition(key: 'pronunciation', required: false),
-        FieldDefinition(key: 'nickname', required: false),
-        FieldDefinition(key: 'mstr_item_kind_id', kind: FieldKind.reference, reference: 'itemkind'),
-        FieldDefinition(key: 'catalog_item', kind: FieldKind.choice, required: false, options: ['はい', 'いいえ']),
-        FieldDefinition(key: 'detail', kind: FieldKind.multiline, required: false),
-        FieldDefinition(key: 'shared_unit_id', kind: FieldKind.reference, required: false, reference: 'unit'),
-        FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
-      ],
-    ),
-    EntityDefinition(
-      key: 'itemhs', owner: 'item',
-      fields: [
-        FieldDefinition(key: 'hs', kind: FieldKind.reference, reference: 'hscode'),
-      ],
-    ),
-    EntityDefinition(
-      key: 'itemsizekind',
-      fields: [
-        FieldDefinition(key: 'code'),
-        FieldDefinition(key: 'pronunciation', required: false),
-        FieldDefinition(key: 'nickname', required: false),
-        FieldDefinition(key: 'names'),
-        FieldDefinition(key: 'shared_unit_id', kind: FieldKind.reference, reference: 'unit'),
-        FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
-      ],
-    ),
-    EntityDefinition(
-      key: 'itemsize', owner: 'item', uniqueKeys: [['mstr_item_size_kind_id']],
-      fields: [
-        FieldDefinition(key: 'mstr_item_size_kind_id', kind: FieldKind.reference, reference: 'itemsizekind'),
-        FieldDefinition(key: 'detail', kind: FieldKind.multiline, required: false),
-        FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
-      ],
-    ),
-    EntityDefinition(
-      key: 'itempack', owner: 'item',
-      fields: [
-        FieldDefinition(key: 'label'),
-        FieldDefinition(key: 'w', kind: FieldKind.number),
-        FieldDefinition(key: 'd', kind: FieldKind.number),
-        FieldDefinition(key: 'h', kind: FieldKind.number),
-        FieldDefinition(key: 'unit', kind: FieldKind.reference, reference: 'unit'),
-      ],
-    ),
-    EntityDefinition(
-      key: 'itemop', owner: 'item',
-      fields: [
-        FieldDefinition(key: 'control_code', required: false),
-        FieldDefinition(key: 'name'),
-        FieldDefinition(key: 'pronunciation', required: false),
-        FieldDefinition(key: 'nickname', required: false),
-        FieldDefinition(key: 'mstr_operation_id', kind: FieldKind.reference, reference: 'operation'),
-        FieldDefinition(key: 'detail', kind: FieldKind.multiline, required: false),
-        FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
-      ],
-    ),
-    EntityDefinition(
-      key: 'itemmaker', owner: 'item',
-      fields: [
-        FieldDefinition(key: 'maker'),
-        FieldDefinition(key: 'partno'),
-      ],
-    ),
-    EntityDefinition(
-      key: 'itemoptask', owner: 'itemop',
-      fields: [
-        FieldDefinition(key: 'mstr_item_id', kind: FieldKind.reference, reference: 'item'),
-        FieldDefinition(key: 'sequence', kind: FieldKind.number, required: false),
-        FieldDefinition(key: 'default_interval', kind: FieldKind.number, required: false),
-        FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
-      ],
-    ),
-    EntityDefinition(
-      key: 'itemsupplier', owner: 'item', nest: NestedList(parent: 'item', where: {'catalog_item': '1'}, menuGroup: 'purchasing'), uniqueKeys: [['supplier']],
-      fields: [
-        FieldDefinition(key: 'supplier', kind: FieldKind.reference, reference: 'supplier', picker: true),
-        FieldDefinition(key: 'days', kind: FieldKind.number, ge: 0),
-        FieldDefinition(key: 'lot', kind: FieldKind.number, gt: 0),
-        FieldDefinition(key: 'cost', kind: FieldKind.number, required: false, ge: 0, needUnless: 'asking'),
-        FieldDefinition(key: 'asking', kind: FieldKind.flag, required: false, toggle: true, disables: 'cost'),
-      ],
-    ),
-    EntityDefinition(
-      key: 'itemtaskcost', owner: 'item',
-      fields: [
-        FieldDefinition(key: 'taskres', kind: FieldKind.reference, reference: 'taskres'),
-        FieldDefinition(key: 'cost', kind: FieldKind.number, ge: 0),
-        FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
-      ],
-    ),
-    EntityDefinition(
-      key: 'itemonhand', viewOnly: true,
-      fields: [
-        FieldDefinition(key: 'item', kind: FieldKind.reference, required: false, reference: 'item', readOnly: true),
-        FieldDefinition(key: 'on_hand_quantity', kind: FieldKind.number, required: false, readOnly: true),
-        FieldDefinition(key: 'visiter_count', kind: FieldKind.number, required: false, readOnly: true),
-      ],
-    ),
+    uniqueKeys: [
+      ['supplier'],
+    ],
+    fields: [
+      FieldDefinition(
+        key: 'supplier',
+        kind: FieldKind.reference,
+        reference: 'supplier',
+        picker: true,
+      ),
+      FieldDefinition(key: 'days', kind: FieldKind.number, ge: 0),
+      FieldDefinition(key: 'lot', kind: FieldKind.number, gt: 0),
+      FieldDefinition(
+        key: 'cost',
+        kind: FieldKind.number,
+        required: false,
+        ge: 0,
+        needUnless: 'asking',
+      ),
+      FieldDefinition(
+        key: 'asking',
+        kind: FieldKind.flag,
+        required: false,
+        toggle: true,
+        disables: 'cost',
+      ),
+    ],
+  ),
+  EntityDefinition(
+    key: 'itemtaskcost',
+    owner: 'item',
+    fields: [
+      FieldDefinition(
+        key: 'taskres',
+        kind: FieldKind.reference,
+        reference: 'taskres',
+      ),
+      FieldDefinition(key: 'cost', kind: FieldKind.number, ge: 0),
+      FieldDefinition(
+        key: 'remarks',
+        kind: FieldKind.multiline,
+        required: false,
+      ),
+    ],
+  ),
+  EntityDefinition(
+    key: 'itemonhand',
+    viewOnly: true,
+    fields: [
+      FieldDefinition(
+        key: 'item',
+        kind: FieldKind.reference,
+        required: false,
+        reference: 'item',
+        readOnly: true,
+      ),
+      FieldDefinition(
+        key: 'on_hand_quantity',
+        kind: FieldKind.number,
+        required: false,
+        readOnly: true,
+      ),
+      FieldDefinition(
+        key: 'visiter_count',
+        kind: FieldKind.number,
+        required: false,
+        readOnly: true,
+      ),
+    ],
+  ),
 ];

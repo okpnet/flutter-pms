@@ -169,7 +169,7 @@ List<Override> graphqlOverrides() => [
       // 共有マスタ: 利害関係者(書き込みは更新者つき。顧客・外部供給者・運送業者はフラグで見分ける)
       ...sharedMasterRepositories(client, auditUser: auditUser),
       // 品目: 品目区分・品目(読み取り専用。ツリーは品目ツリーの親)
-      ...itemRepositories(client),
+      ...itemRepositories(client, auditUser: auditUser),
       // 組織: 職員・事業所・部署(読み取り専用。部署のツリーは部署ツリーの親)
       ...organizationRepositories(
         client,

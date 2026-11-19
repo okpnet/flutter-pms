@@ -33,7 +33,9 @@ class ItemModule extends EntityFeatureModule {
 
   @override
   String menuGroupLabelFor(WidgetRef ref, String groupId) => switch (groupId) {
-    'purchasing' => ItemLabels(ref.watch(itemStringsProvider)).menuGroupOf(groupId),
+    'purchasing' => ItemLabels(
+      ref.watch(itemStringsProvider),
+    ).menuGroupOf(groupId),
     _ => groupId,
   };
 }
