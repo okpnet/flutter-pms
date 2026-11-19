@@ -462,16 +462,17 @@ class _TreeTableState<T> extends _TableBaseState<T, TreeTable<T>> {
             const LoadingIndicator(strokeWidth: 2),
       );
     } else {
-      // 文字より大きくならないよう、アイコンの大きさは、文字の大きさに合わせる(行の高さの 60% が上限)。
+      // 印は主張しないよう、文字より小さい塗りの三角にする(押す範囲は別に取っている)。
       // 子が無い行は、印を出さない(開けないものを、開けそうに見せない)。
       final fontSize = Theme.of(context).textTheme.bodyMedium?.fontSize ?? 14;
-      final iconSize = (fontSize * 1.4).clamp(0.0, rowHeight * 0.6);
+      final iconSize = (fontSize * 0.6).clamp(0.0, rowHeight * 0.6);
       glyph = node.childCount == 0
           ? SizedBox(key: Key('tree.icon.$key'), width: iconSize, height: iconSize)
-          : Icon(
-              node.expanded ? Icons.expand_more : Icons.chevron_right,
+          : TreeToggleGlyph(
               key: Key('tree.icon.$key'),
+              expanded: node.expanded,
               size: iconSize,
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
             );
     }
     return SizedBox(
@@ -850,4 +851,54 @@ class _TreeTableState<T> extends _TableBaseState<T, TreeTable<T>> {
       _invalidate();
     });
   }
+}
+
+/// 開閉の印(塗りの三角。▶ = 縮小、▼ = 展開)。線のアイコンより小さく静かに見える。
+class TreeToggleGlyph extends StatelessWidget {
+  const TreeToggleGlyph({
+    super.key,
+    required this.expanded,
+    required this.size,
+    required this.color,
+  });
+
+  final bool expanded;
+  final double size;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) => CustomPaint(
+    size: Size.square(size),
+    painter: _GlyphPainter(expanded: expanded, color: color),
+  );
+}
+
+class _GlyphPainter extends CustomPainter {
+  _GlyphPainter({required this.expanded, required this.color});
+
+  final bool expanded;
+  final Color color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final w = size.width;
+    final h = size.height;
+    final path = Path();
+    if (expanded) {
+      path
+        ..moveTo(0, h * 0.25)
+        ..lineTo(w, h * 0.25)
+        ..lineTo(w / 2, h * 0.85);
+    } else {
+      path
+        ..moveTo(w * 0.25, 0)
+        ..lineTo(w * 0.85, h / 2)
+        ..lineTo(w * 0.25, h);
+    }
+    canvas.drawPath(path..close(), Paint()..color = color);
+  }
+
+  @override
+  bool shouldRepaint(_GlyphPainter old) =>
+      old.expanded != expanded || old.color != color;
 }
