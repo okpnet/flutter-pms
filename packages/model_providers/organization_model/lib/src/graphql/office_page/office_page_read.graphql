@@ -25,6 +25,7 @@ query OfficePageRead(
     nodes {
       infoOfficeId
       infoCompanyId
+      infoAddressId
       code
 
       labels: sharedAppellationByNames {

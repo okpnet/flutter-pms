@@ -7,6 +7,7 @@ import 'package:organization_model/organization_model.dart';
 import 'package:pms_graphql/pms_graphql.dart' show AuditUserSource;
 
 import '../entities/organization_definitions.dart';
+import 'site_repository.dart';
 import 'staff_icon_repository.dart';
 
 /// 組織の実体の取得元(GraphQL 版。読み取り専用)。アプリが [GraphQLClient] を渡して組み立て、
@@ -37,7 +38,12 @@ List<IEntityRepository> organizationRepositories(
       fileTransfer,
     ),
     _StaffRepository(_readOnly('staff'), client, language),
-    _SiteRepository(_readOnly('site'), client, language),
+    SiteRepository(
+      organizationDefinitions.firstWhere((d) => d.key == 'site'),
+      client,
+      () => language.id,
+      auditUser,
+    ),
     _DepartmentRepository(_readOnly('department'), client, language),
   ];
 }
@@ -185,88 +191,6 @@ class _StaffRepository extends _ReadOnlyRepository {
   Future<EntityRecord?> findById(String id) async {
     final rows = await _read(1, 0, {
       'infoStaffId': {'equalTo': id},
-    });
-    return rows.isEmpty ? null : rows.first;
-  }
-
-  @override
-  Future<List<EntityRecord>> findByParent(String? parentId) async => const [];
-}
-
-class _SiteRepository extends _ReadOnlyRepository {
-  _SiteRepository(super.definition, super.client, super.language);
-
-  EntityRecord _record(Query$OfficePageRead$allInfoOffices$nodes n) {
-    final l = n.labels;
-    final a = n.address;
-    return EntityRecord(
-      id: n.infoOfficeId,
-      values: {
-        'code': _ReadOnlyRepository.text(n.code),
-        'name': _ReadOnlyRepository.dict(
-          l?.sharedDictionaryBySharedDictionaryNameId,
-        ),
-        'pronunciation': _ReadOnlyRepository.dict(
-          l?.sharedDictionaryBySharedDictionaryPronunciationId,
-        ),
-        'nickname': _ReadOnlyRepository.dict(
-          l?.sharedDictionaryBySharedDictionaryNicknameId,
-        ),
-        'country_code_2': _ReadOnlyRepository.text(a?.countryCode2),
-        'zip_code': _ReadOnlyRepository.text(a?.zipCode),
-        'address1': _ReadOnlyRepository.dict(
-          a?.address1?.sharedDictionaryBySharedDictionaryNameId,
-        ),
-        'address2': _ReadOnlyRepository.dict(
-          a?.address2?.sharedDictionaryBySharedDictionaryNameId,
-        ),
-        'building': _ReadOnlyRepository.dict(
-          a?.building?.sharedDictionaryBySharedDictionaryNameId,
-        ),
-        'phone': _ReadOnlyRepository.text(a?.phone),
-        'fax_number': _ReadOnlyRepository.text(a?.faxNumber),
-      },
-    );
-  }
-
-  Future<List<EntityRecord>> _read(
-    int first,
-    int offset,
-    Map<String, dynamic> filter,
-  ) async {
-    final result = await client.query$OfficePageRead(
-      Options$Query$OfficePageRead(
-        variables: Variables$Query$OfficePageRead.fromJson({
-          'first': first,
-          'offset': offset,
-          'languageCodeId': await language.id,
-          if (filter.isNotEmpty) 'filter': filter,
-        }),
-        fetchPolicy: FetchPolicy.noCache,
-      ),
-    );
-    final e = result.exception;
-    if (e != null) throw e;
-    return [
-      for (final n
-          in result.parsedData?.allInfoOffices?.nodes ??
-              const <Query$OfficePageRead$allInfoOffices$nodes?>[])
-        if (n != null) _record(n),
-    ];
-  }
-
-  @override
-  Future<List<EntityRecord>> find({
-    required int take,
-    int skip = 0,
-    Expression? predicate,
-    SortExpression? orders,
-  }) => _read(take, skip, const {});
-
-  @override
-  Future<EntityRecord?> findById(String id) async {
-    final rows = await _read(1, 0, {
-      'infoOfficeId': {'equalTo': id},
     });
     return rows.isEmpty ? null : rows.first;
   }

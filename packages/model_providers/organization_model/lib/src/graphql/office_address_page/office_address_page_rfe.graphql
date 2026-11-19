@@ -1,0 +1,23 @@
+# office_address_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: gql/*.yaml #OfficeAddressPageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query OfficeAddressPageRfe(
+  $infoAddressId: UUID!
+) {
+  infoAddressByInfoAddressId(infoAddressId: $infoAddressId) {
+    infoAddressId
+    countryCode2
+    zipCode
+    address1
+    address2
+    building
+    phone
+    faxNumber
+    updateUserId
+    updateUserHistoryId
+    updateAt
+    remove
+  }
+}

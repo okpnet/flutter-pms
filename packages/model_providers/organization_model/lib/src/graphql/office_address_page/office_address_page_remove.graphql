@@ -1,0 +1,23 @@
+# office_address_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #OfficeAddressPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation OfficeAddressPageRemove(
+  $infoAddressId: UUID!
+  $remove: Boolean!
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  updateInfoAddressByInfoAddressId(
+    input: {
+      infoAddressId: $infoAddressId
+      infoAddressPatch: { remove: $remove, updateUserId: $updateUserId, updateUserHistoryId: $updateUserHistoryId }
+    }
+  ) {
+    infoAddress {
+      infoAddressId
+      remove
+    }
+  }
+}

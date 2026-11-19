@@ -512,6 +512,14 @@ enum VStaffCountsOrderBy {
   PRIMARY_KEY_DESC
 }
 
+type CreateInfoAddressPayload {
+  infoAddress: InfoAddress
+}
+
+type CreateInfoOfficePayload {
+  infoOffice: InfoOffice
+}
+
 type HistoryInfoStaff {
   historyId: UUID!
   infoStaffId: UUID!
@@ -535,9 +543,16 @@ type InfoAddress {
   infoAddressId: UUID!
   countryCode2: String
   zipCode: String
+  address1: UUID
+  address2: UUID
+  building: UUID
   phone: String
   faxNumber: String
   remarks: String
+  updateAt: Datetime
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+  remove: Boolean
   sharedAppellationByAddress1: SharedAppellation
   sharedAppellationByAddress2: SharedAppellation
   sharedAppellationByBuilding: SharedAppellation
@@ -679,6 +694,8 @@ type InfoOffice {
   infoOfficeId: UUID!
   infoCompanyId: UUID!
   code: String!
+  names: UUID!
+  infoAddressId: UUID
   symbol: String
   remarks: String
   updateAt: Datetime
@@ -956,6 +973,9 @@ type MstrStaffLicensesConnection {
 }
 
 type Mutation {
+  createInfoAddress(input: CreateInfoAddressInput!): CreateInfoAddressPayload
+  createInfoOffice(input: CreateInfoOfficeInput!): CreateInfoOfficePayload
+  updateInfoAddressByInfoAddressId(input: UpdateInfoAddressByInfoAddressIdInput!): UpdateInfoAddressPayload
   updateInfoAssignByInfoAssignId(input: UpdateInfoAssignByInfoAssignIdInput!): UpdateInfoAssignPayload
   updateInfoCompanyByInfoCompanyId(input: UpdateInfoCompanyByInfoCompanyIdInput!): UpdateInfoCompanyPayload
   updateInfoDepartmentByInfoDepartmentId(input: UpdateInfoDepartmentByInfoDepartmentIdInput!): UpdateInfoDepartmentPayload
@@ -992,6 +1012,7 @@ type Query {
   allMstrApprovalPatterns(first: Int, offset: Int, orderBy: [MstrApprovalPatternsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrApprovalPatternFilter): MstrApprovalPatternsConnection
   allMstrApprovalScopePatterns(first: Int, offset: Int, orderBy: [MstrApprovalScopePatternsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrApprovalScopePatternFilter): MstrApprovalScopePatternsConnection
   allVStaffCounts(first: Int, offset: Int, orderBy: [VStaffCountsOrderBy!] = [PRIMARY_KEY_ASC], filter: VStaffCountFilter): VStaffCountsConnection
+  infoAddressByInfoAddressId(infoAddressId: UUID!): InfoAddress
   infoAssignByInfoAssignId(infoAssignId: UUID!): InfoAssign
   infoCompanyByInfoCompanyId(infoCompanyId: UUID!): InfoCompany
   infoDepartmentByInfoDepartmentId(infoDepartmentId: UUID!): InfoDepartment
@@ -1051,6 +1072,10 @@ type TransFile {
   transFileId: UUID!
   name: String!
   mediaType: String
+}
+
+type UpdateInfoAddressPayload {
+  infoAddress: InfoAddress
 }
 
 type UpdateInfoAssignPayload {
@@ -1259,6 +1284,14 @@ input BooleanFilter {
   lessThanOrEqualTo: Boolean
   greaterThan: Boolean
   greaterThanOrEqualTo: Boolean
+}
+
+input CreateInfoAddressInput {
+  infoAddress: InfoAddressInput!
+}
+
+input CreateInfoOfficeInput {
+  infoOffice: InfoOfficeInput!
 }
 
 input DatetimeFilter {
@@ -1628,6 +1661,18 @@ input InfoAddressFk3Input {
   updateBySharedAppellationsId: SharedAppellationOnInfoAddressForInfoAddressFk3UsingSharedAppellationsPkUpdate
 }
 
+input InfoAddressInput {
+  countryCode2: String
+  zipCode: String
+  address1: UUID
+  address2: UUID
+  building: UUID
+  phone: String
+  faxNumber: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
 input InfoAddressOnInfoCompanyForInfoCompanyFk3UsingInfoAddressPkUpdate {
   infoAddressPatch: updateInfoAddressOnInfoCompanyForInfoCompanyFk3Patch!
   infoAddressId: UUID!
@@ -1641,6 +1686,19 @@ input InfoAddressOnInfoDepartmentForInfoDepartmentFk3UsingInfoAddressPkUpdate {
 input InfoAddressOnInfoOfficeForInfoOfficeFk3UsingInfoAddressPkUpdate {
   infoAddressPatch: updateInfoAddressOnInfoOfficeForInfoOfficeFk3Patch!
   infoAddressId: UUID!
+}
+
+input InfoAddressPatch {
+  countryCode2: String
+  zipCode: String
+  address1: UUID
+  address2: UUID
+  building: UUID
+  phone: String
+  faxNumber: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+  remove: Boolean
 }
 
 input InfoAssignFilter {
@@ -1979,6 +2037,16 @@ input InfoOfficeFk3Input {
   updateByInfoAddressId: InfoAddressOnInfoOfficeForInfoOfficeFk3UsingInfoAddressPkUpdate
 }
 
+input InfoOfficeInput {
+  infoCompanyId: UUID
+  code: String!
+  names: UUID
+  infoAddressId: UUID
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
 input InfoOfficeOnInfoDepartmentForInfoDepartmentFk4UsingInfoOfficePkUpdate {
   infoOfficePatch: updateInfoOfficeOnInfoDepartmentForInfoDepartmentFk4Patch!
   infoOfficeId: UUID!
@@ -1987,10 +2055,12 @@ input InfoOfficeOnInfoDepartmentForInfoDepartmentFk4UsingInfoOfficePkUpdate {
 input InfoOfficePatch {
   infoCompanyId: UUID
   code: String
+  names: UUID
+  infoAddressId: UUID
   remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
   remove: Boolean
-  sharedAppellationToNames: InfoOfficeFk1Input
-  infoAddressToInfoAddressId: InfoOfficeFk3Input
 }
 
 input InfoPositionFilter {
@@ -3257,6 +3327,11 @@ input UUIDFilter {
   lessThanOrEqualTo: UUID
   greaterThan: UUID
   greaterThanOrEqualTo: UUID
+}
+
+input UpdateInfoAddressByInfoAddressIdInput {
+  infoAddressPatch: InfoAddressPatch!
+  infoAddressId: UUID!
 }
 
 input UpdateInfoAssignByInfoAssignIdInput {

@@ -1,0 +1,45 @@
+# office_address_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #OfficeAddressPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation OfficeAddressPageCreate(
+  $countryCode2: String
+  $zipCode: String
+  $address1: UUID
+  $address2: UUID
+  $building: UUID
+  $phone: String
+  $faxNumber: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  createInfoAddress(
+    input: {
+      infoAddress: {
+        countryCode2: $countryCode2
+        zipCode: $zipCode
+        address1: $address1
+        address2: $address2
+        building: $building
+        phone: $phone
+        faxNumber: $faxNumber
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    infoAddress {
+      infoAddressId
+      countryCode2
+      zipCode
+      address1
+      address2
+      building
+      phone
+      faxNumber
+      updateUserId
+      updateUserHistoryId
+    }
+  }
+}

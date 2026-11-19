@@ -43,6 +43,7 @@ query DepartmentPageRead(
       office: infoOfficeByInfoOfficeId {
         infoOfficeId
         infoCompanyId
+        infoAddressId
         code
 
         labels: sharedAppellationByNames {

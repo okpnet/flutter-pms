@@ -364,6 +364,7 @@ query CompanyPageRead(
         nodes {
           infoOfficeId
           infoCompanyId
+          infoAddressId
           code
 
           labels: sharedAppellationByNames {

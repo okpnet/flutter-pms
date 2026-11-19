@@ -9,6 +9,7 @@ abstract class OfficePageFilterSpec {
   static const FlatFilterSpec spec = FlatFilterSpec('InfoOfficeFilter', {
     'infoOfficeId': FlatFilterPath([], 'infoOfficeId'),
     'infoCompanyId': FlatFilterPath([], 'infoCompanyId'),
+    'infoAddressId': FlatFilterPath([], 'infoAddressId'),
     'code': FlatFilterPath([], 'code'),
     'labels||sharedAppellationsId': FlatFilterPath([FilterStep('sharedAppellationByNames')], 'sharedAppellationsId'),
     'labels||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId': FlatFilterPath([FilterStep('sharedAppellationByNames'), FilterStep('sharedDictionaryBySharedDictionaryNameId')], 'sharedDictionaryId'),

@@ -88,6 +88,7 @@ abstract class CompanyPageFilterSpec {
     'address||faxNumber': FlatFilterPath([FilterStep('infoAddressByInfoAddressId')], 'faxNumber'),
     'offices||infoOfficeId': FlatFilterPath([FilterStep.many('infoOfficesByInfoCompanyId')], 'infoOfficeId'),
     'offices||infoCompanyId': FlatFilterPath([FilterStep.many('infoOfficesByInfoCompanyId')], 'infoCompanyId'),
+    'offices||infoAddressId': FlatFilterPath([FilterStep.many('infoOfficesByInfoCompanyId')], 'infoAddressId'),
     'offices||code': FlatFilterPath([FilterStep.many('infoOfficesByInfoCompanyId')], 'code'),
     'offices||labels||sharedAppellationsId': FlatFilterPath([FilterStep.many('infoOfficesByInfoCompanyId'), FilterStep('sharedAppellationByNames')], 'sharedAppellationsId'),
     'offices||labels||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId': FlatFilterPath([FilterStep.many('infoOfficesByInfoCompanyId'), FilterStep('sharedAppellationByNames'), FilterStep('sharedDictionaryBySharedDictionaryNameId')], 'sharedDictionaryId'),

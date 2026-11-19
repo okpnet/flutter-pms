@@ -18,6 +18,7 @@ OfficePage: &OfficePage
   columns:
     - info_office_id
     - info_company_id
+    - info_address_id
     - code
     - name: labels
       as: labels
@@ -42,26 +43,76 @@ OfficePage: &OfficePage
       arrayType: toFirstOne
       <<: *UpdateStaffReadFields
 
-# 事業所編集
+# 事業所の更新(平らな列だけ。渡した列だけが変わる。名称(names)の ID は共通関数で、住所(info_address_id)は住所の登録・更新で作る)。論理削除は OfficePageRemove(remove = true)
 OfficePageEdit:
   kind: edit
   from: info_office
   requiredWhere:
     - info_office_id
   generateRfe: true
+  withUpdater: true
   columns:
     - info_office_id
     - info_company_id
     - code
-    - name: labels
-      arrayType: toFirstOne
-      using: names
-      <<: *AppellationLabelsEditFields
-    - name: address
-      arrayType: toFirstOne
-      using: info_address_id
-      <<: *AddressEditFields
+    - names
+    - info_address_id
     - remarks
     - update_user_id
     - update_user_history_id
     - remove
+
+# 事業所の登録(kind: create)。記号(symbol)は DB が採番する
+OfficePageCreate:
+  kind: create
+  from: info_office
+  columns:
+    - info_company_id
+    - code
+    - names
+    - info_address_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+
+# 事業所の住所の更新・登録(住所は事業所と 1 対 1。住所1・住所2・建物は呼称の ID で、共通関数で作る)
+OfficeAddressPageEdit:
+  kind: edit
+  from: info_address
+  requiredWhere:
+    - info_address_id
+  generateRfe: true
+  withUpdater: true
+  columns:
+    - info_address_id
+    - country_code_2
+    - zip_code
+    - address1
+    - address2
+    - building
+    - phone
+    - fax_number
+    - update_user_id
+    - update_user_history_id
+
+OfficeAddressPageCreate:
+  kind: create
+  from: info_address
+  columns:
+    - country_code_2
+    - zip_code
+    - address1
+    - address2
+    - building
+    - phone
+    - fax_number
+    - update_user_id
+    - update_user_history_id
+
+# 共通関数(kind: function)。呼称(言語別の値)を作る・変える。名称・住所1・住所2・建物のそれぞれで呼ぶ
+OfficeAppellationSavePageCall:
+  kind: function
+  mutation: sharedAppellationSave
+  returns: sharedAppellation
+  columns:
+    - shared_appellations_id

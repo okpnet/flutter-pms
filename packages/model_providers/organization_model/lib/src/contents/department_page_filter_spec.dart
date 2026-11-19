@@ -15,6 +15,7 @@ abstract class DepartmentPageFilterSpec {
     'infoOfficeId': FlatFilterPath([], 'infoOfficeId'),
     'office||infoOfficeId': FlatFilterPath([FilterStep('infoOfficeByInfoOfficeId')], 'infoOfficeId'),
     'office||infoCompanyId': FlatFilterPath([FilterStep('infoOfficeByInfoOfficeId')], 'infoCompanyId'),
+    'office||infoAddressId': FlatFilterPath([FilterStep('infoOfficeByInfoOfficeId')], 'infoAddressId'),
     'office||code': FlatFilterPath([FilterStep('infoOfficeByInfoOfficeId')], 'code'),
     'office||labels||sharedAppellationsId': FlatFilterPath([FilterStep('infoOfficeByInfoOfficeId'), FilterStep('sharedAppellationByNames')], 'sharedAppellationsId'),
     'office||labels||sharedDictionaryBySharedDictionaryNameId||sharedDictionaryId': FlatFilterPath([FilterStep('infoOfficeByInfoOfficeId'), FilterStep('sharedAppellationByNames'), FilterStep('sharedDictionaryBySharedDictionaryNameId')], 'sharedDictionaryId'),

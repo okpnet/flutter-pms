@@ -1,0 +1,39 @@
+# office_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #OfficePageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation OfficePageCreate(
+  $infoCompanyId: UUID
+  $code: String!
+  $names: UUID
+  $infoAddressId: UUID
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  createInfoOffice(
+    input: {
+      infoOffice: {
+        infoCompanyId: $infoCompanyId
+        code: $code
+        names: $names
+        infoAddressId: $infoAddressId
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    infoOffice {
+      infoOfficeId
+      infoCompanyId
+      code
+      names
+      infoAddressId
+      remarks
+      updateUserId
+      updateUserHistoryId
+    }
+  }
+}

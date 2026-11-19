@@ -1,0 +1,45 @@
+# office_address_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #OfficeAddressPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation OfficeAddressPageEdit(
+  $infoAddressId: UUID!
+  $countryCode2: String
+  $zipCode: String
+  $address1: UUID
+  $address2: UUID
+  $building: UUID
+  $phone: String
+  $faxNumber: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  updateInfoAddressByInfoAddressId(
+    input: {
+      infoAddressId: $infoAddressId
+      infoAddressPatch: {
+        countryCode2: $countryCode2
+        zipCode: $zipCode
+        address1: $address1
+        address2: $address2
+        building: $building
+        phone: $phone
+        faxNumber: $faxNumber
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    infoAddress {
+      infoAddressId
+      countryCode2
+      zipCode
+      address1
+      address2
+      building
+      phone
+      faxNumber
+    }
+  }
+}

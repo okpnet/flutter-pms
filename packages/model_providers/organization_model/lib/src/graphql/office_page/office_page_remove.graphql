@@ -6,11 +6,13 @@
 mutation OfficePageRemove(
   $infoOfficeId: UUID!
   $remove: Boolean!
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
 ) {
   updateInfoOfficeByInfoOfficeId(
     input: {
       infoOfficeId: $infoOfficeId
-      infoOfficePatch: { remove: $remove }
+      infoOfficePatch: { remove: $remove, updateUserId: $updateUserId, updateUserHistoryId: $updateUserHistoryId }
     }
   ) {
     infoOffice {

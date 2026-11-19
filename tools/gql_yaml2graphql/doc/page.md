@@ -97,6 +97,10 @@
 1.  事業所
     +   事業所台帳[OfficePage]
         +   事業所情報[OfficePageEdit]
+        +   事業所の登録[OfficePageCreate]<!--書き込み: 入れ子のミューテーション-->
+        +   事業所の住所の更新[OfficeAddressPageEdit]
+        +   事業所の住所の登録[OfficeAddressPageCreate]
+        +   事業所の呼称の保存[OfficeAppellationSavePageCall]
 1.  部門・部署
     +   部署区分台帳[DepartmentCategoryPage]
         +   部署区分情報[DepartmentCategoryPageEdit]
@@ -124,10 +128,16 @@
 1.  力量・資格
     +   力量項目[CapabilityPage]
         +   力量情報[CapabilityPageEdit]
+        +   力量の登録[CapabilityPageCreate]
+        +   力量の呼称の保存[CapabilityAppellationSavePageCall]
+        +   力量の文章の保存[CapabilityTextSavePageCall]
             +   力量保持作業者明細[CapableStaffPage]
                 +   力量保持作業者情報[CapableStaffPageEdit]
     +   資格項目[LicensePage]
         +   資格情報[LicensePageEdit]
+        +   資格の登録[LicensePageCreate]
+        +   資格の呼称の保存[LicenseAppellationSavePageCall]
+        +   資格の文章の保存[LicenseTextSavePageCall]
             +   資格保持者明細[LicenseHoldersPage]
                 +   資格保持者情報[LicenseHoldersPageEdit]
 1.  場所
@@ -166,6 +176,8 @@
 1.  品目
     +   品目区分項目[ItemKindPage,ItemKindReadFields]
         +   品目区分情報[ItemKindPageEdit]
+        +   品目区分の登録[ItemKindPageCreate]
+        +   品目区分の呼称の保存[ItemKindAppellationSavePageCall]
     +   品目体系[ItemPage]
         +   品目項目[ItemReadFields]
         +   品目情報[ItemPageEdit,ItemEditFields]
