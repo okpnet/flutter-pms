@@ -11,6 +11,7 @@
 library;
 
 export 'src/app_shell_labels.dart';
+export 'src/breadcrumbs.dart';
 export 'src/busy_overlay.dart';
 export 'src/hamburger_menu.dart';
 export 'src/main_frame.dart';

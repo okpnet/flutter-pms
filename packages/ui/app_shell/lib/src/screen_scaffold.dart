@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:view_responsiveness/constants/media_break_point.dart';
+
+import 'breadcrumbs.dart';
 
 /// 機能の画面の骨組み(画面案 `tools/open-design` の画面の枠)。AppBar を使わず、画面の見出しと本体を縦に並べる。
 ///
@@ -14,6 +17,7 @@ class ScreenScaffold extends StatelessWidget {
     this.actions = const [],
     required this.body,
     this.overline,
+    this.breadcrumbs = const [],
     this.asOf,
     this.backLabel,
   });
@@ -21,6 +25,10 @@ class ScreenScaffold extends StatelessWidget {
   final String title;
   final List<Widget> actions;
   final Widget body;
+
+  /// パンくずリスト(「資源 ▶ 設備 ▶ 編集」)。あるときは、[overline] の代わりに出す。
+  /// スマートフォンの幅では、見出しを押すと開閉する。
+  final List<BreadcrumbItem> breadcrumbs;
 
   /// 見出しの上の小さな文字(会社名・親の画面の名前など)。
   final String? overline;
@@ -39,6 +47,7 @@ class ScreenScaffold extends StatelessWidget {
           title: title,
           actions: actions,
           overline: overline,
+          breadcrumbs: breadcrumbs,
           asOf: asOf,
           backLabel: backLabel,
         ),
@@ -55,6 +64,7 @@ class ScreenTitle extends StatelessWidget {
     required this.title,
     this.actions = const [],
     this.overline,
+    this.breadcrumbs = const [],
     this.asOf,
     this.backLabel,
   });
@@ -62,6 +72,7 @@ class ScreenTitle extends StatelessWidget {
   final String title;
   final List<Widget> actions;
   final String? overline;
+  final List<BreadcrumbItem> breadcrumbs;
   final String? asOf;
   final String? backLabel;
 
@@ -84,25 +95,11 @@ class ScreenTitle extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (overline != null && overline!.isNotEmpty)
-                        Text(
-                          overline!,
-                          key: const ValueKey('screenOverline'),
-                          style: muted,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      Text(
-                        title,
-                        key: const ValueKey('screenTitle'),
-                        style: theme.textTheme.headlineSmall?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
+                  child: _TitleBlock(
+                    title: title,
+                    overline: overline,
+                    breadcrumbs: breadcrumbs,
+                    muted: muted,
                   ),
                 ),
                 if (asOf != null && asOf!.isNotEmpty)
@@ -134,6 +131,88 @@ class ScreenTitle extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// 見出しの左側。パンくず(または上の文字)と見出し。スマートフォンの幅では、パンくずは
+/// 見出しの下に隠し、見出しを押すと開閉する(コンテキストメニューのように)。
+class _TitleBlock extends StatefulWidget {
+  const _TitleBlock({
+    required this.title,
+    required this.overline,
+    required this.breadcrumbs,
+    required this.muted,
+  });
+
+  final String title;
+  final String? overline;
+  final List<BreadcrumbItem> breadcrumbs;
+  final TextStyle? muted;
+
+  @override
+  State<_TitleBlock> createState() => _TitleBlockState();
+}
+
+class _TitleBlockState extends State<_TitleBlock> {
+  bool _open = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final mobile =
+        MediaBreakPoint.of(MediaQuery.sizeOf(context).width) ==
+        MediaBreakPoint.mobile;
+    final crumbs = widget.breadcrumbs;
+    final title = Text(
+      widget.title,
+      key: const ValueKey('screenTitle'),
+      style: theme.textTheme.headlineSmall?.copyWith(
+        fontWeight: FontWeight.w700,
+      ),
+      overflow: TextOverflow.ellipsis,
+    );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (crumbs.isEmpty && widget.overline != null && widget.overline!.isNotEmpty)
+          Text(
+            widget.overline!,
+            key: const ValueKey('screenOverline'),
+            style: widget.muted,
+            overflow: TextOverflow.ellipsis,
+          ),
+        if (crumbs.isNotEmpty && !mobile) Breadcrumbs(items: crumbs),
+        if (crumbs.isNotEmpty && mobile)
+          InkWell(
+            key: const ValueKey('screenTitleToggle'),
+            onTap: () => setState(() => _open = !_open),
+            borderRadius: BorderRadius.circular(4),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Flexible(child: title),
+                Icon(
+                  _open ? Icons.arrow_drop_up : Icons.arrow_drop_down,
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ],
+            ),
+          )
+        else
+          title,
+        if (crumbs.isNotEmpty && mobile)
+          AnimatedSize(
+            duration: const Duration(milliseconds: 150),
+            alignment: Alignment.topLeft,
+            child: _open
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 4),
+                    child: Breadcrumbs(items: crumbs),
+                  )
+                : const SizedBox(width: double.infinity),
+          ),
+      ],
     );
   }
 }
