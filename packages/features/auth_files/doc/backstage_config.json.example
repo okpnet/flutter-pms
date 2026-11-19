@@ -4,5 +4,6 @@
   "pocketbaseUrl": null,
   "maintenanceUrl": null,
   "logLevel": null,
-  "sidebarIconOnly": null
+  "sidebarIconOnly": null,
+  "themes": []
 }

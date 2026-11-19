@@ -82,6 +82,7 @@
 | `maintenanceUrl` | string | メンテナンス情報サーバーのルート(例 `http://192.168.1.101:18480`)。`/health`・`/info` はアプリが付ける。末尾が `/health` の以前の形も可 | `MAINTENANCE_URL` |
 | `logLevel` | string | `trace`・`debug`・`info`・`warning`・`error`・`fatal` | `LOG_LEVEL` |
 | `sidebarIconOnly` | bool | サイドバーの既定(アイコンだけ) | `SIDEBAR_ICON_ONLY` |
+| `themes` | array | 追加のテーマ(`theme_lib` のテーマの JSON のオブジェクトの配列)。次の起動で取り込み、設定画面のテーマの選択に出る。取り込めないものはログに残して起動は続ける | (なし) |
 
 キー一覧と `doc/backstage_config.json.example` は、次のときにレビューして揃える。
 1.  `backstage` の `BackstageSettings` を変更したとき(外部プロジェクトからの指示を含む)。
