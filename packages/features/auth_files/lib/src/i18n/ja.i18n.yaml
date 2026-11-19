@@ -98,19 +98,19 @@ files:
   invalidId: ファイルIDは英数字と _ - の64文字までです。
 admin:
   signups:
-    title: 登録申請
+    title: "アカウント管理: 登録申請"
     empty: 未処理の申請はありません。
     userId: 希望ID
     email: Eメール
     created: 申請日時
-    approve: 承認
+    approve: アカウントを作成
     reject: 却下
     appUserId: 担当者のID(App DBで登録済みのもの)
-    approved: 承認しました。コードを本人へ渡してください。
+    approved: アカウントを作成しました。コードを本人へ渡してください。
     rejected: 却下しました。
     confirmReject: この申請を却下しますか?
   resets:
-    title: 再設定の依頼
+    title: "アカウント管理: 再設定の依頼"
     empty: 未処理の依頼はありません。
     issue: コードを発行
     issued: コードを発行しました。本人確認のうえ、手渡してください。

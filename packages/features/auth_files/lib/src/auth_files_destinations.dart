@@ -45,7 +45,7 @@ final class SharedFilesDestination extends PageDestination<void> {
   const SharedFilesDestination();
 }
 
-/// 管理者: 登録申請の一覧(承認・却下)へ。
+/// 管理者: アカウント管理(登録申請の一覧。アカウントの作成・却下)へ。
 final class AdminSignupsDestination extends PageDestination<void> {
   const AdminSignupsDestination();
 }

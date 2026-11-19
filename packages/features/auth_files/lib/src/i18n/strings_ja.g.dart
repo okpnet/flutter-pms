@@ -419,8 +419,8 @@ class AuthFilesStrings$admin$signups$ja {
 
 	// Translations
 
-	/// ja: '登録申請'
-	String get title => '登録申請';
+	/// ja: 'アカウント管理: 登録申請'
+	String get title => 'アカウント管理: 登録申請';
 
 	/// ja: '未処理の申請はありません。'
 	String get empty => '未処理の申請はありません。';
@@ -434,8 +434,8 @@ class AuthFilesStrings$admin$signups$ja {
 	/// ja: '申請日時'
 	String get created => '申請日時';
 
-	/// ja: '承認'
-	String get approve => '承認';
+	/// ja: 'アカウントを作成'
+	String get approve => 'アカウントを作成';
 
 	/// ja: '却下'
 	String get reject => '却下';
@@ -443,8 +443,8 @@ class AuthFilesStrings$admin$signups$ja {
 	/// ja: '担当者のID(App DBで登録済みのもの)'
 	String get appUserId => '担当者のID(App DBで登録済みのもの)';
 
-	/// ja: '承認しました。コードを本人へ渡してください。'
-	String get approved => '承認しました。コードを本人へ渡してください。';
+	/// ja: 'アカウントを作成しました。コードを本人へ渡してください。'
+	String get approved => 'アカウントを作成しました。コードを本人へ渡してください。';
 
 	/// ja: '却下しました。'
 	String get rejected => '却下しました。';
@@ -461,8 +461,8 @@ class AuthFilesStrings$admin$resets$ja {
 
 	// Translations
 
-	/// ja: '再設定の依頼'
-	String get title => '再設定の依頼';
+	/// ja: 'アカウント管理: 再設定の依頼'
+	String get title => 'アカウント管理: 再設定の依頼';
 
 	/// ja: '未処理の依頼はありません。'
 	String get empty => '未処理の依頼はありません。';
@@ -596,18 +596,18 @@ extension on AuthFilesStrings {
 			'files.name' => 'ファイル名',
 			'files.size' => 'サイズ',
 			'files.invalidId' => 'ファイルIDは英数字と _ - の64文字までです。',
-			'admin.signups.title' => '登録申請',
+			'admin.signups.title' => 'アカウント管理: 登録申請',
 			'admin.signups.empty' => '未処理の申請はありません。',
 			'admin.signups.userId' => '希望ID',
 			'admin.signups.email' => 'Eメール',
 			'admin.signups.created' => '申請日時',
-			'admin.signups.approve' => '承認',
+			'admin.signups.approve' => 'アカウントを作成',
 			'admin.signups.reject' => '却下',
 			'admin.signups.appUserId' => '担当者のID(App DBで登録済みのもの)',
-			'admin.signups.approved' => '承認しました。コードを本人へ渡してください。',
+			'admin.signups.approved' => 'アカウントを作成しました。コードを本人へ渡してください。',
 			'admin.signups.rejected' => '却下しました。',
 			'admin.signups.confirmReject' => 'この申請を却下しますか?',
-			'admin.resets.title' => '再設定の依頼',
+			'admin.resets.title' => 'アカウント管理: 再設定の依頼',
 			'admin.resets.empty' => '未処理の依頼はありません。',
 			'admin.resets.issue' => 'コードを発行',
 			'admin.resets.issued' => 'コードを発行しました。本人確認のうえ、手渡してください。',

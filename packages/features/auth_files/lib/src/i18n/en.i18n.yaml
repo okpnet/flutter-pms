@@ -98,19 +98,19 @@ files:
   invalidId: The file ID may contain only letters, digits, _ and -, up to 64 characters.
 admin:
   signups:
-    title: Sign-up requests
+    title: "Account management: Sign-up requests"
     empty: There are no pending requests.
     userId: Preferred ID
     email: Email
     created: Requested at
-    approve: Approve
+    approve: Create account
     reject: Reject
     appUserId: Staff ID (already registered in the App DB)
     approved: Approved. Hand the code to the person.
     rejected: Rejected.
     confirmReject: Reject this request?
   resets:
-    title: Reset requests
+    title: "Account management: Reset requests"
     empty: There are no pending requests.
     issue: Issue code
     issued: Code issued. Verify the person and hand it over.

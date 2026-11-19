@@ -247,12 +247,12 @@ class _AuthFilesStrings$admin$signups$en extends AuthFilesStrings$admin$signups$
 	final AuthFilesStringsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Sign-up requests';
+	@override String get title => 'Account management: Sign-up requests';
 	@override String get empty => 'There are no pending requests.';
 	@override String get userId => 'Preferred ID';
 	@override String get email => 'Email';
 	@override String get created => 'Requested at';
-	@override String get approve => 'Approve';
+	@override String get approve => 'Create account';
 	@override String get reject => 'Reject';
 	@override String get appUserId => 'Staff ID (already registered in the App DB)';
 	@override String get approved => 'Approved. Hand the code to the person.';
@@ -267,7 +267,7 @@ class _AuthFilesStrings$admin$resets$en extends AuthFilesStrings$admin$resets$ja
 	final AuthFilesStringsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Reset requests';
+	@override String get title => 'Account management: Reset requests';
 	@override String get empty => 'There are no pending requests.';
 	@override String get issue => 'Issue code';
 	@override String get issued => 'Code issued. Verify the person and hand it over.';
@@ -383,18 +383,18 @@ extension on AuthFilesStringsEn {
 			'files.name' => 'File name',
 			'files.size' => 'Size',
 			'files.invalidId' => 'The file ID may contain only letters, digits, _ and -, up to 64 characters.',
-			'admin.signups.title' => 'Sign-up requests',
+			'admin.signups.title' => 'Account management: Sign-up requests',
 			'admin.signups.empty' => 'There are no pending requests.',
 			'admin.signups.userId' => 'Preferred ID',
 			'admin.signups.email' => 'Email',
 			'admin.signups.created' => 'Requested at',
-			'admin.signups.approve' => 'Approve',
+			'admin.signups.approve' => 'Create account',
 			'admin.signups.reject' => 'Reject',
 			'admin.signups.appUserId' => 'Staff ID (already registered in the App DB)',
 			'admin.signups.approved' => 'Approved. Hand the code to the person.',
 			'admin.signups.rejected' => 'Rejected.',
 			'admin.signups.confirmReject' => 'Reject this request?',
-			'admin.resets.title' => 'Reset requests',
+			'admin.resets.title' => 'Account management: Reset requests',
 			'admin.resets.empty' => 'There are no pending requests.',
 			'admin.resets.issue' => 'Issue code',
 			'admin.resets.issued' => 'Code issued. Verify the person and hand it over.',
