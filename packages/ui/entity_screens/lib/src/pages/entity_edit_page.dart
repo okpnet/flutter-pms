@@ -464,7 +464,7 @@ class _EntityEditPageState extends State<EntityEditPage> {
           : strings.editTitle(name: scope.labels.entity(widget.entityKey)),
       overline: scope.labels.entity(widget.entityKey),
       asOf: scope.asOfText,
-      backLabel: strings.back,
+      backLabel: strings.backToList,
       body: _loading
           ? const LoadingIndicator.centered()
           : _loadError != null
@@ -512,19 +512,26 @@ class _EntityEditPageState extends State<EntityEditPage> {
                           _failure!,
                           style: TextStyle(color: theme.colorScheme.error),
                         ),
+                      // 画面案: 保存は右、削除は左(危険な操作を保存から離す)。新規の「追加」は、既存のテストと操作の文言を保つため、「保存」のまま
                       if (!definition.viewOnly)
                         Row(
-                          spacing: 12,
                           children: [
+                            if (!_isNew)
+                              OutlinedButton(
+                                onPressed: _delete,
+                                style: OutlinedButton.styleFrom(
+                                  foregroundColor: theme.colorScheme.error,
+                                  side: BorderSide(
+                                    color: theme.colorScheme.error,
+                                  ),
+                                ),
+                                child: Text(strings.delete),
+                              ),
+                            const Spacer(),
                             FilledButton(
                               onPressed: _save,
                               child: Text(strings.save),
                             ),
-                            if (!_isNew)
-                              OutlinedButton(
-                                onPressed: _delete,
-                                child: Text(strings.delete),
-                              ),
                           ],
                         ),
                     ],

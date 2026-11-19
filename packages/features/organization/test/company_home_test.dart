@@ -52,7 +52,7 @@ void main() {
     await _open(tester);
     await tester.tap(find.byKey(const ValueKey('homeSite:3791ee4e-0000-4000-8000-000000000001')));
     await tester.pumpAndSettle();
-    expect(find.text('事業所の編集'), findsOneWidget);
+    expect(find.text('事業所情報の編集'), findsOneWidget);
     await tester.tap(find.byKey(const ValueKey('screenBack')));
     await tester.pumpAndSettle();
     expect(find.byKey(const ValueKey('homeCompanyName')), findsOneWidget);

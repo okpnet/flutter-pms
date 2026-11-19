@@ -8,6 +8,7 @@ belowLabel: Below
 belowCount: ${count} below
 requiredMark: Required
 back: Back
+backToList: Back to the list
 asOf: As of ${date}
 searchTitle: Search ${name}
 searchHint: Search

@@ -48,11 +48,14 @@ class EntityScreenStrings with BaseTranslations<EntityScreenLocale, EntityScreen
 	/// ja: '行をダブルクリック(長押し)すると、編集できます。'
 	String get editHint => '行をダブルクリック(長押し)すると、編集できます。';
 
-	/// ja: '${name}の編集'
-	String editTitle({required Object name}) => '${name}の編集';
+	/// ja: '${name}情報の編集'
+	String editTitle({required Object name}) => '${name}情報の編集';
 
-	/// ja: '${name}の登録'
-	String newTitle({required Object name}) => '${name}の登録';
+	/// ja: '${name}情報の登録'
+	String newTitle({required Object name}) => '${name}情報の登録';
+
+	/// ja: '一覧に戻る'
+	String get backToList => '一覧に戻る';
 
 	/// ja: '配下'
 	String get belowLabel => '配下';
@@ -374,8 +377,9 @@ extension on EntityScreenStrings {
 			'editMode' => '編集',
 			'editDone' => '編集を終える',
 			'editHint' => '行をダブルクリック(長押し)すると、編集できます。',
-			'editTitle' => ({required Object name}) => '${name}の編集',
-			'newTitle' => ({required Object name}) => '${name}の登録',
+			'editTitle' => ({required Object name}) => '${name}情報の編集',
+			'newTitle' => ({required Object name}) => '${name}情報の登録',
+			'backToList' => '一覧に戻る',
 			'belowLabel' => '配下',
 			'belowCount' => ({required Object count}) => '配下 ${count}',
 			'requiredMark' => '必須',

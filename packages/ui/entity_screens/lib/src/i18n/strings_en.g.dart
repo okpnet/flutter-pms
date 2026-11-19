@@ -48,6 +48,7 @@ class EntityScreenStringsEn extends EntityScreenStrings with BaseTranslations<En
 	@override String belowCount({required Object count}) => '${count} below';
 	@override String get requiredMark => 'Required';
 	@override String get back => 'Back';
+	@override String get backToList => 'Back to the list';
 	@override String asOf({required Object date}) => 'As of ${date}';
 	@override String searchTitle({required Object name}) => 'Search ${name}';
 	@override String get searchHint => 'Search';
@@ -212,6 +213,7 @@ extension on EntityScreenStringsEn {
 			'belowCount' => ({required Object count}) => '${count} below',
 			'requiredMark' => 'Required',
 			'back' => 'Back',
+			'backToList' => 'Back to the list',
 			'asOf' => ({required Object date}) => 'As of ${date}',
 			'searchTitle' => ({required Object name}) => 'Search ${name}',
 			'searchHint' => 'Search',

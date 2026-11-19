@@ -3,8 +3,9 @@ create: 新規
 editMode: 編集
 editDone: 編集を終える
 editHint: 行をダブルクリック(長押し)すると、編集できます。
-editTitle: ${name}の編集
-newTitle: ${name}の登録
+editTitle: ${name}情報の編集
+newTitle: ${name}情報の登録
+backToList: 一覧に戻る
 belowLabel: 配下
 belowCount: 配下 ${count}
 requiredMark: 必須
