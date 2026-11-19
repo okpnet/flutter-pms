@@ -7,10 +7,10 @@ window.OD_EXTRA = {
   /* バーコード画面（作業実績 › バーコード）のサンプル。symbol は大文字。状態は画面の中だけで更新する */
   barcode: {
     workOrders: [
-      { sym: "WO-2610-001", item: "ユニットA", task: "組立", qty: 100, done: 0, unit: "台", state: "未開始", outsourced: false },
-      { sym: "WO-2610-002", item: "ブラケット", task: "旋削", qty: 200, done: 80, unit: "個", state: "開始中", outsourced: false },
+      { sym: "WO-2610-001", plan: "pp1", item: "ユニットA", task: "組立", qty: 100, done: 0, unit: "台", state: "未開始", outsourced: false },
+      { sym: "WO-2610-002", plan: "pp1", item: "ブラケット", task: "旋削", qty: 200, done: 80, unit: "個", state: "開始中", outsourced: false },
       { sym: "WO-2610-003", item: "シャフト", task: "フライス", qty: 50, done: 50, unit: "本", state: "完了", outsourced: false },
-      { sym: "WO-2610-004", item: "ユニットA 標準", task: "表面処理", qty: 120, done: 0, unit: "個", state: "未開始", outsourced: true },
+      { sym: "WO-2610-004", plan: "pp2", item: "ユニットA 標準", task: "表面処理", qty: 120, done: 0, unit: "個", state: "未開始", outsourced: true },
     ],
     shelves: [
       { sym: "SH-M-01", name: "材料棚 M-1", use: "材料" },
@@ -28,6 +28,43 @@ window.OD_EXTRA = {
       { sym: "IT-BRKT", name: "ブラケット", unit: "個" },
       { sym: "IT-BAR", name: "丸棒 SS400", unit: "本" },
     ],
+  },
+  /* 作業実績 › 実績登録のサンプル。生産計画 → 生産計画明細 → 実績。stock はコンテナの中身（seq: 0=材料、n=工程nの完了品）。
+     outcome を "error" にすると、登録時の DB 更新失敗の表示を確認できる */
+  wr: {
+    outcome: "success",
+    lastStaff: "E-0101",
+    containers: [
+      { code: "CN-M-01", name: "材料ラック A段", loc: "第1製造棟" },
+      { code: "CN-M-02", name: "材料ラック B段", loc: "第1製造棟" },
+      { code: "CN-M-09", name: "材料ラック（別の注文）", loc: "第2製造棟" },
+      { code: "CN-W-01", name: "仕掛台車 1", loc: "切削区画" },
+      { code: "CN-W-02", name: "仕掛台車 2", loc: "組立区画" },
+      { code: "CN-F-01", name: "完成品棚 A-1", loc: "第1製造棟" },
+      { code: "CN-X-01", name: "不良品ボックス", loc: "保全室", kind: "不良品" },
+    ],
+    plans: [
+      { id: "pp1", no: "PP-2610-001", order: "SO-2610-001", cust: "北斗機械株式会社", item: "精密切削部品", unit: "個", qty: 100, deadline: "2026-11-27" },
+      { id: "pp2", no: "PP-2610-002", order: "SO-2610-002", cust: "みなと精密株式会社", item: "組立ユニット", unit: "台", qty: 40, deadline: "2026-12-04" },
+    ],
+    works: [
+      { id: "wp1", plan: "pp1", seq: 1, task: "旋削", interval: "8時間", start: "2026-11-18 08:00", end: "2026-11-19 17:00", equip: "NC旋盤 No.1" },
+      { id: "wp2", plan: "pp1", seq: 2, task: "フライス", interval: "6時間", start: "2026-11-20 08:00", end: "2026-11-21 17:00", equip: "マシニングセンタ MC-3" },
+      { id: "wp3", plan: "pp1", seq: 3, task: "最終検査", interval: "3時間", start: "2026-11-24 08:00", end: "2026-11-24 17:00", equip: "三次元測定機 CMM-1" },
+      { id: "wp4", plan: "pp2", seq: 1, task: "部品加工", interval: "10時間", start: "2026-11-25 08:00", end: "2026-11-27 17:00", equip: "NC旋盤 No.2" },
+      { id: "wp5", plan: "pp2", seq: 2, task: "組立", interval: "12時間", start: "2026-11-30 08:00", end: "2026-12-02 17:00", equip: "組立ライン2 コンベア" },
+    ],
+    records: [
+      { id: "r1", no: "WRC-0001", work: "wp1", nth: 1, start: "2026-11-18 08:10", end: "2026-11-18 16:40", staff: "E-0101", container: "CN-W-01", srcStock: "s1", pulled: 60, done: 60, ng: 0 },
+    ],
+    stock: [
+      { id: "s1", container: "CN-M-01", order: "SO-2610-001", seq: 0, item: "丸棒 SS400", qty: 60, reserved: false },
+      { id: "s2", container: "CN-M-02", order: "SO-2610-001", seq: 0, item: "丸棒 SS400", qty: 80, reserved: true },
+      { id: "s3", container: "CN-M-01", order: "SO-2610-002", seq: 0, item: "アルミ板 A5052", qty: 50, reserved: false },
+      { id: "s4", container: "CN-M-09", order: "SO-2609-099", seq: 0, item: "丸棒 SS400", qty: 500, reserved: false },
+      { id: "s5", container: "CN-W-01", plan: "pp1", order: "SO-2610-001", seq: 1, item: "旋削の完了品", qty: 60, reserved: false },
+    ],
+    abnormal: [],
   },
   company: { pronunciation: "サンプルセイコウカブシキガイシャ", nickname: "サンプル精工", web_page: "https://www.example.co.jp", remarks: "" },
   siteCode: { hq: ["HQ", "ホンシャ"], kt: ["KT", "カントウコウジョウ"], ks: ["KS", "カンサイコウジョウ"], ch: ["CH", "チュウブブツリュウ"], ky: ["KY", "キュウシュウエイギョウショ"], hk: ["HK", "ホッカイドウエイギョウショ"] },

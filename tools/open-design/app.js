@@ -96,6 +96,8 @@
     "maintenance-mode": "メンテナンス中",
     denied: "アクセスが拒否されました",
     barcode: "バーコード",
+    wr: "実績登録",
+    "wr/plan": "実績登録",
     customers: "顧客",
     orders: "出荷",
     production: "生産計画",
@@ -177,6 +179,7 @@
     if ((m = r.match(/^departments\/([\w-]+)\/kind\/([\w-]+)$/))) return { name: "departments/kindedit", id: m[1], kid: m[2] };
     if ((m = r.match(/^departments\/([\w-]+)\/kind$/))) return { name: "departments/kind", id: m[1] };
     if (!ROUTES[r] && (m = r.match(/^departments\/([\w-]+)$/))) return { name: "departments/dept", id: m[1] };
+    if ((m = r.match(/^wr\/([\w-]+)$/))) return { name: "wr/plan", id: m[1] };
     if (!ROUTES[r] && (m = r.match(/^locations\/([\w-]+)$/))) return { name: "locations/item", id: m[1] };
     if ((m = r.match(/^equipment\/cat\/([\w-]+)$/))) return { name: "equipment/cat", id: m[1] };
     if (!ROUTES[r] && (m = r.match(/^equipment\/([\w-]+)$/))) return { name: "equipment/item", id: m[1] };
@@ -191,6 +194,8 @@
   const currentRoute = () => parseRoute().name;
   const crumbOf = (route) => ({
     barcode: "作業実績",
+    wr: "作業実績",
+    "wr/plan": "作業実績 › 実績登録",
     mrp: "生産計画",
     stock: "作業実績",
     "company/edit": "会社情報",
@@ -2691,7 +2696,7 @@
     return DOM.groups.map((g) => `<section class="card list-card" aria-labelledby="mg-${g.id}"><h2 class="sec-title menu-title" id="mg-${g.id}">${icon(g.icon)}${g.label}</h2>${g.screens.map((sid) => {
       const S = GS[sid];
       return row(`#/g/${sid}`, S.icon, S.label, S.tabs.map((t) => t.label).join("・"));
-    }).join("")}${g.id === "result" ? row("#/barcode", "barcode", "バーコード", "作業実績・受入検品・棚移動・設備点検") + row("#/stock", "box", "在庫状況", "場所・コンテナ別の在庫と出庫可能数") : ""}${g.id === "plan" ? row("#/mrp", "box", "資材所要計算", "MRP・再MRPの実行") : ""}</section>`).join("") +
+    }).join("")}${g.id === "result" ? row("#/wr", "wrench", "実績登録", "生産計画の工程計画明細と、対になる実績の登録") : ""}${g.id === "result" ? row("#/barcode", "barcode", "バーコード", "作業実績・受入検品・棚移動・設備点検") + row("#/stock", "box", "在庫状況", "場所・コンテナ別の在庫と出庫可能数") : ""}${g.id === "plan" ? row("#/mrp", "box", "資材所要計算", "MRP・再MRPの実行") : ""}</section>`).join("") +
       `<section class="card list-card" aria-label="アプリケーション">${row("#/settings", "gear", "設定", "自分のイメージ・読込件数・テーマ・言語・画面の列")}</section>`;
   }
 
@@ -2741,6 +2746,326 @@
     return `${flashHtml()}<section class="card" aria-label="説明"><p>場所・コンテナごとの在庫です（読み取り専用）。出庫可能数は、在庫数から安全在庫と引当予約済みの数量を引いた数です。</p></section>
       ${tableCard(stockT, true, "h-stock", "在庫の台帳", "")}`;
   }
+
+  /* ---------- 作業実績 › 実績登録（生産計画が中心） ----------
+     生産計画（親）→ 生産計画明細（子）を閲覧し、明細ごとに「対になる実績」だけを登録する。計画・明細は変更も追加もできない。
+       開始: 担当者・開始数量・取り出すコンテナを決めて、コンテナから払い出す。
+             コンテナの既定は 引当あり → 最初の工程は「同じ注文に紐づく材料のコンテナ」/ 2工程目以降は「同じ生産計画で前工程の完了品を入庫したコンテナ」。
+             別のコンテナは、生産計画を引数にした検索つきの選択（同じダイアログ内）で選ぶ。
+       終了: 完了数量とコンテナ（既定は払出元）を入れて登録し、コンテナへ払い出す。
+             取り出した数量より完了数量が少ないときは、意図的（日またぎ・引き継ぎなど。残りは払出元へ返す）か
+             不適合（工程異常。数量・理由・コンテナが揃ったら登録し、そのコンテナへ払い出す）かを判定する。
+       登録の完了時に DB の更新結果を取得して表示する（プロトタイプでは応答を模擬。X.wr.outcome = "error" で失敗の表示を確認できる）。 */
+  const WR = JSON.parse(JSON.stringify(X.wr ?? { plans: [], works: [], records: [], stock: [], containers: [], abnormal: [] }));
+  const WR_ST = { "未着手": ["", "mute"], "実施中": ["pencil", "line"], "完了": ["check", "ok"] };
+  const WR_SHORT = ["日またぎ", "交代の引き継ぎ", "段取り替え", "その他"];
+  const WR_NG = ["寸法不良", "外観不良", "材料不良", "設備不具合", "その他"];
+  const wrDlg = { kind: null, s: {}, busy: false, err: "" };
+  const wrPlan = (id) => WR.plans.find((p) => p.id === id);
+  const wrWork = (id) => WR.works.find((w) => w.id === id);
+  const wrWorksOf = (pid) => WR.works.filter((w) => w.plan === pid).sort((a, b) => a.seq - b.seq);
+  const wrRecs = (wid) => WR.records.filter((r) => r.work === wid);
+  const wrOpen = (wid) => wrRecs(wid).find((r) => !r.end);
+  const wrDone = (wid) => wrRecs(wid).filter((r) => r.end).reduce((n, r) => n + r.done, 0);
+  const wrNeed = (w) => Math.max(0, wrPlan(w.plan).qty - wrDone(w.id) - wrRecs(w.id).filter((r) => !r.end).reduce((n, r) => n + r.pulled, 0));
+  const wrStatus = (w) => (wrOpen(w.id) ? "実施中" : wrDone(w.id) >= wrPlan(w.plan).qty ? "完了" : wrRecs(w.id).length ? "実施中" : "未着手");
+  const wrCont = (code) => WR.containers.find((c) => c.code === code);
+  const wrContName = (code) => { const c = wrCont(code); return c ? `${c.name}（${c.code}）` : code; };
+  const wrStaffName = (no) => D.employees.find((e) => e.no === no)?.name ?? no;
+  const wrNow = () => { const d = new Date(), p = (n) => String(n).padStart(2, "0"); return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`; };
+  const wrDt = (s) => (s ? s.slice(5).replace("-", "/") : "―");
+  const wrTag = (s) => (s.reserved ? "引当" : s.tag ? s.tag : s.seq === 0 ? "材料" : "前工程の完了品");
+
+  /* 取り出せる在庫。優先順: 引当あり → 数量の多い順 */
+  function wrCands(w) {
+    const p = wrPlan(w.plan);
+    return WR.stock.filter((s) => s.qty > 0 && (w.seq === 1 ? s.seq === 0 && s.order === p.order : s.plan === p.id && s.seq === w.seq - 1))
+      .sort((a, b) => Number(!!b.reserved) - Number(!!a.reserved) || b.qty - a.qty);
+  }
+  /* コンテナ検索用: 検索語で絞り、取り出せない理由も添える（生産計画 = 引数） */
+  function wrSearch(w, q) {
+    const p = wrPlan(w.plan), ok = new Set(wrCands(w).map((s) => s.id));
+    const key = String(q ?? "").trim().toLowerCase();
+    return WR.stock.filter((s) => s.qty > 0 && s.seq !== "NG" && (!key || `${s.container} ${wrContName(s.container)} ${s.item} ${wrCont(s.container)?.loc ?? ""}`.toLowerCase().includes(key)))
+      .map((s) => ({ s, ok: ok.has(s.id), why: s.order !== p.order && s.plan !== p.id ? "別の注文・生産計画の在庫" : w.seq === 1 ? "材料ではありません" : "前工程の完了品ではありません" }))
+      .sort((a, b) => Number(b.ok) - Number(a.ok) || Number(!!b.s.reserved) - Number(!!a.s.reserved));
+  }
+
+  /* DB 更新の模擬: 数秒待ち、結果（または失敗）を返す */
+  const wrCall = (fn) => new Promise((res, rej) => setTimeout(() => {
+    if ((X.wr?.outcome ?? "success") === "error") rej(new Error("DB の更新に失敗しました（接続がタイムアウトしました）。登録内容は保存されていません。"));
+    else res(fn());
+  }, 900));
+  const wrNext = (list, prefix) => `${prefix}${String(list.length + 1).padStart(4, "0")}`;
+
+  function wrApplyStart(w, s) {
+    const src = WR.stock.find((x) => x.id === s.stockId);
+    src.qty -= s.qty;
+    const r = { id: `r${WR.records.length + 1}`, no: wrNext(WR.records, "WRC-"), work: w.id, nth: wrRecs(w.id).length + 1, start: wrNow(), end: "", staff: s.staff, container: src.container, srcStock: src.id, pulled: s.qty, done: 0, ng: 0 };
+    WR.records.push(r);
+    WR.lastStaff = s.staff;
+    return { title: "開始を登録しました", rows: [["実績", `${r.no}（${r.nth}回目）`], ["開始", wrDt(r.start)], ["担当者", wrStaffName(r.staff)], ["払出", `${wrContName(src.container)} から ${r.pulled}${wrPlan(w.plan).unit}`], ["コンテナの残り", `${src.qty}${wrPlan(w.plan).unit}`]], db: "作業実績 +1／コンテナ受払 +1（払出）" };
+  }
+  function wrApplyEnd(w, s) {
+    const p = wrPlan(w.plan), r = s.rec, u = p.unit, rows = [];
+    const put = (container, seq, qty, item, extra = {}) => WR.stock.push({ id: `s${WR.stock.length + 1}`, container, plan: p.id, order: p.order, seq, qty, item, ...extra });
+    let db = 2;
+    r.end = wrNow();
+    r.done = s.done;
+    put(s.container, w.seq, s.done, `${w.task}の完了品`);
+    rows.push(["実績", `${r.no}（${r.nth}回目）`], ["終了", wrDt(r.end)], ["完了", `${s.done}${u} → ${wrContName(s.container)} へ払出`]);
+    const gap = r.pulled - s.done;
+    if (gap > 0 && s.kind === "ng") {
+      r.ng = s.ngQty;
+      put(s.ngContainer, "NG", s.ngQty, `${w.task}の不適合品`, { reason: s.reason });
+      const ab = { no: wrNext(WR.abnormal, "AB-"), work: w.id, qty: s.ngQty, reason: s.reason, container: s.ngContainer, at: r.end };
+      WR.abnormal.push(ab);
+      rows.push(["工程異常", `${ab.no}（${s.reason}・${s.ngQty}${u}）→ ${wrContName(s.ngContainer)} へ払出`]);
+      db += 2;
+      const back = gap - s.ngQty;
+      if (back > 0) { put(r.container, w.seq === 1 ? 0 : w.seq - 1, back, w.seq === 1 ? "材料（返却）" : "前工程の完了品（返却）", { tag: "返却" }); rows.push(["返却", `${back}${u} → ${wrContName(r.container)}`]); db += 1; }
+    } else if (gap > 0) {
+      r.carry = gap;
+      r.reason = s.reason;
+      put(r.container, w.seq === 1 ? 0 : w.seq - 1, gap, w.seq === 1 ? "材料（引継ぎ）" : "前工程の完了品（引継ぎ）", { tag: "引継ぎ", reserved: false });
+      rows.push(["意図的な差", `${s.reason}（${gap}${u}を ${wrContName(r.container)} へ返却。次の開始で取り出せます）`]);
+      db += 1;
+    }
+    const st = wrStatus(w);
+    rows.push(["明細の状態", `${st}（完了 ${wrDone(w.id)} ／ 計画 ${p.qty}${u}）`]);
+    return { title: "終了を登録しました", rows, db: `作業実績 更新／コンテナ受払 +${db - 1}${s.kind === "ng" ? "／工程異常 +1" : ""}` };
+  }
+
+  /* ---- 画面: 生産計画のテーブルが親、その計画の工程計画明細のテーブルが子（明細を選ぶと、対になる実績のテーブルを表示） ---- */
+  const WRSEL = { plan: null, work: null, applied: null };
+  const wrPlanDone = (p) => { const ws = wrWorksOf(p.id), last = ws[ws.length - 1]; return last ? wrDone(last.id) : 0; };
+  const wrLast = (wid) => wrRecs(wid).slice(-1)[0];
+  const wrNw = (s) => `<span class="od-nowrap">${s}</span>`;
+  const wrPlanT = makeTable({
+    key: "wrPlan", list: () => WR.plans, search: (r) => `${r.no} ${r.item} ${r.order} ${r.cust}`, placeholder: "計画番号・品目・注文・顧客",
+    pick: { get: () => WRSEL.plan, set: (id) => { WRSEL.plan = id; WRSEL.work = null; } },
+    cols: [
+      { key: "no", label: "計画番号", fixed: true, val: (r) => r.no },
+      { key: "item", label: "品目", val: (r) => r.item },
+      { key: "order", label: "注文", val: (r) => r.order },
+      { key: "cust", label: "顧客", val: (r) => r.cust },
+      { key: "qty", label: "生産数量", num: true, val: (r) => r.qty, html: (r) => `${r.qty}${esc(r.unit)}` },
+      { key: "done", label: "最終工程の完了", num: true, val: (r) => wrPlanDone(r), html: (r) => `${wrPlanDone(r)} ／ ${r.qty}${esc(r.unit)}` },
+      { key: "deadline", label: "完了期限", val: (r) => r.deadline, html: (r) => wrNw(fmtDate(r.deadline)) },
+      { key: "run", label: "状態", val: (r) => wrWorksOf(r.id).filter((w) => wrStatus(w) === "実施中").length, html: (r) => { const n = wrWorksOf(r.id).filter((w) => wrStatus(w) === "実施中").length; return n ? chip(`実施中 ${n}工程`, "pencil", "line") : chip("着手前", "", "mute"); } },
+    ],
+  });
+  const wrActBtn = (w) => {
+    const open = wrOpen(w.id), st = wrStatus(w);
+    if (open) return `<button class="btn btn-primary wr-act" type="button" data-wr-end="${open.id}">${icon("check")}<span>終了</span></button>`;
+    if (st === "完了") return `<span class="muted">完了</span>`;
+    return wrCands(w).length
+      ? `<button class="btn btn-primary wr-act" type="button" data-wr-start="${w.id}">${icon("pencil")}<span>開始</span></button>`
+      : `<button class="btn wr-act" type="button" data-wr-start="${w.id}">${icon("search")}<span>探して開始</span></button>`;
+  };
+  const wrWorkT = makeTable({
+    key: "wrWork", noun: "工程", list: () => wrWorksOf(WRSEL.plan), search: (r) => `${r.task} ${r.equip}`, placeholder: "工程・設備", hidden: ["start", "end", "equip"],
+    pick: { get: () => WRSEL.work, set: (id) => { WRSEL.work = WRSEL.work === id ? null : id; } },
+    cols: [
+      { key: "seq", label: "工程順", num: true, val: (r) => r.seq },
+      { key: "task", label: "工程", fixed: true, val: (r) => r.task },
+      { key: "st", label: "状態", val: (r) => ["未着手", "実施中", "完了"].indexOf(wrStatus(r)), html: (r) => { const st = wrStatus(r); return chip(st, WR_ST[st][0], WR_ST[st][1]); } },
+      { key: "interval", label: "予定作業時間", val: (r) => r.interval },
+      { key: "start", label: "開始予定", val: (r) => r.start, html: (r) => wrNw(wrDt(r.start)) },
+      { key: "end", label: "完了予定", val: (r) => r.end, html: (r) => wrNw(wrDt(r.end)) },
+      { key: "equip", label: "設備", val: (r) => r.equip },
+      { key: "n", label: "実績", num: true, val: (r) => wrRecs(r.id).length, html: (r) => `${wrRecs(r.id).length}回` },
+      { key: "staff", label: "担当者", val: (r) => wrStaffName(wrLast(r.id)?.staff ?? ""), html: (r) => esc(wrLast(r.id) ? wrStaffName(wrLast(r.id).staff) : "―") },
+      { key: "cont", label: "コンテナ", val: (r) => wrLast(r.id)?.container ?? "", html: (r) => esc(wrLast(r.id) ? wrContName(wrLast(r.id).container) : "―") },
+      { key: "qty", label: "開始 / 完了", num: true, val: (r) => wrLast(r.id)?.pulled ?? 0, html: (r) => { const l = wrLast(r.id); return l ? wrNw(`${l.pulled} ／ ${l.end ? l.done : "―"}${esc(wrPlan(r.plan).unit)}`) : "―"; } },
+      { key: "act", label: "実績登録", val: (r) => wrStatus(r), html: wrActBtn },
+    ],
+  });
+  const wrRecT = makeTable({
+    key: "wrRec", noun: "回", list: () => wrRecs(WRSEL.work), search: (r) => `${r.no} ${wrStaffName(r.staff)} ${wrContName(r.container)}`, placeholder: "実績番号・担当者・コンテナ",
+    cols: [
+      { key: "nth", label: "回数", fixed: true, num: true, val: (r) => r.nth, html: (r) => `${r.nth}回目` },
+      { key: "no", label: "実績番号", val: (r) => r.no, html: (r) => wrNw(esc(r.no)) },
+      { key: "start", label: "開始", val: (r) => r.start, html: (r) => wrNw(wrDt(r.start)) },
+      { key: "end", label: "終了", val: (r) => r.end || "9999", html: (r) => (r.end ? wrNw(wrDt(r.end)) : chip("実施中", "pencil", "line")) },
+      { key: "staff", label: "担当者", val: (r) => wrStaffName(r.staff) },
+      { key: "cont", label: "コンテナ（払出元）", val: (r) => r.container, html: (r) => esc(wrContName(r.container)) },
+      { key: "pulled", label: "開始数量", num: true, val: (r) => r.pulled },
+      { key: "done", label: "完了数量", num: true, val: (r) => r.done, html: (r) => (r.end ? r.done : "―") },
+      { key: "ng", label: "不適合", num: true, val: (r) => r.ng ?? 0, html: (r) => (r.ng ? `${r.ng}` : "―") },
+      { key: "carry", label: "引継ぎ", num: true, val: (r) => r.carry ?? 0, html: (r) => (r.carry ? `${r.carry}（${esc(r.reason ?? "")}）` : "―") },
+    ],
+  });
+  function wrScreen(pid) {
+    if (pid !== WRSEL.applied) { WRSEL.applied = pid; if (pid && wrPlan(pid)) { WRSEL.plan = pid; WRSEL.work = null; } }
+    if (!wrPlan(WRSEL.plan)) { WRSEL.plan = WR.plans[0]?.id ?? null; WRSEL.work = null; }
+    if (WRSEL.work && wrWork(WRSEL.work)?.plan !== WRSEL.plan) WRSEL.work = null;
+    const p = wrPlan(WRSEL.plan), w = wrWork(WRSEL.work);
+    return `<p class="tbl-note-out">生産計画の名称を選ぶと、その計画の工程計画明細を下に表示します。計画と明細は変更も追加もできません。登録できるのは、明細と対になる実績だけです（右端の「実績登録」）。</p>
+      ${tableCard(wrPlanT, false, "h-wrp", "生産計画", "")}
+      ${p ? tableCard(wrWorkT, false, "h-wrw", `「${esc(p.no)}　${esc(p.item)}」の工程計画明細`, "") : ""}
+      ${w ? tableCard(wrRecT, false, "h-wrr", `「工程${w.seq} ${esc(w.task)}」の実績`, "") : (p ? `<p class="tbl-note-out">工程の名称を選ぶと、その明細の実績（回ごとの記録）を表示します。</p>` : "")}`;
+  }
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-wr-start],[data-wr-end]");
+    if (!b) return;
+    if (b.dataset.wrStart) wrOpenDlg("start", b.dataset.wrStart, b);
+    else wrOpenDlg("end", b.dataset.wrEnd, b);
+  });
+
+  /* ---- ダイアログ（開始／終了／コンテナ検索／不適合／結果）。同じダイアログの中で表示を切り替える ---- */
+  const wrOpenDlg = (kind, id, trigger) => {
+    wrDlg.kind = kind;
+    wrDlg.busy = false;
+    wrDlg.err = "";
+    if (kind === "start") {
+      const w = wrWork(id), c = wrCands(w)[0];
+      wrDlg.s = { view: "start", wid: id, staff: WR.lastStaff ?? D.employees[0]?.no ?? "", stockId: c?.id ?? "", qty: c ? Math.min(c.qty, wrNeed(w)) : "", q: "" };
+    } else {
+      const r = WR.records.find((x) => x.id === id), w = wrWork(r.work);
+      wrDlg.s = { view: "end", wid: w.id, rid: id, rec: r, done: r.pulled, container: r.container, kind: "", reason: "", ngQty: "", ngContainer: WR.containers.find((c) => c.kind === "不良品")?.code ?? "" };
+    }
+    const w = wrWork(wrDlg.s.wid);
+    showSheet(trigger, { chip: chip(kind === "start" ? "開始" : "終了", kind === "start" ? "pencil" : "check"), title: `${wrPlan(w.plan).no}　工程${w.seq} ${w.task}`, rows: [], extra: `<div id="wr-dlg" class="wr-dlg"></div>`, onMount: () => wrPaint() });
+    setTimeout(() => document.querySelector("#wr-dlg #wr-qty, #wr-dlg #wr-done, #wr-dlg .wr-big")?.focus(), 80);
+  };
+  const wrCloseDlg = () => { wrDlg.kind = null; closeSheet(); render(); };
+  function wrView() {
+    const s = wrDlg.s, w = wrWork(s.wid), p = wrPlan(w.plan), u = esc(p.unit);
+    const err = wrDlg.err ? `<p class="bc-msg is-err" role="alert">${icon("alert")}<span>${esc(wrDlg.err)}</span></p>` : "";
+    const stepper = (id, label, val, max, hint) => `<div class="field-row"><label for="${id}">${label}</label>
+      <div class="wr-stepper"><button class="btn" type="button" data-wr-d="dec" data-for="${id}" aria-label="1減らす">−</button><input id="${id}" data-f="${id}" type="number" inputmode="numeric" min="1" max="${max}" step="1" value="${val}" aria-describedby="${id}-h"><button class="btn" type="button" data-wr-d="inc" data-for="${id}" aria-label="1増やす">＋</button><button class="btn" type="button" data-wr-d="full" data-for="${id}" data-max="${max}">全量</button></div>
+      <p class="note" id="${id}-h">${hint}</p></div>`;
+    const opts = (list, sel) => list.map(([v, l]) => `<option value="${esc(v)}" ${v === sel ? "selected" : ""}>${esc(l)}</option>`).join("");
+    if (wrDlg.busy) return `<div class="wr-busy" role="status" aria-busy="true"><span class="spinner" aria-hidden="true"></span><p>DB に登録して、更新結果を取得しています…</p></div>`;
+    if (s.view === "result") {
+      const r = s.result;
+      return `<div class="wr-result" role="status"><p class="wr-ok">${icon("check")}<strong>${esc(r.title)}</strong></p>
+        <dl class="wr-info">${r.rows.map(([k, v]) => `<div class="kv"><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>
+        <p class="note">DB の更新結果: ${esc(r.db)}</p>
+        <div class="form-actions"><button class="btn btn-primary wr-big" type="button" data-wr-d="close">閉じる</button></div></div>`;
+    }
+    if (s.view === "pick") {
+      const list = wrSearch(w, s.q);
+      const item = ({ s: st, ok, why }) => `<li><button class="wr-cand ${ok ? "" : "is-off"}" type="button" ${ok ? `data-wr-d="sel" data-id="${st.id}"` : "disabled"} aria-pressed="${st.id === s.stockId}">
+        <span class="od-fill"><strong class="od-truncate">${esc(wrContName(st.container))}</strong><span class="muted od-truncate">${esc(st.item)}${ok ? "" : ` ・ ${esc(why)}`}</span></span>
+        ${ok ? chip(wrTag(st), st.reserved ? "star" : "", st.reserved ? "ok" : "line") : ""}<span class="od-nowrap wr-q">${st.qty}${u}</span></button></li>`;
+      const ok = list.filter((x) => x.ok), ng = list.filter((x) => !x.ok);
+      return `<div class="wr-pick"><button class="btn" type="button" data-wr-d="back">${icon("back")}<span>戻る</span></button>
+        <p class="note">生産計画 ${esc(p.no)}（注文 ${esc(p.order)}）の${w.seq === 1 ? "材料" : `工程${w.seq - 1}の完了品`}が入っているコンテナを探します。</p>
+        <div class="search-box">${icon("search")}<input id="wr-q" data-f="q" type="search" value="${esc(s.q)}" placeholder="コンテナ・品目・場所で検索" autocomplete="off" aria-label="コンテナを検索"></div>
+        <ul class="wr-cands" aria-label="取り出せるコンテナ">${ok.map(item).join("") || `<li class="muted">取り出せるコンテナがありません。</li>`}</ul>
+        ${ng.length ? `<details class="wr-others"><summary>取り出せないコンテナ（${ng.length}件）</summary><ul class="wr-cands">${ng.map(item).join("")}</ul></details>` : ""}</div>`;
+    }
+    if (wrDlg.kind === "start") {
+      const st = WR.stock.find((x) => x.id === s.stockId), need = wrNeed(w), max = st ? Math.min(st.qty, need) : 0;
+      return `<form class="wr-form" data-wr-form novalidate>${err}
+        <p class="wr-line">残り ${need}${u}（計画 ${p.qty}${u}）</p>
+        <div class="field-row"><label for="wr-staff">担当者</label><select id="wr-staff" data-f="staff">${opts(D.employees.map((e) => [e.no, `${e.name}（${e.no}）`]), s.staff)}</select></div>
+        ${stepper("wr-qty", "開始数量", s.qty, max || 1, st ? `最大 ${max}${u}（コンテナの在庫 ${st.qty}${u}、計画の残り ${need}${u}）` : "コンテナを選ぶと入力できます")}
+        <div class="field-row"><span class="label-like">取り出すコンテナ</span>
+          ${st ? `<div class="wr-sel"><span class="od-fill"><strong class="od-truncate">${esc(wrContName(st.container))}</strong><span class="muted od-truncate">${esc(st.item)} ・ 在庫 ${st.qty}${u}</span></span>${chip(wrTag(st), st.reserved ? "star" : "", st.reserved ? "ok" : "line")}</div>`
+            : `<p class="wr-why">${icon("alert")}<span>取り出せるコンテナがありません。探して選んでください。</span></p>`}
+          <button class="btn" type="button" data-wr-d="pick">${icon("search")}<span>${st ? "コンテナを変更・検索" : "コンテナを探す"}</span></button></div>
+        <div class="form-actions"><button class="btn btn-primary wr-big" type="submit" ${st ? "" : "disabled"}>開始（コンテナ払出）</button></div></form>`;
+    }
+    /* 終了 */
+    const r = s.rec, gap = r.pulled - (Number(s.done) || 0);
+    if (s.view === "short") {
+      return `<div class="wr-form">${err}<p class="wr-line">取り出した ${r.pulled}${u} に対して、完了は ${s.done}${u}（差 ${gap}${u}）です。</p>
+        <p class="bc-ask">この差は、どちらですか？</p>
+        <div class="bc-choices"><button class="btn bc-big" type="button" data-wr-d="intent">${icon("pencil")}<span>意図的（日またぎ・引き継ぎなど）</span></button><button class="btn btn-danger bc-big" type="button" data-wr-d="ng">${icon("alert")}<span>不適合（工程異常）</span></button></div>
+        <div class="form-actions"><button class="btn" type="button" data-wr-d="back">${icon("back")}<span>数量を直す</span></button></div></div>`;
+    }
+    if (s.view === "intent") {
+      return `<form class="wr-form" data-wr-form novalidate>${err}<p class="wr-line">差 ${gap}${u} は、${esc(wrContName(r.container))} へ戻します（次の開始で取り出せます）。</p>
+        <div class="field-row"><label for="wr-reason">理由</label><select id="wr-reason" data-f="reason">${opts(WR_SHORT.map((x) => [x, x]), s.reason || WR_SHORT[0])}</select></div>
+        <div class="form-actions"><button class="btn" type="button" data-wr-d="short">戻る</button><button class="btn btn-primary wr-big" type="submit">意図的として終了を登録</button></div></form>`;
+    }
+    if (s.view === "ng") {
+      return `<form class="wr-form" data-wr-form novalidate>${err}<p class="wr-line">不適合は工程異常として登録し、選んだコンテナへ払い出します。</p>
+        ${stepper("wr-ngqty", "不適合の数量", s.ngQty || gap, gap, `最大 ${gap}${u}（残りは ${esc(wrContName(r.container))} へ戻します）`)}
+        <div class="field-row"><label for="wr-reason">不適合の理由</label><select id="wr-reason" data-f="reason">${opts(WR_NG.map((x) => [x, x]), s.reason || WR_NG[0])}</select></div>
+        <div class="field-row"><label for="wr-ngc">払い出すコンテナ</label><select id="wr-ngc" data-f="ngContainer">${opts(WR.containers.map((c) => [c.code, wrContName(c.code)]), s.ngContainer)}</select></div>
+        <div class="form-actions"><button class="btn" type="button" data-wr-d="short">戻る</button><button class="btn btn-danger wr-big" type="submit">不適合として終了を登録</button></div></form>`;
+    }
+    return `<form class="wr-form" data-wr-form novalidate>${err}
+      <p class="wr-line">${wrDt(r.start)} 開始 ・ ${esc(wrStaffName(r.staff))} ・ 取り出し ${r.pulled}${u}</p>
+      ${stepper("wr-done", "完了数量", s.done, r.pulled, `取り出した数量（${r.pulled}${u}）まで。少ないときは、次で意図的か不適合かを選びます`)}
+      <div class="field-row"><label for="wr-cont">コンテナ（払出先）</label><select id="wr-cont" data-f="container">${opts(WR.containers.filter((c) => c.kind !== "不良品").map((c) => [c.code, wrContName(c.code)]), s.container)}</select></div>
+      <div class="form-actions"><button class="btn btn-primary wr-big" type="submit">終了を登録（コンテナ払出）</button></div></form>`;
+  }
+  function wrSync(el) {
+    const s = wrDlg.s;
+    el.querySelectorAll("[data-f]").forEach((i) => {
+      const k = { "wr-qty": "qty", "wr-done": "done", "wr-ngqty": "ngQty", "wr-staff": "staff", "wr-cont": "container", "wr-reason": "reason", "wr-ngc": "ngContainer", "wr-q": "q" }[i.id];
+      if (k) s[k] = i.type === "number" ? (i.value === "" ? "" : Number(i.value)) : i.value;
+    });
+  }
+  async function wrRegister(el) {
+    const s = wrDlg.s, w = wrWork(s.wid);
+    wrSync(el);
+    wrDlg.err = "";
+    if (wrDlg.kind === "start") {
+      const st = WR.stock.find((x) => x.id === s.stockId), max = st ? Math.min(st.qty, wrNeed(w)) : 0;
+      if (!Number.isInteger(s.qty) || s.qty < 1) { wrDlg.err = "開始数量は1以上の整数で入力してください。"; return wrPaint(); }
+      if (s.qty > max) { wrDlg.err = `開始数量は最大 ${max}${wrPlan(w.plan).unit} までです。`; return wrPaint(); }
+    } else {
+      const r = s.rec, done = s.done;
+      if (!Number.isInteger(done) || done < 0) { wrDlg.err = "完了数量は0以上の整数で入力してください。"; return wrPaint(); }
+      if (done > r.pulled) { wrDlg.err = `完了数量は取り出した数量（${r.pulled}）以下にしてください。`; return wrPaint(); }
+      if (done < r.pulled && !s.kind) { s.view = "short"; return wrPaint(); }
+      if (s.kind === "ng") {
+        const gap = r.pulled - done;
+        if (!Number.isInteger(s.ngQty) || s.ngQty < 1 || s.ngQty > gap) { wrDlg.err = `不適合の数量は1〜${gap}で入力してください。`; return wrPaint(); }
+        if (!s.reason || !s.ngContainer) { wrDlg.err = "不適合の理由と、払い出すコンテナを選んでください。"; return wrPaint(); }
+      }
+    }
+    wrDlg.busy = true;
+    wrPaint();
+    try {
+      const res = await wrCall(() => (wrDlg.kind === "start" ? wrApplyStart(w, s) : wrApplyEnd(w, s)));
+      wrDlg.busy = false;
+      s.result = res;
+      s.view = "result";
+      render();
+    } catch (e) {
+      wrDlg.busy = false;
+      wrDlg.err = e.message;
+    }
+    wrPaint();
+  }
+  function wrPaint() {
+    const el = document.getElementById("wr-dlg");
+    if (!el) return;
+    el.innerHTML = wrView();
+    const s = wrDlg.s;
+    el.querySelectorAll("[data-wr-form]").forEach((f) => f.addEventListener("submit", (e) => { e.preventDefault(); wrRegister(el); }));
+    el.querySelectorAll("[data-wr-d]").forEach((b) => b.addEventListener("click", () => {
+      const a = b.dataset.wrD;
+      wrSync(el);
+      if (a === "close") return wrCloseDlg();
+      if (a === "pick") s.view = "pick";
+      else if (a === "back") { s.view = wrDlg.kind === "start" ? "start" : "end"; s.kind = ""; }
+      else if (a === "sel") { const st = WR.stock.find((x) => x.id === b.dataset.id); s.stockId = st.id; s.qty = Math.min(st.qty, wrNeed(wrWork(s.wid))); s.view = "start"; }
+      else if (a === "short") s.view = "short";
+      else if (a === "intent") { s.kind = "intent"; s.reason = ""; s.view = "intent"; }
+      else if (a === "ng") { s.kind = "ng"; s.reason = ""; s.view = "ng"; }
+      else if (["inc", "dec", "full"].includes(a)) {
+        const i = el.querySelector(`#${b.dataset.for}`), cur = Number(i.value) || 0, max = Number(i.max) || cur;
+        i.value = a === "full" ? Number(b.dataset.max) : Math.max(1, Math.min(max, cur + (a === "inc" ? 1 : -1)));
+        wrSync(el);
+        return;
+      }
+      wrDlg.err = "";
+      wrPaint();
+    }));
+    const q = el.querySelector("#wr-q");
+    if (q) q.addEventListener("input", () => { s.q = q.value; const pos = q.selectionStart; wrPaint(); const n = document.getElementById("wr-q"); n?.focus(); n?.setSelectionRange(pos, pos); });
+    const first = el.querySelector("#wr-qty, #wr-done, #wr-ngqty, #wr-q, .wr-big");
+    if (first && !q) first.focus?.();
+  }
+  function bindWr() { /* ボタンは document の委譲（表の再描画で消えないように） */ }
 
   /* ---------- barcode: 作業実績 › バーコード ----------
      バーコードリーダー（キーボード入力として届く。末尾の Enter で確定）・スマートフォン・タブレットから、
@@ -2938,6 +3263,7 @@
     const stateChip = (s) => chip(s, s === "完了" ? "check" : s === "開始中" ? "pencil" : "", s === "完了" ? "ok" : s === "開始中" ? "line" : "mute");
     const kv = (k, v) => `<div class="kv"><dt>${k}</dt><dd>${v}</dd></div>`;
     const info = [];
+    if (c.wo?.plan) info.push(kv("実績登録", `<a href="#/wr/${esc(c.wo.plan)}">生産計画の画面で開く</a>`));
     if (c.wo) info.push(kv("作業指示", `<span class="od-nowrap">${esc(c.wo.sym)}</span>`), kv("品目・工程", esc(`${c.wo.item}／${c.wo.task}${c.wo.outsourced ? "（委託）" : ""}`)), kv("状態", stateChip(c.wo.state)), kv("数量", `完了 ${c.wo.done} ／ 指示 ${c.wo.qty}${esc(c.wo.unit)}（残り ${bcRemain(c.wo)}）`));
     if (c.po) info.push(kv("購入品", `<span class="od-nowrap">${esc(c.po.sym)}</span>`), kv("品目", esc(c.po.item)), kv("仕入先", esc(c.po.supplier)), kv("数量", `受入済 ${c.po.received ?? 0} ／ 発注 ${c.po.qty}${esc(c.po.unit)}`));
     if (c.shelf) info.push(kv("棚", esc(`${c.shelf.name}（${c.shelf.sym}）`)));
@@ -3331,6 +3657,7 @@
     }));
     document.querySelectorAll("[data-theme-pick]").forEach((r) => r.addEventListener("change", () => { SETTINGS.theme = r.value; applyTheme(); }));
     bindBarcode();
+    bindWr();
     document.querySelector("[data-mnt-reload]")?.addEventListener("click", () => location.reload());
     document.querySelector("[data-lang]")?.addEventListener("change", (e) => { SETTINGS.lang = e.target.value; });
     const setPhoto = (url) => {
@@ -3420,7 +3747,7 @@
       { id: "maintenance", icon: "wrench", label: "保全" },
     ] },
     ...DOM.groups.map((g) => ({ group: `g_${g.id}`, icon: g.icon, label: g.label,
-      children: [...(g.id === "result" ? [{ id: "barcode", icon: "barcode", label: "バーコード" }] : []), ...g.screens.map((sid) => ({ id: `g/${sid}`, icon: GS[sid].icon, label: GS[sid].label }))] })),
+      children: [...(g.id === "result" ? [{ id: "wr", icon: "wrench", label: "実績登録" }, { id: "barcode", icon: "barcode", label: "バーコード" }] : []), ...g.screens.map((sid) => ({ id: `g/${sid}`, icon: GS[sid].icon, label: GS[sid].label }))] })),
     { id: "company", icon: "building", label: "会社情報" },
     { id: "maintenance-mode", icon: "wrench", label: "メンテナンス中" },
     { id: "denied", icon: "alert", label: "アクセス拒否（確認用）" },
@@ -3597,6 +3924,8 @@
         menu: menuScreen,
         "maintenance-mode": () => downtimeScreen(false),
         barcode: () => { bcApplyArgs(); return barcodeScreen(); },
+        wr: () => wrScreen(null),
+        "wr/plan": () => wrScreen(P.id),
         settings: settingsScreen,
       }[route]();
       screen.innerHTML = pageHead(title, crumbOf(route)) + `<div class="${mobile ? "m-body" : "page-body"}">${["home", "orders", "production"].includes(route) ? dashTabs(route) : ""}${body}</div>`;
