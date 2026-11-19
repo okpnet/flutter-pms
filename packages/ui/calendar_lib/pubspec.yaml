@@ -1,0 +1,19 @@
+name: calendar_lib
+description: "月のカレンダー表示。日付ごとの値を抽象化した窓口で読み書きし、1 日・範囲の選択、開始曜日・表示する曜日・休日の色をテーマと設定で変えられる。"
+version: 0.0.1
+publish_to: none
+
+resolution: workspace
+
+environment:
+  sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
