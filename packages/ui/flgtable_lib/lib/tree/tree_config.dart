@@ -9,6 +9,7 @@ class TreeConfig {
     this.lineStyle = TreeLineStyle.solid,
     this.lineWidth,
     this.childCountColumnKey,
+    this.initiallyExpanded = false,
   }) : assert(indentChars >= 1, 'indentChars は1以上');
 
   /// JSON から復元する。欠けた/不正な項目は既定値にする。
@@ -17,6 +18,7 @@ class TreeConfig {
     final indent = json['indentChars'];
     final width = json['lineWidth'];
     final key = json['childCountColumnKey'];
+    final expanded = json['initiallyExpanded'];
     return TreeConfig(
       indentChars: indent is int && indent >= 1 ? indent : d.indentChars,
       showLines: json['showLines'] is bool
@@ -29,6 +31,7 @@ class TreeConfig {
           d.lineStyle,
       lineWidth: width is num && width > 0 ? width.toDouble() : null,
       childCountColumnKey: key is String ? key : null,
+      initiallyExpanded: expanded is bool ? expanded : d.initiallyExpanded,
     );
   }
 
@@ -48,11 +51,15 @@ class TreeConfig {
   /// null のときは内部の非表示列を使い、初期値を1とする(CSV出力の対象外)。
   final String? childCountColumnKey;
 
+  /// 読み込んだあと、すべての行を展開する(標準は縮小)。フィルタ有効時は展開しない。
+  final bool initiallyExpanded;
+
   Map<String, dynamic> toJson() => {
     'indentChars': indentChars,
     'showLines': showLines,
     'lineStyle': lineStyle.name,
     'lineWidth': lineWidth,
     'childCountColumnKey': childCountColumnKey,
+    'initiallyExpanded': initiallyExpanded,
   };
 }

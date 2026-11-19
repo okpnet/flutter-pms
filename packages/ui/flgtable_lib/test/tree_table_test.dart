@@ -99,6 +99,24 @@ void main() {
     return '▷';
   }
 
+  testWidgets('initiallyExpanded: 読み込んだあと、すべて展開する(孫まで)', (tester) async {
+    await tester.pumpWidget(
+      tree(
+        treeConfig: const TreeConfig(initiallyExpanded: true),
+        columns: ncols(source: items),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('aa'), findsOneWidget); // 孫
+    expect(find.text('x'), findsOneWidget);
+  });
+
+  testWidgets('標準は縮小のまま(子を読み込まない)', (tester) async {
+    await tester.pumpWidget(tree(columns: ncols(source: items)));
+    await tester.pumpAndSettle();
+    expect(find.text('a'), findsNothing);
+  });
+
   double dx(WidgetTester tester, String name) =>
       tester.getTopLeft(find.text(name)).dx;
 

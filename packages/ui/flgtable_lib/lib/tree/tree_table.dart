@@ -187,6 +187,9 @@ class _TreeTableState<T> extends _TableBaseState<T, TreeTable<T>> {
         _actionKey = null;
         _invalidate();
       });
+      if (_tree.initiallyExpanded && !flat) {
+        await _expandAll(List.of(_roots), generation);
+      }
     } catch (e, st) {
       _log.error('tree load failed query=${query.toJson()}', ex: e, trace: st);
       if (!mounted || id != _request || generation != _generation) return;
@@ -194,6 +197,16 @@ class _TreeTableState<T> extends _TableBaseState<T, TreeTable<T>> {
         _error = e;
         _loading = false;
       });
+    }
+  }
+
+  /// [nodes] とその子孫を、すべて展開する(初期展開)。読み込み直しなどで世代が変わったら止める。
+  Future<void> _expandAll(List<_Node<T>> nodes, int generation) async {
+    for (final node in nodes) {
+      if (!mounted || generation != _generation) return;
+      if (node.childCount == 0) continue;
+      if (!node.expanded) await _toggle(node);
+      await _expandAll(List.of(node.children), generation);
     }
   }
 
