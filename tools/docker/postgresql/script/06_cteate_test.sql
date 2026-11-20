@@ -12147,6 +12147,48 @@ COMMENT ON COLUMN tests.trans_approved.update_user_history_id IS '更新者履�
 
 COMMENT ON COLUMN tests.trans_approved.remove IS '削除';
 
+CREATE OR REPLACE FUNCTION tests.document_approve(
+    p_preapproval_id uuid,
+    p_approved boolean DEFAULT true,
+    p_remarks varchar DEFAULT NULL,
+    p_staff_id uuid DEFAULT NULL
+) RETURNS tests.trans_approved AS $$
+DECLARE
+    v_st record; v_pre tests.trans_preapproval; v_ap tests.mstr_approval; v_last tests.trans_approved; v_row tests.trans_approved;
+BEGIN
+    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
+    SELECT * INTO v_pre FROM tests.trans_preapproval WHERE trans_preapproval_id = p_preapproval_id AND remove IS FALSE FOR UPDATE;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION '承認前が見つかりません (%)', p_preapproval_id USING ERRCODE = 'OPR01';
+    END IF;
+    IF p_approved IS NULL THEN
+        RAISE EXCEPTION '承認の適用(承認・却下)を指定してください' USING ERRCODE = 'OPR02';
+    END IF;
+    SELECT * INTO v_ap FROM tests.mstr_approval WHERE mstr_approval_id = v_pre.mstr_approval_id;
+    IF NOT EXISTS (
+        SELECT 1 FROM tests.info_assign AS ia
+        WHERE ia.info_staff_id = v_st.staff_id AND ia.remove IS FALSE AND ia.enable IS TRUE
+          AND ia.info_position_id = v_ap.info_position_id
+          AND (v_ap.info_department_id IS NULL OR ia.info_department_id = v_ap.info_department_id)
+    ) THEN
+        RAISE EXCEPTION '承認できる担当者ではありません (%)', v_st.staff_id USING ERRCODE = 'OPR03';
+    END IF;
+    SELECT * INTO v_last FROM tests.trans_approved WHERE trans_preapproval_id = p_preapproval_id AND remove IS FALSE
+    ORDER BY update_at DESC LIMIT 1;
+    IF FOUND AND v_last.approved IS TRUE THEN
+        RAISE EXCEPTION 'すでに承認されています' USING ERRCODE = 'OPR03';
+    END IF;
+    INSERT INTO tests.trans_approved (trans_preapproval_id, approved, approved_staff_history_id, approved_staff_id,
+                                      remarks, update_user_id, update_user_history_id)
+    VALUES (p_preapproval_id, p_approved, v_st.staff_history_id, v_st.staff_id,
+            p_remarks, v_st.staff_id, v_st.staff_history_id)
+    RETURNING * INTO v_row;
+    RETURN v_row;
+END
+$$ LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION tests.document_approve(uuid, boolean, varchar, uuid) IS '文書の承認(または却下)を 1 件登録する(追記のみ)。承認できるのは、承認の段(部署・役職)に当てはまる担当者だけ。担当者は引数、省略時は JWT の staff_id。errcode: OPR01 承認前が無い / OPR02 引数が不正 / OPR03 承認できない・すでに承認済み。戻り値は承認結果';
+
 CREATE TABLE tests.trans_audit (
   trans_audit_id uuid DEFAULT gen_random_uuid() NOT NULL,
   audit_std_history_id uuid NOT NULL,
@@ -23071,48 +23113,6 @@ COMMENT ON VIEW tests.v_document_content IS '@primaryKey mstr_document_content_i
 @foreignKey (mstr_document_id) references mstr_document (mstr_document_id)
 文書コンテンツの閲覧用(1 行 = コンテンツ)。読めない人(readable = false)には、中身(contents)とファイル(trans_file_id)を NULL で返す。画面は、この閲覧用のビューから読む(基の表を直接読まない)';
 
-CREATE OR REPLACE FUNCTION tests.document_approve(
-    p_preapproval_id uuid,
-    p_approved boolean DEFAULT true,
-    p_remarks varchar DEFAULT NULL,
-    p_staff_id uuid DEFAULT NULL
-) RETURNS tests.trans_approved AS $$
-DECLARE
-    v_st record; v_pre tests.trans_preapproval; v_ap tests.mstr_approval; v_last tests.trans_approved; v_row tests.trans_approved;
-BEGIN
-    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
-    SELECT * INTO v_pre FROM tests.trans_preapproval WHERE trans_preapproval_id = p_preapproval_id AND remove IS FALSE FOR UPDATE;
-    IF NOT FOUND THEN
-        RAISE EXCEPTION '承認前が見つかりません (%)', p_preapproval_id USING ERRCODE = 'OPR01';
-    END IF;
-    IF p_approved IS NULL THEN
-        RAISE EXCEPTION '承認の適用(承認・却下)を指定してください' USING ERRCODE = 'OPR02';
-    END IF;
-    SELECT * INTO v_ap FROM tests.mstr_approval WHERE mstr_approval_id = v_pre.mstr_approval_id;
-    IF NOT EXISTS (
-        SELECT 1 FROM tests.info_assign AS ia
-        WHERE ia.info_staff_id = v_st.staff_id AND ia.remove IS FALSE AND ia.enable IS TRUE
-          AND ia.info_position_id = v_ap.info_position_id
-          AND (v_ap.info_department_id IS NULL OR ia.info_department_id = v_ap.info_department_id)
-    ) THEN
-        RAISE EXCEPTION '承認できる担当者ではありません (%)', v_st.staff_id USING ERRCODE = 'OPR03';
-    END IF;
-    SELECT * INTO v_last FROM tests.trans_approved WHERE trans_preapproval_id = p_preapproval_id AND remove IS FALSE
-    ORDER BY update_at DESC LIMIT 1;
-    IF FOUND AND v_last.approved IS TRUE THEN
-        RAISE EXCEPTION 'すでに承認されています' USING ERRCODE = 'OPR03';
-    END IF;
-    INSERT INTO tests.trans_approved (trans_preapproval_id, approved, approved_staff_history_id, approved_staff_id,
-                                      remarks, update_user_id, update_user_history_id)
-    VALUES (p_preapproval_id, p_approved, v_st.staff_history_id, v_st.staff_id,
-            p_remarks, v_st.staff_id, v_st.staff_history_id)
-    RETURNING * INTO v_row;
-    RETURN v_row;
-END
-$$ LANGUAGE plpgsql VOLATILE;
-
-COMMENT ON FUNCTION tests.document_approve(uuid, boolean, varchar, uuid) IS '文書の承認(または却下)を 1 件登録する(追記のみ)。承認できるのは、承認の段(部署・役職)に当てはまる担当者だけ。担当者は引数、省略時は JWT の staff_id。errcode: OPR01 承認前が無い / OPR02 引数が不正 / OPR03 承認できない・すでに承認済み。戻り値は承認結果';
-
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_shared_dictionary() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -25007,6 +25007,7 @@ BEGIN
                 NEW.mstr_approval_pattern_id,
                 NEW.names,
                 NEW.stamp_style,
+
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
@@ -25014,6 +25015,7 @@ BEGIN
                 OLD.mstr_approval_pattern_id,
                 OLD.names,
                 OLD.stamp_style,
+
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -25029,7 +25031,6 @@ BEGIN
             mstr_approval_pattern_id,
             names,
             revision,
-            stamp_style,
             symbol,
             remarks,
             update_at,
@@ -25043,6 +25044,7 @@ BEGIN
             NEW.names,
             NEW.revision,
             NEW.stamp_style,
+
             NEW.symbol,
             NEW.remarks,
             NEW.update_at,
@@ -27236,6 +27238,7 @@ BEGIN
                 NEW.info_company_id,
                 NEW.name,
                 NEW.settings,
+
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
@@ -27244,6 +27247,7 @@ BEGIN
                 OLD.info_company_id,
                 OLD.name,
                 OLD.settings,
+
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -27260,7 +27264,6 @@ BEGIN
             info_company_id,
             name,
             revision,
-            settings,
             symbol,
             remarks,
             update_at,
@@ -27275,6 +27278,7 @@ BEGIN
             NEW.name,
             NEW.revision,
             NEW.settings,
+
             NEW.symbol,
             NEW.remarks,
             NEW.update_at,
