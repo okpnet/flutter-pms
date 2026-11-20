@@ -1585,6 +1585,7 @@ COMMENT ON COLUMN tests.trans_purchase_detail.remove IS '削除';
 CREATE TABLE tests.mstr_approval_pattern (
   mstr_approval_pattern_id uuid DEFAULT gen_random_uuid() NOT NULL,
   names uuid NOT NULL,
+  stamp_style jsonb,
   revision integer DEFAULT 1,
   symbol varchar(16) DEFAULT '',
   remarks varchar(1024),
@@ -1602,6 +1603,8 @@ COMMENT ON TABLE tests.mstr_approval_pattern IS '承認パターンマスタ';
 COMMENT ON COLUMN tests.mstr_approval_pattern.mstr_approval_pattern_id IS '承認パターンID';
 
 COMMENT ON COLUMN tests.mstr_approval_pattern.names IS 'パターン名称';
+
+COMMENT ON COLUMN tests.mstr_approval_pattern.stamp_style IS '承認スタンプの様式(JSON。NULL は info_app.settings の stamp(標準の様式)を使う)';
 
 COMMENT ON COLUMN tests.mstr_approval_pattern.revision IS 'レビジョン';
 
@@ -4323,6 +4326,7 @@ CREATE TABLE tests.info_app (
   info_app_id uuid DEFAULT gen_random_uuid() NOT NULL,
   info_company_id uuid,
   name varchar(255) NOT NULL,
+  settings jsonb DEFAULT '{"version":1,"stamp":{"position":{"anchor":"topRight","offsetXmm":10,"offsetYmm":10,"pages":"first"},"opacity":0.6,"shape":{"kind":"roundRect","widthMm":32,"heightMm":32,"rotationDeg":0},"color":{"text":"#C62828","frame":"#C62828","fill":null},"labelLanguage":"ja","stages":"all","items":[{"field":"stamp_label","size":14,"line":1},{"field":"approved_at","format":"yyyy/MM/dd","size":10,"line":2},{"field":"approved_staff","format":"name","size":10,"line":3}],"pending":{"dashed":true,"color":"#757575"}}}',
   revision integer DEFAULT 1,
   symbol varchar(16) DEFAULT '',
   remarks varchar(1024),
@@ -4344,6 +4348,8 @@ COMMENT ON COLUMN tests.info_app.info_app_id IS 'アプリケーションID';
 COMMENT ON COLUMN tests.info_app.info_company_id IS '会社ID';
 
 COMMENT ON COLUMN tests.info_app.name IS 'アプリケーション名';
+
+COMMENT ON COLUMN tests.info_app.settings IS 'アプリの設定(JSON。接続後に効く設定。version と機能ごとのキー。stamp は承認スタンプの標準の様式)';
 
 COMMENT ON COLUMN tests.info_app.revision IS 'レビジョン';
 
@@ -10779,6 +10785,7 @@ CREATE TABLE tests.history_mstr_approval_pattern (
   history_id uuid DEFAULT gen_random_uuid() NOT NULL,
   mstr_approval_pattern_id uuid NOT NULL,
   names uuid NOT NULL,
+  stamp_style jsonb,
   revision integer DEFAULT 1,
   symbol varchar(16) DEFAULT '',
   remarks varchar(1024),
@@ -10798,6 +10805,8 @@ COMMENT ON COLUMN tests.history_mstr_approval_pattern.history_id IS '履歴ID';
 COMMENT ON COLUMN tests.history_mstr_approval_pattern.mstr_approval_pattern_id IS '承認パターンID';
 
 COMMENT ON COLUMN tests.history_mstr_approval_pattern.names IS 'パターン名称';
+
+COMMENT ON COLUMN tests.history_mstr_approval_pattern.stamp_style IS '承認スタンプの様式(JSON。NULL は info_app.settings の stamp(標準の様式)を使う)';
 
 COMMENT ON COLUMN tests.history_mstr_approval_pattern.revision IS 'レビジョン';
 
@@ -11699,6 +11708,7 @@ CREATE TABLE tests.history_info_app (
   info_app_id uuid NOT NULL,
   info_company_id uuid,
   name varchar(255) NOT NULL,
+  settings jsonb DEFAULT '{"version":1,"stamp":{"position":{"anchor":"topRight","offsetXmm":10,"offsetYmm":10,"pages":"first"},"opacity":0.6,"shape":{"kind":"roundRect","widthMm":32,"heightMm":32,"rotationDeg":0},"color":{"text":"#C62828","frame":"#C62828","fill":null},"labelLanguage":"ja","stages":"all","items":[{"field":"stamp_label","size":14,"line":1},{"field":"approved_at","format":"yyyy/MM/dd","size":10,"line":2},{"field":"approved_staff","format":"name","size":10,"line":3}],"pending":{"dashed":true,"color":"#757575"}}}',
   revision integer DEFAULT 1,
   symbol varchar(16) DEFAULT '',
   remarks varchar(1024),
@@ -11720,6 +11730,8 @@ COMMENT ON COLUMN tests.history_info_app.info_app_id IS 'アプリケーショ�
 COMMENT ON COLUMN tests.history_info_app.info_company_id IS '会社情報ID';
 
 COMMENT ON COLUMN tests.history_info_app.name IS 'アプリケーション名';
+
+COMMENT ON COLUMN tests.history_info_app.settings IS 'アプリの設定(JSON。接続後に効く設定。version と機能ごとのキー。stamp は承認スタンプの標準の様式)';
 
 COMMENT ON COLUMN tests.history_info_app.revision IS 'レビジョン';
 
@@ -22948,6 +22960,159 @@ COMMENT ON VIEW tests.v_complaint_kind IS '@primaryKey complaint_kind_id
 @foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)
 異常の種類別の一覧(1 行 = 異常 × 種類)。種類は 6 つで固定: 設備の点検・工程・購買/委託品の受入・棚移動で発見された異常(内部の異常)、顧客クレーム・利害関係者の苦情(外部の異常)。種類の名称・外部か(is_external)・クレームか(is_claim)は、このビューだけで定義する(画面で決めない)';
 
+CREATE VIEW tests.v_document_approval_stamp AS
+SELECT
+    pre.trans_preapproval_id
+    , d.mstr_document_id
+    , pre.trans_approval_pattern_id
+    , pre.mstr_approval_id
+    , a.priority AS approval_priority
+    , a.names AS approval_names
+    , a.info_position_id
+    , a.info_department_id
+    , pre.period
+    , (r.trans_approved_id IS NOT NULL) AS decided
+    , COALESCE(r.approved, false) AS approved
+    , (r.trans_approved_id IS NOT NULL AND r.approved IS NOT TRUE) AS rejected
+    , (r.trans_approved_id IS NULL) AS pending
+    , r.update_at AS approved_at
+    , r.approved_staff_id
+    , r.approved_staff_history_id
+    , r.remarks AS approved_remarks
+    , CASE WHEN r.approved IS TRUE THEN '承認' WHEN r.trans_approved_id IS NULL THEN '承認待ち' ELSE '却下' END AS stamp_label_ja
+    , CASE WHEN r.approved IS TRUE THEN 'Approval' WHEN r.trans_approved_id IS NULL THEN 'Pending' ELSE 'Rejected' END AS stamp_label_en
+    , d.version_code
+    , d.control_number
+    , d.revision AS document_revision
+FROM tests.trans_preapproval AS pre
+INNER JOIN tests.mstr_document AS d ON d.trans_approval_pattern_id = pre.trans_approval_pattern_id AND d.remove IS FALSE
+INNER JOIN tests.mstr_approval AS a ON a.mstr_approval_id = pre.mstr_approval_id
+LEFT JOIN LATERAL (
+    SELECT x.* FROM tests.trans_approved AS x
+    WHERE x.trans_preapproval_id = pre.trans_preapproval_id AND x.remove IS FALSE
+    ORDER BY x.update_at DESC LIMIT 1
+) AS r ON true
+WHERE pre.remove IS FALSE;
+
+COMMENT ON VIEW tests.v_document_approval_stamp IS '@primaryKey trans_preapproval_id
+@foreignKey (mstr_document_id) references mstr_document (mstr_document_id)
+@foreignKey (trans_approval_pattern_id) references trans_approval_pattern (trans_approval_pattern_id)
+@foreignKey (mstr_approval_id) references mstr_approval (mstr_approval_id)
+@foreignKey (approved_staff_id) references info_staff (info_staff_id)
+文書の承認ごとの状態(1 行 = 承認の段 1 つ)。承認スタンプの表示項目は、この列から選ぶ。承認した日時・人は承認結果(最新の 1 件。追記のみ)の値。承認(approved)・却下(rejected)・待ち(pending)は boolean。スタンプの文字(stamp_label_ja・stamp_label_en)は、このビューだけで定義する(画面・PDF で組み立てない)';
+
+CREATE VIEW tests.v_document_publication AS
+SELECT
+    d.mstr_document_id
+    , d.symbol
+    , d.code
+    , d.control_number
+    , d.version_code
+    , d.trans_approval_pattern_id
+    , COALESCE(s.total_count, 0)::integer AS total_count
+    , COALESCE(s.approved_count, 0)::integer AS approved_count
+    , (COALESCE(s.total_count, 0) = COALESCE(s.approved_count, 0)) AS published
+    , (COALESCE(s.total_count, 0) > COALESCE(s.approved_count, 0)) AS pending
+    , (COALESCE(s.rejected_count, 0) > 0) AS rejected
+    , (COALESCE(s.total_count, 0) > 0) AS stamp_visible
+    , s.approved_at
+    , s.approved_staff_id
+    , s.approved_staff_history_id
+    , (COALESCE(s.total_count, 0) = COALESCE(s.approved_count, 0) OR COALESCE((SELECT pg_has_role(current_user, r.oid, 'member') FROM pg_roles AS r WHERE r.rolname = 'pms_admin'), false) OR COALESCE(s.approver, false)) AS readable
+    , COALESCE(s.approver, false) AS approver
+    , CASE WHEN COALESCE(s.total_count, 0) = COALESCE(s.approved_count, 0) THEN '承認' ELSE '承認待ち' END AS stamp_label_ja
+    , CASE WHEN COALESCE(s.total_count, 0) = COALESCE(s.approved_count, 0) THEN 'Approval' ELSE 'Pending' END AS stamp_label_en
+FROM tests.mstr_document AS d
+LEFT JOIN LATERAL (
+    SELECT
+        count(*) AS total_count
+        , count(*) FILTER (WHERE v.approved) AS approved_count
+        , count(*) FILTER (WHERE v.rejected) AS rejected_count
+        , max(v.approved_at) FILTER (WHERE v.approved) AS approved_at
+        , (array_agg(v.approved_staff_id ORDER BY v.approved_at DESC) FILTER (WHERE v.approved))[1] AS approved_staff_id
+        , (array_agg(v.approved_staff_history_id ORDER BY v.approved_at DESC) FILTER (WHERE v.approved))[1] AS approved_staff_history_id
+        , bool_or(EXISTS (SELECT 1 FROM tests.info_assign AS ia
+            WHERE ia.info_staff_id = NULLIF(current_setting('jwt.claims.staff_id', true), '')::uuid AND ia.remove IS FALSE AND ia.enable IS TRUE
+              AND ia.info_position_id = ap.info_position_id
+              AND (ap.info_department_id IS NULL OR ia.info_department_id = ap.info_department_id))) AS approver
+    FROM tests.v_document_approval_stamp AS v
+    INNER JOIN tests.mstr_approval AS ap ON ap.mstr_approval_id = v.mstr_approval_id
+    WHERE v.mstr_document_id = d.mstr_document_id
+) AS s ON true
+WHERE d.remove IS FALSE;
+
+COMMENT ON VIEW tests.v_document_publication IS '@primaryKey mstr_document_id
+@foreignKey (mstr_document_id) references mstr_document (mstr_document_id)
+@foreignKey (trans_approval_pattern_id) references trans_approval_pattern (trans_approval_pattern_id)
+@foreignKey (approved_staff_id) references info_staff (info_staff_id)
+文書の公開の判定(1 行 = 文書)。承認の段が 0 件(承認不要のパターン)、またはすべての段が承認済み(承認適用 = true)のとき published。それ以外は pending(承認待ち)。readable は、ログイン中の担当者(JWT の staff_id)が中身を読めるか(公開済み、または承認の該当者、または管理者)。承認待ちの文書は、読める人にも pending を表示する。公開の判定・スタンプの文字は、このビューだけで定義する(画面・PDF で判定しない)';
+
+CREATE VIEW tests.v_document_content AS
+SELECT
+    c.mstr_document_content_id
+    , c.mstr_document_id
+    , c.code
+    , c.titles
+    , c.sequence
+    , c.image_content
+    , c.symbol
+    , c.revision
+    , c.update_at
+    , p.published
+    , p.pending
+    , p.readable
+    , CASE WHEN p.readable THEN c.contents END AS contents
+    , CASE WHEN p.readable THEN c.trans_file_id END AS trans_file_id
+FROM tests.mstr_document_content AS c
+INNER JOIN tests.v_document_publication AS p ON p.mstr_document_id = c.mstr_document_id
+WHERE c.remove IS FALSE;
+
+COMMENT ON VIEW tests.v_document_content IS '@primaryKey mstr_document_content_id
+@foreignKey (mstr_document_id) references mstr_document (mstr_document_id)
+文書コンテンツの閲覧用(1 行 = コンテンツ)。読めない人(readable = false)には、中身(contents)とファイル(trans_file_id)を NULL で返す。画面は、この閲覧用のビューから読む(基の表を直接読まない)';
+
+CREATE OR REPLACE FUNCTION tests.document_approve(
+    p_preapproval_id uuid,
+    p_approved boolean DEFAULT true,
+    p_remarks varchar DEFAULT NULL,
+    p_staff_id uuid DEFAULT NULL
+) RETURNS tests.trans_approved AS $$
+DECLARE
+    v_st record; v_pre tests.trans_preapproval; v_ap tests.mstr_approval; v_last tests.trans_approved; v_row tests.trans_approved;
+BEGIN
+    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
+    SELECT * INTO v_pre FROM tests.trans_preapproval WHERE trans_preapproval_id = p_preapproval_id AND remove IS FALSE FOR UPDATE;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION '承認前が見つかりません (%)', p_preapproval_id USING ERRCODE = 'OPR01';
+    END IF;
+    IF p_approved IS NULL THEN
+        RAISE EXCEPTION '承認の適用(承認・却下)を指定してください' USING ERRCODE = 'OPR02';
+    END IF;
+    SELECT * INTO v_ap FROM tests.mstr_approval WHERE mstr_approval_id = v_pre.mstr_approval_id;
+    IF NOT EXISTS (
+        SELECT 1 FROM tests.info_assign AS ia
+        WHERE ia.info_staff_id = v_st.staff_id AND ia.remove IS FALSE AND ia.enable IS TRUE
+          AND ia.info_position_id = v_ap.info_position_id
+          AND (v_ap.info_department_id IS NULL OR ia.info_department_id = v_ap.info_department_id)
+    ) THEN
+        RAISE EXCEPTION '承認できる担当者ではありません (%)', v_st.staff_id USING ERRCODE = 'OPR03';
+    END IF;
+    SELECT * INTO v_last FROM tests.trans_approved WHERE trans_preapproval_id = p_preapproval_id AND remove IS FALSE
+    ORDER BY update_at DESC LIMIT 1;
+    IF FOUND AND v_last.approved IS TRUE THEN
+        RAISE EXCEPTION 'すでに承認されています' USING ERRCODE = 'OPR03';
+    END IF;
+    INSERT INTO tests.trans_approved (trans_preapproval_id, approved, approved_staff_history_id, approved_staff_id,
+                                      remarks, update_user_id, update_user_history_id)
+    VALUES (p_preapproval_id, p_approved, v_st.staff_history_id, v_st.staff_id,
+            p_remarks, v_st.staff_id, v_st.staff_history_id)
+    RETURNING * INTO v_row;
+    RETURN v_row;
+END
+$$ LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION tests.document_approve(uuid, boolean, varchar, uuid) IS '文書の承認(または却下)を 1 件登録する(追記のみ)。承認できるのは、承認の段(部署・役職)に当てはまる担当者だけ。担当者は引数、省略時は JWT の staff_id。errcode: OPR01 承認前が無い / OPR02 引数が不正 / OPR03 承認できない・すでに承認済み。戻り値は承認結果';
+
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_shared_dictionary() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -24841,12 +25006,14 @@ BEGIN
             IF (
                 NEW.mstr_approval_pattern_id,
                 NEW.names,
+                NEW.stamp_style,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
             ) IS NOT DISTINCT FROM (
                 OLD.mstr_approval_pattern_id,
                 OLD.names,
+                OLD.stamp_style,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -24862,6 +25029,7 @@ BEGIN
             mstr_approval_pattern_id,
             names,
             revision,
+            stamp_style,
             symbol,
             remarks,
             update_at,
@@ -24874,6 +25042,7 @@ BEGIN
             NEW.mstr_approval_pattern_id,
             NEW.names,
             NEW.revision,
+            NEW.stamp_style,
             NEW.symbol,
             NEW.remarks,
             NEW.update_at,
@@ -27066,6 +27235,7 @@ BEGIN
                 NEW.info_app_id,
                 NEW.info_company_id,
                 NEW.name,
+                NEW.settings,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
@@ -27073,6 +27243,7 @@ BEGIN
                 OLD.info_app_id,
                 OLD.info_company_id,
                 OLD.name,
+                OLD.settings,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -27089,6 +27260,7 @@ BEGIN
             info_company_id,
             name,
             revision,
+            settings,
             symbol,
             remarks,
             update_at,
@@ -27102,6 +27274,7 @@ BEGIN
             NEW.info_company_id,
             NEW.name,
             NEW.revision,
+            NEW.settings,
             NEW.symbol,
             NEW.remarks,
             NEW.update_at,

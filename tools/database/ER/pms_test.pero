@@ -2,7 +2,7 @@
   "formatVersion": 3,
   "appVersion": "0.1.0",
   "id": 538067658,
-  "nextId": 6042,
+  "nextId": 6050,
   "properties": {
     "outputFileName": "pms_test",
     "outputFolder": "",
@@ -5805,7 +5805,7 @@
         "sqlite": ""
       },
       "bodies": {
-        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_approval_pattern() RETURNS trigger AS\r\n$BODY$\r\nDECLARE\r\n    revisions int;\r\nBEGIN\r\n    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN\r\n        SELECT Max(revision) INTO revisions FROM tests.history_mstr_approval_pattern WHERE mstr_approval_pattern_id=NEW.mstr_approval_pattern_id;\r\n        IF (revisions >= 0) THEN\r\n            IF (\r\n                NEW.mstr_approval_pattern_id,\r\n                NEW.names,\r\n                NEW.symbol,\r\n                NEW.remarks,\r\n                NEW.remove\r\n            ) IS NOT DISTINCT FROM (\r\n                OLD.mstr_approval_pattern_id,\r\n                OLD.names,\r\n                OLD.symbol,\r\n                OLD.remarks,\r\n                OLD.remove\r\n            )\r\n            THEN\r\n                RETURN NULL;\r\n            END IF;\r\n            NEW.revision := revisions + 1;\r\n        ELSE\r\n            NEW.revision := 1;\r\n        END IF;\r\n        INSERT INTO tests.history_mstr_approval_pattern (\r\n            mstr_approval_pattern_id,\r\n            names,\r\n            revision,\r\n            symbol,\r\n            remarks,\r\n            update_at,\r\n            update_user_id,\r\n            update_user_history_id,\r\n            remove\r\n        )\r\n        VALUES\r\n        (\r\n            NEW.mstr_approval_pattern_id,\r\n            NEW.names,\r\n            NEW.revision,\r\n            NEW.symbol,\r\n            NEW.remarks,\r\n            NEW.update_at,\r\n            NEW.update_user_id,\r\n            NEW.update_user_history_id,\r\n            NEW.remove\r\n        );\r\n        RETURN NEW;\r\n    ELSEIF (TG_OP = 'DELETE') THEN\r\n        RETURN OLD;\r\n    END IF;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_approval_pattern() RETURNS trigger AS\r\n$BODY$\r\nDECLARE\r\n    revisions int;\r\nBEGIN\r\n    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN\r\n        SELECT Max(revision) INTO revisions FROM tests.history_mstr_approval_pattern WHERE mstr_approval_pattern_id=NEW.mstr_approval_pattern_id;\r\n        IF (revisions >= 0) THEN\r\n            IF (\r\n                NEW.mstr_approval_pattern_id,\r\n                NEW.names,\r\n                NEW.stamp_style,\n\n                NEW.symbol,\r\n                NEW.remarks,\r\n                NEW.remove\r\n            ) IS NOT DISTINCT FROM (\r\n                OLD.mstr_approval_pattern_id,\r\n                OLD.names,\r\n                OLD.stamp_style,\n\n                OLD.symbol,\r\n                OLD.remarks,\r\n                OLD.remove\r\n            )\r\n            THEN\r\n                RETURN NULL;\r\n            END IF;\r\n            NEW.revision := revisions + 1;\r\n        ELSE\r\n            NEW.revision := 1;\r\n        END IF;\r\n        INSERT INTO tests.history_mstr_approval_pattern (\r\n            mstr_approval_pattern_id,\r\n            names,\r\n            revision,\r\n            symbol,\r\n            remarks,\r\n            update_at,\r\n            update_user_id,\r\n            update_user_history_id,\r\n            remove\r\n        )\r\n        VALUES\r\n        (\r\n            NEW.mstr_approval_pattern_id,\r\n            NEW.names,\r\n            NEW.revision,\r\n            NEW.stamp_style,\n\n            NEW.symbol,\r\n            NEW.remarks,\r\n            NEW.update_at,\r\n            NEW.update_user_id,\r\n            NEW.update_user_history_id,\r\n            NEW.remove\r\n        );\r\n        RETURN NEW;\r\n    ELSEIF (TG_OP = 'DELETE') THEN\r\n        RETURN OLD;\r\n    END IF;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
         "mysql": "",
         "sqlserver": "",
         "sqlite": ""
@@ -6663,7 +6663,7 @@
         "sqlite": ""
       },
       "bodies": {
-        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_02_history_info_app() RETURNS trigger AS\r\n$BODY$\r\nDECLARE\r\n    revisions int;\r\nBEGIN\r\n    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN\r\n        SELECT Max(revision) INTO revisions FROM tests.history_info_app WHERE info_app_id=NEW.info_app_id;\r\n        IF (revisions >= 0) THEN\r\n            IF (\r\n                NEW.info_app_id,\r\n                NEW.info_company_id,\r\n                NEW.name,\r\n                NEW.symbol,\r\n                NEW.remarks,\r\n                NEW.remove\r\n            ) IS NOT DISTINCT FROM (\r\n                OLD.info_app_id,\r\n                OLD.info_company_id,\r\n                OLD.name,\r\n                OLD.symbol,\r\n                OLD.remarks,\r\n                OLD.remove\r\n            )\r\n            THEN\r\n                RETURN NULL;\r\n            END IF;\r\n            NEW.revision := revisions + 1;\r\n        ELSE\r\n            NEW.revision := 1;\r\n        END IF;\r\n        INSERT INTO tests.history_info_app (\r\n            info_app_id,\r\n            info_company_id,\r\n            name,\r\n            revision,\r\n            symbol,\r\n            remarks,\r\n            update_at,\r\n            update_user_id,\r\n            update_user_history_id,\r\n            remove\r\n        )\r\n        VALUES\r\n        (\r\n            NEW.info_app_id,\r\n            NEW.info_company_id,\r\n            NEW.name,\r\n            NEW.revision,\r\n            NEW.symbol,\r\n            NEW.remarks,\r\n            NEW.update_at,\r\n            NEW.update_user_id,\r\n            NEW.update_user_history_id,\r\n            NEW.remove\r\n        );\r\n        RETURN NEW;\r\n    ELSEIF (TG_OP = 'DELETE') THEN\r\n        RETURN OLD;\r\n    END IF;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_02_history_info_app() RETURNS trigger AS\r\n$BODY$\r\nDECLARE\r\n    revisions int;\r\nBEGIN\r\n    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN\r\n        SELECT Max(revision) INTO revisions FROM tests.history_info_app WHERE info_app_id=NEW.info_app_id;\r\n        IF (revisions >= 0) THEN\r\n            IF (\r\n                NEW.info_app_id,\r\n                NEW.info_company_id,\r\n                NEW.name,\r\n                NEW.settings,\n\n                NEW.symbol,\r\n                NEW.remarks,\r\n                NEW.remove\r\n            ) IS NOT DISTINCT FROM (\r\n                OLD.info_app_id,\r\n                OLD.info_company_id,\r\n                OLD.name,\r\n                OLD.settings,\n\n                OLD.symbol,\r\n                OLD.remarks,\r\n                OLD.remove\r\n            )\r\n            THEN\r\n                RETURN NULL;\r\n            END IF;\r\n            NEW.revision := revisions + 1;\r\n        ELSE\r\n            NEW.revision := 1;\r\n        END IF;\r\n        INSERT INTO tests.history_info_app (\r\n            info_app_id,\r\n            info_company_id,\r\n            name,\r\n            revision,\r\n            symbol,\r\n            remarks,\r\n            update_at,\r\n            update_user_id,\r\n            update_user_history_id,\r\n            remove\r\n        )\r\n        VALUES\r\n        (\r\n            NEW.info_app_id,\r\n            NEW.info_company_id,\r\n            NEW.name,\r\n            NEW.revision,\r\n            NEW.settings,\n\n            NEW.symbol,\r\n            NEW.remarks,\r\n            NEW.update_at,\r\n            NEW.update_user_id,\r\n            NEW.update_user_history_id,\r\n            NEW.remove\r\n        );\r\n        RETURN NEW;\r\n    ELSEIF (TG_OP = 'DELETE') THEN\r\n        RETURN OLD;\r\n    END IF;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
         "mysql": "",
         "sqlserver": "",
         "sqlite": ""
@@ -10658,6 +10658,33 @@
         2914,
         3866,
         6037
+      ],
+      "schema": "tests"
+    },
+    {
+      "id": 6049,
+      "kind": "function",
+      "name": "document_approve",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.document_approve(\n    p_preapproval_id uuid,\n    p_approved boolean DEFAULT true,\n    p_remarks varchar DEFAULT NULL,\n    p_staff_id uuid DEFAULT NULL\n) RETURNS tests.trans_approved AS $$\nDECLARE\n    v_st record; v_pre tests.trans_preapproval; v_ap tests.mstr_approval; v_last tests.trans_approved; v_row tests.trans_approved;\nBEGIN\n    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);\n    SELECT * INTO v_pre FROM tests.trans_preapproval WHERE trans_preapproval_id = p_preapproval_id AND remove IS FALSE FOR UPDATE;\n    IF NOT FOUND THEN\n        RAISE EXCEPTION '承認前が見つかりません (%)', p_preapproval_id USING ERRCODE = 'OPR01';\n    END IF;\n    IF p_approved IS NULL THEN\n        RAISE EXCEPTION '承認の適用(承認・却下)を指定してください' USING ERRCODE = 'OPR02';\n    END IF;\n    SELECT * INTO v_ap FROM tests.mstr_approval WHERE mstr_approval_id = v_pre.mstr_approval_id;\n    IF NOT EXISTS (\n        SELECT 1 FROM tests.info_assign AS ia\n        WHERE ia.info_staff_id = v_st.staff_id AND ia.remove IS FALSE AND ia.enable IS TRUE\n          AND ia.info_position_id = v_ap.info_position_id\n          AND (v_ap.info_department_id IS NULL OR ia.info_department_id = v_ap.info_department_id)\n    ) THEN\n        RAISE EXCEPTION '承認できる担当者ではありません (%)', v_st.staff_id USING ERRCODE = 'OPR03';\n    END IF;\n    SELECT * INTO v_last FROM tests.trans_approved WHERE trans_preapproval_id = p_preapproval_id AND remove IS FALSE\n    ORDER BY update_at DESC LIMIT 1;\n    IF FOUND AND v_last.approved IS TRUE THEN\n        RAISE EXCEPTION 'すでに承認されています' USING ERRCODE = 'OPR03';\n    END IF;\n    INSERT INTO tests.trans_approved (trans_preapproval_id, approved, approved_staff_history_id, approved_staff_id,\n                                      remarks, update_user_id, update_user_history_id)\n    VALUES (p_preapproval_id, p_approved, v_st.staff_history_id, v_st.staff_id,\n            p_remarks, v_st.staff_id, v_st.staff_history_id)\n    RETURNING * INTO v_row;\n    RETURN v_row;\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "文書の承認(または却下)を 1 件登録する(追記のみ)。承認できるのは、承認の段(部署・役職)に当てはまる担当者だけ。担当者は引数、省略時は JWT の staff_id。errcode: OPR01 承認前が無い / OPR02 引数が不正 / OPR03 承認できない・すでに承認済み。戻り値は承認結果",
+      "args": "uuid, boolean, varchar, uuid",
+      "dependsOnTableIds": [
+        2427,
+        2380,
+        2393,
+        2828
       ],
       "schema": "tests"
     }
@@ -37047,6 +37074,22 @@
           "comment": "パターン名称"
         },
         {
+          "id": 6045,
+          "logicalName": "承認スタンプの様式",
+          "physicalName": "stamp_style",
+          "typeId": "jsonb",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "承認スタンプの様式(JSON。NULL は info_app.settings の stamp(標準の様式)を使う)"
+        },
+        {
           "id": 1904,
           "logicalName": "レビジョン",
           "physicalName": "revision",
@@ -40163,6 +40206,22 @@
           "defaultMethodId": null,
           "defaultExpression": "",
           "comment": "アプリケーション名"
+        },
+        {
+          "id": 6043,
+          "logicalName": "設定",
+          "physicalName": "settings",
+          "typeId": "jsonb",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "value",
+          "defaultValue": "{\"version\":1,\"stamp\":{\"position\":{\"anchor\":\"topRight\",\"offsetXmm\":10,\"offsetYmm\":10,\"pages\":\"first\"},\"opacity\":0.6,\"shape\":{\"kind\":\"roundRect\",\"widthMm\":32,\"heightMm\":32,\"rotationDeg\":0},\"color\":{\"text\":\"#C62828\",\"frame\":\"#C62828\",\"fill\":null},\"labelLanguage\":\"ja\",\"stages\":\"all\",\"items\":[{\"field\":\"stamp_label\",\"size\":14,\"line\":1},{\"field\":\"approved_at\",\"format\":\"yyyy/MM/dd\",\"size\":10,\"line\":2},{\"field\":\"approved_staff\",\"format\":\"name\",\"size\":10,\"line\":3}],\"pending\":{\"dashed\":true,\"color\":\"#757575\"}}}",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "アプリの設定(JSON。接続後に効く設定。version と機能ごとのキー。stamp は承認スタンプの標準の様式)"
         },
         {
           "id": 2140,
@@ -44114,6 +44173,22 @@
           "defaultMethodId": null,
           "defaultExpression": "",
           "comment": "パターン名称"
+        },
+        {
+          "id": 6044,
+          "logicalName": "承認スタンプの様式",
+          "physicalName": "stamp_style",
+          "typeId": "jsonb",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "承認スタンプの様式(JSON。NULL は info_app.settings の stamp(標準の様式)を使う)"
         },
         {
           "id": 2420,
@@ -49918,6 +49993,22 @@
           "defaultMethodId": null,
           "defaultExpression": "",
           "comment": "アプリケーション名"
+        },
+        {
+          "id": 6042,
+          "logicalName": "設定",
+          "physicalName": "settings",
+          "typeId": "jsonb",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "value",
+          "defaultValue": "{\"version\":1,\"stamp\":{\"position\":{\"anchor\":\"topRight\",\"offsetXmm\":10,\"offsetYmm\":10,\"pages\":\"first\"},\"opacity\":0.6,\"shape\":{\"kind\":\"roundRect\",\"widthMm\":32,\"heightMm\":32,\"rotationDeg\":0},\"color\":{\"text\":\"#C62828\",\"frame\":\"#C62828\",\"fill\":null},\"labelLanguage\":\"ja\",\"stages\":\"all\",\"items\":[{\"field\":\"stamp_label\",\"size\":14,\"line\":1},{\"field\":\"approved_at\",\"format\":\"yyyy/MM/dd\",\"size\":10,\"line\":2},{\"field\":\"approved_staff\",\"format\":\"name\",\"size\":10,\"line\":3}],\"pending\":{\"dashed\":true,\"color\":\"#757575\"}}}",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "アプリの設定(JSON。接続後に効く設定。version と機能ごとのキー。stamp は承認スタンプの標準の様式)"
         },
         {
           "id": 2859,
@@ -65506,6 +65597,78 @@
       },
       "sql": {
         "sql": "SELECT\n    t.complaint_kind_id\n    , t.trans_complaint_id\n    , c.symbol\n    , c.occurent_at\n    , c.titles\n    , c.details\n    , c.reporter_staff_id\n    , c.approvals\n    , c.remarks\n    , t.kind_symbol\n    , t.kind_name\n    , t.is_external\n    , t.is_claim\n    , t.stakeholder_id\n    , t.trans_order_id\n    , t.mstr_equipment_id\n    , t.mstr_task_id\n    , t.trans_purchase_rec_id\n    , t.trans_visiter_id\nFROM (\n    -- 内部の異常\n    SELECT e.trans_complaint_equipment_id AS complaint_kind_id, e.trans_complaint_id, e.symbol AS kind_symbol\n        , '設備の点検で発見された異常' AS kind_name, FALSE AS is_external, FALSE AS is_claim\n        , NULL::uuid AS stakeholder_id, NULL::uuid AS trans_order_id, e.equipment_id AS mstr_equipment_id\n        , NULL::uuid AS mstr_task_id, NULL::uuid AS trans_purchase_rec_id, NULL::uuid AS trans_visiter_id\n    FROM tests.trans_complaint_equipment AS e WHERE e.remove IS FALSE\n    UNION ALL\n    SELECT p.trans_complaint_process_id, p.trans_complaint_id, p.symbol\n        , '工程で発見された異常', FALSE, FALSE\n        , NULL::uuid, NULL::uuid, NULL::uuid\n        , p.mstr_task_id, NULL::uuid, NULL::uuid\n    FROM tests.trans_complaint_process AS p WHERE p.remove IS FALSE\n    UNION ALL\n    SELECT r.trans_complaint_purchase_rec_id, r.trans_complaint_id, r.symbol\n        , '購買・委託品の受入で発見された異常', FALSE, FALSE\n        , NULL::uuid, NULL::uuid, NULL::uuid\n        , NULL::uuid, r.trans_purchase_rec_id, NULL::uuid\n    FROM tests.trans_complaint_purchase_rec AS r WHERE r.remove IS FALSE\n    UNION ALL\n    SELECT v.trans_complaint_visiter_id, v.trans_complaint_id, v.symbol\n        , '棚移動で発見された異常', FALSE, FALSE\n        , NULL::uuid, NULL::uuid, NULL::uuid\n        , NULL::uuid, NULL::uuid, v.trans_visiter_id\n    FROM tests.trans_complaint_visiter AS v WHERE v.remove IS FALSE\n    UNION ALL\n    -- 外部の異常: 顧客クレーム(クレーム)と、供給者・顧客からの苦情(クレームではない)\n    SELECT o.trans_complaint_order_id, o.trans_complaint_id, o.symbol\n        , '顧客クレーム', TRUE, TRUE\n        , ord.stakeholder_id, o.trans_order_id, NULL::uuid\n        , NULL::uuid, NULL::uuid, NULL::uuid\n    FROM tests.trans_complaint_order AS o\n    LEFT JOIN tests.trans_order AS ord ON ord.trans_order_id = o.trans_order_id\n    WHERE o.remove IS FALSE\n    UNION ALL\n    SELECT s.trans_complaint_stakeholder_id, s.trans_complaint_id, s.symbol\n        , '利害関係者の苦情', TRUE, FALSE\n        , s.stakeholder_id, NULL::uuid, NULL::uuid\n        , NULL::uuid, NULL::uuid, NULL::uuid\n    FROM tests.trans_complaint_stakeholder AS s WHERE s.remove IS FALSE\n) AS t\nINNER JOIN tests.trans_complaint AS c ON c.trans_complaint_id = t.trans_complaint_id AND c.remove IS FALSE"
+      },
+      "preQuery": "",
+      "postQuery": ""
+    },
+    {
+      "id": 6046,
+      "kind": "view",
+      "logicalName": "",
+      "physicalName": "v_document_approval_stamp",
+      "comment": "@primaryKey trans_preapproval_id\n@foreignKey (mstr_document_id) references mstr_document (mstr_document_id)\n@foreignKey (trans_approval_pattern_id) references trans_approval_pattern (trans_approval_pattern_id)\n@foreignKey (mstr_approval_id) references mstr_approval (mstr_approval_id)\n@foreignKey (approved_staff_id) references info_staff (info_staff_id)\n文書の承認ごとの状態(1 行 = 承認の段 1 つ)。承認スタンプの表示項目は、この列から選ぶ。承認した日時・人は承認結果(最新の 1 件。追記のみ)の値。承認(approved)・却下(rejected)・待ち(pending)は boolean。スタンプの文字(stamp_label_ja・stamp_label_en)は、このビューだけで定義する(画面・PDF で組み立てない)",
+      "locked": false,
+      "viewType": "sql",
+      "join": {
+        "sources": [],
+        "columns": [],
+        "where": ""
+      },
+      "function": {
+        "methodId": null,
+        "args": [],
+        "columns": []
+      },
+      "sql": {
+        "sql": "CREATE VIEW tests.v_document_approval_stamp AS\nSELECT\n    pre.trans_preapproval_id\n    , d.mstr_document_id\n    , pre.trans_approval_pattern_id\n    , pre.mstr_approval_id\n    , a.priority AS approval_priority\n    , a.names AS approval_names\n    , a.info_position_id\n    , a.info_department_id\n    , pre.period\n    , (r.trans_approved_id IS NOT NULL) AS decided\n    , COALESCE(r.approved, false) AS approved\n    , (r.trans_approved_id IS NOT NULL AND r.approved IS NOT TRUE) AS rejected\n    , (r.trans_approved_id IS NULL) AS pending\n    , r.update_at AS approved_at\n    , r.approved_staff_id\n    , r.approved_staff_history_id\n    , r.remarks AS approved_remarks\n    , CASE WHEN r.approved IS TRUE THEN '承認' WHEN r.trans_approved_id IS NULL THEN '承認待ち' ELSE '却下' END AS stamp_label_ja\n    , CASE WHEN r.approved IS TRUE THEN 'Approval' WHEN r.trans_approved_id IS NULL THEN 'Pending' ELSE 'Rejected' END AS stamp_label_en\n    , d.version_code\n    , d.control_number\n    , d.revision AS document_revision\nFROM tests.trans_preapproval AS pre\nINNER JOIN tests.mstr_document AS d ON d.trans_approval_pattern_id = pre.trans_approval_pattern_id AND d.remove IS FALSE\nINNER JOIN tests.mstr_approval AS a ON a.mstr_approval_id = pre.mstr_approval_id\nLEFT JOIN LATERAL (\n    SELECT x.* FROM tests.trans_approved AS x\n    WHERE x.trans_preapproval_id = pre.trans_preapproval_id AND x.remove IS FALSE\n    ORDER BY x.update_at DESC LIMIT 1\n) AS r ON true\nWHERE pre.remove IS FALSE"
+      },
+      "preQuery": "",
+      "postQuery": ""
+    },
+    {
+      "id": 6047,
+      "kind": "view",
+      "logicalName": "",
+      "physicalName": "v_document_publication",
+      "comment": "@primaryKey mstr_document_id\n@foreignKey (mstr_document_id) references mstr_document (mstr_document_id)\n@foreignKey (trans_approval_pattern_id) references trans_approval_pattern (trans_approval_pattern_id)\n@foreignKey (approved_staff_id) references info_staff (info_staff_id)\n文書の公開の判定(1 行 = 文書)。承認の段が 0 件(承認不要のパターン)、またはすべての段が承認済み(承認適用 = true)のとき published。それ以外は pending(承認待ち)。readable は、ログイン中の担当者(JWT の staff_id)が中身を読めるか(公開済み、または承認の該当者、または管理者)。承認待ちの文書は、読める人にも pending を表示する。公開の判定・スタンプの文字は、このビューだけで定義する(画面・PDF で判定しない)",
+      "locked": false,
+      "viewType": "sql",
+      "join": {
+        "sources": [],
+        "columns": [],
+        "where": ""
+      },
+      "function": {
+        "methodId": null,
+        "args": [],
+        "columns": []
+      },
+      "sql": {
+        "sql": "CREATE VIEW tests.v_document_publication AS\nSELECT\n    d.mstr_document_id\n    , d.symbol\n    , d.code\n    , d.control_number\n    , d.version_code\n    , d.trans_approval_pattern_id\n    , COALESCE(s.total_count, 0)::integer AS total_count\n    , COALESCE(s.approved_count, 0)::integer AS approved_count\n    , (COALESCE(s.total_count, 0) = COALESCE(s.approved_count, 0)) AS published\n    , (COALESCE(s.total_count, 0) > COALESCE(s.approved_count, 0)) AS pending\n    , (COALESCE(s.rejected_count, 0) > 0) AS rejected\n    , (COALESCE(s.total_count, 0) > 0) AS stamp_visible\n    , s.approved_at\n    , s.approved_staff_id\n    , s.approved_staff_history_id\n    , (COALESCE(s.total_count, 0) = COALESCE(s.approved_count, 0) OR COALESCE((SELECT pg_has_role(current_user, r.oid, 'member') FROM pg_roles AS r WHERE r.rolname = 'pms_admin'), false) OR COALESCE(s.approver, false)) AS readable\n    , COALESCE(s.approver, false) AS approver\n    , CASE WHEN COALESCE(s.total_count, 0) = COALESCE(s.approved_count, 0) THEN '承認' ELSE '承認待ち' END AS stamp_label_ja\n    , CASE WHEN COALESCE(s.total_count, 0) = COALESCE(s.approved_count, 0) THEN 'Approval' ELSE 'Pending' END AS stamp_label_en\nFROM tests.mstr_document AS d\nLEFT JOIN LATERAL (\n    SELECT\n        count(*) AS total_count\n        , count(*) FILTER (WHERE v.approved) AS approved_count\n        , count(*) FILTER (WHERE v.rejected) AS rejected_count\n        , max(v.approved_at) FILTER (WHERE v.approved) AS approved_at\n        , (array_agg(v.approved_staff_id ORDER BY v.approved_at DESC) FILTER (WHERE v.approved))[1] AS approved_staff_id\n        , (array_agg(v.approved_staff_history_id ORDER BY v.approved_at DESC) FILTER (WHERE v.approved))[1] AS approved_staff_history_id\n        , bool_or(EXISTS (SELECT 1 FROM tests.info_assign AS ia\n            WHERE ia.info_staff_id = NULLIF(current_setting('jwt.claims.staff_id', true), '')::uuid AND ia.remove IS FALSE AND ia.enable IS TRUE\n              AND ia.info_position_id = ap.info_position_id\n              AND (ap.info_department_id IS NULL OR ia.info_department_id = ap.info_department_id))) AS approver\n    FROM tests.v_document_approval_stamp AS v\n    INNER JOIN tests.mstr_approval AS ap ON ap.mstr_approval_id = v.mstr_approval_id\n    WHERE v.mstr_document_id = d.mstr_document_id\n) AS s ON true\nWHERE d.remove IS FALSE"
+      },
+      "preQuery": "",
+      "postQuery": ""
+    },
+    {
+      "id": 6048,
+      "kind": "view",
+      "logicalName": "",
+      "physicalName": "v_document_content",
+      "comment": "@primaryKey mstr_document_content_id\n@foreignKey (mstr_document_id) references mstr_document (mstr_document_id)\n文書コンテンツの閲覧用(1 行 = コンテンツ)。読めない人(readable = false)には、中身(contents)とファイル(trans_file_id)を NULL で返す。画面は、この閲覧用のビューから読む(基の表を直接読まない)",
+      "locked": false,
+      "viewType": "sql",
+      "join": {
+        "sources": [],
+        "columns": [],
+        "where": ""
+      },
+      "function": {
+        "methodId": null,
+        "args": [],
+        "columns": []
+      },
+      "sql": {
+        "sql": "CREATE VIEW tests.v_document_content AS\nSELECT\n    c.mstr_document_content_id\n    , c.mstr_document_id\n    , c.code\n    , c.titles\n    , c.sequence\n    , c.image_content\n    , c.symbol\n    , c.revision\n    , c.update_at\n    , p.published\n    , p.pending\n    , p.readable\n    , CASE WHEN p.readable THEN c.contents END AS contents\n    , CASE WHEN p.readable THEN c.trans_file_id END AS trans_file_id\nFROM tests.mstr_document_content AS c\nINNER JOIN tests.v_document_publication AS p ON p.mstr_document_id = c.mstr_document_id\nWHERE c.remove IS FALSE"
       },
       "preQuery": "",
       "postQuery": ""
