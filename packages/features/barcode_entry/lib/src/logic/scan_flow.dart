@@ -259,7 +259,7 @@ class ScanState {
   final ShelfContents? shelfContents;
 
   /// 入庫先のおすすめの棚(合格: 同じ品目の棚 / 不合格: 不良品棚)。入庫先を読み取る段階だけ持つ。
-  final List<ShelfTarget> recommended;
+  final List<ShelfRecommendation> recommended;
 
   ScanState copyWith({
     ScanMode? Function()? mode,
@@ -272,7 +272,7 @@ class ScanState {
     OperatorTarget? Function()? operator,
     ShelfTarget? Function()? selectedShelf,
     ShelfContents? Function()? shelfContents,
-    List<ShelfTarget>? recommended,
+    List<ShelfRecommendation>? recommended,
   }) => ScanState(
     mode: mode != null ? mode() : this.mode,
     step: step ?? this.step,
@@ -297,7 +297,7 @@ class ScanState {
     'operator': operator?.symbol,
     'selectedShelf': selectedShelf?.symbol,
     'shelfContents': shelfContents?.shelf.symbol,
-    'recommended': recommended.map((r) => r.symbol).toList(),
+    'recommended': recommended.map((r) => r.shelf.symbol).toList(),
   };
 }
 
@@ -515,17 +515,53 @@ class ScanFlow extends Notifier<ScanState> {
   }
 
   /// 操作なしが続いたとき(画面の時計が呼ぶ): 処理待ちを消してリーディングトップへ戻る。
-  /// 自動では登録しない。担当者・選んだ棚は残す。消すものが無い(トップで処理待ちが空)ときは何もしない。
+  /// 自動では登録しない。担当者・選んだ棚・モードも消して空にする(履歴だけ残す)。
+  /// 消すものが無い(トップで処理待ち・担当者・選んだ棚が空)ときは何もしない。
   void idleClear() {
     if (state.working) return;
-    if (state.step == ScanStep.top && state.queue.isEmpty) return;
+    final empty = state.step == ScanStep.top &&
+        state.queue.isEmpty &&
+        state.operator == null &&
+        state.selectedShelf == null &&
+        state.mode == null;
+    if (empty) return;
     state = ScanState(
-      mode: state.mode,
       log: state.log,
-      operator: state.operator,
-      selectedShelf: state.selectedShelf,
       notice: const ScanNotice(NoticeKind.idleCleared),
     );
+  }
+
+  /// 1 つ前のリードに戻る(入力画面の「戻る」)。トップでは何もしない。
+  /// 登録はしない。戻り先で入れ直した値は、それ以降の段階でまた入力する。
+  void back() {
+    if (state.working) return;
+    final c = state.context;
+    switch (state.step) {
+      case ScanStep.top:
+        return;
+      case ScanStep.issueShelf:
+        return _go(ScanStep.start, c);
+      case ScanStep.eval:
+        return _go(ScanStep.qty, c.copyWith(rejected: false));
+      case ScanStep.recvEval:
+        return _go(ScanStep.recvQty, c.copyWith(rejected: false));
+      case ScanStep.ng:
+        return _go(c.order != null ? ScanStep.eval : ScanStep.recvEval, c.copyWith(rejected: false));
+      case ScanStep.putShelf:
+        if (c.rejected) return _go(ScanStep.ng, c);
+        if (c.order != null) return _go(ScanStep.eval, c);
+        if (c.purchase != null) return _go(ScanStep.recvEval, c);
+        return _go(ScanStep.stockQty, c);
+      case ScanStep.stockQty:
+        return _go(ScanStep.stockItem, c.copyWith(quantity: 0));
+      case ScanStep.start:
+      case ScanStep.qty:
+      case ScanStep.recvQty:
+      case ScanStep.stockItem:
+      case ScanStep.equipment:
+      case ScanStep.supplyChoice:
+        return _reset();
+    }
   }
 
   /// 設備点検の結果を記録する(点検項目ごと)。

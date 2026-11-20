@@ -52,6 +52,7 @@ class BarcodeEntryStringsEn extends BarcodeEntryStrings with BaseTranslations<Ba
 	@override late final _BarcodeEntryStrings$recommend$en recommend = _BarcodeEntryStrings$recommend$en._(_root);
 	@override late final _BarcodeEntryStrings$contents$en contents = _BarcodeEntryStrings$contents$en._(_root);
 	@override late final _BarcodeEntryStrings$idle$en idle = _BarcodeEntryStrings$idle$en._(_root);
+	@override late final _BarcodeEntryStrings$request$en request = _BarcodeEntryStrings$request$en._(_root);
 }
 
 // Path: menu
@@ -274,6 +275,9 @@ class _BarcodeEntryStrings$recommend$en extends BarcodeEntryStrings$recommend$ja
 	@override String get title => 'Suggested destinations';
 	@override String get pass => 'Shelves that already hold this item';
 	@override String get fail => 'Reject shelves';
+	@override String sameItem({required Object qty, required Object unit}) => 'Already holds ${qty}${unit} of this item';
+	@override String get rejectShelf => 'Reject shelf';
+	@override String get pick => 'Store here';
 }
 
 // Path: contents
@@ -295,7 +299,18 @@ class _BarcodeEntryStrings$idle$en extends BarcodeEntryStrings$idle$ja {
 	final BarcodeEntryStringsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String warning({required Object sec}) => 'No activity: the queue will be cleared and you will return to the start in ${sec} s.';
+	@override String warning({required Object sec}) => 'No activity: the queue and operator will be cleared and you will return to the start in ${sec} s.';
+}
+
+// Path: request
+class _BarcodeEntryStrings$request$en extends BarcodeEntryStrings$request$ja {
+	_BarcodeEntryStrings$request$en._(BarcodeEntryStringsEn root) : this._root = root, super.internal(root);
+
+	final BarcodeEntryStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => 'Back';
+	@override String get top => 'Back to top';
 }
 
 // Path: modes.work
@@ -504,10 +519,15 @@ extension on BarcodeEntryStringsEn {
 			'recommend.title' => 'Suggested destinations',
 			'recommend.pass' => 'Shelves that already hold this item',
 			'recommend.fail' => 'Reject shelves',
+			'recommend.sameItem' => ({required Object qty, required Object unit}) => 'Already holds ${qty}${unit} of this item',
+			'recommend.rejectShelf' => 'Reject shelf',
+			'recommend.pick' => 'Store here',
 			'contents.title' => ({required Object name}) => 'Contents of ${name}',
 			'contents.empty' => 'Nothing is stored here.',
 			'contents.item' => ({required Object item, required Object qty, required Object unit}) => '${item} ${qty}${unit}',
-			'idle.warning' => ({required Object sec}) => 'No activity: the queue will be cleared and you will return to the start in ${sec} s.',
+			'idle.warning' => ({required Object sec}) => 'No activity: the queue and operator will be cleared and you will return to the start in ${sec} s.',
+			'request.back' => 'Back',
+			'request.top' => 'Back to top',
 			_ => null,
 		};
 	}

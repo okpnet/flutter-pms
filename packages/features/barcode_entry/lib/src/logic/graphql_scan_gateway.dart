@@ -43,7 +43,7 @@ class GraphqlScanGateway implements IScanGateway {
   Future<ShelfContents?> contentsOf(ShelfTarget shelf) async => null;
 
   @override
-  Future<List<ShelfTarget>> recommendShelves({
+  Future<List<ShelfRecommendation>> recommendShelves({
     required StockSource source,
     required bool rejected,
   }) async => const [];

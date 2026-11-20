@@ -108,7 +108,7 @@ notice:
   failed: 登録できませんでした。通信の状態を確認して、もう一度お試しください。
   needOperator: 最初に担当者のバーコードを読み取ってください。処理待ちを消しました。
   operatorSet: '担当者: {name}。次のバーコードを読み取ってください。'
-  idleCleared: 操作がなかったため、処理待ちを消して最初に戻りました(登録はしていません)。
+  idleCleared: 操作がなかったため、処理待ちと担当者を消して最初に戻りました(登録はしていません)。担当者のバーコードから読み取ってください。
   queued: '処理待ちに追加しました({count}件)。次のバーコードを読み取ってください。'
   queueFailed: '{total}件中{done}件を登録して、失敗しました。処理待ちを消しました。最初から読み取ってください。'
 log:
@@ -147,9 +147,15 @@ recommend:
   title: おすすめの入庫先
   pass: 同じ品目が入っている棚
   fail: 不良品棚
+  sameItem: '同じ品目が{qty}{unit}入っています'
+  rejectShelf: 不良品棚です
+  pick: この棚へ入庫
 contents:
   title: '{name}の中身'
   empty: 入っているものはありません。
   item: '{item} {qty}{unit}'
 idle:
-  warning: '操作がないため、あと{sec}秒で処理待ちを消して最初に戻ります。'
+  warning: '操作がないため、あと{sec}秒で処理待ちと担当者を消して最初に戻ります。'
+request:
+  back: 戻る
+  top: トップに戻る

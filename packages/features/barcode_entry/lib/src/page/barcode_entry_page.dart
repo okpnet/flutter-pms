@@ -39,6 +39,16 @@ class BarcodeEntryPage extends ConsumerStatefulWidget {
 class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
   final _input = TextEditingController();
   final _focus = FocusNode();
+
+  /// 入力要求(ダイアログ・全画面)の入力欄。トップの入力欄とは別に持つ(同時に 2 か所へ付けない)。
+  final _reqInput = TextEditingController();
+  final _reqFocus = FocusNode();
+
+  /// 入力要求の画面は別のルートで出すため、この画面が持つ入力値の変更を知らせる。
+  final _uiTick = ValueNotifier<int>(0);
+
+  /// 開いている入力要求のルート(スマートフォンは全画面・PC/タブレットはダイアログ)。
+  Route<void>? _request;
   bool _camera = false;
   RejectReason _reason = RejectReason.dimension;
   List<InspectionResult> _results = const [];
@@ -57,6 +67,9 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
     super.initState();
     _input.addListener(_touch);
     _idleTimer = Timer.periodic(const Duration(seconds: 1), (_) => _onIdleTick());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _syncRequest(ref.read(scanFlowProvider).step);
+    });
     final symbol = widget.symbol;
     if (symbol != null && symbol.isNotEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -73,7 +86,13 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
   /// 操作があった(入力・状態の変化)。時計をやり直す。
   void _touch() {
     _lastActivity = DateTime.now();
-    if (mounted && _idleWarnSec != null) setState(() => _idleWarnSec = null);
+    if (mounted && _idleWarnSec != null) _ui(() => _idleWarnSec = null);
+  }
+
+  /// 画面の状態を変えて、入力要求の画面(別のルート)にも知らせる。
+  void _ui(VoidCallback change) {
+    setState(change);
+    _uiTick.value++;
   }
 
   void _onIdleTick() {
@@ -84,33 +103,199 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
     final idleable = st.queue.isNotEmpty || st.step != ScanStep.top;
     if (timeout == Duration.zero || !idleable || st.working) {
       _lastActivity = DateTime.now();
-      if (_idleWarnSec != null) setState(() => _idleWarnSec = null);
+      if (_idleWarnSec != null) _ui(() => _idleWarnSec = null);
       return;
     }
     final remaining = timeout - DateTime.now().difference(_lastActivity);
     if (remaining <= Duration.zero) {
       ref.read(scanFlowProvider.notifier).idleClear();
       _lastActivity = DateTime.now();
-      setState(() => _idleWarnSec = null);
+      _ui(() => _idleWarnSec = null);
     } else if (remaining <= ref.read(idleWarningProvider)) {
-      setState(() => _idleWarnSec = (remaining.inMilliseconds / 1000).ceil());
+      _ui(() => _idleWarnSec = (remaining.inMilliseconds / 1000).ceil());
     }
   }
 
   @override
   void dispose() {
     _idleTimer?.cancel();
+    final request = _request;
+    if (request != null) {
+      // 画面を離れるとき、開いている入力要求も閉じる(ビルド中の操作を避けて、次のフレームで)
+      final nav = request.navigator;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (request.isActive) nav?.removeRoute(request);
+      });
+    }
+    _uiTick.dispose();
+    _reqInput.dispose();
+    _reqFocus.dispose();
     _input.dispose();
     _focus.dispose();
     _supplyQty.dispose();
     super.dispose();
   }
 
-  Future<void> _commit(String value) async {
-    _input.clear();
+  Future<void> _commit(
+    String value, {
+    TextEditingController? input,
+    FocusNode? focus,
+  }) async {
+    (input ?? _input).clear();
     await ref.read(scanFlowProvider.notifier).submit(value);
+    if (mounted) (focus ?? _focus).requestFocus();
+  }
+
+  // ---- 入力要求の画面(画面案 6.4): スマートフォンは全画面、PC・タブレットはダイアログ ----
+
+  /// 段階がトップ以外になったら入力要求を開き、トップへ戻ったら閉じる(ビルド中を避けて次のフレームで)。
+  void _syncRequest(ScanStep step) {
+    if (step != ScanStep.top && _request == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _openRequest());
+    } else if (step == ScanStep.top && _request != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _closeRequest());
+    }
+  }
+
+  void _openRequest() {
+    if (!mounted || _request != null) return;
+    if (ref.read(scanFlowProvider).step == ScanStep.top) return;
+    final wide = MediaBreakPoint.of(MediaQuery.sizeOf(context).width) != MediaBreakPoint.mobile;
+    final nav = Navigator.of(context, rootNavigator: true);
+    // 閉じる操作(戻る・システムの戻る)は、閉じずに 1 つ前のリードへ戻す。閉じるのは段階がトップになったとき。
+    Widget guard(Widget child) => PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) ref.read(scanFlowProvider.notifier).back();
+      },
+      child: child,
+    );
+    final Route<void> route = wide
+        ? DialogRoute<void>(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => guard(
+              Dialog(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 560),
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(20),
+                    child: _requestContent(),
+                  ),
+                ),
+              ),
+            ),
+          )
+        : MaterialPageRoute<void>(
+            fullscreenDialog: true,
+            builder: (_) => guard(
+              Scaffold(
+                body: SafeArea(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(16),
+                    child: _requestContent(),
+                  ),
+                ),
+              ),
+            ),
+          );
+    _request = route;
+    nav.push(route).whenComplete(() {
+      if (identical(_request, route)) _request = null;
+    });
+  }
+
+  void _closeRequest() {
+    final route = _request;
+    if (route == null || ref.read(scanFlowProvider).step != ScanStep.top) return;
+    _request = null;
+    if (route.isActive) route.navigator?.removeRoute(route);
     if (mounted) _focus.requestFocus();
   }
+
+  void _ensureResults(EquipmentTarget? inspection) {
+    if (inspection != null && _results.length != inspection.checkItems.length) {
+      _results = List.filled(inspection.checkItems.length, InspectionResult.pass);
+    }
+  }
+
+  /// 入力要求の中身(段階の見出し・対象の概要・通知・入力・おすすめ・「戻る」「トップに戻る」)。
+  /// 状態は画面と同じ [scanFlowProvider]。
+  Widget _requestContent() => Consumer(
+    builder: (context, ref, _) => ValueListenableBuilder<int>(
+      valueListenable: _uiTick,
+      builder: (context, _, _) {
+        final t = ref.watch(barcodeEntryStringsProvider);
+        final s = ref.watch(scanFlowProvider);
+        final flow = ref.read(scanFlowProvider.notifier);
+        final theme = Theme.of(context);
+        final notice = s.notice;
+        _ensureResults(s.context.equipment);
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(t.stepTitle(s.step), style: theme.textTheme.titleLarge),
+            const SizedBox(height: 8),
+            _Summary(context: s.context),
+            // 作業指示の工程から、その生産計画の実績登録の画面(作業実績 › 実績登録)を開く(画面案 6.5)
+            if (ref.watch(openWorkRegisterLinkProvider))
+              if (s.context.order?.operationsPlanId case final planId?)
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton.icon(
+                    key: const ValueKey('openWorkRegister'),
+                    icon: const Icon(Icons.open_in_new, size: 18),
+                    label: Text(t.input.openRegister),
+                    onPressed: () => ref
+                        .read(commandBusProvider)
+                        .execute(WorkRegisterDestination(planId: planId)),
+                  ),
+                ),
+            if (_idleWarnSec case final sec?)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: Text(
+                  t.idle.warning(sec: sec),
+                  key: const ValueKey('idleWarning'),
+                  style: TextStyle(color: theme.colorScheme.tertiary),
+                ),
+              ),
+            if (notice != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Text(
+                  t.noticeText(notice),
+                  style: TextStyle(
+                    color: notice.isError ? theme.colorScheme.error : theme.colorScheme.primary,
+                  ),
+                ),
+              ),
+            const SizedBox(height: 8),
+            _stepBody(t, s, flow, input: _reqInput, focus: _reqFocus),
+            if (s.step == ScanStep.putShelf && s.recommended.isNotEmpty)
+              _RecommendPanel(state: s, flow: flow),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                OutlinedButton(
+                  key: const ValueKey('requestBack'),
+                  onPressed: s.working ? null : flow.back,
+                  child: Text(t.request.back),
+                ),
+                const SizedBox(width: 8),
+                TextButton(
+                  key: const ValueKey('requestTop'),
+                  onPressed: s.working ? null : flow.cancel,
+                  child: Text(t.request.top),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -119,14 +304,11 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
     final flow = ref.read(scanFlowProvider.notifier);
     final theme = Theme.of(context);
     final notice = s.notice;
-    final inspection = s.context.equipment;
-    if (inspection != null && _results.length != inspection.checkItems.length) {
-      _results = List.filled(
-        inspection.checkItems.length,
-        InspectionResult.pass,
-      );
-    }
-    ref.listen<ScanState>(scanFlowProvider, (_, _) => _touch());
+    _ensureResults(s.context.equipment);
+    ref.listen<ScanState>(scanFlowProvider, (prev, next) {
+      _touch();
+      _syncRequest(next.step);
+    });
 
     // 1 層目: 状態(ScanFlow)は 1 つ。2 層目: それを見る部品(ブロック)。広い画面は並べ、モバイルは縦に積む。
     final primary = <Widget>[
@@ -145,52 +327,37 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
         ),
       const SizedBox(height: 12),
       Text(
-        s.step == ScanStep.top
-            ? (ref.watch(requireOperatorProvider) && s.operator == null
-                ? t.staff.topTitle
-                : t.input.topTitle)
-            : t.stepTitle(s.step),
+        // 段階の見出しは入力要求の画面([_requestContent])が持つ(ここは画面の見出しだけ)
+        s.step == ScanStep.top && ref.watch(requireOperatorProvider) && s.operator == null
+            ? t.staff.topTitle
+            : t.input.topTitle,
         style: theme.textTheme.titleLarge,
       ),
       const SizedBox(height: 8),
-      _Summary(context: s.context),
-      // 作業指示の工程から、その生産計画の実績登録の画面(作業実績 › 実績登録)を開く(画面案 6.5)
-      if (ref.watch(openWorkRegisterLinkProvider))
-        if (s.context.order?.operationsPlanId case final planId?)
-          Align(
-            alignment: Alignment.centerLeft,
-            child: TextButton.icon(
-              key: const ValueKey('openWorkRegister'),
-              icon: const Icon(Icons.open_in_new, size: 18),
-              label: Text(t.input.openRegister),
-              onPressed: () => ref
-                  .read(commandBusProvider)
-                  .execute(WorkRegisterDestination(planId: planId)),
+      // トップ以外の段階(入力要求)は、ダイアログ(PC・タブレット)・全画面(モバイル)で出す([_requestContent])。
+      if (s.step == ScanStep.top) ...[
+        if (_idleWarnSec case final sec?)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: Text(
+              t.idle.warning(sec: sec),
+              key: const ValueKey('idleWarning'),
+              style: TextStyle(color: theme.colorScheme.tertiary),
             ),
           ),
-      if (_idleWarnSec case final sec?)
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
-          child: Text(
-            t.idle.warning(sec: sec),
-            key: const ValueKey('idleWarning'),
-            style: TextStyle(color: theme.colorScheme.tertiary),
-          ),
-        ),
-      if (notice != null)
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Text(
-            t.noticeText(notice),
-            style: TextStyle(
-              color: notice.isError ? theme.colorScheme.error : theme.colorScheme.primary,
+        if (notice != null)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Text(
+              t.noticeText(notice),
+              style: TextStyle(
+                color: notice.isError ? theme.colorScheme.error : theme.colorScheme.primary,
+              ),
             ),
           ),
-        ),
-      const SizedBox(height: 8),
-      _stepBody(t, s, flow),
-      if (s.step == ScanStep.putShelf && s.recommended.isNotEmpty)
-        _RecommendPanel(state: s, flow: flow),
+        const SizedBox(height: 8),
+        _stepBody(t, s, flow, input: _input, focus: _focus),
+      ],
       const SizedBox(height: 16),
       if (s.operator != null || s.selectedShelf != null)
         Wrap(
@@ -291,7 +458,13 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
   String _time(DateTime d) =>
       '${d.hour.toString().padLeft(2, '0')}:${d.minute.toString().padLeft(2, '0')}:${d.second.toString().padLeft(2, '0')}';
 
-  Widget _stepBody(BarcodeEntryStrings t, ScanState s, ScanFlow flow) {
+  Widget _stepBody(
+    BarcodeEntryStrings t,
+    ScanState s,
+    ScanFlow flow, {
+    required TextEditingController input,
+    required FocusNode focus,
+  }) {
     final c = s.context;
     switch (s.step) {
       case ScanStep.start:
@@ -334,7 +507,7 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
                 for (final r in RejectReason.values)
                   DropdownMenuItem(value: r, child: Text(t.reasonLabel(r))),
               ],
-              onChanged: (r) => setState(() => _reason = r ?? _reason),
+              onChanged: (r) => _ui(() => _reason = r ?? _reason),
             ),
             const SizedBox(height: 12),
             FilledButton(
@@ -358,7 +531,7 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
                     for (final r in InspectionResult.values)
                       DropdownMenuItem(value: r, child: Text(t.resultLabel(r))),
                   ],
-                  onChanged: (r) => setState(
+                  onChanged: (r) => _ui(
                     () => _results = [..._results]..[i] = r ?? _results[i],
                   ),
                 ),
@@ -387,7 +560,7 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
             RadioGroup<_SupplyChoice>(
               groupValue: _supplyChoice,
               onChanged: (v) =>
-                  setState(() => _supplyChoice = v ?? _supplyChoice),
+                  _ui(() => _supplyChoice = v ?? _supplyChoice),
               child: Column(
                 children: [
                   RadioListTile<_SupplyChoice>(
@@ -444,8 +617,8 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
               children: [
                 Expanded(
                   child: TextField(
-                    controller: _input,
-                    focusNode: _focus,
+                    controller: input,
+                    focusNode: focus,
                     autofocus: true,
                     enabled: !s.working,
                     keyboardType: isQty ? TextInputType.number : null,
@@ -453,12 +626,12 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
                       labelText: isQty ? t.input.qtyLabel : t.input.label,
                       border: const OutlineInputBorder(),
                     ),
-                    onSubmitted: _commit,
+                    onSubmitted: (v) => _commit(v, input: input, focus: focus),
                   ),
                 ),
                 const SizedBox(width: 8),
                 FilledButton(
-                  onPressed: s.working ? null : () => _commit(_input.text),
+                  onPressed: s.working ? null : () => _commit(input.text, input: input, focus: focus),
                   child: Text(t.input.commit),
                 ),
               ],
@@ -468,7 +641,7 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
               OutlinedButton.icon(
                 icon: Icon(_camera ? Icons.videocam_off : Icons.photo_camera),
                 label: Text(_camera ? t.input.cameraClose : t.input.camera),
-                onPressed: () => setState(() => _camera = !_camera),
+                onPressed: () => _ui(() => _camera = !_camera),
               ),
               if (_camera)
                 Padding(
@@ -476,7 +649,7 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
                   child: CameraScanner(
                     errorText: t.input.cameraError,
                     onDetect: (symbol) {
-                      if (!s.working) _commit(symbol);
+                      if (!s.working) _commit(symbol, input: input, focus: focus);
                     },
                   ),
                 ),
@@ -644,7 +817,7 @@ class _QueuePanel extends ConsumerWidget {
     );
   }
 }
-/// 入庫先のおすすめ(合格: 同じ品目が入っている棚 / 不合格: 不良品棚)。押すと、その棚を読み取ったものとして入庫する。
+/// 入庫先のおすすめ(合格: 同じ品目が入っている棚 / 不合格: 不良品棚)と、その根拠。押すと、その棚を読み取ったものとして入庫する。
 class _RecommendPanel extends ConsumerWidget {
   const _RecommendPanel({required this.state, required this.flow});
 
@@ -664,19 +837,25 @@ class _RecommendPanel extends ConsumerWidget {
             '${t.recommend.title}(${state.context.rejected ? t.recommend.fail : t.recommend.pass})',
             style: Theme.of(context).textTheme.labelLarge,
           ),
-          const SizedBox(height: 4),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              for (final shelf in state.recommended)
-                ActionChip(
-                  key: ValueKey('recommend_${shelf.symbol}'),
-                  label: Text(shelf.name),
-                  onPressed: state.working ? null : () => flow.pickShelf(shelf),
-                ),
-            ],
-          ),
+          for (final r in state.recommended)
+            ListTile(
+              key: ValueKey('recommend_${r.shelf.symbol}'),
+              dense: true,
+              contentPadding: EdgeInsets.zero,
+              leading: const Icon(Icons.recommend_outlined),
+              title: Text(r.shelf.name),
+              // 根拠(値で持つ: 不良品棚か・同じ品目の保有数量)。文は画面が作る
+              subtitle: Text(
+                r.reject
+                    ? t.recommend.rejectShelf
+                    : t.recommend.sameItem(qty: r.heldQuantity, unit: r.unit),
+              ),
+              trailing: TextButton(
+                onPressed: state.working ? null : () => flow.pickShelf(r.shelf),
+                child: Text(t.recommend.pick),
+              ),
+              onTap: state.working ? null : () => flow.pickShelf(r.shelf),
+            ),
         ],
       ),
     );

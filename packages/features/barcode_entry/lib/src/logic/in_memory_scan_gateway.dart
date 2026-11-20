@@ -117,15 +117,20 @@ class InMemoryScanGateway implements IScanGateway {
 
   /// 合格: 同じ品目を持つ棚(不良品棚を除く)。不合格: 不良品棚。
   @override
-  Future<List<ShelfTarget>> recommendShelves({
+  Future<List<ShelfRecommendation>> recommendShelves({
     required StockSource source,
     required bool rejected,
   }) async {
     final shelves = _targets.values.whereType<ShelfTarget>();
-    if (rejected) return [for (final s in shelves) if (s.reject) s];
+    if (rejected) {
+      return [for (final s in shelves) if (s.reject) ShelfRecommendation(shelf: s, reject: true)];
+    }
     return [
       for (final s in shelves)
-        if (!s.reject && (_holdings[s.symbol] ?? const []).any((h) => h.itemName == source.itemName)) s,
+        if (!s.reject)
+          for (final h in _holdings[s.symbol] ?? const <HeldItem>[])
+            if (h.itemName == source.itemName)
+              ShelfRecommendation(shelf: s, heldQuantity: h.quantity, unit: h.unit),
     ];
   }
 

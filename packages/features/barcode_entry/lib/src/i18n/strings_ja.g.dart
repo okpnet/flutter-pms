@@ -52,6 +52,7 @@ class BarcodeEntryStrings with BaseTranslations<BarcodeEntryLocale, BarcodeEntry
 	late final BarcodeEntryStrings$recommend$ja recommend = BarcodeEntryStrings$recommend$ja.internal(_root);
 	late final BarcodeEntryStrings$contents$ja contents = BarcodeEntryStrings$contents$ja.internal(_root);
 	late final BarcodeEntryStrings$idle$ja idle = BarcodeEntryStrings$idle$ja.internal(_root);
+	late final BarcodeEntryStrings$request$ja request = BarcodeEntryStrings$request$ja.internal(_root);
 }
 
 // Path: menu
@@ -369,8 +370,8 @@ class BarcodeEntryStrings$notice$ja {
 	/// ja: '担当者: {name}。次のバーコードを読み取ってください。'
 	String operatorSet({required Object name}) => '担当者: ${name}。次のバーコードを読み取ってください。';
 
-	/// ja: '操作がなかったため、処理待ちを消して最初に戻りました(登録はしていません)。'
-	String get idleCleared => '操作がなかったため、処理待ちを消して最初に戻りました(登録はしていません)。';
+	/// ja: '操作がなかったため、処理待ちと担当者を消して最初に戻りました(登録はしていません)。担当者のバーコードから読み取ってください。'
+	String get idleCleared => '操作がなかったため、処理待ちと担当者を消して最初に戻りました(登録はしていません)。担当者のバーコードから読み取ってください。';
 
 	/// ja: '処理待ちに追加しました({count}件)。次のバーコードを読み取ってください。'
 	String queued({required Object count}) => '処理待ちに追加しました(${count}件)。次のバーコードを読み取ってください。';
@@ -509,6 +510,15 @@ class BarcodeEntryStrings$recommend$ja {
 
 	/// ja: '不良品棚'
 	String get fail => '不良品棚';
+
+	/// ja: '同じ品目が{qty}{unit}入っています'
+	String sameItem({required Object qty, required Object unit}) => '同じ品目が${qty}${unit}入っています';
+
+	/// ja: '不良品棚です'
+	String get rejectShelf => '不良品棚です';
+
+	/// ja: 'この棚へ入庫'
+	String get pick => 'この棚へ入庫';
 }
 
 // Path: contents
@@ -537,8 +547,23 @@ class BarcodeEntryStrings$idle$ja {
 
 	// Translations
 
-	/// ja: '操作がないため、あと{sec}秒で処理待ちを消して最初に戻ります。'
-	String warning({required Object sec}) => '操作がないため、あと${sec}秒で処理待ちを消して最初に戻ります。';
+	/// ja: '操作がないため、あと{sec}秒で処理待ちと担当者を消して最初に戻ります。'
+	String warning({required Object sec}) => '操作がないため、あと${sec}秒で処理待ちと担当者を消して最初に戻ります。';
+}
+
+// Path: request
+class BarcodeEntryStrings$request$ja {
+	BarcodeEntryStrings$request$ja.internal(this._root);
+
+	final BarcodeEntryStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '戻る'
+	String get back => '戻る';
+
+	/// ja: 'トップに戻る'
+	String get top => 'トップに戻る';
 }
 
 // Path: modes.work
@@ -738,7 +763,7 @@ extension on BarcodeEntryStrings {
 			'notice.failed' => '登録できませんでした。通信の状態を確認して、もう一度お試しください。',
 			'notice.needOperator' => '最初に担当者のバーコードを読み取ってください。処理待ちを消しました。',
 			'notice.operatorSet' => ({required Object name}) => '担当者: ${name}。次のバーコードを読み取ってください。',
-			'notice.idleCleared' => '操作がなかったため、処理待ちを消して最初に戻りました(登録はしていません)。',
+			'notice.idleCleared' => '操作がなかったため、処理待ちと担当者を消して最初に戻りました(登録はしていません)。担当者のバーコードから読み取ってください。',
 			'notice.queued' => ({required Object count}) => '処理待ちに追加しました(${count}件)。次のバーコードを読み取ってください。',
 			'notice.queueFailed' => ({required Object total, required Object done}) => '${total}件中${done}件を登録して、失敗しました。処理待ちを消しました。最初から読み取ってください。',
 			'log.title' => '履歴',
@@ -773,10 +798,15 @@ extension on BarcodeEntryStrings {
 			'recommend.title' => 'おすすめの入庫先',
 			'recommend.pass' => '同じ品目が入っている棚',
 			'recommend.fail' => '不良品棚',
+			'recommend.sameItem' => ({required Object qty, required Object unit}) => '同じ品目が${qty}${unit}入っています',
+			'recommend.rejectShelf' => '不良品棚です',
+			'recommend.pick' => 'この棚へ入庫',
 			'contents.title' => ({required Object name}) => '${name}の中身',
 			'contents.empty' => '入っているものはありません。',
 			'contents.item' => ({required Object item, required Object qty, required Object unit}) => '${item} ${qty}${unit}',
-			'idle.warning' => ({required Object sec}) => '操作がないため、あと${sec}秒で処理待ちを消して最初に戻ります。',
+			'idle.warning' => ({required Object sec}) => '操作がないため、あと${sec}秒で処理待ちと担当者を消して最初に戻ります。',
+			'request.back' => '戻る',
+			'request.top' => 'トップに戻る',
 			_ => null,
 		};
 	}

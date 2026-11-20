@@ -147,9 +147,15 @@ recommend:
   title: Suggested destinations
   pass: Shelves that already hold this item
   fail: Reject shelves
+  sameItem: 'Already holds {qty}{unit} of this item'
+  rejectShelf: Reject shelf
+  pick: Store here
 contents:
   title: 'Contents of {name}'
   empty: Nothing is stored here.
   item: '{item} {qty}{unit}'
 idle:
-  warning: 'No activity: the queue will be cleared and you will return to the start in {sec} s.'
+  warning: 'No activity: the queue and operator will be cleared and you will return to the start in {sec} s.'
+request:
+  back: Back
+  top: Back to top

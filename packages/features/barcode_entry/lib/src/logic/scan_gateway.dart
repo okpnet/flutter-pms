@@ -15,9 +15,9 @@ abstract interface class IScanGateway {
   /// 取得元が未対応・中身を引けないときは null(画面は中身の枠を出さない。登録の流れには影響しない)。
   Future<ShelfContents?> contentsOf(ShelfTarget shelf);
 
-  /// 入庫先のおすすめの棚を返す。[rejected] が false のときは同じ品目を持つ棚、true のときは不良品棚。
+  /// 入庫先のおすすめの棚(と根拠)を返す。[rejected] が false のときは同じ品目を持つ棚、true のときは不良品棚。
   /// 取得元が未対応なら空(おすすめを出さない)。
-  Future<List<ShelfTarget>> recommendShelves({
+  Future<List<ShelfRecommendation>> recommendShelves({
     required StockSource source,
     required bool rejected,
   });

@@ -79,8 +79,10 @@ void main() {
       await flow.submit('1');
       await flow.evaluate(pass: true);
       final rec = c.read(scanFlowProvider).recommended;
-      expect(rec.map((r) => r.symbol), ['SH-M-01A']);
-      await flow.pickShelf(rec.single);
+      expect(rec.map((r) => r.shelf.symbol), ['SH-M-01A']);
+      expect(rec.single.heldQuantity, 25); // 根拠: 同じ品目が入っている数量
+      expect(rec.single.reject, isFalse);
+      await flow.pickShelf(rec.single.shelf);
       expect(g.journal.single, contains('-> SH-M-01A'));
       expect(c.read(scanFlowProvider).recommended, isEmpty);
     });
@@ -93,7 +95,8 @@ void main() {
       await flow.submit('1');
       await flow.evaluate(pass: false);
       await flow.confirmReject(RejectReason.appearance);
-      expect(c.read(scanFlowProvider).recommended.map((r) => r.symbol), ['SH-X-01']);
+      expect(c.read(scanFlowProvider).recommended.map((r) => r.shelf.symbol), ['SH-X-01']);
+      expect(c.read(scanFlowProvider).recommended.single.reject, isTrue);
     });
 
     test('取り消すと、おすすめは消える', () async {
@@ -122,7 +125,7 @@ void main() {
   });
 
   group('操作なし', () {
-    test('処理待ちを消してトップへ戻る。登録はしない。担当者は残す', () async {
+    test('処理待ち・担当者・選んだ棚をすべて消してトップへ戻る。登録はしない', () async {
       final g = InMemoryScanGateway();
       final c = ProviderContainer(
         overrides: [
@@ -143,7 +146,8 @@ void main() {
       final s = c.read(scanFlowProvider);
       expect(s.queue, isEmpty);
       expect(s.step, ScanStep.top);
-      expect(s.operator, isNotNull);
+      expect(s.operator, isNull);
+      expect(s.selectedShelf, isNull);
       expect(s.notice?.kind, NoticeKind.idleCleared);
       expect(g.journal, isEmpty);
     });
@@ -157,8 +161,9 @@ void main() {
 
   group('画面の出し分け(状態は 1 つ・ブロックを並べ替える)', () {
     Future<void> pump(WidgetTester tester, Size size) async {
-      await tester.binding.setSurfaceSize(size);
-      addTearDown(() => tester.binding.setSurfaceSize(null));
+      tester.view.physicalSize = size;
+      tester.view.devicePixelRatio = 1.0; // MediaQuery にも寸法を反映する(setSurfaceSize は反映しない)
+      addTearDown(tester.view.reset);
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
@@ -182,7 +187,92 @@ void main() {
     testWidgets('モバイルは 1 列に積む(左右に分けない)', (tester) async {
       await pump(tester, const Size(400, 1600));
       expect(find.byKey(const ValueKey('primaryBlock')), findsNothing);
-      expect(find.byKey(const ValueKey('contentsPanel')), findsOneWidget);
+      // 入力要求は全画面で出るため、下のページは見えない(offstage)。ツリーには残っている
+      expect(find.byKey(const ValueKey('contentsPanel'), skipOffstage: false), findsOneWidget);
+    });
+
+    testWidgets('広い画面の入力要求はダイアログ(後ろのトップは残る)', (tester) async {
+      await pump(tester, const Size(1200, 900));
+      expect(find.byType(Dialog), findsOneWidget);
+      expect(find.byKey(const ValueKey('requestBack')), findsOneWidget);
+      expect(find.byKey(const ValueKey('requestTop')), findsOneWidget);
+    });
+
+    testWidgets('モバイルの入力要求は全画面(ダイアログではない)', (tester) async {
+      await pump(tester, const Size(400, 1600));
+      expect(find.byType(Dialog), findsNothing);
+      expect(find.byKey(const ValueKey('requestBack')), findsOneWidget);
+    });
+
+    testWidgets('「戻る」で 1 つ前のリードへ、「トップに戻る」で入力要求を閉じる', (tester) async {
+      await pump(tester, const Size(1200, 900)); // 棚 → 製品/購入品リーディング(stockItem)
+      final container = ProviderScope.containerOf(tester.element(find.byType(BarcodeEntryPage)));
+      expect(container.read(scanFlowProvider).step, ScanStep.stockItem);
+      await tester.tap(find.byKey(const ValueKey('requestBack')));
+      await tester.pumpAndSettle();
+      expect(container.read(scanFlowProvider).step, ScanStep.top);
+      expect(find.byType(Dialog), findsNothing); // トップへ戻ったので閉じる
+
+      await container.read(scanFlowProvider.notifier).submit('SH-A-01');
+      await tester.pumpAndSettle();
+      expect(find.byType(Dialog), findsOneWidget);
+      await tester.tap(find.byKey(const ValueKey('requestTop')));
+      await tester.pumpAndSettle();
+      expect(container.read(scanFlowProvider).step, ScanStep.top);
+      expect(find.byType(Dialog), findsNothing);
+    });
+  });
+
+  group('戻る(1 つ前のリード)', () {
+    test('数量 → 評価 → 入庫先 → 評価 → 数量 → トップの順にさかのぼる', () async {
+      final c = _container(InMemoryScanGateway(), batch: false);
+      final flow = c.read(scanFlowProvider.notifier);
+      await flow.submit('PO-2610-001-1');
+      await flow.submit('1');
+      await flow.evaluate(pass: true);
+      expect(c.read(scanFlowProvider).step, ScanStep.putShelf);
+      flow.back();
+      expect(c.read(scanFlowProvider).step, ScanStep.recvEval);
+      flow.back();
+      expect(c.read(scanFlowProvider).step, ScanStep.recvQty);
+      flow.back();
+      expect(c.read(scanFlowProvider).step, ScanStep.top);
+      flow.back(); // トップでは何もしない
+      expect(c.read(scanFlowProvider).step, ScanStep.top);
+    });
+
+    test('不合格の入庫先からは不合格処理へ戻る(登録はしない)', () async {
+      final g = InMemoryScanGateway();
+      final c = _container(g, batch: false);
+      final flow = c.read(scanFlowProvider.notifier);
+      await flow.submit('PO-2610-001-1');
+      await flow.submit('1');
+      await flow.evaluate(pass: false);
+      await flow.confirmReject(RejectReason.other);
+      expect(c.read(scanFlowProvider).step, ScanStep.putShelf);
+      flow.back();
+      expect(c.read(scanFlowProvider).step, ScanStep.ng);
+      expect(g.journal, isEmpty);
+    });
+
+    test('操作なしは、選んだ棚と担当者も消す', () async {
+      final c = ProviderContainer(
+        overrides: [
+          scanGatewayProvider.overrideWithValue(InMemoryScanGateway()),
+          loggerProvider.overrideWithValue(const NoopLoggerProvider()),
+          batchQueueProvider.overrideWithValue(true),
+        ],
+      );
+      addTearDown(c.dispose);
+      final flow = c.read(scanFlowProvider.notifier);
+      await flow.submit('PO-2610-001-1');
+      await flow.submit('1');
+      await flow.evaluate(pass: true);
+      await flow.submit('SH-R-01');
+      expect(c.read(scanFlowProvider).selectedShelf, isNotNull);
+      flow.idleClear();
+      expect(c.read(scanFlowProvider).selectedShelf, isNull);
+      expect(c.read(scanFlowProvider).queue, isEmpty);
     });
   });
 }

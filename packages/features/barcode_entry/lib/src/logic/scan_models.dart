@@ -114,6 +114,26 @@ final class HeldItem {
   final String unit;
 }
 
+/// 入庫先のおすすめ 1 件と、その根拠。根拠は状態の enum ではなく、値で持つ
+/// (同じ品目の保有数量 [heldQuantity]・不良品棚か [reject])。
+final class ShelfRecommendation {
+  const ShelfRecommendation({
+    required this.shelf,
+    this.heldQuantity = 0,
+    this.unit = '',
+    this.reject = false,
+  });
+
+  final ShelfTarget shelf;
+
+  /// 同じ品目がすでに入っている数量(0 は入っていない)。
+  final int heldQuantity;
+  final String unit;
+
+  /// 不良品棚だから(不合格のおすすめ)。
+  final bool reject;
+}
+
 /// 棚(コンテナ)の中身。持っているアイテムと、入れ子の子の棚(再帰)。
 final class ShelfContents {
   const ShelfContents({required this.shelf, this.items = const [], this.children = const []});
