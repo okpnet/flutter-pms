@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:barcode_entry/barcode_entry.dart';
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,17 @@ import 'package:logger_provider/logger_provider.dart';
 class _Bus implements CommandBus {
   @override
   Future<R> execute<R>(ActionCommand<R> command) async => null as R;
+}
+
+/// 登録の応答を [release] が完了するまで返さない取得元(通信中の再現)。
+class _SlowGateway extends InMemoryScanGateway {
+  final release = Completer<void>();
+
+  @override
+  Future<void> startWork(WorkOrderTarget order, ShelfTarget shelf) async {
+    await release.future;
+    return super.startWork(order, shelf);
+  }
 }
 
 ProviderContainer _container(InMemoryScanGateway g, {bool batch = true}) {
@@ -150,6 +163,28 @@ void main() {
       expect(s.selectedShelf, isNull);
       expect(s.notice?.kind, NoticeKind.idleCleared);
       expect(g.journal, isEmpty);
+    });
+
+    test('登録の通信中は消さない(完了かエラーまで待つ。待機は操作なしに含めない)', () async {
+      final g = _SlowGateway();
+      final c = _container(g);
+      final flow = c.read(scanFlowProvider.notifier);
+      await flow.submit('WO-2610-001');
+      flow.answerStart(true);
+      await flow.submit('SH-M-01');
+      expect(c.read(scanFlowProvider).queue, hasLength(1));
+      final flushing = flow.flushQueue(); // 通信中(応答待ち)
+      await Future<void>.delayed(Duration.zero);
+      expect(c.read(scanFlowProvider).working, isTrue);
+      flow.idleClear(); // 時計が呼んでも、通信中は何もしない
+      expect(c.read(scanFlowProvider).queue, hasLength(1));
+      expect(c.read(scanFlowProvider).notice?.kind, isNot(NoticeKind.idleCleared));
+      g.release.complete(); // 完了まで待つ
+      await flushing;
+      final s = c.read(scanFlowProvider);
+      expect(s.working, isFalse);
+      expect(s.queue, isEmpty);
+      expect(s.notice?.kind, NoticeKind.started);
     });
 
     test('消すものが無い(トップで処理待ちが空)ときは通知しない', () {
