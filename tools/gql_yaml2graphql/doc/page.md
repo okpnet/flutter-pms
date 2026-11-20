@@ -300,6 +300,19 @@
     +   投入台帳[InventoryApplyPage]<!--購入受入と共有-->
 1.  作業実績
     +   作業実績台帳[WorkRecordPage]
+    +   実績登録: 作業の開始[RegisterWorkRecordStartPageCall]<!--DB 関数 work_record_start-->
+    +   実績登録: 作業の終了・受入検品[RegisterInspectionPageCall]<!--DB 関数 inspection_register-->
+    +   実績登録: 生産計画[RegisterPlanPage]
+    +   実績登録: 工程計画明細[RegisterWorkPlanPage]
+    +   実績登録: 作業実績[RegisterWorkRecordPage]
+    +   実績登録: 作業実績のロット[RegisterRecordVisiterPage]
+    +   実績登録: 作業実績の不適合[RegisterRecordComplaintPage]
+    +   実績登録: 取り出せるロット[RegisterLotPage]
+    +   実績登録: ロットの品目[RegisterLotItemPage]
+    +   実績登録: コンテナ[RegisterContainerPage]
+    +   実績登録: 担当者[RegisterStaffPage]
+    +   実績登録: 品目[RegisterItemPage]
+    +   実績登録: 顧客[RegisterStakeholderPage]
         +   作業実績登録[WorkRecordPageEdit]
         +   成績書明細[WorkRecordCertificatePage]
             +   成績書登録[WorkRecordCertificatePageEdit]
@@ -342,6 +355,7 @@
         +   レポートひな形情報[ReportPageEdit]
 1.  異常報告
     +   異常報告台帳[ComplaintPage]
+    +   異常の種類別一覧[ComplaintKindPage]<!--外部の異常・内部の異常(v_complaint_kind)-->
         +   異常報告情報[ComplaintPageEdit]
             +   異常受付明細[ComplaintReceivePage]
                 +   異常受付情報[ComplaintReceivePageEdit]
@@ -455,6 +469,9 @@
     +   発注明細照会台帳[ScanPurchaseDetailPage]
     +   受入照会台帳[ScanPurchaseRecPage]
     +   品目照会台帳[ScanItemPage]
+    +   担当者照会台帳[ScanStaffPage]
+    +   棚の中身照会台帳[ScanContentsPage]
+    +   ロットの品目照会台帳[ScanLotItemPage]
     +   設備照会台帳[ScanEquipmentPage]
 1.  設備点検の照会
     +   点検予定照会台帳[ScanInspectSchPage]

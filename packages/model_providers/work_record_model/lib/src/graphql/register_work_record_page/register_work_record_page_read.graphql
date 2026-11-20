@@ -1,0 +1,35 @@
+# register_work_record_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #RegisterWorkRecordPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query RegisterWorkRecordPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransWorkRecordFilter = {and: []}
+  $orderBy: [TransWorkRecordsOrderBy!]
+  $removed: Boolean = false
+) {
+  allTransWorkRecords(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transWorkRecordId
+      transWorkPlanId
+      nthTime
+      startAt
+      stopAt
+      qty
+      symbol
+      staffId
+    }
+  }
+}

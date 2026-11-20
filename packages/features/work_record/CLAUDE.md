@@ -31,7 +31,7 @@
 1.  **登録結果**: 登録できたら、DB の更新結果(実績番号・払い出した数量とコンテナ・工程異常の番号・返却・工程の完了・更新件数)をダイアログに出し、表を再読み込みする。失敗したときは理由を出し、入力を残して再試行できる。
 1.  **ダイアログの幅**: ボタンの文字がはみ出さないように、最大 760 で画面の幅に合わせ、ボタンは 1 行の文字で、並びきらないときは折り返す(`RegisterDialogFrame`)。
 1.  状態(未着手・実施中・完了)は、列挙型にせず、完了(DB の判定)・終了していない実績の有無から出す(R1)。
-1.  **取得元はサンプル(メモリ上)**。GraphQL 版(生産計画・工程計画明細・実績の読み込み、開始・終了の DB 関数)は未作成(`issue/20261119_0004.md`)。アプリは `workRegisterGatewayProvider` を上書きして差し替える。
+1.  **取得元**: 既定はサンプル(メモリ上。`InMemoryWorkRegisterGateway`)。`pms_app` は、GraphQL の接続先があるとき `GraphqlWorkRegisterGateway`(`lib/src/graphql/graphql_register_gateway.dart`)に差し替える(`workRegisterGatewayProvider`)。読み込みは、生産計画(`trans_operations_plan`)・工程計画明細(`trans_work_plan`。残り・実施中・登録できるかは DB のビュー `v_register_target` の列)・作業実績・取り出した数量(作業実績につないだ払出の − の行)・不適合の数量(工程異常)。登録は DB 関数: 開始 = `work_record_start`、終了 = `inspection_register`(`work_record_model` の `register.yaml`)。理由(不合格・意図的な差)は自由な文(マスタを足さない。決定 2026-11-20)。**制限**: コンテナの候補は取り出せるロット(`v_visiter_issuable`)から作り、最初の工程は「生産計画の品目とは別の品目(材料)のロット」、2 工程目以降は「前の工程の作業実績が入庫したロット」(同じ注文の材料への絞り込み・引当の優先・分割や移動したロットのたどりは未対応)。コンテナの在庫数は、取り出せる最大の 1 ロットの数量。引継ぎは DB に列が無く、常に false。通信テスト `test/register_connection_test.dart`(読み取りだけ。登録は DB の検査 `tools/docker/postgresql/test/20261120_0001_register_tests.sql` で確認)。
 1.  モジュール(`work_record_module.dart`)の `routes`・`locationOf`・`menuEntries` は手書き。`node tools/entity_gen/gen.js` で上書きされたら `git checkout` で戻す。
 
 ## ビジター品目(読み取り専用)

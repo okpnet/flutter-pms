@@ -1,0 +1,324 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 実績登録(作業の開始・終了、受入検品)。登録は DB 関数(1 回の呼び出し = 1 トランザクション。issue/20261120_0001.md)。
+# 読み込みは、画面ごとに平らな読み込みに分け、機能側(work_record の取得元)で組み合わせる。
+
+# 作業の開始(work_record_start)。実績(実施中。終了は NULL)を登録し、ロットから払い出す。戻り値は登録した作業実績
+RegisterWorkRecordStartPageCall:
+  kind: function
+  mutation: workRecordStart
+  returns: transWorkRecord
+  columns:
+    - trans_work_record_id
+    - trans_work_plan_id
+    - nth_time
+    - start_at
+    - symbol
+
+# 作業の終了 と 受入検品(inspection_register)。作業実績または発注明細のどちらか 1 つを渡す
+RegisterInspectionPageCall:
+  kind: function
+  mutation: inspectionRegister
+  returns: results
+  columns:
+    - work_record_id
+    - purchase_rec_id
+    - pass_visiter_id
+    - fail_visiter_id
+    - return_visiter_id
+    - complaint_id
+    - return_quantity
+
+# 生産計画(工程計画)。品目・注文・顧客つき
+RegisterPlanPage:
+  lightRead: true
+  kind: read
+  from: trans_operations_plan
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_operations_plan_id
+    - symbol
+    - quantity
+    - deadline
+    - stop
+    - discontinue
+    - name: resource_plan
+      as: resource_plan
+      arrayType: toFirstOne
+      using: trans_resource_plan_id
+      kind: read
+      from: trans_resource_plan
+      columns:
+        - trans_resource_plan_id
+        - item_id
+        - trans_order_detail_id
+        - name: order_detail
+          as: order_detail
+          arrayType: toFirstOne
+          using: trans_order_detail_id
+          kind: read
+          from: trans_order_detail
+          columns:
+            - trans_order_detail_id
+            - trans_order_id
+            - name: order
+              as: order
+              arrayType: toFirstOne
+              using: trans_order_id
+              kind: read
+              from: trans_order
+              columns:
+                - trans_order_id
+                - order_number
+                - stakeholder_id
+
+# 工程計画明細(作業指示)。工程名と、登録の判定(残り・実施中・登録できるか。DB のビュー v_register_target)つき
+RegisterWorkPlanPage:
+  lightRead: true
+  kind: read
+  from: trans_work_plan
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_work_plan_id
+    - trans_operations_plan_id
+    - symbol
+    - sequence
+    - start_at
+    - completion_at
+    - name: task
+      as: task
+      arrayType: toFirstOne
+      using: mstr_task_id
+      kind: read
+      from: mstr_task
+      columns:
+        - mstr_task_id
+        - name: labels
+          as: labels
+          arrayType: toFirstOne
+          using: names
+          pick:
+            - name
+          <<: *AppellationLabelsReadFields
+    - name: register
+      as: register
+      arrayType: toFirstOne
+      using: trans_work_plan_id
+      from: v_register_target
+      columns:
+        - target_id
+        - quantity
+        - done_quantity
+        - remaining_quantity
+        - in_progress
+        - registrable
+        - stopped
+        - closed
+
+# 作業実績(回ごとの記録)。担当者の名称と、取り出した数量(払出の - の行)・不適合の数量(工程異常)・払出元のコンテナつき
+RegisterWorkRecordPage:
+  lightRead: true
+  kind: read
+  from: trans_work_record
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_work_record_id
+    - trans_work_plan_id
+    - nth_time
+    - start_at
+    - stop_at
+    - qty
+    - symbol
+    - staff_id
+
+# 作業実績につないだロット(払出の - の行 = 取り出し。入庫の + の行 = 完了品)
+RegisterRecordVisiterPage:
+  lightRead: true
+  kind: read
+  from: trans_work_record_visiter
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_work_record_visiter_id
+    - trans_work_record_id
+    - trans_visiter_id
+    - name: visiter
+      as: visiter
+      arrayType: toFirstOne
+      using: trans_visiter_id
+      kind: read
+      from: trans_visiter
+      columns:
+        - trans_visiter_id
+        - parent_trans_visiter_id
+        - trans_container_id
+        - quantity
+
+# 作業実績の不適合の数量(工程異常)
+RegisterRecordComplaintPage:
+  lightRead: true
+  kind: read
+  from: trans_complaint_work
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_complaint_work_id
+    - trans_complaint_id
+    - trans_work_record_id
+    - quantity
+
+# 取り出せるロット(DB のビュー v_visiter_issuable。取り出せるか・取り出せない理由は列)。品目・コンテナの名称つき
+RegisterLotPage:
+  lightRead: true
+  kind: read
+  from: v_visiter_issuable
+  filter: true
+  requiredWhere:
+    - languageCode
+  columns:
+    - trans_visiter_id
+    - symbol
+    - trans_container_id
+    - quantity
+    - release
+    - issuable
+    - block_reason
+    - name: container
+      as: container
+      arrayType: toFirstOne
+      using: trans_container_id
+      kind: read
+      from: trans_container
+      columns:
+        - trans_container_id
+        - code
+        - symbol
+        - name: labels
+          as: labels
+          arrayType: toFirstOne
+          using: names
+          <<: *FlexibleLabelReadFields
+
+# コンテナ(払出先の選択肢)
+RegisterContainerPage:
+  lightRead: true
+  kind: read
+  from: trans_container
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_container_id
+    - code
+    - symbol
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *FlexibleLabelReadFields
+
+# 担当者(開始の担当者の選択肢)
+RegisterStaffPage:
+  lightRead: true
+  kind: read
+  from: info_staff
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - info_staff_id
+    - code
+    - symbol
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+      <<: *AppellationLabelsReadFields
+
+# ロットの品目(DB のビュー v_visiter_item)。ロットの ID で絞る
+RegisterLotItemPage:
+  lightRead: true
+  kind: read
+  from: v_visiter_item
+  filter: true
+  columns:
+    - trans_visiter_id
+    - mstr_item_id
+
+# 品目の名称(生産計画の品目の表示)
+RegisterItemPage:
+  lightRead: true
+  kind: read
+  from: mstr_item
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_item_id
+    - code
+    - symbol
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+      <<: *AppellationLabelsReadFields
+
+# 利害関係者(顧客)の名称(生産計画の顧客の表示)
+RegisterStakeholderPage:
+  lightRead: true
+  kind: read
+  from: mstr_stakeholder
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_stakeholder_id
+    - code
+    - symbol
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+      <<: *AppellationLabelsReadFields

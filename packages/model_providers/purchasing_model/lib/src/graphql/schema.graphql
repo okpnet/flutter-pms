@@ -1452,6 +1452,7 @@ input MstrStakeholderFilter {
   mstrStakeholderProvisionsByMstrStakeholderIdExist: Boolean
   transAuditsByMstrStakeholderIdExist: Boolean
   vCancelOpenItemsByStakeholderIdExist: Boolean
+  vComplaintKindsByStakeholderIdExist: Boolean
   vExternalPropertiesByOwnerStakeholderIdExist: Boolean
   vInspectionStatusesBySupplierIdExist: Boolean
   vMrpPendingSuggestionsByStakeholderIdExist: Boolean
@@ -1816,6 +1817,7 @@ input TransPurchaseDetailFilter {
   vPurchaseDetailPurchaseRezCountByTransPurchaseDetailId: VPurchaseDetailPurchaseRezCountFilter
   vPurchaseDetailPurchaseRezCountByTransPurchaseDetailIdExists: Boolean
   vPurchaseDetailUnreservedByTransPurchaseDetailIdExists: Boolean
+  vRegisterTargetsByTransPurchaseDetailIdExist: Boolean
   vSupplyDetailBalancesByTransPurchaseDetailIdExist: Boolean
   transResourcePlanByTransResourcePlanIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
@@ -1939,6 +1941,7 @@ input TransPurchaseRecFilter {
   transComplaintPurchaseRecsByTransPurchaseRecIdExist: Boolean
   transPurchaseRecVisitersByTransPurchaseRecIdExist: Boolean
   transPurchaseCertificationsByTransPurchaseRecIdExist: Boolean
+  vComplaintKindsByTransPurchaseRecIdExist: Boolean
   vComplaintTargetsByTransPurchaseRecIdExist: Boolean
   vComplaintTargetVisitersByTransPurchaseRecIdExist: Boolean
   vPurchaseRecPurchaseCertificationCountByTransPurchaseRecId: VPurchaseRecPurchaseCertificationCountFilter

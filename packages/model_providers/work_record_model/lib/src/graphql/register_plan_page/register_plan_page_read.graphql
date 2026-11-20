@@ -1,0 +1,50 @@
+# register_plan_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #RegisterPlanPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query RegisterPlanPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransOperationsPlanFilter = {and: []}
+  $orderBy: [TransOperationsPlansOrderBy!]
+  $removed: Boolean = false
+) {
+  allTransOperationsPlans(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transOperationsPlanId
+      symbol
+      quantity
+      deadline
+      stop
+      discontinue
+
+      resource_plan: transResourcePlanByTransResourcePlanId {
+        transResourcePlanId
+        itemId
+        transOrderDetailId
+
+        order_detail: transOrderDetailByTransOrderDetailId {
+          transOrderDetailId
+          transOrderId
+
+          order: transOrderByTransOrderId {
+            transOrderId
+            orderNumber
+            stakeholderId
+          }
+        }
+      }
+    }
+  }
+}

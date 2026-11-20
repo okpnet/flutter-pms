@@ -33,20 +33,44 @@ class GraphqlScanGateway implements IScanGateway {
     return found;
   }
 
-  /// 担当者の照会は、担当者のモデルが無いため未対応(null)。担当者の読み取りを必須にしない(`requireOperatorProvider` が false)。
+  /// 担当者(`info_staff` の symbol)を引く。無ければ null。
   @override
-  Future<OperatorTarget?> findOperator(String symbol) async => null;
+  Future<OperatorTarget?> findOperator(String symbol) async {
+    final staff = await client.findStaff(symbol.trim());
+    return staff == null ? null : OperatorTarget(symbol: staff.symbol, name: staff.name);
+  }
 
-  /// 棚の中身・おすすめは、ロット(`v_shelf_inventory_status`)の読み込みが要るため未対応(null・空)。
-  /// 対応は `issue/20261120_0001.md`(未実施。DB に接続できる環境で行う)。
+  /// 棚の中身: 棚にあるロットを品目ごとにまとめる(取り出せるロットのビュー `v_visiter_issuable` と、ロットの品目 `v_visiter_item`)。
+  /// 入れ子の子の棚は未対応(DB に棚の親子の列が無いため、空)。
   @override
-  Future<ShelfContents?> contentsOf(ShelfTarget shelf) async => null;
+  Future<ShelfContents?> contentsOf(ShelfTarget shelf) async {
+    final found = await _resolve(shelf.symbol);
+    final held = await client.contents(found.id);
+    return ShelfContents(
+      shelf: shelf,
+      items: [for (final h in held) HeldItem(itemName: h.itemName, quantity: h.quantity, unit: '')],
+    );
+  }
 
+  /// 合格のおすすめ: 同じ品目が入っている棚(数量の多い順)。不合格のおすすめ(不良品棚)は、棚に不良品の区分が DB に無いため空
+  /// (`issue/20261120_0001.md`。判断: DB に棚の区分の列を足すか)。
   @override
   Future<List<ShelfRecommendation>> recommendShelves({
     required StockSource source,
     required bool rejected,
-  }) async => const [];
+  }) async {
+    if (rejected) return const [];
+    final itemId = (await _resolve(source.symbol)).itemId;
+    if (itemId == null) return const [];
+    final shelves = await client.shelvesHolding(itemId);
+    return [
+      for (final s in shelves)
+        ShelfRecommendation(
+          shelf: ShelfTarget(symbol: s.symbol, name: s.name.isEmpty ? s.symbol : s.name),
+          heldQuantity: s.quantity,
+        ),
+    ];
+  }
 
   @override
   Future<ScanTarget?> find(String symbol) async {

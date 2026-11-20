@@ -1,0 +1,33 @@
+# scan_contents_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ScanContentsPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ScanContentsPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VVisiterIssuableFilter = {and: []}
+  $orderBy: [VVisiterIssuablesOrderBy!]
+  $languageCodeId: UUID!
+) {
+  allVVisiterIssuables(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transVisiterId
+      symbol
+      transContainerId
+      quantity
+      release
+      issuable
+    }
+  }
+}

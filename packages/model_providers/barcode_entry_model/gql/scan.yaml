@@ -352,3 +352,56 @@ ScanLocationHistoryPage:
     - history_id
     - mstr_location_id
     - revision
+
+# 担当者を symbol で引く(担当者のバーコードの読み取り)
+ScanStaffPage:
+  # 子のレコード数(v_*_count)を読まない軽い読み込み(symbol の照会用。要件0056の対象外)
+  lightRead: true
+  kind: read
+  from: info_staff
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - info_staff_id
+    - code
+    - symbol
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+      <<: *AppellationLabelsReadFields
+
+# 棚の中身(ロットと品目。棚の保持アイテム・おすすめの根拠に使う)。取り出せるロットのビュー(v_visiter_issuable)から読む
+ScanContentsPage:
+  # 子のレコード数(v_*_count)を読まない軽い読み込み(symbol の照会用。要件0056の対象外)
+  lightRead: true
+  kind: read
+  from: v_visiter_issuable
+  filter: true
+  requiredWhere:
+    - languageCode
+  columns:
+    - trans_visiter_id
+    - symbol
+    - trans_container_id
+    - quantity
+    - release
+    - issuable
+
+# ロットの品目(DB のビュー v_visiter_item)。ロットの ID で絞る(棚の中身・おすすめの品目)
+ScanLotItemPage:
+  # 子のレコード数(v_*_count)を読まない軽い読み込み(symbol の照会用。要件0056の対象外)
+  lightRead: true
+  kind: read
+  from: v_visiter_item
+  filter: true
+  columns:
+    - trans_visiter_id
+    - mstr_item_id

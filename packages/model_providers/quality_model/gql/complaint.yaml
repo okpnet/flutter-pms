@@ -543,3 +543,30 @@ ComplaintVisiterPageCreate:
     - trans_visiter_id
     - quantity
     - remarks
+
+# 異常の種類別の一覧(DB のビュー v_complaint_kind。1 行 = 異常 × 種類)。種類・外部か・クレームかは、ビューで定義する(画面で決めない)。
+# 外部の異常(顧客クレーム・利害関係者の苦情)と内部の異常(設備・工程・受入・棚移動)の 2 つの画面は、is_external で分ける
+ComplaintKindPage:
+  kind: read
+  from: v_complaint_kind
+  filter: true
+  columns:
+    - complaint_kind_id
+    - trans_complaint_id
+    - symbol
+    - occurent_at
+    - titles
+    - details
+    - approvals
+    - reporter_staff_id
+    - remarks
+    - kind_symbol
+    - kind_name
+    - is_external
+    - is_claim
+    - stakeholder_id
+    - trans_order_id
+    - mstr_equipment_id
+    - mstr_task_id
+    - trans_purchase_rec_id
+    - trans_visiter_id

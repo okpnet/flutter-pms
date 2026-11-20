@@ -13289,6 +13289,53 @@ $$ LANGUAGE plpgsql VOLATILE;
 
 COMMENT ON FUNCTION tests.visiter_add_convey(uuid, uuid, uuid, uuid, uuid, timestamp, varchar) IS '@omit';
 
+CREATE OR REPLACE FUNCTION tests.visiter_receive(
+    p_container_id uuid,
+    p_qty numeric,
+    p_hold boolean DEFAULT false,
+    p_work_record_id uuid DEFAULT NULL,
+    p_purchase_rec_id uuid DEFAULT NULL,
+    p_parent uuid DEFAULT NULL,
+    p_staff_id uuid DEFAULT NULL,
+    p_location_id uuid DEFAULT NULL,
+    p_at timestamp DEFAULT NULL,
+    p_remarks varchar DEFAULT NULL
+) RETURNS tests.trans_visiter AS $$
+DECLARE
+    v_st record; v_loc record; v_out tests.trans_visiter;
+BEGIN
+    v_st := tests.visiter_staff(p_staff_id);
+    IF p_qty IS NULL OR p_qty <= 0 THEN
+        RAISE EXCEPTION '入庫数量は 0 より大きくしてください (%)', p_qty USING ERRCODE = 'VIS02';
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM tests.trans_container AS c WHERE c.trans_container_id = p_container_id AND c.remove IS FALSE) THEN
+        RAISE EXCEPTION '入庫先の棚が見つかりません (%)', p_container_id USING ERRCODE = 'VIS06';
+    END IF;
+    IF p_work_record_id IS NOT NULL AND p_purchase_rec_id IS NOT NULL THEN
+        RAISE EXCEPTION '作業実績と受入実績は、どちらか一方にしてください' USING ERRCODE = 'VIS02';
+    END IF;
+    v_loc := tests.visiter_location(p_container_id, p_location_id);
+
+    -- 仮止め(p_hold)のときは入出庫を許可しない(release = false)。不合格・検品待ちのロット
+    INSERT INTO tests.trans_visiter (parent_trans_visiter_id, trans_container_id, quantity, release, remarks,
+                                     update_user_id, update_user_history_id)
+    VALUES (p_parent, p_container_id, p_qty, p_hold IS NOT TRUE, p_remarks, v_st.staff_id, v_st.staff_history_id)
+    RETURNING * INTO v_out;
+    PERFORM tests.visiter_add_convey(v_out.trans_visiter_id, v_loc.location_id, v_loc.location_history_id,
+                                     v_st.staff_id, v_st.staff_history_id, p_at, p_remarks);
+    IF p_work_record_id IS NOT NULL THEN
+        INSERT INTO tests.trans_work_record_visiter (trans_visiter_id, trans_work_record_id, update_user_id, update_user_history_id)
+        VALUES (v_out.trans_visiter_id, p_work_record_id, v_st.staff_id, v_st.staff_history_id);
+    ELSIF p_purchase_rec_id IS NOT NULL THEN
+        INSERT INTO tests.trans_purchase_rec_visiter (trans_visiter_id, trans_purchase_rec_id, update_user_id, update_user_history_id)
+        VALUES (v_out.trans_visiter_id, p_purchase_rec_id, v_st.staff_id, v_st.staff_history_id);
+    END IF;
+    RETURN v_out;
+END
+$$ LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION tests.visiter_receive(uuid, numeric, boolean, uuid, uuid, uuid, uuid, uuid, timestamp, varchar) IS '@omit';
+
 CREATE TABLE tests.trans_certificate (
   trans_certificate_id uuid DEFAULT gen_random_uuid() NOT NULL,
   serial varchar(255),
@@ -21911,375 +21958,6 @@ COMMENT ON VIEW tests.v_work_plan_registrable IS '@primaryKey trans_work_plan_id
 @foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)
 登録できる作業指示か(生産計画の連なりと最上位の受注明細の、停止・打ち切り・全部キャンセルの判定)';
 
-CREATE VIEW tests.v_register_target AS
-SELECT
-    wp.trans_work_plan_id AS target_id
-    , wp.symbol
-    , wp.trans_work_plan_id
-    , NULL::uuid AS trans_purchase_detail_id
-    , TRUE AS is_work_plan
-    , FALSE AS is_purchase_detail
-    , rp.item_id
-    , COALESCE(op.quantity, 0) AS quantity
-    , COALESCE(w.done, 0) AS done_quantity
-    , GREATEST(COALESCE(op.quantity, 0) - COALESCE(w.done, 0) - COALESCE(w.taken_open, 0), 0) AS remaining_quantity
-    , COALESCE(w.has_open, FALSE) AS in_progress
-    , r.stopped
-    , r.closed
-    -- 登録できるか: 停止・打ち切り・全部キャンセルでなく、残りがある
-    , (r.registrable AND COALESCE(op.quantity, 0) - COALESCE(w.done, 0) - COALESCE(w.taken_open, 0) > 0) AS registrable
-FROM tests.trans_work_plan AS wp
-INNER JOIN tests.trans_operations_plan AS op ON op.trans_operations_plan_id = wp.trans_operations_plan_id
-INNER JOIN tests.trans_resource_plan AS rp ON rp.trans_resource_plan_id = op.trans_resource_plan_id
-INNER JOIN tests.v_work_plan_registrable AS r ON r.trans_work_plan_id = wp.trans_work_plan_id
-LEFT JOIN LATERAL (
-    SELECT
-        SUM(wr.qty) FILTER (WHERE wr.stop_at IS NOT NULL) AS done
-        , COALESCE(SUM(tk.q) FILTER (WHERE wr.stop_at IS NULL), 0) AS taken_open
-        , BOOL_OR(wr.stop_at IS NULL) AS has_open
-    FROM tests.trans_work_record AS wr
-    LEFT JOIN LATERAL (
-        -- 取り出した数量 = 作業実績につないだ払出(- の行)の合計
-        SELECT -SUM(v.quantity) AS q
-        FROM tests.trans_work_record_visiter AS wrv
-        INNER JOIN tests.trans_visiter AS v ON v.trans_visiter_id = wrv.trans_visiter_id AND v.quantity < 0
-        WHERE wrv.trans_work_record_id = wr.trans_work_record_id AND wrv.remove IS FALSE
-    ) AS tk ON TRUE
-    WHERE wr.trans_work_plan_id = wp.trans_work_plan_id AND wr.remove IS FALSE
-) AS w ON TRUE
-WHERE wp.remove IS FALSE
-UNION ALL
-SELECT
-    b.trans_purchase_detail_id AS target_id
-    , b.symbol
-    , NULL::uuid AS trans_work_plan_id
-    , b.trans_purchase_detail_id
-    , FALSE
-    , TRUE
-    , b.item_id
-    , b.quantity
-    , b.received_quantity AS done_quantity
-    , b.remaining_quantity
-    , FALSE AS in_progress
-    , b.stop AS stopped
-    , b.cancel_closed AS closed
-    , (NOT b.stop AND NOT b.cancel_closed AND b.remaining_quantity > 0) AS registrable
-FROM tests.v_purchase_detail_balance AS b;
-
-COMMENT ON VIEW tests.v_register_target IS '@primaryKey target_id
-@unique symbol
-@foreignKey (trans_work_plan_id) references trans_work_plan (trans_work_plan_id)
-@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)
-@foreignKey (item_id) references mstr_item (mstr_item_id)
-実績を登録する対象(作業指示の工程と発注明細。発注・非計上発注は同じ発注明細)。登録できるか・残り・実施中を列で持つ(画面で計算・判定しない)';
-
-CREATE VIEW tests.v_complaint_kind AS
-SELECT
-    t.complaint_kind_id
-    , t.trans_complaint_id
-    , c.symbol
-    , c.occurent_at
-    , c.titles
-    , c.details
-    , c.reporter_staff_id
-    , c.approvals
-    , c.remarks
-    , t.kind_symbol
-    , t.kind_name
-    , t.is_external
-    , t.is_claim
-    , t.stakeholder_id
-    , t.trans_order_id
-    , t.mstr_equipment_id
-    , t.mstr_task_id
-    , t.trans_purchase_rec_id
-    , t.trans_visiter_id
-FROM (
-    -- 内部の異常
-    SELECT e.trans_complaint_equipment_id AS complaint_kind_id, e.trans_complaint_id, e.symbol AS kind_symbol
-        , '設備の点検で発見された異常' AS kind_name, FALSE AS is_external, FALSE AS is_claim
-        , NULL::uuid AS stakeholder_id, NULL::uuid AS trans_order_id, e.equipment_id AS mstr_equipment_id
-        , NULL::uuid AS mstr_task_id, NULL::uuid AS trans_purchase_rec_id, NULL::uuid AS trans_visiter_id
-    FROM tests.trans_complaint_equipment AS e WHERE e.remove IS FALSE
-    UNION ALL
-    SELECT p.trans_complaint_process_id, p.trans_complaint_id, p.symbol
-        , '工程で発見された異常', FALSE, FALSE
-        , NULL::uuid, NULL::uuid, NULL::uuid
-        , p.mstr_task_id, NULL::uuid, NULL::uuid
-    FROM tests.trans_complaint_process AS p WHERE p.remove IS FALSE
-    UNION ALL
-    SELECT r.trans_complaint_purchase_rec_id, r.trans_complaint_id, r.symbol
-        , '購買・委託品の受入で発見された異常', FALSE, FALSE
-        , NULL::uuid, NULL::uuid, NULL::uuid
-        , NULL::uuid, r.trans_purchase_rec_id, NULL::uuid
-    FROM tests.trans_complaint_purchase_rec AS r WHERE r.remove IS FALSE
-    UNION ALL
-    SELECT v.trans_complaint_visiter_id, v.trans_complaint_id, v.symbol
-        , '棚移動で発見された異常', FALSE, FALSE
-        , NULL::uuid, NULL::uuid, NULL::uuid
-        , NULL::uuid, NULL::uuid, v.trans_visiter_id
-    FROM tests.trans_complaint_visiter AS v WHERE v.remove IS FALSE
-    UNION ALL
-    -- 外部の異常: 顧客クレーム(クレーム)と、供給者・顧客からの苦情(クレームではない)
-    SELECT o.trans_complaint_order_id, o.trans_complaint_id, o.symbol
-        , '顧客クレーム', TRUE, TRUE
-        , ord.stakeholder_id, o.trans_order_id, NULL::uuid
-        , NULL::uuid, NULL::uuid, NULL::uuid
-    FROM tests.trans_complaint_order AS o
-    LEFT JOIN tests.trans_order AS ord ON ord.trans_order_id = o.trans_order_id
-    WHERE o.remove IS FALSE
-    UNION ALL
-    SELECT s.trans_complaint_stakeholder_id, s.trans_complaint_id, s.symbol
-        , '利害関係者の苦情', TRUE, FALSE
-        , s.stakeholder_id, NULL::uuid, NULL::uuid
-        , NULL::uuid, NULL::uuid, NULL::uuid
-    FROM tests.trans_complaint_stakeholder AS s WHERE s.remove IS FALSE
-) AS t
-INNER JOIN tests.trans_complaint AS c ON c.trans_complaint_id = t.trans_complaint_id AND c.remove IS FALSE;
-
-COMMENT ON VIEW tests.v_complaint_kind IS '@primaryKey complaint_kind_id
-@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)
-@foreignKey (stakeholder_id) references mstr_stakeholder (mstr_stakeholder_id)
-@foreignKey (trans_order_id) references trans_order (trans_order_id)
-@foreignKey (mstr_equipment_id) references mstr_equipment (mstr_equipment_id)
-@foreignKey (mstr_task_id) references mstr_task (mstr_task_id)
-@foreignKey (trans_purchase_rec_id) references trans_purchase_rec (trans_purchase_rec_id)
-@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)
-異常の種類別の一覧(1 行 = 異常 × 種類)。種類は 6 つで固定: 設備の点検・工程・購買/委託品の受入・棚移動で発見された異常(内部の異常)、顧客クレーム・利害関係者の苦情(外部の異常)。種類の名称・外部か(is_external)・クレームか(is_claim)は、このビューだけで定義する(画面で決めない)';
-
-CREATE OR REPLACE FUNCTION tests.visiter_receive(
-    p_container_id uuid,
-    p_qty numeric,
-    p_hold boolean DEFAULT false,
-    p_work_record_id uuid DEFAULT NULL,
-    p_purchase_rec_id uuid DEFAULT NULL,
-    p_parent uuid DEFAULT NULL,
-    p_staff_id uuid DEFAULT NULL,
-    p_location_id uuid DEFAULT NULL,
-    p_at timestamp DEFAULT NULL,
-    p_remarks varchar DEFAULT NULL
-) RETURNS tests.trans_visiter AS $$
-DECLARE
-    v_st record; v_loc record; v_out tests.trans_visiter;
-BEGIN
-    v_st := tests.visiter_staff(p_staff_id);
-    IF p_qty IS NULL OR p_qty <= 0 THEN
-        RAISE EXCEPTION '入庫数量は 0 より大きくしてください (%)', p_qty USING ERRCODE = 'VIS02';
-    END IF;
-    IF NOT EXISTS (SELECT 1 FROM tests.trans_container AS c WHERE c.trans_container_id = p_container_id AND c.remove IS FALSE) THEN
-        RAISE EXCEPTION '入庫先の棚が見つかりません (%)', p_container_id USING ERRCODE = 'VIS06';
-    END IF;
-    IF p_work_record_id IS NOT NULL AND p_purchase_rec_id IS NOT NULL THEN
-        RAISE EXCEPTION '作業実績と受入実績は、どちらか一方にしてください' USING ERRCODE = 'VIS02';
-    END IF;
-    v_loc := tests.visiter_location(p_container_id, p_location_id);
-
-    -- 仮止め(p_hold)のときは入出庫を許可しない(release = false)。不合格・検品待ちのロット
-    INSERT INTO tests.trans_visiter (parent_trans_visiter_id, trans_container_id, quantity, release, remarks,
-                                     update_user_id, update_user_history_id)
-    VALUES (p_parent, p_container_id, p_qty, p_hold IS NOT TRUE, p_remarks, v_st.staff_id, v_st.staff_history_id)
-    RETURNING * INTO v_out;
-    PERFORM tests.visiter_add_convey(v_out.trans_visiter_id, v_loc.location_id, v_loc.location_history_id,
-                                     v_st.staff_id, v_st.staff_history_id, p_at, p_remarks);
-    IF p_work_record_id IS NOT NULL THEN
-        INSERT INTO tests.trans_work_record_visiter (trans_visiter_id, trans_work_record_id, update_user_id, update_user_history_id)
-        VALUES (v_out.trans_visiter_id, p_work_record_id, v_st.staff_id, v_st.staff_history_id);
-    ELSIF p_purchase_rec_id IS NOT NULL THEN
-        INSERT INTO tests.trans_purchase_rec_visiter (trans_visiter_id, trans_purchase_rec_id, update_user_id, update_user_history_id)
-        VALUES (v_out.trans_visiter_id, p_purchase_rec_id, v_st.staff_id, v_st.staff_history_id);
-    END IF;
-    RETURN v_out;
-END
-$$ LANGUAGE plpgsql VOLATILE;
-
-COMMENT ON FUNCTION tests.visiter_receive(uuid, numeric, boolean, uuid, uuid, uuid, uuid, uuid, timestamp, varchar) IS '@omit';
-
-CREATE OR REPLACE FUNCTION tests.work_record_start(
-    p_work_plan_id uuid,
-    p_visiter_id uuid,
-    p_qty numeric,
-    p_staff_id uuid DEFAULT NULL,
-    p_equipment_id uuid DEFAULT NULL,
-    p_location_id uuid DEFAULT NULL,
-    p_remarks varchar DEFAULT NULL
-) RETURNS tests.trans_work_record AS $$
-DECLARE
-    v_st record; v_t tests.v_register_target; v_eq_hist uuid; v_rec tests.trans_work_record; v_nth smallint;
-BEGIN
-    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
-    SELECT * INTO v_t FROM tests.v_register_target WHERE trans_work_plan_id = p_work_plan_id;
-    IF NOT FOUND THEN
-        RAISE EXCEPTION '作業指示が見つかりません (%)', p_work_plan_id USING ERRCODE = 'OPR01';
-    END IF;
-    IF p_qty IS NULL OR p_qty <= 0 THEN
-        RAISE EXCEPTION '開始数量は 0 より大きくしてください (%)', p_qty USING ERRCODE = 'OPR02';
-    END IF;
-    IF v_t.stopped OR v_t.closed THEN
-        RAISE EXCEPTION '停止中・終わっている作業指示は、実績を登録できません' USING ERRCODE = 'OPR03';
-    END IF;
-    IF v_t.in_progress THEN
-        RAISE EXCEPTION 'この作業指示は実施中です。終了を登録してから、開始してください' USING ERRCODE = 'OPR03';
-    END IF;
-    IF p_qty > v_t.remaining_quantity THEN
-        RAISE EXCEPTION '計画の残りを超えています (残り %、開始 %)', v_t.remaining_quantity, p_qty USING ERRCODE = 'OPR02';
-    END IF;
-    IF p_equipment_id IS NOT NULL THEN
-        SELECT h.history_id INTO v_eq_hist FROM tests.history_mstr_equipment AS h
-        WHERE h.mstr_equipment_id = p_equipment_id ORDER BY h.revision DESC, h.update_at DESC LIMIT 1;
-        IF v_eq_hist IS NULL THEN
-            RAISE EXCEPTION '設備が見つかりません (%)', p_equipment_id USING ERRCODE = 'OPR01';
-        END IF;
-    END IF;
-    SELECT COALESCE(MAX(nth_time), 0) + 1 INTO v_nth FROM tests.trans_work_record
-    WHERE trans_work_plan_id = p_work_plan_id AND remove IS FALSE;
-
-    -- 実施中の実績(終了 = NULL。終了で埋める)
-    INSERT INTO tests.trans_work_record (trans_work_plan_id, nth_time, start_at, stop_at, qty,
-                                         staff_history_id, staff_id, equipment_history_id, equipment_id, remarks,
-                                         update_user_id, update_user_history_id)
-    VALUES (p_work_plan_id, v_nth, now(), NULL, 0, v_st.staff_history_id, v_st.staff_id, v_eq_hist, p_equipment_id, p_remarks,
-            v_st.staff_id, v_st.staff_history_id)
-    RETURNING * INTO v_rec;
-    -- 材料の払出。在庫・仮止め・異常の検査は visiter_issue が行う(VIS03・VIS04)。作業実績につなぐ
-    PERFORM tests.visiter_issue(p_visiter_id, p_qty, v_rec.trans_work_record_id, v_st.staff_id, p_location_id, NULL, p_remarks);
-    RETURN v_rec;
-END
-$$ LANGUAGE plpgsql VOLATILE;
-
-COMMENT ON FUNCTION tests.work_record_start(uuid, uuid, numeric, uuid, uuid, uuid, varchar) IS '作業の開始。作業実績(実施中。終了は NULL)を登録し、コンテナのロットから材料を払い出して作業実績につなぐ(1トランザクション)。数量は計画の残り(v_register_target.remaining_quantity)以内、停止・打ち切り・全部キャンセルの作業指示と、実施中の作業指示は登録しない。errcode: OPR01 対象が無い / OPR02 数量 / OPR03 登録できない。払出は VIS03(在庫が足りない)・VIS04(取り出せない)';
-
-CREATE OR REPLACE FUNCTION tests.inspection_register(
-    p_pass_qty numeric,
-    p_container_id uuid,
-    p_work_record_id uuid DEFAULT NULL,
-    p_purchase_detail_id uuid DEFAULT NULL,
-    p_fail_qty numeric DEFAULT 0,
-    p_fail_container_id uuid DEFAULT NULL,
-    p_reason varchar DEFAULT NULL,
-    p_return_container_id uuid DEFAULT NULL,
-    p_return_reason varchar DEFAULT NULL,
-    p_staff_id uuid DEFAULT NULL,
-    p_location_id uuid DEFAULT NULL,
-    p_remarks varchar DEFAULT NULL
-) RETURNS TABLE (
-    work_record_id uuid,        -- 終了した作業実績(受入のときは NULL)
-    purchase_rec_id uuid,       -- 登録した受入実績(作業のときは NULL)
-    pass_visiter_id uuid,       -- 合格を入庫したロット(合格 0 のときは NULL)
-    fail_visiter_id uuid,       -- 不合格を入庫したロット(不合格 0 のときは NULL)
-    return_visiter_id uuid,     -- 意図的な差を返したロット(差が無いときは NULL)
-    complaint_id uuid,          -- 登録した異常(不合格 0 のときは NULL)
-    return_quantity numeric     -- 返した数量(差が無いときは 0)
-) AS $$
-DECLARE
-    v_st record;
-    v_pass numeric := COALESCE(p_pass_qty, 0); v_fail numeric := COALESCE(p_fail_qty, 0);
-    v_taken numeric; v_return numeric := 0; v_origin uuid; v_origin_container uuid;
-    v_b tests.v_purchase_detail_balance; v_rec tests.trans_purchase_rec; v_wr tests.trans_work_record;
-    v_title uuid; v_detail uuid; v_complaint uuid; v_lot tests.trans_visiter;
-BEGIN
-    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
-    IF (p_work_record_id IS NULL) = (p_purchase_detail_id IS NULL) THEN
-        RAISE EXCEPTION '作業実績と発注明細は、どちらか一方だけを渡してください' USING ERRCODE = 'OPR02';
-    END IF;
-    IF v_pass < 0 OR v_fail < 0 OR v_pass + v_fail <= 0 THEN
-        RAISE EXCEPTION '合格・不合格の数量は 0 以上で、合計は 0 より大きくしてください (合格 %、不合格 %)', v_pass, v_fail USING ERRCODE = 'OPR02';
-    END IF;
-    IF v_pass > 0 AND p_container_id IS NULL THEN
-        RAISE EXCEPTION '合格の入庫先のコンテナを渡してください' USING ERRCODE = 'OPR02';
-    END IF;
-    IF v_fail > 0 AND (p_fail_container_id IS NULL OR NULLIF(btrim(COALESCE(p_reason, '')), '') IS NULL) THEN
-        RAISE EXCEPTION '不合格は、入庫先のコンテナと理由を渡してください' USING ERRCODE = 'OPR02';
-    END IF;
-
-    IF p_work_record_id IS NOT NULL THEN
-        -- 作業の終了: 実施中の実績。完了(合格 + 不合格)は取り出した数量以内、差は払出元へ返す(意図的な差)
-        SELECT * INTO v_wr FROM tests.trans_work_record
-        WHERE trans_work_record_id = p_work_record_id AND remove IS FALSE FOR UPDATE;
-        IF NOT FOUND THEN
-            RAISE EXCEPTION '作業実績が見つかりません (%)', p_work_record_id USING ERRCODE = 'OPR01';
-        END IF;
-        IF v_wr.stop_at IS NOT NULL THEN
-            RAISE EXCEPTION 'この作業実績はすでに終了しています' USING ERRCODE = 'OPR03';
-        END IF;
-        SELECT -SUM(v.quantity), (ARRAY_AGG(v.parent_trans_visiter_id ORDER BY v.update_at))[1],
-               (ARRAY_AGG(v.trans_container_id ORDER BY v.update_at))[1]
-          INTO v_taken, v_origin, v_origin_container
-        FROM tests.trans_work_record_visiter AS wrv
-        INNER JOIN tests.trans_visiter AS v ON v.trans_visiter_id = wrv.trans_visiter_id AND v.quantity < 0
-        WHERE wrv.trans_work_record_id = p_work_record_id AND wrv.remove IS FALSE;
-        v_taken := COALESCE(v_taken, 0);
-        IF v_pass + v_fail > v_taken THEN
-            RAISE EXCEPTION '取り出した数量を超えています (取り出し %、完了 %)', v_taken, v_pass + v_fail USING ERRCODE = 'OPR02';
-        END IF;
-        v_return := v_taken - v_pass - v_fail;
-        IF v_return > 0 AND v_fail = 0 AND NULLIF(btrim(COALESCE(p_return_reason, '')), '') IS NULL THEN
-            RAISE EXCEPTION '少ない完了数量(意図的な差)は、理由を渡してください' USING ERRCODE = 'OPR02';
-        END IF;
-        UPDATE tests.trans_work_record
-        SET qty = v_pass + v_fail, stop_at = now(), update_user_id = v_st.staff_id, update_user_history_id = v_st.staff_history_id,
-            remarks = COALESCE(p_remarks, remarks)
-        WHERE trans_work_record_id = p_work_record_id;
-        work_record_id := p_work_record_id;
-    ELSE
-        -- 受入検品(発注・非計上発注): 残り以内。停止中・全部キャンセルは受け入れない
-        SELECT * INTO v_b FROM tests.v_purchase_detail_balance WHERE trans_purchase_detail_id = p_purchase_detail_id;
-        IF NOT FOUND THEN
-            RAISE EXCEPTION '発注明細が見つかりません (%)', p_purchase_detail_id USING ERRCODE = 'OPR01';
-        END IF;
-        IF v_b.stop OR v_b.cancel_closed THEN
-            RAISE EXCEPTION '停止中・全部キャンセル済みの発注明細は、受け入れできません' USING ERRCODE = 'OPR03';
-        END IF;
-        IF v_pass + v_fail > v_b.remaining_quantity THEN
-            RAISE EXCEPTION '発注の残りを超えています (残り %、受入 %)', v_b.remaining_quantity, v_pass + v_fail USING ERRCODE = 'OPR02';
-        END IF;
-        INSERT INTO tests.trans_purchase_rec (trans_purchase_detail_id, receive_at, quantity, remarks, update_user_id, update_user_history_id)
-        VALUES (p_purchase_detail_id, now(), v_pass + v_fail, p_remarks, v_st.staff_id, v_st.staff_history_id)
-        RETURNING * INTO v_rec;
-        purchase_rec_id := v_rec.trans_purchase_rec_id;
-    END IF;
-
-    -- 合格の入庫
-    IF v_pass > 0 THEN
-        v_lot := tests.visiter_receive(p_container_id, v_pass, false, p_work_record_id, purchase_rec_id,
-                                       NULL, v_st.staff_id, p_location_id, NULL, p_remarks);
-        pass_visiter_id := v_lot.trans_visiter_id;
-    END IF;
-
-    -- 不合格: 異常(工程異常・受入異常)を登録し、仮止めで入庫して異常につなぐ
-    IF v_fail > 0 THEN
-        v_title := (tests.trans_label_save(NULL, jsonb_build_object('ja', p_reason), v_st.staff_id, v_st.staff_history_id)).trans_label_id;
-        v_detail := (tests.trans_text_save(NULL, jsonb_build_object('ja', p_reason), v_st.staff_id, v_st.staff_history_id)).trans_text_id;
-        INSERT INTO tests.trans_complaint (titles, details, reporter_staff_history_id, reporter_staff_id, update_user_id, update_user_history_id)
-        VALUES (v_title, v_detail, v_st.staff_history_id, v_st.staff_id, v_st.staff_id, v_st.staff_history_id)
-        RETURNING trans_complaint_id INTO v_complaint;
-        IF p_work_record_id IS NOT NULL THEN
-            INSERT INTO tests.trans_complaint_work (trans_complaint_id, trans_work_record_id, quantity, update_user_id, update_user_history_id)
-            VALUES (v_complaint, p_work_record_id, v_fail, v_st.staff_id, v_st.staff_history_id);
-        ELSE
-            INSERT INTO tests.trans_complaint_purchase_rec (trans_complaint_id, trans_purchase_rec_id, quantity, update_user_id, update_user_history_id)
-            VALUES (v_complaint, purchase_rec_id, v_fail, v_st.staff_id, v_st.staff_history_id);
-        END IF;
-        v_lot := tests.visiter_receive(p_fail_container_id, v_fail, true, p_work_record_id, purchase_rec_id,
-                                       NULL, v_st.staff_id, p_location_id, NULL, p_reason);
-        INSERT INTO tests.trans_complaint_visiter (trans_complaint_id, trans_visiter_id, quantity, update_user_id, update_user_history_id)
-        VALUES (v_complaint, v_lot.trans_visiter_id, v_fail, v_st.staff_id, v_st.staff_history_id);
-        fail_visiter_id := v_lot.trans_visiter_id;
-        complaint_id := v_complaint;
-    END IF;
-
-    -- 作業の終了で、完了が取り出しより少ない差は、払出元(または指定)のコンテナへ返す。次の開始で、引継ぎとして取り出せる
-    IF v_return > 0 THEN
-        v_lot := tests.visiter_receive(COALESCE(p_return_container_id, v_origin_container), v_return, false, p_work_record_id, NULL,
-                                       v_origin, v_st.staff_id, p_location_id, NULL, COALESCE(p_return_reason, p_reason));
-        return_visiter_id := v_lot.trans_visiter_id;
-    END IF;
-    return_quantity := v_return;
-    RETURN NEXT;
-END
-$$ LANGUAGE plpgsql VOLATILE;
-
-COMMENT ON FUNCTION tests.inspection_register(numeric, uuid, uuid, uuid, numeric, uuid, varchar, uuid, varchar, uuid, uuid, varchar) IS '作業の終了 と 受入検品(発注・非計上発注)の共通の登録(1トランザクション)。作業実績(p_work_record_id)または発注明細(p_purchase_detail_id)のどちらか 1 つを渡す。作業実績は終了(完了 = 合格 + 不合格)、発注明細は受入実績を登録する。合格(p_pass_qty)はコンテナ(p_container_id)へ入庫、不合格(p_fail_qty)は異常(理由 p_reason)を登録して仮止めで p_fail_container_id へ入庫し異常につなぐ。作業の終了で完了が取り出しより少ない差は、払出元(または p_return_container_id)へ返す(理由 p_return_reason)。errcode: OPR00 担当者 / OPR01 対象が無い / OPR02 数量・引数 / OPR03 今の状態では登録できない。入庫は VIS05・VIS06';
-
 CREATE VIEW tests.v_plan_change AS
 SELECT
     pc.trans_plan_change_id
@@ -22923,6 +22601,328 @@ COMMENT ON COLUMN tests.v_order_detail_planning.planned IS '計画済み(資材�
 COMMENT ON COLUMN tests.v_order_detail_planning.has_demand IS '需要が有る(数量 − キャンセル数量 + 代品ありの返品 > 0。全部キャンセル済みは false)';
 COMMENT ON COLUMN tests.v_order_detail_planning.stopped IS '停止中(MRP は停止中の受注明細を凍結する)';
 COMMENT ON COLUMN tests.v_order_detail_planning.to_plan IS '次の受注 MRP が計画する(未計画・需要が有る・停止していない。mrp_run の受注の需要の判定と同じ)';
+
+CREATE VIEW tests.v_register_target AS
+SELECT
+    wp.trans_work_plan_id AS target_id
+    , wp.symbol
+    , wp.trans_work_plan_id
+    , NULL::uuid AS trans_purchase_detail_id
+    , TRUE AS is_work_plan
+    , FALSE AS is_purchase_detail
+    , rp.item_id
+    , COALESCE(op.quantity, 0) AS quantity
+    , COALESCE(w.done, 0) AS done_quantity
+    , GREATEST(COALESCE(op.quantity, 0) - COALESCE(w.done, 0) - COALESCE(w.taken_open, 0), 0) AS remaining_quantity
+    , COALESCE(w.has_open, FALSE) AS in_progress
+    , r.stopped
+    , r.closed
+    -- 登録できるか: 停止・打ち切り・全部キャンセルでなく、残りがある
+    , (r.registrable AND COALESCE(op.quantity, 0) - COALESCE(w.done, 0) - COALESCE(w.taken_open, 0) > 0) AS registrable
+FROM tests.trans_work_plan AS wp
+INNER JOIN tests.trans_operations_plan AS op ON op.trans_operations_plan_id = wp.trans_operations_plan_id
+INNER JOIN tests.trans_resource_plan AS rp ON rp.trans_resource_plan_id = op.trans_resource_plan_id
+INNER JOIN tests.v_work_plan_registrable AS r ON r.trans_work_plan_id = wp.trans_work_plan_id
+LEFT JOIN LATERAL (
+    SELECT
+        SUM(wr.qty) FILTER (WHERE wr.stop_at IS NOT NULL) AS done
+        , COALESCE(SUM(tk.q) FILTER (WHERE wr.stop_at IS NULL), 0) AS taken_open
+        , BOOL_OR(wr.stop_at IS NULL) AS has_open
+    FROM tests.trans_work_record AS wr
+    LEFT JOIN LATERAL (
+        -- 取り出した数量 = 作業実績につないだ払出(- の行)の合計
+        SELECT -SUM(v.quantity) AS q
+        FROM tests.trans_work_record_visiter AS wrv
+        INNER JOIN tests.trans_visiter AS v ON v.trans_visiter_id = wrv.trans_visiter_id AND v.quantity < 0
+        WHERE wrv.trans_work_record_id = wr.trans_work_record_id AND wrv.remove IS FALSE
+    ) AS tk ON TRUE
+    WHERE wr.trans_work_plan_id = wp.trans_work_plan_id AND wr.remove IS FALSE
+) AS w ON TRUE
+WHERE wp.remove IS FALSE
+UNION ALL
+SELECT
+    b.trans_purchase_detail_id AS target_id
+    , b.symbol
+    , NULL::uuid AS trans_work_plan_id
+    , b.trans_purchase_detail_id
+    , FALSE
+    , TRUE
+    , b.item_id
+    , b.quantity
+    , b.received_quantity AS done_quantity
+    , b.remaining_quantity
+    , FALSE AS in_progress
+    , b.stop AS stopped
+    , b.cancel_closed AS closed
+    , (NOT b.stop AND NOT b.cancel_closed AND b.remaining_quantity > 0) AS registrable
+FROM tests.v_purchase_detail_balance AS b;
+
+COMMENT ON VIEW tests.v_register_target IS '@primaryKey target_id
+@unique symbol
+@foreignKey (trans_work_plan_id) references trans_work_plan (trans_work_plan_id)
+@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)
+@foreignKey (item_id) references mstr_item (mstr_item_id)
+実績を登録する対象(作業指示の工程と発注明細。発注・非計上発注は同じ発注明細)。登録できるか・残り・実施中を列で持つ(画面で計算・判定しない)';
+
+CREATE OR REPLACE FUNCTION tests.work_record_start(
+    p_work_plan_id uuid,
+    p_visiter_id uuid,
+    p_qty numeric,
+    p_staff_id uuid DEFAULT NULL,
+    p_equipment_id uuid DEFAULT NULL,
+    p_location_id uuid DEFAULT NULL,
+    p_remarks varchar DEFAULT NULL
+) RETURNS tests.trans_work_record AS $$
+DECLARE
+    v_st record; v_t tests.v_register_target; v_eq_hist uuid; v_rec tests.trans_work_record; v_nth smallint;
+BEGIN
+    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
+    SELECT * INTO v_t FROM tests.v_register_target WHERE trans_work_plan_id = p_work_plan_id;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION '作業指示が見つかりません (%)', p_work_plan_id USING ERRCODE = 'OPR01';
+    END IF;
+    IF p_qty IS NULL OR p_qty <= 0 THEN
+        RAISE EXCEPTION '開始数量は 0 より大きくしてください (%)', p_qty USING ERRCODE = 'OPR02';
+    END IF;
+    IF v_t.stopped OR v_t.closed THEN
+        RAISE EXCEPTION '停止中・終わっている作業指示は、実績を登録できません' USING ERRCODE = 'OPR03';
+    END IF;
+    IF v_t.in_progress THEN
+        RAISE EXCEPTION 'この作業指示は実施中です。終了を登録してから、開始してください' USING ERRCODE = 'OPR03';
+    END IF;
+    IF p_qty > v_t.remaining_quantity THEN
+        RAISE EXCEPTION '計画の残りを超えています (残り %、開始 %)', v_t.remaining_quantity, p_qty USING ERRCODE = 'OPR02';
+    END IF;
+    IF p_equipment_id IS NOT NULL THEN
+        SELECT h.history_id INTO v_eq_hist FROM tests.history_mstr_equipment AS h
+        WHERE h.mstr_equipment_id = p_equipment_id ORDER BY h.revision DESC, h.update_at DESC LIMIT 1;
+        IF v_eq_hist IS NULL THEN
+            RAISE EXCEPTION '設備が見つかりません (%)', p_equipment_id USING ERRCODE = 'OPR01';
+        END IF;
+    END IF;
+    SELECT COALESCE(MAX(nth_time), 0) + 1 INTO v_nth FROM tests.trans_work_record
+    WHERE trans_work_plan_id = p_work_plan_id AND remove IS FALSE;
+
+    -- 実施中の実績(終了 = NULL。終了で埋める)
+    INSERT INTO tests.trans_work_record (trans_work_plan_id, nth_time, start_at, stop_at, qty,
+                                         staff_history_id, staff_id, equipment_history_id, equipment_id, remarks,
+                                         update_user_id, update_user_history_id)
+    VALUES (p_work_plan_id, v_nth, now(), NULL, 0, v_st.staff_history_id, v_st.staff_id, v_eq_hist, p_equipment_id, p_remarks,
+            v_st.staff_id, v_st.staff_history_id)
+    RETURNING * INTO v_rec;
+    -- 材料の払出。在庫・仮止め・異常の検査は visiter_issue が行う(VIS03・VIS04)。作業実績につなぐ
+    PERFORM tests.visiter_issue(p_visiter_id, p_qty, v_rec.trans_work_record_id, v_st.staff_id, p_location_id, NULL, p_remarks);
+    RETURN v_rec;
+END
+$$ LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION tests.work_record_start(uuid, uuid, numeric, uuid, uuid, uuid, varchar) IS '作業の開始。作業実績(実施中。終了は NULL)を登録し、コンテナのロットから材料を払い出して作業実績につなぐ(1トランザクション)。数量は計画の残り(v_register_target.remaining_quantity)以内、停止・打ち切り・全部キャンセルの作業指示と、実施中の作業指示は登録しない。errcode: OPR01 対象が無い / OPR02 数量 / OPR03 登録できない。払出は VIS03(在庫が足りない)・VIS04(取り出せない)';
+
+CREATE OR REPLACE FUNCTION tests.inspection_register(
+    p_pass_qty numeric,
+    p_container_id uuid,
+    p_work_record_id uuid DEFAULT NULL,
+    p_purchase_detail_id uuid DEFAULT NULL,
+    p_fail_qty numeric DEFAULT 0,
+    p_fail_container_id uuid DEFAULT NULL,
+    p_reason varchar DEFAULT NULL,
+    p_return_container_id uuid DEFAULT NULL,
+    p_return_reason varchar DEFAULT NULL,
+    p_staff_id uuid DEFAULT NULL,
+    p_location_id uuid DEFAULT NULL,
+    p_remarks varchar DEFAULT NULL
+) RETURNS TABLE (
+    work_record_id uuid,        -- 終了した作業実績(受入のときは NULL)
+    purchase_rec_id uuid,       -- 登録した受入実績(作業のときは NULL)
+    pass_visiter_id uuid,       -- 合格を入庫したロット(合格 0 のときは NULL)
+    fail_visiter_id uuid,       -- 不合格を入庫したロット(不合格 0 のときは NULL)
+    return_visiter_id uuid,     -- 意図的な差を返したロット(差が無いときは NULL)
+    complaint_id uuid,          -- 登録した異常(不合格 0 のときは NULL)
+    return_quantity numeric     -- 返した数量(差が無いときは 0)
+) AS $$
+DECLARE
+    v_st record;
+    v_pass numeric := COALESCE(p_pass_qty, 0); v_fail numeric := COALESCE(p_fail_qty, 0);
+    v_taken numeric; v_return numeric := 0; v_origin uuid; v_origin_container uuid;
+    v_b tests.v_purchase_detail_balance; v_rec tests.trans_purchase_rec; v_wr tests.trans_work_record;
+    v_title uuid; v_detail uuid; v_complaint uuid; v_lot tests.trans_visiter;
+BEGIN
+    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
+    IF (p_work_record_id IS NULL) = (p_purchase_detail_id IS NULL) THEN
+        RAISE EXCEPTION '作業実績と発注明細は、どちらか一方だけを渡してください' USING ERRCODE = 'OPR02';
+    END IF;
+    IF v_pass < 0 OR v_fail < 0 OR v_pass + v_fail <= 0 THEN
+        RAISE EXCEPTION '合格・不合格の数量は 0 以上で、合計は 0 より大きくしてください (合格 %、不合格 %)', v_pass, v_fail USING ERRCODE = 'OPR02';
+    END IF;
+    IF v_pass > 0 AND p_container_id IS NULL THEN
+        RAISE EXCEPTION '合格の入庫先のコンテナを渡してください' USING ERRCODE = 'OPR02';
+    END IF;
+    IF v_fail > 0 AND (p_fail_container_id IS NULL OR NULLIF(btrim(COALESCE(p_reason, '')), '') IS NULL) THEN
+        RAISE EXCEPTION '不合格は、入庫先のコンテナと理由を渡してください' USING ERRCODE = 'OPR02';
+    END IF;
+
+    IF p_work_record_id IS NOT NULL THEN
+        -- 作業の終了: 実施中の実績。完了(合格 + 不合格)は取り出した数量以内、差は払出元へ返す(意図的な差)
+        SELECT * INTO v_wr FROM tests.trans_work_record
+        WHERE trans_work_record_id = p_work_record_id AND remove IS FALSE FOR UPDATE;
+        IF NOT FOUND THEN
+            RAISE EXCEPTION '作業実績が見つかりません (%)', p_work_record_id USING ERRCODE = 'OPR01';
+        END IF;
+        IF v_wr.stop_at IS NOT NULL THEN
+            RAISE EXCEPTION 'この作業実績はすでに終了しています' USING ERRCODE = 'OPR03';
+        END IF;
+        SELECT -SUM(v.quantity), (ARRAY_AGG(v.parent_trans_visiter_id ORDER BY v.update_at))[1],
+               (ARRAY_AGG(v.trans_container_id ORDER BY v.update_at))[1]
+          INTO v_taken, v_origin, v_origin_container
+        FROM tests.trans_work_record_visiter AS wrv
+        INNER JOIN tests.trans_visiter AS v ON v.trans_visiter_id = wrv.trans_visiter_id AND v.quantity < 0
+        WHERE wrv.trans_work_record_id = p_work_record_id AND wrv.remove IS FALSE;
+        v_taken := COALESCE(v_taken, 0);
+        IF v_pass + v_fail > v_taken THEN
+            RAISE EXCEPTION '取り出した数量を超えています (取り出し %、完了 %)', v_taken, v_pass + v_fail USING ERRCODE = 'OPR02';
+        END IF;
+        v_return := v_taken - v_pass - v_fail;
+        IF v_return > 0 AND v_fail = 0 AND NULLIF(btrim(COALESCE(p_return_reason, '')), '') IS NULL THEN
+            RAISE EXCEPTION '少ない完了数量(意図的な差)は、理由を渡してください' USING ERRCODE = 'OPR02';
+        END IF;
+        UPDATE tests.trans_work_record
+        SET qty = v_pass + v_fail, stop_at = now(), update_user_id = v_st.staff_id, update_user_history_id = v_st.staff_history_id,
+            remarks = COALESCE(p_remarks, remarks)
+        WHERE trans_work_record_id = p_work_record_id;
+        work_record_id := p_work_record_id;
+    ELSE
+        -- 受入検品(発注・非計上発注): 残り以内。停止中・全部キャンセルは受け入れない
+        SELECT * INTO v_b FROM tests.v_purchase_detail_balance WHERE trans_purchase_detail_id = p_purchase_detail_id;
+        IF NOT FOUND THEN
+            RAISE EXCEPTION '発注明細が見つかりません (%)', p_purchase_detail_id USING ERRCODE = 'OPR01';
+        END IF;
+        IF v_b.stop OR v_b.cancel_closed THEN
+            RAISE EXCEPTION '停止中・全部キャンセル済みの発注明細は、受け入れできません' USING ERRCODE = 'OPR03';
+        END IF;
+        IF v_pass + v_fail > v_b.remaining_quantity THEN
+            RAISE EXCEPTION '発注の残りを超えています (残り %、受入 %)', v_b.remaining_quantity, v_pass + v_fail USING ERRCODE = 'OPR02';
+        END IF;
+        INSERT INTO tests.trans_purchase_rec (trans_purchase_detail_id, receive_at, quantity, remarks, update_user_id, update_user_history_id)
+        VALUES (p_purchase_detail_id, now(), v_pass + v_fail, p_remarks, v_st.staff_id, v_st.staff_history_id)
+        RETURNING * INTO v_rec;
+        purchase_rec_id := v_rec.trans_purchase_rec_id;
+    END IF;
+
+    -- 合格の入庫
+    IF v_pass > 0 THEN
+        v_lot := tests.visiter_receive(p_container_id, v_pass, false, p_work_record_id, purchase_rec_id,
+                                       NULL, v_st.staff_id, p_location_id, NULL, p_remarks);
+        pass_visiter_id := v_lot.trans_visiter_id;
+    END IF;
+
+    -- 不合格: 異常(工程異常・受入異常)を登録し、仮止めで入庫して異常につなぐ
+    IF v_fail > 0 THEN
+        v_title := (tests.trans_label_save(NULL, jsonb_build_object('ja', p_reason), v_st.staff_id, v_st.staff_history_id)).trans_label_id;
+        v_detail := (tests.trans_text_save(NULL, jsonb_build_object('ja', p_reason), v_st.staff_id, v_st.staff_history_id)).trans_text_id;
+        INSERT INTO tests.trans_complaint (titles, details, reporter_staff_history_id, reporter_staff_id, update_user_id, update_user_history_id)
+        VALUES (v_title, v_detail, v_st.staff_history_id, v_st.staff_id, v_st.staff_id, v_st.staff_history_id)
+        RETURNING trans_complaint_id INTO v_complaint;
+        IF p_work_record_id IS NOT NULL THEN
+            INSERT INTO tests.trans_complaint_work (trans_complaint_id, trans_work_record_id, quantity, update_user_id, update_user_history_id)
+            VALUES (v_complaint, p_work_record_id, v_fail, v_st.staff_id, v_st.staff_history_id);
+        ELSE
+            INSERT INTO tests.trans_complaint_purchase_rec (trans_complaint_id, trans_purchase_rec_id, quantity, update_user_id, update_user_history_id)
+            VALUES (v_complaint, purchase_rec_id, v_fail, v_st.staff_id, v_st.staff_history_id);
+        END IF;
+        v_lot := tests.visiter_receive(p_fail_container_id, v_fail, true, p_work_record_id, purchase_rec_id,
+                                       NULL, v_st.staff_id, p_location_id, NULL, p_reason);
+        INSERT INTO tests.trans_complaint_visiter (trans_complaint_id, trans_visiter_id, quantity, update_user_id, update_user_history_id)
+        VALUES (v_complaint, v_lot.trans_visiter_id, v_fail, v_st.staff_id, v_st.staff_history_id);
+        fail_visiter_id := v_lot.trans_visiter_id;
+        complaint_id := v_complaint;
+    END IF;
+
+    -- 作業の終了で、完了が取り出しより少ない差は、払出元(または指定)のコンテナへ返す。次の開始で、引継ぎとして取り出せる
+    IF v_return > 0 THEN
+        v_lot := tests.visiter_receive(COALESCE(p_return_container_id, v_origin_container), v_return, false, p_work_record_id, NULL,
+                                       v_origin, v_st.staff_id, p_location_id, NULL, COALESCE(p_return_reason, p_reason));
+        return_visiter_id := v_lot.trans_visiter_id;
+    END IF;
+    return_quantity := v_return;
+    RETURN NEXT;
+END
+$$ LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION tests.inspection_register(numeric, uuid, uuid, uuid, numeric, uuid, varchar, uuid, varchar, uuid, uuid, varchar) IS '作業の終了 と 受入検品(発注・非計上発注)の共通の登録(1トランザクション)。作業実績(p_work_record_id)または発注明細(p_purchase_detail_id)のどちらか 1 つを渡す。作業実績は終了(完了 = 合格 + 不合格)、発注明細は受入実績を登録する。合格(p_pass_qty)はコンテナ(p_container_id)へ入庫、不合格(p_fail_qty)は異常(理由 p_reason)を登録して仮止めで p_fail_container_id へ入庫し異常につなぐ。作業の終了で完了が取り出しより少ない差は、払出元(または p_return_container_id)へ返す(理由 p_return_reason)。errcode: OPR00 担当者 / OPR01 対象が無い / OPR02 数量・引数 / OPR03 今の状態では登録できない。入庫は VIS05・VIS06';
+
+CREATE VIEW tests.v_complaint_kind AS
+SELECT
+    t.complaint_kind_id
+    , t.trans_complaint_id
+    , c.symbol
+    , c.occurent_at
+    , c.titles
+    , c.details
+    , c.reporter_staff_id
+    , c.approvals
+    , c.remarks
+    , t.kind_symbol
+    , t.kind_name
+    , t.is_external
+    , t.is_claim
+    , t.stakeholder_id
+    , t.trans_order_id
+    , t.mstr_equipment_id
+    , t.mstr_task_id
+    , t.trans_purchase_rec_id
+    , t.trans_visiter_id
+FROM (
+    -- 内部の異常
+    SELECT e.trans_complaint_equipment_id AS complaint_kind_id, e.trans_complaint_id, e.symbol AS kind_symbol
+        , '設備の点検で発見された異常' AS kind_name, FALSE AS is_external, FALSE AS is_claim
+        , NULL::uuid AS stakeholder_id, NULL::uuid AS trans_order_id, e.equipment_id AS mstr_equipment_id
+        , NULL::uuid AS mstr_task_id, NULL::uuid AS trans_purchase_rec_id, NULL::uuid AS trans_visiter_id
+    FROM tests.trans_complaint_equipment AS e WHERE e.remove IS FALSE
+    UNION ALL
+    SELECT p.trans_complaint_process_id, p.trans_complaint_id, p.symbol
+        , '工程で発見された異常', FALSE, FALSE
+        , NULL::uuid, NULL::uuid, NULL::uuid
+        , p.mstr_task_id, NULL::uuid, NULL::uuid
+    FROM tests.trans_complaint_process AS p WHERE p.remove IS FALSE
+    UNION ALL
+    SELECT r.trans_complaint_purchase_rec_id, r.trans_complaint_id, r.symbol
+        , '購買・委託品の受入で発見された異常', FALSE, FALSE
+        , NULL::uuid, NULL::uuid, NULL::uuid
+        , NULL::uuid, r.trans_purchase_rec_id, NULL::uuid
+    FROM tests.trans_complaint_purchase_rec AS r WHERE r.remove IS FALSE
+    UNION ALL
+    SELECT v.trans_complaint_visiter_id, v.trans_complaint_id, v.symbol
+        , '棚移動で発見された異常', FALSE, FALSE
+        , NULL::uuid, NULL::uuid, NULL::uuid
+        , NULL::uuid, NULL::uuid, v.trans_visiter_id
+    FROM tests.trans_complaint_visiter AS v WHERE v.remove IS FALSE
+    UNION ALL
+    -- 外部の異常: 顧客クレーム(クレーム)と、供給者・顧客からの苦情(クレームではない)
+    SELECT o.trans_complaint_order_id, o.trans_complaint_id, o.symbol
+        , '顧客クレーム', TRUE, TRUE
+        , ord.stakeholder_id, o.trans_order_id, NULL::uuid
+        , NULL::uuid, NULL::uuid, NULL::uuid
+    FROM tests.trans_complaint_order AS o
+    LEFT JOIN tests.trans_order AS ord ON ord.trans_order_id = o.trans_order_id
+    WHERE o.remove IS FALSE
+    UNION ALL
+    SELECT s.trans_complaint_stakeholder_id, s.trans_complaint_id, s.symbol
+        , '利害関係者の苦情', TRUE, FALSE
+        , s.stakeholder_id, NULL::uuid, NULL::uuid
+        , NULL::uuid, NULL::uuid, NULL::uuid
+    FROM tests.trans_complaint_stakeholder AS s WHERE s.remove IS FALSE
+) AS t
+INNER JOIN tests.trans_complaint AS c ON c.trans_complaint_id = t.trans_complaint_id AND c.remove IS FALSE;
+
+COMMENT ON VIEW tests.v_complaint_kind IS '@primaryKey complaint_kind_id
+@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)
+@foreignKey (stakeholder_id) references mstr_stakeholder (mstr_stakeholder_id)
+@foreignKey (trans_order_id) references trans_order (trans_order_id)
+@foreignKey (mstr_equipment_id) references mstr_equipment (mstr_equipment_id)
+@foreignKey (mstr_task_id) references mstr_task (mstr_task_id)
+@foreignKey (trans_purchase_rec_id) references trans_purchase_rec (trans_purchase_rec_id)
+@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)
+異常の種類別の一覧(1 行 = 異常 × 種類)。種類は 6 つで固定: 設備の点検・工程・購買/委託品の受入・棚移動で発見された異常(内部の異常)、顧客クレーム・利害関係者の苦情(外部の異常)。種類の名称・外部か(is_external)・クレームか(is_claim)は、このビューだけで定義する(画面で決めない)';
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_shared_dictionary() RETURNS trigger AS
 $BODY$
@@ -29968,35 +29968,6 @@ LANGUAGE plpgsql VOLATILE;
 
 CREATE TRIGGER trg_02_history_mstr_document_content BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_document_content FOR EACH ROW EXECUTE FUNCTION tests.trg_02_history_mstr_document_content();
 
-CREATE OR REPLACE FUNCTION tests.trg_00_tree_cycle() RETURNS trigger AS
-$BODY$
-DECLARE
-    v_base text := regexp_replace(TG_TABLE_NAME, '_tree$', '');
-    v_json jsonb := to_jsonb(NEW);
-    v_id text := v_json ->> (v_base || '_id');
-    v_parent text := v_json ->> ('parent_' || v_base || '_id');
-    v_found boolean;
-BEGIN
-    --削除する行・親が無い行は循環しない
-    IF (v_json ->> 'remove')::boolean IS TRUE OR v_parent IS NULL THEN
-        RETURN NEW;
-    END IF;
-    IF v_id = v_parent THEN
-        RAISE EXCEPTION '体系の循環: 自分自身を親にできません(%)', TG_TABLE_NAME USING ERRCODE = 'TRE01';
-    END IF;
-    --親が自分の子孫(体系の閉包に、祖先=自分・子孫=親の行がある)なら循環する
-    EXECUTE format(
-        'SELECT EXISTS (SELECT 1 FROM tests.%I WHERE %I = $1::uuid AND %I = $2::uuid AND remove IS FALSE)',
-        'hrchy_' || v_base, 'ancestor_' || v_base || '_id', 'descendant_' || v_base || '_id')
-    INTO v_found USING v_id, v_parent;
-    IF v_found THEN
-        RAISE EXCEPTION '体系の循環: 自分の子孫を親にできません(%)', TG_TABLE_NAME USING ERRCODE = 'TRE01';
-    END IF;
-    RETURN NEW;
-END
-$BODY$
-LANGUAGE plpgsql VOLATILE;
-
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_document_content_tree() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -30214,6 +30185,35 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 
 CREATE TRIGGER trg_03_hierarchy_mstr_document_content_tree AFTER INSERT OR UPDATE OR DELETE ON tests.mstr_document_content_tree FOR EACH ROW EXECUTE FUNCTION tests.trg_03_hierarchy_mstr_document_content_tree();
+
+CREATE OR REPLACE FUNCTION tests.trg_00_tree_cycle() RETURNS trigger AS
+$BODY$
+DECLARE
+    v_base text := regexp_replace(TG_TABLE_NAME, '_tree$', '');
+    v_json jsonb := to_jsonb(NEW);
+    v_id text := v_json ->> (v_base || '_id');
+    v_parent text := v_json ->> ('parent_' || v_base || '_id');
+    v_found boolean;
+BEGIN
+    --削除する行・親が無い行は循環しない
+    IF (v_json ->> 'remove')::boolean IS TRUE OR v_parent IS NULL THEN
+        RETURN NEW;
+    END IF;
+    IF v_id = v_parent THEN
+        RAISE EXCEPTION '体系の循環: 自分自身を親にできません(%)', TG_TABLE_NAME USING ERRCODE = 'TRE01';
+    END IF;
+    --親が自分の子孫(体系の閉包に、祖先=自分・子孫=親の行がある)なら循環する
+    EXECUTE format(
+        'SELECT EXISTS (SELECT 1 FROM tests.%I WHERE %I = $1::uuid AND %I = $2::uuid AND remove IS FALSE)',
+        'hrchy_' || v_base, 'ancestor_' || v_base || '_id', 'descendant_' || v_base || '_id')
+    INTO v_found USING v_id, v_parent;
+    IF v_found THEN
+        RAISE EXCEPTION '体系の循環: 自分の子孫を親にできません(%)', TG_TABLE_NAME USING ERRCODE = 'TRE01';
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
 
 CREATE TRIGGER trg_00_cycle_mstr_document_content_tree BEFORE INSERT OR UPDATE ON tests.mstr_document_content_tree FOR EACH ROW EXECUTE FUNCTION tests.trg_00_tree_cycle();
 

@@ -16,6 +16,124 @@ scalar Datetime
 
 scalar UUID
 
+enum InfoStaffsOrderBy {
+  NATURAL
+  INFO_STAFF_ID_ASC
+  INFO_STAFF_ID_DESC
+  INFO_COMPANY_ID_ASC
+  INFO_COMPANY_ID_DESC
+  CODE_ASC
+  CODE_DESC
+  NAMES_ASC
+  NAMES_DESC
+  SEX_ASC
+  SEX_DESC
+  PHONE_ASC
+  PHONE_DESC
+  PRIVATE_PHONE_ASC
+  PRIVATE_PHONE_DESC
+  REVISION_ASC
+  REVISION_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum MstrItemsOrderBy {
+  NATURAL
+  MSTR_ITEM_ID_ASC
+  MSTR_ITEM_ID_DESC
+  MSTR_ITEM_KIND_ID_ASC
+  MSTR_ITEM_KIND_ID_DESC
+  CODE_ASC
+  CODE_DESC
+  IDENTIFICATION_ASC
+  IDENTIFICATION_DESC
+  CONTROL_CODE_ASC
+  CONTROL_CODE_DESC
+  MSTR_MANUFACTURER_ID_ASC
+  MSTR_MANUFACTURER_ID_DESC
+  NAMES_ASC
+  NAMES_DESC
+  LABEL_CODE_ASC
+  LABEL_CODE_DESC
+  CATALOG_ITEM_ASC
+  CATALOG_ITEM_DESC
+  DETAILS_ASC
+  DETAILS_DESC
+  SHARED_UNIT_ID_ASC
+  SHARED_UNIT_ID_DESC
+  MSTR_ITEM_LOT_ID_ASC
+  MSTR_ITEM_LOT_ID_DESC
+  REVISION_ASC
+  REVISION_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum MstrStakeholdersOrderBy {
+  NATURAL
+  MSTR_STAKEHOLDER_ID_ASC
+  MSTR_STAKEHOLDER_ID_DESC
+  IS_CUSTOMER_ASC
+  IS_CUSTOMER_DESC
+  IS_SUPPLIER_ASC
+  IS_SUPPLIER_DESC
+  IS_LOGISTICS_ASC
+  IS_LOGISTICS_DESC
+  CODE_ASC
+  CODE_DESC
+  CONTROL_CODE_ASC
+  CONTROL_CODE_DESC
+  NAMES_ASC
+  NAMES_DESC
+  MAIL_ASC
+  MAIL_DESC
+  INFO_ADDRESS_ID_ASC
+  INFO_ADDRESS_ID_DESC
+  MSTR_SHIPPING_KIND_ID_ASC
+  MSTR_SHIPPING_KIND_ID_DESC
+  REVISION_ASC
+  REVISION_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 enum TransCertificatesOrderBy {
   NATURAL
   TRANS_CERTIFICATE_ID_ASC
@@ -28,6 +146,32 @@ enum TransCertificatesOrderBy {
   CLASS_DESC
   TRANS_FILE_ID_ASC
   TRANS_FILE_ID_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum TransComplaintWorksOrderBy {
+  NATURAL
+  TRANS_COMPLAINT_WORK_ID_ASC
+  TRANS_COMPLAINT_WORK_ID_DESC
+  TRANS_COMPLAINT_ID_ASC
+  TRANS_COMPLAINT_ID_DESC
+  TRANS_WORK_RECORD_ID_ASC
+  TRANS_WORK_RECORD_ID_DESC
+  QUANTITY_ASC
+  QUANTITY_DESC
   SYMBOL_ASC
   SYMBOL_DESC
   REMARKS_ASC
@@ -172,6 +316,36 @@ enum TransInventoryRequestsOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum TransOperationsPlansOrderBy {
+  NATURAL
+  TRANS_OPERATIONS_PLAN_ID_ASC
+  TRANS_OPERATIONS_PLAN_ID_DESC
+  TRANS_RESOURCE_PLAN_ID_ASC
+  TRANS_RESOURCE_PLAN_ID_DESC
+  DEADLINE_ASC
+  DEADLINE_DESC
+  QUANTITY_ASC
+  QUANTITY_DESC
+  STOP_ASC
+  STOP_DESC
+  DISCONTINUE_ASC
+  DISCONTINUE_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 enum TransPurchaseCertificationsOrderBy {
   NATURAL
   TRANS_PURCHASE_CERTIFICATION_ID_ASC
@@ -258,12 +432,78 @@ enum TransVisitersOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum TransWorkPlansOrderBy {
+  NATURAL
+  TRANS_WORK_PLAN_ID_ASC
+  TRANS_WORK_PLAN_ID_DESC
+  TRANS_OPERATIONS_PLAN_ID_ASC
+  TRANS_OPERATIONS_PLAN_ID_DESC
+  MSTR_TASK_ID_ASC
+  MSTR_TASK_ID_DESC
+  SEQUENCE_ASC
+  SEQUENCE_DESC
+  INTERVAL_PLAN_ASC
+  INTERVAL_PLAN_DESC
+  START_AT_ASC
+  START_AT_DESC
+  COMPLETION_AT_ASC
+  COMPLETION_AT_DESC
+  MSTR_EQUIPMENT_AVAILABLE_HISTORY_ID_ASC
+  MSTR_EQUIPMENT_AVAILABLE_HISTORY_ID_DESC
+  MSTR_EQUIPMENT_AVAILABLE_ID_ASC
+  MSTR_EQUIPMENT_AVAILABLE_ID_DESC
+  MSTR_OUTSOURCE_AVAILABLE_HISTORY_ID_ASC
+  MSTR_OUTSOURCE_AVAILABLE_HISTORY_ID_DESC
+  MSTR_OUTSOURCE_AVAILABLE_ID_ASC
+  MSTR_OUTSOURCE_AVAILABLE_ID_DESC
+  TRANS_PURCHASE_DETAIL_ID_ASC
+  TRANS_PURCHASE_DETAIL_ID_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 enum TransWorkRecordCertificatesOrderBy {
   NATURAL
   TRANS_WORK_RECORD_CERTIFICATE_ID_ASC
   TRANS_WORK_RECORD_CERTIFICATE_ID_DESC
   TRANS_CERTIFICATE_ID_ASC
   TRANS_CERTIFICATE_ID_DESC
+  TRANS_WORK_RECORD_ID_ASC
+  TRANS_WORK_RECORD_ID_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum TransWorkRecordVisitersOrderBy {
+  NATURAL
+  TRANS_WORK_RECORD_VISITER_ID_ASC
+  TRANS_WORK_RECORD_VISITER_ID_DESC
+  TRANS_VISITER_ID_ASC
+  TRANS_VISITER_ID_DESC
   TRANS_WORK_RECORD_ID_ASC
   TRANS_WORK_RECORD_ID_DESC
   SYMBOL_ASC
@@ -470,6 +710,18 @@ enum VVisiterIssuablesOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum VVisiterItemsOrderBy {
+  NATURAL
+  TRANS_VISITER_ID_ASC
+  TRANS_VISITER_ID_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  MSTR_ITEM_ID_ASC
+  MSTR_ITEM_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 enum VVisiterLedgerIssuesOrderBy {
   NATURAL
   TRANS_VISITER_ID_ASC
@@ -570,6 +822,46 @@ type InfoDepartment {
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
 }
 
+type InfoStaff {
+  infoStaffId: UUID!
+  code: String
+  symbol: String
+  sharedAppellationByNames: SharedAppellation
+}
+
+type InfoStaffsConnection {
+  nodes: [InfoStaff]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type InspectionRegisterPayload {
+  results: [InspectionRegisterRecord]
+}
+
+type InspectionRegisterRecord {
+  workRecordId: UUID
+  purchaseRecId: UUID
+  passVisiterId: UUID
+  failVisiterId: UUID
+  returnVisiterId: UUID
+  complaintId: UUID
+  returnQuantity: BigFloat
+}
+
+type MstrItem {
+  mstrItemId: UUID!
+  code: String!
+  symbol: String
+  sharedAppellationByNames: SharedAppellation
+}
+
+type MstrItemsConnection {
+  nodes: [MstrItem]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type MstrLocation {
   mstrLocationId: UUID!
   code: String
@@ -585,6 +877,24 @@ type MstrLocation {
   sharedAppellationByNames: SharedAppellation
   infoAddressByInfoAddressId: InfoAddress
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
+}
+
+type MstrStakeholder {
+  mstrStakeholderId: UUID!
+  code: String!
+  symbol: String
+  sharedAppellationByNames: SharedAppellation
+}
+
+type MstrStakeholdersConnection {
+  nodes: [MstrStakeholder]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type MstrTask {
+  mstrTaskId: UUID!
+  sharedAppellationByNames: SharedAppellation
 }
 
 type Mutation {
@@ -603,10 +913,12 @@ type Mutation {
   updateTransVisiterByTransVisiterId(input: UpdateTransVisiterByTransVisiterIdInput!): UpdateTransVisiterPayload
   updateTransWorkRecordByTransWorkRecordId(input: UpdateTransWorkRecordByTransWorkRecordIdInput!): UpdateTransWorkRecordPayload
   updateTransWorkRecordCertificateByTransWorkRecordCertificateId(input: UpdateTransWorkRecordCertificateByTransWorkRecordCertificateIdInput!): UpdateTransWorkRecordCertificatePayload
+  inspectionRegister(input: InspectionRegisterInput!): InspectionRegisterPayload
   visiterAdjust(input: VisiterAdjustInput!): VisiterAdjustPayload
   visiterIssue(input: VisiterIssueInput!): VisiterIssuePayload
   visiterMove(input: VisiterMoveInput!): VisiterMovePayload
   visiterOwnerRebuild(input: VisiterOwnerRebuildInput!): VisiterOwnerRebuildPayload
+  workRecordStart(input: WorkRecordStartInput!): WorkRecordStartPayload
 }
 
 type PageInfo {
@@ -615,21 +927,29 @@ type PageInfo {
 }
 
 type Query {
+  allInfoStaffs(first: Int, offset: Int, orderBy: [InfoStaffsOrderBy!] = [PRIMARY_KEY_ASC], filter: InfoStaffFilter): InfoStaffsConnection
+  allMstrItems(first: Int, offset: Int, orderBy: [MstrItemsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrItemFilter): MstrItemsConnection
+  allMstrStakeholders(first: Int, offset: Int, orderBy: [MstrStakeholdersOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrStakeholderFilter): MstrStakeholdersConnection
   allTransCertificates(first: Int, offset: Int, orderBy: [TransCertificatesOrderBy!] = [PRIMARY_KEY_ASC], filter: TransCertificateFilter): TransCertificatesConnection
+  allTransComplaintWorks(first: Int, offset: Int, orderBy: [TransComplaintWorksOrderBy!] = [PRIMARY_KEY_ASC], filter: TransComplaintWorkFilter): TransComplaintWorksConnection
   allTransContainers(first: Int, offset: Int, orderBy: [TransContainersOrderBy!] = [PRIMARY_KEY_ASC], filter: TransContainerFilter): TransContainersConnection
   allTransConveys(first: Int, offset: Int, orderBy: [TransConveysOrderBy!] = [PRIMARY_KEY_ASC], filter: TransConveyFilter): TransConveysConnection
   allTransInventoryApplies(first: Int, offset: Int, orderBy: [TransInventoryAppliesOrderBy!] = [PRIMARY_KEY_ASC], filter: TransInventoryApplyFilter): TransInventoryAppliesConnection
   allTransInventoryRequests(first: Int, offset: Int, orderBy: [TransInventoryRequestsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransInventoryRequestFilter): TransInventoryRequestsConnection
+  allTransOperationsPlans(first: Int, offset: Int, orderBy: [TransOperationsPlansOrderBy!] = [PRIMARY_KEY_ASC], filter: TransOperationsPlanFilter): TransOperationsPlansConnection
   allTransPurchaseCertifications(first: Int, offset: Int, orderBy: [TransPurchaseCertificationsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransPurchaseCertificationFilter): TransPurchaseCertificationsConnection
   allTransVisiters(first: Int, offset: Int, orderBy: [TransVisitersOrderBy!] = [PRIMARY_KEY_ASC], filter: TransVisiterFilter): TransVisitersConnection
   allTransVisiterOwners(first: Int, offset: Int, orderBy: [TransVisiterOwnersOrderBy!] = [PRIMARY_KEY_ASC], filter: TransVisiterOwnerFilter): TransVisiterOwnersConnection
+  allTransWorkPlans(first: Int, offset: Int, orderBy: [TransWorkPlansOrderBy!] = [PRIMARY_KEY_ASC], filter: TransWorkPlanFilter): TransWorkPlansConnection
   allTransWorkRecords(first: Int, offset: Int, orderBy: [TransWorkRecordsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransWorkRecordFilter): TransWorkRecordsConnection
   allTransWorkRecordCertificates(first: Int, offset: Int, orderBy: [TransWorkRecordCertificatesOrderBy!] = [PRIMARY_KEY_ASC], filter: TransWorkRecordCertificateFilter): TransWorkRecordCertificatesConnection
+  allTransWorkRecordVisiters(first: Int, offset: Int, orderBy: [TransWorkRecordVisitersOrderBy!] = [PRIMARY_KEY_ASC], filter: TransWorkRecordVisiterFilter): TransWorkRecordVisitersConnection
   allVExternalProperties(first: Int, offset: Int, orderBy: [VExternalPropertiesOrderBy!] = [PRIMARY_KEY_ASC], filter: VExternalPropertyFilter): VExternalPropertiesConnection
   allVMrpVisiterItems(first: Int, offset: Int, orderBy: [VMrpVisiterItemsOrderBy!] = [PRIMARY_KEY_ASC], filter: VMrpVisiterItemFilter): VMrpVisiterItemsConnection
   allVShelfInventoryStatuses(first: Int, offset: Int, orderBy: [VShelfInventoryStatusesOrderBy!] = [PRIMARY_KEY_ASC], filter: VShelfInventoryStatusFilter): VShelfInventoryStatusesConnection
   allVVisiterHoldWithoutComplaints(first: Int, offset: Int, orderBy: [VVisiterHoldWithoutComplaintsOrderBy!] = [PRIMARY_KEY_ASC], filter: VVisiterHoldWithoutComplaintFilter): VVisiterHoldWithoutComplaintsConnection
   allVVisiterIssuables(first: Int, offset: Int, orderBy: [VVisiterIssuablesOrderBy!] = [PRIMARY_KEY_ASC], filter: VVisiterIssuableFilter): VVisiterIssuablesConnection
+  allVVisiterItems(first: Int, offset: Int, orderBy: [VVisiterItemsOrderBy!] = [PRIMARY_KEY_ASC], filter: VVisiterItemFilter): VVisiterItemsConnection
   allVVisiterLedgerIssues(first: Int, offset: Int, orderBy: [VVisiterLedgerIssuesOrderBy!] = [PRIMARY_KEY_ASC], filter: VVisiterLedgerIssueFilter): VVisiterLedgerIssuesConnection
   allVVisiterOriginChecks(first: Int, offset: Int, orderBy: [VVisiterOriginChecksOrderBy!] = [PRIMARY_KEY_ASC], filter: VVisiterOriginCheckFilter): VVisiterOriginChecksConnection
   transCertificateByTransCertificateId(transCertificateId: UUID!): TransCertificate
@@ -694,6 +1014,12 @@ type TransComplaintWork {
   transWorkRecordId: UUID!
   quantity: BigFloat
   remarks: String
+}
+
+type TransComplaintWorksConnection {
+  nodes: [TransComplaintWork]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type TransContainer {
@@ -818,6 +1144,34 @@ type TransLabelValuesConnection {
   nodes: [TransLabelValue]!
 }
 
+type TransOperationsPlan {
+  transOperationsPlanId: UUID!
+  deadline: Datetime
+  quantity: BigFloat
+  stop: Boolean
+  discontinue: Boolean
+  symbol: String
+  transResourcePlanByTransResourcePlanId: TransResourcePlan
+}
+
+type TransOperationsPlansConnection {
+  nodes: [TransOperationsPlan]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type TransOrder {
+  transOrderId: UUID!
+  orderNumber: String!
+  stakeholderId: UUID
+}
+
+type TransOrderDetail {
+  transOrderDetailId: UUID!
+  transOrderId: UUID!
+  transOrderByTransOrderId: TransOrder
+}
+
 type TransPurchaseCertification {
   transPurchaseCertificationId: UUID!
   transPurchaseRecId: UUID!
@@ -835,6 +1189,13 @@ type TransPurchaseCertificationsConnection {
   nodes: [TransPurchaseCertification]!
   pageInfo: PageInfo!
   totalCount: Int!
+}
+
+type TransResourcePlan {
+  transResourcePlanId: UUID!
+  transOrderDetailId: UUID
+  itemId: UUID!
+  transOrderDetailByTransOrderDetailId: TransOrderDetail
 }
 
 type TransVisiter {
@@ -878,6 +1239,23 @@ type TransVisiterOwnersConnection {
 
 type TransVisitersConnection {
   nodes: [TransVisiter]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type TransWorkPlan {
+  transWorkPlanId: UUID!
+  transOperationsPlanId: UUID!
+  sequence: Int
+  startAt: Datetime
+  completionAt: Datetime
+  symbol: String
+  mstrTaskByMstrTaskId: MstrTask
+  vRegisterTargetsByTransWorkPlanId(first: Int): VRegisterTargetsConnection!
+}
+
+type TransWorkPlansConnection {
+  nodes: [TransWorkPlan]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
@@ -928,6 +1306,13 @@ type TransWorkRecordVisiter {
   transVisiterId: UUID!
   transWorkRecordId: UUID!
   remarks: String
+  transVisiterByTransVisiterId: TransVisiter
+}
+
+type TransWorkRecordVisitersConnection {
+  nodes: [TransWorkRecordVisiter]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type TransWorkRecordsConnection {
@@ -1026,6 +1411,21 @@ type VMrpVisiterItemsConnection {
   totalCount: Int!
 }
 
+type VRegisterTarget {
+  targetId: UUID!
+  quantity: BigFloat
+  doneQuantity: BigFloat
+  remainingQuantity: BigFloat
+  inProgress: Boolean
+  stopped: Boolean
+  closed: Boolean
+  registrable: Boolean
+}
+
+type VRegisterTargetsConnection {
+  nodes: [VRegisterTarget]!
+}
+
 type VShelfInventoryStatus {
   transVisiterId: UUID!
   parentTransVisiterId: UUID
@@ -1089,10 +1489,22 @@ type VVisiterIssuable {
   openComplaintCount: Int
   issuable: Boolean
   blockReason: String
+  transContainerByTransContainerId: TransContainer
 }
 
 type VVisiterIssuablesConnection {
   nodes: [VVisiterIssuable]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type VVisiterItem {
+  transVisiterId: UUID!
+  mstrItemId: UUID
+}
+
+type VVisiterItemsConnection {
+  nodes: [VVisiterItem]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
@@ -1159,6 +1571,10 @@ type VisiterMovePayload {
 
 type VisiterOwnerRebuildPayload {
   integer: Int
+}
+
+type WorkRecordStartPayload {
+  transWorkRecord: TransWorkRecord
 }
 
 input BigFloatFilter {
@@ -1620,6 +2036,55 @@ input InfoDepartmentFilter {
   not: InfoDepartmentFilter
 }
 
+input InfoStaffFilter {
+  infoStaffId: UUIDFilter
+  infoCompanyId: UUIDFilter
+  code: StringFilter
+  names: UUIDFilter
+  sex: StringFilter
+  phone: StringFilter
+  privatePhone: StringFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historyInfoStaffsByInfoStaffIdExist: Boolean
+  infoAssignsByInfoStaffIdExist: Boolean
+  mstrStaffLicensesByInfoStaffIdExist: Boolean
+  infoStaffAccessPermissionsByInfoStaffIdExist: Boolean
+  mstrStaffCapabilitiesByInfoStaffIdExist: Boolean
+  mstrSignsByInfoStaffIdExist: Boolean
+  vStaffAssignCountByInfoStaffIdExists: Boolean
+  vStaffEffectiveAccessPathsByInfoStaffIdExist: Boolean
+  vStaffSignCountByInfoStaffIdExists: Boolean
+  vStaffStaffAccessPermissionCountByInfoStaffIdExists: Boolean
+  vStaffStaffCapabilityCountByInfoStaffIdExists: Boolean
+  vStaffStaffLicenseCountByInfoStaffIdExists: Boolean
+  sharedAppellationByNames: SharedAppellationFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [InfoStaffFilter!]
+  or: [InfoStaffFilter!]
+  not: InfoStaffFilter
+}
+
+input InspectionRegisterInput {
+  pPassQty: BigFloat
+  pContainerId: UUID
+  pWorkRecordId: UUID
+  pPurchaseDetailId: UUID
+  pFailQty: BigFloat
+  pFailContainerId: UUID
+  pReason: String
+  pReturnContainerId: UUID
+  pReturnReason: String
+  pStaffId: UUID
+  pLocationId: UUID
+  pRemarks: String
+}
+
 input IntFilter {
   isNull: Boolean
   equalTo: Int
@@ -1632,6 +2097,80 @@ input IntFilter {
   lessThanOrEqualTo: Int
   greaterThan: Int
   greaterThanOrEqualTo: Int
+}
+
+input MstrItemFilter {
+  mstrItemId: UUIDFilter
+  mstrItemKindId: UUIDFilter
+  code: StringFilter
+  identification: StringFilter
+  controlCode: StringFilter
+  mstrManufacturerId: UUIDFilter
+  names: UUIDFilter
+  labelCode: StringFilter
+  catalogItem: BooleanFilter
+  details: UUIDFilter
+  sharedUnitId: UUIDFilter
+  mstrItemLotId: UUIDFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historyMstrItemsByMstrItemIdExist: Boolean
+  mstrEquipmentsByMstrItemIdExist: Boolean
+  mstrItemSuppliersByMstrItemIdExist: Boolean
+  mstrItemTaskCostsByMstrItemIdExist: Boolean
+  mstrItemOperationsByMstrItemIdExist: Boolean
+  mstrItemHcdcsByMstrItemIdExist: Boolean
+  mstrInspectionsByMstrItemIdExist: Boolean
+  mstrItemProvisionsByMstrItemIdExist: Boolean
+  mstrItemOperationTasksByMstrItemIdExist: Boolean
+  mstrItemActualSizesByMstrItemIdExist: Boolean
+  mstrItemTreesByMstrItemIdExist: Boolean
+  mstrItemTreesByParentMstrItemIdExist: Boolean
+  vCancelOpenItemsByItemIdExist: Boolean
+  vExternalPropertiesByItemIdExist: Boolean
+  vItemDescendantByAncestorMstrItemIdExists: Boolean
+  vItemEquipmentCountByMstrItemIdExists: Boolean
+  vItemInspectionCountByMstrItemIdExists: Boolean
+  vItemItemActualSizeCountByMstrItemIdExists: Boolean
+  vItemItemHcdcsCountByMstrItemIdExists: Boolean
+  vItemItemOperationCountByMstrItemIdExists: Boolean
+  vItemItemOperationTaskCountByMstrItemIdExists: Boolean
+  vItemItemProvisionCountByMstrItemIdExists: Boolean
+  vItemOnHandByItemIdExists: Boolean
+  vMrpMasterIssuesByItemIdExist: Boolean
+  vMrpPendingSuggestionsByItemIdExist: Boolean
+  vMrpSuggestionsByItemIdExist: Boolean
+  vMrpVisiterItemsByItemIdExist: Boolean
+  vOperationsPlanUnreservedsByMstrItemIdExist: Boolean
+  vOrderDetailBalancesByItemIdExist: Boolean
+  vOrderDetailPlanningsByItemIdExist: Boolean
+  vPlanChangesByItemIdExist: Boolean
+  vPurchaseAmountsByMstrItemIdExist: Boolean
+  vPurchaseDeliveryCompliancesByMstrItemIdExist: Boolean
+  vPurchaseDetailBalancesByItemIdExist: Boolean
+  vPurchaseDetailUnreservedsByMstrItemIdExist: Boolean
+  vRegisterTargetsByItemIdExist: Boolean
+  vResourcePlanCoveragesByItemIdExist: Boolean
+  vSalesRecordsByMstrItemIdExist: Boolean
+  vShippingDeliveryCompliancesByMstrItemIdExist: Boolean
+  vShippingOrderStatusesByMstrItemIdExist: Boolean
+  vStockStatusesByMstrItemIdExist: Boolean
+  vSupplyDetailBalancesByItemIdExist: Boolean
+  vVisiterItemsByMstrItemIdExist: Boolean
+  mstrManufacturerByMstrManufacturerIdExists: Boolean
+  sharedAppellationByNames: SharedAppellationFilter
+  sharedTextByDetailsExists: Boolean
+  sharedUnitBySharedUnitIdExists: Boolean
+  mstrItemLotByMstrItemLotIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrItemFilter!]
+  or: [MstrItemFilter!]
+  not: MstrItemFilter
 }
 
 input MstrLocationFilter {
@@ -1670,6 +2209,96 @@ input MstrLocationFilter {
   and: [MstrLocationFilter!]
   or: [MstrLocationFilter!]
   not: MstrLocationFilter
+}
+
+input MstrStakeholderFilter {
+  mstrStakeholderId: UUIDFilter
+  isCustomer: BooleanFilter
+  isSupplier: BooleanFilter
+  isLogistics: BooleanFilter
+  code: StringFilter
+  controlCode: StringFilter
+  names: UUIDFilter
+  mail: StringFilter
+  infoAddressId: UUIDFilter
+  mstrShippingKindId: UUIDFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  mstrStakeholderContactsByMstrStakeholderIdExist: Boolean
+  historyMstrStakeholdersByMstrStakeholderIdExist: Boolean
+  mstrOutsourceAvailablesByMstrStakeholderIdExist: Boolean
+  mstrItemSuppliersByMstrStakeholderIdExist: Boolean
+  mstrInspectionsByExternalInspectionExist: Boolean
+  mstrStakeholderProvisionsByMstrStakeholderIdExist: Boolean
+  transAuditsByMstrStakeholderIdExist: Boolean
+  vCancelOpenItemsByStakeholderIdExist: Boolean
+  vComplaintKindsByStakeholderIdExist: Boolean
+  vExternalPropertiesByOwnerStakeholderIdExist: Boolean
+  vInspectionStatusesBySupplierIdExist: Boolean
+  vMrpPendingSuggestionsByStakeholderIdExist: Boolean
+  vMrpPurchasePlansByStakeholderIdExist: Boolean
+  vMrpSuggestionsByStakeholderIdExist: Boolean
+  vPurchaseAmountsBySupplierIdExist: Boolean
+  vPurchaseDeliveryCompliancesBySupplierIdExist: Boolean
+  vSalesRecordsByCustomerIdExist: Boolean
+  vShippingDeliveryCompliancesByCustomerIdExist: Boolean
+  vShippingOrderStatusesByCustomerIdExist: Boolean
+  vStakeholderOutsourceAvailableCountByMstrStakeholderIdExists: Boolean
+  vStakeholderStakeholderContactCountByMstrStakeholderIdExists: Boolean
+  vStakeholderStakeholderProvisionCountByMstrStakeholderIdExists: Boolean
+  vSupplyDetailBalancesByStakeholderIdExist: Boolean
+  sharedAppellationByNames: SharedAppellationFilter
+  infoAddressByInfoAddressIdExists: Boolean
+  mstrShippingKindByMstrShippingKindIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrStakeholderFilter!]
+  or: [MstrStakeholderFilter!]
+  not: MstrStakeholderFilter
+}
+
+input MstrTaskFilter {
+  mstrTaskId: UUIDFilter
+  mstrTaskGroupId: UUIDFilter
+  code: StringFilter
+  names: UUIDFilter
+  details: UUIDFilter
+  class: IntFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  mstrTaskLocationsByMstrTaskIdExist: Boolean
+  transWorkPlansByMstrTaskIdExist: Boolean
+  transMrpSuggestionTasksByMstrTaskIdExist: Boolean
+  mstrOperationTasksByMstrTaskIdExist: Boolean
+  mstrTaskTreesByMstrTaskIdExist: Boolean
+  mstrTaskTreesByParentMstrTaskIdExist: Boolean
+  historyMstrTasksByMstrTaskIdExist: Boolean
+  transTaskRisksByMstrTaskIdExist: Boolean
+  transComplaintProcessesByMstrTaskIdExist: Boolean
+  vComplaintKindsByMstrTaskIdExist: Boolean
+  vTaskComplaintProcessCountByMstrTaskIdExists: Boolean
+  vTaskDescendantByAncestorMstrTaskIdExists: Boolean
+  vTaskOperationTaskCountByMstrTaskIdExists: Boolean
+  vTaskTaskLocationCountByMstrTaskIdExists: Boolean
+  vTaskTaskRiskCountByMstrTaskIdExists: Boolean
+  vTaskWorkPlanCountByMstrTaskIdExists: Boolean
+  vWorkPlanDeliveryCompliancesByMstrTaskIdExist: Boolean
+  mstrTaskGroupByMstrTaskGroupIdExists: Boolean
+  sharedAppellationByNames: SharedAppellationFilter
+  sharedTextByDetailsExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrTaskFilter!]
+  or: [MstrTaskFilter!]
+  not: MstrTaskFilter
 }
 
 input SharedAppellationFilter {
@@ -1879,6 +2508,23 @@ input TransCertificatePatch {
   remarks: String
   remove: Boolean
   transLabelToTitles: TransCertificateFk1Input
+}
+
+input TransComplaintWorkFilter {
+  transComplaintWorkId: UUIDFilter
+  transComplaintId: UUIDFilter
+  transWorkRecordId: UUIDFilter
+  quantity: BigFloatFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransComplaintWorkFilter!]
+  or: [TransComplaintWorkFilter!]
+  not: TransComplaintWorkFilter
 }
 
 input TransComplaintWorkInput {
@@ -2173,6 +2819,136 @@ input TransLabelValueFk1TransLabelValueCreateInput {
   labelValue: String!
 }
 
+input TransOperationsPlanFilter {
+  transOperationsPlanId: UUIDFilter
+  transResourcePlanId: UUIDFilter
+  deadline: DatetimeFilter
+  quantity: BigFloatFilter
+  stop: BooleanFilter
+  discontinue: BooleanFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transResourcePlansByParentTransOperationsPlanIdExist: Boolean
+  transWorkPlansByTransOperationsPlanIdExist: Boolean
+  transMrpSuggestionsByParentTransOperationsPlanIdExist: Boolean
+  transMrpSuggestionsByTransOperationsPlanIdExist: Boolean
+  transPlanChangesByTransOperationsPlanIdExist: Boolean
+  transMrpPeggingsByTransOperationsPlanIdExist: Boolean
+  vCancelOpenItemsByTransOperationsPlanIdExist: Boolean
+  vMrpPendingSuggestionsByParentTransOperationsPlanIdExist: Boolean
+  vMrpPendingSuggestionsByTransOperationsPlanIdExist: Boolean
+  vMrpSuggestionsByParentTransOperationsPlanIdExist: Boolean
+  vMrpSuggestionsByTransOperationsPlanIdExist: Boolean
+  vOperationsPlanUnreservedByTransOperationsPlanIdExists: Boolean
+  vOperationsPlanWorkPlanCountByTransOperationsPlanIdExists: Boolean
+  vPlanChangesByTransOperationsPlanIdExist: Boolean
+  vPlanChangeUnreflectedsByTransOperationsPlanIdExist: Boolean
+  vWorkPlanDeliveryCompliancesByTransOperationsPlanIdExist: Boolean
+  vWorkPlanRegistrablesByTransOperationsPlanIdExist: Boolean
+  transResourcePlanByTransResourcePlanId: TransResourcePlanFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransOperationsPlanFilter!]
+  or: [TransOperationsPlanFilter!]
+  not: TransOperationsPlanFilter
+}
+
+input TransOrderDetailFilter {
+  transOrderDetailId: UUIDFilter
+  transOrderId: UUIDFilter
+  itemHistoryId: UUIDFilter
+  itemId: UUIDFilter
+  quantity: BigFloatFilter
+  unitPrice: BigFloatFilter
+  priceAdjustment: BigFloatFilter
+  fixedPrice: BigFloatFilter
+  deliveryDate: DatetimeFilter
+  deadline: DatetimeFilter
+  cancelQuantity: BigFloatFilter
+  stop: BooleanFilter
+  customerProperty: BooleanFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  masterErrorCount: IntFilter
+  transResourcePlansByTransOrderDetailIdExist: Boolean
+  transOrderDetailSettlementsByTransOrderDetailIdExist: Boolean
+  transShippingOrderDetailsByTransOrderDetailIdExist: Boolean
+  transMrpSuggestionsByTransOrderDetailIdExist: Boolean
+  transPlanChangesByTransOrderDetailIdExist: Boolean
+  transSupplyDetailsByTransOrderDetailIdExist: Boolean
+  transVisiterOwnersByTransOrderDetailIdExist: Boolean
+  transReturnDetailsByTransOrderDetailIdExist: Boolean
+  transOrderDetailRisksByTransOrderDetailIdExist: Boolean
+  vCancelOpenItemsByTransOrderDetailIdExist: Boolean
+  vExternalPropertiesByTransOrderDetailIdExist: Boolean
+  vMrpPendingSuggestionsByTransOrderDetailIdExist: Boolean
+  vMrpSuggestionsByTransOrderDetailIdExist: Boolean
+  vOrderDetailBalanceByTransOrderDetailIdExists: Boolean
+  vOrderDetailOrderDetailRiskCountByTransOrderDetailIdExists: Boolean
+  vOrderDetailPlanByTransOrderDetailIdExists: Boolean
+  vOrderDetailPlanningByTransOrderDetailIdExists: Boolean
+  vOrderDetailShippingOrderDetailCountByTransOrderDetailIdExists: Boolean
+  vPlanChangesByTransOrderDetailIdExist: Boolean
+  vPlanChangesByRootTransOrderDetailIdExist: Boolean
+  vPlanChangeUnreflectedsByTransOrderDetailIdExist: Boolean
+  vResourcePlanCoveragesByTransOrderDetailIdExist: Boolean
+  vSupplyDetailBalancesByTransOrderDetailIdExist: Boolean
+  vWorkPlanRegistrablesByTransOrderDetailIdExist: Boolean
+  transOrderByTransOrderId: TransOrderFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransOrderDetailFilter!]
+  or: [TransOrderDetailFilter!]
+  not: TransOrderDetailFilter
+}
+
+input TransOrderFilter {
+  transOrderId: UUIDFilter
+  orderNumber: StringFilter
+  customerOrderNumber: StringFilter
+  stakeholderHistoryId: UUIDFilter
+  stakeholderId: UUIDFilter
+  stakeholderContactHistoryId: UUIDFilter
+  stakeholderContactId: UUIDFilter
+  controlCode1: StringFilter
+  controlCode2: StringFilter
+  controlCode3: StringFilter
+  orderProcessingDate: DatetimeFilter
+  deliveryDate: DatetimeFilter
+  deadline: DatetimeFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transOrderDetailByTransOrderIdExists: Boolean
+  transShippingOrdersByTransOrderIdExist: Boolean
+  transSuppliesByTransOrderIdExist: Boolean
+  transReturnsByTransOrderIdExist: Boolean
+  transOrderRisksByTransOrderIdExist: Boolean
+  transComplaintOrdersByTransOrderIdExist: Boolean
+  vComplaintKindsByTransOrderIdExist: Boolean
+  vOrderComplaintOrderCountByTransOrderIdExists: Boolean
+  vOrderDetailBalancesByTransOrderIdExist: Boolean
+  vOrderDetailPlanningsByTransOrderIdExist: Boolean
+  vOrderOrderDetailCountByTransOrderIdExists: Boolean
+  vOrderOrderRiskCountByTransOrderIdExists: Boolean
+  vOrderShippingOrderCountByTransOrderIdExists: Boolean
+  historyMstrStakeholderByStakeholderHistoryIdAndStakeholderIdExists: Boolean
+  historyMstrStakeholderContactByStakeholderContactHistoryIdAndStakeholderContactIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransOrderFilter!]
+  or: [TransOrderFilter!]
+  not: TransOrderFilter
+}
+
 input TransPurchaseCertificationFilter {
   transPurchaseCertificationId: UUIDFilter
   transPurchaseRecId: UUIDFilter
@@ -2195,6 +2971,44 @@ input TransPurchaseCertificationPatch {
   transCertificateId: UUID
   remarks: String
   remove: Boolean
+}
+
+input TransResourcePlanFilter {
+  transResourcePlanId: UUIDFilter
+  parentTransOperationsPlanId: UUIDFilter
+  transOrderDetailId: UUIDFilter
+  transUnrecognizedDetailId: UUIDFilter
+  registerAt: DatetimeFilter
+  quantity: BigFloatFilter
+  inventoryResavation: BigFloatFilter
+  deadline: DatetimeFilter
+  itemHistoryId: UUIDFilter
+  itemId: UUIDFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transOperationsPlansByTransResourcePlanIdExist: Boolean
+  transPurchaseDetailsByTransResourcePlanIdExist: Boolean
+  transInventoryRequestsByTransResourcePlanIdExist: Boolean
+  transMrpSuggestionsByTransResourcePlanIdExist: Boolean
+  transSupplyDetailsByTransResourcePlanIdExist: Boolean
+  vMrpPendingSuggestionsByTransResourcePlanIdExist: Boolean
+  vMrpSuggestionsByTransResourcePlanIdExist: Boolean
+  vOrderDetailPlansByTransResourcePlanIdExist: Boolean
+  vOrderDetailPlanningsByTransResourcePlanIdExist: Boolean
+  vResourcePlanCoverageByTransResourcePlanIdExists: Boolean
+  vSupplyDetailBalancesByTransResourcePlanIdExist: Boolean
+  transOperationsPlanByParentTransOperationsPlanIdExists: Boolean
+  transOrderDetailByTransOrderDetailId: TransOrderDetailFilter
+  transOrderDetailByTransOrderDetailIdExists: Boolean
+  transUnrecognizedDetailByTransUnrecognizedDetailIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransResourcePlanFilter!]
+  or: [TransResourcePlanFilter!]
+  not: TransResourcePlanFilter
 }
 
 input TransVisiterFilter {
@@ -2222,6 +3036,7 @@ input TransVisiterFilter {
   transPurchaseRecVisitersByTransVisiterIdExist: Boolean
   transConveysByTransVisiterIdExist: Boolean
   vCancelOpenItemsByTransVisiterIdExist: Boolean
+  vComplaintKindsByTransVisiterIdExist: Boolean
   vComplaintTargetVisitersByTransVisiterIdExist: Boolean
   vExternalPropertyByTransVisiterIdExists: Boolean
   vMrpVisiterItemByTransVisiterIdExists: Boolean
@@ -2295,6 +3110,49 @@ input TransVisiterPatch {
   parentTransVisiterId: UUID
   remarks: String
   remove: Boolean
+}
+
+input TransWorkPlanFilter {
+  transWorkPlanId: UUIDFilter
+  transOperationsPlanId: UUIDFilter
+  mstrTaskId: UUIDFilter
+  sequence: IntFilter
+  startAt: DatetimeFilter
+  completionAt: DatetimeFilter
+  mstrEquipmentAvailableHistoryId: UUIDFilter
+  mstrEquipmentAvailableId: UUIDFilter
+  mstrOutsourceAvailableHistoryId: UUIDFilter
+  mstrOutsourceAvailableId: UUIDFilter
+  transPurchaseDetailId: UUIDFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transProductRezsByTransWorkPlanIdExist: Boolean
+  transMrpSuggestionTasksByTransWorkPlanIdExist: Boolean
+  transWorkRecordsByTransWorkPlanIdExist: Boolean
+  vRegisterTargetsByTransWorkPlanId: TransWorkPlanToManyVRegisterTargetFilter
+  vRegisterTargetsByTransWorkPlanIdExist: Boolean
+  vWorkPlanDeliveryComplianceByTransWorkPlanIdExists: Boolean
+  vWorkPlanProductRezCountByTransWorkPlanIdExists: Boolean
+  vWorkPlanRegistrableByTransWorkPlanIdExists: Boolean
+  vWorkPlanWorkRecordCountByTransWorkPlanIdExists: Boolean
+  mstrTaskByMstrTaskId: MstrTaskFilter
+  historyMstrEquipmentAvailableByMstrEquipmentAvailableHistoryIdAndMstrEquipmentAvailableIdExists: Boolean
+  historyMstrOutsourceAvailableByMstrOutsourceAvailableHistoryIdAndMstrOutsourceAvailableIdExists: Boolean
+  transPurchaseDetailByTransPurchaseDetailIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransWorkPlanFilter!]
+  or: [TransWorkPlanFilter!]
+  not: TransWorkPlanFilter
+}
+
+input TransWorkPlanToManyVRegisterTargetFilter {
+  every: VRegisterTargetFilter
+  some: VRegisterTargetFilter
+  none: VRegisterTargetFilter
 }
 
 input TransWorkRecordCertificateFilter {
@@ -2382,6 +3240,23 @@ input TransWorkRecordPatch {
   equipmentId: UUID
   remarks: String
   remove: Boolean
+}
+
+input TransWorkRecordVisiterFilter {
+  transWorkRecordVisiterId: UUIDFilter
+  transVisiterId: UUIDFilter
+  transWorkRecordId: UUIDFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transVisiterByTransVisiterId: TransVisiterFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransWorkRecordVisiterFilter!]
+  or: [TransWorkRecordVisiterFilter!]
+  not: TransWorkRecordVisiterFilter
 }
 
 input TransWorkRecordVisiterInput {
@@ -2550,6 +3425,29 @@ input VMrpVisiterItemFilter {
   not: VMrpVisiterItemFilter
 }
 
+input VRegisterTargetFilter {
+  targetId: UUIDFilter
+  symbol: StringFilter
+  transWorkPlanId: UUIDFilter
+  transPurchaseDetailId: UUIDFilter
+  isWorkPlan: BooleanFilter
+  isPurchaseDetail: BooleanFilter
+  itemId: UUIDFilter
+  quantity: BigFloatFilter
+  doneQuantity: BigFloatFilter
+  remainingQuantity: BigFloatFilter
+  inProgress: BooleanFilter
+  stopped: BooleanFilter
+  closed: BooleanFilter
+  registrable: BooleanFilter
+  transWorkPlanByTransWorkPlanIdExists: Boolean
+  transPurchaseDetailByTransPurchaseDetailIdExists: Boolean
+  mstrItemByItemIdExists: Boolean
+  and: [VRegisterTargetFilter!]
+  or: [VRegisterTargetFilter!]
+  not: VRegisterTargetFilter
+}
+
 input VShelfInventoryStatusFilter {
   transVisiterId: UUIDFilter
   symbol: StringFilter
@@ -2631,10 +3529,22 @@ input VVisiterIssuableFilter {
   issuable: BooleanFilter
   blockReason: StringFilter
   transVisiterByTransVisiterIdExists: Boolean
+  transContainerByTransContainerId: TransContainerFilter
   transContainerByTransContainerIdExists: Boolean
   and: [VVisiterIssuableFilter!]
   or: [VVisiterIssuableFilter!]
   not: VVisiterIssuableFilter
+}
+
+input VVisiterItemFilter {
+  transVisiterId: UUIDFilter
+  symbol: StringFilter
+  mstrItemId: UUIDFilter
+  transVisiterByTransVisiterIdExists: Boolean
+  mstrItemByMstrItemIdExists: Boolean
+  and: [VVisiterItemFilter!]
+  or: [VVisiterItemFilter!]
+  not: VVisiterItemFilter
 }
 
 input VVisiterLedgerIssueFilter {
@@ -2745,6 +3655,16 @@ input VisiterMoveInput {
 }
 
 input VisiterOwnerRebuildInput {
+}
+
+input WorkRecordStartInput {
+  pWorkPlanId: UUID
+  pVisiterId: UUID
+  pQty: BigFloat
+  pStaffId: UUID
+  pEquipmentId: UUID
+  pLocationId: UUID
+  pRemarks: String
 }
 
 input updateTransLabelOnTransCertificateForTransCertificateFk1Patch {

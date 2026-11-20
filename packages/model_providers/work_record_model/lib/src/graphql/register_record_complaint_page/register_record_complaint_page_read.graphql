@@ -1,0 +1,31 @@
+# register_record_complaint_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #RegisterRecordComplaintPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query RegisterRecordComplaintPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransComplaintWorkFilter = {and: []}
+  $orderBy: [TransComplaintWorksOrderBy!]
+  $removed: Boolean = false
+) {
+  allTransComplaintWorks(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transComplaintWorkId
+      transComplaintId
+      transWorkRecordId
+      quantity
+    }
+  }
+}

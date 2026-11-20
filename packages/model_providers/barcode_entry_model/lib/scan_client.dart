@@ -44,6 +44,7 @@ class ScanFound {
     this.stopped = false,
     this.closed = false,
     this.operationsPlanId,
+    this.itemId,
   });
 
   final ScanFoundKind kind;
@@ -76,6 +77,37 @@ class ScanFound {
 
   /// 作業指示が属する生産計画の id(実績登録の画面を開くとき)。
   final String? operationsPlanId;
+
+  /// 品目の id(作業指示は生産する品目、発注明細は購入する品目、品目はその品目)。入庫先のおすすめに使う。
+  final String? itemId;
+}
+
+/// 担当者(symbol で引いた結果)。
+class ScanStaff {
+  const ScanStaff({required this.id, required this.symbol, required this.name});
+
+  final String id;
+  final String symbol;
+  final String name;
+}
+
+/// 棚の保持アイテム(品目ごとの数量)。
+class ScanHeld {
+  const ScanHeld({required this.itemId, required this.itemName, required this.quantity});
+
+  final String itemId;
+  final String itemName;
+  final int quantity;
+}
+
+/// 同じ品目を持つ棚と、その数量(入庫先のおすすめ)。
+class ScanShelfHolding {
+  const ScanShelfHolding({required this.containerId, required this.symbol, required this.name, required this.quantity});
+
+  final String containerId;
+  final String symbol;
+  final String name;
+  final int quantity;
 }
 
 class ScanClient {
@@ -188,6 +220,7 @@ class ScanClient {
       stopped: (r['registrable'] as Map?)?['stopped'] == true,
       closed: (r['registrable'] as Map?)?['closed'] == true,
       operationsPlanId: (plan?['transOperationsPlanId'] ?? r['transOperationsPlanId']) as String?,
+      itemId: resource?['itemId'] as String?,
     );
   }
 
@@ -229,6 +262,7 @@ class ScanClient {
       doneQuantity: recs.fold<int>(0, (sum, x) => sum + _int(x['quantity'])),
       stopped: r['stop'] == true,
       closed: _int(r['quantity']) > 0 && _int(r['cancelQuantity']) >= _int(r['quantity']),
+      itemId: r['itemId'] as String?,
     );
   }
 
@@ -244,6 +278,7 @@ class ScanClient {
       id: r['mstrItemId'] as String,
       symbol: r['symbol'] as String? ?? symbol,
       name: _label(r['labels']),
+      itemId: r['mstrItemId'] as String,
     );
   }
 
@@ -745,6 +780,107 @@ class ScanClient {
 
   /// 棚のロットと、取り出せるか(DB の `v_visiter_issuable`)。
   /// 取り出せる = 入出庫許可が真、かつ解除されていない異常(分割元のものを含む)が無く、数量が正。
+  /// 担当者を symbol で引く(担当者のバーコードの読み取り)。無ければ null。
+  Future<ScanStaff?> findStaff(String symbol) async {
+    final rows = await _nodes(scan.documentNodeQueryScanStaffPageRead, 'allInfoStaffs', {
+      'languageCodeId': languageCodeId,
+      ..._eq(symbol),
+    });
+    if (rows.isEmpty) return null;
+    final r = rows.first;
+    final name = _label(r['labels']);
+    return ScanStaff(
+      id: r['infoStaffId'] as String,
+      symbol: r['symbol'] as String? ?? symbol,
+      name: name.isEmpty ? (r['code'] as String? ?? symbol) : name,
+    );
+  }
+
+  /// 品目の ID から名称を引く(まとめて)。
+  Future<Map<String, String>> _itemNames(List<String> ids) async {
+    if (ids.isEmpty) return const {};
+    final rows = await _nodes(scan.documentNodeQueryScanItemPageRead, 'allMstrItems', {
+      'first': ids.length,
+      'languageCodeId': languageCodeId,
+      'filter': {
+        'mstrItemId': {'in': ids},
+      },
+    });
+    return {for (final r in rows) r['mstrItemId'] as String: _label(r['labels'])};
+  }
+
+  /// 棚の中身: 棚にあるロットを、品目ごとにまとめる(数量が 0 のロットは除く)。
+  Future<List<ScanHeld>> contents(String containerId) async {
+    final lots = await _nodes(scan.documentNodeQueryScanContentsPageRead, 'allVVisiterIssuables', {
+      'first': 1000,
+      'languageCodeId': languageCodeId,
+      'filter': {
+        'transContainerId': {'equalTo': containerId},
+        'quantity': {'greaterThan': 0},
+      },
+    });
+    if (lots.isEmpty) return const [];
+    final ids = [for (final l in lots) l['transVisiterId'] as String];
+    final items = await _nodes(scan.documentNodeQueryScanLotItemPageRead, 'allVVisiterItems', {
+      'first': ids.length + 10,
+      'filter': {
+        'transVisiterId': {'in': ids},
+      },
+    });
+    final itemOf = {for (final i in items) i['transVisiterId'] as String: i['mstrItemId'] as String?};
+    final byItem = <String, int>{};
+    for (final l in lots) {
+      final item = itemOf[l['transVisiterId'] as String];
+      if (item == null) continue;
+      byItem[item] = (byItem[item] ?? 0) + _int(l['quantity']);
+    }
+    final names = await _itemNames(byItem.keys.toList());
+    return [for (final e in byItem.entries) ScanHeld(itemId: e.key, itemName: names[e.key] ?? '', quantity: e.value)];
+  }
+
+  /// 同じ品目を持つ棚(入庫先のおすすめ)。数量の多い順。
+  Future<List<ScanShelfHolding>> shelvesHolding(String itemId) async {
+    final items = await _nodes(scan.documentNodeQueryScanLotItemPageRead, 'allVVisiterItems', {
+      'first': 2000,
+      'filter': {
+        'mstrItemId': {'equalTo': itemId},
+      },
+    });
+    if (items.isEmpty) return const [];
+    final lotIds = [for (final i in items) i['transVisiterId'] as String];
+    final lots = await _nodes(scan.documentNodeQueryScanContentsPageRead, 'allVVisiterIssuables', {
+      'first': lotIds.length + 10,
+      'languageCodeId': languageCodeId,
+      'filter': {
+        'transVisiterId': {'in': lotIds},
+        'quantity': {'greaterThan': 0},
+      },
+    });
+    final byContainer = <String, int>{};
+    for (final l in lots) {
+      final c = l['transContainerId'] as String;
+      byContainer[c] = (byContainer[c] ?? 0) + _int(l['quantity']);
+    }
+    if (byContainer.isEmpty) return const [];
+    final containers = await _nodes(scan.documentNodeQueryScanContainerPageRead, 'allTransContainers', {
+      'first': byContainer.length,
+      'languageCodeId': languageCodeId,
+      'filter': {
+        'transContainerId': {'in': byContainer.keys.toList()},
+      },
+    });
+    final out = [
+      for (final c in containers)
+        ScanShelfHolding(
+          containerId: c['transContainerId'] as String,
+          symbol: c['symbol'] as String? ?? '',
+          name: _label(c['labels']),
+          quantity: byContainer[c['transContainerId'] as String] ?? 0,
+        ),
+    ]..sort((a, b) => b.quantity.compareTo(a.quantity));
+    return out;
+  }
+
   Future<List<ScanVisiter>> listVisiters(String containerId) async {
     final lots = await _nodes(wr.documentNodeQueryVisiterIssuablePageRead, 'allVVisiterIssuables', {
       'filter': {

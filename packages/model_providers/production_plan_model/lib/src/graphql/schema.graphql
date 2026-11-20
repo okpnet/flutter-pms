@@ -1940,6 +1940,7 @@ input MstrEquipmentFilter {
   mstrInspectionOperationsByMstrEquipmentIdExist: Boolean
   mstrEquipmentProvisionsByMstrEquipmentIdExist: Boolean
   transMrpLoadsByMstrEquipmentIdExist: Boolean
+  vComplaintKindsByMstrEquipmentIdExist: Boolean
   vEquipmentEquipmentAvailableCountByMstrEquipmentIdExists: Boolean
   vEquipmentEquipmentProvisionCountByMstrEquipmentIdExists: Boolean
   vEquipmentInspectionOperationCountByMstrEquipmentIdExists: Boolean
@@ -2010,6 +2011,7 @@ input MstrItemFilter {
   vPurchaseDeliveryCompliancesByMstrItemIdExist: Boolean
   vPurchaseDetailBalancesByItemIdExist: Boolean
   vPurchaseDetailUnreservedsByMstrItemIdExist: Boolean
+  vRegisterTargetsByItemIdExist: Boolean
   vResourcePlanCoveragesByItemIdExist: Boolean
   vSalesRecordsByMstrItemIdExist: Boolean
   vShippingDeliveryCompliancesByMstrItemIdExist: Boolean
@@ -2074,6 +2076,7 @@ input MstrStakeholderFilter {
   mstrStakeholderProvisionsByMstrStakeholderIdExist: Boolean
   transAuditsByMstrStakeholderIdExist: Boolean
   vCancelOpenItemsByStakeholderIdExist: Boolean
+  vComplaintKindsByStakeholderIdExist: Boolean
   vExternalPropertiesByOwnerStakeholderIdExist: Boolean
   vInspectionStatusesBySupplierIdExist: Boolean
   vMrpPendingSuggestionsByStakeholderIdExist: Boolean
@@ -2121,6 +2124,7 @@ input MstrTaskFilter {
   historyMstrTasksByMstrTaskIdExist: Boolean
   transTaskRisksByMstrTaskIdExist: Boolean
   transComplaintProcessesByMstrTaskIdExist: Boolean
+  vComplaintKindsByMstrTaskIdExist: Boolean
   vTaskComplaintProcessCountByMstrTaskIdExists: Boolean
   vTaskDescendantByAncestorMstrTaskIdExists: Boolean
   vTaskOperationTaskCountByMstrTaskIdExists: Boolean
@@ -2675,6 +2679,7 @@ input TransPurchaseDetailFilter {
   vPurchaseDetailPurchaseRecCountByTransPurchaseDetailIdExists: Boolean
   vPurchaseDetailPurchaseRezCountByTransPurchaseDetailIdExists: Boolean
   vPurchaseDetailUnreservedByTransPurchaseDetailIdExists: Boolean
+  vRegisterTargetsByTransPurchaseDetailIdExist: Boolean
   vSupplyDetailBalancesByTransPurchaseDetailIdExist: Boolean
   transResourcePlanByTransResourcePlanIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
@@ -2825,6 +2830,7 @@ input TransWorkPlanFilter {
   transProductRezsByTransWorkPlanIdExist: Boolean
   transMrpSuggestionTasksByTransWorkPlanIdExist: Boolean
   transWorkRecordsByTransWorkPlanIdExist: Boolean
+  vRegisterTargetsByTransWorkPlanIdExist: Boolean
   vWorkPlanDeliveryComplianceByTransWorkPlanIdExists: Boolean
   vWorkPlanProductRezCountByTransWorkPlanId: VWorkPlanProductRezCountFilter
   vWorkPlanProductRezCountByTransWorkPlanIdExists: Boolean

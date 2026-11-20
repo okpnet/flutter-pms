@@ -1804,6 +1804,7 @@ input MstrItemFilter {
   vPurchaseDeliveryCompliancesByMstrItemIdExist: Boolean
   vPurchaseDetailBalancesByItemIdExist: Boolean
   vPurchaseDetailUnreservedsByMstrItemIdExist: Boolean
+  vRegisterTargetsByItemIdExist: Boolean
   vResourcePlanCoveragesByItemIdExist: Boolean
   vSalesRecordsByMstrItemIdExist: Boolean
   vShippingDeliveryCompliancesByMstrItemIdExist: Boolean
@@ -2324,6 +2325,7 @@ input MstrTaskFilter {
   historyMstrTasksByMstrTaskIdExist: Boolean
   transTaskRisksByMstrTaskIdExist: Boolean
   transComplaintProcessesByMstrTaskIdExist: Boolean
+  vComplaintKindsByMstrTaskIdExist: Boolean
   vTaskComplaintProcessCountByMstrTaskId: VTaskComplaintProcessCountFilter
   vTaskComplaintProcessCountByMstrTaskIdExists: Boolean
   vTaskDescendantByAncestorMstrTaskId: VTaskDescendantFilter

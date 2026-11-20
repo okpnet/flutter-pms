@@ -21,7 +21,12 @@ import 'package:organization/organization.dart'
 import 'package:resource/resource.dart' show resourceRepositories;
 import 'package:production_process/production_process.dart'
     show productionProcessRepositories;
-import 'package:work_record/work_record.dart' show workRecordRepositories;
+import 'package:work_record/work_record.dart'
+    show
+        GraphqlWorkRegisterGateway,
+        InMemoryWorkRegisterGateway,
+        workRecordRepositories,
+        workRegisterGatewayProvider;
 import 'package:quality_document/quality_document.dart'
     show qualityDocumentRepositories;
 import 'package:quality_common/quality_common.dart'
@@ -149,6 +154,15 @@ final auditUserProvider = Provider<AuditUserSource?>((ref) {
 
 /// 画面の取得元を GraphQL 版に差し替える。[graphqlUrl] が未指定なら空(サンプルのまま)。
 List<Override> graphqlOverrides() => [
+  // 実績登録: GraphQL 版(開始・終了は DB 関数)。接続先が無いときはサンプル
+  workRegisterGatewayProvider.overrideWith((ref) {
+    final client = ref.watch(graphqlClientProvider);
+    if (client == null) return InMemoryWorkRegisterGateway();
+    return GraphqlWorkRegisterGateway(
+      client,
+      auditUser: ref.watch(auditUserProvider),
+    );
+  }),
   entityRepositoryOverridesProvider.overrideWith((ref) {
     final client = ref.watch(graphqlClientProvider);
     if (client == null) return const [];

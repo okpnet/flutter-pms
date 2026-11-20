@@ -1482,6 +1482,7 @@ input MstrStakeholderFilter {
   mstrStakeholderProvisionsByMstrStakeholderIdExist: Boolean
   transAuditsByMstrStakeholderIdExist: Boolean
   vCancelOpenItemsByStakeholderIdExist: Boolean
+  vComplaintKindsByStakeholderIdExist: Boolean
   vExternalPropertiesByOwnerStakeholderIdExist: Boolean
   vInspectionStatusesBySupplierIdExist: Boolean
   vMrpPendingSuggestionsByStakeholderIdExist: Boolean
@@ -1972,6 +1973,7 @@ input TransOrderFilter {
   transReturnsByTransOrderIdExist: Boolean
   transOrderRisksByTransOrderIdExist: Boolean
   transComplaintOrdersByTransOrderIdExist: Boolean
+  vComplaintKindsByTransOrderIdExist: Boolean
   vOrderComplaintOrderCountByTransOrderId: VOrderComplaintOrderCountFilter
   vOrderComplaintOrderCountByTransOrderIdExists: Boolean
   vOrderDetailBalancesByTransOrderIdExist: Boolean

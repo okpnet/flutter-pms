@@ -1,0 +1,34 @@
+# register_work_record_start_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #RegisterWorkRecordStartPageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation RegisterWorkRecordStartPageCall(
+  $pWorkPlanId: UUID
+  $pVisiterId: UUID
+  $pQty: BigFloat
+  $pStaffId: UUID
+  $pEquipmentId: UUID
+  $pLocationId: UUID
+  $pRemarks: String
+) {
+  workRecordStart(
+    input: {
+      pWorkPlanId: $pWorkPlanId
+      pVisiterId: $pVisiterId
+      pQty: $pQty
+      pStaffId: $pStaffId
+      pEquipmentId: $pEquipmentId
+      pLocationId: $pLocationId
+      pRemarks: $pRemarks
+    }
+  ) {
+    transWorkRecord {
+      transWorkRecordId
+      transWorkPlanId
+      nthTime
+      startAt
+      symbol
+    }
+  }
+}

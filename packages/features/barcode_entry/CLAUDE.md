@@ -68,7 +68,7 @@ graph TD;
 作業指示を読み込むと、概要の下に「実績登録の画面を開く」(キー `openWorkRegister`)を出す。押すと、その生産計画を先頭にして実績登録(`work_record` の `WorkRegisterDestination(planId:)`。契約 `work_record_api.dart` だけに依存)を CommandBus で開く。生産計画の id は作業指示の対象(`WorkOrderTarget.operationsPlanId`)が持つ(GraphQL 版は `ScanFound.operationsPlanId`)。分からないときと、実績登録の画面を持たないアプリ(`entry_app` が `openWorkRegisterLinkProvider` を false に上書き)では出さない。
 
 ## 処理待ち(キュー)
-入出庫(作業の開始の棚出庫・入庫。`QueuedIssue`・`QueuedPut`)をその場で登録せず、処理待ちにためて「まとめて登録(N件)」できる(画面案 6.4)。`batchQueueProvider`(既定 false)が true のときだけ。目的は、ハンディ端末で 1 件ごとに通信せず連続して読み取ること。有効にするのは、担当者を引ける取得元と、通信できる環境での確認(`issue/20261120_0001.md`)が済んでから。`example` と各アプリは有効にしていない。キューは画面内のメモリだけに持つ(保存・復元しない)。`ScanFlow.flushQueue` は順に登録し、途中で失敗したら残りのキューを消して理由(`NoticeKind.queueFailed`)を通知する。`removeQueued` で 1 件ずつ取り消せる。担当者の読み取り(`requireOperatorProvider`、既定 false。取得元の `findOperator`。GraphQL 版は未対応で null)と、選んだ棚を残して次の合格の棚の読み取りを省く動き(`selectedShelf`)を持つ。入庫先を読み取る段階では、同じ品目の棚(合格)・不良品棚(不合格。`ShelfTarget.reject`)をおすすめに出し(`recommendShelves`)、棚を読み取ると中身(持っているアイテム・入れ子。`contentsOf`)を出す。GraphQL 版は両方未対応(空・null)。操作なしが `idleTimeoutProvider`(既定 30 秒)続くと、処理待ち・担当者・選んだ棚・モードをすべて消して空のトップへ戻る(`ScanFlow.idleClear`。自動では登録しない。履歴だけ残す。残り `idleWarningProvider`(10 秒)から案内)。おすすめは根拠つき(`ShelfRecommendation`: 同じ品目の保有数量・不良品棚か。値で持つ)。
+入出庫(作業の開始の棚出庫・入庫。`QueuedIssue`・`QueuedPut`)をその場で登録せず、処理待ちにためて「まとめて登録(N件)」できる(画面案 6.4)。`batchQueueProvider`(既定 false)が true のときだけ。目的は、ハンディ端末で 1 件ごとに通信せず連続して読み取ること。有効にするのは、担当者を引ける取得元と、通信できる環境での確認(`issue/20261120_0001.md`)が済んでから。`example` と各アプリは有効にしていない。キューは画面内のメモリだけに持つ(保存・復元しない)。`ScanFlow.flushQueue` は順に登録し、途中で失敗したら残りのキューを消して理由(`NoticeKind.queueFailed`)を通知する。`removeQueued` で 1 件ずつ取り消せる。担当者の読み取り(`requireOperatorProvider`、既定 false。取得元の `findOperator`。GraphQL 版は `info_staff` の symbol で引く)と、選んだ棚を残して次の合格の棚の読み取りを省く動き(`selectedShelf`)を持つ。入庫先を読み取る段階では、同じ品目の棚(合格)・不良品棚(不合格。`ShelfTarget.reject`)をおすすめに出し(`recommendShelves`)、棚を読み取ると中身(持っているアイテム・入れ子。`contentsOf`)を出す。GraphQL 版: 棚の中身は、棚のロット(`v_visiter_issuable`)を品目(`v_visiter_item`)ごとにまとめる(入れ子の子の棚は、DB に棚の親子の列が無いため空)。合格のおすすめは、同じ品目が入っている棚(数量の多い順)。不合格のおすすめ(不良品棚)は、棚に不良品の区分が DB に無いため空。操作なしが `idleTimeoutProvider`(既定 30 秒)続くと、処理待ち・担当者・選んだ棚・モードをすべて消して空のトップへ戻る(`ScanFlow.idleClear`。自動では登録しない。履歴だけ残す。残り `idleWarningProvider`(10 秒)から案内)。おすすめは根拠つき(`ShelfRecommendation`: 同じ品目の保有数量・不良品棚か。値で持つ)。
 1.  画面は、状態(`ScanFlow`)を 1 つにして、ブロックを並べ替える。PC・タブレット(`view_responsiveness` がモバイル以外)は左に読み取り・入力・おすすめ、右に処理待ち・棚の中身・履歴。モバイルは 1 列に積む。画面のライブラリを 2 つに分けない。
 1.  トップ以外の段階(入力要求)は、モバイルは全画面、PC・タブレットはダイアログで出す(画面幅で判定。中身は `_requestContent` の 1 つ)。すべての入力要求に「戻る」(`ScanFlow.back`。1 つ前のリード。登録はしない)と「トップに戻る」を置く。システムの戻るは閉じず「戻る」と同じ。入力欄はトップと入力要求で別に持つ。
 
@@ -86,7 +86,7 @@ graph TD;
 `example` は `feature_shared` の `FeatureHost` でこの機能だけを載せる。`flutter run -d windows`。起動と symbol の読み込みは `example/test/widget_test.dart`、流れの判定は `test/barcode_entry_test.dart`。
 
 ## GraphQL 版の制限
-棚出庫(払出)・単位・設備点検・異常の登録は、DB の構成から決められず未対応(`issue/20261031_0003.md`)。不合格の理由は備考に残す。登録の通信テストは書かない(読み取り専用)。モデルは `packages/model_providers/barcode_entry_model` だけに依存する。
+棚出庫(払出)・単位・設備点検・異常の登録は、DB の構成から決められず未対応(`issue/20261031_0003.md`)。不合格の理由は備考に残す。作業の開始・終了と受入検品を DB 関数(`work_record_start`・`inspection_register`。`issue/20261120_0001.md`)へつなぐには、流れの作り直しが要る(開始に数量とロットが要る。終了は合格・不合格・差を 1 回で渡す。いまの流れは、合格・不合格を別々に入庫する)。登録の通信テストは書かない(読み取り専用)。モデルは `packages/model_providers/barcode_entry_model` だけに依存する。
 
 
 ## 規則: プロジェクト間をまたぐ指示

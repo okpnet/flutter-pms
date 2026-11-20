@@ -2497,6 +2497,7 @@ input MstrEquipmentFilter {
   mstrInspectionOperationsByMstrEquipmentIdExist: Boolean
   mstrEquipmentProvisionsByMstrEquipmentIdExist: Boolean
   transMrpLoadsByMstrEquipmentIdExist: Boolean
+  vComplaintKindsByMstrEquipmentIdExist: Boolean
   vEquipmentEquipmentAvailableCountByMstrEquipmentId: VEquipmentEquipmentAvailableCountFilter
   vEquipmentEquipmentAvailableCountByMstrEquipmentIdExists: Boolean
   vEquipmentEquipmentProvisionCountByMstrEquipmentId: VEquipmentEquipmentProvisionCountFilter
@@ -2843,6 +2844,7 @@ input MstrItemFilter {
   vPurchaseDeliveryCompliancesByMstrItemIdExist: Boolean
   vPurchaseDetailBalancesByItemIdExist: Boolean
   vPurchaseDetailUnreservedsByMstrItemIdExist: Boolean
+  vRegisterTargetsByItemIdExist: Boolean
   vResourcePlanCoveragesByItemIdExist: Boolean
   vSalesRecordsByMstrItemIdExist: Boolean
   vShippingDeliveryCompliancesByMstrItemIdExist: Boolean

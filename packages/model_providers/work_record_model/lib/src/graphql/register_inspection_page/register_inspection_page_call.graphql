@@ -1,0 +1,46 @@
+# register_inspection_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #RegisterInspectionPageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation RegisterInspectionPageCall(
+  $pPassQty: BigFloat
+  $pContainerId: UUID
+  $pWorkRecordId: UUID
+  $pPurchaseDetailId: UUID
+  $pFailQty: BigFloat
+  $pFailContainerId: UUID
+  $pReason: String
+  $pReturnContainerId: UUID
+  $pReturnReason: String
+  $pStaffId: UUID
+  $pLocationId: UUID
+  $pRemarks: String
+) {
+  inspectionRegister(
+    input: {
+      pPassQty: $pPassQty
+      pContainerId: $pContainerId
+      pWorkRecordId: $pWorkRecordId
+      pPurchaseDetailId: $pPurchaseDetailId
+      pFailQty: $pFailQty
+      pFailContainerId: $pFailContainerId
+      pReason: $pReason
+      pReturnContainerId: $pReturnContainerId
+      pReturnReason: $pReturnReason
+      pStaffId: $pStaffId
+      pLocationId: $pLocationId
+      pRemarks: $pRemarks
+    }
+  ) {
+    results {
+      workRecordId
+      purchaseRecId
+      passVisiterId
+      failVisiterId
+      returnVisiterId
+      complaintId
+      returnQuantity
+    }
+  }
+}

@@ -1,0 +1,28 @@
+# register_lot_item_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #RegisterLotItemPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query RegisterLotItemPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VVisiterItemFilter = {and: []}
+  $orderBy: [VVisiterItemsOrderBy!]
+) {
+  allVVisiterItems(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transVisiterId
+      mstrItemId
+    }
+  }
+}
