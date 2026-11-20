@@ -47,6 +47,7 @@ class BarcodeEntryStringsEn extends BarcodeEntryStrings with BaseTranslations<Ba
 	@override late final _BarcodeEntryStrings$ngReasons$en ngReasons = _BarcodeEntryStrings$ngReasons$en._(_root);
 	@override late final _BarcodeEntryStrings$notice$en notice = _BarcodeEntryStrings$notice$en._(_root);
 	@override late final _BarcodeEntryStrings$log$en log = _BarcodeEntryStrings$log$en._(_root);
+	@override late final _BarcodeEntryStrings$queue$en queue = _BarcodeEntryStrings$queue$en._(_root);
 }
 
 // Path: menu
@@ -195,6 +196,8 @@ class _BarcodeEntryStrings$notice$en extends BarcodeEntryStrings$notice$ja {
 	@override String get inspected => 'Inspection results recorded. Scan the next barcode.';
 	@override String get supplied => 'Supplied material registered. Scan the next barcode.';
 	@override String qtyOverSupply({required Object remain, required Object unit}) => 'You can register up to ${remain} ${unit}. Enter that or less.';
+	@override String queued({required Object count}) => 'Added to the queue (${count}). Scan the next barcode.';
+	@override String queueFailed({required Object done, required Object total}) => 'Registered ${done} of ${total}, then failed. The queue was cleared. Start scanning again.';
 	@override String get failed => 'Could not register. Check the connection and try again.';
 }
 
@@ -205,6 +208,7 @@ class _BarcodeEntryStrings$log$en extends BarcodeEntryStrings$log$ja {
 	final BarcodeEntryStringsEn _root; // ignore: unused_field
 
 	// Translations
+	@override String queueFailed({required Object done, required Object total, required Object sym}) => 'Queue registration failed (${done}/${total}): ${sym}';
 	@override String get title => 'History';
 	@override String get empty => 'No history yet.';
 	@override String unknown({required Object value}) => 'Unreadable barcode: ${value}';
@@ -223,6 +227,19 @@ class _BarcodeEntryStrings$log$en extends BarcodeEntryStrings$log$ja {
 	@override String inspectedWithIssue({required Object code, required Object name, required Object count, required Object issues}) => 'Equipment inspection ${code} ${name}: recorded ${count} items (${issues} need attention)';
 	@override String supplied({required Object sym, required Object item, required Object qty, required Object unit}) => '${sym} ${item}: registered supplied material ${qty} ${unit}';
 	@override String failed({required Object sym}) => 'Registration failed: ${sym}';
+}
+
+// Path: queue
+class _BarcodeEntryStrings$queue$en extends BarcodeEntryStrings$queue$ja {
+	_BarcodeEntryStrings$queue$en._(BarcodeEntryStringsEn root) : this._root = root, super.internal(root);
+
+	final BarcodeEntryStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Queue';
+	@override String register({required Object count}) => 'Register all (${count})';
+	@override String get remove => 'Remove';
+	@override String item({required Object sym, required Object qty, required Object unit, required Object shelf}) => '${sym} ${qty}${unit} → ${shelf}';
 }
 
 // Path: modes.work
@@ -393,7 +410,10 @@ extension on BarcodeEntryStringsEn {
 			'notice.inspected' => 'Inspection results recorded. Scan the next barcode.',
 			'notice.supplied' => 'Supplied material registered. Scan the next barcode.',
 			'notice.qtyOverSupply' => ({required Object remain, required Object unit}) => 'You can register up to ${remain} ${unit}. Enter that or less.',
+			'notice.queued' => ({required Object count}) => 'Added to the queue (${count}). Scan the next barcode.',
+			'notice.queueFailed' => ({required Object done, required Object total}) => 'Registered ${done} of ${total}, then failed. The queue was cleared. Start scanning again.',
 			'notice.failed' => 'Could not register. Check the connection and try again.',
+			'log.queueFailed' => ({required Object done, required Object total, required Object sym}) => 'Queue registration failed (${done}/${total}): ${sym}',
 			'log.title' => 'History',
 			'log.empty' => 'No history yet.',
 			'log.unknown' => ({required Object value}) => 'Unreadable barcode: ${value}',
@@ -412,6 +432,10 @@ extension on BarcodeEntryStringsEn {
 			'log.inspectedWithIssue' => ({required Object code, required Object name, required Object count, required Object issues}) => 'Equipment inspection ${code} ${name}: recorded ${count} items (${issues} need attention)',
 			'log.supplied' => ({required Object sym, required Object item, required Object qty, required Object unit}) => '${sym} ${item}: registered supplied material ${qty} ${unit}',
 			'log.failed' => ({required Object sym}) => 'Registration failed: ${sym}',
+			'queue.title' => 'Queue',
+			'queue.register' => ({required Object count}) => 'Register all (${count})',
+			'queue.remove' => 'Remove',
+			'queue.item' => ({required Object sym, required Object qty, required Object unit, required Object shelf}) => '${sym} ${qty}${unit} → ${shelf}',
 			_ => null,
 		};
 	}

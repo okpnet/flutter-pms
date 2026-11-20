@@ -154,6 +154,7 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
                 const SizedBox(height: 8),
                 _stepBody(t, s, flow),
                 const SizedBox(height: 24),
+                if (s.queue.isNotEmpty) _QueuePanel(state: s, flow: flow),
                 _SampleSymbols(onPick: _commit),
                 const SizedBox(height: 16),
                 Text(t.log.title, style: theme.textTheme.titleMedium),
@@ -478,6 +479,61 @@ class _SampleSymbols extends ConsumerWidget {
           ],
         ),
       ],
+    );
+  }
+}
+
+/// 処理待ち(キュー)。「まとめて登録(N件)」と、1 件ずつの取り消し。
+class _QueuePanel extends ConsumerWidget {
+  const _QueuePanel({required this.state, required this.flow});
+
+  final ScanState state;
+  final ScanFlow flow;
+
+  static String _unit(StockSource s) => switch (s) {
+    WorkSource(:final order) => order.unit,
+    PurchaseSource(:final purchase) => purchase.unit,
+    ItemSource(:final item) => item.unit,
+  };
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(barcodeEntryStringsProvider);
+    return Card(
+      key: const ValueKey('queuePanel'),
+      margin: const EdgeInsets.only(bottom: 16),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(t.queue.title, style: Theme.of(context).textTheme.titleMedium),
+            for (var i = 0; i < state.queue.length; i++)
+              ListTile(
+                dense: true,
+                title: Text(
+                  t.queue.item(
+                    sym: state.queue[i].source.symbol,
+                    qty: state.queue[i].quantity,
+                    unit: _unit(state.queue[i].source),
+                    shelf: state.queue[i].shelf.name,
+                  ),
+                ),
+                trailing: TextButton(
+                  key: ValueKey('queueRemove$i'),
+                  onPressed: state.working ? null : () => flow.removeQueued(i),
+                  child: Text(t.queue.remove),
+                ),
+              ),
+            const SizedBox(height: 8),
+            FilledButton(
+              key: const ValueKey('queueRegister'),
+              onPressed: state.working ? null : flow.flushQueue,
+              child: Text(t.queue.register(count: state.queue.length)),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -101,6 +101,11 @@ extension BarcodeEntryLabels on BarcodeEntryStrings {
         unit: a['unit']!,
       ),
       NoticeKind.failed => notice.failed,
+      NoticeKind.queued => notice.queued(count: a['count']!),
+      NoticeKind.queueFailed => notice.queueFailed(
+        done: a['done']!,
+        total: a['total']!,
+      ),
     };
   }
 
@@ -178,6 +183,11 @@ extension BarcodeEntryLabels on BarcodeEntryStrings {
         unit: a['unit']!,
       ),
       LogKind.failed => log.failed(sym: a['sym']!),
+      LogKind.queueFailed => log.queueFailed(
+        sym: a['sym']!,
+        done: a['done']!,
+        total: a['total']!,
+      ),
     };
   }
 }

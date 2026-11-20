@@ -8,26 +8,12 @@
 --   ビュー v_register_target は、作業指示(工程)と発注明細を 1 つの形で返す(バーコード・実績登録の照会に使う)。
 --   発注と非計上発注は、どちらも発注明細(trans_purchase_detail)で、非計上かは資材計画の元(trans_unrecognized_detail_id)の違いだけ。
 --   受入の動きは同じなので、関数・ビューとも分けない。
+-- 戻り値は RETURNS TABLE(PERO は複合型を持てない。06 に RETURNS TABLE の前例がある)。出力列の名前は、表の列と重ならないものにする。
 -- 状態・区分はコード値で持たない(判定は boolean と列の有無)。errcode は OPR00〜OPR03 に合わせる。
 -- 適用先: スキーマ tests(06 のあと、09 の前)。PostGraphile の再起動が要る。
 
 -- ---------------------------------------------------------------------------------------------
--- 1. 戻り値の型(登録結果)
--- ---------------------------------------------------------------------------------------------
-CREATE TYPE tests.register_result AS (
-    trans_work_record_id uuid,       -- 終了した作業実績(受入のときは NULL)
-    trans_purchase_rec_id uuid,      -- 登録した受入実績(作業のときは NULL)
-    pass_visiter_id uuid,            -- 合格を入庫したロット(合格 0 のときは NULL)
-    fail_visiter_id uuid,            -- 不合格を入庫したロット(不合格 0 のときは NULL)
-    return_visiter_id uuid,          -- 意図的な差を返したロット(差が無いときは NULL)
-    trans_complaint_id uuid,         -- 登録した異常(不合格 0 のときは NULL)
-    return_quantity numeric          -- 返した数量(差が無いときは 0)
-);
-
-COMMENT ON TYPE tests.register_result IS '実績登録の結果(作業の終了・受入検品の共通)。登録した実績・入庫したロット・異常・返した数量';
-
--- ---------------------------------------------------------------------------------------------
--- 2. 内部: 分割元の無い入庫(新しいロット)
+-- 1. 内部: 分割元の無い入庫(新しいロット)
 -- ---------------------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION tests.visiter_receive(
     p_container_id uuid,
@@ -77,7 +63,7 @@ $$ LANGUAGE plpgsql VOLATILE;
 COMMENT ON FUNCTION tests.visiter_receive(uuid, numeric, boolean, uuid, uuid, uuid, uuid, uuid, timestamp, varchar) IS '@omit';
 
 -- ---------------------------------------------------------------------------------------------
--- 3. ビュー: 登録の対象(作業指示と発注明細を 1 つの形で)
+-- 2. ビュー: 登録の対象(作業指示と発注明細を 1 つの形で)
 -- ---------------------------------------------------------------------------------------------
 CREATE VIEW tests.v_register_target AS
 SELECT
@@ -142,7 +128,7 @@ COMMENT ON VIEW tests.v_register_target IS '@primaryKey target_id
 実績を登録する対象(作業指示の工程と発注明細。発注・非計上発注は同じ発注明細)。登録できるか・残り・実施中を列で持つ(画面で計算・判定しない)';
 
 -- ---------------------------------------------------------------------------------------------
--- 4. 公開: 作業の開始(実績の登録 + コンテナからの払出)
+-- 3. 公開: 作業の開始(実績の登録 + コンテナからの払出)
 -- ---------------------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION tests.work_record_start(
     p_work_plan_id uuid,
@@ -199,7 +185,7 @@ $$ LANGUAGE plpgsql VOLATILE;
 COMMENT ON FUNCTION tests.work_record_start(uuid, uuid, numeric, uuid, uuid, uuid, varchar) IS '作業の開始。作業実績(実施中。終了は NULL)を登録し、コンテナのロットから材料を払い出して作業実績につなぐ(1トランザクション)。数量は計画の残り(v_register_target.remaining_quantity)以内、停止・打ち切り・全部キャンセルの作業指示と、実施中の作業指示は登録しない。errcode: OPR01 対象が無い / OPR02 数量 / OPR03 登録できない。払出は VIS03(在庫が足りない)・VIS04(取り出せない)';
 
 -- ---------------------------------------------------------------------------------------------
--- 5. 公開: 作業の終了 と 受入検品 の共通(実績の記録 + 合格の入庫 + 不合格の異常と入庫)
+-- 4. 公開: 作業の終了 と 受入検品 の共通(実績の記録 + 合格の入庫 + 不合格の異常と入庫)
 -- ---------------------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION tests.inspection_register(
     p_pass_qty numeric,
@@ -214,9 +200,17 @@ CREATE OR REPLACE FUNCTION tests.inspection_register(
     p_staff_id uuid DEFAULT NULL,
     p_location_id uuid DEFAULT NULL,
     p_remarks varchar DEFAULT NULL
-) RETURNS tests.register_result AS $$
+) RETURNS TABLE (
+    work_record_id uuid,        -- 終了した作業実績(受入のときは NULL)
+    purchase_rec_id uuid,       -- 登録した受入実績(作業のときは NULL)
+    pass_visiter_id uuid,       -- 合格を入庫したロット(合格 0 のときは NULL)
+    fail_visiter_id uuid,       -- 不合格を入庫したロット(不合格 0 のときは NULL)
+    return_visiter_id uuid,     -- 意図的な差を返したロット(差が無いときは NULL)
+    complaint_id uuid,          -- 登録した異常(不合格 0 のときは NULL)
+    return_quantity numeric     -- 返した数量(差が無いときは 0)
+) AS $$
 DECLARE
-    v_st record; v_res tests.register_result;
+    v_st record;
     v_pass numeric := COALESCE(p_pass_qty, 0); v_fail numeric := COALESCE(p_fail_qty, 0);
     v_taken numeric; v_return numeric := 0; v_origin uuid; v_origin_container uuid;
     v_b tests.v_purchase_detail_balance; v_rec tests.trans_purchase_rec; v_wr tests.trans_work_record;
@@ -264,7 +258,7 @@ BEGIN
         SET qty = v_pass + v_fail, stop_at = now(), update_user_id = v_st.staff_id, update_user_history_id = v_st.staff_history_id,
             remarks = COALESCE(p_remarks, remarks)
         WHERE trans_work_record_id = p_work_record_id;
-        v_res.trans_work_record_id := p_work_record_id;
+        work_record_id := p_work_record_id;
     ELSE
         -- 受入検品(発注・非計上発注): 残り以内。停止中・全部キャンセルは受け入れない
         SELECT * INTO v_b FROM tests.v_purchase_detail_balance WHERE trans_purchase_detail_id = p_purchase_detail_id;
@@ -280,14 +274,14 @@ BEGIN
         INSERT INTO tests.trans_purchase_rec (trans_purchase_detail_id, receive_at, quantity, remarks, update_user_id, update_user_history_id)
         VALUES (p_purchase_detail_id, now(), v_pass + v_fail, p_remarks, v_st.staff_id, v_st.staff_history_id)
         RETURNING * INTO v_rec;
-        v_res.trans_purchase_rec_id := v_rec.trans_purchase_rec_id;
+        purchase_rec_id := v_rec.trans_purchase_rec_id;
     END IF;
 
     -- 合格の入庫
     IF v_pass > 0 THEN
-        v_lot := tests.visiter_receive(p_container_id, v_pass, false, p_work_record_id, v_res.trans_purchase_rec_id,
+        v_lot := tests.visiter_receive(p_container_id, v_pass, false, p_work_record_id, purchase_rec_id,
                                        NULL, v_st.staff_id, p_location_id, NULL, p_remarks);
-        v_res.pass_visiter_id := v_lot.trans_visiter_id;
+        pass_visiter_id := v_lot.trans_visiter_id;
     END IF;
 
     -- 不合格: 異常(工程異常・受入異常)を登録し、仮止めで入庫して異常につなぐ
@@ -302,31 +296,31 @@ BEGIN
             VALUES (v_complaint, p_work_record_id, v_fail, v_st.staff_id, v_st.staff_history_id);
         ELSE
             INSERT INTO tests.trans_complaint_purchase_rec (trans_complaint_id, trans_purchase_rec_id, quantity, update_user_id, update_user_history_id)
-            VALUES (v_complaint, v_res.trans_purchase_rec_id, v_fail, v_st.staff_id, v_st.staff_history_id);
+            VALUES (v_complaint, purchase_rec_id, v_fail, v_st.staff_id, v_st.staff_history_id);
         END IF;
-        v_lot := tests.visiter_receive(p_fail_container_id, v_fail, true, p_work_record_id, v_res.trans_purchase_rec_id,
+        v_lot := tests.visiter_receive(p_fail_container_id, v_fail, true, p_work_record_id, purchase_rec_id,
                                        NULL, v_st.staff_id, p_location_id, NULL, p_reason);
         INSERT INTO tests.trans_complaint_visiter (trans_complaint_id, trans_visiter_id, quantity, update_user_id, update_user_history_id)
         VALUES (v_complaint, v_lot.trans_visiter_id, v_fail, v_st.staff_id, v_st.staff_history_id);
-        v_res.fail_visiter_id := v_lot.trans_visiter_id;
-        v_res.trans_complaint_id := v_complaint;
+        fail_visiter_id := v_lot.trans_visiter_id;
+        complaint_id := v_complaint;
     END IF;
 
     -- 作業の終了で、完了が取り出しより少ない差は、払出元(または指定)のコンテナへ返す。次の開始で、引継ぎとして取り出せる
     IF v_return > 0 THEN
         v_lot := tests.visiter_receive(COALESCE(p_return_container_id, v_origin_container), v_return, false, p_work_record_id, NULL,
                                        v_origin, v_st.staff_id, p_location_id, NULL, COALESCE(p_return_reason, p_reason));
-        v_res.return_visiter_id := v_lot.trans_visiter_id;
+        return_visiter_id := v_lot.trans_visiter_id;
     END IF;
-    v_res.return_quantity := v_return;
-    RETURN v_res;
+    return_quantity := v_return;
+    RETURN NEXT;
 END
 $$ LANGUAGE plpgsql VOLATILE;
 
 COMMENT ON FUNCTION tests.inspection_register(numeric, uuid, uuid, uuid, numeric, uuid, varchar, uuid, varchar, uuid, uuid, varchar) IS '作業の終了 と 受入検品(発注・非計上発注)の共通の登録(1トランザクション)。作業実績(p_work_record_id)または発注明細(p_purchase_detail_id)のどちらか 1 つを渡す。作業実績は終了(完了 = 合格 + 不合格)、発注明細は受入実績を登録する。合格(p_pass_qty)はコンテナ(p_container_id)へ入庫、不合格(p_fail_qty)は異常(理由 p_reason)を登録して仮止めで p_fail_container_id へ入庫し異常につなぐ。作業の終了で完了が取り出しより少ない差は、払出元(または p_return_container_id)へ返す(理由 p_return_reason)。errcode: OPR00 担当者 / OPR01 対象が無い / OPR02 数量・引数 / OPR03 今の状態では登録できない。入庫は VIS05・VIS06';
 
 -- ---------------------------------------------------------------------------------------------
--- 6. 検査(接続できる環境で。ROLLBACK するので、データは変わらない)
+-- 5. 検査(接続できる環境で。ROLLBACK するので、データは変わらない)
 -- ---------------------------------------------------------------------------------------------
 -- T1: v_register_target の件数が、作業指示(trans_work_plan)+ 発注明細(trans_purchase_detail)の件数と一致する
 --   SELECT (SELECT count(*) FROM tests.v_register_target) = (SELECT count(*) FROM tests.trans_work_plan WHERE remove IS FALSE)

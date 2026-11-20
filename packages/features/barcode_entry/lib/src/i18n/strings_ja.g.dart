@@ -47,6 +47,7 @@ class BarcodeEntryStrings with BaseTranslations<BarcodeEntryLocale, BarcodeEntry
 	late final BarcodeEntryStrings$ngReasons$ja ngReasons = BarcodeEntryStrings$ngReasons$ja.internal(_root);
 	late final BarcodeEntryStrings$notice$ja notice = BarcodeEntryStrings$notice$ja.internal(_root);
 	late final BarcodeEntryStrings$log$ja log = BarcodeEntryStrings$log$ja.internal(_root);
+	late final BarcodeEntryStrings$queue$ja queue = BarcodeEntryStrings$queue$ja.internal(_root);
 }
 
 // Path: menu
@@ -357,6 +358,12 @@ class BarcodeEntryStrings$notice$ja {
 
 	/// ja: '登録できませんでした。通信の状態を確認して、もう一度お試しください。'
 	String get failed => '登録できませんでした。通信の状態を確認して、もう一度お試しください。';
+
+	/// ja: '処理待ちに追加しました({count}件)。次のバーコードを読み取ってください。'
+	String queued({required Object count}) => '処理待ちに追加しました(${count}件)。次のバーコードを読み取ってください。';
+
+	/// ja: '{total}件中{done}件を登録して、失敗しました。処理待ちを消しました。最初から読み取ってください。'
+	String queueFailed({required Object total, required Object done}) => '${total}件中${done}件を登録して、失敗しました。処理待ちを消しました。最初から読み取ってください。';
 }
 
 // Path: log
@@ -420,6 +427,30 @@ class BarcodeEntryStrings$log$ja {
 
 	/// ja: '登録に失敗: {sym}'
 	String failed({required Object sym}) => '登録に失敗: ${sym}';
+
+	/// ja: '処理待ちの登録に失敗({done}/{total}件): {sym}'
+	String queueFailed({required Object done, required Object total, required Object sym}) => '処理待ちの登録に失敗(${done}/${total}件): ${sym}';
+}
+
+// Path: queue
+class BarcodeEntryStrings$queue$ja {
+	BarcodeEntryStrings$queue$ja.internal(this._root);
+
+	final BarcodeEntryStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '処理待ち'
+	String get title => '処理待ち';
+
+	/// ja: 'まとめて登録({count}件)'
+	String register({required Object count}) => 'まとめて登録(${count}件)';
+
+	/// ja: '取り消す'
+	String get remove => '取り消す';
+
+	/// ja: '{sym} {qty}{unit} → {shelf}'
+	String item({required Object sym, required Object qty, required Object unit, required Object shelf}) => '${sym} ${qty}${unit} → ${shelf}';
 }
 
 // Path: modes.work
@@ -617,6 +648,8 @@ extension on BarcodeEntryStrings {
 			'notice.supplied' => '支給を登録しました。次のバーコードを読み取ってください。',
 			'notice.qtyOverSupply' => ({required Object remain, required Object unit}) => '登録できる数量は${remain}${unit}までです。それ以下の数量を入力してください。',
 			'notice.failed' => '登録できませんでした。通信の状態を確認して、もう一度お試しください。',
+			'notice.queued' => ({required Object count}) => '処理待ちに追加しました(${count}件)。次のバーコードを読み取ってください。',
+			'notice.queueFailed' => ({required Object total, required Object done}) => '${total}件中${done}件を登録して、失敗しました。処理待ちを消しました。最初から読み取ってください。',
 			'log.title' => '履歴',
 			'log.empty' => 'まだ履歴はありません。',
 			'log.unknown' => ({required Object value}) => '読み取れないバーコード: ${value}',
@@ -635,6 +668,11 @@ extension on BarcodeEntryStrings {
 			'log.inspectedWithIssue' => ({required Object code, required Object name, required Object count, required Object issues}) => '設備点検 ${code} ${name}: ${count}項目を記録(要確認 ${issues}件)',
 			'log.supplied' => ({required Object sym, required Object item, required Object qty, required Object unit}) => '${sym} ${item}: 支給 ${qty}${unit}を登録',
 			'log.failed' => ({required Object sym}) => '登録に失敗: ${sym}',
+			'log.queueFailed' => ({required Object done, required Object total, required Object sym}) => '処理待ちの登録に失敗(${done}/${total}件): ${sym}',
+			'queue.title' => '処理待ち',
+			'queue.register' => ({required Object count}) => 'まとめて登録(${count}件)',
+			'queue.remove' => '取り消す',
+			'queue.item' => ({required Object sym, required Object qty, required Object unit, required Object shelf}) => '${sym} ${qty}${unit} → ${shelf}',
 			_ => null,
 		};
 	}

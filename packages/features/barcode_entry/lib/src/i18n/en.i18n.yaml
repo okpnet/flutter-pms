@@ -105,8 +105,11 @@ notice:
   inspected: Inspection results recorded. Scan the next barcode.
   supplied: Supplied material registered. Scan the next barcode.
   qtyOverSupply: You can register up to {remain} {unit}. Enter that or less.
+  queued: 'Added to the queue ({count}). Scan the next barcode.'
+  queueFailed: 'Registered {done} of {total}, then failed. The queue was cleared. Start scanning again.'
   failed: Could not register. Check the connection and try again.
 log:
+  queueFailed: 'Queue registration failed ({done}/{total}): {sym}'
   title: History
   empty: No history yet.
   unknown: 'Unreadable barcode: {value}'
@@ -125,3 +128,8 @@ log:
   inspectedWithIssue: 'Equipment inspection {code} {name}: recorded {count} items ({issues} need attention)'
   supplied: '{sym} {item}: registered supplied material {qty} {unit}'
   failed: 'Registration failed: {sym}'
+queue:
+  title: Queue
+  register: 'Register all ({count})'
+  remove: Remove
+  item: '{sym} {qty}{unit} → {shelf}'

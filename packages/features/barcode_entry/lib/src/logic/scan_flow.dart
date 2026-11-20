@@ -57,6 +57,8 @@ enum NoticeKind {
   supplied,
   qtyOverSupply,
   failed,
+  queued,
+  queueFailed,
 }
 
 /// 通知。[isError] はやり直しを求める通知、[args] は文面に差し込む値。
@@ -86,6 +88,7 @@ enum LogKind {
   inspectedWithIssue,
   supplied,
   failed,
+  queueFailed,
 }
 
 /// 履歴の1件。
@@ -101,6 +104,29 @@ class ScanLogEntry {
   final LogKind kind;
   final bool ok;
   final Map<String, Object> args;
+}
+
+/// 処理待ち(キュー)の 1 件: まとめて登録するまで取得元へ送らない入庫。
+/// 不合格かは [reason] の有無で分かる(不合格のときだけ理由を持つ)。
+class QueuedPut {
+  const QueuedPut({
+    required this.source,
+    required this.quantity,
+    required this.shelf,
+    this.reason,
+  });
+
+  final StockSource source;
+  final int quantity;
+  final ShelfTarget shelf;
+  final RejectReason? reason;
+
+  Map<String, Object?> toJson() => {
+    'source': source.symbol,
+    'quantity': quantity,
+    'shelf': shelf.symbol,
+    'reason': reason?.name,
+  };
 }
 
 /// 読み込み中の対象(段階をまたいで持ち回る値)。
@@ -171,6 +197,7 @@ class ScanState {
     this.notice,
     this.log = const [],
     this.working = false,
+    this.queue = const [],
   });
 
   /// 受け付ける種類を絞るモード。null は自動判定。
@@ -183,6 +210,9 @@ class ScanState {
   /// 取得元とやりとり中(操作を受け付けない)。
   final bool working;
 
+  /// 処理待ち(キュー)。画面内のメモリだけに持つ。
+  final List<QueuedPut> queue;
+
   ScanState copyWith({
     ScanMode? Function()? mode,
     ScanStep? step,
@@ -190,6 +220,7 @@ class ScanState {
     ScanNotice? Function()? notice,
     List<ScanLogEntry>? log,
     bool? working,
+    List<QueuedPut>? queue,
   }) => ScanState(
     mode: mode != null ? mode() : this.mode,
     step: step ?? this.step,
@@ -197,6 +228,7 @@ class ScanState {
     notice: notice != null ? notice() : this.notice,
     log: log ?? this.log,
     working: working ?? this.working,
+    queue: queue ?? this.queue,
   );
 
   Map<String, Object?> toJson() => {
@@ -205,6 +237,7 @@ class ScanState {
     'context': context.toJson(),
     'notice': notice?.kind.name,
     'working': working,
+    'queue': queue.map((q) => q.toJson()).toList(),
   };
 }
 
@@ -238,7 +271,12 @@ class ScanFlow extends Notifier<ScanState> {
 
   /// リーディングトップへ戻る。モードと履歴は残す。
   void _reset([ScanNotice? notice]) =>
-      state = ScanState(mode: state.mode, log: state.log, notice: notice);
+      state = ScanState(
+        mode: state.mode,
+        log: state.log,
+        notice: notice,
+        queue: state.queue,
+      );
 
   void _go(ScanStep step, ScanContext context) =>
       state = state.copyWith(step: step, context: context, notice: () => null);
@@ -605,28 +643,88 @@ class ScanFlow extends Notifier<ScanState> {
         ? ItemSource(item)
         : null;
     if (source == null) return;
+    final reason = c.rejected ? (c.reason ?? RejectReason.other) : null;
+    if (ref.read(batchQueueProvider)) {
+      // 登録せず、処理待ちにためる(まとめて登録は [flushQueue])
+      final queue = [
+        ...state.queue,
+        QueuedPut(source: source, quantity: c.quantity, shelf: shelf, reason: reason),
+      ];
+      state = state.copyWith(queue: queue);
+      return _reset(ScanNotice(NoticeKind.queued, args: {'count': queue.length}));
+    }
     final done = await _guard('入庫', source.symbol, () async {
       await _gateway.putAway(
         source: source,
         quantity: c.quantity,
         shelf: shelf,
-        reason: c.rejected ? (c.reason ?? RejectReason.other) : null,
+        reason: reason,
       );
       return true;
     });
     if (done != true) return;
-    final judge = c.rejected ? 'fail' : 'pass';
+    _logPut(source, c.quantity, c.rejected, shelf);
+    _reset(ScanNotice(NoticeKind.stored, args: {'shelf': shelf.name}));
+  }
+
+  /// 処理待ちの 1 件を取り消す(登録していないので、取得元へは何も送らない)。
+  void removeQueued(int index) {
+    if (state.working || index < 0 || index >= state.queue.length) return;
+    final queue = [...state.queue]..removeAt(index);
+    state = state.copyWith(queue: queue, notice: () => null);
+  }
+
+  /// 処理待ちを順に登録する。途中で失敗したら、残りのキューを消して理由を通知する
+  /// (登録済みの分は履歴に残る。やり直しは最初から読み取る)。
+  Future<void> flushQueue() async {
+    if (state.working || state.queue.isEmpty) return;
+    final items = List<QueuedPut>.of(state.queue);
+    var done = 0;
+    for (final q in items) {
+      final ok = await _guard('入庫', q.source.symbol, () async {
+        await _gateway.putAway(
+          source: q.source,
+          quantity: q.quantity,
+          shelf: q.shelf,
+          reason: q.reason,
+        );
+        return true;
+      });
+      if (ok != true) {
+        _log(LogKind.queueFailed, ok: false, args: {'sym': q.source.symbol, 'done': done, 'total': items.length});
+        state = state.copyWith(
+          queue: const [],
+          notice: () => ScanNotice(
+            NoticeKind.queueFailed,
+            isError: true,
+            args: {'done': done, 'total': items.length},
+          ),
+        );
+        return;
+      }
+      done++;
+      _logPut(q.source, q.quantity, q.reason != null, q.shelf);
+    }
+    state = state.copyWith(
+      queue: const [],
+      notice: () => ScanNotice(NoticeKind.stored, args: {'shelf': items.last.shelf.name}),
+    );
+  }
+
+  /// 入庫の履歴を 1 件残す。
+  void _logPut(StockSource source, int quantity, bool rejected, ShelfTarget shelf) {
+    final judge = rejected ? 'fail' : 'pass';
     switch (source) {
       case WorkSource(:final order):
-        final complete = order.doneQuantity + c.quantity >= order.quantity;
+        final complete = order.doneQuantity + quantity >= order.quantity;
         _log(
           complete ? LogKind.storedWorkDone : LogKind.storedWork,
-          ok: !c.rejected,
+          ok: !rejected,
           args: {
             'sym': order.symbol,
             'item': order.itemName,
             'task': order.taskName,
-            'qty': c.quantity,
+            'qty': quantity,
             'unit': order.unit,
             'judge': judge,
             'shelf': shelf.name,
@@ -635,11 +733,11 @@ class ScanFlow extends Notifier<ScanState> {
       case PurchaseSource(:final purchase):
         _log(
           LogKind.storedPurchase,
-          ok: !c.rejected,
+          ok: !rejected,
           args: {
             'sym': purchase.symbol,
             'item': purchase.itemName,
-            'qty': c.quantity,
+            'qty': quantity,
             'unit': purchase.unit,
             'judge': judge,
             'shelf': shelf.name,
@@ -651,11 +749,10 @@ class ScanFlow extends Notifier<ScanState> {
           args: {
             'shelf': shelf.name,
             'item': item.name,
-            'qty': c.quantity,
+            'qty': quantity,
             'unit': item.unit,
           },
         );
     }
-    _reset(ScanNotice(NoticeKind.stored, args: {'shelf': shelf.name}));
   }
 }
