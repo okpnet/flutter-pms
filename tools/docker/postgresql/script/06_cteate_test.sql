@@ -4326,7 +4326,7 @@ CREATE TABLE tests.info_app (
   info_app_id uuid DEFAULT gen_random_uuid() NOT NULL,
   info_company_id uuid,
   name varchar(255) NOT NULL,
-  settings jsonb DEFAULT '{"version":1,"stamp":{"position":{"anchor":"topRight","offsetXmm":10,"offsetYmm":10,"pages":"first"},"opacity":0.6,"shape":{"kind":"roundRect","widthMm":32,"heightMm":32,"rotationDeg":0},"color":{"text":"#C62828","frame":"#C62828","fill":null},"labelLanguage":"ja","stages":"all","items":[{"field":"stamp_label","size":14,"line":1},{"field":"approved_at","format":"yyyy/MM/dd","size":10,"line":2},{"field":"approved_staff","format":"name","size":10,"line":3}],"pending":{"dashed":true,"color":"#757575"}}}',
+  settings jsonb DEFAULT '{"version":1,"stamp":{"position":{"anchor":"topRight","offsetXmm":10,"offsetYmm":10,"pages":"first"},"opacity":0.6,"shape":{"kind":"roundRect","widthMm":32,"heightMm":32,"rotationDeg":0},"color":{"text":"#C62828","frame":"#C62828","fill":null},"labelLanguage":"ja","stages":"all","items":[{"field":"stamp_label","size":14,"line":1},{"field":"approved_at","format":"yyyy/MM/dd","size":10,"line":2},{"field":"approved_staff","format":"name","size":10,"line":3}],"pending":{"dashed":true,"color":"#757575"}},"pdf":{"page":{"size":"A4","orientation":"portrait","marginMm":{"top":22,"right":18,"bottom":20,"left":18}},"theme":{"vars":{"accent":"#0D47A1","muted":"#616161","line":"#BDBDBD"},"font":{"family":"NotoSansJP","monoFamily":"NotoSansJPMono","baseSize":10.5,"lineHeight":1.5},"colors":{"text":"#212121","heading":"$accent","link":"#1565C0","quote":"$muted","codeBackground":"#F5F5F5","tableBorder":"$line","tableHeaderBackground":"#ECEFF1","missingLink":"#C62828"},"headings":{"h1":{"size":20,"bold":true,"color":null,"spaceBeforeMm":0,"spaceAfterMm":5,"pageBreakBefore":true},"h2":{"size":15,"bold":true,"color":null,"spaceBeforeMm":6,"spaceAfterMm":3,"pageBreakBefore":false},"h3":{"size":12,"bold":true,"color":null,"spaceBeforeMm":4,"spaceAfterMm":2,"pageBreakBefore":false}},"paragraph":{"spaceAfterMm":2.5},"code":{"size":9},"table":{"borderWidth":0.5,"cellPaddingMm":1.5,"headerBold":true}},"header":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{title}","center":"","right":"{controlNumber}"},"footer":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{versionCode}  {statusLabel}","center":"{page} / {pages}","right":"{printedAt:yyyy/MM/dd}"},"custom":{"company":""}}}',
   revision integer DEFAULT 1,
   symbol varchar(16) DEFAULT '',
   remarks varchar(1024),
@@ -4349,7 +4349,7 @@ COMMENT ON COLUMN tests.info_app.info_company_id IS '会社ID';
 
 COMMENT ON COLUMN tests.info_app.name IS 'アプリケーション名';
 
-COMMENT ON COLUMN tests.info_app.settings IS 'アプリの設定(JSON。接続後に効く設定。version と機能ごとのキー。stamp は承認スタンプの標準の様式)';
+COMMENT ON COLUMN tests.info_app.settings IS 'アプリの設定(JSON。接続後に効く設定。version と機能ごとのキー。stamp は承認スタンプの標準の様式、pdf は PDF の出力のテーマ・ヘッダ・フッタの標準)';
 
 COMMENT ON COLUMN tests.info_app.revision IS 'レビジョン';
 
@@ -11708,7 +11708,7 @@ CREATE TABLE tests.history_info_app (
   info_app_id uuid NOT NULL,
   info_company_id uuid,
   name varchar(255) NOT NULL,
-  settings jsonb DEFAULT '{"version":1,"stamp":{"position":{"anchor":"topRight","offsetXmm":10,"offsetYmm":10,"pages":"first"},"opacity":0.6,"shape":{"kind":"roundRect","widthMm":32,"heightMm":32,"rotationDeg":0},"color":{"text":"#C62828","frame":"#C62828","fill":null},"labelLanguage":"ja","stages":"all","items":[{"field":"stamp_label","size":14,"line":1},{"field":"approved_at","format":"yyyy/MM/dd","size":10,"line":2},{"field":"approved_staff","format":"name","size":10,"line":3}],"pending":{"dashed":true,"color":"#757575"}}}',
+  settings jsonb DEFAULT '{"version":1,"stamp":{"position":{"anchor":"topRight","offsetXmm":10,"offsetYmm":10,"pages":"first"},"opacity":0.6,"shape":{"kind":"roundRect","widthMm":32,"heightMm":32,"rotationDeg":0},"color":{"text":"#C62828","frame":"#C62828","fill":null},"labelLanguage":"ja","stages":"all","items":[{"field":"stamp_label","size":14,"line":1},{"field":"approved_at","format":"yyyy/MM/dd","size":10,"line":2},{"field":"approved_staff","format":"name","size":10,"line":3}],"pending":{"dashed":true,"color":"#757575"}},"pdf":{"page":{"size":"A4","orientation":"portrait","marginMm":{"top":22,"right":18,"bottom":20,"left":18}},"theme":{"vars":{"accent":"#0D47A1","muted":"#616161","line":"#BDBDBD"},"font":{"family":"NotoSansJP","monoFamily":"NotoSansJPMono","baseSize":10.5,"lineHeight":1.5},"colors":{"text":"#212121","heading":"$accent","link":"#1565C0","quote":"$muted","codeBackground":"#F5F5F5","tableBorder":"$line","tableHeaderBackground":"#ECEFF1","missingLink":"#C62828"},"headings":{"h1":{"size":20,"bold":true,"color":null,"spaceBeforeMm":0,"spaceAfterMm":5,"pageBreakBefore":true},"h2":{"size":15,"bold":true,"color":null,"spaceBeforeMm":6,"spaceAfterMm":3,"pageBreakBefore":false},"h3":{"size":12,"bold":true,"color":null,"spaceBeforeMm":4,"spaceAfterMm":2,"pageBreakBefore":false}},"paragraph":{"spaceAfterMm":2.5},"code":{"size":9},"table":{"borderWidth":0.5,"cellPaddingMm":1.5,"headerBold":true}},"header":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{title}","center":"","right":"{controlNumber}"},"footer":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{versionCode}  {statusLabel}","center":"{page} / {pages}","right":"{printedAt:yyyy/MM/dd}"},"custom":{"company":""}}}',
   revision integer DEFAULT 1,
   symbol varchar(16) DEFAULT '',
   remarks varchar(1024),
@@ -11731,7 +11731,7 @@ COMMENT ON COLUMN tests.history_info_app.info_company_id IS '会社情報ID';
 
 COMMENT ON COLUMN tests.history_info_app.name IS 'アプリケーション名';
 
-COMMENT ON COLUMN tests.history_info_app.settings IS 'アプリの設定(JSON。接続後に効く設定。version と機能ごとのキー。stamp は承認スタンプの標準の様式)';
+COMMENT ON COLUMN tests.history_info_app.settings IS 'アプリの設定(JSON。接続後に効く設定。version と機能ごとのキー。stamp は承認スタンプの標準の様式、pdf は PDF の出力のテーマ・ヘッダ・フッタの標準)';
 
 COMMENT ON COLUMN tests.history_info_app.revision IS 'レビジョン';
 
