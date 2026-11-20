@@ -29,6 +29,7 @@ const CUSTOM = [
   ['backstage', 'backstage', '/backstage', '裏設定', 'Backstage settings', true],
   ['barcode_entry', 'top', '/barcode', 'リーディングトップ', 'Barcode entry top', false],
   ['production_plan', 'mrp', '/mrp', '資材所要計算(MRP)', 'Material requirements planning (MRP)', false],
+  ['manual', 'manual', '/manual', 'マニュアル', 'Manual', false],
   ['shared_master', 'shipkind', '/shipping-kinds', '配送区分', 'Shipping kind', false],
   ['auth_files', 'login', '/auth/login', 'ログイン', 'Log in', true],
   ['auth_files', 'logout', '/auth/logout', 'ログアウト', 'Log out', true],

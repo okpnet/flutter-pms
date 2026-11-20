@@ -232,7 +232,7 @@
     { id: "risk", label: "リスク", icon: "alert", tabs: [["main", "リスク台帳", "risk"]] },
     { id: "auditstdcheck", label: "監査標準項目", icon: "list", tabs: [["main", "監査標準項目", "auditstdcheck"]] },
     { id: "doctier", label: "文書レベル", icon: "list", tabs: [["main", "文書レベル台帳", "doctier"]] },
-    { id: "doc", label: "コンテンツ", icon: "org", tabs: [["main", "文書体系", "doc"]] },
+    { id: "doc", label: "マニュアル", icon: "org", tabs: [["main", "文書体系", "doc"]] },
     { id: "report", label: "レポート", icon: "orders", tabs: [["main", "レポートひな形台帳", "report"]] },
     { id: "complaint", label: "異常報告", icon: "alert", tabs: [["all", "すべて", "complaint"], ["order", "顧客クレーム", "corder"], ["proc", "工程異常報告", "cproc"], ["equip", "設備異常", "cequip"]] },
     { id: "qrisk", label: "受注・工程リスク", icon: "alert", tabs: [["all", "すべて", "orderrisk"], ["detail", "受注リスク", "orderdetailrisk"], ["task", "工程リスク", "taskrisk"]] },

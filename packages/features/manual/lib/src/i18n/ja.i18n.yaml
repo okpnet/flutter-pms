@@ -1,0 +1,92 @@
+# マニュアル(Wiki)の文字列(日本語。基準言語)。
+menuGroup: 品質管理文書
+menuManual: マニュアル
+title: マニュアル
+loading: 読み込み中…
+empty: ページがありません。
+view:
+  readOnly: 閲覧のみ
+  tocTitle: 目次
+  tocFold: 目次・検索
+  searchHint: ページ名・本文を検索
+  searchNone: 見つかりません。
+  edit: 編集
+  addChild: 子ページを追加
+  addRoot: ルートを追加
+  history: 履歴
+  markdown: Markdown
+  breadcrumbHome: マニュアル
+  pageToc: このページの目次
+  children: このページの下
+  backlinks: このページへのリンク
+  noBody: まだ本文がありません。
+  meta: '更新者 ${by} · 更新 ${at} · 改訂 ${rev}'
+  missingLink: 'ページ「${title}」はまだありません。'
+  missingLinkAdmin: '「${title}」はまだありません。押して作成します。'
+  rootBadge: ルート
+  selectPage: 左の目次からページを選んでください。
+create:
+  titleChild: 子ページを追加
+  titleRoot: ルートを追加
+  titleMissing: ページを作成
+  nameLabel: ページ名
+  nameHint: 新しいページの名前
+  create: 作成
+  cancel: キャンセル
+edit:
+  heading: 'ページの編集'
+  nameLabel: ページ名
+  required: 必須
+  bodyLabel: 本文
+  modeVisual: ビジュアル
+  modeMarkdown: Markdown
+  save: 保存
+  cancel: キャンセル
+  preview: プレビュー
+  saved: '保存しました(改訂 ${rev})。'
+  nothingChanged: 変更はありません。
+  discardTitle: 変更を破棄しますか
+  discardMessage: 保存していない変更があります。破棄して戻りますか。
+  discard: 破棄する
+  keepEditing: 編集を続ける
+  toolbar:
+    h2: 見出し 2
+    h3: 見出し 3
+    bold: 太字
+    italic: 斜体
+    bullets: 箇条書き
+    numbered: 番号付き
+    quote: 引用
+    code: コード
+    table: 表
+    rule: 区切り線
+    link: リンク
+linkDialog:
+  title: リンクを挿入
+  searchHint: ページ名を検索、または新しいページ名を入力
+  existing: 既存のページ
+  createNew: 'ページ「${title}」を作成してリンク'
+  none: 該当するページがありません。
+  cancel: キャンセル
+history:
+  title: 履歴
+  empty: 履歴はありません。
+  restore: この版に戻す
+  restoreTitle: この版に戻しますか
+  restoreMessage: '改訂 ${rev} の内容に戻します。戻す前の版も履歴に残ります。'
+  current: 現在の版
+  versionMeta: '改訂 ${rev} · ${by} · ${at}'
+  close: 閉じる
+export:
+  title: Markdown の書き出し
+  scope: 範囲
+  scopePage: このページ
+  scopeAll: 文書全体
+  copy: コピー
+  copied: コピーしました。
+  close: 閉じる
+errors:
+  titleRequired: ページ名を入力してください。
+  titleDuplicate: 同じ名前のページがあります。
+  notFound: ページが見つかりません。
+  notAdmin: 管理者だけが編集できます。

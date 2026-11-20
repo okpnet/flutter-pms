@@ -4,6 +4,7 @@ import 'package:auth_files/auth_files.dart';
 import 'package:backstage/backstage.dart';
 import 'package:barcode_entry/barcode_entry.dart';
 import 'package:item/item.dart';
+import 'package:manual/manual.dart';
 import 'package:maintenance/maintenance.dart';
 import 'package:organization/organization.dart';
 import 'package:plan_change/plan_change.dart';
@@ -49,6 +50,7 @@ const List<FeatureModule> featureModules = [
   QualityModule(),
   QualityCommonModule(),
   QualityDocumentModule(),
+  ManualModule(),
   SharedMasterModule(),
   SystemModule(),
   AccessControlModule(),

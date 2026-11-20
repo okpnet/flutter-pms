@@ -657,3 +657,11 @@ features:
         code: B
         page: ZB
         label: 裏設定
+  - feature: manual
+    code: N
+    label: マニュアル
+    screens:
+      - screen: manual
+        code: M
+        page: NM
+        label: マニュアル

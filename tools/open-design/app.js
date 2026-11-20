@@ -98,6 +98,8 @@
     barcode: "バーコード",
     wr: "実績登録",
     "wr/plan": "実績登録",
+    manual: "マニュアル",
+    "manual/page": "マニュアル",
     customers: "顧客",
     orders: "出荷",
     production: "生産計画",
@@ -179,6 +181,7 @@
     if ((m = r.match(/^departments\/([\w-]+)\/kind\/([\w-]+)$/))) return { name: "departments/kindedit", id: m[1], kid: m[2] };
     if ((m = r.match(/^departments\/([\w-]+)\/kind$/))) return { name: "departments/kind", id: m[1] };
     if (!ROUTES[r] && (m = r.match(/^departments\/([\w-]+)$/))) return { name: "departments/dept", id: m[1] };
+    if ((m = r.match(/^manual\/([\w-]+)$/))) return { name: "manual/page", id: m[1] };
     if ((m = r.match(/^wr\/([\w-]+)$/))) return { name: "wr/plan", id: m[1] };
     if (!ROUTES[r] && (m = r.match(/^locations\/([\w-]+)$/))) return { name: "locations/item", id: m[1] };
     if ((m = r.match(/^equipment\/cat\/([\w-]+)$/))) return { name: "equipment/cat", id: m[1] };
@@ -196,6 +199,8 @@
     barcode: "作業実績",
     wr: "作業実績",
     "wr/plan": "作業実績 › 実績登録",
+    manual: "品質管理文書",
+    "manual/page": "品質管理文書",
     mrp: "生産計画",
     stock: "作業実績",
     "company/edit": "会社情報",
@@ -2764,6 +2769,7 @@
     const row = (href, ic, label, sub) => `<a class="rowi" href="${href}"><span class="rowi-main"><span class="rowi-name">${icon(ic)}${label}</span><span class="rowi-sub">${sub}</span></span><span class="rowi-right">${icon("chevron")}</span></a>`;
     return DOM.groups.map((g) => `<section class="card list-card" aria-labelledby="mg-${g.id}"><h2 class="sec-title menu-title" id="mg-${g.id}">${icon(g.icon)}${g.label}</h2>${g.screens.map((sid) => {
       const S = GS[sid];
+      if (sid === "doc") return row("#/manual", "list", "マニュアル", "品質管理文書のWiki（管理者は編集できます）");
       return row(`#/g/${sid}`, S.icon, S.label, S.tabs.map((t) => t.label).join("・"));
     }).join("")}${g.id === "result" ? row("#/wr", "wrench", "実績登録", "生産計画の工程計画明細と、対になる実績の登録") : ""}${g.id === "result" ? row("#/barcode", "barcode", "バーコード", "作業実績・受入検品・棚移動・設備点検") + row("#/stock", "box", "在庫状況", "場所・コンテナ別の在庫と出庫可能数") : ""}${g.id === "plan" ? row("#/mrp", "box", "資材所要計算", "MRP・再MRPの実行") : ""}</section>`).join("") +
       `<section class="card list-card" aria-label="アプリケーション">${row("#/settings", "gear", "設定", "自分のイメージ・読込件数・テーマ・言語・画面の列")}</section>`;
@@ -3135,6 +3141,488 @@
     if (first && !q) first.focus?.();
   }
   function bindWr() { /* ボタンは document の委譲（表の再描画で消えないように） */ }
+
+  /* ---------- マニュアル（Wiki）: 品質管理文書 › マニュアル ----------
+     ページの正本は Markdown（body_md＝本文。ページ名は別項目）。表示は MD → HTML（HTML は無効化）、編集は MD / ビジュアル(WYSIWYG)を切り替え。
+     ページ間リンクは [[ページ名]] / [[ページ名|表示文字]]。存在しないページへのリンクは破線で示し、管理者は押して作成できる（書きながら育てる）。
+     管理者だけが編集・追加・履歴の復元ができ、それ以外は閲覧・印刷・MD の書き出しのみ。
+     印刷は専用レイアウト（表紙・目次・章ごとの改ページ・ページ番号）。リンクは文字だけを残し、リンク先のページは範囲に含めない限り印刷しない。 */
+  const MN = JSON.parse(JSON.stringify(X.manual ?? { pages: [] }));
+  const MAN = { sel: null, applied: undefined, edit: false, mode: "visual", draft: null, q: "", err: "", range: null };
+  const manAdmin = () => SETTINGS.admin === true;
+  const manPage = (id) => MN.pages.find((p) => p.id === id);
+  const manKids = (id) => MN.pages.filter((p) => (p.parent ?? null) === (id ?? null)).sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+  const manByTitle = (t) => { const k = String(t).trim().toLowerCase(); return MN.pages.find((p) => p.title.trim().toLowerCase() === k); };
+  const manPath = (p) => { const out = []; for (let x = p; x; x = manPage(x.parent)) out.unshift(x); return out; };
+  const manWalk = (pid = null, depth = 0, num = "") => manKids(pid).flatMap((p, i) => { const n = `${num}${num ? "." : ""}${i + 1}`; return [{ p, depth, num: n }, ...manWalk(p.id, depth + 1, n)]; });
+  const manBelow = (id) => manKids(id).flatMap((c) => [c, ...manBelow(c.id)]);
+  const manSlug = (s) => String(s).trim().toLowerCase().replace(/[^\p{L}\p{N}]+/gu, "-").replace(/^-+|-+$/g, "") || "page";
+  const manNowStr = () => { const d = new Date(); return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`; };
+
+  /* ---- Markdown → HTML（すべて escape してから組み立てる） ---- */
+  function manLinkHtml(title, text, o) {
+    const pg = manByTitle(title);
+    if (o.print) return `<span>${esc(text)}</span>`;
+    if (o.edit) return `<a class="wk ${pg ? "" : "wk-new"}" data-wiki="${esc(title)}">${esc(text)}</a>`;
+    if (pg) return `<a class="wk" href="#/manual/${pg.id}">${esc(text)}</a>`;
+    return manAdmin()
+      ? `<button class="wk wk-new" type="button" data-man-create="${esc(title)}" title="未作成のページです。押して作成します">${esc(text)}</button>`
+      : `<span class="wk wk-new" title="未作成のページです">${esc(text)}</span>`;
+  }
+  function manUrlHtml(text, url, o) {
+    if (o.print) return `<span>${esc(text)}</span>`;
+    if (/^#\/manual\/[\w-]+$/.test(url)) return `<a class="wk" href="${esc(url)}">${esc(text)}</a>`;
+    if (/^(https?:\/\/|mailto:)/i.test(url)) return `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(text)}</a>`;
+    return esc(text);
+  }
+  function mdInline(raw, o = {}) {
+    const tok = [];
+    const put = (h) => `\u0001${tok.push(h) - 1}\u0001`;
+    let s = String(raw);
+    s = s.replace(/\\([\\`*_[\]|~#])/g, (_, c) => put(esc(c)));
+    s = s.replace(/`([^`]+)`/g, (_, c) => put(`<code>${esc(c)}</code>`));
+    s = s.replace(/\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]/g, (_, t, x) => put(manLinkHtml(t.trim(), (x ?? t).trim(), o)));
+    s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_, x, u) => put(manUrlHtml(x, u, o)));
+    s = esc(s);
+    s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>").replace(/(^|[^*])\*([^*\s][^*]*)\*/g, "$1<em>$2</em>").replace(/~~([^~]+)~~/g, "<del>$1</del>");
+    return s.replace(/\u0001(\d+)\u0001/g, (_, i) => tok[i]);
+  }
+  function mdList(items, o) {
+    let p = 0;
+    const build = (ind) => {
+      const tag = items[p].ord ? "ol" : "ul";
+      let h = `<${tag}>`;
+      while (p < items.length && items[p].ind >= ind) {
+        if (items[p].ind > ind) { h = h.slice(0, -5) + build(items[p].ind) + "</li>"; continue; }
+        h += `<li>${mdInline(items[p].text, o)}</li>`;
+        p++;
+      }
+      return `${h}</${tag}>`;
+    };
+    return build(items[0].ind);
+  }
+  function mdToHtml(md, o = {}) {
+    const lines = String(md ?? "").replace(/\r\n?/g, "\n").split("\n");
+    const out = [], heads = [];
+    const LI = /^\s*([-*+]|\d+\.)\s+/, TB = /^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?\s*$/;
+    const startsBlock = (l, nx) => /^```/.test(l) || /^#{1,6}\s/.test(l) || /^(-{3,}|\*{3,}|_{3,})\s*$/.test(l) || /^>\s?/.test(l) || LI.test(l) || (l.includes("|") && TB.test(nx ?? ""));
+    let i = 0;
+    while (i < lines.length) {
+      const l = lines[i];
+      if (!l.trim()) { i++; continue; }
+      let m;
+      if (/^```/.test(l)) { const buf = []; i++; while (i < lines.length && !/^```\s*$/.test(lines[i])) buf.push(lines[i++]); i++; out.push(`<pre><code>${esc(buf.join("\n"))}</code></pre>`); continue; }
+      if ((m = l.match(/^(#{1,6})\s+(.*?)\s*#*\s*$/))) { const id = `${o.idp ?? ""}h${heads.length}`; heads.push({ lv: m[1].length, text: m[2], id }); out.push(`<h${m[1].length} id="${id}">${mdInline(m[2], o)}</h${m[1].length}>`); i++; continue; }
+      if (/^(-{3,}|\*{3,}|_{3,})\s*$/.test(l)) { out.push("<hr>"); i++; continue; }
+      if (/^>\s?/.test(l)) { const buf = []; while (i < lines.length && /^>\s?/.test(lines[i])) buf.push(lines[i++].replace(/^>\s?/, "")); out.push(`<blockquote>${mdToHtml(buf.join("\n"), o).html}</blockquote>`); continue; }
+      if (l.includes("|") && TB.test(lines[i + 1] ?? "")) {
+        const cells = (r) => r.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((c) => c.trim());
+        const head = cells(l);
+        i += 2;
+        const rows = [];
+        while (i < lines.length && lines[i].trim() && lines[i].includes("|")) rows.push(cells(lines[i++]));
+        out.push(`<table><thead><tr>${head.map((c) => `<th>${mdInline(c, o)}</th>`).join("")}</tr></thead><tbody>${rows.map((r) => `<tr>${head.map((_, k) => `<td>${mdInline(r[k] ?? "", o)}</td>`).join("")}</tr>`).join("")}</tbody></table>`);
+        continue;
+      }
+      if (LI.test(l)) {
+        const items = [];
+        while (i < lines.length && LI.test(lines[i])) { const mm = lines[i].match(/^(\s*)([-*+]|\d+\.)\s+(.*)$/); items.push({ ind: mm[1].length, ord: /\d/.test(mm[2]), text: mm[3] }); i++; }
+        out.push(mdList(items, o));
+        continue;
+      }
+      const buf = [];
+      while (i < lines.length && lines[i].trim() && !(buf.length && startsBlock(lines[i], lines[i + 1]))) buf.push(lines[i++]);
+      out.push(`<p>${buf.map((x) => mdInline(x.replace(/\s+$/, ""), o)).join(" ")}</p>`);
+    }
+    return { html: out.join("\n"), heads };
+  }
+
+  /* ---- HTML（ビジュアル編集の DOM）→ Markdown ---- */
+  function htmlToMd(root) {
+    const esc2 = (t) => t.replace(/ /g, " ").replace(/([\\`*[\]~])/g, "\\$1");
+    const inline = (n) => {
+      if (n.nodeType === 3) return esc2(n.textContent);
+      if (n.nodeType !== 1) return "";
+      const t = n.tagName, kids = () => [...n.childNodes].map(inline).join("");
+      if (t === "BR") return "  \n";
+      if (t === "STRONG" || t === "B") return kids().trim() ? `**${kids()}**` : "";
+      if (t === "EM" || t === "I") return kids().trim() ? `*${kids()}*` : "";
+      if (t === "DEL" || t === "S" || t === "STRIKE") return `~~${kids()}~~`;
+      if (t === "CODE") return `\`${n.textContent}\``;
+      if (t === "A") {
+        const text = kids(), w = n.getAttribute("data-wiki");
+        if (w) return text.replace(/\\/g, "") === w ? `[[${w}]]` : `[[${w}|${text.replace(/\\/g, "")}]]`;
+        const h = n.getAttribute("href");
+        return h ? `[${text}](${h})` : text;
+      }
+      return kids();
+    };
+    const list = (n, d) => [...n.children].filter((c) => c.tagName === "LI").map((li, i) => {
+      let text = "", nested = "";
+      li.childNodes.forEach((c) => { if (c.nodeType === 1 && /^(UL|OL)$/.test(c.tagName)) nested += list(c, d + 1); else text += inline(c); });
+      return `${"  ".repeat(d)}${n.tagName === "OL" ? `${i + 1}. ` : "- "}${text.trim()}\n${nested}`;
+    }).join("");
+    const table = (n) => {
+      const rows = [...n.querySelectorAll("tr")].map((tr) => [...tr.children].map((c) => inline(c).replace(/\n/g, " ").replace(/\|/g, "\\|").trim()));
+      if (!rows.length) return "";
+      const w = Math.max(...rows.map((r) => r.length));
+      const line = (r) => `| ${Array.from({ length: w }, (_, k) => r[k] ?? "").join(" | ")} |`;
+      return [line(rows[0]), `| ${Array(w).fill("---").join(" | ")} |`, ...rows.slice(1).map(line)].join("\n");
+    };
+    const block = (n) => {
+      if (n.nodeType === 3) return n.textContent.trim() ? esc2(n.textContent.trim()) : "";
+      if (n.nodeType !== 1) return "";
+      const t = n.tagName;
+      if (/^H[1-6]$/.test(t)) return `${"#".repeat(+t[1])} ${inline(n).trim()}`;
+      if (t === "UL" || t === "OL") return list(n, 0).trimEnd();
+      if (t === "BLOCKQUOTE") return blocks(n).split("\n").map((x) => `> ${x}`.trimEnd()).join("\n");
+      if (t === "PRE") return `\`\`\`\n${n.textContent.replace(/\n$/, "")}\n\`\`\``;
+      if (t === "HR") return "---";
+      if (t === "TABLE") return table(n);
+      if (t === "DIV" && [...n.children].some((c) => /^(H[1-6]|UL|OL|BLOCKQUOTE|PRE|TABLE|P|DIV)$/.test(c.tagName))) return blocks(n);
+      return [...n.childNodes].map(inline).join("").trim();
+    };
+    const blocks = (n) => [...n.childNodes].map(block).filter((x) => x !== "").join("\n\n");
+    return blocks(root).replace(/\n{3,}/g, "\n\n").trim();
+  }
+
+  /* ---- 画面（閲覧） ---- */
+  const manBody = (md) => String(md ?? "");
+  const manTreeHtml = () => {
+    const q = MAN.q.trim().toLowerCase();
+    if (q) {
+      const hits = MN.pages.filter((p) => `${p.title} ${p.md}`.toLowerCase().includes(q));
+      return hits.length ? `<ul class="mn-tree">${hits.map((p) => `<li><a class="mn-hit" href="#/manual/${p.id}"><strong>${esc(p.title)}</strong><span class="muted od-truncate">${esc(manPath(p).slice(0, -1).map((x) => x.title).join(" › ") || "最上位")}</span></a></li>`).join("")}</ul>` : `<p class="muted">「${esc(MAN.q)}」に当てはまるページがありません。</p>`;
+    }
+    const li = (p, depth, num) => {
+      const cur = p.id === MAN.sel;
+      const inner = MAN.edit ? `<span class="mn-link ${cur ? "is-cur" : ""}" ${cur ? 'aria-current="page"' : ""}>${esc(p.title)}</span>` : `<a class="mn-link ${cur ? "is-cur" : ""}" href="#/manual/${p.id}" ${cur ? 'aria-current="page"' : ""}>${esc(p.title)}</a>`;
+      return `<li style="--depth:${depth}"><span class="mn-num">${num}</span>${inner}${p.draft ? `<span class="chip mute">下書き</span>` : ""}</li>`;
+    };
+    return `<ul class="mn-tree">${manWalk().map(({ p, depth, num }) => li(p, depth, num)).join("")}</ul>`;
+  };
+  function manScreen(pid) {
+    manClearPrint();
+    if (pid !== MAN.applied) { MAN.applied = pid; if (pid && manPage(pid)) { MAN.sel = pid; MAN.edit = false; MAN.draft = null; } }
+    if (!manPage(MAN.sel)) { MAN.sel = manKids(null)[0]?.id ?? null; MAN.edit = false; }
+    const p = manPage(MAN.sel);
+    if (!p) return `<section class="card">${emptyState("マニュアルがありません", "管理者がページを追加すると、ここに表示されます。")}</section>`;
+    const wide = device === "pc";
+    const side = `<aside class="mn-side"><details class="mn-side-d" ${wide ? "open" : ""}><summary class="btn">目次・検索</summary>
+        <div class="search-box">${icon("search")}<input type="search" data-man-q value="${esc(MAN.q)}" placeholder="ページを検索" autocomplete="off" aria-label="マニュアルを検索"></div>
+        <nav class="mn-nav" aria-label="マニュアルの目次" data-man-tree>${manTreeHtml()}</nav></details></aside>`;
+    return `<div class="mn">${side}${MAN.edit && manAdmin() ? manEditHtml(p) : manViewHtml(p)}</div>`;
+  }
+  function manViewHtml(p) {
+    const r = mdToHtml(manBody(p.md));
+    const path = manPath(p), kids = manKids(p.id);
+    const back = MN.pages.filter((x) => x.id !== p.id && [...String(x.md).matchAll(/\[\[([^\]|]+?)(?:\|[^\]]+?)?\]\]/g)].some((m) => m[1].trim().toLowerCase() === p.title.trim().toLowerCase()));
+    const toc = r.heads.filter((h) => h.lv >= 2 && h.lv <= 3);
+    const admin = manAdmin();
+    const btn = (a, label, ic, cls = "btn") => `<button class="${cls}" type="button" data-man-act="${a}">${icon(ic)}<span>${label}</span></button>`;
+    return `<article class="card mn-main" aria-labelledby="mn-h">
+      <nav class="mn-crumb" aria-label="パンくず">${path.map((x, i) => (i === path.length - 1 ? `<span aria-current="page">${esc(x.title)}</span>` : `<a href="#/manual/${x.id}">${esc(x.title)}</a>`)).join(" › ")}</nav>
+      <div class="mn-bar"><h2 class="mn-title" id="mn-h">${esc(p.title)}</h2>
+        <div class="mn-actions">${admin ? btn("edit", "編集", "pencil", "btn btn-primary") + btn("new", "子ページを追加", "plus") : chip("閲覧のみ", "", "mute")}${btn("md", "Markdown", "list")}${btn("print", "印刷", "orders")}${admin ? btn("hist", "履歴", "refresh") : ""}</div></div>
+      ${toc.length >= 3 ? `<nav class="mn-toc card-inset" aria-label="このページの目次"><strong>このページの目次</strong><ul>${toc.map((h) => `<li style="--l:${h.lv - 2}"><a href="#${h.id}" data-man-jump="${h.id}">${esc(h.text)}</a></li>`).join("")}</ul></nav>` : ""}
+      <div class="md mn-body">${r.html || `<p class="muted">このページはまだ書かれていません。${admin ? "「編集」から書き始められます。" : ""}</p>`}</div>
+      ${kids.length ? `<section class="mn-rel" aria-label="子ページ"><h3>このページの下</h3><ul>${kids.map((c) => `<li><a class="wk" href="#/manual/${c.id}">${esc(c.title)}</a></li>`).join("")}</ul></section>` : ""}
+      ${back.length ? `<section class="mn-rel" aria-label="このページへのリンク"><h3>このページへのリンク</h3><ul>${back.map((c) => `<li><a class="wk" href="#/manual/${c.id}">${esc(c.title)}</a></li>`).join("")}</ul></section>` : ""}
+      <p class="muted mn-meta">更新: ${esc(p.updatedAt ?? "―")} ・ ${esc(p.updatedBy ?? "―")}　改訂 ${p.rev ?? 1}</p></article>`;
+  }
+  function manEditHtml(p) {
+    const d = MAN.draft ?? (MAN.draft = { title: p.title, md: manBody(p.md) });
+    const tb = [["h2", "見出し2", "H2"], ["h3", "見出し3", "H3"], ["bold", "太字", "B"], ["italic", "斜体", "I"], ["ul", "箇条書き", "・"], ["ol", "番号付き", "1."], ["quote", "引用", "”"], ["code", "コード", "<>"], ["table", "表", "表"], ["hr", "区切り線", "―"]];
+    const editor = MAN.mode === "visual"
+      ? `<div class="mn-visual md" id="mn-editor" contenteditable="true" role="textbox" aria-multiline="true" aria-label="本文（ビジュアル）">${mdToHtml(d.md, { edit: true }).html}</div>`
+      : `<textarea class="mn-md" id="mn-editor" rows="18" spellcheck="false" aria-label="本文（Markdown）">${esc(d.md)}</textarea>`;
+    return `<form class="card mn-main mn-edit" data-man-form novalidate aria-labelledby="mn-eh">
+      <h2 class="sec-title" id="mn-eh">「${esc(p.title)}」を編集</h2>
+      <div class="field-row"><label for="mn-title">ページ名<span class="req">必須</span></label><input id="mn-title" type="text" maxlength="60" value="${esc(d.title)}" autocomplete="off"></div>
+      <div class="mn-modebar"><div class="od-cluster" role="group" aria-label="編集方法">
+        <button class="fchip" type="button" data-man-mode="visual" aria-pressed="${MAN.mode === "visual"}">ビジュアル</button>
+        <button class="fchip" type="button" data-man-mode="md" aria-pressed="${MAN.mode === "md"}">Markdown</button></div>
+        <span class="muted">切り替えても内容は変わりません。</span></div>
+      <div class="mn-toolbar" role="toolbar" aria-label="書式">${tb.map(([c, l, t]) => `<button class="btn mn-tb" type="button" data-man-cmd="${c}" title="${l}" aria-label="${l}">${t}</button>`).join("")}
+        <button class="btn mn-tb mn-tb-link" type="button" data-man-cmd="link">${icon("search")}<span>リンク</span></button></div>
+      ${editor}
+      <p class="note">リンクは、ツールバーの「リンク」でページを選ぶか、新しいページを作ります。Markdown では <code>[[ページ名]]</code> と書きます。</p>
+      <p class="field-err" id="mn-err" role="alert">${esc(MAN.err)}</p>
+      <div class="form-actions"><button class="btn" type="button" data-man-act="cancel">キャンセル</button><button class="btn btn-primary" type="submit">保存</button></div></form>`;
+  }
+
+  /* ---- 編集の操作 ---- */
+  const manEditorMd = () => {
+    const ed = document.getElementById("mn-editor");
+    if (!ed) return MAN.draft?.md ?? "";
+    return MAN.mode === "visual" ? htmlToMd(ed) : ed.value;
+  };
+  const manSyncDraft = () => {
+    if (!MAN.draft) return;
+    MAN.draft.md = manEditorMd();
+    const t = document.getElementById("mn-title");
+    if (t) MAN.draft.title = t.value;
+  };
+  function manMdCmd(ta, cmd) {
+    const s = ta.selectionStart, e = ta.selectionEnd, v = ta.value, sel = v.slice(s, e);
+    const wrap = (a, b = a, ph = "テキスト") => ta.setRangeText(a + (sel || ph) + b, s, e, "select");
+    const lines = (pfx) => {
+      const ls = v.lastIndexOf("\n", s - 1) + 1, le = (v.indexOf("\n", e) + 1 || v.length + 1) - 1;
+      const t = v.slice(ls, le).split("\n").map((x, i) => (pfx === "1." ? `${i + 1}. ` : pfx) + x).join("\n");
+      ta.setRangeText(t, ls, le, "select");
+    };
+    if (cmd === "h2") lines("## "); else if (cmd === "h3") lines("### "); else if (cmd === "quote") lines("> "); else if (cmd === "ul") lines("- "); else if (cmd === "ol") lines("1.");
+    else if (cmd === "bold") wrap("**"); else if (cmd === "italic") wrap("*"); else if (cmd === "code") wrap("`");
+    else if (cmd === "hr") ta.setRangeText("\n\n---\n\n", s, e, "end");
+    else if (cmd === "table") ta.setRangeText("\n\n| 項目 | 内容 |\n| --- | --- |\n|  |  |\n\n", s, e, "end");
+    ta.focus();
+  }
+  function manVisualCmd(ed, cmd) {
+    ed.focus();
+    const ex = (c, a) => document.execCommand(c, false, a);
+    try { document.execCommand("defaultParagraphSeparator", false, "p"); } catch { /* ignore */ }
+    if (cmd === "h2" || cmd === "h3") ex("formatBlock", cmd);
+    else if (cmd === "quote") ex("formatBlock", "blockquote");
+    else if (cmd === "bold") ex("bold"); else if (cmd === "italic") ex("italic");
+    else if (cmd === "ul") ex("insertUnorderedList"); else if (cmd === "ol") ex("insertOrderedList");
+    else if (cmd === "hr") ex("insertHorizontalRule");
+    else if (cmd === "code") { const t = String(getSelection()).trim(); ex("insertHTML", `<code>${esc(t || "コード")}</code>&nbsp;`); }
+    else if (cmd === "table") ex("insertHTML", `<table><thead><tr><th>項目</th><th>内容</th></tr></thead><tbody><tr><td><br></td><td><br></td></tr></tbody></table><p><br></p>`);
+  }
+  function manNewPage(title, parent) {
+    const n = MN.pages.reduce((m, x) => Math.max(m, parseInt(String(x.id).slice(1), 10) || 0), 0) + 1;
+    const pg = { id: `m${n}`, parent, order: manKids(parent).length + 1, title, md: "このページはまだ書かれていません。", draft: true, updatedBy: D.user.name, updatedAt: manNowStr(), rev: 1, history: [] };
+    MN.pages.push(pg);
+    return pg;
+  }
+  function manLinkDialog(trigger) {
+    const ed = document.getElementById("mn-editor");
+    let saved = null, selText = "";
+    if (MAN.mode === "visual") { const sel = getSelection(); if (sel.rangeCount && ed.contains(sel.anchorNode)) { saved = sel.getRangeAt(0).cloneRange(); selText = String(sel); } }
+    else saved = { s: ed.selectionStart, e: ed.selectionEnd }, selText = ed.value.slice(ed.selectionStart, ed.selectionEnd);
+    manSyncDraft();
+    const cur = manPage(MAN.sel);
+    const insert = (title) => {
+      const text = selText.trim() || title;
+      if (MAN.mode === "visual") {
+        const e2 = document.getElementById("mn-editor");
+        e2.focus();
+        const sel = getSelection();
+        if (saved) { sel.removeAllRanges(); sel.addRange(saved); }
+        document.execCommand("insertHTML", false, `<a class="wk" data-wiki="${esc(title)}">${esc(text)}</a>&nbsp;`);
+      } else {
+        const t2 = document.getElementById("mn-editor");
+        t2.focus();
+        t2.setRangeText(text === title ? `[[${title}]]` : `[[${title}|${text}]]`, saved.s, saved.e, "end");
+      }
+      manSyncDraft();
+      closeSheet();
+      render();
+    };
+    showSheet(trigger, {
+      chip: chip("リンク", "search"), title: "ページへのリンクを作る", rows: [],
+      extra: `<div class="mn-ldlg"><div class="search-box">${icon("search")}<input id="mn-lq" type="search" placeholder="ページ名で検索" autocomplete="off" aria-label="リンク先を検索"></div>
+        <ul class="wr-cands" id="mn-lres"></ul>
+        <div class="field-row"><label for="mn-new">新しいページを作ってリンクする</label><div class="bc-row"><input id="mn-new" type="text" maxlength="60" placeholder="新しいページ名" autocomplete="off"><button class="btn btn-primary" type="button" id="mn-newgo">作成してリンク</button></div></div>
+        <p class="field-err" id="mn-lerr" role="alert"></p></div>`,
+      onMount: (root) => {
+        const res = root.querySelector("#mn-lres"), q = root.querySelector("#mn-lq");
+        const paint = () => {
+          const k = q.value.trim().toLowerCase();
+          const hit = MN.pages.filter((x) => !k || x.title.toLowerCase().includes(k));
+          res.innerHTML = hit.length ? hit.map((x) => `<li><button class="wr-cand" type="button" data-pg="${x.id}"><span class="od-fill"><strong class="od-truncate">${esc(x.title)}</strong><span class="muted od-truncate">${esc(manPath(x).slice(0, -1).map((y) => y.title).join(" › ") || "最上位")}</span></span></button></li>`).join("") : `<li class="muted">当てはまるページがありません。下で新しく作れます。</li>`;
+          res.querySelectorAll("[data-pg]").forEach((b) => b.addEventListener("click", () => insert(manPage(b.dataset.pg).title)));
+        };
+        q.addEventListener("input", paint);
+        paint();
+        root.querySelector("#mn-newgo").addEventListener("click", () => {
+          const t = root.querySelector("#mn-new").value.trim(), er = root.querySelector("#mn-lerr");
+          if (!t) { er.textContent = "新しいページ名を入力してください。"; return; }
+          if (manByTitle(t)) { er.textContent = "同じ名前のページがあります。上の一覧から選んでください。"; return; }
+          manNewPage(t, cur.id);
+          insert(t);
+        });
+        q.focus();
+      },
+    });
+  }
+  function manSave() {
+    const p = manPage(MAN.sel);
+    manSyncDraft();
+    const d = MAN.draft, t = d.title.trim();
+    MAN.err = "";
+    if (!t) MAN.err = "ページ名を入力してください。";
+    else if (MN.pages.some((x) => x.id !== p.id && x.title.trim().toLowerCase() === t.toLowerCase())) MAN.err = "同じ名前のページがあります。別の名前にしてください。";
+    if (MAN.err) { render(); return; }
+    (p.history ??= []).unshift({ at: manNowStr(), by: p.updatedBy, title: p.title, md: p.md, rev: p.rev ?? 1 });
+    p.history = p.history.slice(0, 10);
+    p.title = t;
+    p.md = d.md;
+    p.rev = (p.rev ?? 1) + 1;
+    p.updatedBy = D.user.name;
+    p.updatedAt = manNowStr();
+    p.draft = false;
+    MAN.edit = false;
+    MAN.draft = null;
+    render();
+  }
+
+  /* ---- Markdown の書き出し ---- */
+  function manExportMd(scope) {
+    const cur = manPage(MAN.sel), root = manPath(cur)[0];
+    const set = scope === "all" ? [root, ...manBelow(root.id)] : [cur];
+    const inSet = new Map(set.map((p) => [p.title.trim().toLowerCase(), p]));
+    const base = scope === "all" ? manPath(root).length : manPath(cur).length;
+    const fix = (md, shift) => {
+      let fence = false;
+      return String(md).split("\n").map((l) => {
+        if (/^```/.test(l)) fence = !fence;
+        if (!fence && /^#{1,6}\s/.test(l)) return `${"#".repeat(Math.min(6, l.match(/^#+/)[0].length + shift))}${l.replace(/^#+/, "")}`;
+        return l;
+      }).join("\n").replace(/\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]/g, (_, t, x) => {
+        const target = inSet.get(t.trim().toLowerCase()), text = (x ?? t).trim();
+        return target ? (scope === "all" ? `[${text}](#${manSlug(target.title)})` : text) : text;
+      });
+    };
+    return set.map((p) => {
+      const depth = manPath(p).length - base;
+      const head = `${"#".repeat(Math.min(6, depth + 1))} ${p.title}`;
+      return `${scope === "all" ? `<a id="${manSlug(p.title)}"></a>\n\n` : ""}${head}\n\n${fix(manBody(p.md), depth)}`.trim();
+    }).join("\n\n") + "\n";
+  }
+  function manMdDialog(trigger) {
+    const cur = manPage(MAN.sel);
+    showSheet(trigger, {
+      chip: chip("Markdown", "list"), title: "Markdown を書き出す", rows: [],
+      extra: `<div class="wr-form"><div class="od-cluster" role="group" aria-label="範囲"><button class="fchip" type="button" data-sc="page" aria-pressed="true">このページ</button><button class="fchip" type="button" data-sc="all" aria-pressed="false">文書全体</button></div>
+        <textarea class="mn-md" id="mn-out" rows="12" readonly aria-label="生成した Markdown"></textarea>
+        <p class="note" id="mn-outn"></p>
+        <div class="form-actions"><button class="btn" type="button" id="mn-copy">${icon("list")}<span>コピー</span></button><button class="btn btn-primary" type="button" id="mn-dl">${icon("plus")}<span>ダウンロード（.md）</span></button></div></div>`,
+      onMount: (root) => {
+        let sc = "page";
+        const out = root.querySelector("#mn-out"), n = root.querySelector("#mn-outn");
+        const paint = () => { out.value = manExportMd(sc); n.textContent = sc === "all" ? "文書全体を、章の順に 1 つの Markdown にまとめています。ページ間のリンクは文書内のリンクに直しています。" : "このページだけです。他のページへのリンクは、文字だけにしています。"; root.querySelectorAll("[data-sc]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.sc === sc))); };
+        root.querySelectorAll("[data-sc]").forEach((b) => b.addEventListener("click", () => { sc = b.dataset.sc; paint(); }));
+        root.querySelector("#mn-copy").addEventListener("click", async () => { try { await navigator.clipboard.writeText(out.value); n.textContent = "コピーしました。"; } catch { out.select(); document.execCommand("copy"); n.textContent = "コピーしました。"; } });
+        root.querySelector("#mn-dl").addEventListener("click", () => {
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(new Blob([out.value], { type: "text/markdown;charset=utf-8" }));
+          a.download = `${manSlug(sc === "all" ? manPath(cur)[0].title : cur.title)}.md`;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        });
+        paint();
+      },
+    });
+  }
+  function manHistDialog(trigger) {
+    const p = manPage(MAN.sel), h = p.history ?? [];
+    showSheet(trigger, {
+      chip: chip("履歴", "refresh"), title: `「${p.title}」の履歴`, rows: [["現在の版", `改訂 ${p.rev ?? 1}（${esc(p.updatedAt ?? "―")}・${esc(p.updatedBy ?? "―")}）`]],
+      extra: h.length ? `<ul class="wr-cands">${h.map((x, i) => `<li><div class="wr-cand"><span class="od-fill"><strong>改訂 ${x.rev}　${esc(x.at)}</strong><span class="muted od-truncate">${esc(x.by ?? "")} ・ ${esc(x.title)}</span></span><button class="btn" type="button" data-restore="${i}">この版に戻す</button></div></li>`).join("")}</ul>` : `<p class="muted">まだ履歴がありません。保存すると、直前の版が残ります。</p>`,
+      onMount: (root) => root.querySelectorAll("[data-restore]").forEach((b) => b.addEventListener("click", () => {
+        const x = h[Number(b.dataset.restore)];
+        p.history.unshift({ at: manNowStr(), by: p.updatedBy, title: p.title, md: p.md, rev: p.rev ?? 1 });
+        p.history = p.history.slice(0, 10);
+        p.title = x.title; p.md = x.md; p.rev = (p.rev ?? 1) + 1; p.updatedBy = D.user.name; p.updatedAt = manNowStr();
+        closeSheet();
+        render();
+      })),
+    });
+  }
+
+  /* ---- 印刷（PDF の冊子） ---- */
+  function manClearPrint() { document.getElementById("print-root")?.remove(); document.getElementById("mn-print-style")?.remove(); }
+  function manBuildPrint(opt) {
+    manClearPrint();
+    const cur = manPage(MAN.sel), root = manPath(cur)[0];
+    const pages = opt.range === "page" ? [cur] : opt.range === "branch" ? [cur, ...manBelow(cur.id)] : [root, ...manBelow(root.id)];
+    const nums = new Map(manWalk().map((x) => [x.p.id, x.num]));
+    const baseDepth = manPath(pages[0]).length;
+    const title = opt.range === "all" ? root.title : pages[0].title;
+    const sec = pages.map((p, k) => {
+      const depth = manPath(p).length - baseDepth;
+      const body = mdToHtml(manBody(p.md), { print: true, idp: `p${p.id}-` }).html;
+      return `<section class="pr-sec d${Math.min(depth, 2)}"><h1 class="pr-title"><span class="pr-num">${nums.get(p.id) ?? ""}</span>${esc(p.title)}</h1><div class="md">${body}</div></section>`;
+    }).join("");
+    const toc = opt.toc && pages.length > 1 ? `<section class="pr-toc"><h2>目次</h2><ol>${pages.map((p) => `<li style="--d:${manPath(p).length - baseDepth}"><span class="pr-num">${nums.get(p.id) ?? ""}</span>${esc(p.title)}</li>`).join("")}</ol></section>` : "";
+    const cover = opt.cover ? `<section class="pr-cover"><p class="pr-kind">品質管理文書</p><h1>${esc(title)}</h1><p>${esc(D.company.name)}</p><p class="pr-ver">${manNowStr()} 版 ／ 改訂 ${pages[0].rev ?? 1}</p></section>` : "";
+    const el = document.createElement("div");
+    el.id = "print-root";
+    el.innerHTML = cover + toc + sec;
+    document.body.appendChild(el);
+    const st = document.createElement("style");
+    st.id = "mn-print-style";
+    const q = (s) => String(s).replace(/["\\\n]/g, " ");
+    st.textContent = `@page { size: ${opt.paper}; margin: ${opt.paper === "A5" ? "14mm 12mm 16mm" : "18mm 16mm 20mm"}; @top-center { content: "${q(title)}"; font-size: 8.5pt; color: #555; } @bottom-center { content: counter(page); font-size: 9pt; color: #333; } }${opt.cover ? " @page :first { @top-center { content: none; } @bottom-center { content: none; } }" : ""}`;
+    document.head.appendChild(st);
+    return el;
+  }
+  function manPrintDialog(trigger) {
+    const opt = { range: "all", paper: "A4", cover: true, toc: true };
+    showSheet(trigger, {
+      chip: chip("印刷", "orders"), title: "冊子として印刷（PDF）", rows: [],
+      extra: `<form class="wr-form" id="mn-pform" novalidate>
+        <div class="field-row"><label for="mn-range">範囲</label><select id="mn-range"><option value="page">このページだけ</option><option value="branch">このページと、その下のページ</option><option value="all" selected>文書全体（最上位のページから）</option></select></div>
+        <div class="field-row"><label for="mn-paper">用紙</label><select id="mn-paper"><option>A4</option><option>A5</option></select></div>
+        <label class="col-opt"><input type="checkbox" id="mn-cover" checked>表紙をつける</label>
+        <label class="col-opt"><input type="checkbox" id="mn-toc" checked>目次をつける</label>
+        <p class="note">リンクは文字だけを印刷します。リンク先のページは、範囲に含めたものだけが印刷されます。PDF にするには、印刷画面の送信先を「PDF に保存」にしてください。</p>
+        <div class="form-actions"><button class="btn btn-primary wr-big" type="submit">${icon("orders")}<span>印刷（PDF で保存）</span></button></div></form>`,
+      onMount: (root) => root.querySelector("#mn-pform").addEventListener("submit", (e) => {
+        e.preventDefault();
+        opt.range = root.querySelector("#mn-range").value; opt.paper = root.querySelector("#mn-paper").value; opt.cover = root.querySelector("#mn-cover").checked; opt.toc = root.querySelector("#mn-toc").checked;
+        closeSheet(false);
+        manBuildPrint(opt);
+        window.addEventListener("afterprint", manClearPrint, { once: true });
+        setTimeout(() => window.print(), 50);
+      }),
+    });
+  }
+
+  /* ---- 結線（画面を描くたびに呼ぶ） ---- */
+  function bindMan() {
+    const scr = document.querySelector(".mn");
+    if (!scr) return;
+    scr.querySelector("[data-man-q]")?.addEventListener("input", (e) => { MAN.q = e.target.value; scr.querySelector("[data-man-tree]").innerHTML = manTreeHtml(); });
+    scr.querySelectorAll("[data-man-jump]").forEach((a) => a.addEventListener("click", (e) => { e.preventDefault(); document.getElementById(a.dataset.manJump)?.scrollIntoView({ block: "start" }); }));
+    scr.querySelectorAll("[data-man-create]").forEach((b) => b.addEventListener("click", () => { const pg = manNewPage(b.dataset.manCreate, MAN.sel); MAN.applied = pg.id; MAN.sel = pg.id; MAN.edit = true; MAN.draft = null; location.hash = `#/manual/${pg.id}`; }));
+    scr.querySelectorAll("[data-man-act]").forEach((b) => b.addEventListener("click", () => {
+      const a = b.dataset.manAct;
+      if (a === "edit") { MAN.edit = true; MAN.draft = null; MAN.err = ""; render(); }
+      else if (a === "new") { const pg = manNewPage("新しいページ", MAN.sel); MAN.applied = pg.id; MAN.sel = pg.id; MAN.edit = true; MAN.draft = null; location.hash = `#/manual/${pg.id}`; render(); }
+      else if (a === "md") manMdDialog(b);
+      else if (a === "print") manPrintDialog(b);
+      else if (a === "hist") manHistDialog(b);
+      else if (a === "cancel") {
+        const p = manPage(MAN.sel);
+        manSyncDraft();
+        const dirty = MAN.draft && (MAN.draft.md !== manBody(p.md) || MAN.draft.title !== p.title);
+        const leave = () => { MAN.edit = false; MAN.draft = null; MAN.err = ""; render(); };
+        if (dirty) confirmSheet(b, { title: "編集を破棄しますか？", text: "保存していない変更は消えます。", okLabel: "破棄する", onOk: leave }); else leave();
+      }
+    }));
+    const form = scr.querySelector("[data-man-form]");
+    if (form) {
+      form.addEventListener("submit", (e) => { e.preventDefault(); manSave(); });
+      form.querySelectorAll(".mn-toolbar .btn").forEach((b) => b.addEventListener("mousedown", (e) => e.preventDefault()));
+      form.querySelectorAll("[data-man-cmd]").forEach((b) => b.addEventListener("click", () => {
+        const ed = document.getElementById("mn-editor"), c = b.dataset.manCmd;
+        if (c === "link") return manLinkDialog(b);
+        if (MAN.mode === "visual") manVisualCmd(ed, c); else manMdCmd(ed, c);
+      }));
+      form.querySelectorAll("[data-man-mode]").forEach((b) => b.addEventListener("click", () => {
+        if (b.dataset.manMode === MAN.mode) return;
+        manSyncDraft();
+        MAN.mode = b.dataset.manMode;
+        render();
+      }));
+      const ed = document.getElementById("mn-editor");
+      ed?.addEventListener("click", (e) => { const a = e.target.closest?.("a"); if (a) e.preventDefault(); });
+      document.getElementById("mn-title")?.focus({ preventScroll: true });
+    }
+  }
 
   /* ---------- barcode: 作業実績 › バーコード（フロー図から作り直した画面） ----------
      バーコードリーダー（キーボード入力として届く。末尾の Enter で確定）・スマートフォン・タブレットのカメラから symbol を読み込み、
@@ -3804,7 +4292,7 @@
     });
   }
 
-  const SETTINGS = { theme: "system", lang: "ja-JP", pageSize: 50 };
+  const SETTINGS = { theme: "system", lang: "ja-JP", pageSize: 50, admin: X.manual?.admin ?? true };
   const DEFAULT_PHOTO = D.user.photo;
   const PAGE_SIZE = { min: 10, max: 500, step: 10, std: 50 };
   const PHOTO_TYPES = ["image/png", "image/jpeg", "image/gif", "image/webp"];
@@ -3814,6 +4302,8 @@
     if (ph) D.user.photo = ph;
     const n = Number(localStorage.getItem("od.pageSize"));
     if (Number.isInteger(n) && n >= PAGE_SIZE.min && n <= PAGE_SIZE.max) SETTINGS.pageSize = n;
+    const ad = localStorage.getItem("od.admin");
+    if (ad !== null) SETTINGS.admin = ad === "1";
   } catch { /* storage unavailable: keep the defaults */ }
   const LANGS = [["ja-JP", "日本語（日本）"], ["en-US", "English (US)"], ["zh-CN", "中文（简体）"], ["ko-KR", "한국어"]];
   const applyTheme = () => { if (SETTINGS.theme === "system") delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = SETTINGS.theme; };
@@ -3843,6 +4333,9 @@
         <p class="note" id="page-note">標準は${PAGE_SIZE.std}件（${PAGE_SIZE.min}〜${PAGE_SIZE.max}件）。超える分は、一覧の下の「さらに読み込む」で追加します。</p>
         <p class="field-err" id="page-msg" role="alert"></p>
         <div class="form-actions"><button class="btn" type="button" data-pagesize-reset ${SETTINGS.pageSize === PAGE_SIZE.std ? "disabled" : ""}>標準（${PAGE_SIZE.std}件）に戻す</button></div></section>
+      <section class="card" aria-labelledby="h-set-adm"><h2 class="sec-title" id="h-set-adm">マニュアルの権限（確認用）</h2>
+        <label class="col-opt"><input type="checkbox" data-admin-toggle ${SETTINGS.admin ? "checked" : ""}>管理者として表示する</label>
+        <p class="note">管理者だけが、マニュアルの編集・ページの追加・履歴の復元をできます。オフにすると、閲覧・印刷・Markdown の書き出しだけの表示を確認できます。実運用では、サインインしたユーザーの権限で決まります。</p></section>
       <section class="card" aria-labelledby="h-set-ver"><h2 class="sec-title" id="h-set-ver">バージョン情報</h2>
         <dl><div class="kv"><dt>アプリケーション</dt><dd class="od-nowrap">生産管理 0.1.0</dd></div><div class="kv"><dt>ビルド</dt><dd class="od-nowrap">2026.10.24</dd></div></dl>
         <p class="note">ライブラリではなく、アプリケーションのバージョンを表示します。</p></section>
@@ -3939,6 +4432,11 @@
     document.querySelectorAll("[data-theme-pick]").forEach((r) => r.addEventListener("change", () => { SETTINGS.theme = r.value; applyTheme(); }));
     bindBarcode();
     bindWr();
+    bindMan();
+    document.querySelector("[data-admin-toggle]")?.addEventListener("change", (e) => {
+      SETTINGS.admin = e.target.checked;
+      try { localStorage.setItem("od.admin", SETTINGS.admin ? "1" : "0"); } catch { /* session only */ }
+    });
     document.querySelector("[data-mnt-reload]")?.addEventListener("click", () => location.reload());
     document.querySelector("[data-lang]")?.addEventListener("change", (e) => { SETTINGS.lang = e.target.value; });
     const setPhoto = (url) => {
@@ -4028,7 +4526,7 @@
       { id: "maintenance", icon: "wrench", label: "保全" },
     ] },
     ...DOM.groups.map((g) => ({ group: `g_${g.id}`, icon: g.icon, label: g.label,
-      children: [...(g.id === "result" ? [{ id: "wr", icon: "wrench", label: "実績登録" }, { id: "barcode", icon: "barcode", label: "バーコード" }] : []), ...g.screens.map((sid) => ({ id: `g/${sid}`, icon: GS[sid].icon, label: GS[sid].label }))] })),
+      children: [...(g.id === "result" ? [{ id: "wr", icon: "wrench", label: "実績登録" }, { id: "barcode", icon: "barcode", label: "バーコード" }] : []), ...g.screens.map((sid) => (sid === "doc" ? { id: "manual", icon: "list", label: "マニュアル" } : { id: `g/${sid}`, icon: GS[sid].icon, label: GS[sid].label }))] })),
     { id: "company", icon: "building", label: "会社情報" },
     /* DEV-ONLY: 確認用のメニュー（メンテナンス中・アクセス拒否）。実際の APP には含めない（フラグ・権限の結果で表示される） */
     { id: "maintenance-mode", icon: "wrench", label: "メンテナンス中", devOnly: true },
@@ -4119,6 +4617,7 @@
   function render() {
     const P = parseRoute();
     const mntLive = maintenanceOn();
+    if (!/^manual/.test(P.name)) { MAN.edit = false; MAN.draft = null; }
     if (P.name !== "barcode" || mntLive) { BC.cam = false; bcCamStop(); BC.argKey = null; bxLeave(); }
     const blocked = !mntLive && ACCESS.deniedRoutes.includes(P.name);
     deniedFrom = P.name === "denied" ? hashQuery().get("from") ?? "" : blocked ? P.name : "";
@@ -4201,13 +4700,15 @@
         "staff/capability": () => capEditScreen(P.pid, P.id),
         "staff/license": () => licEditScreen(P.pid, P.id),
         offerings: offeringsScreen,
-        g: () => gScreen(P.sid, P.tab, P.edit),
+        g: () => (P.sid === "doc" ? ((location.hash = "#/manual"), "") : gScreen(P.sid, P.tab, P.edit)),
         "g/entity": () => gEntityScreen(P.ent, P.id, P.parentId),
         menu: menuScreen,
         "maintenance-mode": () => downtimeScreen(false),
         barcode: () => { bcApplyArgs(); return barcodeScreen(); },
         wr: () => wrScreen(null),
         "wr/plan": () => wrScreen(P.id),
+        manual: () => manScreen(null),
+        "manual/page": () => manScreen(P.id),
         settings: settingsScreen,
       }[route]();
       screen.innerHTML = pageHead(title, crumbOf(route)) + `<div class="${mobile ? "m-body" : "page-body"}">${["home", "orders", "production"].includes(route) ? dashTabs(route) : ""}${body}</div>`;

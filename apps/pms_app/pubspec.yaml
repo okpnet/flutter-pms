@@ -74,6 +74,8 @@ dependencies:
     path: ../../packages/features/quality_common
   quality_document:
     path: ../../packages/features/quality_document
+  manual:
+    path: ../../packages/features/manual
   system:
     path: ../../packages/features/system
   access_control_model:
