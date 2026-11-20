@@ -49,6 +49,7 @@ class GraphqlScanGateway implements IScanGateway {
         unit: '',
         stopped: f.stopped,
         closed: f.closed,
+        operationsPlanId: f.operationsPlanId,
         state: f.quantity > 0 && f.doneQuantity >= f.quantity
             ? WorkState.done
             : f.started

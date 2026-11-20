@@ -820,6 +820,9 @@ body[data-device="mobile"] .bc-choices { grid-template-columns: minmax(0, 1fr); 
 .bc-eq li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--sp-3); align-items: center; padding: var(--sp-3) var(--sp-4); border: 1px solid var(--line); border-radius: var(--radius); }
 .bc-eq label { display: grid; gap: 2px; font-weight: 600; }
 .bc-eq select { min-height: 44px; }
+/* 開発者向けのパネル・注記の印（実際の APP には含めない）。 .dev-only / [data-dev-only] の要素は、実装へ移さない */
+.dev-only { outline: 2px dashed var(--warn); outline-offset: -2px; }
+.dev-badge { display: inline-block; margin-right: var(--sp-2); padding: 0 var(--sp-2); border-radius: var(--radius); background: var(--warn); color: #fff; font-size: 11px; font-weight: 700; line-height: 18px; }
 .bc-samples summary { cursor: pointer; font-weight: 700; min-height: 44px; display: flex; align-items: center; }
 .bc-samples ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-3); }
 .bc-samples li { display: grid; gap: var(--sp-1); }
@@ -895,3 +898,54 @@ body[data-device="mobile"] .wr-info, body[data-device="mobile"] .wr-plan-dl { gr
 body[data-device="mobile"] .wr-stepper { grid-template-columns: 56px minmax(0, 1fr) 56px; }
 body[data-device="mobile"] .wr-stepper [data-wr-d="full"] { grid-column: 1 / -1; }
 .wr-act { min-height: 44px; white-space: nowrap; }
+/* ---------- バーコード（フロー図版）: リーディングトップ / 入力要求（スマートフォンは画面、PC・タブレットはダイアログ） ---------- */
+.bx { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: var(--sp-4); align-items: start; }
+.bx-main, .bx-queue-card, .bx-step { display: grid; gap: var(--sp-4); }
+.bx-queue-card { grid-column: 1; }
+.bx-side { grid-column: 2; grid-row: 1 / span 2; display: grid; gap: var(--sp-4); }
+body[data-device="tablet"] .bx, body[data-device="mobile"] .bx { grid-template-columns: minmax(0, 1fr); }
+body[data-device="tablet"] .bx-side, body[data-device="mobile"] .bx-side { grid-column: 1; grid-row: auto; }
+.bx-ctx { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-3); margin: 0; }
+.bx-ctx .kv { padding: var(--sp-2) var(--sp-3); border: 1px solid var(--line); border-radius: var(--radius); }
+.bx-ctx dt { font-size: var(--fs-sm); color: var(--muted); font-weight: 600; }
+.bx-ctx dd { margin: 0; font-weight: 700; overflow-wrap: anywhere; }
+.bx-form { display: grid; gap: var(--sp-2); }
+.bx-form > label { font-size: var(--fs-lg); font-weight: 700; }
+.bx-row-in { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.bx-row-in input { flex: 1 1 200px; min-width: 0; min-height: 56px; padding: 0 var(--sp-4); border: 2px solid var(--muted); border-radius: var(--radius); background: var(--surface); color: var(--ink); font: inherit; font-size: var(--fs-lg); }
+.bx-row-in input:focus-visible { border-color: var(--focus); }
+.bx-row-in .btn { min-height: 56px; }
+body[data-device="mobile"] .bx-row-in { flex-direction: column; flex-wrap: nowrap; }
+.bx-msg { display: flex; align-items: flex-start; gap: var(--sp-2); margin: 0; font-weight: 700; --od-icon-size: 22px; }
+.bx-msg:has(span:empty) { display: none; }
+.bx-msg.is-err { padding: var(--sp-3) var(--sp-4); border: 2px solid var(--danger); border-radius: var(--radius); background: var(--danger-soft); color: var(--danger); }
+.bx-big { min-height: 64px; font-size: var(--fs-lg); }
+.bx-sel { display: grid; gap: var(--sp-3); padding: var(--sp-3) var(--sp-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface-2); }
+.bx-sel h3 { margin: 0; font-size: var(--fs-md); }
+.bx-held { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.bx-held li { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); min-height: 40px; border-top: 1px solid var(--line); }
+.bx-held li:first-child { border-top: 0; }
+.bx-queue { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.bx-queue li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: var(--sp-3); min-height: 56px; border-top: 1px solid var(--line); }
+.bx-queue li:first-child { border-top: 0; }
+.bx-q-main { display: grid; gap: var(--sp-1); justify-items: start; min-width: 0; overflow-wrap: anywhere; }
+.bx-bar { display: grid; gap: var(--sp-2); }
+.bx-head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--sp-3); }
+.bx-head h2 { font-size: var(--fs-lg); line-height: 1.3; text-align: center; margin: 0; }
+.bx-head .btn { min-height: 48px; }
+.bx-target { display: flex; align-items: center; gap: var(--sp-2); margin: 0; font-size: var(--fs-lg); }
+.bx-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-2); }
+.bx-row { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); width: 100%; min-height: 64px; padding: var(--sp-2) var(--sp-4); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--ink); font: inherit; text-align: left; cursor: pointer; }
+.bx-row-main { display: grid; gap: 2px; min-width: 0; overflow-wrap: anywhere; }
+.bx-row[disabled] { background: var(--surface-2); color: var(--muted); cursor: not-allowed; }
+@media (hover: hover) { .bx-row:not([disabled]):hover { border-color: var(--accent); } }
+.bx-log { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-1); font-size: var(--fs-sm); }
+.bx-modal { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; padding: var(--sp-4); }
+.bx-scrim { position: absolute; inset: 0; background: var(--scrim); }
+.bx-modal-card { position: relative; width: min(600px, 100%); max-height: calc(100dvh - 32px); overflow: auto; }
+body[data-device="mobile"] .bx-queue-card { position: static; }
+body[data-device="mobile"] .bx-bar { position: sticky; bottom: 0; padding: var(--sp-3) 0 var(--sp-1); background: var(--surface); }
+body[data-device="mobile"] .bx-head { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+body[data-device="mobile"] .bx-head h2 { grid-column: 1 / -1; grid-row: 1; }
+body[data-device="mobile"] .bx-head .btn { min-height: 56px; }
+body[data-device="mobile"] .bx-ctx { grid-template-columns: minmax(0, 1fr); }

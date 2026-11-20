@@ -50,6 +50,7 @@ input:
   cameraError: The camera is not available. Check the permission, or use the reader or manual input.
   cancel: Cancel
   qtyLabel: Quantity
+  openRegister: Open the work register
   startQuestion: Start this work? (Material is issued from the shelf.)
   answerYes: Yes
   answerNo: No

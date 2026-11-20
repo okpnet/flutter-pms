@@ -50,6 +50,7 @@ input:
   cameraError: カメラを使えません。権限を確認するか、リーダー・手入力を使ってください。
   cancel: 取り消し
   qtyLabel: 数量
+  openRegister: 実績登録の画面を開く
   startQuestion: この作業を開始しますか(材料を棚から出庫します)。
   answerYes: はい
   answerNo: いいえ

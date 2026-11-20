@@ -43,6 +43,7 @@ class ScanFound {
     this.locationId,
     this.stopped = false,
     this.closed = false,
+    this.operationsPlanId,
   });
 
   final ScanFoundKind kind;
@@ -72,6 +73,9 @@ class ScanFound {
 
   /// 終わっている(作業指示は、生産計画の打ち切りまたは受注明細の全部キャンセル。発注明細は全部キャンセル)。登録できない。
   final bool closed;
+
+  /// 作業指示が属する生産計画の id(実績登録の画面を開くとき)。
+  final String? operationsPlanId;
 }
 
 class ScanClient {
@@ -183,6 +187,7 @@ class ScanClient {
       // 停止・終了の判定は DB のビュー(v_work_plan_registrable)。画面側で判定を持たない
       stopped: (r['registrable'] as Map?)?['stopped'] == true,
       closed: (r['registrable'] as Map?)?['closed'] == true,
+      operationsPlanId: (plan?['transOperationsPlanId'] ?? r['transOperationsPlanId']) as String?,
     );
   }
 

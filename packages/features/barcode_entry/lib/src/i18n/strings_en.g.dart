@@ -127,6 +127,7 @@ class _BarcodeEntryStrings$input$en extends BarcodeEntryStrings$input$ja {
 	@override String get cameraError => 'The camera is not available. Check the permission, or use the reader or manual input.';
 	@override String get cancel => 'Cancel';
 	@override String get qtyLabel => 'Quantity';
+	@override String get openRegister => 'Open the work register';
 	@override String get startQuestion => 'Start this work? (Material is issued from the shelf.)';
 	@override String get answerYes => 'Yes';
 	@override String get answerNo => 'No';
@@ -340,6 +341,7 @@ extension on BarcodeEntryStringsEn {
 			'input.cameraError' => 'The camera is not available. Check the permission, or use the reader or manual input.',
 			'input.cancel' => 'Cancel',
 			'input.qtyLabel' => 'Quantity',
+			'input.openRegister' => 'Open the work register',
 			'input.startQuestion' => 'Start this work? (Material is issued from the shelf.)',
 			'input.answerYes' => 'Yes',
 			'input.answerNo' => 'No',

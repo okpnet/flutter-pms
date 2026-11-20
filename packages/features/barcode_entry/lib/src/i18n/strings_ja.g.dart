@@ -188,6 +188,9 @@ class BarcodeEntryStrings$input$ja {
 	/// ja: '数量'
 	String get qtyLabel => '数量';
 
+	/// ja: '実績登録の画面を開く'
+	String get openRegister => '実績登録の画面を開く';
+
 	/// ja: 'この作業を開始しますか(材料を棚から出庫します)。'
 	String get startQuestion => 'この作業を開始しますか(材料を棚から出庫します)。';
 
@@ -561,6 +564,7 @@ extension on BarcodeEntryStrings {
 			'input.cameraError' => 'カメラを使えません。権限を確認するか、リーダー・手入力を使ってください。',
 			'input.cancel' => '取り消し',
 			'input.qtyLabel' => '数量',
+			'input.openRegister' => '実績登録の画面を開く',
 			'input.startQuestion' => 'この作業を開始しますか(材料を棚から出庫します)。',
 			'input.answerYes' => 'はい',
 			'input.answerNo' => 'いいえ',

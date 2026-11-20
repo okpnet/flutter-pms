@@ -12,3 +12,7 @@ final scanGatewayProvider = Provider<IScanGateway>(
 
 /// 読み込みの流れ(状態と操作)。
 final scanFlowProvider = NotifierProvider<ScanFlow, ScanState>(ScanFlow.new);
+
+/// 作業指示から、実績登録の画面(作業実績 › 実績登録)を開くリンクを出すか。既定は出す。
+/// 実績登録の画面を持たないアプリ(実績登録専用アプリ)は、false に上書きする。
+final openWorkRegisterLinkProvider = Provider<bool>((ref) => true);

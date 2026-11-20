@@ -24,6 +24,7 @@ class InMemoryScanGateway implements IScanGateway {
       doneQuantity: 0,
       unit: '台',
       state: WorkState.notStarted,
+      operationsPlanId: 'plan-2610-001',
     ),
     WorkOrderTarget(
       symbol: 'WO-2610-002',

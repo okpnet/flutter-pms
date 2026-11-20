@@ -3067,155 +3067,220 @@
   }
   function bindWr() { /* ボタンは document の委譲（表の再描画で消えないように） */ }
 
-  /* ---------- barcode: 作業実績 › バーコード ----------
-     バーコードリーダー（キーボード入力として届く。末尾の Enter で確定）・スマートフォン・タブレットから、
-     symbol を読み込んで作業を進める画面。コマンド分岐は symbol の種類で決まる（data.extra.js の barcode）。
-       WO-… 製造/委託品の作業指示 → 状態: 未開始 → 開始の選択 → 棚出庫 → 開始中
-                                          開始中 → 数量入力 → 評価 → (不合格処理) → 棚移動リーディング → 入庫
-                                          指示数量完了 → リーディングトップへ
-       SH-… 棚 → 製品/購入品リーディング → 数量入力 → 入庫
-       PO-… 購入品 → 受入検品（数量入力 → 評価 → (不合格処理) → 棚移動リーディング → 入庫）
-       EQ-… 設備 → 設備点検（点検項目ごとに結果を記録）
-     状態はこの画面の中だけで更新する（プロトタイプ）。 */
-  const BCD = X.barcode ?? { workOrders: [], shelves: [], purchases: [], items: [] };
-  const BC = { mode: null, step: "top", ctx: {}, msg: "", err: false, log: [], cam: false };
-  const BC_KIND = { work: "作業指示", shelf: "棚", purchase: "購入品", item: "製品/購入品", equipment: "設備" };
-  const BC_MODES = [
-    { id: "work", label: "作業実績", kind: "work", ic: "wrench", hint: "作業指示（製造/委託品）のバーコードを読み取ります。" },
-    { id: "recv", label: "受入検品", kind: "purchase", ic: "truck", hint: "購入品（発注明細）のバーコードを読み取ります。" },
-    { id: "shelf", label: "棚移動", kind: "shelf", ic: "box", hint: "棚のバーコードを読み取り、続けて製品/購入品を読み取ります。" },
-    { id: "equip", label: "設備点検", kind: "equipment", ic: "factory", hint: "設備のバーコードを読み取ります。" },
-  ];
-  const BC_STEP = {
-    top: "リーディングトップ", start: "開始の選択", issueShelf: "棚出庫処理", qty: "数量入力", eval: "評価", ng: "不合格処理",
-    putShelf: "棚移動リーディング（入庫処理）", stockItem: "製品/購入品リーディング", stockQty: "数量入力", recvQty: "受入検品（数量入力）",
-    recvEval: "受入検品（評価）", eq: "設備点検",
+  /* ---------- barcode: 作業実績 › バーコード（フロー図から作り直した画面） ----------
+     バーコードリーダー（キーボード入力として届く。末尾の Enter で確定）・スマートフォン・タブレットのカメラから symbol を読み込み、
+     入力回数を減らして、入庫・出庫の処理を「処理待ち」にためてから、まとめて登録する。
+     流れ（フロー図）:
+       待機 → 担当者のバーコード（担当者以外から始めたら警告し、処理待ちを消去）
+       担当者あり → 読み取り: コンテナ / 作業指示書 / 工程 / 注文書 / 注文書明細 / 出荷オーダー / 出荷明細 / ビジター(ロット)。該当なしは「対象外」
+         コンテナ: 選択コンテナとして残す（以降はコンテナ選択を飛ばす）。保持アイテム・入れ子のコンテナを表示
+         工程: 完了 →「済み」/ 未着手 → 出庫（開始数量）/ 取り出し済みで未完了 → 入庫（合格数量。差があれば 不合格のコンテナ・数量・理由）
+         注文書明細: 受入済み →「済み」/ 未受入 → 入庫（合格数量。差があれば 不合格のコンテナ・数量・理由）
+         出荷明細: 出荷済み →「済み」/ 未出荷 → 出庫（出荷数量）
+         ビジター: 選択コンテナのリストに無い → 入庫 / ある → 製品を選んで出庫
+       数量入力: 超過・0以下は再入力、キャンセルで 1つ前のリードに戻る。入力できたら処理待ち(queue)へ
+       処理待ちを順番に登録 → 正常: まとめを表示して待機へ / 失敗: ここまでのメッセージを消して、エラーを表示して待機へ
+       30秒操作がなければ、処理待ちを登録してトップ（待機）へ戻る。すべての入力画面に「トップに戻る」
+     スマートフォンは画面遷移、PC・タブレットはダイアログ（判定は今までと同じ画面サイズ）。状態はこの画面の中だけで更新する（プロトタイプ）。 */
+  const BXD = JSON.parse(JSON.stringify(X.bcx ?? { staff: [], containers: [], workOrders: [], purchases: [], shipments: [], lots: [], items: [], idleSeconds: 30 }));
+  const BX = { staff: null, container: null, queue: [], msgs: [], step: null, flow: null, hist: [], pc: { sel: "" }, reg: null, busy: false, last: Date.now(), cam: false, argKey: null, seq: 0, msg: "", err: false };
+  const BC = BX; // router (render) が使う名前: BC.cam / BC.argKey
+  const BX_NG = ["寸法不良", "外観不良", "材料不良", "数量不足", "その他"];
+  const BX_KIND = { in: ["入庫", "truck", "ok"], out: ["出庫", "box", "line"], done: ["済み", "check", "mute"], none: ["対象外", "alert", "warn"], info: ["情報", "", "mute"] };
+  const bxNow = () => new Date().toTimeString().slice(0, 8);
+  const bxTouch = () => { BX.last = Date.now(); };
+  const bxSay = (msg, err = false) => { BX.msg = msg; BX.err = err; };
+  const bxMsg = (kind, text) => { BX.msgs = [{ id: ++BX.seq, t: bxNow(), kind, text }, ...BX.msgs].slice(0, 30); };
+  const bxCont = (sym) => BXD.containers.find((c) => c.sym === sym);
+  const bxStockOf = (c, item) => (c?.items.find((i) => i.item === item)?.qty ?? 0);
+  const bxStock = (c, item, unit, n) => {
+    let r = c.items.find((i) => i.item === item);
+    if (!r) { r = { item, unit, qty: 0 }; c.items.push(r); }
+    r.qty = Math.max(0, r.qty + n);
   };
-  const BC_NG = ["寸法不良", "外観不良", "材料不良", "数量不足", "その他"];
-  const BC_RESULT = ["合格", "不合格", "要再点検"];
-  const bcFind = (raw) => {
+  const bxTaskState = (t) => ((t.done ?? 0) >= t.qty ? "完了" : (t.started ?? 0) > 0 ? "実施中" : "未着手");
+  const bxFind = (raw) => {
     const s = String(raw).trim().toUpperCase();
-    const pick = (list, kind) => { const r = list.find((x) => x.sym === s); return r ? { kind, rec: r } : null; };
-    return pick(BCD.workOrders, "work") ?? pick(BCD.shelves, "shelf") ?? pick(BCD.purchases, "purchase") ?? pick(BCD.items, "item")
-      ?? ((e) => (e ? { kind: "equipment", rec: e } : null))(D.equipments.find((x) => String(x.code).toUpperCase() === s));
+    const staff = BXD.staff.find((x) => x.sym === s);
+    if (staff) return { kind: "staff", rec: staff };
+    const cont = bxCont(s);
+    if (cont) return { kind: "cont", rec: cont };
+    for (const wo of BXD.workOrders) { if (wo.sym === s) return { kind: "wo", rec: wo }; const t = wo.tasks.find((x) => x.sym === s); if (t) return { kind: "task", rec: t, parent: wo }; }
+    for (const po of BXD.purchases) { if (po.sym === s) return { kind: "po", rec: po }; const l = po.lines.find((x) => x.sym === s); if (l) return { kind: "line", rec: l, parent: po }; }
+    for (const so of BXD.shipments) { if (so.sym === s) return { kind: "so", rec: so }; const l = so.lines.find((x) => x.sym === s); if (l) return { kind: "sline", rec: l, parent: so }; }
+    const lot = BXD.lots.find((x) => x.sym === s);
+    if (lot) return { kind: "lot", rec: lot };
+    const item = BXD.items.find((x) => x.sym === s);
+    return item ? { kind: "item", rec: item } : null;
   };
-  const bcSay = (msg, err = false) => { BC.msg = msg; BC.err = err; };
-  const bcLog = (text, ok = true) => { BC.log = [{ t: new Date().toTimeString().slice(0, 8), text, ok }, ...BC.log].slice(0, 20); };
-  const bcReset = (msg = "") => { BC.step = "top"; BC.ctx = {}; bcSay(msg); };
-  const bcRemain = (w) => Math.max(0, w.qty - w.done);
-  const bcPoRemain = (p) => Math.max(0, p.qty - (p.received ?? 0));
 
-  /* 在庫状況などからの引数: #/barcode?shelf=<棚のバーコード>&item=<品目のバーコード>。棚移動のモードで順に読み取った状態から始める */
-  function bcApplyArgs() {
-    const q = hashQuery();
-    const sh = q.get("shelf"), it = q.get("item");
-    if ((!sh && !it) || BC.argKey === location.hash) return;
-    BC.argKey = location.hash;
-    BC.mode = "shelf";
-    bcReset();
-    if (sh) bcSubmit(sh);
-    if (it) bcSubmit(it);
+  /* ---- step navigation: 戻る(キャンセル)は 1つ前のリードへ、トップに戻るは読み取りの最初へ ---- */
+  function bxGo(step, flow = BX.flow) {
+    if (BX.step && BX.step !== "register") BX.hist.push({ step: BX.step, flow: BX.flow, pc: { ...BX.pc } });
+    BX.step = step;
+    BX.flow = flow;
+    BX.pc = { sel: "" };
+    bxSay("");
   }
-  /* 入庫処理: 作業/受入/棚移動のどれでも、最後は棚へ入庫してリーディングトップへ戻る */
-  function bcPut(shelf) {
-    const c = BC.ctx;
-    const judge = c.ng ? `不合格（${c.reason}）` : "合格";
-    let line;
-    if (c.wo) {
-      const w = c.wo;
-      w.done += c.qty;
-      if (c.ng) w.ng = (w.ng ?? 0) + c.qty;
-      w.state = w.done >= w.qty ? "完了" : "開始中";
-      line = `${w.sym} ${w.item}／${w.task}: ${c.qty}${w.unit}を${judge}として${shelf.name}へ入庫${w.state === "完了" ? "（指示数量が完了）" : ""}`;
-    } else if (c.po) {
-      const p = c.po;
-      p.received = (p.received ?? 0) + c.qty;
-      line = `${p.sym} ${p.item}: ${c.qty}${p.unit}を受入検品（${judge}）、${shelf.name}へ入庫`;
-    } else {
-      line = `${shelf.name}: ${c.item.name} ${c.qty}${c.item.unit}を入庫`;
-    }
-    bcLog(line, !c.ng);
-    bcReset(`${shelf.name}へ入庫しました。次のバーコードを読み取ってください。`);
+  function bxBack() {
+    const h = BX.hist.pop();
+    if (h) { BX.step = h.step; BX.flow = h.flow; BX.pc = h.pc; } else { BX.step = null; BX.flow = null; }
+    bxSay("");
   }
+  function bxTop() { BX.step = null; BX.flow = null; BX.hist = []; BX.pc = { sel: "" }; bxSay(""); }
+  function bxResetAll() { Object.assign(BX, { staff: null, container: null, queue: [], msgs: [], step: null, flow: null, hist: [], pc: { sel: "" }, reg: null, busy: false }); bxSay(""); bxTouch(); }
 
-  /* 読み込み/入力の確定（Enter・リーダーの確定・読み取りボタン）。いまのステップで受け付ける内容を判定する */
-  function bcSubmit(raw) {
+  /* ---- 読み取り（リーディングトップ） ---- */
+  function bxRead(raw) {
+    bxTouch();
     const v = String(raw ?? "").trim();
-    bcSay("");
-    if (!v) return bcSay("バーコードを読み取るか、文字を入力してください。", true);
-    const st = BC.step, c = BC.ctx;
-    const unknown = () => { bcLog(`読み取れないバーコード: ${v}`, false); return bcSay(`「${v}」は登録されていないバーコードです。もう一度読み取ってください。`, true); };
-    if (st === "top") {
-      const f = bcFind(v);
-      if (!f) return unknown();
-      const m = BC_MODES.find((x) => x.id === BC.mode);
-      if (m && m.kind !== f.kind) return bcSay(`「${m.label}」では${BC_KIND[m.kind]}のバーコードを読み取ります。読み取ったのは${BC_KIND[f.kind]}です。`, true);
-      if (f.kind === "work") {
-        const w = f.rec;
-        c.wo = w;
-        if (w.done >= w.qty) { bcLog(`${w.sym} ${w.item}／${w.task}: 指示数量が完了しています`); return bcReset("この作業指示は、指示数量まで完了しています。次のバーコードを読み取ってください。"); }
-        BC.step = w.state === "開始中" ? "qty" : "start";
-        return;
-      }
-      if (f.kind === "shelf") { c.shelf = f.rec; BC.step = "stockItem"; return; }
-      if (f.kind === "purchase") {
-        c.po = f.rec;
-        if (bcPoRemain(f.rec) === 0) { bcLog(`${f.rec.sym} ${f.rec.item}: 受入が完了しています`); return bcReset("この購入品は、発注数量まで受け入れ済みです。"); }
-        BC.step = "recvQty";
-        return;
-      }
-      if (f.kind === "equipment") { c.eq = f.rec; BC.step = "eq"; return; }
-      return bcSay("製品/購入品は、先に棚のバーコードを読み取ってください（棚移動）。", true);
+    bxSay("");
+    if (!v) return bxSay("バーコードを読み取るか、文字を入力してください。", true);
+    const f = bxFind(v);
+    if (!BX.staff) {
+      /* サンプル画面: 担当者の入力は、何を入れても有効（登録済みの担当者のバーコードなら、その名前。それ以外は入力した文字を担当者名にする） */
+      BX.staff = f?.kind === "staff" ? f.rec : { sym: v.toUpperCase(), no: "", name: v };
+      bxMsg("info", `担当者：${BX.staff.name}`);
+      return bxSay(`${BX.staff.name} さんで始めます。次のバーコードを読み取ってください。`);
     }
-    if (st === "issueShelf" || st === "putShelf") {
-      const f = bcFind(v);
-      if (!f) return unknown();
-      if (f.kind !== "shelf") return bcSay(`${BC_KIND[f.kind]}のバーコードです。棚のバーコードを読み取ってください。`, true);
-      if (st === "putShelf") return bcPut(f.rec);
-      c.wo.state = "開始中";
-      bcLog(`${c.wo.sym} ${c.wo.item}／${c.wo.task}: ${f.rec.name}から材料を出庫し、作業を開始`);
-      return bcReset(`${f.rec.name}から出庫し、作業を開始しました。次のバーコードを読み取ってください。`);
-    }
-    if (st === "stockItem") {
-      const f = bcFind(v);
-      if (!f) return unknown();
-      if (f.kind !== "item") return bcSay(`${BC_KIND[f.kind]}のバーコードです。製品/購入品のバーコードを読み取ってください。`, true);
-      c.item = f.rec;
-      BC.step = "stockQty";
-      return;
-    }
-    if (st === "qty" || st === "stockQty" || st === "recvQty") {
-      const n = Number(v);
-      if (!Number.isInteger(n) || n <= 0) return bcSay("数量は1以上の整数で入力してください。", true);
-      if (st === "qty" && n > bcRemain(c.wo)) return bcSay(`指示数量の残りは${bcRemain(c.wo)}${c.wo.unit}です。それ以下の数量を入力してください。`, true);
-      if (st === "recvQty" && n > bcPoRemain(c.po)) return bcSay(`発注数量の残りは${bcPoRemain(c.po)}${c.po.unit}です。それ以下の数量を入力してください。`, true);
-      c.qty = n;
-      if (st === "stockQty") return bcPut(c.shelf);
-      BC.step = st === "qty" ? "eval" : "recvEval";
+    if (!f) { bxMsg("none", `「${v}」は対象外のバーコードです。`); return bxSay(`「${v}」は対象外のバーコードです。`, true); }
+    switch (f.kind) {
+      case "staff": BX.staff = f.rec; bxMsg("info", `担当者を ${f.rec.name} に変更しました。`); return bxSay(`担当者を ${f.rec.name} さんに変更しました。`);
+      case "cont": BX.container = f.rec; bxMsg("info", `選択コンテナ：${f.rec.name}`); return bxSay(`選択コンテナ「${f.rec.name}」。続けて、工程・明細・ロットのバーコードを読み取ってください。`);
+      case "wo": return bxGo("pickTask", { wo: f.rec });
+      case "task": return bxTarget("task", f.rec, f.parent);
+      case "po": return bxGo("pickLine", { po: f.rec });
+      case "line": return bxTarget("line", f.rec, f.parent);
+      case "so": return bxGo("pickShip", { so: f.rec });
+      case "sline": return bxTarget("sline", f.rec, f.parent);
+      default: return bxLot(f.rec, f.kind);
     }
   }
-
-  function bcAct(a, arg, root) {
-    const c = BC.ctx;
-    bcSay("");
-    if (a === "mode") { BC.mode = BC.mode === arg ? null : arg; return; }
-    if (a === "sample") return bcSubmit(arg);
-    if (a === "cancel") { bcLog("取り消しました", false); return bcReset("取り消しました。最初から読み取ってください。"); }
-    if (a === "cam") { BC.cam = !BC.cam; if (!BC.cam) bcCamStop(); return; }
-    if (a === "yes") { BC.step = "issueShelf"; return; }
-    if (a === "no") { bcLog(`${c.wo.sym}: 開始しませんでした`); return bcReset("開始しませんでした。次のバーコードを読み取ってください。"); }
-    if (a === "ok") { c.ng = false; BC.step = "putShelf"; return; }
-    if (a === "bad") { c.ng = true; BC.step = "ng"; return; }
-    if (a === "confirmNg") { c.reason = root.querySelector("[data-bc-reason]")?.value || BC_NG[0]; BC.step = "putShelf"; return; }
-    if (a === "eqsave") {
-      const rs = [...root.querySelectorAll("[data-bc-eq]")].map((s) => s.value);
-      const bad = rs.filter((x) => x !== "合格").length;
-      bcLog(`設備点検 ${c.eq.code} ${c.eq.name}: ${rs.length}項目を記録${bad ? `（要確認 ${bad}件）` : "（すべて合格）"}`, bad === 0);
-      return bcReset("点検結果を記録しました。次のバーコードを読み取ってください。");
+  const bxDone = (text) => { bxMsg("done", text); bxSay(text); };
+  /* 判定: 済み → 済みメッセージ / 未・不足 → コンテナ(未選択なら選ぶ) → 数量 */
+  function bxTarget(kind, rec, parent) {
+    if (kind === "task") {
+      const st = bxTaskState(rec), open = (rec.started ?? 0) - (rec.done ?? 0) - (rec.ng ?? 0);
+      if (st === "完了") return bxDone(`${parent.item}／${rec.task} は完了済みです。`);
+      if (open > 0) return bxStart({ act: "complete", dir: "in", target: { kind, rec, parent }, label: `${parent.item}／${rec.task}（完了）`, item: parent.item, unit: parent.unit, limit: open, diff: true, qtyLabel: "合格数量" });
+      return bxStart({ act: "issue", dir: "out", target: { kind, rec, parent }, label: `${parent.item}／${rec.task}（開始）`, item: rec.material, unit: rec.materialUnit, limit: rec.qty - (rec.started ?? 0), qtyLabel: "開始数量" });
     }
+    if (kind === "line") {
+      if (rec.received >= rec.qty) return bxDone(`${rec.item}（${parent.sym}）は受入済みです。`);
+      return bxStart({ act: "receive", dir: "in", target: { kind, rec, parent }, label: `${rec.item}（受入 ${parent.sym}）`, item: rec.item, unit: rec.unit, limit: rec.qty - rec.received, diff: true, qtyLabel: "合格数量" });
+    }
+    if (rec.shipped >= rec.qty) return bxDone(`${rec.item}（${parent.sym}）は出荷済みです。`);
+    return bxStart({ act: "ship", dir: "out", target: { kind, rec, parent }, label: `${rec.item}（出荷 ${parent.sym}）`, item: rec.item, unit: rec.unit, limit: rec.qty - rec.shipped, qtyLabel: "出荷数量" });
   }
+  function bxLot(rec, kind) {
+    const item = kind === "lot" ? rec.item : rec.name;
+    const held = BX.container?.items.find((i) => i.item === item && i.qty > 0);
+    if (held) return bxGo("pickLot", { lot: rec, kind, item });
+    return bxStart({ act: "lotIn", dir: "in", target: { kind, rec }, label: kind === "lot" ? `${item}（ロット ${rec.sym}）` : item, item, unit: rec.unit, limit: kind === "lot" ? rec.qty : 99999, qtyLabel: "入庫数量" });
+  }
+  function bxStart(f) {
+    if (!BX.container) return bxGo("pickContainer", f);
+    f.container = BX.container;
+    return bxGo("qty", f);
+  }
+  const bxMax = (f) => (f.dir === "out" ? Math.min(f.limit, bxStockOf(f.container, f.item)) : f.limit);
 
-  /* スマートフォン/タブレットのカメラ読み取り（ブラウザが BarcodeDetector に対応しているときだけ） */
+  /* ---- ステップ内の操作 ---- */
+  function bxChoose(c) {
+    BX.pc.sel = c.sym;
+    bxSay("");
+  }
+  function bxProceedContainer() {
+    const c = bxCont(BX.pc.sel);
+    if (!c) return bxSay("コンテナを選んでください。", true);
+    const f = BX.flow;
+    if (f.pcPurpose === "ng") { f.ngContainer = c; return bxGo("ng", f); }
+    BX.container = c;
+    f.container = c;
+    bxMsg("info", `選択コンテナ：${c.name}`);
+    return bxGo("qty", f);
+  }
+  function bxPickLotItem(item) {
+    const lot = BX.flow.lot, held = BX.container.items.find((i) => i.item === item);
+    return bxStart({ act: "lotOut", dir: "out", target: { kind: BX.flow.kind, rec: lot }, label: `${item}${BX.flow.kind === "lot" ? `（ロット ${lot.sym}）` : ""}`, item, unit: held.unit, limit: held.qty, qtyLabel: "出庫数量" });
+  }
+  function bxQty(raw) {
+    const f = BX.flow, max = bxMax(f), n = Number(raw);
+    if (!Number.isInteger(n) || n <= 0) return bxSay(`${f.qtyLabel}は1以上の整数で入力してください。`, true);
+    if (max <= 0) return bxSay(f.dir === "out" ? `「${f.container.name}」に「${f.item}」の在庫がありません。コンテナを変えてください。` : "処理できる数量がありません。", true);
+    if (n > max) return bxSay(`${f.qtyLabel}は ${fmt(max)}${f.unit} までです。（数量超過）`, true);
+    f.qty = n;
+    if (f.diff && f.limit - n > 0) {
+      f.ngLimit = f.limit - n;
+      f.pcPurpose = "ng";
+      return bxGo("pickContainer", f);
+    }
+    return bxEnqueue(f);
+  }
+  function bxNg(qtyRaw, reason) {
+    const f = BX.flow, n = Number(qtyRaw);
+    if (!Number.isInteger(n) || n <= 0 || n > f.ngLimit) return bxSay(`不合格の数量は 1〜${fmt(f.ngLimit)}${f.unit} の整数で入力してください。`, true);
+    f.ng = { qty: n, reason };
+    return bxEnqueue(f);
+  }
+  function bxEnqueue(f) {
+    const q = { id: ++BX.seq, act: f.act, dir: f.dir, label: f.label, item: f.item, unit: f.unit, qty: f.qty, container: f.container.sym, ng: f.ng ?? null, ngContainer: f.ngContainer?.sym ?? null, target: f.target };
+    BX.queue.push(q);
+    const text = `${BX_KIND[f.dir][0]}：${f.label} ${fmt(f.qty)}${f.unit}（${f.container.name}）${q.ng ? `／不合格 ${fmt(q.ng.qty)}${f.unit}（${q.ng.reason}）` : ""}`;
+    bxMsg(f.dir, text);
+    bxSay(`処理待ちに入れました。${text}`);
+    bxTop();
+  }
+  function bxUndo(id) { BX.queue = BX.queue.filter((q) => q.id !== id); bxSay("処理待ちから取り消しました。"); }
+
+  /* ---- 登録（処理待ちを順番に）。失敗したら、ここまでのメッセージを消す ---- */
+  function bxApply() {
+    const rows = [];
+    for (const q of BX.queue) {
+      const c = bxCont(q.container), T = q.target.rec;
+      if (q.act === "issue") { bxStock(c, q.item, q.unit, -q.qty); T.started = (T.started ?? 0) + q.qty; }
+      else if (q.act === "complete") { bxStock(c, q.item, q.unit, q.qty); T.done = (T.done ?? 0) + q.qty; if (q.ng) T.ng = (T.ng ?? 0) + q.ng.qty; }
+      else if (q.act === "receive") { bxStock(c, q.item, q.unit, q.qty); T.received += q.qty + (q.ng?.qty ?? 0); }
+      else if (q.act === "ship") { bxStock(c, q.item, q.unit, -q.qty); T.shipped += q.qty; }
+      else if (q.act === "lotIn") bxStock(c, q.item, q.unit, q.qty);
+      else bxStock(c, q.item, q.unit, -q.qty);
+      if (q.ng) bxStock(bxCont(q.ngContainer), q.item, q.unit, q.ng.qty);
+      rows.push(`${BX_KIND[q.dir][0]}：${q.label} ${fmt(q.qty)}${q.unit}→${c.name}${q.ng ? `（不合格 ${fmt(q.ng.qty)}${q.unit}→${bxCont(q.ngContainer).name}）` : ""}`);
+    }
+    const counts = { in: BX.queue.filter((q) => q.dir === "in").length, out: BX.queue.filter((q) => q.dir === "out").length };
+    return { rows, counts, done: BX.msgs.filter((m) => m.kind === "done").length, none: BX.msgs.filter((m) => m.kind === "none").length, updated: BX.queue.length + BX.queue.filter((q) => q.ng).length };
+  }
+  async function bxRegister(auto = false) {
+    if (!BX.queue.length || BX.busy) return;
+    BX.busy = true;
+    BX.step = "register";
+    BX.hist = [];
+    BX.reg = { phase: "busy", auto };
+    render();
+    try {
+      BX.reg = { phase: "ok", auto, ...(await wrCall(bxApply)) };
+    } catch (e) {
+      BX.reg = { phase: "ng", auto, error: e.message };
+      BX.queue = [];
+      BX.msgs = [];
+    }
+    BX.busy = false;
+    render();
+  }
+  function bxFinish() { bxResetAll(); }
+
+  /* ---- 30秒の無操作 ---- */
+  let bxTimer = null;
+  const bxIdleLeft = () => BXD.idleSeconds - Math.floor((Date.now() - BX.last) / 1000);
+  function bxTick() {
+    if (BX.busy || BX.step === "register" || !(BX.staff || BX.queue.length || BX.step || BX.container)) return;
+    const left = bxIdleLeft(), el = document.getElementById("bx-idle");
+    if (left <= 0) { if (BX.queue.length) bxRegister(true); else { bxResetAll(); render(); } return; }
+    if (el) el.textContent = left <= 10 && (BX.staff || BX.queue.length) ? `あと ${left} 秒操作がないと、${BX.queue.length ? `処理待ち ${BX.queue.length} 件を登録して、` : ""}トップに戻ります。` : "";
+  }
+  function bxLeave() { clearInterval(bxTimer); bxTimer = null; bxModalClose(); }
+
+  /* ---- カメラ（ブラウザが BarcodeDetector に対応しているときだけ） ---- */
   let bcStream = null, bcTimer = null;
   const bcCamOk = () => "BarcodeDetector" in window && !!navigator.mediaDevices?.getUserMedia;
   function bcCamStop() {
@@ -3225,7 +3290,7 @@
     bcStream = null;
   }
   async function bcCamStart() {
-    const v = document.getElementById("bc-video");
+    const v = document.getElementById("bx-video");
     if (!v || bcStream) return;
     try {
       bcStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" }, audio: false });
@@ -3235,105 +3300,252 @@
       bcTimer = setInterval(async () => {
         try {
           const r = await det.detect(v);
-          if (r[0]) { const raw = r[0].rawValue; bcCamStop(); BC.cam = false; bcSubmit(raw); render(); }
+          if (r[0]) { const raw = r[0].rawValue; bcCamStop(); BX.cam = false; bxRead(raw); render(); }
         } catch { /* 読めるまで続ける */ }
       }, 300);
     } catch {
       bcCamStop();
-      BC.cam = false;
-      bcSay("カメラを開けませんでした。権限を確認するか、文字で入力してください。", true);
+      BX.cam = false;
+      bxSay("カメラを開けませんでした。権限を確認するか、文字で入力してください。", true);
       render();
     }
   }
 
-  function barcodeScreen() {
-    const c = BC.ctx, st = BC.step;
-    const m = BC_MODES.find((x) => x.id === BC.mode);
-    const btn = (a, label, { cls = "btn", arg = "", ic = "" } = {}) => `<button class="${cls}" type="button" data-bc-act="${a}" data-arg="${esc(arg)}">${ic ? icon(ic) : ""}<span>${label}</span></button>`;
-    const cancel = st === "top" ? "" : `<div class="form-actions">${btn("cancel", "取り消して最初に戻る")}</div>`;
-    const cam = bcCamOk() ? btn("cam", BC.cam ? "カメラを止める" : "カメラで読む", { ic: "camera" }) : "";
-    const form = (label, hint, { num = false } = {}) => `<form class="bc-form" data-bc-form novalidate>
-        <label for="bc-input">${label}</label>
-        <div class="bc-row"><input id="bc-input" name="v" ${num ? 'type="number" inputmode="numeric" min="1" step="1"' : 'type="text" autocapitalize="characters" spellcheck="false" inputmode="text"'} autocomplete="off" enterkeyhint="done" aria-describedby="bc-hint">
-          <button class="btn btn-primary" type="submit">${num ? "確定" : "問い合わせ"}</button>${num ? "" : cam}</div>
-        <p class="note" id="bc-hint">${hint}</p>
-        ${BC.cam && !num ? `<video id="bc-video" class="bc-video" playsinline muted aria-label="カメラの映像"></video>` : ""}
-      </form>`;
-    const choices = (list) => `<div class="bc-choices">${list.join("")}</div>`;
-    const stateChip = (s) => chip(s, s === "完了" ? "check" : s === "開始中" ? "pencil" : "", s === "完了" ? "ok" : s === "開始中" ? "line" : "mute");
-    const kv = (k, v) => `<div class="kv"><dt>${k}</dt><dd>${v}</dd></div>`;
-    const info = [];
-    if (c.wo?.plan) info.push(kv("実績登録", `<a href="#/wr/${esc(c.wo.plan)}">生産計画の画面で開く</a>`));
-    if (c.wo) info.push(kv("作業指示", `<span class="od-nowrap">${esc(c.wo.sym)}</span>`), kv("品目・工程", esc(`${c.wo.item}／${c.wo.task}${c.wo.outsourced ? "（委託）" : ""}`)), kv("状態", stateChip(c.wo.state)), kv("数量", `完了 ${c.wo.done} ／ 指示 ${c.wo.qty}${esc(c.wo.unit)}（残り ${bcRemain(c.wo)}）`));
-    if (c.po) info.push(kv("購入品", `<span class="od-nowrap">${esc(c.po.sym)}</span>`), kv("品目", esc(c.po.item)), kv("仕入先", esc(c.po.supplier)), kv("数量", `受入済 ${c.po.received ?? 0} ／ 発注 ${c.po.qty}${esc(c.po.unit)}`));
-    if (c.shelf) info.push(kv("棚", esc(`${c.shelf.name}（${c.shelf.sym}）`)));
-    if (c.item) info.push(kv("製品/購入品", esc(`${c.item.name}（${c.item.sym}）`)));
-    if (c.eq) info.push(kv("設備", esc(`${c.eq.name}（${c.eq.code}）`)));
-    if (c.qty) info.push(kv("入力した数量", `<span class="od-nowrap">${c.qty}${esc((c.wo ?? c.po ?? c.item)?.unit ?? "")}</span>`));
-    if (c.ng) info.push(kv("不合格の理由", esc(c.reason ?? "未選択")));
-    let body;
-    if (st === "top") {
-      const modes = `<div class="bc-modes" role="group" aria-label="読み取りの種類">${BC_MODES.map((x) => `<button class="bc-mode" type="button" data-bc-act="mode" data-arg="${x.id}" aria-pressed="${BC.mode === x.id}">${icon(x.ic)}<span>${x.label}</span></button>`).join("")}</div>`;
-      body = `${form("バーコードの読込", m ? m.hint : "バーコードリーダーで読み取るか、文字を入力して Enter を押します。種類は自動で判定します（下の種類を選ぶと、その種類だけを受け付けます）。")}${modes}`;
-    } else if (st === "start") {
-      body = `<p class="bc-ask">この作業は未開始です。開始しますか？</p>${choices([btn("yes", "はい（棚から出庫して開始）", { cls: "btn btn-primary bc-big" }), btn("no", "いいえ", { cls: "btn bc-big" })])}`;
-    } else if (st === "issueShelf") {
-      body = form("材料を出庫する棚のバーコード", `「${esc(c.wo.item)}」の材料を取り出す棚を読み取ると、出庫して作業を開始します（材料棚の例: ${esc(BCD.shelves.find((x) => x.use === "材料")?.sym ?? "")}）。`);
-    } else if (st === "qty") {
-      body = form("完了した数量", `残り ${bcRemain(c.wo)}${esc(c.wo.unit)} まで入力できます。入力して Enter で確定します。`, { num: true });
-    } else if (st === "eval" || st === "recvEval") {
-      body = `<p class="bc-ask">${st === "eval" ? "完了した分の評価を選んでください。" : "受入検品の評価を選んでください。"}</p>${choices([btn("ok", "合格", { cls: "btn btn-primary bc-big", ic: "check" }), btn("bad", "不合格", { cls: "btn btn-danger bc-big", ic: "alert" })])}`;
-    } else if (st === "ng") {
-      body = `<div class="field-row"><label for="bc-reason">不合格の理由</label><select id="bc-reason" data-bc-reason>${BC_NG.map((x) => `<option>${x}</option>`).join("")}</select></div>
-        <p class="note">不合格品は、続けて棚へ入庫します（不良品棚の例: ${esc(BCD.shelves.find((x) => x.use === "不良品")?.sym ?? "")}）。</p>
-        <div class="form-actions">${btn("confirmNg", "不合格として処理する", { cls: "btn btn-danger bc-big" })}</div>`;
-    } else if (st === "putShelf") {
-      body = form("入庫する棚のバーコード", `${c.ng ? "不合格品" : "合格品"}${c.qty}${esc((c.wo ?? c.po)?.unit ?? "")}を入れる棚を読み取ると、入庫処理をします。`);
-    } else if (st === "stockItem") {
-      body = form("製品/購入品のバーコード", `「${esc(c.shelf.name)}」へ入れる製品/購入品を読み取ります。`);
-    } else if (st === "stockQty") {
-      body = form("入庫する数量", `「${esc(c.item.name)}」を「${esc(c.shelf.name)}」へ入庫します。数量を入力して Enter で確定します。`, { num: true });
-    } else if (st === "recvQty") {
-      body = form("受入数量", `発注数量の残り ${bcPoRemain(c.po)}${esc(c.po.unit)} まで入力できます。入力して Enter で確定します。`, { num: true });
-    } else if (st === "eq") {
-      const ops = D.inspOps.filter((o) => o.equip === c.eq.id);
-      const items = [...new Set(D.inspLines.filter((l) => ops.some((o) => o.id === l.op)).map((l) => l.item))].map((id) => D.inspItems.find((i) => i.id === id)).filter(Boolean);
-      body = items.length
-        ? `<ul class="bc-eq">${items.map((i) => `<li><label for="bc-eq-${i.id}">${esc(i.name)}<span class="muted">${esc(i.criteria ?? "")}</span></label><select id="bc-eq-${i.id}" data-bc-eq="${i.id}">${BC_RESULT.map((r) => `<option>${r}</option>`).join("")}</select></li>`).join("")}</ul>
-          <div class="form-actions">${btn("eqsave", "点検結果を記録する", { cls: "btn btn-primary bc-big", ic: "check" })}</div>`
-        : emptyState("この設備の点検整備項目がありません", "保全の運用台帳に、この設備の運用と運用明細を登録してください。");
+  /* ---- 在庫状況などからの引数: #/barcode?shelf=<コンテナのバーコード>&item=<製品のバーコード> ---- */
+  function bcApplyArgs() {
+    const q = hashQuery();
+    const sh = q.get("shelf"), it = q.get("item");
+    if ((!sh && !it) || BX.argKey === location.hash) return;
+    BX.argKey = location.hash;
+    bxResetAll();
+    BX.staff = BXD.staff.find((s) => s.name === D.user.name) ?? BXD.staff[0] ?? null;
+    if (sh) bxRead(sh);
+    if (it) bxRead(it);
+  }
+
+  /* ---- 画面 ---- */
+  const bxBtn = (a, label, { cls = "btn", arg = "", ic = "", dis = false } = {}) => `<button class="${cls}" type="button" data-bx="${a}" data-arg="${esc(arg)}" ${dis ? "disabled" : ""}>${ic ? icon(ic) : ""}<span>${label}</span></button>`;
+  const bxStateChip = (s) => chip(s, s === "完了" ? "check" : s === "実施中" ? "pencil" : "", s === "完了" ? "ok" : s === "実施中" ? "line" : "mute");
+  const bxMsgHtml = () => `<p class="bx-msg ${BX.err ? "is-err" : ""}" role="${BX.err ? "alert" : "status"}">${BX.err ? icon("alert") : ""}<span>${esc(BX.msg)}</span></p>`;
+  const bxContLine = () => `<dl class="bx-ctx"><div class="kv"><dt>担当者</dt><dd>${BX.staff ? esc(BX.staff.name) : "未読込"}</dd></div><div class="kv"><dt>選択コンテナ</dt><dd>${BX.container ? esc(BX.container.name) : "なし"}</dd></div></dl>`;
+  const bxHeld = (c) => (c.items.filter((i) => i.qty > 0).length
+    ? `<ul class="bx-held">${c.items.filter((i) => i.qty > 0).map((i) => `<li><span>${esc(i.item)}</span><strong class="od-nowrap">${fmt(i.qty)}${esc(i.unit)}</strong></li>`).join("")}${(c.nested ?? []).map((n) => `<li><span>${icon("box")}${esc(n)}</span><span class="muted">入れ子のコンテナ</span></li>`).join("")}</ul>`
+    : `<p class="note">保持しているアイテムはありません。${(c.nested ?? []).length ? `入れ子のコンテナ：${esc(c.nested.join("、"))}` : ""}</p>`);
+  const bxStepper = (id, label, val, max, hint) => `<div class="field-row"><label for="${id}">${label}</label>
+      <div class="wr-stepper"><button class="btn" type="button" data-bx="dec" data-for="${id}" aria-label="1減らす">−</button><input id="${id}" name="${id}" type="number" inputmode="numeric" min="1" max="${max}" step="1" value="${val}" aria-describedby="${id}-h"><button class="btn" type="button" data-bx="inc" data-for="${id}" aria-label="1増やす">＋</button><button class="btn" type="button" data-bx="all" data-for="${id}" data-max="${max}">全量</button></div>
+      <p class="note" id="${id}-h">${hint}</p></div>`;
+  const bxRows = (rows) => `<ul class="bx-list">${rows.join("")}</ul>`;
+  const bxRow = (act, arg, main, sub, state, disabled) => `<li><button class="bx-row" type="button" data-bx="${act}" data-arg="${esc(arg)}" ${disabled ? "disabled" : ""}><span class="bx-row-main"><strong>${main}</strong><span class="muted">${sub}</span></span>${state}</button></li>`;
+  const bxRecContainers = (f, purpose) => {
+    const list = BXD.containers;
+    if (purpose === "ng") return list.filter((c) => c.kind === "不良品").map((c) => c.sym);
+    if (f.dir === "out") return list.filter((c) => bxStockOf(c, f.item) > 0).map((c) => c.sym);
+    return list.filter((c) => bxStockOf(c, f.item) > 0 || c.kind === "受入" || c.kind === "完成品").map((c) => c.sym);
+  };
+
+  /* 入力要求の本体（スマートフォンは画面、PC・タブレットはダイアログに入れる） */
+  function bxStepView() {
+    const f = BX.flow, st = BX.step;
+    const target = f?.label ? `<p class="bx-target">${icon(BX_KIND[f.dir]?.[1] || "box")}<strong>${esc(f.label)}</strong></p>` : "";
+    if (st === "pickTask") {
+      const wo = f.wo;
+      return { title: `${wo.sym} 工程を選ぶ`, body: `<p class="note">${esc(wo.item)}（指示 ${fmt(wo.qty)}${esc(wo.unit)}）。完了した工程は灰色です。工程のバーコードを読み取ってもかまいません。</p>${bxRows(wo.tasks.map((t) => {
+        const s = bxTaskState(t);
+        return bxRow("task", t.sym, `${t.seq} ${esc(t.task)}`, `指示 ${fmt(t.qty)}${esc(wo.unit)}・完了 ${fmt(t.done ?? 0)}${esc(wo.unit)}`, bxStateChip(s), s === "完了");
+      }))}` };
     }
-    const samples = ["work", "purchase", "shelf", "item", "equipment"].map((k) => {
-      const list = k === "work" ? BCD.workOrders : k === "purchase" ? BCD.purchases : k === "shelf" ? BCD.shelves : k === "item" ? BCD.items : D.equipments.slice(0, 3).map((e) => ({ sym: e.code, name: e.name }));
-      return `<li><span class="muted">${BC_KIND[k]}</span><span class="bc-chips">${list.map((r) => `<button class="fchip" type="button" data-bc-act="sample" data-arg="${esc(r.sym)}" title="${esc(r.name ?? r.item ?? "")}">${esc(r.sym)}</button>`).join("")}</span></li>`;
-    }).join("");
-    const history = BC.log.length
-      ? `<ul class="bc-log">${BC.log.map((l) => `<li class="${l.ok ? "" : "is-ng"}"><span class="od-nowrap muted">${l.t}</span><span>${l.ok ? "" : `<span class="sr-only">要確認：</span>`}${esc(l.text)}</span></li>`).join("")}</ul>`
-      : emptyState("まだ処理がありません", "読み取った内容と処理結果が、ここに新しい順で残ります。");
-    const msgHtml = `<p class="bc-msg ${BC.err ? "is-err" : ""}" role="${BC.err ? "alert" : "status"}">${BC.err ? icon("alert") : ""}<span>${esc(BC.msg)}</span></p>`;
-    return `<div class="bc">
-      <section class="card bc-main" aria-labelledby="bc-h">
-        <h2 class="${st === "top" ? "sr-only" : "sec-title"}" id="bc-h">${st === "top" ? "バーコードの読込" : BC_STEP[st]}</h2>
-        ${st === "top" ? "" : msgHtml}
-        ${info.length ? `<dl class="bc-info">${info.join("")}</dl>` : ""}
-        ${body}
-        ${st === "top" ? msgHtml : ""}
-        ${cancel}
+    if (st === "pickLine") {
+      const po = f.po;
+      return { title: `${po.sym} 明細を選ぶ`, body: `<p class="note">${esc(po.supplier)}。受入済みは灰色です。明細のバーコードを読み取ってもかまいません。</p>${bxRows(po.lines.map((l) => {
+        const done = l.received >= l.qty;
+        return bxRow("line", l.sym, esc(l.item), `発注 ${fmt(l.qty)}${esc(l.unit)}・受入済 ${fmt(l.received)}${esc(l.unit)}`, chip(done ? "受入済み" : l.received ? "受入中" : "未受入", done ? "check" : "", done ? "mute" : "line"), done);
+      }))}` };
+    }
+    if (st === "pickShip") {
+      const so = f.so;
+      return { title: `${so.sym} 明細を選ぶ`, body: `<p class="note">${esc(so.customer)}。出荷済みは灰色です。明細のバーコードを読み取ってもかまいません。</p>${bxRows(so.lines.map((l) => {
+        const done = l.shipped >= l.qty;
+        return bxRow("sline", l.sym, esc(l.item), `出荷 ${fmt(l.qty)}${esc(l.unit)}・出荷済 ${fmt(l.shipped)}${esc(l.unit)}`, chip(done ? "出荷済み" : l.shipped ? "出荷中" : "未出荷", done ? "check" : "", done ? "mute" : "line"), done);
+      }))}` };
+    }
+    if (st === "pickLot") {
+      return { title: "製品を選ぶ", body: `<p class="note">「${esc(BX.container.name)}」にあるアイテムです。出庫する製品を選んでください。</p>${bxRows(BX.container.items.filter((i) => i.qty > 0).map((i) =>
+        bxRow("lotitem", i.item, esc(i.item), `在庫 ${fmt(i.qty)}${esc(i.unit)}`, i.item === f.item ? chip("読み取った製品", "check", "ok") : "", false)))}` };
+    }
+    if (st === "pickContainer") {
+      const purpose = f.pcPurpose === "ng" ? "ng" : "main", rec = bxRecContainers(f, purpose), sel = bxCont(BX.pc.sel);
+      const rows = BXD.containers.map((c) => bxRow("cpick", c.sym, esc(c.name), `${esc(c.kind)}・${esc(c.sym)}`, rec.includes(c.sym) ? chip("おすすめ", "check", "ok") : "", false));
+      return { title: purpose === "ng" ? "不合格品を入れるコンテナ" : "コンテナを選ぶ",
+        body: `${target}<form class="bx-form" data-bx-form="container" novalidate><label for="bx-c-in">コンテナのバーコード</label>
+          <div class="bx-row-in"><input id="bx-c-in" name="v" type="text" autocapitalize="characters" spellcheck="false" autocomplete="off" enterkeyhint="done" aria-describedby="bx-c-h"><button class="btn btn-primary" type="submit">読み取る</button></div>
+          <p class="note" id="bx-c-h">${purpose === "ng" ? "不合格品を入れるコンテナのバーコードを読み取るか、一覧から選びます。" : "このコンテナは、以降の読み取りでも使います。バーコードを読み取るか、一覧から選びます。"}</p></form>
+          ${sel ? `<section class="bx-sel" aria-label="選択したコンテナ"><h3>${esc(sel.name)}<span class="muted">（${esc(sel.sym)}）</span></h3>${bxHeld(sel)}${bxBtn("cgo", "このコンテナで進む", { cls: "btn btn-primary bx-big", ic: "check" })}</section>` : ""}
+          ${bxRows(rows)}` };
+    }
+    if (st === "qty") {
+      const max = bxMax(f);
+      return { title: f.qtyLabel, body: `${target}<form class="bx-form" data-bx-form="qty" novalidate>
+          ${bxStepper("bx-qty", f.qtyLabel, Math.max(1, max), Math.max(1, max), `${max > 0 ? `最大 ${fmt(max)}${esc(f.unit)} まで（初期値は最大）。` : "処理できる数量がありません。"}コンテナ：${esc(f.container.name)}${f.dir === "out" ? `（「${esc(f.item)}」の在庫 ${fmt(bxStockOf(f.container, f.item))}${esc(f.unit)}）` : ""}`)}
+          <div class="form-actions">${bxBtn("changec", "コンテナを変える", { ic: "box" })}<button class="btn btn-primary bx-big" type="submit">${icon("check")}<span>処理待ちに入れる</span></button></div></form>` };
+    }
+    if (st === "ng") {
+      return { title: "不合格の数量と理由", body: `${target}<p class="note">合格 ${fmt(f.qty)}${esc(f.unit)}、差の ${fmt(f.ngLimit)}${esc(f.unit)} までを不合格にできます。コンテナ：${esc(f.ngContainer.name)}</p>
+        <form class="bx-form" data-bx-form="ng" novalidate>
+          ${bxStepper("bx-ng", "不合格の数量", f.ngLimit, f.ngLimit, `1〜${fmt(f.ngLimit)}${esc(f.unit)}（初期値は差の全量）。`)}
+          <div class="field-row"><label for="bx-reason">不合格の理由</label><select id="bx-reason" name="reason">${BX_NG.map((r) => `<option>${r}</option>`).join("")}</select></div>
+          <div class="form-actions"><button class="btn btn-danger bx-big" type="submit">${icon("check")}<span>処理待ちに入れる</span></button></div></form>` };
+    }
+    if (st === "register") {
+      const r = BX.reg ?? { phase: "busy" };
+      if (r.phase === "busy") return { title: "登録しています", busy: true, body: `<div class="wr-busy" role="status" aria-busy="true"><span class="spinner" aria-hidden="true"></span><p>処理待ち ${BX.queue.length} 件を、順番に登録しています…</p></div>` };
+      if (r.phase === "ok") return { title: "登録しました", body: `<div class="wr-result" role="status"><p class="wr-ok">${icon("check")}<strong>${r.auto ? "30秒操作がなかったため、" : ""}処理待ち ${r.rows.length} 件を登録しました。</strong></p>
+        <dl class="wr-info"><div class="kv"><dt>入庫</dt><dd>${r.counts.in}件</dd></div><div class="kv"><dt>出庫</dt><dd>${r.counts.out}件</dd></div><div class="kv"><dt>済み・対象外</dt><dd>${r.done}件・${r.none}件</dd></div><div class="kv"><dt>更新件数</dt><dd>${r.updated}件</dd></div></dl>
+        <ul class="bx-log">${r.rows.map((x) => `<li>${esc(x)}</li>`).join("")}</ul><div class="form-actions">${bxBtn("finish", "閉じて、担当者の読み取りへ戻る", { cls: "btn btn-primary bx-big" })}</div></div>` };
+      return { title: "登録できませんでした", body: `<p class="bx-msg is-err" role="alert">${icon("alert")}<span>${esc(r.error)}</span></p><p class="note">ここまでのメッセージと処理待ちを消しました。最初から読み取ってください。</p><div class="form-actions">${bxBtn("finish", "閉じて、担当者の読み取りへ戻る", { cls: "btn btn-primary bx-big" })}</div>` };
+    }
+    return { title: "", body: "" };
+  }
+  function bxFrame() {
+    const v = bxStepView(), busy = v.busy;
+    return `<section class="card bx-step" aria-labelledby="bx-h">
+      <header class="bx-head">${bxBtn("back", "戻る", { ic: "back", dis: busy || BX.step === "register" })}<h2 id="bx-h">${esc(v.title)}</h2>${bxBtn("top", "トップに戻る", { ic: "home", dis: busy })}</header>
+      ${BX.step === "register" ? "" : bxContLine()}
+      ${BX.msg ? bxMsgHtml() : ""}
+      ${v.body}</section>`;
+  }
+
+  /* リーディングトップ */
+  function bxTopHtml() {
+    const cam = bcCamOk() ? bxBtn("cam", BX.cam ? "カメラを止める" : "カメラで読む", { ic: "camera" }) : "";
+    const label = BX.staff ? "バーコードの読込" : "担当者のバーコードを読み取る";
+    const hint = BX.staff ? "コンテナを先に読み取ると、以降はコンテナの選択を省けます。続けて、作業指示書・工程・注文書・明細・出荷オーダー・ロットを読み取ります。" : "最初に、担当者のバーコードを読み取ってください。（サンプル画面のため、何を入力しても担当者として受け付けます）";
+    const queue = BX.queue.length
+      ? `<ul class="bx-queue">${BX.queue.map((q) => `<li><span class="bx-q-main">${chip(BX_KIND[q.dir][0], BX_KIND[q.dir][1], BX_KIND[q.dir][2])}<span>${esc(q.label)}</span></span><span class="od-nowrap">${fmt(q.qty)}${esc(q.unit)}</span><button class="btn" type="button" data-bx="undo" data-arg="${q.id}" aria-label="${esc(q.label)}を取り消す">取り消し</button></li>`).join("")}</ul>`
+      : `<p class="note">処理待ちはありません。数量を入力すると、ここにたまります。</p>`;
+    const msgs = BX.msgs.length
+      ? `<ul class="bc-log bx-msgs">${BX.msgs.map((m) => `<li class="${m.kind === "none" ? "is-ng" : ""}"><span class="od-nowrap muted">${m.t}</span><span>${chip(BX_KIND[m.kind][0], BX_KIND[m.kind][1], BX_KIND[m.kind][2])} ${esc(m.text)}</span></li>`).join("")}</ul>`
+      : emptyState("まだメッセージがありません", "読み取った内容が、ここに新しい順で残ります。");
+    const sample = (k, label, list) => `<li><span class="muted">${label}</span><span class="bc-chips">${list.map((s) => `<button class="fchip" type="button" data-bx="sample" data-arg="${esc(s.sym)}" title="${esc(s.name ?? s.item ?? "")}">${esc(s.sym)}</button>`).join("")}</span></li>`;
+    const samples = [
+      sample("s", "担当者", BXD.staff), sample("c", "コンテナ", BXD.containers), sample("w", "作業指示書", BXD.workOrders),
+      sample("t", "工程", BXD.workOrders.flatMap((w) => w.tasks)), sample("p", "注文書", BXD.purchases), sample("l", "注文書明細", BXD.purchases.flatMap((p) => p.lines)),
+      sample("o", "出荷オーダー", BXD.shipments), sample("d", "出荷明細", BXD.shipments.flatMap((s) => s.lines)), sample("v", "ビジター（ロット）", BXD.lots), sample("i", "製品", BXD.items),
+    ].join("");
+    return `<div class="bx">
+      <section class="card bx-main" aria-labelledby="bx-top-h">
+        <h2 class="sr-only" id="bx-top-h">バーコードの読込</h2>
+        ${bxContLine()}
+        <form class="bx-form" data-bx-form="top" novalidate><label for="bx-input">${label}</label>
+          <div class="bx-row-in"><input id="bx-input" name="v" type="text" autocapitalize="characters" spellcheck="false" autocomplete="off" enterkeyhint="done" aria-describedby="bx-hint"><button class="btn btn-primary" type="submit">問い合わせ</button>${cam}</div>
+          <p class="note" id="bx-hint">${hint}</p>
+          ${BX.cam ? `<video id="bx-video" class="bc-video" playsinline muted aria-label="カメラの映像"></video>` : ""}</form>
+        ${BX.msg ? bxMsgHtml() : `<p class="bx-msg" role="status"><span></span></p>`}
+        ${BX.container ? `<section class="bx-sel" aria-label="選択コンテナの保持アイテム"><h3>${esc(BX.container.name)}<span class="muted">（${esc(BX.container.sym)}）の保持アイテム</span></h3>${bxHeld(BX.container)}<div class="form-actions">${bxBtn("clearc", "コンテナの選択を解除")}</div></section>` : ""}
+        <p class="note" id="bx-idle" aria-live="off"></p>
       </section>
-      <aside class="bc-side" aria-label="補助情報">
-        <details class="card bc-samples"><summary>試すためのバーコード（プロトタイプ用）</summary><ul>${samples}</ul><p class="note">押すと、そのバーコードを読み取ったことになります。</p></details>
-        <section class="card" aria-labelledby="bc-lh"><h2 class="sec-title" id="bc-lh">処理の履歴</h2>${history}</section>
-      </aside>
-    </div>`;
+      <section class="card bx-queue-card" aria-labelledby="bx-q-h"><h2 class="sec-title" id="bx-q-h">処理待ち（${BX.queue.length}件）</h2>${queue}
+        <div class="bx-bar">${bxBtn("register", `まとめて登録（${BX.queue.length}件）`, { cls: "btn btn-primary bx-big", ic: "check", dis: !BX.queue.length })}${BX.staff ? bxBtn("end", "終了（担当者を外す）") : ""}</div></section>
+      <aside class="bx-side" aria-label="補助情報">
+        <section class="card" aria-labelledby="bx-m-h"><h2 class="sec-title" id="bx-m-h">メッセージ</h2>${msgs}</section>
+        <!-- DEV-ONLY: 開発者向けのパネル。実際の APP には含めない（実装では、サンプルの取得元のときだけ出す） -->
+        <details class="card bc-samples dev-only" data-dev-only="true"><summary><span class="dev-badge">開発者向け</span>試すためのバーコード（プロトタイプ用）</summary><ul>${samples}</ul><p class="note">押すと、そのバーコードを読み取ったことになります。コンテナと製品は、在庫の動きに使われます。</p></details>
+      </aside></div>`;
+  }
+  function barcodeScreen() {
+    if (BX.step && mobile) return `<div class="bx bx-mobile">${bxFrame()}</div>`;
+    return bxTopHtml();
+  }
+
+  /* PC・タブレット: 入力要求をダイアログで出す */
+  let bxModalEl = null;
+  function bxModalClose() { bxModalEl?.remove(); bxModalEl = null; document.getElementById("app")?.removeAttribute("inert"); }
+  function bxModalPaint() {
+    if (mobile || !BX.step) return bxModalClose();
+    if (!bxModalEl) {
+      bxModalEl = document.createElement("div");
+      bxModalEl.className = "bx-modal";
+      bxModalEl.setAttribute("role", "dialog");
+      bxModalEl.setAttribute("aria-modal", "true");
+      bxModalEl.setAttribute("aria-labelledby", "bx-h");
+      document.body.appendChild(bxModalEl);
+      root.inert = true;
+    }
+    bxModalEl.innerHTML = `<div class="bx-scrim" data-bx="${BX.step === "register" ? "noop" : "back"}"></div><div class="bx-modal-card">${bxFrame()}</div>`;
+    return bxModalEl;
+  }
+  function bxFocus() {
+    const scope = bxModalEl ?? document.querySelector(".bx");
+    scope?.querySelector("input:not([type=hidden]), .bx-big:not([disabled]), button:not([disabled])")?.focus({ preventScroll: true });
+  }
+
+  function bxClick(a, arg, el, scope) {
+    bxTouch();
+    switch (a) {
+      case "back": return bxBack();
+      case "top": return bxTop();
+      case "cam": BX.cam = !BX.cam; if (!BX.cam) bcCamStop(); return;
+      case "sample": return bxRead(arg);
+      case "undo": return bxUndo(Number(arg));
+      case "clearc": BX.container = null; return bxSay("コンテナの選択を解除しました。");
+      case "end": return bxResetAll();
+      case "register": return void bxRegister(false);
+      case "finish": return bxFinish();
+      case "task": { const t = BX.flow.wo.tasks.find((x) => x.sym === arg); return bxTarget("task", t, BX.flow.wo); }
+      case "line": { const l = BX.flow.po.lines.find((x) => x.sym === arg); return bxTarget("line", l, BX.flow.po); }
+      case "sline": { const l = BX.flow.so.lines.find((x) => x.sym === arg); return bxTarget("sline", l, BX.flow.so); }
+      case "lotitem": return bxPickLotItem(arg);
+      case "cpick": return bxChoose(bxCont(arg));
+      case "cgo": return bxProceedContainer();
+      case "changec": BX.flow.pcPurpose = "main"; return bxGo("pickContainer", BX.flow);
+      case "dec": case "inc": { const i = scope.querySelector(`#${el.dataset.for}`); const n = Number(i.value) || 1; i.value = String(Math.max(1, n + (a === "inc" ? 1 : -1))); return "keep"; }
+      case "all": scope.querySelector(`#${el.dataset.for}`).value = el.dataset.max; return "keep";
+      default: return undefined;
+    }
+  }
+  function bxSubmit(form) {
+    bxTouch();
+    const k = form.dataset.bxForm, v = form.elements.v?.value;
+    if (k === "top") return bxRead(v);
+    if (k === "container") {
+      const c = bxFind(v ?? "");
+      if (!String(v ?? "").trim()) return bxSay("コンテナのバーコードを読み取るか、一覧から選んでください。", true);
+      if (c?.kind !== "cont") return bxSay(`「${String(v).trim()}」はコンテナのバーコードではありません。もう一度読み取ってください。`, true);
+      return bxChoose(c.rec);
+    }
+    if (k === "qty") return bxQty(form.elements["bx-qty"].value);
+    if (k === "ng") return bxNg(form.elements["bx-ng"].value, form.elements.reason.value);
   }
   function bindBarcode() {
-    const root = document.querySelector(".bc");
-    if (!root) return;
+    const scope = (el) => el.closest(".bx-modal, .bx") ?? document;
     const redo = () => { const keep = scroller().scrollTop; render(); scroller().scrollTop = keep; };
-    root.querySelectorAll("[data-bc-form]").forEach((f) => f.addEventListener("submit", (e) => { e.preventDefault(); bcSubmit(f.elements.v.value); redo(); }));
-    root.querySelectorAll("[data-bc-act]").forEach((b) => b.addEventListener("click", () => { bcAct(b.dataset.bcAct, b.dataset.arg, root); redo(); }));
-    document.getElementById("bc-input")?.focus({ preventScroll: true });
-    if (BC.cam) bcCamStart();
+    if (!document.querySelector(".bx")) { bxModalClose(); return; }
+    const modal = bxModalPaint();
+    const roots = [document.querySelector(".bx"), modal].filter(Boolean);
+    roots.forEach((r) => {
+      r.querySelectorAll("[data-bx-form]").forEach((f) => f.addEventListener("submit", (e) => { e.preventDefault(); bxSubmit(f); redo(); }));
+      r.querySelectorAll("[data-bx]").forEach((b) => b.addEventListener("click", (e) => {
+        if (b.dataset.bx === "noop") return;
+        const res = bxClick(b.dataset.bx, b.dataset.arg, b, scope(b));
+        if (res !== "keep") redo();
+      }));
+    });
+    if (modal && !modal.dataset.bound) {
+      modal.dataset.bound = "1";
+      modal.addEventListener("keydown", (e) => {
+        bxTouch();
+        if (e.key === "Escape" && BX.step !== "register") { e.preventDefault(); bxBack(); redo(); }
+        if (e.key === "Tab") {
+          const f = [...modal.querySelectorAll("button:not([disabled]), input, select, a[href]")];
+          const first = f[0], last = f[f.length - 1];
+          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+      });
+    }
+    document.querySelector(".bx")?.addEventListener("input", bxTouch);
+    if (!bxTimer) bxTimer = setInterval(bxTick, 1000);
+    bxFocus();
+    if (BX.cam && !BX.step) bcCamStart();
   }
 
   /* ---------- maintenance mode ----------
@@ -3372,7 +3584,7 @@
       </dl>
       <p class="note">作業が終わると、自動で通常の画面に戻ります。終了予定を過ぎても戻らないときは、再読み込みしてください。</p>
       <div class="logout-actions"><button class="btn btn-primary" type="button" data-mnt-reload>${icon("refresh")}<span>再読み込みして確認</span></button></div>
-      ${live ? "" : `<p class="note mnt-preview">確認用の表示です。メンテナンスフラグがオンのときは、サインイン前を含むすべての画面でこの表示になります。</p>`}
+      ${live ? "" : `<!-- DEV-ONLY: 確認用の注記。実際の APP には含めない --><p class="note mnt-preview dev-only" data-dev-only="true"><span class="dev-badge">開発者向け</span>確認用の表示です。メンテナンスフラグがオンのときは、サインイン前を含むすべての画面でこの表示になります。</p>`}
     </section></div>`;
   const bootScreen = () => `<div class="logout-wrap"><section class="card logout-card" aria-live="polite">
       <div class="spinner" role="status" aria-label="読み込み中"></div><h1>生産管理を起動しています…</h1><p>データと設定を読み込んでいます。</p>
@@ -3447,7 +3659,7 @@
         ${fieldRow({ id: "code", label: "認証コード（6桁）", max: 6, rule: "code", disabled: locked, attrs: 'inputmode="numeric" autocomplete="one-time-code"' })}
         <button class="btn btn-primary" type="submit" ${locked ? "disabled" : ""}>確認</button>
         <button class="btn" type="button" data-resend ${locked ? "disabled" : ""}>コードを再送する</button>
-      </form>`, `<p class="note">プロトタイプ用の表示：実際のメールは送られません。届いたコードは ${esc(D.auth.code)} の想定です。</p><a class="btn" href="#/${flow === "register" ? "register" : "forgot"}">前の画面に戻る</a>`);
+      </form>`, `<!-- DEV-ONLY: 開発者向けの注記（実際のメールは APP が送る）。実際の APP には含めない --><p class="note dev-only" data-dev-only="true"><span class="dev-badge">開発者向け</span>プロトタイプ用の表示：実際のメールは送られません。届いたコードは ${esc(D.auth.code)} の想定です。</p><a class="btn" href="#/${flow === "register" ? "register" : "forgot"}">前の画面に戻る</a>`);
   };
   const resetScreen = () => acctShell("rst", "新しいパスワード", "reset-credentials/password", `<form class="kc-form" id="acct-form" data-step="reset" novalidate>
       ${fieldRow({ id: "pw", label: "新しいパスワード", kind: "password", max: 64, rule: "pw", attrs: 'autocomplete="new-password"' })}
@@ -3749,8 +3961,9 @@
     ...DOM.groups.map((g) => ({ group: `g_${g.id}`, icon: g.icon, label: g.label,
       children: [...(g.id === "result" ? [{ id: "wr", icon: "wrench", label: "実績登録" }, { id: "barcode", icon: "barcode", label: "バーコード" }] : []), ...g.screens.map((sid) => ({ id: `g/${sid}`, icon: GS[sid].icon, label: GS[sid].label }))] })),
     { id: "company", icon: "building", label: "会社情報" },
-    { id: "maintenance-mode", icon: "wrench", label: "メンテナンス中" },
-    { id: "denied", icon: "alert", label: "アクセス拒否（確認用）" },
+    /* DEV-ONLY: 確認用のメニュー（メンテナンス中・アクセス拒否）。実際の APP には含めない（フラグ・権限の結果で表示される） */
+    { id: "maintenance-mode", icon: "wrench", label: "メンテナンス中", devOnly: true },
+    { id: "denied", icon: "alert", label: "アクセス拒否（確認用）", devOnly: true },
   ];
   NAV.find((n) => n.group === "g_plan")?.children.push({ id: "mrp", icon: "box", label: "資材所要計算" });
   NAV.find((n) => n.group === "g_result")?.children.push({ id: "stock", icon: "box", label: "在庫状況" });
@@ -3837,7 +4050,7 @@
   function render() {
     const P = parseRoute();
     const mntLive = maintenanceOn();
-    if (P.name !== "barcode" || mntLive) { BC.cam = false; bcCamStop(); BC.argKey = null; }
+    if (P.name !== "barcode" || mntLive) { BC.cam = false; bcCamStop(); BC.argKey = null; bxLeave(); }
     const blocked = !mntLive && ACCESS.deniedRoutes.includes(P.name);
     deniedFrom = P.name === "denied" ? hashQuery().get("from") ?? "" : blocked ? P.name : "";
     const route = mntLive ? "maintenance-mode" : blocked ? "denied" : P.name;

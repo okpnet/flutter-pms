@@ -64,6 +64,9 @@ graph TD;
 1.  数量の上限は取得元の値(`SupplyTarget.remaining` = 未受入、`held` = 仮止め中)。受け入れは未受入まで、合格・不合格は仮止め中まで。画面で計算しない。
 1.  メモリ上の取得元は動く。GraphQL 版(`GraphqlScanGateway`)は、支給の照会・登録が未対応(`registerSupply` は `UnsupportedError`、`SP` は未登録の通知になる)。対応は、支給の取得元(`VSupplyDetailBalance`)と登録の関数(`supply_register`)の通信確認のあと。
 
+## 実績登録の画面へのリンク
+作業指示を読み込むと、概要の下に「実績登録の画面を開く」(キー `openWorkRegister`)を出す。押すと、その生産計画を先頭にして実績登録(`work_record` の `WorkRegisterDestination(planId:)`。契約 `work_record_api.dart` だけに依存)を CommandBus で開く。生産計画の id は作業指示の対象(`WorkOrderTarget.operationsPlanId`)が持つ(GraphQL 版は `ScanFound.operationsPlanId`)。分からないときと、実績登録の画面を持たないアプリ(`entry_app` が `openWorkRegisterLinkProvider` を false に上書き)では出さない。
+
 ## 規則
 1.  symbol の種類は取得元が判定する。画面・流れは symbol の接頭辞を知らない。設備はコードで引く。大文字小文字は区別しない。
 2.  エラーは文字列ではなく種類(`NoticeKind`・`LogKind`)で持ち、画面が表示時に文字列へ変換する。やり直しを求める通知は `isError`。

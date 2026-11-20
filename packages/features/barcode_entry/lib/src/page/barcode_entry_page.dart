@@ -1,6 +1,8 @@
 import 'package:app_shell/app_shell.dart';
 import 'package:flutter/material.dart';
+import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:work_record/work_record_api.dart';
 
 import '../i18n/strings_provider.dart';
 import '../logic/in_memory_scan_gateway.dart';
@@ -123,6 +125,20 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
                 ),
                 const SizedBox(height: 8),
                 _Summary(context: s.context),
+                // 作業指示の工程から、その生産計画の実績登録の画面(作業実績 › 実績登録)を開く(画面案 6.5)
+                if (ref.watch(openWorkRegisterLinkProvider))
+                  if (s.context.order?.operationsPlanId case final planId?)
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: TextButton.icon(
+                        key: const ValueKey('openWorkRegister'),
+                        icon: const Icon(Icons.open_in_new, size: 18),
+                        label: Text(t.input.openRegister),
+                        onPressed: () => ref
+                            .read(commandBusProvider)
+                            .execute(WorkRegisterDestination(planId: planId)),
+                      ),
+                    ),
                 if (notice != null)
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),

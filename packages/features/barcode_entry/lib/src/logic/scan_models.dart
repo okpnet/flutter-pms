@@ -54,6 +54,7 @@ final class WorkOrderTarget extends ScanTarget {
     this.outsourced = false,
     this.stopped = false,
     this.closed = false,
+    this.operationsPlanId,
   });
 
   @override
@@ -69,6 +70,9 @@ final class WorkOrderTarget extends ScanTarget {
   /// 停止中・終わっている(打ち切り・キャンセル)。実績を登録できない。
   final bool stopped;
   final bool closed;
+
+  /// この作業指示が属する生産計画の id(実績登録の画面を開く)。分からないときは null。
+  final String? operationsPlanId;
 
   bool get blocked => stopped || closed;
 

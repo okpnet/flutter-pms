@@ -29,8 +29,62 @@ window.OD_EXTRA = {
       { sym: "IT-BAR", name: "丸棒 SS400", unit: "本" },
     ],
   },
+  /* バーコード画面（作業実績 › バーコード）のサンプル（フロー図から作り直した版）。symbol は大文字。状態は画面の中だけで更新する。
+     idleSeconds: 無操作でトップへ戻る秒数 / staff: 担当者 / containers: コンテナ（保持アイテム・入れ子） / workOrders: 作業指示書（工程） /
+     purchases: 注文書（明細） / shipments: 出荷オーダー（明細） / lots: ビジター（ロット） / items: 製品のバーコード（在庫状況から渡される） */
+  bcx: {
+    idleSeconds: 30,
+    staff: [
+      { sym: "ST-0101", no: "E-0101", name: "田中 誠" },
+      { sym: "ST-0012", no: "E-0012", name: "佐藤 健一" },
+    ],
+    containers: [
+      { sym: "SH-M-01", name: "材料棚 M-1", kind: "材料", items: [{ item: "丸棒 SS400", unit: "本", qty: 120 }, { item: "ボルト M8×20", unit: "個", qty: 3000 }], nested: [] },
+      { sym: "SH-A-01", name: "完成品棚 A-1", kind: "完成品", items: [{ item: "ユニットA", unit: "台", qty: 18 }, { item: "ブラケット", unit: "個", qty: 400 }], nested: ["上段", "下段"] },
+      { sym: "SH-A-02", name: "完成品棚 A-2", kind: "完成品", items: [{ item: "ユニットA", unit: "台", qty: 6 }], nested: [] },
+      { sym: "SH-R-01", name: "受入棚 R-1", kind: "受入", items: [], nested: [] },
+      { sym: "SH-X-01", name: "不良品棚 X-1", kind: "不良品", items: [], nested: [] },
+    ],
+    workOrders: [
+      { sym: "WO-2610-001", item: "ユニットA", unit: "台", qty: 100, tasks: [
+        { sym: "WT-2610-001-10", seq: 10, task: "組立", qty: 100, started: 0, done: 0, ng: 0, material: "ブラケット", materialUnit: "個" },
+        { sym: "WT-2610-001-20", seq: 20, task: "検査", qty: 100, started: 100, done: 40, ng: 0, material: "ユニットA", materialUnit: "台" },
+      ] },
+      { sym: "WO-2610-002", item: "ブラケット", unit: "個", qty: 200, tasks: [
+        { sym: "WT-2610-002-10", seq: 10, task: "旋削", qty: 200, started: 120, done: 80, ng: 0, material: "丸棒 SS400", materialUnit: "本" },
+        { sym: "WT-2610-002-20", seq: 20, task: "穴あけ", qty: 200, started: 0, done: 0, ng: 0, material: "ブラケット", materialUnit: "個" },
+      ] },
+      { sym: "WO-2610-003", item: "シャフト", unit: "本", qty: 50, tasks: [
+        { sym: "WT-2610-003-10", seq: 10, task: "フライス", qty: 50, started: 50, done: 50, ng: 0, material: "丸棒 SS400", materialUnit: "本" },
+      ] },
+    ],
+    purchases: [
+      { sym: "PO-2610-001", supplier: "大和鋼材株式会社", lines: [
+        { sym: "PD-2610-001-1", item: "丸棒 SS400", unit: "本", qty: 200, received: 0 },
+        { sym: "PD-2610-001-2", item: "ボルト M8×20", unit: "個", qty: 5000, received: 5000 },
+      ] },
+      { sym: "PO-2610-002", supplier: "北斗ファスナー株式会社", lines: [
+        { sym: "PD-2610-002-1", item: "ボルト M8×20", unit: "個", qty: 5000, received: 1000 },
+      ] },
+    ],
+    shipments: [
+      { sym: "SO-2610-001", customer: "北斗機械株式会社", lines: [
+        { sym: "SD-2610-001-1", item: "ユニットA", unit: "台", qty: 50, shipped: 0 },
+        { sym: "SD-2610-001-2", item: "ブラケット", unit: "個", qty: 100, shipped: 100 },
+      ] },
+    ],
+    lots: [
+      { sym: "LT-0001", item: "ユニットA", unit: "台", qty: 10 },
+      { sym: "LT-0002", item: "丸棒 SS400", unit: "本", qty: 30 },
+    ],
+    items: [
+      { sym: "IT-UNIT-A", name: "ユニットA", unit: "台" },
+      { sym: "IT-BRKT", name: "ブラケット", unit: "個" },
+      { sym: "IT-BAR", name: "丸棒 SS400", unit: "本" },
+    ],
+  },
   /* 作業実績 › 実績登録のサンプル。生産計画 → 生産計画明細 → 実績。stock はコンテナの中身（seq: 0=材料、n=工程nの完了品）。
-     outcome を "error" にすると、登録時の DB 更新失敗の表示を確認できる */
+     outcome を "error" にすると、登録時の DB 更新失敗の表示を確認できる（DEV-ONLY: 確認用の切り替え。実際の APP には含めない） */
   wr: {
     outcome: "success",
     lastStaff: "E-0101",

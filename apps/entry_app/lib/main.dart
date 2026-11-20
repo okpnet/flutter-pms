@@ -88,6 +88,8 @@ class EntryApp extends StatelessWidget {
       logger: logger,
       overrides: [
         themeLoggerProvider.overrideWithValue(logger),
+        // 実績登録専用アプリには、実績登録の画面(生産計画)が無い
+        openWorkRegisterLinkProvider.overrideWithValue(false),
         if (maintenanceUrl.isNotEmpty)
           maintenanceCheckerProvider.overrideWith(
             (ref) => HttpMaintenanceChecker.forServer(
