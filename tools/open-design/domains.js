@@ -423,3 +423,51 @@
   const at = D.groups.findIndex((g) => g.id === "plan");
   D.groups.splice(at + 1, 0, { id: "planchange", label: "計画変更", icon: "check", screens: ["planchange", "cancelopen"] });
 })();
+
+/* 品質管理: 異常(不適合・不具合)。異常の種類は 6 つで固定(DB: trans_complaint_equipment・_process・_purchase_rec・_visiter・_order・_stakeholder)。
+   - 内部の異常 = 設備の点検・工程・購買/委託品の受入・棚移動で発見された異常。外部の異常 = 顧客クレームと、供給者・顧客からの苦情(クレームではない)。
+   - 画面は「外部の異常」「内部の異常」「異常の登録」の 3 つのタブ。外部は利害関係者とクレームか苦情かの列を持つ。
+   - 種類・外部か・クレームかは、DB のビュー v_complaint_kind が定義する(画面で決めない)。ここでは同じ値を、サンプルの値として持つ。
+   - 種類ごとの苦情の登録は、関連する画面(受注・受入・顧客)の行の操作からも、異常の画面からも開く。どこから開いても同じ「異常の登録」の画面
+     (app.js の complaintRegister。種類で入力項目が変わる)を使う(ライブラリ化)。 */
+(function () {
+  const D = window.OD_DOMAINS;
+  const K = [
+    { key: "equip", label: "設備の点検で発見された異常", ext: false, claim: false, target: "設備", from: "設備点検" },
+    { key: "proc", label: "工程で発見された異常", ext: false, claim: false, target: "工程", from: "実績登録(不適合)" },
+    { key: "rec", label: "購買・委託品の受入で発見された異常", ext: false, claim: false, target: "受入", from: "受入検品" },
+    { key: "shelf", label: "棚移動で発見された異常", ext: false, claim: false, target: "ロット(棚)", from: "棚移動" },
+    { key: "order", label: "顧客クレーム", ext: true, claim: true, target: "受注", from: "受注" },
+    { key: "stake", label: "利害関係者の苦情", ext: true, claim: false, target: "", from: "顧客・サプライヤー" },
+  ];
+  window.OD_COMPLAINT_KINDS = K;
+  const c = D.entities.find((e) => e.key === "complaint");
+  if (!c) return;
+  c.fields.push(
+    ["kind", "種類", "s", { opts: K.map((k) => k.label) }],
+    ["external", "外部の異常", "b", { req: false }],
+    ["party", "利害関係者", "t", { req: false }],
+    ["claim", "クレームか苦情か", "s", { req: false, opts: ["クレーム", "苦情"] }],
+    ["target", "対象", "t", { req: false }],
+  );
+  const kl = (key) => K.find((k) => k.key === key).label;
+  // 既存の 2 件に、種類などを足す(寸法公差の外れ = 工程、納入品の傷 = 受入)
+  c.rows[0].push(kl("proc"), "", "", "", "旋削");
+  c.rows[1].push(kl("rec"), "", "", "", "受入 R-2610-01");
+  c.rows.push(
+    ["2026-10-18", "主軸の異音", "", "E-0101", "", kl("equip"), "", "", "", "NC旋盤 1号機"],
+    ["2026-10-20", "棚の取り違え", "", "E-0101", "", kl("shelf"), "", "", "", "A棚-2 のロット"],
+    ["2026-10-22", "梱包の破損", "", "E-0101", "", kl("order"), "1", "北斗機械株式会社", "クレーム", "受注 SO-1001"],
+    ["2026-10-25", "納期回答が遅い", "", "E-0101", "", kl("stake"), "1", "東西金属株式会社", "苦情", ""],
+  );
+  D.screens.find((s) => s.id === "complaint").tabs = [
+    ["ext", "外部の異常", "complaint", { where: { external: "1" }, hide: ["target"] }],
+    ["int", "内部の異常", "complaint", { where: { external: "" }, hide: ["party", "claim", "external"] }],
+    ["reg", "異常の登録", "complaint", { page: "complaint-register" }],
+  ];
+  // 関連する画面の行から、種類を決めて異常を登録する(受注 → 顧客クレーム、受入 → 受入で発見された異常、顧客 → 苦情)
+  const act = (key, to) => { const e = D.entities.find((x) => x.key === key); if (e && !e.action) e.action = to; };
+  act("order", { to: "complaint", query: "kind=order", param: "order", label: "クレームを登録" });
+  act("purchaserec", { to: "complaint", query: "kind=rec", param: "purchaserec", label: "異常を登録" });
+  act("customer", { to: "complaint", query: "kind=stake", param: "customer", label: "苦情を登録" });
+})();

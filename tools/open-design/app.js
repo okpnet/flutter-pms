@@ -1991,6 +1991,7 @@
     if (kind === "gEnt") {
       const E = G[ent];
       const back = form.dataset.back;
+      if (ent === "complaint") Object.assign(v, ckDerive(v.kind));
       if (id === "new") {
         const n = { id: nextId(E.key, D[E.coll]), ...(E.parent ? { [E.parent.key]: pid || v[E.parent.key] } : {}), ...v, ...stamp };
         if (E.tree) { n.parent = v.parent || ""; if (n.parent) { gTree.open.add(n.parent); gTree.loaded.add(n.parent); } }
@@ -2506,7 +2507,7 @@
       html: (r) => (f.kind === "c" ? `<span class="od-nowrap">${f.calc(r)}%</span>` : f.kind === "b" ? (r[f.id] ? chip("はい", "check", "ok") : chip("いいえ", "", "mute")) : f.kind === "s" && r[f.id] ? chip(esc(r[f.id]), "", G_CHIP[r[f.id]] ?? "") : f.kind === "d" ? `<span class="od-nowrap">${esc(gShow(f, r[f.id]))}</span>` : esc(gShow(f, r[f.id]))),
     })),
     ...E.children.map((c) => numCol(`c_${c}`, G[c].label, G[c].coll, G[c].parent.key, "件")),
-    ...(E.action ? [{ key: "_act", label: "操作", val: () => "", html: (r) => `<a class="btn tree-act" href="#/g/e/stockrez/new?${E.action.param}=${r.id}">${E.action.label}</a>` }] : []),
+    ...(E.action ? [{ key: "_act", label: "操作", val: () => "", html: (r) => `<a class="btn tree-act" href="#/g/e/${E.action.to ?? "stockrez"}/new?${E.action.query ? `${E.action.query}&` : ""}${E.action.param}=${r.id}">${E.action.label}</a>` }] : []),
     byCol, dateCol,
   ];
   Object.values(G).forEach((E) => {
@@ -2557,6 +2558,61 @@
       nest: { closed: new Set(), label: G[t.nest].label, html: (r, edit) => gNestHtml(t, r, edit) },
     });
   }));
+
+  /* tabs with a row filter (tab option { where, hide }): the same entity shown as separate tables, e.g. 外部の異常 / 内部の異常 */
+  Object.values(GS).forEach((S) => S.tabs.forEach((t) => {
+    if (t.nest || !t.where) return;
+    const E = G[t.root];
+    if (E.tree) return;
+    t.rtable = makeTable({
+      key: `gt_${S.id}_${t.id}`, hidden: ["updatedBy", "updatedAt", ...(t.hide ?? [])], placeholder: "名称などで検索",
+      list: () => D[E.coll].filter((r) => Object.entries(t.where).every(([k, v]) => (r[k] ?? "") === v)),
+      search: (r) => E.fields.map((f) => gShow(f, r[f.id])).join(" "),
+      href: (r) => `#/g/e/${E.key}/${r.id}`,
+      pick: E.children.length ? { get: () => gSel[E.key], set: (id) => gSelect(E.key, id) } : null,
+      cols: gCols(E),
+    });
+  }));
+
+  /* 異常(complaint): 種類は 6 つで固定。種類から、外部か・クレームかが決まる(DB のビュー v_complaint_kind と同じ)。
+     どの画面から開いても同じ登録の画面(complaintRegister)を使う。種類で入力項目が変わる */
+  const CK = window.OD_COMPLAINT_KINDS ?? [];
+  const ckOf = (v) => CK.find((k) => k.key === v || k.label === v);
+  const ckDerive = (kind) => { const k = ckOf(kind); return k ? { external: k.ext ? "1" : "", claim: k.claim ? "クレーム" : k.ext ? "苦情" : "" } : {}; };
+  /* 関連する画面から開いたときの初期値(kind=種類の記号、order=受注、purchaserec=受入、customer=顧客) */
+  function ckPreset(qs) {
+    const k = ckOf(qs.get("kind"));
+    const out = k ? { kind: k.label, ...ckDerive(k.key) } : {};
+    const od = qs.get("order") ? gGet("order", qs.get("order")) : null;
+    if (od) { const cf = G.order.fields.find((f) => f.kind === "r" && f.ref === "customer"); out.target = `受注 ${od.no}`; if (cf) out.party = String(gShow(cf, od[cf.id])); }
+    const pr = qs.get("purchaserec") ? gGet("purchaserec", qs.get("purchaserec")) : null;
+    if (pr) out.target = `受入 ${pr.no}`;
+    const cu = qs.get("customer") ? gGet("customer", qs.get("customer")) : null;
+    if (cu) out.party = cu.name;
+    return out;
+  }
+  const ckAddHref = (key) => `#/g/e/complaint/new?kind=${key}`;
+  /* 種類の選択(異常の画面から追加するとき)。選ぶと、種類を決めた登録の画面へ進む */
+  const ckSheetBody = () => `<ul class="ck-kinds" aria-label="異常の種類">${CK.map((k) => `<li><a class="btn ck-kind" href="${ckAddHref(k.key)}" data-ck-go>
+      <span class="ck-kind-name">${esc(k.label)}</span><span class="ck-kind-sub">${k.ext ? "外部の異常" : "内部の異常"}${k.claim ? "・クレーム" : k.ext ? "・苦情" : ""}</span></a></li>`).join("")}</ul>`;
+  function ckOpenSheet(trigger) {
+    showSheet(trigger, { chip: chip("異常", "alert"), title: "異常の種類を選んでください", rows: [], extra: ckSheetBody() });
+    sheetRoot().querySelectorAll("[data-ck-go]").forEach((a) => a.addEventListener("click", () => closeSheet(false)));
+  }
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-ck-add]");
+    if (!b) return;
+    e.preventDefault();
+    ckOpenSheet(b);
+  });
+  /* 「異常の登録」タブ: 種類ごとの入口と、関連する画面からの登録の案内 */
+  const ckRegisterPanel = () => `<section class="card" aria-labelledby="h-ck-reg">
+      <div class="sec-head"><h2 class="sec-title" id="h-ck-reg">異常の登録</h2></div>
+      <p class="tbl-note">登録する異常の種類を選んでください。異常の種類は 6 つで、どの画面から登録しても、同じ登録の画面(種類で入力項目が変わります)を使います。</p>
+      <ul class="ck-kinds">${CK.map((k) => `<li><a class="btn ck-kind" href="${ckAddHref(k.key)}"><span class="ck-kind-name">${esc(k.label)}</span>
+        <span class="ck-kind-sub">${k.ext ? "外部の異常" : "内部の異常"}${k.claim ? "・クレーム" : k.ext ? "・苦情" : ""}　対象: ${esc(k.target || "なし")}　関連する画面: ${esc(k.from)}</span></a></li>`).join("")}</ul>
+      <p class="tbl-note-out">関連する画面からも登録できます: 受注の行の「クレームを登録」(顧客クレーム)、受入の行の「異常を登録」(受入で発見された異常)、顧客の行の「苦情を登録」(利害関係者の苦情)。バーコード・設備点検・実績登録の不適合は、それぞれの画面から同じ登録の画面へ進みます。</p>
+    </section>`;
 
   /* tree structure: parent / child indent, lazy expand, drag & drop re-parenting (edit mode) */
   const gKids = (E, id, owner) => D[E.coll].filter((r) => (r.parent || "") === id && (owner == null || !E.parent || r[E.parent.key] === owner));
@@ -2616,9 +2672,18 @@
         ${gTabBar(S, tab.id, edit)}
         <div class="tab-panel">${tableCard(tab.table, edit, `h-g-${tab.id}`, "購入品の品目", edit ? "" : editLink(`${base}/edit`, tab.label))}</div>`;
     }
+    if (tab.page === "complaint-register") {
+      return `${backLink("#/menu", "メニューに戻る")}${flashHtml()}
+        ${gTabBar(S, tab.id, false)}
+        <div class="tab-panel" role="tabpanel" aria-labelledby="tab-${tab.id}">${ckRegisterPanel()}</div>`;
+    }
+    const addBtn = E.key === "complaint"
+      ? `<button class="btn" type="button" data-ck-add>${icon("plus")}<span>異常を追加</span></button>`
+      : `<a class="btn" href="#/g/e/${E.key}/new">${icon("plus")}<span>${E.label}を追加</span></a>`;
+    const block = (ed, action) => (tab.rtable ? tableCard(tab.rtable, ed, `h-g-${tab.id}`, `${tab.label}の一覧`, action) : gBlock(E, ed, `${E.label}の一覧`, action, true));
     const body = edit
-      ? gBlock(E, true, `${E.label}の一覧`, `<a class="btn" href="#/g/e/${E.key}/new">${icon("plus")}<span>${E.label}を追加</span></a>`, true)
-      : gBlock(E, false, `${E.label}の一覧`, editLink(`${base}/edit`, tab.label), true) +
+      ? block(true, addBtn)
+      : block(false, editLink(`${base}/edit`, tab.label)) +
         (gSel[E.key] ? gWalk(E.key) : E.children.length ? `<section class="card">${emptyState(`${E.label}を選んでください`, `上の一覧で${E.label}の名称を選ぶと、${E.children.map((c) => G[c].label).join("・")}がここに表示されます。`)}</section>` : "");
     return `${backLink(edit ? base : "#/menu", edit ? "閲覧に戻る" : "メニューに戻る")}${flashHtml()}
       ${gTabBar(S, tab.id, edit)}
@@ -2640,9 +2705,13 @@
     const rows = [];
     if (E.parent && !pid) rows.push(fieldRow({ id: E.parent.key, label: G[E.parent.ent].label, kind: "select", options: gRefOpts({ ref: E.parent.ent }), value: "" }));
     const lim = E.limit ? E.limit(rec, qs) : null;
-    E.fields.filter((f) => f.kind !== "c").forEach((f) => rows.push(fieldRow({
+    const ckPre = ent === "complaint" && isNew ? ckPreset(qs) : {};
+    const ckKind = ent === "complaint" ? ckOf(isNew ? ckPre.kind : rec.kind) : null;
+    // 種類が決まっているとき、その種類に関係する項目だけを出す(外部: 利害関係者。内部: 対象。外部か・クレームか苦情かは、種類から決まるため出さない)
+    const ckHide = (f) => ent === "complaint" && ckKind && (f.id === "external" || f.id === "claim" || (ckKind.ext ? f.id === "target" : f.id === "party"));
+    E.fields.filter((f) => f.kind !== "c" && !ckHide(f)).forEach((f) => rows.push(fieldRow({
       id: f.id, label: f.label, kind: FK[f.kind], max: f.kind === "x" ? 200 : 60, req: f.req,
-      options: f.kind === "s" ? f.opts.map((o) => [o, o]) : f.kind === "r" ? (E.opts?.[f.id] ? E.opts[f.id](rec, qs) : gRefOpts(f)) : [], value: isNew ? (qs.get(f.id) ?? "") : String(rec[f.id] ?? ""),
+      options: f.kind === "s" ? f.opts.map((o) => [o, o]) : f.kind === "r" ? (E.opts?.[f.id] ? E.opts[f.id](rec, qs) : gRefOpts(f)) : [], value: isNew ? (ckPre[f.id] ?? qs.get(f.id) ?? "") : String(rec[f.id] ?? ""),
       after: f.after, xor: f.xor, setsLe: f.setsLe, leMap: f.setsLe ? lim?.byStock : null, le: f.limit ? lim?.max : f.le,
       toggle: f.toggle, ge: f.ge, gt: f.gt, needUnless: f.needUnless, disables: f.disables, disabled: !!(f.needUnless && rec[f.needUnless]) || !!(isNew && f.xor && (qs.get(f.id) || qs.get(f.xor))),
       taken: f.uniq && E.parent && pid ? D[E.coll].filter((r) => r[E.parent.key] === pid && r.id !== id).map((r) => r[f.id]) : null,

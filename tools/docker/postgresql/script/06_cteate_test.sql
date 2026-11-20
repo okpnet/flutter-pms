@@ -21973,6 +21973,80 @@ COMMENT ON VIEW tests.v_register_target IS '@primaryKey target_id
 @foreignKey (item_id) references mstr_item (mstr_item_id)
 実績を登録する対象(作業指示の工程と発注明細。発注・非計上発注は同じ発注明細)。登録できるか・残り・実施中を列で持つ(画面で計算・判定しない)';
 
+CREATE VIEW tests.v_complaint_kind AS
+SELECT
+    t.complaint_kind_id
+    , t.trans_complaint_id
+    , c.symbol
+    , c.occurent_at
+    , c.titles
+    , c.details
+    , c.reporter_staff_id
+    , c.approvals
+    , c.remarks
+    , t.kind_symbol
+    , t.kind_name
+    , t.is_external
+    , t.is_claim
+    , t.stakeholder_id
+    , t.trans_order_id
+    , t.mstr_equipment_id
+    , t.mstr_task_id
+    , t.trans_purchase_rec_id
+    , t.trans_visiter_id
+FROM (
+    -- 内部の異常
+    SELECT e.trans_complaint_equipment_id AS complaint_kind_id, e.trans_complaint_id, e.symbol AS kind_symbol
+        , '設備の点検で発見された異常' AS kind_name, FALSE AS is_external, FALSE AS is_claim
+        , NULL::uuid AS stakeholder_id, NULL::uuid AS trans_order_id, e.equipment_id AS mstr_equipment_id
+        , NULL::uuid AS mstr_task_id, NULL::uuid AS trans_purchase_rec_id, NULL::uuid AS trans_visiter_id
+    FROM tests.trans_complaint_equipment AS e WHERE e.remove IS FALSE
+    UNION ALL
+    SELECT p.trans_complaint_process_id, p.trans_complaint_id, p.symbol
+        , '工程で発見された異常', FALSE, FALSE
+        , NULL::uuid, NULL::uuid, NULL::uuid
+        , p.mstr_task_id, NULL::uuid, NULL::uuid
+    FROM tests.trans_complaint_process AS p WHERE p.remove IS FALSE
+    UNION ALL
+    SELECT r.trans_complaint_purchase_rec_id, r.trans_complaint_id, r.symbol
+        , '購買・委託品の受入で発見された異常', FALSE, FALSE
+        , NULL::uuid, NULL::uuid, NULL::uuid
+        , NULL::uuid, r.trans_purchase_rec_id, NULL::uuid
+    FROM tests.trans_complaint_purchase_rec AS r WHERE r.remove IS FALSE
+    UNION ALL
+    SELECT v.trans_complaint_visiter_id, v.trans_complaint_id, v.symbol
+        , '棚移動で発見された異常', FALSE, FALSE
+        , NULL::uuid, NULL::uuid, NULL::uuid
+        , NULL::uuid, NULL::uuid, v.trans_visiter_id
+    FROM tests.trans_complaint_visiter AS v WHERE v.remove IS FALSE
+    UNION ALL
+    -- 外部の異常: 顧客クレーム(クレーム)と、供給者・顧客からの苦情(クレームではない)
+    SELECT o.trans_complaint_order_id, o.trans_complaint_id, o.symbol
+        , '顧客クレーム', TRUE, TRUE
+        , ord.stakeholder_id, o.trans_order_id, NULL::uuid
+        , NULL::uuid, NULL::uuid, NULL::uuid
+    FROM tests.trans_complaint_order AS o
+    LEFT JOIN tests.trans_order AS ord ON ord.trans_order_id = o.trans_order_id
+    WHERE o.remove IS FALSE
+    UNION ALL
+    SELECT s.trans_complaint_stakeholder_id, s.trans_complaint_id, s.symbol
+        , '利害関係者の苦情', TRUE, FALSE
+        , s.stakeholder_id, NULL::uuid, NULL::uuid
+        , NULL::uuid, NULL::uuid, NULL::uuid
+    FROM tests.trans_complaint_stakeholder AS s WHERE s.remove IS FALSE
+) AS t
+INNER JOIN tests.trans_complaint AS c ON c.trans_complaint_id = t.trans_complaint_id AND c.remove IS FALSE;
+
+COMMENT ON VIEW tests.v_complaint_kind IS '@primaryKey complaint_kind_id
+@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)
+@foreignKey (stakeholder_id) references mstr_stakeholder (mstr_stakeholder_id)
+@foreignKey (trans_order_id) references trans_order (trans_order_id)
+@foreignKey (mstr_equipment_id) references mstr_equipment (mstr_equipment_id)
+@foreignKey (mstr_task_id) references mstr_task (mstr_task_id)
+@foreignKey (trans_purchase_rec_id) references trans_purchase_rec (trans_purchase_rec_id)
+@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)
+異常の種類別の一覧(1 行 = 異常 × 種類)。種類は 6 つで固定: 設備の点検・工程・購買/委託品の受入・棚移動で発見された異常(内部の異常)、顧客クレーム・利害関係者の苦情(外部の異常)。種類の名称・外部か(is_external)・クレームか(is_claim)は、このビューだけで定義する(画面で決めない)';
+
 CREATE OR REPLACE FUNCTION tests.visiter_receive(
     p_container_id uuid,
     p_qty numeric,

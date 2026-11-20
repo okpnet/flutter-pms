@@ -2,7 +2,7 @@
   "formatVersion": 3,
   "appVersion": "0.1.0",
   "id": 538067658,
-  "nextId": 6041,
+  "nextId": 6042,
   "properties": {
     "outputFileName": "pms_test",
     "outputFolder": "",
@@ -65481,6 +65481,30 @@
       "sql": {
         "sql": "SELECT\n    wp.trans_work_plan_id AS target_id\n    , wp.symbol\n    , wp.trans_work_plan_id\n    , NULL::uuid AS trans_purchase_detail_id\n    , TRUE AS is_work_plan\n    , FALSE AS is_purchase_detail\n    , rp.item_id\n    , COALESCE(op.quantity, 0) AS quantity\n    , COALESCE(w.done, 0) AS done_quantity\n    , GREATEST(COALESCE(op.quantity, 0) - COALESCE(w.done, 0) - COALESCE(w.taken_open, 0), 0) AS remaining_quantity\n    , COALESCE(w.has_open, FALSE) AS in_progress\n    , r.stopped\n    , r.closed\n    -- 登録できるか: 停止・打ち切り・全部キャンセルでなく、残りがある\n    , (r.registrable AND COALESCE(op.quantity, 0) - COALESCE(w.done, 0) - COALESCE(w.taken_open, 0) > 0) AS registrable\nFROM tests.trans_work_plan AS wp\nINNER JOIN tests.trans_operations_plan AS op ON op.trans_operations_plan_id = wp.trans_operations_plan_id\nINNER JOIN tests.trans_resource_plan AS rp ON rp.trans_resource_plan_id = op.trans_resource_plan_id\nINNER JOIN tests.v_work_plan_registrable AS r ON r.trans_work_plan_id = wp.trans_work_plan_id\nLEFT JOIN LATERAL (\n    SELECT\n        SUM(wr.qty) FILTER (WHERE wr.stop_at IS NOT NULL) AS done\n        , COALESCE(SUM(tk.q) FILTER (WHERE wr.stop_at IS NULL), 0) AS taken_open\n        , BOOL_OR(wr.stop_at IS NULL) AS has_open\n    FROM tests.trans_work_record AS wr\n    LEFT JOIN LATERAL (\n        -- 取り出した数量 = 作業実績につないだ払出(- の行)の合計\n        SELECT -SUM(v.quantity) AS q\n        FROM tests.trans_work_record_visiter AS wrv\n        INNER JOIN tests.trans_visiter AS v ON v.trans_visiter_id = wrv.trans_visiter_id AND v.quantity < 0\n        WHERE wrv.trans_work_record_id = wr.trans_work_record_id AND wrv.remove IS FALSE\n    ) AS tk ON TRUE\n    WHERE wr.trans_work_plan_id = wp.trans_work_plan_id AND wr.remove IS FALSE\n) AS w ON TRUE\nWHERE wp.remove IS FALSE\nUNION ALL\nSELECT\n    b.trans_purchase_detail_id AS target_id\n    , b.symbol\n    , NULL::uuid AS trans_work_plan_id\n    , b.trans_purchase_detail_id\n    , FALSE\n    , TRUE\n    , b.item_id\n    , b.quantity\n    , b.received_quantity AS done_quantity\n    , b.remaining_quantity\n    , FALSE AS in_progress\n    , b.stop AS stopped\n    , b.cancel_closed AS closed\n    , (NOT b.stop AND NOT b.cancel_closed AND b.remaining_quantity > 0) AS registrable\nFROM tests.v_purchase_detail_balance AS b",
         "columns": []
+      },
+      "preQuery": "",
+      "postQuery": ""
+    },
+    {
+      "id": 6041,
+      "kind": "view",
+      "logicalName": "",
+      "physicalName": "v_complaint_kind",
+      "comment": "@primaryKey complaint_kind_id\n@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\n@foreignKey (stakeholder_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (trans_order_id) references trans_order (trans_order_id)\n@foreignKey (mstr_equipment_id) references mstr_equipment (mstr_equipment_id)\n@foreignKey (mstr_task_id) references mstr_task (mstr_task_id)\n@foreignKey (trans_purchase_rec_id) references trans_purchase_rec (trans_purchase_rec_id)\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n異常の種類別の一覧(1 行 = 異常 × 種類)。種類は 6 つで固定: 設備の点検・工程・購買/委託品の受入・棚移動で発見された異常(内部の異常)、顧客クレーム・利害関係者の苦情(外部の異常)。種類の名称・外部か(is_external)・クレームか(is_claim)は、このビューだけで定義する(画面で決めない)",
+      "locked": false,
+      "viewType": "sql",
+      "join": {
+        "sources": [],
+        "columns": [],
+        "where": ""
+      },
+      "function": {
+        "methodId": null,
+        "args": [],
+        "columns": []
+      },
+      "sql": {
+        "sql": "SELECT\n    t.complaint_kind_id\n    , t.trans_complaint_id\n    , c.symbol\n    , c.occurent_at\n    , c.titles\n    , c.details\n    , c.reporter_staff_id\n    , c.approvals\n    , c.remarks\n    , t.kind_symbol\n    , t.kind_name\n    , t.is_external\n    , t.is_claim\n    , t.stakeholder_id\n    , t.trans_order_id\n    , t.mstr_equipment_id\n    , t.mstr_task_id\n    , t.trans_purchase_rec_id\n    , t.trans_visiter_id\nFROM (\n    -- 内部の異常\n    SELECT e.trans_complaint_equipment_id AS complaint_kind_id, e.trans_complaint_id, e.symbol AS kind_symbol\n        , '設備の点検で発見された異常' AS kind_name, FALSE AS is_external, FALSE AS is_claim\n        , NULL::uuid AS stakeholder_id, NULL::uuid AS trans_order_id, e.equipment_id AS mstr_equipment_id\n        , NULL::uuid AS mstr_task_id, NULL::uuid AS trans_purchase_rec_id, NULL::uuid AS trans_visiter_id\n    FROM tests.trans_complaint_equipment AS e WHERE e.remove IS FALSE\n    UNION ALL\n    SELECT p.trans_complaint_process_id, p.trans_complaint_id, p.symbol\n        , '工程で発見された異常', FALSE, FALSE\n        , NULL::uuid, NULL::uuid, NULL::uuid\n        , p.mstr_task_id, NULL::uuid, NULL::uuid\n    FROM tests.trans_complaint_process AS p WHERE p.remove IS FALSE\n    UNION ALL\n    SELECT r.trans_complaint_purchase_rec_id, r.trans_complaint_id, r.symbol\n        , '購買・委託品の受入で発見された異常', FALSE, FALSE\n        , NULL::uuid, NULL::uuid, NULL::uuid\n        , NULL::uuid, r.trans_purchase_rec_id, NULL::uuid\n    FROM tests.trans_complaint_purchase_rec AS r WHERE r.remove IS FALSE\n    UNION ALL\n    SELECT v.trans_complaint_visiter_id, v.trans_complaint_id, v.symbol\n        , '棚移動で発見された異常', FALSE, FALSE\n        , NULL::uuid, NULL::uuid, NULL::uuid\n        , NULL::uuid, NULL::uuid, v.trans_visiter_id\n    FROM tests.trans_complaint_visiter AS v WHERE v.remove IS FALSE\n    UNION ALL\n    -- 外部の異常: 顧客クレーム(クレーム)と、供給者・顧客からの苦情(クレームではない)\n    SELECT o.trans_complaint_order_id, o.trans_complaint_id, o.symbol\n        , '顧客クレーム', TRUE, TRUE\n        , ord.stakeholder_id, o.trans_order_id, NULL::uuid\n        , NULL::uuid, NULL::uuid, NULL::uuid\n    FROM tests.trans_complaint_order AS o\n    LEFT JOIN tests.trans_order AS ord ON ord.trans_order_id = o.trans_order_id\n    WHERE o.remove IS FALSE\n    UNION ALL\n    SELECT s.trans_complaint_stakeholder_id, s.trans_complaint_id, s.symbol\n        , '利害関係者の苦情', TRUE, FALSE\n        , s.stakeholder_id, NULL::uuid, NULL::uuid\n        , NULL::uuid, NULL::uuid, NULL::uuid\n    FROM tests.trans_complaint_stakeholder AS s WHERE s.remove IS FALSE\n) AS t\nINNER JOIN tests.trans_complaint AS c ON c.trans_complaint_id = t.trans_complaint_id AND c.remove IS FALSE"
       },
       "preQuery": "",
       "postQuery": ""
