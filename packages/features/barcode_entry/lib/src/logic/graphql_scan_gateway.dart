@@ -33,6 +33,10 @@ class GraphqlScanGateway implements IScanGateway {
     return found;
   }
 
+  /// 担当者の照会は、担当者のモデルが無いため未対応(null)。担当者の読み取りを必須にしない(`requireOperatorProvider` が false)。
+  @override
+  Future<OperatorTarget?> findOperator(String symbol) async => null;
+
   @override
   Future<ScanTarget?> find(String symbol) async {
     final f = await client.find(symbol.trim());

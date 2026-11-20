@@ -8,6 +8,9 @@ abstract interface class IScanGateway {
   /// symbol(設備はコード)から対象を引く。登録がなければ null。
   Future<ScanTarget?> find(String symbol);
 
+  /// 担当者の symbol から担当者を引く。登録がない・取得元が未対応なら null。
+  Future<OperatorTarget?> findOperator(String symbol);
+
   /// 作業を開始する。[shelf] から材料を出庫する(棚出庫処理)。
   Future<void> startWork(WorkOrderTarget order, ShelfTarget shelf);
 

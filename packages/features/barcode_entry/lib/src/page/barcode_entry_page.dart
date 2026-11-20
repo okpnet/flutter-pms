@@ -119,7 +119,9 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
                 const SizedBox(height: 12),
                 Text(
                   s.step == ScanStep.top
-                      ? t.input.topTitle
+                      ? (ref.watch(requireOperatorProvider) && s.operator == null
+                          ? t.staff.topTitle
+                          : t.input.topTitle)
                       : t.stepTitle(s.step),
                   style: theme.textTheme.titleLarge,
                 ),
@@ -155,6 +157,26 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
                 _stepBody(t, s, flow),
                 const SizedBox(height: 24),
                 if (s.queue.isNotEmpty) _QueuePanel(state: s, flow: flow),
+                if (s.operator != null || s.selectedShelf != null)
+                  Wrap(
+                    spacing: 8,
+                    children: [
+                      if (s.operator case final op?)
+                        InputChip(
+                          key: const ValueKey('operatorChip'),
+                          label: Text(t.staff.label(name: op.name)),
+                          onDeleted: s.working ? null : flow.changeOperator,
+                          deleteButtonTooltipMessage: t.staff.change,
+                        ),
+                      if (s.selectedShelf case final shelf?)
+                        InputChip(
+                          key: const ValueKey('shelfChip'),
+                          label: Text(t.staff.shelf(name: shelf.name)),
+                          onDeleted: s.working ? null : flow.changeShelf,
+                          deleteButtonTooltipMessage: t.staff.changeShelf,
+                        ),
+                    ],
+                  ),
                 _SampleSymbols(onPick: _commit),
                 const SizedBox(height: 16),
                 Text(t.log.title, style: theme.textTheme.titleMedium),

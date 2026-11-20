@@ -101,6 +101,8 @@ extension BarcodeEntryLabels on BarcodeEntryStrings {
         unit: a['unit']!,
       ),
       NoticeKind.failed => notice.failed,
+      NoticeKind.needOperator => notice.needOperator,
+      NoticeKind.operatorSet => notice.operatorSet(name: a['name']!),
       NoticeKind.queued => notice.queued(count: a['count']!),
       NoticeKind.queueFailed => notice.queueFailed(
         done: a['done']!,

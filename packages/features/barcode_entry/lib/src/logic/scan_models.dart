@@ -82,6 +82,14 @@ final class WorkOrderTarget extends ScanTarget {
   SymbolKind get kind => SymbolKind.work;
 }
 
+/// 担当者(読み取り対象。作業の担当として記録する人。画面案 6.4)。
+final class OperatorTarget {
+  const OperatorTarget({required this.symbol, required this.name});
+
+  final String symbol;
+  final String name;
+}
+
 /// 棚。
 final class ShelfTarget extends ScanTarget {
   const ShelfTarget({required this.symbol, required this.name});

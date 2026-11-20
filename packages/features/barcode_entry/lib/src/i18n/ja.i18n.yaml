@@ -106,6 +106,8 @@ notice:
   supplied: 支給を登録しました。次のバーコードを読み取ってください。
   qtyOverSupply: 登録できる数量は{remain}{unit}までです。それ以下の数量を入力してください。
   failed: 登録できませんでした。通信の状態を確認して、もう一度お試しください。
+  needOperator: 最初に担当者のバーコードを読み取ってください。処理待ちを消しました。
+  operatorSet: '担当者: {name}。次のバーコードを読み取ってください。'
   queued: '処理待ちに追加しました({count}件)。次のバーコードを読み取ってください。'
   queueFailed: '{total}件中{done}件を登録して、失敗しました。処理待ちを消しました。最初から読み取ってください。'
 log:
@@ -133,3 +135,9 @@ queue:
   register: 'まとめて登録({count}件)'
   remove: 取り消す
   item: '{sym} {qty}{unit} → {shelf}'
+staff:
+  label: '担当者: {name}'
+  change: 担当者を替える
+  shelf: '入庫先: {name}'
+  changeShelf: 入庫先を替える
+  topTitle: 担当者のバーコードを読み取り

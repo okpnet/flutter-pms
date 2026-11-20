@@ -59,6 +59,8 @@ enum NoticeKind {
   failed,
   queued,
   queueFailed,
+  needOperator,
+  operatorSet,
 }
 
 /// 通知。[isError] はやり直しを求める通知、[args] は文面に差し込む値。
@@ -198,6 +200,8 @@ class ScanState {
     this.log = const [],
     this.working = false,
     this.queue = const [],
+    this.operator,
+    this.selectedShelf,
   });
 
   /// 受け付ける種類を絞るモード。null は自動判定。
@@ -213,6 +217,12 @@ class ScanState {
   /// 処理待ち(キュー)。画面内のメモリだけに持つ。
   final List<QueuedPut> queue;
 
+  /// 読み取った担当者(null は未読み取り)。
+  final OperatorTarget? operator;
+
+  /// 選択して残しているコンテナ(棚)。入庫のたびの選択を省く。null は未選択。
+  final ShelfTarget? selectedShelf;
+
   ScanState copyWith({
     ScanMode? Function()? mode,
     ScanStep? step,
@@ -221,6 +231,8 @@ class ScanState {
     List<ScanLogEntry>? log,
     bool? working,
     List<QueuedPut>? queue,
+    OperatorTarget? Function()? operator,
+    ShelfTarget? Function()? selectedShelf,
   }) => ScanState(
     mode: mode != null ? mode() : this.mode,
     step: step ?? this.step,
@@ -229,6 +241,8 @@ class ScanState {
     log: log ?? this.log,
     working: working ?? this.working,
     queue: queue ?? this.queue,
+    operator: operator != null ? operator() : this.operator,
+    selectedShelf: selectedShelf != null ? selectedShelf() : this.selectedShelf,
   );
 
   Map<String, Object?> toJson() => {
@@ -238,6 +252,8 @@ class ScanState {
     'notice': notice?.kind.name,
     'working': working,
     'queue': queue.map((q) => q.toJson()).toList(),
+    'operator': operator?.symbol,
+    'selectedShelf': selectedShelf?.symbol,
   };
 }
 
@@ -276,6 +292,8 @@ class ScanFlow extends Notifier<ScanState> {
         log: state.log,
         notice: notice,
         queue: state.queue,
+        operator: state.operator,
+        selectedShelf: state.selectedShelf,
       );
 
   void _go(ScanStep step, ScanContext context) =>
@@ -328,6 +346,9 @@ class ScanFlow extends Notifier<ScanState> {
     if (v.isEmpty) {
       return _notice(const ScanNotice(NoticeKind.empty, isError: true));
     }
+    if (state.step == ScanStep.top && ref.read(requireOperatorProvider) && state.operator == null) {
+      return _submitOperator(v);
+    }
     switch (state.step) {
       case ScanStep.top:
         return _submitTop(v);
@@ -350,6 +371,30 @@ class ScanFlow extends Notifier<ScanState> {
     }
   }
 
+  /// 最初の読み取り: 担当者。担当者以外から始めたら警告して、処理待ちを消す。
+  Future<void> _submitOperator(String v) async {
+    final op = await _guard('担当者の照会', v, () => _gateway.findOperator(v));
+    if (_failed) return;
+    if (op == null) {
+      state = state.copyWith(
+        queue: const [],
+        selectedShelf: () => null,
+        notice: () => const ScanNotice(NoticeKind.needOperator, isError: true),
+      );
+      return;
+    }
+    state = state.copyWith(
+      operator: () => op,
+      notice: () => ScanNotice(NoticeKind.operatorSet, args: {'name': op.name}),
+    );
+  }
+
+  /// 担当者を替える(最初の読み取りへ戻る)。処理待ちは残す。
+  void changeOperator() => state = state.copyWith(operator: () => null, notice: () => null);
+
+  /// 選択を残したコンテナを外す(次の入庫でまた選ぶ)。
+  void changeShelf() => state = state.copyWith(selectedShelf: () => null, notice: () => null);
+
   /// 開始の選択(はい: 棚出庫へ / いいえ: トップへ)。
   void answerStart(bool start) {
     final order = state.context.order;
@@ -360,10 +405,14 @@ class ScanFlow extends Notifier<ScanState> {
   }
 
   /// 評価(合格: 入庫へ / 不合格: 不合格処理へ)。
-  void evaluate({required bool pass}) {
+  Future<void> evaluate({required bool pass}) async {
     if (state.step != ScanStep.eval && state.step != ScanStep.recvEval) return;
     if (pass) {
-      return _go(ScanStep.putShelf, state.context.copyWith(rejected: false));
+      _go(ScanStep.putShelf, state.context.copyWith(rejected: false));
+      // 処理待ちを使うとき、選択を残したコンテナがあれば棚の読み取りを省く
+      final shelf = state.selectedShelf;
+      if (shelf != null && ref.read(batchQueueProvider)) await _put(shelf);
+      return;
     }
     _go(ScanStep.ng, state.context.copyWith(rejected: true));
   }
@@ -650,7 +699,10 @@ class ScanFlow extends Notifier<ScanState> {
         ...state.queue,
         QueuedPut(source: source, quantity: c.quantity, shelf: shelf, reason: reason),
       ];
-      state = state.copyWith(queue: queue);
+      state = state.copyWith(
+        queue: queue,
+        selectedShelf: () => reason == null ? shelf : state.selectedShelf,
+      );
       return _reset(ScanNotice(NoticeKind.queued, args: {'count': queue.length}));
     }
     final done = await _guard('入庫', source.symbol, () async {

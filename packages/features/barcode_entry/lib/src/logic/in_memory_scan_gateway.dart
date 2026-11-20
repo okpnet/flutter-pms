@@ -97,6 +97,15 @@ class InMemoryScanGateway implements IScanGateway {
   Future<ScanTarget?> find(String symbol) async =>
       _targets[symbol.trim().toUpperCase()];
 
+  static const _operators = {
+    'ST-TANAKA': OperatorTarget(symbol: 'ST-TANAKA', name: '田中 太郎'),
+    'ST-SATO': OperatorTarget(symbol: 'ST-SATO', name: '佐藤 花子'),
+  };
+
+  @override
+  Future<OperatorTarget?> findOperator(String symbol) async =>
+      _operators[symbol.trim().toUpperCase()];
+
   @override
   Future<void> startWork(WorkOrderTarget order, ShelfTarget shelf) async {
     final current = _targets[order.symbol];

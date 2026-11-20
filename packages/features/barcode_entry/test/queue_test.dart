@@ -40,6 +40,7 @@ Future<void> _stock(ScanFlow flow, String shelf, String item, String qty) async 
 }
 
 void main() {
+  operatorTests();
   test('キューを有効にすると、入庫は登録せず処理待ちにたまる', () async {
     final g = InMemoryScanGateway();
     final c = _container(g);
@@ -98,5 +99,53 @@ void main() {
     await _stock(flow, 'SH-A-01', 'IT-UNIT-A', '3');
     expect(c.read(scanFlowProvider).queue, isEmpty);
     expect(g.journal, hasLength(1));
+  });
+}
+
+ProviderContainer _containerWith(InMemoryScanGateway g, {required bool operator}) {
+  final c = ProviderContainer(
+    overrides: [
+      scanGatewayProvider.overrideWithValue(g),
+      loggerProvider.overrideWithValue(const NoopLoggerProvider()),
+      batchQueueProvider.overrideWithValue(true),
+      requireOperatorProvider.overrideWithValue(operator),
+    ],
+  );
+  addTearDown(c.dispose);
+  return c;
+}
+
+void operatorTests() {
+  test('担当者の読み取りが必須: 担当者以外から始めると警告して処理待ちを消す', () async {
+    final c = _containerWith(InMemoryScanGateway(), operator: true);
+    final flow = c.read(scanFlowProvider.notifier);
+    await flow.submit('SH-A-01');
+    expect(c.read(scanFlowProvider).notice?.kind, NoticeKind.needOperator);
+    expect(c.read(scanFlowProvider).operator, isNull);
+    await flow.submit('ST-TANAKA');
+    expect(c.read(scanFlowProvider).operator?.name, '田中 太郎');
+    expect(c.read(scanFlowProvider).notice?.kind, NoticeKind.operatorSet);
+    await _stock(flow, 'SH-A-01', 'IT-UNIT-A', '1');
+    expect(c.read(scanFlowProvider).queue, hasLength(1));
+    expect(c.read(scanFlowProvider).operator, isNotNull); // 入庫のあとも担当者は残る
+  });
+
+  test('選択したコンテナを残し、2 件目以降は棚の読み取りを省く', () async {
+    final c = _containerWith(InMemoryScanGateway(), operator: false);
+    final flow = c.read(scanFlowProvider.notifier);
+    await flow.submit('PO-2610-001-1');
+    await flow.submit('1');
+    await flow.evaluate(pass: true);
+    expect(c.read(scanFlowProvider).step, ScanStep.putShelf);
+    await flow.submit('SH-R-01');
+    expect(c.read(scanFlowProvider).selectedShelf?.symbol, 'SH-R-01');
+    await flow.submit('PO-2610-002-1');
+    await flow.submit('1');
+    await flow.evaluate(pass: true); // 棚の読み取りなしで処理待ちへ
+    final s = c.read(scanFlowProvider);
+    expect(s.step, ScanStep.top);
+    expect(s.queue, hasLength(2));
+    flow.changeShelf();
+    expect(c.read(scanFlowProvider).selectedShelf, isNull);
   });
 }

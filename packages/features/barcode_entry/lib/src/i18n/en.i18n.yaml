@@ -105,6 +105,8 @@ notice:
   inspected: Inspection results recorded. Scan the next barcode.
   supplied: Supplied material registered. Scan the next barcode.
   qtyOverSupply: You can register up to {remain} {unit}. Enter that or less.
+  needOperator: Scan the operator's barcode first. The queue was cleared.
+  operatorSet: 'Operator: {name}. Scan the next barcode.'
   queued: 'Added to the queue ({count}). Scan the next barcode.'
   queueFailed: 'Registered {done} of {total}, then failed. The queue was cleared. Start scanning again.'
   failed: Could not register. Check the connection and try again.
@@ -133,3 +135,9 @@ queue:
   register: 'Register all ({count})'
   remove: Remove
   item: '{sym} {qty}{unit} → {shelf}'
+staff:
+  label: 'Operator: {name}'
+  change: Change operator
+  shelf: 'Destination: {name}'
+  changeShelf: Change destination
+  topTitle: Scan the operator barcode

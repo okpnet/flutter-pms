@@ -20,3 +20,7 @@ final openWorkRegisterLinkProvider = Provider<bool>((ref) => true);
 /// 入庫をその場で登録せず、処理待ち(キュー)にためて「まとめて登録」するか(画面案 6.4)。既定はその場で登録する。
 /// キューは画面内のメモリだけに持つ(保存・復元しない。アプリの終了・画面を離れると消える)。
 final batchQueueProvider = Provider<bool>((ref) => false);
+
+/// 最初に担当者のバーコードを読み取らせるか(画面案 6.4)。既定は不要。
+/// 担当者以外から始めると警告して、処理待ちを消す。取得元が担当者を引けるとき(`findOperator`)だけ true にする。
+final requireOperatorProvider = Provider<bool>((ref) => false);

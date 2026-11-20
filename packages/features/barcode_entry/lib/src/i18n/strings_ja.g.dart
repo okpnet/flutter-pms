@@ -48,6 +48,7 @@ class BarcodeEntryStrings with BaseTranslations<BarcodeEntryLocale, BarcodeEntry
 	late final BarcodeEntryStrings$notice$ja notice = BarcodeEntryStrings$notice$ja.internal(_root);
 	late final BarcodeEntryStrings$log$ja log = BarcodeEntryStrings$log$ja.internal(_root);
 	late final BarcodeEntryStrings$queue$ja queue = BarcodeEntryStrings$queue$ja.internal(_root);
+	late final BarcodeEntryStrings$staff$ja staff = BarcodeEntryStrings$staff$ja.internal(_root);
 }
 
 // Path: menu
@@ -359,6 +360,12 @@ class BarcodeEntryStrings$notice$ja {
 	/// ja: '登録できませんでした。通信の状態を確認して、もう一度お試しください。'
 	String get failed => '登録できませんでした。通信の状態を確認して、もう一度お試しください。';
 
+	/// ja: '最初に担当者のバーコードを読み取ってください。処理待ちを消しました。'
+	String get needOperator => '最初に担当者のバーコードを読み取ってください。処理待ちを消しました。';
+
+	/// ja: '担当者: {name}。次のバーコードを読み取ってください。'
+	String operatorSet({required Object name}) => '担当者: ${name}。次のバーコードを読み取ってください。';
+
 	/// ja: '処理待ちに追加しました({count}件)。次のバーコードを読み取ってください。'
 	String queued({required Object count}) => '処理待ちに追加しました(${count}件)。次のバーコードを読み取ってください。';
 
@@ -451,6 +458,30 @@ class BarcodeEntryStrings$queue$ja {
 
 	/// ja: '{sym} {qty}{unit} → {shelf}'
 	String item({required Object sym, required Object qty, required Object unit, required Object shelf}) => '${sym} ${qty}${unit} → ${shelf}';
+}
+
+// Path: staff
+class BarcodeEntryStrings$staff$ja {
+	BarcodeEntryStrings$staff$ja.internal(this._root);
+
+	final BarcodeEntryStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '担当者: {name}'
+	String label({required Object name}) => '担当者: ${name}';
+
+	/// ja: '担当者を替える'
+	String get change => '担当者を替える';
+
+	/// ja: '入庫先: {name}'
+	String shelf({required Object name}) => '入庫先: ${name}';
+
+	/// ja: '入庫先を替える'
+	String get changeShelf => '入庫先を替える';
+
+	/// ja: '担当者のバーコードを読み取り'
+	String get topTitle => '担当者のバーコードを読み取り';
 }
 
 // Path: modes.work
@@ -648,6 +679,8 @@ extension on BarcodeEntryStrings {
 			'notice.supplied' => '支給を登録しました。次のバーコードを読み取ってください。',
 			'notice.qtyOverSupply' => ({required Object remain, required Object unit}) => '登録できる数量は${remain}${unit}までです。それ以下の数量を入力してください。',
 			'notice.failed' => '登録できませんでした。通信の状態を確認して、もう一度お試しください。',
+			'notice.needOperator' => '最初に担当者のバーコードを読み取ってください。処理待ちを消しました。',
+			'notice.operatorSet' => ({required Object name}) => '担当者: ${name}。次のバーコードを読み取ってください。',
 			'notice.queued' => ({required Object count}) => '処理待ちに追加しました(${count}件)。次のバーコードを読み取ってください。',
 			'notice.queueFailed' => ({required Object total, required Object done}) => '${total}件中${done}件を登録して、失敗しました。処理待ちを消しました。最初から読み取ってください。',
 			'log.title' => '履歴',
@@ -673,6 +706,11 @@ extension on BarcodeEntryStrings {
 			'queue.register' => ({required Object count}) => 'まとめて登録(${count}件)',
 			'queue.remove' => '取り消す',
 			'queue.item' => ({required Object sym, required Object qty, required Object unit, required Object shelf}) => '${sym} ${qty}${unit} → ${shelf}',
+			'staff.label' => ({required Object name}) => '担当者: ${name}',
+			'staff.change' => '担当者を替える',
+			'staff.shelf' => ({required Object name}) => '入庫先: ${name}',
+			'staff.changeShelf' => '入庫先を替える',
+			'staff.topTitle' => '担当者のバーコードを読み取り',
 			_ => null,
 		};
 	}
