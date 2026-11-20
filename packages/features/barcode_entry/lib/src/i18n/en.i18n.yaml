@@ -7,9 +7,12 @@ steps:
   top: Reading top
   start: Choose whether to start
   issueShelf: Issue from shelf
-  qty: Enter quantity
-  eval: Evaluation
+  issueQty: Enter start quantity
+  qty: Enter pass quantity
+  eval: Any rejects?
+  failQty: Enter reject quantity
   ng: Rejection handling
+  returnReason: Reason for the difference
   putShelf: Shelf move reading (put away)
   stockItem: Product / purchased item reading
   stockQty: Enter quantity
@@ -55,15 +58,21 @@ input:
   startQuestion: Start this work? (Material is issued from the shelf.)
   answerYes: Yes
   answerNo: No
-  pass: Pass
-  fail: Fail
-  evalQuestion: Choose an evaluation.
+  pass: No rejects (register)
+  fail: There are rejects
+  evalQuestion: Are there any rejects?
   ngReason: Reason for rejection
   ngConfirm: Continue as rejected
   issueShelfHint: Scan the shelf to take the material for "{item}" from; it is issued and the work starts.
   putShelfHint: 'Scan the shelf for the {judge} goods ({qty} {unit}); they are put away.'
   stockItemHint: 'Scan the product / purchased item to put in "{shelf}".'
   qtyHint: 'Remaining {remain} {unit} (an integer of 1 or more)'
+  issueQtyHint: 'Enter the start quantity for "{item}" (issued from shelf "{shelf}". Up to {max} {unit})'
+  passQtyHint: 'Enter the pass quantity (up to {max} {unit}; 0 if everything is rejected)'
+  failQtyHint: 'Enter the reject quantity (up to {max} {unit})'
+  returnQuestion: 'The completed quantity is {diff} {unit} less than taken. The difference goes back to the source shelf. Choose a reason.'
+  returnReasonLabel: Reason for the difference
+  returnConfirm: Register with this reason
   inspectionSave: Record inspection results
   inspectionResults:
     pass: Pass
@@ -77,6 +86,11 @@ input:
   supplyAccept: Inspection passed (release the hold)
   supplyReject: Inspection failed (register a nonconformity; stays on hold)
   supplyRegister: Register
+returnReasons:
+  overDay: Over the day
+  handover: Shift handover
+  setup: Setup change
+  other: Other
 ngReasons:
   dimension: Dimension defect
   appearance: Appearance defect
@@ -137,7 +151,8 @@ queue:
   register: 'Register all ({count})'
   remove: Remove
   item: '{sym} {qty}{unit} → {shelf}'
-  issueItem: '{sym} issue ← {shelf}'
+  issueItem: '{sym} issue {qty} ← {shelf}'
+  resultItem: '{sym} finish: pass {pass} / reject {fail}'
 staff:
   label: 'Operator: {name}'
   change: Change operator

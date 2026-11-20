@@ -38,6 +38,18 @@ void main() {
         Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
       );
     });
+    serverTest('PlanChangeSettlementKindPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryPlanChangeSettlementKindPageRead,
+          variables: Variables$Query$PlanChangeSettlementKindPageRead(first: 1, languageCodeId: _zeroId).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$PlanChangeSettlementKindPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
     serverTest('PlanChangeUnreflectedPageRead', (server) async {
       final result = await server.provider.query(
         QueryOptions(

@@ -56,6 +56,7 @@ final class WorkOrderTarget extends ScanTarget {
     this.stopped = false,
     this.closed = false,
     this.operationsPlanId,
+    this.takenQuantity,
   });
 
   @override
@@ -74,6 +75,13 @@ final class WorkOrderTarget extends ScanTarget {
 
   /// この作業指示が属する生産計画の id(実績登録の画面を開く)。分からないときは null。
   final String? operationsPlanId;
+
+  /// 実施中の作業実績で、コンテナから取り出した数量。終了で登録できる完了数量(合格 + 不合格)の上限。
+  /// 分からないとき(取得元が持たない)は null で、残り数量を上限にする。
+  final int? takenQuantity;
+
+  /// 終了で登録できる数量の上限。
+  int get finishLimit => takenQuantity ?? remaining;
 
   bool get blocked => stopped || closed;
 
@@ -248,6 +256,9 @@ enum InspectionResult { pass, fail, recheck }
 
 /// 不合格の理由。
 enum RejectReason { dimension, appearance, material, shortage, other }
+
+/// 作業の終了で、完了が取り出しより少ない差(コンテナへ返す)の理由。選ぶ値(DB の状態ではない)。
+enum ReturnReason { overDay, handover, setup, other }
 
 /// 数量を入れる元(入庫の元)。
 sealed class StockSource {

@@ -44,6 +44,7 @@ class BarcodeEntryStringsEn extends BarcodeEntryStrings with BaseTranslations<Ba
 	@override late final _BarcodeEntryStrings$kinds$en kinds = _BarcodeEntryStrings$kinds$en._(_root);
 	@override late final _BarcodeEntryStrings$modes$en modes = _BarcodeEntryStrings$modes$en._(_root);
 	@override late final _BarcodeEntryStrings$input$en input = _BarcodeEntryStrings$input$en._(_root);
+	@override late final _BarcodeEntryStrings$returnReasons$en returnReasons = _BarcodeEntryStrings$returnReasons$en._(_root);
 	@override late final _BarcodeEntryStrings$ngReasons$en ngReasons = _BarcodeEntryStrings$ngReasons$en._(_root);
 	@override late final _BarcodeEntryStrings$notice$en notice = _BarcodeEntryStrings$notice$en._(_root);
 	@override late final _BarcodeEntryStrings$log$en log = _BarcodeEntryStrings$log$en._(_root);
@@ -76,9 +77,12 @@ class _BarcodeEntryStrings$steps$en extends BarcodeEntryStrings$steps$ja {
 	@override String get top => 'Reading top';
 	@override String get start => 'Choose whether to start';
 	@override String get issueShelf => 'Issue from shelf';
-	@override String get qty => 'Enter quantity';
-	@override String get eval => 'Evaluation';
+	@override String get issueQty => 'Enter start quantity';
+	@override String get qty => 'Enter pass quantity';
+	@override String get eval => 'Any rejects?';
+	@override String get failQty => 'Enter reject quantity';
 	@override String get ng => 'Rejection handling';
+	@override String get returnReason => 'Reason for the difference';
 	@override String get putShelf => 'Shelf move reading (put away)';
 	@override String get stockItem => 'Product / purchased item reading';
 	@override String get stockQty => 'Enter quantity';
@@ -138,15 +142,21 @@ class _BarcodeEntryStrings$input$en extends BarcodeEntryStrings$input$ja {
 	@override String get startQuestion => 'Start this work? (Material is issued from the shelf.)';
 	@override String get answerYes => 'Yes';
 	@override String get answerNo => 'No';
-	@override String get pass => 'Pass';
-	@override String get fail => 'Fail';
-	@override String get evalQuestion => 'Choose an evaluation.';
+	@override String get pass => 'No rejects (register)';
+	@override String get fail => 'There are rejects';
+	@override String get evalQuestion => 'Are there any rejects?';
 	@override String get ngReason => 'Reason for rejection';
 	@override String get ngConfirm => 'Continue as rejected';
 	@override String issueShelfHint({required Object item}) => 'Scan the shelf to take the material for "${item}" from; it is issued and the work starts.';
 	@override String putShelfHint({required Object judge, required Object qty, required Object unit}) => 'Scan the shelf for the ${judge} goods (${qty} ${unit}); they are put away.';
 	@override String stockItemHint({required Object shelf}) => 'Scan the product / purchased item to put in "${shelf}".';
 	@override String qtyHint({required Object remain, required Object unit}) => 'Remaining ${remain} ${unit} (an integer of 1 or more)';
+	@override String issueQtyHint({required Object item, required Object shelf, required Object max, required Object unit}) => 'Enter the start quantity for "${item}" (issued from shelf "${shelf}". Up to ${max} ${unit})';
+	@override String passQtyHint({required Object max, required Object unit}) => 'Enter the pass quantity (up to ${max} ${unit}; 0 if everything is rejected)';
+	@override String failQtyHint({required Object max, required Object unit}) => 'Enter the reject quantity (up to ${max} ${unit})';
+	@override String returnQuestion({required Object diff, required Object unit}) => 'The completed quantity is ${diff} ${unit} less than taken. The difference goes back to the source shelf. Choose a reason.';
+	@override String get returnReasonLabel => 'Reason for the difference';
+	@override String get returnConfirm => 'Register with this reason';
 	@override String get inspectionSave => 'Record inspection results';
 	@override late final _BarcodeEntryStrings$input$inspectionResults$en inspectionResults = _BarcodeEntryStrings$input$inspectionResults$en._(_root);
 	@override String get judgePass => 'passed';
@@ -157,6 +167,19 @@ class _BarcodeEntryStrings$input$en extends BarcodeEntryStrings$input$ja {
 	@override String get supplyAccept => 'Inspection passed (release the hold)';
 	@override String get supplyReject => 'Inspection failed (register a nonconformity; stays on hold)';
 	@override String get supplyRegister => 'Register';
+}
+
+// Path: returnReasons
+class _BarcodeEntryStrings$returnReasons$en extends BarcodeEntryStrings$returnReasons$ja {
+	_BarcodeEntryStrings$returnReasons$en._(BarcodeEntryStringsEn root) : this._root = root, super.internal(root);
+
+	final BarcodeEntryStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get overDay => 'Over the day';
+	@override String get handover => 'Shift handover';
+	@override String get setup => 'Setup change';
+	@override String get other => 'Other';
 }
 
 // Path: ngReasons
@@ -249,7 +272,8 @@ class _BarcodeEntryStrings$queue$en extends BarcodeEntryStrings$queue$ja {
 	@override String register({required Object count}) => 'Register all (${count})';
 	@override String get remove => 'Remove';
 	@override String item({required Object sym, required Object qty, required Object unit, required Object shelf}) => '${sym} ${qty}${unit} → ${shelf}';
-	@override String issueItem({required Object sym, required Object shelf}) => '${sym} issue ← ${shelf}';
+	@override String issueItem({required Object sym, required Object qty, required Object shelf}) => '${sym} issue ${qty} ← ${shelf}';
+	@override String resultItem({required Object sym, required Object pass, required Object fail}) => '${sym} finish: pass ${pass} / reject ${fail}';
 }
 
 // Path: staff
@@ -395,9 +419,12 @@ extension on BarcodeEntryStringsEn {
 			'steps.top' => 'Reading top',
 			'steps.start' => 'Choose whether to start',
 			'steps.issueShelf' => 'Issue from shelf',
-			'steps.qty' => 'Enter quantity',
-			'steps.eval' => 'Evaluation',
+			'steps.issueQty' => 'Enter start quantity',
+			'steps.qty' => 'Enter pass quantity',
+			'steps.eval' => 'Any rejects?',
+			'steps.failQty' => 'Enter reject quantity',
 			'steps.ng' => 'Rejection handling',
+			'steps.returnReason' => 'Reason for the difference',
 			'steps.putShelf' => 'Shelf move reading (put away)',
 			'steps.stockItem' => 'Product / purchased item reading',
 			'steps.stockQty' => 'Enter quantity',
@@ -435,15 +462,21 @@ extension on BarcodeEntryStringsEn {
 			'input.startQuestion' => 'Start this work? (Material is issued from the shelf.)',
 			'input.answerYes' => 'Yes',
 			'input.answerNo' => 'No',
-			'input.pass' => 'Pass',
-			'input.fail' => 'Fail',
-			'input.evalQuestion' => 'Choose an evaluation.',
+			'input.pass' => 'No rejects (register)',
+			'input.fail' => 'There are rejects',
+			'input.evalQuestion' => 'Are there any rejects?',
 			'input.ngReason' => 'Reason for rejection',
 			'input.ngConfirm' => 'Continue as rejected',
 			'input.issueShelfHint' => ({required Object item}) => 'Scan the shelf to take the material for "${item}" from; it is issued and the work starts.',
 			'input.putShelfHint' => ({required Object judge, required Object qty, required Object unit}) => 'Scan the shelf for the ${judge} goods (${qty} ${unit}); they are put away.',
 			'input.stockItemHint' => ({required Object shelf}) => 'Scan the product / purchased item to put in "${shelf}".',
 			'input.qtyHint' => ({required Object remain, required Object unit}) => 'Remaining ${remain} ${unit} (an integer of 1 or more)',
+			'input.issueQtyHint' => ({required Object item, required Object shelf, required Object max, required Object unit}) => 'Enter the start quantity for "${item}" (issued from shelf "${shelf}". Up to ${max} ${unit})',
+			'input.passQtyHint' => ({required Object max, required Object unit}) => 'Enter the pass quantity (up to ${max} ${unit}; 0 if everything is rejected)',
+			'input.failQtyHint' => ({required Object max, required Object unit}) => 'Enter the reject quantity (up to ${max} ${unit})',
+			'input.returnQuestion' => ({required Object diff, required Object unit}) => 'The completed quantity is ${diff} ${unit} less than taken. The difference goes back to the source shelf. Choose a reason.',
+			'input.returnReasonLabel' => 'Reason for the difference',
+			'input.returnConfirm' => 'Register with this reason',
 			'input.inspectionSave' => 'Record inspection results',
 			'input.inspectionResults.pass' => 'Pass',
 			'input.inspectionResults.fail' => 'Fail',
@@ -456,6 +489,10 @@ extension on BarcodeEntryStringsEn {
 			'input.supplyAccept' => 'Inspection passed (release the hold)',
 			'input.supplyReject' => 'Inspection failed (register a nonconformity; stays on hold)',
 			'input.supplyRegister' => 'Register',
+			'returnReasons.overDay' => 'Over the day',
+			'returnReasons.handover' => 'Shift handover',
+			'returnReasons.setup' => 'Setup change',
+			'returnReasons.other' => 'Other',
 			'ngReasons.dimension' => 'Dimension defect',
 			'ngReasons.appearance' => 'Appearance defect',
 			'ngReasons.material' => 'Material defect',
@@ -512,7 +549,8 @@ extension on BarcodeEntryStringsEn {
 			'queue.register' => ({required Object count}) => 'Register all (${count})',
 			'queue.remove' => 'Remove',
 			'queue.item' => ({required Object sym, required Object qty, required Object unit, required Object shelf}) => '${sym} ${qty}${unit} → ${shelf}',
-			'queue.issueItem' => ({required Object sym, required Object shelf}) => '${sym} issue ← ${shelf}',
+			'queue.issueItem' => ({required Object sym, required Object qty, required Object shelf}) => '${sym} issue ${qty} ← ${shelf}',
+			'queue.resultItem' => ({required Object sym, required Object pass, required Object fail}) => '${sym} finish: pass ${pass} / reject ${fail}',
 			'staff.label' => ({required Object name}) => 'Operator: ${name}',
 			'staff.change' => 'Change operator',
 			'staff.shelf' => ({required Object name}) => 'Destination: ${name}',

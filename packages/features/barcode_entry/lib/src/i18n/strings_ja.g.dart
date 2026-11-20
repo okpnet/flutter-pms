@@ -44,6 +44,7 @@ class BarcodeEntryStrings with BaseTranslations<BarcodeEntryLocale, BarcodeEntry
 	late final BarcodeEntryStrings$kinds$ja kinds = BarcodeEntryStrings$kinds$ja.internal(_root);
 	late final BarcodeEntryStrings$modes$ja modes = BarcodeEntryStrings$modes$ja.internal(_root);
 	late final BarcodeEntryStrings$input$ja input = BarcodeEntryStrings$input$ja.internal(_root);
+	late final BarcodeEntryStrings$returnReasons$ja returnReasons = BarcodeEntryStrings$returnReasons$ja.internal(_root);
 	late final BarcodeEntryStrings$ngReasons$ja ngReasons = BarcodeEntryStrings$ngReasons$ja.internal(_root);
 	late final BarcodeEntryStrings$notice$ja notice = BarcodeEntryStrings$notice$ja.internal(_root);
 	late final BarcodeEntryStrings$log$ja log = BarcodeEntryStrings$log$ja.internal(_root);
@@ -87,14 +88,23 @@ class BarcodeEntryStrings$steps$ja {
 	/// ja: '棚出庫処理'
 	String get issueShelf => '棚出庫処理';
 
-	/// ja: '数量入力'
-	String get qty => '数量入力';
+	/// ja: '開始数量の入力'
+	String get issueQty => '開始数量の入力';
 
-	/// ja: '評価'
-	String get eval => '評価';
+	/// ja: '合格数量の入力'
+	String get qty => '合格数量の入力';
+
+	/// ja: '不合格の有無'
+	String get eval => '不合格の有無';
+
+	/// ja: '不合格数量の入力'
+	String get failQty => '不合格数量の入力';
 
 	/// ja: '不合格処理'
 	String get ng => '不合格処理';
+
+	/// ja: '差の理由'
+	String get returnReason => '差の理由';
 
 	/// ja: '棚移動リーディング(入庫処理)'
 	String get putShelf => '棚移動リーディング(入庫処理)';
@@ -108,8 +118,8 @@ class BarcodeEntryStrings$steps$ja {
 	/// ja: '受入検品(数量入力)'
 	String get recvQty => '受入検品(数量入力)';
 
-	/// ja: '受入検品(評価)'
-	String get recvEval => '受入検品(評価)';
+	/// ja: '受入検品(不合格の有無)'
+	String get recvEval => '受入検品(不合格の有無)';
 
 	/// ja: '設備点検'
 	String get equipment => '設備点検';
@@ -209,14 +219,14 @@ class BarcodeEntryStrings$input$ja {
 	/// ja: 'いいえ'
 	String get answerNo => 'いいえ';
 
-	/// ja: '合格'
-	String get pass => '合格';
+	/// ja: '不合格なし(登録へ)'
+	String get pass => '不合格なし(登録へ)';
 
-	/// ja: '不合格'
-	String get fail => '不合格';
+	/// ja: '不合格あり'
+	String get fail => '不合格あり';
 
-	/// ja: '評価を選んでください。'
-	String get evalQuestion => '評価を選んでください。';
+	/// ja: '不合格はありますか。'
+	String get evalQuestion => '不合格はありますか。';
 
 	/// ja: '不合格の理由'
 	String get ngReason => '不合格の理由';
@@ -235,6 +245,24 @@ class BarcodeEntryStrings$input$ja {
 
 	/// ja: '残り {remain}{unit}(1以上の整数)'
 	String qtyHint({required Object remain, required Object unit}) => '残り ${remain}${unit}(1以上の整数)';
+
+	/// ja: '「{item}」の開始数量を入れてください(棚「{shelf}」から払い出す。最大 {max}{unit})'
+	String issueQtyHint({required Object item, required Object shelf, required Object max, required Object unit}) => '「${item}」の開始数量を入れてください(棚「${shelf}」から払い出す。最大 ${max}${unit})';
+
+	/// ja: '合格数量を入れてください(最大 {max}{unit}。全量が不合格のときは 0)'
+	String passQtyHint({required Object max, required Object unit}) => '合格数量を入れてください(最大 ${max}${unit}。全量が不合格のときは 0)';
+
+	/// ja: '不合格数量を入れてください(最大 {max}{unit})'
+	String failQtyHint({required Object max, required Object unit}) => '不合格数量を入れてください(最大 ${max}${unit})';
+
+	/// ja: '完了が取り出しより {diff}{unit} 少ないです。差は払出元の棚へ戻します。理由を選んでください。'
+	String returnQuestion({required Object diff, required Object unit}) => '完了が取り出しより ${diff}${unit} 少ないです。差は払出元の棚へ戻します。理由を選んでください。';
+
+	/// ja: '差の理由'
+	String get returnReasonLabel => '差の理由';
+
+	/// ja: 'この理由で登録'
+	String get returnConfirm => 'この理由で登録';
 
 	/// ja: '点検結果を記録'
 	String get inspectionSave => '点検結果を記録';
@@ -264,6 +292,27 @@ class BarcodeEntryStrings$input$ja {
 
 	/// ja: '登録'
 	String get supplyRegister => '登録';
+}
+
+// Path: returnReasons
+class BarcodeEntryStrings$returnReasons$ja {
+	BarcodeEntryStrings$returnReasons$ja.internal(this._root);
+
+	final BarcodeEntryStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '日またぎ'
+	String get overDay => '日またぎ';
+
+	/// ja: '交代の引き継ぎ'
+	String get handover => '交代の引き継ぎ';
+
+	/// ja: '段取り替え'
+	String get setup => '段取り替え';
+
+	/// ja: 'その他'
+	String get other => 'その他';
 }
 
 // Path: ngReasons
@@ -469,8 +518,11 @@ class BarcodeEntryStrings$queue$ja {
 	/// ja: '{sym} {qty}{unit} → {shelf}'
 	String item({required Object sym, required Object qty, required Object unit, required Object shelf}) => '${sym} ${qty}${unit} → ${shelf}';
 
-	/// ja: '{sym} 出庫 ← {shelf}'
-	String issueItem({required Object sym, required Object shelf}) => '${sym} 出庫 ← ${shelf}';
+	/// ja: '{sym} 出庫 {qty} ← {shelf}'
+	String issueItem({required Object sym, required Object qty, required Object shelf}) => '${sym} 出庫 ${qty} ← ${shelf}';
+
+	/// ja: '{sym} 完了 合格 {pass} / 不合格 {fail}'
+	String resultItem({required Object sym, required Object pass, required Object fail}) => '${sym} 完了 合格 ${pass} / 不合格 ${fail}';
 }
 
 // Path: staff
@@ -676,14 +728,17 @@ extension on BarcodeEntryStrings {
 			'steps.top' => 'リーディングトップ',
 			'steps.start' => '開始の選択',
 			'steps.issueShelf' => '棚出庫処理',
-			'steps.qty' => '数量入力',
-			'steps.eval' => '評価',
+			'steps.issueQty' => '開始数量の入力',
+			'steps.qty' => '合格数量の入力',
+			'steps.eval' => '不合格の有無',
+			'steps.failQty' => '不合格数量の入力',
 			'steps.ng' => '不合格処理',
+			'steps.returnReason' => '差の理由',
 			'steps.putShelf' => '棚移動リーディング(入庫処理)',
 			'steps.stockItem' => '製品/購入品リーディング',
 			'steps.stockQty' => '数量入力',
 			'steps.recvQty' => '受入検品(数量入力)',
-			'steps.recvEval' => '受入検品(評価)',
+			'steps.recvEval' => '受入検品(不合格の有無)',
 			'steps.equipment' => '設備点検',
 			'steps.supplyChoice' => '支給の受け入れ・検品',
 			'kinds.work' => '作業指示',
@@ -716,15 +771,21 @@ extension on BarcodeEntryStrings {
 			'input.startQuestion' => 'この作業を開始しますか(材料を棚から出庫します)。',
 			'input.answerYes' => 'はい',
 			'input.answerNo' => 'いいえ',
-			'input.pass' => '合格',
-			'input.fail' => '不合格',
-			'input.evalQuestion' => '評価を選んでください。',
+			'input.pass' => '不合格なし(登録へ)',
+			'input.fail' => '不合格あり',
+			'input.evalQuestion' => '不合格はありますか。',
 			'input.ngReason' => '不合格の理由',
 			'input.ngConfirm' => '不合格として進める',
 			'input.issueShelfHint' => ({required Object item}) => '「${item}」の材料を取り出す棚を読み取ると、出庫して作業を開始します。',
 			'input.putShelfHint' => ({required Object judge, required Object qty, required Object unit}) => '${judge}品${qty}${unit}を入れる棚を読み取ると、入庫処理をします。',
 			'input.stockItemHint' => ({required Object shelf}) => '「${shelf}」へ入れる製品/購入品を読み取ります。',
 			'input.qtyHint' => ({required Object remain, required Object unit}) => '残り ${remain}${unit}(1以上の整数)',
+			'input.issueQtyHint' => ({required Object item, required Object shelf, required Object max, required Object unit}) => '「${item}」の開始数量を入れてください(棚「${shelf}」から払い出す。最大 ${max}${unit})',
+			'input.passQtyHint' => ({required Object max, required Object unit}) => '合格数量を入れてください(最大 ${max}${unit}。全量が不合格のときは 0)',
+			'input.failQtyHint' => ({required Object max, required Object unit}) => '不合格数量を入れてください(最大 ${max}${unit})',
+			'input.returnQuestion' => ({required Object diff, required Object unit}) => '完了が取り出しより ${diff}${unit} 少ないです。差は払出元の棚へ戻します。理由を選んでください。',
+			'input.returnReasonLabel' => '差の理由',
+			'input.returnConfirm' => 'この理由で登録',
 			'input.inspectionSave' => '点検結果を記録',
 			'input.inspectionResults.pass' => '合格',
 			'input.inspectionResults.fail' => '不合格',
@@ -737,6 +798,10 @@ extension on BarcodeEntryStrings {
 			'input.supplyAccept' => '検品に合格(仮止めを外す)',
 			'input.supplyReject' => '検品で不合格(異常を登録。仮止めのまま)',
 			'input.supplyRegister' => '登録',
+			'returnReasons.overDay' => '日またぎ',
+			'returnReasons.handover' => '交代の引き継ぎ',
+			'returnReasons.setup' => '段取り替え',
+			'returnReasons.other' => 'その他',
 			'ngReasons.dimension' => '寸法不良',
 			'ngReasons.appearance' => '外観不良',
 			'ngReasons.material' => '材料不良',
@@ -793,7 +858,8 @@ extension on BarcodeEntryStrings {
 			'queue.register' => ({required Object count}) => 'まとめて登録(${count}件)',
 			'queue.remove' => '取り消す',
 			'queue.item' => ({required Object sym, required Object qty, required Object unit, required Object shelf}) => '${sym} ${qty}${unit} → ${shelf}',
-			'queue.issueItem' => ({required Object sym, required Object shelf}) => '${sym} 出庫 ← ${shelf}',
+			'queue.issueItem' => ({required Object sym, required Object qty, required Object shelf}) => '${sym} 出庫 ${qty} ← ${shelf}',
+			'queue.resultItem' => ({required Object sym, required Object pass, required Object fail}) => '${sym} 完了 合格 ${pass} / 不合格 ${fail}',
 			'staff.label' => ({required Object name}) => '担当者: ${name}',
 			'staff.change' => '担当者を替える',
 			'staff.shelf' => ({required Object name}) => '入庫先: ${name}',

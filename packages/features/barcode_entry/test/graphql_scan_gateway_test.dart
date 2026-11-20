@@ -28,32 +28,43 @@ class _FakeClient extends ScanClient {
   }
 
   @override
-  Future<String> startWork({
+  Future<String> workRecordStart({
     required String workPlanId,
+    required String containerId,
+    required int quantity,
     String? staffId,
   }) async {
-    calls.add('start $workPlanId $staffId');
+    calls.add('start $workPlanId <- $containerId x$quantity $staffId');
     return 'wr';
   }
 
   @override
-  Future<void> putWork({
-    required String workPlanId,
-    required int quantity,
-    required ScanFound shelf,
-    String? staffId,
-    String? rejectNote,
-  }) async =>
-      calls.add('putWork $workPlanId x$quantity ${shelf.id} $rejectNote');
+  Future<ScanFound?> findWorkPlan(String symbol) async {
+    final f = table[symbol.trim().toUpperCase()];
+    return f != null && f.kind == ScanFoundKind.workPlan ? f : null;
+  }
 
   @override
-  Future<void> putPurchase({
-    required String purchaseDetailId,
-    required int quantity,
-    required ScanFound shelf,
+  Future<ScanFound?> findPurchaseDetail(String symbol) async {
+    final f = table[symbol.trim().toUpperCase()];
+    return f != null && f.kind == ScanFoundKind.purchaseDetail ? f : null;
+  }
+
+  @override
+  Future<void> inspectionRegister({
+    required int passQuantity,
+    String? passContainerId,
+    String? workRecordId,
+    String? purchaseDetailId,
+    int failQuantity = 0,
+    String? failContainerId,
+    String? reason,
+    String? returnReason,
     String? staffId,
-    String? rejectNote,
-  }) async => calls.add('putPurchase $purchaseDetailId x$quantity ${shelf.id}');
+  }) async => calls.add(
+    'inspect pass=$passQuantity->$passContainerId fail=$failQuantity->$failContainerId '
+    'wr=$workRecordId pd=$purchaseDetailId reason=$reason return=$returnReason',
+  );
 
   @override
   Future<void> putItem({
@@ -78,6 +89,8 @@ void main() {
         quantity: 100,
         doneQuantity: 40,
         started: true,
+        takenQuantity: 30,
+        openWorkRecordId: 'wr-1',
       ),
       'WO-2': const ScanFound(
         kind: ScanFoundKind.workPlan,
@@ -127,37 +140,61 @@ void main() {
     expect(await gateway.find('NONE'), isNull);
   });
 
-  test('作業の入庫は作業実績・ビジター・入庫の組み合わせを呼ぶ(不合格の理由を備考へ)', () async {
+  test('作業の終了は、合格・不合格・差を 1 回の関数で登録する(不合格の理由・差の理由は自由な文)', () async {
     final order = await gateway.find('WO-1') as WorkOrderTarget;
+    expect(order.takenQuantity, 30);
+    expect(order.finishLimit, 30, reason: '取り出した数量が、終了で登録できる上限');
     final shelf = await gateway.find('SH-1') as ShelfTarget;
-    final finds = client.finds;
-    await gateway.putAway(
+    await gateway.registerResult(
       source: WorkSource(order),
-      quantity: 5,
-      shelf: shelf,
-      reason: RejectReason.dimension,
+      passQuantity: 20,
+      passShelf: shelf,
+      failQuantity: 5,
+      failShelf: shelf,
+      failReason: RejectReason.dimension,
     );
-    expect(client.calls.single, 'putWork plan-1 x5 shelf-1 不合格(dimension)');
-    expect(client.finds, finds, reason: '照会済みの id を使い、引き直さない');
+    expect(
+      client.calls.single,
+      'inspect pass=20->shelf-1 fail=5->shelf-1 wr=wr-1 pd=null reason=寸法不良 return=null',
+    );
   });
 
-  test('開始・受入・棚移動の登録', () async {
+  test('作業の終了で完了が少ないとき、差の理由を送る。受入検品は発注明細で登録する', () async {
     final order = await gateway.find('WO-1') as WorkOrderTarget;
     final shelf = await gateway.find('SH-1') as ShelfTarget;
     final purchase = await gateway.find('PO-1') as PurchaseTarget;
-    final item = await gateway.find('IT-1') as ItemTarget;
-    await gateway.startWork(order, shelf);
-    await gateway.putAway(
-      source: PurchaseSource(purchase),
-      quantity: 3,
-      shelf: shelf,
+    await gateway.registerResult(
+      source: WorkSource(order),
+      passQuantity: 25,
+      passShelf: shelf,
+      returnReason: ReturnReason.overDay,
     );
+    await gateway.registerResult(
+      source: PurchaseSource(purchase),
+      passQuantity: 3,
+      passShelf: shelf,
+    );
+    expect(client.calls, [
+      'inspect pass=25->shelf-1 fail=0->null wr=wr-1 pd=null reason=null return=日またぎ',
+      'inspect pass=3->shelf-1 fail=0->null wr=null pd=pd-1 reason=null return=null',
+    ]);
+  });
+
+  test('開始はコンテナから払い出す(1 回の関数)。棚移動は入庫を登録する', () async {
+    final order = await gateway.find('WO-1') as WorkOrderTarget;
+    final shelf = await gateway.find('SH-1') as ShelfTarget;
+    final item = await gateway.find('IT-1') as ItemTarget;
+    await gateway.startWork(order, shelf, 12);
     await gateway.putAway(source: ItemSource(item), quantity: 2, shelf: shelf);
     expect(client.calls, [
-      'start plan-1 staff-1',
-      'putPurchase pd-1 x3 shelf-1',
+      'start plan-1 <- shelf-1 x12 staff-1',
       'putItem item-1 x2 shelf-1',
     ]);
+    // 作業・受入の終了は putAway では登録できない(registerResult を使う)
+    expect(
+      () => gateway.putAway(source: WorkSource(order), quantity: 1, shelf: shelf),
+      throwsArgumentError,
+    );
   });
 
   test('設備点検の記録は未対応', () async {

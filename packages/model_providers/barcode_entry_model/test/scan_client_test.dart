@@ -170,91 +170,83 @@ void main() {
   });
 
   group('登録の組み合わせ(代役の通信路)', () {
-    const shelf = ScanFound(
-      kind: ScanFoundKind.container,
-      id: 'shelf-1',
-      symbol: 'SH-A-01',
-      locationId: 'loc-1',
-    );
-
     ScanClient clientOn(Link link) => ScanClient(
       client: GraphQLClient(link: link, cache: GraphQLCache()),
       languageCodeId: 'lang',
       now: () => DateTime.utc(2026, 11, 1, 9),
     );
 
-    test('作業の入庫は、作業実績 → ビジター → 入庫 → 結び付け の順に登録する', () async {
+    test('作業の開始は、コンテナを渡して関数を 1 回呼ぶ(実績の登録と払出は DB が 1 つの処理で行う)', () async {
       final link = _FakeLink({
-        'WorkRecordPageCreate': _created('createTransWorkRecord', 'transWorkRecord', 'transWorkRecordId', 'wr-1'),
-        'VisiterPageCreate': _created('createTransVisiter', 'transVisiter', 'transVisiterId', 'v-1'),
-        'ConveyPageCreate': _created('createTransConvey', 'transConvey', 'transConveyId', 'c-1'),
-        'WorkRecordVisiterPageCreate': _created(
-          'createTransWorkRecordVisiter',
-          'transWorkRecordVisiter',
-          'transWorkRecordVisiterId',
-          'wrv-1',
-        ),
+        'ScanWorkRecordStart': {
+          'workRecordStart': {
+            '__typename': 'Payload',
+            'transWorkRecord': {'__typename': 'Row', 'transWorkRecordId': 'wr-1'},
+          },
+        },
       });
-      await clientOn(link).putWork(
+      final id = await clientOn(link).workRecordStart(
         workPlanId: 'plan-1',
-        quantity: 20,
-        shelf: shelf,
+        containerId: 'shelf-1',
+        quantity: 40,
         staffId: 'staff-1',
-        rejectNote: '不合格(寸法不良)',
       );
-      expect(_creates(link), [
-        'WorkRecordPageCreate',
-        'VisiterPageCreate',
-        'ConveyPageCreate',
-        'WorkRecordVisiterPageCreate',
-      ]);
-      final byName = {for (final c in link.calls) c.$1: c.$2};
-      expect(byName['WorkRecordPageCreate']!['transWorkPlanId'], 'plan-1');
-      expect(byName['WorkRecordPageCreate']!['qty'], '20');
-      expect(byName['WorkRecordPageCreate']!['remarks'], '不合格(寸法不良)');
-      expect(byName['VisiterPageCreate']!['transContainerId'], 'shelf-1');
-      expect(byName['ConveyPageCreate']!['transVisiterId'], 'v-1');
-      expect(byName['VisiterPageCreate']!['quantity'], '20');
-      expect(byName['VisiterPageCreate']!.containsKey('parentTransVisiterId'), isFalse);
-      expect(byName['ConveyPageCreate']!.containsKey('quantity'), isFalse); // 数量は棚ビジターだけが持つ
-      expect(byName['WorkRecordVisiterPageCreate']!.containsKey('quantity'), isFalse);
-      expect(byName['ConveyPageCreate']!['locationId'], 'loc-1');
-      expect(byName['WorkRecordVisiterPageCreate']!['transWorkRecordId'], 'wr-1');
-      expect(byName['WorkRecordVisiterPageCreate']!['transVisiterId'], 'v-1');
+      expect(id, 'wr-1');
+      expect(link.calls, hasLength(1), reason: '1 回の呼び出し(クライアントで順に呼ばない)');
+      final v = link.calls.single.$2;
+      expect(v['w'], 'plan-1');
+      expect(v['q'], '40');
+      expect(v['c'], 'shelf-1');
+      expect(v['s'], 'staff-1');
     });
 
-    test('購入品の入庫は、受入 → ビジター → 入庫 → 結び付け の順に登録する', () async {
-      final link = _FakeLink({
-        'PurchaseRecPageCreate': _created('createTransPurchaseRec', 'transPurchaseRec', 'transPurchaseRecId', 'pr-1'),
-        'VisiterPageCreate': _created('createTransVisiter', 'transVisiter', 'transVisiterId', 'v-1'),
-        'ConveyPageCreate': _created('createTransConvey', 'transConvey', 'transConveyId', 'c-1'),
-        'PurchaseRecVisiterPageCreate': _created(
-          'createTransPurchaseRecVisiter',
-          'transPurchaseRecVisiter',
-          'transPurchaseRecVisiterId',
-          'prv-1',
-        ),
-      });
-      await clientOn(link).putPurchase(purchaseDetailId: 'pd-1', quantity: 5, shelf: shelf);
-      expect(_creates(link), [
-        'PurchaseRecPageCreate',
-        'VisiterPageCreate',
-        'ConveyPageCreate',
-        'PurchaseRecVisiterPageCreate',
-      ]);
-      expect(link.calls.first.$2['transPurchaseDetailId'], 'pd-1');
+    test('作業の終了は、作業実績・合格・不合格・差の理由を 1 回の関数で渡す', () async {
+      final link = _FakeLink({'RegisterInspectionPageCall': const {}});
+      await clientOn(link).inspectionRegister(
+        passQuantity: 20,
+        passContainerId: 'shelf-1',
+        workRecordId: 'wr-1',
+        failQuantity: 5,
+        failContainerId: 'shelf-x',
+        reason: '寸法不良',
+        staffId: 'staff-1',
+      );
+      expect(link.calls, hasLength(1));
+      final v = link.calls.single.$2;
+      expect(v['pPassQty'], '20');
+      expect(v['pContainerId'], 'shelf-1');
+      expect(v['pWorkRecordId'], 'wr-1');
+      expect(v['pFailQty'], '5');
+      expect(v['pFailContainerId'], 'shelf-x');
+      expect(v['pReason'], '寸法不良');
+      expect(v.containsKey('pPurchaseDetailId'), isFalse, reason: '作業実績か発注明細のどちらか 1 つ');
     });
 
-    test('途中の登録が失敗したら、そこで例外にして以降は呼ばない', () async {
-      final link = _FakeLink({
-        'WorkRecordPageCreate': _created('createTransWorkRecord', 'transWorkRecord', 'transWorkRecordId', 'wr-1'),
-        // VisiterPageCreate の応答が無い
-      });
+    test('受入検品は、発注明細を渡して同じ関数を呼ぶ。差の理由は渡さない', () async {
+      final link = _FakeLink({'RegisterInspectionPageCall': const {}});
+      await clientOn(link).inspectionRegister(
+        passQuantity: 5,
+        passContainerId: 'shelf-1',
+        purchaseDetailId: 'pd-1',
+      );
+      final v = link.calls.single.$2;
+      expect(v['pPurchaseDetailId'], 'pd-1');
+      expect(v.containsKey('pWorkRecordId'), isFalse);
+      expect(v.containsKey('pReturnReason'), isFalse);
+      expect(v['pFailQty'], '0');
+    });
+
+    test('関数が失敗したら、errcode を持つ例外にする(1 つの処理なので、途中の登録は残らない)', () async {
       await expectLater(
-        clientOn(link).putWork(workPlanId: 'plan-1', quantity: 1, shelf: shelf),
-        throwsA(isA<ScanClientException>()),
+        ScanClient(
+          client: GraphQLClient(
+            link: _ErrorLink('計画の残りを超えています', 'OPR02'),
+            cache: GraphQLCache(),
+          ),
+          languageCodeId: 'lang',
+        ).workRecordStart(workPlanId: 'plan-1', containerId: 'shelf-1', quantity: 999),
+        throwsA(isA<ScanClientException>().having((e) => e.code, 'code', 'OPR02')),
       );
-      expect(_creates(link), ['WorkRecordPageCreate', 'VisiterPageCreate']);
     });
 
     test('入庫の登録は、担当者・場所の最新の履歴IDを読んで送る', () async {
@@ -354,15 +346,6 @@ void main() {
         clientOn(link).issueLot(lot: 'lot-1', quantity: 99),
         throwsA(isA<ScanClientException>().having((e) => e.code, 'code', 'VIS03')),
       );
-    });
-
-    test('作業の開始は作業実績だけを登録する', () async {
-      final link = _FakeLink({
-        'WorkRecordPageCreate': _created('createTransWorkRecord', 'transWorkRecord', 'transWorkRecordId', 'wr-1'),
-      });
-      await clientOn(link).startWork(workPlanId: 'plan-1');
-      expect(link.calls.single.$2['startAt'], '2026-11-01T09:00:00.000Z');
-      expect(link.calls.single.$2.containsKey('stopAt'), isFalse);
     });
   });
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger_provider/logger_provider.dart';
 
@@ -8,13 +10,17 @@ import 'scan_providers.dart';
 
 /// 読み込みの流れの段階(画面の見出しと入力の受け付けが決まる)。
 ///
+/// 開始は「棚 → 開始数量」で 1 回、終了・受入は「合格数量 → 合格の棚 → 不合格の有無 → (不合格の数量・理由・棚)→
+/// (差の理由)」を集めて 1 回で登録する(取得元の `startWork`・`registerResult`。1 つの処理)。
+///
 /// ```
-/// top ─ 作業指示 ─ start ─(はい)─ issueShelf ─ top
+/// top ─ 作業指示 ─ start ─(はい)─ issueShelf ─ issueQty ─ top   (開始: 棚出庫 + 実績の登録)
 ///        │           └(いいえ)─ top
-///        └ 開始中 ─ qty ─ eval ─(合格)─ putShelf ─ top
-///                              └(不合格)─ ng ─ putShelf
+///        └ 開始中 ─ qty(合格数量。0 は全量不合格) ─ putShelf(合格の棚) ─ eval(不合格はあるか)
+///                     ├(ない)─ [差があれば returnReason] ─ 登録 ─ top
+///                     └(ある)─ failQty ─ ng(理由) ─ putShelf(不合格の棚) ─ [差があれば returnReason] ─ 登録 ─ top
 /// top ─ 棚 ─ stockItem ─ stockQty ─ top
-/// top ─ 購入品 ─ recvQty ─ recvEval ─(合格)─ putShelf / (不合格)─ ng ─ putShelf
+/// top ─ 購入品 ─ recvQty ─ putShelf ─ recvEval ─ (作業と同じ。差の理由は無い) ─ 登録 ─ top
 /// top ─ 設備 ─ equipment ─ top
 /// top ─ 支給 ─ supplyChoice(受け入れ・合格・不合格をラジオで選び、数量を入れる) ─ top
 /// ```
@@ -22,10 +28,13 @@ enum ScanStep {
   top,
   start,
   issueShelf,
+  issueQty,
   qty,
   eval,
+  failQty,
   ng,
   putShelf,
+  returnReason,
   stockItem,
   stockQty,
   recvQty,
@@ -121,16 +130,55 @@ sealed class QueuedEntry {
 
 /// 処理待ちの出庫: 作業の開始で、[shelf] から材料を出庫する(棚出庫処理)。
 class QueuedIssue extends QueuedEntry {
-  const QueuedIssue({required this.order, required this.shelf});
+  const QueuedIssue({required this.order, required this.shelf, required this.quantity});
 
   final WorkOrderTarget order;
   final ShelfTarget shelf;
+
+  /// 払い出す数量(開始数量)。
+  final int quantity;
 
   @override
   String get symbol => order.symbol;
 
   @override
-  Map<String, Object?> toJson() => {'kind': 'issue', 'order': order.symbol, 'shelf': shelf.symbol};
+  Map<String, Object?> toJson() => {'kind': 'issue', 'order': order.symbol, 'shelf': shelf.symbol, 'quantity': quantity};
+}
+
+/// 処理待ちの完了(作業の終了・受入検品): 合格・不合格・差を 1 件にまとめた、1 回の登録。
+class QueuedResult extends QueuedEntry {
+  const QueuedResult({
+    required this.source,
+    required this.passQuantity,
+    this.passShelf,
+    this.failQuantity = 0,
+    this.failShelf,
+    this.failReason,
+    this.returnReason,
+  });
+
+  final StockSource source;
+  final int passQuantity;
+  final ShelfTarget? passShelf;
+  final int failQuantity;
+  final ShelfTarget? failShelf;
+  final RejectReason? failReason;
+  final ReturnReason? returnReason;
+
+  @override
+  String get symbol => source.symbol;
+
+  @override
+  Map<String, Object?> toJson() => {
+    'kind': 'result',
+    'source': source.symbol,
+    'pass': passQuantity,
+    'passShelf': passShelf?.symbol,
+    'fail': failQuantity,
+    'failShelf': failShelf?.symbol,
+    'failReason': failReason?.name,
+    'returnReason': returnReason?.name,
+  };
 }
 
 /// 処理待ちの入庫。
@@ -173,6 +221,10 @@ class ScanContext {
     this.quantity = 0,
     this.rejected = false,
     this.reason,
+    this.passShelf,
+    this.failQuantity = 0,
+    this.failShelf,
+    this.returnReason,
   });
 
   final WorkOrderTarget? order;
@@ -181,9 +233,22 @@ class ScanContext {
   final ItemTarget? item;
   final EquipmentTarget? equipment;
   final SupplyTarget? supply;
+  /// 数量。開始は開始数量、終了・受入は合格数量、棚移動は入庫数量。
   final int quantity;
+
+  /// 不合格の側(不合格の数量・理由・棚)を入力している。
   final bool rejected;
   final RejectReason? reason;
+
+  /// 合格を入れる棚。
+  final ShelfTarget? passShelf;
+
+  /// 不合格の数量・不合格を入れる棚。
+  final int failQuantity;
+  final ShelfTarget? failShelf;
+
+  /// 完了が取り出しより少ない差の理由(作業の終了。差を払出元へ返す)。
+  final ReturnReason? returnReason;
 
   ScanContext copyWith({
     WorkOrderTarget? order,
@@ -195,6 +260,10 @@ class ScanContext {
     int? quantity,
     bool? rejected,
     RejectReason? reason,
+    ShelfTarget? passShelf,
+    int? failQuantity,
+    ShelfTarget? failShelf,
+    ReturnReason? returnReason,
   }) => ScanContext(
     order: order ?? this.order,
     purchase: purchase ?? this.purchase,
@@ -205,9 +274,17 @@ class ScanContext {
     quantity: quantity ?? this.quantity,
     rejected: rejected ?? this.rejected,
     reason: reason ?? this.reason,
+    passShelf: passShelf ?? this.passShelf,
+    failQuantity: failQuantity ?? this.failQuantity,
+    failShelf: failShelf ?? this.failShelf,
+    returnReason: returnReason ?? this.returnReason,
   );
 
   Map<String, Object?> toJson() => {
+    'passShelf': passShelf?.symbol,
+    'failQuantity': failQuantity,
+    'failShelf': failShelf?.symbol,
+    'returnReason': returnReason?.name,
     'order': order?.symbol,
     'purchase': purchase?.symbol,
     'shelf': shelf?.symbol,
@@ -330,12 +407,12 @@ class ScanFlow extends Notifier<ScanState> {
   }
 
   /// リーディングトップへ戻る。モードと履歴は残す。
-  void _reset([ScanNotice? notice]) =>
+  void _reset([ScanNotice? notice, List<QueuedEntry>? queue]) =>
       state = ScanState(
         mode: state.mode,
         log: state.log,
         notice: notice,
-        queue: state.queue,
+        queue: queue ?? state.queue,
         operator: state.operator,
         selectedShelf: state.selectedShelf,
       );
@@ -441,13 +518,16 @@ class ScanFlow extends Notifier<ScanState> {
         return _submitShelf(v);
       case ScanStep.stockItem:
         return _submitStockItem(v);
+      case ScanStep.issueQty:
       case ScanStep.qty:
+      case ScanStep.failQty:
       case ScanStep.stockQty:
       case ScanStep.recvQty:
         return _submitQuantity(v);
       case ScanStep.start:
       case ScanStep.eval:
       case ScanStep.ng:
+      case ScanStep.returnReason:
       case ScanStep.recvEval:
       case ScanStep.equipment:
       case ScanStep.supplyChoice:
@@ -495,30 +575,51 @@ class ScanFlow extends Notifier<ScanState> {
     _reset(const ScanNotice(NoticeKind.notStarted));
   }
 
-  /// 評価(合格: 入庫へ / 不合格: 不合格処理へ)。
+  /// 不合格の有無の答え([pass] が true = 不合格なし → 登録へ、false = 不合格あり → 不合格の数量へ)。
   Future<void> evaluate({required bool pass}) async {
     if (state.step != ScanStep.eval && state.step != ScanStep.recvEval) return;
-    if (pass) {
-      _go(ScanStep.putShelf, state.context.copyWith(rejected: false));
-      // 処理待ちを使うとき、選択を残したコンテナがあれば棚の読み取りを省く
-      final shelf = state.selectedShelf;
-      if (shelf != null && ref.read(batchQueueProvider)) return _put(shelf);
-      return _loadRecommended();
+    if (pass) return _afterQuantities();
+    final c = state.context;
+    if (_limit(c) - c.quantity <= 0) {
+      return _notice(const ScanNotice(NoticeKind.qtyInvalid, isError: true));
     }
-    _go(ScanStep.ng, state.context.copyWith(rejected: true));
+    _go(ScanStep.failQty, c);
   }
 
-  /// 不合格処理(理由を決めて入庫へ)。
+  /// 不合格処理(理由を決めて、不合格の棚へ)。
   Future<void> confirmReject(RejectReason reason) async {
     if (state.step != ScanStep.ng) return;
-    _go(ScanStep.putShelf, state.context.copyWith(reason: reason));
+    _go(ScanStep.putShelf, state.context.copyWith(reason: reason, rejected: true));
     await _loadRecommended();
+  }
+
+  /// 差の理由(完了が取り出しより少ない。差は払出元へ返す)を決めて、登録する。
+  Future<void> confirmReturn(ReturnReason reason) async {
+    if (state.step != ScanStep.returnReason) return;
+    await _register(state.context.copyWith(returnReason: reason));
+  }
+
+  /// 終了・受入で登録できる数量の上限(作業は取り出した数量、購入品は発注の残り)。
+  int _limit(ScanContext c) => c.order?.finishLimit ?? c.purchase?.remaining ?? 0;
+
+  /// 合格・不合格の数量と棚がそろったあと、差があれば差の理由を聞き、なければ登録する。
+  Future<void> _afterQuantities() async {
+    final c = state.context;
+    final total = c.quantity + c.failQuantity;
+    if (total <= 0) {
+      return _notice(const ScanNotice(NoticeKind.qtyInvalid, isError: true));
+    }
+    // 作業の終了で、完了が取り出しより少なく、不合格が無いときは、差の理由が要る(差は払出元へ返す)
+    if (c.order != null && c.failQuantity == 0 && _limit(c) - total > 0) {
+      return _go(ScanStep.returnReason, c);
+    }
+    await _register(c);
   }
 
   /// おすすめの棚を選んで入庫する(読み取りと同じ。入庫先を読み取る段階だけ)。
   Future<void> pickShelf(ShelfTarget shelf) async {
     if (state.working || state.step != ScanStep.putShelf) return;
-    await _put(shelf);
+    await _putTo(shelf);
   }
 
   /// 操作なしが続いたとき(画面の時計が呼ぶ): 処理待ちを消してリーディングトップへ戻る。
@@ -548,17 +649,28 @@ class ScanFlow extends Notifier<ScanState> {
         return;
       case ScanStep.issueShelf:
         return _go(ScanStep.start, c);
+      case ScanStep.issueQty:
+        return _go(ScanStep.issueShelf, c.copyWith(quantity: 0));
       case ScanStep.eval:
-        return _go(ScanStep.qty, c.copyWith(rejected: false));
       case ScanStep.recvEval:
-        return _go(ScanStep.recvQty, c.copyWith(rejected: false));
+        // 合格の棚を選び直す(合格が 0 のときは、合格数量へ)
+        if (c.quantity > 0) {
+          _go(ScanStep.putShelf, c.copyWith(rejected: false));
+          return unawaited(_loadRecommended());
+        }
+        return _go(c.order != null ? ScanStep.qty : ScanStep.recvQty, c);
+      case ScanStep.failQty:
+        // 合格があれば不合格の有無へ、なければ合格数量へ
+        if (c.quantity > 0) return _go(c.order != null ? ScanStep.eval : ScanStep.recvEval, c);
+        return _go(c.order != null ? ScanStep.qty : ScanStep.recvQty, c);
       case ScanStep.ng:
-        return _go(c.order != null ? ScanStep.eval : ScanStep.recvEval, c.copyWith(rejected: false));
+        return _go(ScanStep.failQty, c);
+      case ScanStep.returnReason:
+        return _go(ScanStep.eval, c);
       case ScanStep.putShelf:
+        if (c.item != null) return _go(ScanStep.stockQty, c);
         if (c.rejected) return _go(ScanStep.ng, c);
-        if (c.order != null) return _go(ScanStep.eval, c);
-        if (c.purchase != null) return _go(ScanStep.recvEval, c);
-        return _go(ScanStep.stockQty, c);
+        return _go(c.order != null ? ScanStep.qty : ScanStep.recvQty, c);
       case ScanStep.stockQty:
         return _go(ScanStep.stockItem, c.copyWith(quantity: 0));
       case ScanStep.start:
@@ -752,22 +864,91 @@ class ScanFlow extends Notifier<ScanState> {
         ),
       );
     }
-    if (state.step == ScanStep.putShelf) return _put(target);
-    final order = state.context.order;
-    if (order == null) return;
+    if (state.step == ScanStep.putShelf) return _putTo(target);
+    if (state.context.order == null) return;
+    // 開始: 材料を出す棚を読み取ったら、開始数量を入れる
+    _go(ScanStep.issueQty, state.context.copyWith(shelf: target));
+  }
+
+  /// 開始を登録する(棚出庫 + 作業実績の登録。1 つの処理)。処理待ちを使うときは、ためる。
+  Future<void> _startWork(ScanContext c) async {
+    final order = c.order;
+    final shelf = c.shelf;
+    if (order == null || shelf == null) return;
     if (ref.read(batchQueueProvider)) {
       // 登録せず、処理待ちにためる(まとめて登録は [flushQueue])
-      final queue = [...state.queue, QueuedIssue(order: order, shelf: target)];
+      final queue = [...state.queue, QueuedIssue(order: order, shelf: shelf, quantity: c.quantity)];
       state = state.copyWith(queue: queue);
       return _reset(ScanNotice(NoticeKind.queued, args: {'count': queue.length}));
     }
     final done = await _guard('棚出庫', order.symbol, () async {
-      await _gateway.startWork(order, target);
+      await _gateway.startWork(order, shelf, c.quantity);
       return true;
     });
     if (done != true) return;
-    _logIssue(order, target);
-    _reset(ScanNotice(NoticeKind.started, args: {'shelf': target.name}));
+    _logIssue(order, shelf);
+    _reset(ScanNotice(NoticeKind.started, args: {'shelf': shelf.name}));
+  }
+
+  /// 入庫先の棚を受け取る。棚移動(製品/購入品)は入庫して終わり。作業の終了・受入は、合格の棚なら
+  /// 不合格の有無へ、不合格の棚なら差の理由の確認(または登録)へ進む。
+  Future<void> _putTo(ShelfTarget shelf) async {
+    final c = state.context;
+    if (c.item != null) return _put(shelf);
+    if (c.rejected) {
+      state = state.copyWith(context: c.copyWith(failShelf: shelf));
+      return _afterQuantities();
+    }
+    // 合格の棚。処理待ちを使うときは、選んだ棚として残す(次の合格の棚の読み取りを省く)
+    if (ref.read(batchQueueProvider)) state = state.copyWith(selectedShelf: () => shelf);
+    _go(c.order != null ? ScanStep.eval : ScanStep.recvEval, c.copyWith(passShelf: shelf));
+  }
+
+  /// 終了・受入を、1 回で登録する(合格・不合格・差)。処理待ちを使うときは、ためる。
+  Future<void> _register(ScanContext c) async {
+    final StockSource? source = c.order != null
+        ? WorkSource(c.order!)
+        : c.purchase != null
+        ? PurchaseSource(c.purchase!)
+        : null;
+    if (source == null) return;
+    final failReason = c.failQuantity > 0 ? (c.reason ?? RejectReason.other) : null;
+    if (ref.read(batchQueueProvider)) {
+      final queue = [
+        ...state.queue,
+        QueuedResult(
+          source: source,
+          passQuantity: c.quantity,
+          passShelf: c.passShelf,
+          failQuantity: c.failQuantity,
+          failShelf: c.failShelf,
+          failReason: failReason,
+          returnReason: c.returnReason,
+        ),
+      ];
+      return _reset(ScanNotice(NoticeKind.queued, args: {"count": queue.length}), queue);
+    }
+    final done = await _guard('完了の登録', source.symbol, () async {
+      await _gateway.registerResult(
+        source: source,
+        passQuantity: c.quantity,
+        passShelf: c.passShelf,
+        failQuantity: c.failQuantity,
+        failShelf: c.failShelf,
+        failReason: failReason,
+        returnReason: c.returnReason,
+      );
+      return true;
+    });
+    if (done != true) return;
+    _logResult(source, c.quantity, c.passShelf, c.failQuantity, c.failShelf);
+    _reset(ScanNotice(NoticeKind.stored, args: {'shelf': (c.passShelf ?? c.failShelf)?.name ?? ''}));
+  }
+
+  /// 完了の履歴(合格・不合格のそれぞれ)。
+  void _logResult(StockSource source, int pass, ShelfTarget? passShelf, int fail, ShelfTarget? failShelf) {
+    if (pass > 0 && passShelf != null) _logPut(source, pass, false, passShelf, alsoDone: fail);
+    if (fail > 0 && failShelf != null) _logPut(source, fail, true, failShelf, alsoDone: pass);
   }
 
   Future<void> _submitStockItem(String v) async {
@@ -787,58 +968,76 @@ class ScanFlow extends Notifier<ScanState> {
 
   Future<void> _submitQuantity(String v) async {
     final n = int.tryParse(v);
-    if (n == null || n <= 0) {
+    final step = state.step;
+    // 合格数量は 0 を許す(全量が不合格のとき)。そのほかは 1 以上
+    final allowZero = step == ScanStep.qty || step == ScanStep.recvQty;
+    if (n == null || n < 0 || (n == 0 && !allowZero)) {
       return _notice(const ScanNotice(NoticeKind.qtyInvalid, isError: true));
     }
     final c = state.context;
     final order = c.order;
     final purchase = c.purchase;
-    if (state.step == ScanStep.qty && order != null && n > order.remaining) {
-      return _notice(
-        ScanNotice(
-          NoticeKind.qtyOverWork,
-          isError: true,
-          args: {'remain': order.remaining, 'unit': order.unit},
-        ),
-      );
+    if (order != null) {
+      final limit = switch (step) {
+        ScanStep.issueQty => order.remaining,
+        ScanStep.qty => order.finishLimit,
+        ScanStep.failQty => order.finishLimit - c.quantity,
+        _ => null,
+      };
+      if (limit != null && n > limit) {
+        return _notice(
+          ScanNotice(
+            NoticeKind.qtyOverWork,
+            isError: true,
+            args: {'remain': limit < 0 ? 0 : limit, 'unit': order.unit},
+          ),
+        );
+      }
     }
-    if (state.step == ScanStep.recvQty &&
-        purchase != null &&
-        n > purchase.remaining) {
-      return _notice(
-        ScanNotice(
-          NoticeKind.qtyOverPurchase,
-          isError: true,
-          args: {'remain': purchase.remaining, 'unit': purchase.unit},
-        ),
-      );
+    if (purchase != null) {
+      final limit = switch (step) {
+        ScanStep.recvQty => purchase.remaining,
+        ScanStep.failQty => purchase.remaining - c.quantity,
+        _ => null,
+      };
+      if (limit != null && n > limit) {
+        return _notice(
+          ScanNotice(
+            NoticeKind.qtyOverPurchase,
+            isError: true,
+            args: {'remain': limit < 0 ? 0 : limit, 'unit': purchase.unit},
+          ),
+        );
+      }
     }
-    final next = c.copyWith(quantity: n);
-    switch (state.step) {
+    final next = c.copyWith(quantity: step == ScanStep.failQty ? null : n);
+    switch (step) {
       case ScanStep.stockQty:
         final shelf = c.shelf;
         _go(ScanStep.stockQty, next);
         if (shelf != null) await _put(shelf);
+      case ScanStep.issueQty:
+        await _startWork(next);
       case ScanStep.qty:
-        _go(ScanStep.eval, next);
+      case ScanStep.recvQty:
+        if (n == 0) return _go(ScanStep.failQty, next.copyWith(quantity: 0));
+        _go(ScanStep.putShelf, next.copyWith(rejected: false));
+        // 処理待ちを使うとき、選んだ棚があれば、合格の棚の読み取りを省く
+        final shelf = state.selectedShelf;
+        if (shelf != null && ref.read(batchQueueProvider)) return _putTo(shelf);
+        await _loadRecommended();
+      case ScanStep.failQty:
+        _go(ScanStep.ng, c.copyWith(failQuantity: n, rejected: true));
       default:
-        _go(ScanStep.recvEval, next);
+        break;
     }
   }
 
   /// 入庫処理。作業・受入・棚移動のどれでも、最後は棚へ入庫してリーディングトップへ戻る。
   Future<void> _put(ShelfTarget shelf) async {
     final c = state.context;
-    final order = c.order;
-    final purchase = c.purchase;
     final item = c.item;
-    final StockSource? source = order != null
-        ? WorkSource(order)
-        : purchase != null
-        ? PurchaseSource(purchase)
-        : item != null
-        ? ItemSource(item)
-        : null;
+    final StockSource? source = item != null ? ItemSource(item) : null;
     if (source == null) return;
     final reason = c.rejected ? (c.reason ?? RejectReason.other) : null;
     if (ref.read(batchQueueProvider)) {
@@ -881,10 +1080,20 @@ class ScanFlow extends Notifier<ScanState> {
     final items = List<QueuedEntry>.of(state.queue);
     var done = 0;
     for (final q in items) {
-      final ok = await _guard(q is QueuedIssue ? '棚出庫' : '入庫', q.symbol, () async {
+      final ok = await _guard(q is QueuedIssue ? '棚出庫' : q is QueuedResult ? '完了の登録' : '入庫', q.symbol, () async {
         switch (q) {
-          case QueuedIssue(:final order, :final shelf):
-            await _gateway.startWork(order, shelf);
+          case QueuedIssue(:final order, :final shelf, :final quantity):
+            await _gateway.startWork(order, shelf, quantity);
+          case QueuedResult():
+            await _gateway.registerResult(
+              source: q.source,
+              passQuantity: q.passQuantity,
+              passShelf: q.passShelf,
+              failQuantity: q.failQuantity,
+              failShelf: q.failShelf,
+              failReason: q.failReason,
+              returnReason: q.returnReason,
+            );
           case QueuedPut():
             await _gateway.putAway(
               source: q.source,
@@ -911,6 +1120,8 @@ class ScanFlow extends Notifier<ScanState> {
       switch (q) {
         case QueuedIssue(:final order, :final shelf):
           _logIssue(order, shelf);
+        case QueuedResult():
+          _logResult(q.source, q.passQuantity, q.passShelf, q.failQuantity, q.failShelf);
         case QueuedPut():
           _logPut(q.source, q.quantity, q.reason != null, q.shelf);
       }
@@ -923,6 +1134,7 @@ class ScanFlow extends Notifier<ScanState> {
         args: {
           'shelf': switch (last) {
             QueuedIssue(:final shelf) => shelf.name,
+            QueuedResult(:final passShelf, :final failShelf) => (passShelf ?? failShelf)?.name ?? '',
             QueuedPut(:final shelf) => shelf.name,
           },
         },
@@ -941,11 +1153,12 @@ class ScanFlow extends Notifier<ScanState> {
   );
 
   /// 入庫の履歴を 1 件残す。
-  void _logPut(StockSource source, int quantity, bool rejected, ShelfTarget shelf) {
+  void _logPut(StockSource source, int quantity, bool rejected, ShelfTarget shelf, {int alsoDone = 0}) {
     final judge = rejected ? 'fail' : 'pass';
     switch (source) {
       case WorkSource(:final order):
-        final complete = order.doneQuantity + quantity >= order.quantity;
+        // 完了か: 同じ登録の、もう一方(合格と不合格)の数量も含める
+        final complete = order.doneQuantity + quantity + alsoDone >= order.quantity;
         _log(
           complete ? LogKind.storedWorkDone : LogKind.storedWork,
           ok: !rejected,

@@ -135,13 +135,14 @@ void operatorTests() {
     final flow = c.read(scanFlowProvider.notifier);
     await flow.submit('PO-2610-001-1');
     await flow.submit('1');
-    await flow.evaluate(pass: true);
     expect(c.read(scanFlowProvider).step, ScanStep.putShelf);
     await flow.submit('SH-R-01');
     expect(c.read(scanFlowProvider).selectedShelf?.symbol, 'SH-R-01');
+    await flow.evaluate(pass: true); // 不合格なし → 完了を処理待ちへ
     await flow.submit('PO-2610-002-1');
-    await flow.submit('1');
-    await flow.evaluate(pass: true); // 棚の読み取りなしで処理待ちへ
+    await flow.submit('1'); // 選んだ棚があるので、合格の棚の読み取りを省く
+    expect(c.read(scanFlowProvider).step, ScanStep.recvEval);
+    await flow.evaluate(pass: true);
     final s = c.read(scanFlowProvider);
     expect(s.step, ScanStep.top);
     expect(s.queue, hasLength(2));

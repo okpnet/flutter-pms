@@ -1,7 +1,11 @@
 -- 20261120_0001 実績登録・受入検品の DB 関数とビューの検査 T1〜T7(接続できる環境で。ROLLBACK するのでデータは変わらない)
 -- 実行: node runtest.js <.env> pms_user 20261120_0001_register_tests.sql   (一般ユーザー = T7 も兼ねる)
+--   work_record_start の変更(0002)を DB に当てる前に確かめるとき: node runtest.js <.env> postgres 20261120_0002_work_record_start_container.sql 20261120_0001_register_tests.sql
+--   (DDL は ROLLBACK される。このファイルの先頭で一般ユーザー(pms_user)に切り替える)
 -- 前提: 検証用 DB のダミーデータ(07_dummy)。作業指示 2 件(各 5)・発注明細(残り 10 のもの)・コンテナ 3 件・在庫のロット。
 -- 失敗したら例外で止まる。成功は NOTICE に出す。
+
+SET LOCAL ROLE pms_user;
 
 -- 担当者(JWT の staff_id の代わり。TANAKA)
 SELECT set_config('jwt.claims.staff_id', (SELECT info_staff_id::text FROM tests.info_staff WHERE code = 'TANAKA'), true);
@@ -69,12 +73,12 @@ DECLARE c record; wp uuid; wr tests.trans_work_record; r record; code text; q nu
 BEGIN
     SELECT * INTO c FROM t_ctx;
     SELECT trans_work_plan_id INTO wp FROM tests.v_register_target WHERE is_work_plan AND registrable ORDER BY symbol LIMIT 1;
-    wr := tests.work_record_start(wp, c.lot, 4);
+    wr := tests.work_record_start(p_work_plan_id => wp, p_qty => 4, p_visiter_id => c.lot);
     IF wr.stop_at IS NOT NULL OR wr.qty <> 0 THEN RAISE EXCEPTION 'T4 NG: 開始の実績 %', wr; END IF;
     SELECT remaining_quantity, in_progress INTO rem, inprog FROM tests.v_register_target WHERE trans_work_plan_id = wp;
     IF rem <> 1 OR NOT inprog THEN RAISE EXCEPTION 'T4 NG: 残り % 実施中 %', rem, inprog; END IF;
     -- T5: 実施中の指示への 2 回目の開始(OPR03)、残り超過の開始(OPR02は別の指示で)
-    BEGIN PERFORM tests.work_record_start(wp, c.lot, 1); code := 'なし'; EXCEPTION WHEN OTHERS THEN code := SQLSTATE; END;
+    BEGIN PERFORM tests.work_record_start(p_work_plan_id => wp, p_qty => 1, p_visiter_id => c.lot); code := 'なし'; EXCEPTION WHEN OTHERS THEN code := SQLSTATE; END;
     IF code <> 'OPR03' THEN RAISE EXCEPTION 'T5 NG: 実施中の 2 回目 %', code; END IF;
     -- T5: 取り出しより多い完了(OPR02)
     BEGIN PERFORM tests.inspection_register(4, c.c3, wr.trans_work_record_id, NULL, 1, c.c2, '外観不良'); code := 'なし'; EXCEPTION WHEN OTHERS THEN code := SQLSTATE; END;
@@ -95,7 +99,7 @@ BEGIN
     BEGIN PERFORM tests.inspection_register(1, c.c3, wr.trans_work_record_id); code := 'なし'; EXCEPTION WHEN OTHERS THEN code := SQLSTATE; END;
     IF code <> 'OPR03' THEN RAISE EXCEPTION 'T5 NG: すでに終了 %', code; END IF;
     -- 残り(5 − 完了 3 = 2)を超える開始(OPR02)
-    BEGIN PERFORM tests.work_record_start(wp, c.lot, 3); code := 'なし'; EXCEPTION WHEN OTHERS THEN code := SQLSTATE; END;
+    BEGIN PERFORM tests.work_record_start(p_work_plan_id => wp, p_qty => 3, p_visiter_id => c.lot); code := 'なし'; EXCEPTION WHEN OTHERS THEN code := SQLSTATE; END;
     IF code <> 'OPR02' THEN RAISE EXCEPTION 'T5 NG: 残り超過 %', code; END IF;
     SELECT remaining_quantity, in_progress INTO rem, inprog FROM tests.v_register_target WHERE trans_work_plan_id = wp;
     IF rem <> 2 OR inprog THEN RAISE EXCEPTION 'T4 NG: 終了後の残り % 実施中 %', rem, inprog; END IF;
@@ -110,6 +114,31 @@ BEGIN
     INNER JOIN tests.trans_purchase_detail d ON d.trans_purchase_detail_id = t.trans_purchase_detail_id
     WHERE t.is_purchase_detail;
     RAISE NOTICE 'T6 OK(参考): 発注明細として登録対象に出る % 件(発注・非計上発注を区別しない)', n;
+END $$;
+
+-- T8: コンテナを渡した開始(0002)。同じコンテナの複数のロットにまたがって払い出す
+DO $$
+DECLARE c record; wp uuid; wr tests.trans_work_record; l1 tests.trans_visiter; l2 tests.trans_visiter; n int; q numeric; code text;
+BEGIN
+    SELECT * INTO c FROM t_ctx;
+    -- 空の見込みのコンテナ c3 に、小さい 2 つのロット(2 と 3)を入庫する(同じ棚の 2 ロット)
+    l1 := tests.visiter_receive(c.c3, 2);
+    l2 := tests.visiter_receive(c.c3, 3);
+    SELECT trans_work_plan_id INTO wp FROM tests.v_register_target WHERE is_work_plan AND registrable ORDER BY symbol DESC LIMIT 1;
+    -- 両方渡す・どちらも渡さないは OPR02
+    BEGIN PERFORM tests.work_record_start(p_work_plan_id => wp, p_qty => 1, p_visiter_id => l1.trans_visiter_id, p_container_id => c.c3); code := 'なし'; EXCEPTION WHEN OTHERS THEN code := SQLSTATE; END;
+    IF code <> 'OPR02' THEN RAISE EXCEPTION 'T8 NG: 両方渡し %', code; END IF;
+    BEGIN PERFORM tests.work_record_start(p_work_plan_id => wp, p_qty => 1); code := 'なし'; EXCEPTION WHEN OTHERS THEN code := SQLSTATE; END;
+    IF code <> 'OPR02' THEN RAISE EXCEPTION 'T8 NG: どちらも無し %', code; END IF;
+    -- 5 を、コンテナから(2 + 3 の 2 ロットにまたがる)。c3 に他の取り出せるロットがあれば、古い順に先へ出る
+    SELECT COALESCE(SUM(quantity), 0) INTO q FROM tests.v_visiter_issuable WHERE trans_container_id = c.c3 AND issuable AND quantity > 0;
+    IF q < 5 THEN RAISE EXCEPTION 'T8 NG: 前提(コンテナの取り出せる数量 % )', q; END IF;
+    wr := tests.work_record_start(p_work_plan_id => wp, p_qty => 5, p_container_id => c.c3);
+    SELECT -SUM(v.quantity), count(*) INTO q, n
+    FROM tests.trans_work_record_visiter AS wrv INNER JOIN tests.trans_visiter AS v ON v.trans_visiter_id = wrv.trans_visiter_id AND v.quantity < 0
+    WHERE wrv.trans_work_record_id = wr.trans_work_record_id AND wrv.remove IS FALSE;
+    IF q <> 5 THEN RAISE EXCEPTION 'T8 NG: 払出の合計 % (5 のはず)', q; END IF;
+    RAISE NOTICE 'T8 OK: コンテナから開始。払出 % 件の合計 5', n;
 END $$;
 
 -- T7: 一般ユーザーで実行できた(このスクリプト全体が pms_user で動いている)

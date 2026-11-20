@@ -7,14 +7,17 @@ steps:
   top: リーディングトップ
   start: 開始の選択
   issueShelf: 棚出庫処理
-  qty: 数量入力
-  eval: 評価
+  issueQty: 開始数量の入力
+  qty: 合格数量の入力
+  eval: 不合格の有無
+  failQty: 不合格数量の入力
   ng: 不合格処理
+  returnReason: 差の理由
   putShelf: 棚移動リーディング(入庫処理)
   stockItem: 製品/購入品リーディング
   stockQty: 数量入力
   recvQty: 受入検品(数量入力)
-  recvEval: 受入検品(評価)
+  recvEval: 受入検品(不合格の有無)
   equipment: 設備点検
   supplyChoice: 支給の受け入れ・検品
 kinds:
@@ -55,15 +58,21 @@ input:
   startQuestion: この作業を開始しますか(材料を棚から出庫します)。
   answerYes: はい
   answerNo: いいえ
-  pass: 合格
-  fail: 不合格
-  evalQuestion: 評価を選んでください。
+  pass: 不合格なし(登録へ)
+  fail: 不合格あり
+  evalQuestion: 不合格はありますか。
   ngReason: 不合格の理由
   ngConfirm: 不合格として進める
   issueShelfHint: 「{item}」の材料を取り出す棚を読み取ると、出庫して作業を開始します。
   putShelfHint: '{judge}品{qty}{unit}を入れる棚を読み取ると、入庫処理をします。'
   stockItemHint: '「{shelf}」へ入れる製品/購入品を読み取ります。'
   qtyHint: '残り {remain}{unit}(1以上の整数)'
+  issueQtyHint: '「{item}」の開始数量を入れてください(棚「{shelf}」から払い出す。最大 {max}{unit})'
+  passQtyHint: '合格数量を入れてください(最大 {max}{unit}。全量が不合格のときは 0)'
+  failQtyHint: '不合格数量を入れてください(最大 {max}{unit})'
+  returnQuestion: '完了が取り出しより {diff}{unit} 少ないです。差は払出元の棚へ戻します。理由を選んでください。'
+  returnReasonLabel: 差の理由
+  returnConfirm: この理由で登録
   inspectionSave: 点検結果を記録
   inspectionResults:
     pass: 合格
@@ -77,6 +86,11 @@ input:
   supplyAccept: 検品に合格(仮止めを外す)
   supplyReject: 検品で不合格(異常を登録。仮止めのまま)
   supplyRegister: 登録
+returnReasons:
+  overDay: 日またぎ
+  handover: 交代の引き継ぎ
+  setup: 段取り替え
+  other: その他
 ngReasons:
   dimension: 寸法不良
   appearance: 外観不良
@@ -137,7 +151,8 @@ queue:
   register: 'まとめて登録({count}件)'
   remove: 取り消す
   item: '{sym} {qty}{unit} → {shelf}'
-  issueItem: '{sym} 出庫 ← {shelf}'
+  issueItem: '{sym} 出庫 {qty} ← {shelf}'
+  resultItem: '{sym} 完了 合格 {pass} / 不合格 {fail}'
 staff:
   label: '担当者: {name}'
   change: 担当者を替える

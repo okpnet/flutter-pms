@@ -8,9 +8,12 @@ extension BarcodeEntryLabels on BarcodeEntryStrings {
     ScanStep.top => steps.top,
     ScanStep.start => steps.start,
     ScanStep.issueShelf => steps.issueShelf,
+    ScanStep.issueQty => steps.issueQty,
     ScanStep.qty => steps.qty,
     ScanStep.eval => steps.eval,
+    ScanStep.failQty => steps.failQty,
     ScanStep.ng => steps.ng,
+    ScanStep.returnReason => steps.returnReason,
     ScanStep.putShelf => steps.putShelf,
     ScanStep.stockItem => steps.stockItem,
     ScanStep.stockQty => steps.stockQty,
@@ -53,6 +56,13 @@ extension BarcodeEntryLabels on BarcodeEntryStrings {
     RejectReason.material => ngReasons.material,
     RejectReason.shortage => ngReasons.shortage,
     RejectReason.other => ngReasons.other,
+  };
+
+  String returnLabel(ReturnReason reason) => switch (reason) {
+    ReturnReason.overDay => returnReasons.overDay,
+    ReturnReason.handover => returnReasons.handover,
+    ReturnReason.setup => returnReasons.setup,
+    ReturnReason.other => returnReasons.other,
   };
 
   String resultLabel(InspectionResult result) => switch (result) {

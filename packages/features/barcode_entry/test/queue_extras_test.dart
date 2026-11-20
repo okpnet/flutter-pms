@@ -17,9 +17,9 @@ class _SlowGateway extends InMemoryScanGateway {
   final release = Completer<void>();
 
   @override
-  Future<void> startWork(WorkOrderTarget order, ShelfTarget shelf) async {
+  Future<void> startWork(WorkOrderTarget order, ShelfTarget shelf, int quantity) async {
     await release.future;
-    return super.startWork(order, shelf);
+    return super.startWork(order, shelf, quantity);
   }
 }
 
@@ -44,6 +44,8 @@ void main() {
       await flow.submit('WO-2610-001');
       flow.answerStart(true);
       await flow.submit('SH-M-01');
+      expect(c.read(scanFlowProvider).step, ScanStep.issueQty);
+      await flow.submit('10');
       var s = c.read(scanFlowProvider);
       expect(s.queue.single, isA<QueuedIssue>());
       expect(s.step, ScanStep.top);
@@ -51,7 +53,7 @@ void main() {
       await flow.flushQueue();
       s = c.read(scanFlowProvider);
       expect(s.queue, isEmpty);
-      expect(g.journal.single, startsWith('start WO-2610-001'));
+      expect(g.journal.single, 'start WO-2610-001 <- SH-M-01 x10');
       expect(s.notice?.kind, NoticeKind.started);
     });
 
@@ -62,6 +64,7 @@ void main() {
       await flow.submit('WO-2610-001');
       flow.answerStart(true);
       await flow.submit('SH-M-01');
+      await flow.submit('10');
       await flow.submit('SH-A-01');
       await flow.submit('IT-UNIT-A');
       await flow.submit('2');
@@ -78,6 +81,7 @@ void main() {
       await flow.submit('WO-2610-001');
       flow.answerStart(true);
       await flow.submit('SH-M-01');
+      await flow.submit('10');
       expect(c.read(scanFlowProvider).queue, isEmpty);
       expect(g.journal, hasLength(1));
     });
@@ -89,13 +93,14 @@ void main() {
       final c = _container(g, batch: false);
       final flow = c.read(scanFlowProvider.notifier);
       await flow.submit('PO-2610-001-1'); // 丸棒 SS400
-      await flow.submit('1');
-      await flow.evaluate(pass: true);
+      await flow.submit('1'); // 合格数量 → 合格の棚(おすすめを出す)
       final rec = c.read(scanFlowProvider).recommended;
       expect(rec.map((r) => r.shelf.symbol), ['SH-M-01A']);
       expect(rec.single.heldQuantity, 25); // 根拠: 同じ品目が入っている数量
       expect(rec.single.reject, isFalse);
       await flow.pickShelf(rec.single.shelf);
+      expect(c.read(scanFlowProvider).step, ScanStep.recvEval, reason: '合格の棚を選んだら、不合格の有無へ');
+      await flow.evaluate(pass: true);
       expect(g.journal.single, contains('-> SH-M-01A'));
       expect(c.read(scanFlowProvider).recommended, isEmpty);
     });
@@ -105,8 +110,8 @@ void main() {
       final c = _container(g, batch: false);
       final flow = c.read(scanFlowProvider.notifier);
       await flow.submit('PO-2610-001-1');
+      await flow.submit('0'); // 合格 0(全量が不合格)
       await flow.submit('1');
-      await flow.evaluate(pass: false);
       await flow.confirmReject(RejectReason.appearance);
       expect(c.read(scanFlowProvider).recommended.map((r) => r.shelf.symbol), ['SH-X-01']);
       expect(c.read(scanFlowProvider).recommended.single.reject, isTrue);
@@ -117,7 +122,6 @@ void main() {
       final flow = c.read(scanFlowProvider.notifier);
       await flow.submit('PO-2610-001-1');
       await flow.submit('1');
-      await flow.evaluate(pass: true);
       flow.cancel();
       expect(c.read(scanFlowProvider).recommended, isEmpty);
     });
@@ -172,6 +176,7 @@ void main() {
       await flow.submit('WO-2610-001');
       flow.answerStart(true);
       await flow.submit('SH-M-01');
+      await flow.submit('10');
       expect(c.read(scanFlowProvider).queue, hasLength(1));
       final flushing = flow.flushQueue(); // 通信中(応答待ち)
       await Future<void>.delayed(Duration.zero);
@@ -259,15 +264,16 @@ void main() {
   });
 
   group('戻る(1 つ前のリード)', () {
-    test('数量 → 評価 → 入庫先 → 評価 → 数量 → トップの順にさかのぼる', () async {
+    test('数量 → 合格の棚 → 不合格の有無 → 合格の棚 → 数量 → トップの順にさかのぼる', () async {
       final c = _container(InMemoryScanGateway(), batch: false);
       final flow = c.read(scanFlowProvider.notifier);
       await flow.submit('PO-2610-001-1');
       await flow.submit('1');
-      await flow.evaluate(pass: true);
       expect(c.read(scanFlowProvider).step, ScanStep.putShelf);
-      flow.back();
+      await flow.submit('SH-R-01');
       expect(c.read(scanFlowProvider).step, ScanStep.recvEval);
+      flow.back();
+      expect(c.read(scanFlowProvider).step, ScanStep.putShelf);
       flow.back();
       expect(c.read(scanFlowProvider).step, ScanStep.recvQty);
       flow.back();
@@ -281,12 +287,14 @@ void main() {
       final c = _container(g, batch: false);
       final flow = c.read(scanFlowProvider.notifier);
       await flow.submit('PO-2610-001-1');
+      await flow.submit('0');
       await flow.submit('1');
-      await flow.evaluate(pass: false);
       await flow.confirmReject(RejectReason.other);
       expect(c.read(scanFlowProvider).step, ScanStep.putShelf);
       flow.back();
       expect(c.read(scanFlowProvider).step, ScanStep.ng);
+      flow.back();
+      expect(c.read(scanFlowProvider).step, ScanStep.failQty);
       expect(g.journal, isEmpty);
     });
 
@@ -302,7 +310,6 @@ void main() {
       final flow = c.read(scanFlowProvider.notifier);
       await flow.submit('PO-2610-001-1');
       await flow.submit('1');
-      await flow.evaluate(pass: true);
       await flow.submit('SH-R-01');
       expect(c.read(scanFlowProvider).selectedShelf, isNotNull);
       flow.idleClear();

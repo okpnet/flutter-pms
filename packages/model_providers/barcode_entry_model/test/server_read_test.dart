@@ -14,6 +14,18 @@ const _zeroId = '00000000-0000-0000-0000-000000000000';
 
 void main() {
   group('検証用サーバー: 全readクエリ', () {
+    serverTest('ScanContainerChildPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryScanContainerChildPageRead,
+          variables: Variables$Query$ScanContainerChildPageRead(first: 1).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$ScanContainerChildPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
     serverTest('ScanContainerPageRead', (server) async {
       final result = await server.provider.query(
         QueryOptions(
@@ -23,6 +35,18 @@ void main() {
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
       Query$ScanContainerPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
+    serverTest('ScanContentsPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryScanContentsPageRead,
+          variables: Variables$Query$ScanContentsPageRead(first: 1).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$ScanContentsPageRead.fromJson(
         Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
       );
     });
@@ -122,6 +146,18 @@ void main() {
         Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
       );
     });
+    serverTest('ScanLotItemPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryScanLotItemPageRead,
+          variables: Variables$Query$ScanLotItemPageRead(first: 1).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$ScanLotItemPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
     serverTest('ScanPurchaseDetailPageRead', (server) async {
       final result = await server.provider.query(
         QueryOptions(
@@ -155,6 +191,18 @@ void main() {
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
       Query$ScanStaffHistoryPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
+    serverTest('ScanStaffPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryScanStaffPageRead,
+          variables: Variables$Query$ScanStaffPageRead(first: 1, languageCodeId: _zeroId).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$ScanStaffPageRead.fromJson(
         Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
       );
     });
@@ -202,8 +250,8 @@ void main() {
     tearDown(() => server.close());
 
     QueryOptions options() => QueryOptions(
-      document: documentNodeQueryScanContainerPageRead,
-      variables: Variables$Query$ScanContainerPageRead(first: 1, languageCodeId: _zeroId).toJson(),
+      document: documentNodeQueryScanContainerChildPageRead,
+      variables: Variables$Query$ScanContainerChildPageRead(first: 1).toJson(),
     );
 
     // 代役サーバーの既定の応答に合う、中身の無い問い合わせ(応答の読み取りを確認しないテスト用)。

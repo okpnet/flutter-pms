@@ -151,12 +151,57 @@ class InMemoryScanGateway implements IScanGateway {
       _operators[symbol.trim().toUpperCase()];
 
   @override
-  Future<void> startWork(WorkOrderTarget order, ShelfTarget shelf) async {
+  Future<void> startWork(WorkOrderTarget order, ShelfTarget shelf, int quantity) async {
     final current = _targets[order.symbol];
     if (current is WorkOrderTarget) {
-      _targets[order.symbol] = _copy(current, state: WorkState.inProgress);
+      _targets[order.symbol] = _copy(current, state: WorkState.inProgress, takenQuantity: quantity);
     }
-    journal.add('start ${order.symbol} <- ${shelf.symbol}');
+    journal.add('start ${order.symbol} <- ${shelf.symbol} x$quantity');
+  }
+
+  @override
+  Future<void> registerResult({
+    required StockSource source,
+    required int passQuantity,
+    ShelfTarget? passShelf,
+    int failQuantity = 0,
+    ShelfTarget? failShelf,
+    RejectReason? failReason,
+    ReturnReason? returnReason,
+  }) async {
+    final total = passQuantity + failQuantity;
+    switch (source) {
+      case WorkSource(:final order):
+        final current = _targets[order.symbol];
+        if (current is WorkOrderTarget) {
+          final done = current.doneQuantity + total;
+          _targets[order.symbol] = _copy(
+            current,
+            doneQuantity: done,
+            state: done >= current.quantity ? WorkState.done : WorkState.inProgress,
+            clearTaken: true,
+          );
+        }
+      case PurchaseSource(:final purchase):
+        final current = _targets[purchase.symbol];
+        if (current is PurchaseTarget) {
+          _targets[purchase.symbol] = PurchaseTarget(
+            symbol: current.symbol,
+            itemName: current.itemName,
+            quantity: current.quantity,
+            receivedQuantity: current.receivedQuantity + total,
+            unit: current.unit,
+          );
+        }
+      case ItemSource():
+        break;
+    }
+    final parts = [
+      if (passQuantity > 0) 'pass x$passQuantity -> ${passShelf?.symbol}',
+      if (failQuantity > 0) 'fail x$failQuantity -> ${failShelf?.symbol} (${failReason?.name})',
+      if (returnReason != null) 'return (${returnReason.name})',
+    ];
+    journal.add('result ${source.symbol} ${parts.join(' ')}');
   }
 
   @override
@@ -233,6 +278,8 @@ class InMemoryScanGateway implements IScanGateway {
     WorkOrderTarget o, {
     int? doneQuantity,
     WorkState? state,
+    int? takenQuantity,
+    bool clearTaken = false,
   }) => WorkOrderTarget(
     symbol: o.symbol,
     itemName: o.itemName,
@@ -242,5 +289,7 @@ class InMemoryScanGateway implements IScanGateway {
     unit: o.unit,
     state: state ?? o.state,
     outsourced: o.outsourced,
+    operationsPlanId: o.operationsPlanId,
+    takenQuantity: clearTaken ? null : (takenQuantity ?? o.takenQuantity),
   );
 }

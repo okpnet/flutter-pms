@@ -13,19 +13,22 @@ graph TD;
     A[top リーディングトップ] --> B{読み込んだ symbol};
     B -- 作業指示 --> F{状態};
     F -- 未開始 --> H[start 開始の選択];
-    H -- はい --> P[issueShelf 棚出庫] --> A;
+    H -- はい --> P[issueShelf 棚を読む] --> IQ[issueQty 開始数量] --> A;
     H -- いいえ --> A;
-    F -- 開始中 --> G[qty 数量入力] --> N[eval 評価];
+    F -- 開始中 --> G[qty 合格数量。0 は全量不合格] --> L[putShelf 合格の棚];
     F -- 指示数量完了 --> A;
-    B -- 棚 --> R[stockItem 製品/購入品] --> S[stockQty 数量入力] --> M[入庫];
-    B -- 購入品 --> E[recvQty 数量入力] --> I[recvEval 評価];
+    L --> N[eval 不合格はあるか];
+    G -- 0 --> FQ;
+    N -- なし --> R{差があるか。作業のみ};
+    N -- あり --> FQ[failQty 不合格数量] --> O[ng 理由] --> L2[putShelf 不合格の棚];
+    L2 --> R;
+    R -- あり --> RR[returnReason 差の理由] --> REG[1 回で登録];
+    R -- なし --> REG;
+    REG --> A;
+    B -- 棚 --> S[stockItem 製品/購入品] --> T[stockQty 数量入力] --> M[入庫];
+    B -- 購入品 --> E[recvQty 合格数量] --> L;
     B -- 設備 --> Q[equipment 設備点検] --> A;
     B -- 支給 --> U[supplyChoice 受け入れ・合格・不合格をラジオで選ぶ] --> A;
-    N -- 合格 --> L[putShelf 棚移動リーディング];
-    I -- 合格 --> L;
-    N -- 不合格 --> O[ng 不合格処理] --> L;
-    I -- 不合格 --> O;
-    L --> M --> A;
 ```
 
 ## コード体系(バーコードの文字列)
@@ -54,7 +57,7 @@ graph TD;
 | コード | `lib/src/barcode_code.dart` | `BarcodeCode`(コードの一覧・分解・付加。契約の入口から公開) |
 | 対象・種類 | `lib/src/logic/scan_models.dart` | `ScanTarget`(作業指示・棚・購入品・製品/購入品・設備)、`ScanMode`、`StockSource` ほか |
 | 流れ | `lib/src/logic/scan_flow.dart` | `ScanFlow`(State)。段階ごとの判定と登録。通知・履歴は種類(enum)で持つ |
-| 取得元 | `lib/src/logic/scan_gateway.dart` | `IScanGateway`(Strategy)。照会 `find`、棚出庫 `startWork`、入庫 `putAway`、点検 `recordInspection` |
+| 取得元 | `lib/src/logic/scan_gateway.dart` | `IScanGateway`(Strategy)。照会 `find`、開始 `startWork`(棚出庫 + 作業実績。数量つき)、終了・受入 `registerResult`(合格・不合格・差を 1 回で)、棚移動の入庫 `putAway`、点検 `recordInspection` |
 | 暫定の取得元 | `lib/src/logic/in_memory_scan_gateway.dart` | メモリ上のサンプル(プロトタイプと同じ値)。GraphQL 版は `scanGatewayProvider` を差し替える |
 | GraphQL の取得元 | `lib/src/logic/graphql_scan_gateway.dart` | `GraphqlScanGateway`(Adapter)。`barcode_entry_model` の `ScanClient` だけを使い、生成された型を読み込まない。登録は作業実績・ビジター・入庫を、クライアントで順に呼ぶ組み合わせ |
 | 画面 | `lib/src/page/` | ページ・モジュール・遷移先・パス・種類から文字列への変換 |
@@ -73,6 +76,14 @@ graph TD;
 1.  画面は、状態(`ScanFlow`)を 1 つにして、ブロックを並べ替える。PC・タブレット(`view_responsiveness` がモバイル以外)は左に読み取り・入力・おすすめ、右に処理待ち・棚の中身・履歴。モバイルは 1 列に積む。画面のライブラリを 2 つに分けない。
 1.  トップ以外の段階(入力要求)は、モバイルは全画面、PC・タブレットはダイアログで出す(画面幅で判定。中身は `_requestContent` の 1 つ)。すべての入力要求に「戻る」(`ScanFlow.back`。1 つ前のリード。登録はしない)と「トップに戻る」を置く。システムの戻るは閉じず「戻る」と同じ。入力欄はトップと入力要求で別に持つ。
 
+## 開始と終了・受入(1 回の登録)
+1.  **開始**: 作業指示を読み、「はい」→ 材料を出す棚を読む → 開始数量を入れる(`issueQty`。上限は計画の残り)→ `startWork(order, shelf, quantity)`。取得元(GraphQL 版)は、DB 関数 `work_record_start` を、**コンテナを渡して** 1 回呼ぶ(実績の登録と払出は 1 つの処理。コンテナの取り出せるロットを古い順に、数量になるまで複数のロットから払い出す)。数量を入れるまで登録しない。
+1.  **終了・受入**: 合格数量(`qty`・`recvQty`。0 は全量不合格)→ 合格の棚 → 不合格の有無(`eval`・`recvEval`)→ あれば 不合格数量(`failQty`)・理由(`ng`)・不合格の棚 → 作業で、完了(合格 + 不合格)が取り出した数量より少なく、不合格が無いときは 差の理由(`returnReason`。日またぎ・交代の引き継ぎ・段取り替え・その他。差は払出元へ返る)→ `registerResult` を **1 回** 呼ぶ(DB 関数 `inspection_register`。実績の記録・合格の入庫・不合格の異常と入庫・差の返却が 1 つの処理)。途中で登録しない(戻ると、入力し直せる)。
+1.  数量の上限: 開始は計画の残り(`WorkOrderTarget.remaining`)、作業の終了は取り出した数量(`finishLimit`。取得元が `takenQuantity` を持たないときは残り)、受入は発注の残り。不合格数量は、上限から合格を引いた残り。
+1.  **処理待ち(キュー)**: 開始は `QueuedIssue`(数量つき)、終了・受入は `QueuedResult`(1 件にまとめた 1 回の登録)。棚移動は `QueuedPut`。
+1.  **正規のルートだけ**: 「完了して一旦保留し、あとで入庫する」ように分けた動き(保留の分離)は、まだ作らない(DB の引数も足していない)。
+1.  理由(不合格・差)は自由な文(マスタを持たない。決定 2026-11-20)。GraphQL 版は、画面の選択肢の名称を、そのまま理由として送る。
+
 ## 規則
 1.  symbol の種類は取得元が判定する。画面・流れは symbol の接頭辞を知らない。設備はコードで引く。大文字小文字は区別しない。
 2.  エラーは文字列ではなく種類(`NoticeKind`・`LogKind`)で持ち、画面が表示時に文字列へ変換する。やり直しを求める通知は `isError`。
@@ -87,7 +98,7 @@ graph TD;
 `example` は `feature_shared` の `FeatureHost` でこの機能だけを載せる。`flutter run -d windows`。起動と symbol の読み込みは `example/test/widget_test.dart`、流れの判定は `test/barcode_entry_test.dart`。
 
 ## GraphQL 版の制限
-棚出庫(払出)・単位・設備点検・異常の登録は、DB の構成から決められず未対応(`issue/20261031_0003.md`)。不合格の理由は備考に残す。作業の開始・終了と受入検品を DB 関数(`work_record_start`・`inspection_register`。`issue/20261120_0001.md`)へつなぐには、流れの作り直しが要る(開始に数量とロットが要る。終了は合格・不合格・差を 1 回で渡す。いまの流れは、合格・不合格を別々に入庫する)。登録の通信テストは書かない(読み取り専用)。モデルは `packages/model_providers/barcode_entry_model` だけに依存する。
+単位・設備点検・支給の登録は、DB の構成から決められず未対応(`issue/20261031_0003.md`)。作業の開始・終了と受入検品は、DB 関数(`work_record_start`・`inspection_register`。`issue/20261120_0001.md`)の 1 回の呼び出しで登録する(上の「開始と終了・受入」)。開始のコンテナ渡し(`p_container_id`)は、DB を再構築したあとに使える(それまでは、モデルの再生成もできない。`ScanClient.workRecordStart` は文書を直接書いている)。登録の通信テストは書かない(読み取り専用。登録の関数は DB の検査 `tools/docker/postgresql/test/20261120_0001_register_tests.sql` で確認する)。モデルは `packages/model_providers/barcode_entry_model` だけに依存する。
 
 
 ## 規則: プロジェクト間をまたぐ指示

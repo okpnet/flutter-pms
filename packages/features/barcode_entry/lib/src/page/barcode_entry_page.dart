@@ -51,6 +51,7 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
   Route<void>? _request;
   bool _camera = false;
   RejectReason _reason = RejectReason.dimension;
+  ReturnReason _returnReason = ReturnReason.overDay;
   List<InspectionResult> _results = const [];
   _SupplyChoice _supplyChoice = _SupplyChoice.receive;
   final _supplyQty = TextEditingController();
@@ -596,15 +597,47 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
             ),
           ],
         );
+      case ScanStep.returnReason:
+        final limit = c.order?.finishLimit ?? 0;
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              t.input.returnQuestion(
+                diff: (limit - c.quantity - c.failQuantity).clamp(0, limit),
+                unit: c.order?.unit ?? '',
+              ),
+            ),
+            const SizedBox(height: 12),
+            DropdownButtonFormField<ReturnReason>(
+              initialValue: _returnReason,
+              decoration: InputDecoration(labelText: t.input.returnReasonLabel),
+              items: [
+                for (final r in ReturnReason.values)
+                  DropdownMenuItem(value: r, child: Text(t.returnLabel(r))),
+              ],
+              onChanged: (r) => _ui(() => _returnReason = r ?? _returnReason),
+            ),
+            const SizedBox(height: 12),
+            FilledButton(
+              onPressed: s.working ? null : () => flow.confirmReturn(_returnReason),
+              child: Text(t.input.returnConfirm),
+            ),
+          ],
+        );
       case ScanStep.top:
       case ScanStep.issueShelf:
+      case ScanStep.issueQty:
       case ScanStep.qty:
+      case ScanStep.failQty:
       case ScanStep.putShelf:
       case ScanStep.stockItem:
       case ScanStep.stockQty:
       case ScanStep.recvQty:
         final isQty = const {
+          ScanStep.issueQty,
           ScanStep.qty,
+          ScanStep.failQty,
           ScanStep.stockQty,
           ScanStep.recvQty,
         }.contains(s.step);
@@ -666,23 +699,36 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
         return t.modeHint(s.mode);
       case ScanStep.issueShelf:
         return t.input.issueShelfHint(item: c.order?.itemName ?? '');
+      case ScanStep.issueQty:
+        return t.input.issueQtyHint(
+          item: c.order?.itemName ?? '',
+          shelf: c.shelf?.name ?? '',
+          max: c.order?.remaining ?? 0,
+          unit: c.order?.unit ?? '',
+        );
+      case ScanStep.failQty:
+        final limit = (c.order?.finishLimit ?? c.purchase?.remaining ?? 0) - c.quantity;
+        return t.input.failQtyHint(
+          max: limit < 0 ? 0 : limit,
+          unit: c.order?.unit ?? c.purchase?.unit ?? '',
+        );
       case ScanStep.putShelf:
         final unit = c.order?.unit ?? c.purchase?.unit ?? c.item?.unit ?? '';
         return t.input.putShelfHint(
           judge: c.rejected ? t.input.judgeFail : t.input.judgePass,
-          qty: c.quantity,
+          qty: c.rejected ? c.failQuantity : c.quantity,
           unit: unit,
         );
       case ScanStep.stockItem:
         return t.input.stockItemHint(shelf: c.shelf?.name ?? '');
       case ScanStep.qty:
-        return t.input.qtyHint(
-          remain: c.order?.remaining ?? 0,
+        return t.input.passQtyHint(
+          max: c.order?.finishLimit ?? 0,
           unit: c.order?.unit ?? '',
         );
       case ScanStep.recvQty:
-        return t.input.qtyHint(
-          remain: c.purchase?.remaining ?? 0,
+        return t.input.passQtyHint(
+          max: c.purchase?.remaining ?? 0,
           unit: c.purchase?.unit ?? '',
         );
       default:
@@ -778,7 +824,10 @@ class _QueuePanel extends ConsumerWidget {
   };
 
   static String _label(BarcodeEntryStrings t, QueuedEntry e) => switch (e) {
-    QueuedIssue(:final order, :final shelf) => t.queue.issueItem(sym: order.symbol, shelf: shelf.name),
+    QueuedIssue(:final order, :final shelf, :final quantity) =>
+      t.queue.issueItem(sym: order.symbol, qty: quantity, shelf: shelf.name),
+    QueuedResult(:final source, :final passQuantity, :final failQuantity) =>
+      t.queue.resultItem(sym: source.symbol, pass: passQuantity, fail: failQuantity),
     QueuedPut(:final source, :final quantity, :final shelf) =>
       t.queue.item(sym: source.symbol, qty: quantity, unit: _unit(source), shelf: shelf.name),
   };

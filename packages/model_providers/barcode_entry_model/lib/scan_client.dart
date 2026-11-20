@@ -1,16 +1,15 @@
 /// バーコード実績登録の窓口(生成モデルを隠す)。`barcode_entry_model.dart`(生成物のバレル)とは別のファイル。
 ///
-/// 読み込み(symbol で対象を引く)はこのパッケージの生成モデル、登録(作業実績・入庫/払出・受入)は
-/// `work_record_model`・`purchasing_model` の生成モデル(`~PageCreate`)を使う。
+/// 読み込み(symbol で対象を引く)はこのパッケージの生成モデル、登録は `work_record_model` の生成モデルを使う
+/// (作業の開始・終了・受入検品は DB 関数 1 回 = 1 つの処理。棚移動の入庫・棚卸しなどは `~PageCreate`・関数)。
 /// 生成された型はここで平らな型([ScanFound] ほか)に変換し、パッケージの外へ出さない。
-/// 登録は1テーブルずつの部品([ScanClient.createWorkRecord] など)と、組み合わせ([ScanClient.putWork] など)を持つ。
-/// 複数テーブルの登録はクライアントで順に呼ぶ(途中で失敗した場合は、そこまでの登録が残る)。
+/// 作業の開始・終了・受入検品は DB 関数([ScanClient.workRecordStart]・[ScanClient.inspectionRegister])で 1 回の呼び出しにする。
+/// 棚移動(入庫)など、まだ関数にまとめていない登録は、クライアントで順に呼ぶ(途中で失敗した場合は、そこまでの登録が残る)。
 library;
 
 import 'package:barcode_entry_model/barcode_entry_model.dart' as scan;
 import 'package:gql/ast.dart' show DocumentNode;
 import 'package:graphql/client.dart';
-import 'package:purchasing_model/purchasing_model.dart' as pu;
 import 'package:quality_model/quality_model.dart' as qu;
 import 'package:resource_model/resource_model.dart' as rs;
 import 'package:work_record_model/work_record_model.dart' as wr;
@@ -45,6 +44,8 @@ class ScanFound {
     this.closed = false,
     this.operationsPlanId,
     this.itemId,
+    this.takenQuantity,
+    this.openWorkRecordId,
   });
 
   final ScanFoundKind kind;
@@ -80,6 +81,12 @@ class ScanFound {
 
   /// 品目の id(作業指示は生産する品目、発注明細は購入する品目、品目はその品目)。入庫先のおすすめに使う。
   final String? itemId;
+
+  /// 作業指示の、実施中の作業実績でコンテナから取り出した数量(実施中でなければ null)。終了で登録できる数量の上限。
+  final int? takenQuantity;
+
+  /// 作業指示の、実施中の作業実績の id(実施中でなければ null)。
+  final String? openWorkRecordId;
 }
 
 /// 担当者(symbol で引いた結果)。
@@ -207,6 +214,7 @@ class ScanClient {
       'transWorkPlanId': id,
     });
     final done = records.fold<int>(0, (sum, x) => sum + _int(x['qty']));
+    final open = await openWorkRecord(id);
     return ScanFound(
       kind: ScanFoundKind.workPlan,
       id: id,
@@ -221,6 +229,8 @@ class ScanClient {
       closed: (r['registrable'] as Map?)?['closed'] == true,
       operationsPlanId: (plan?['transOperationsPlanId'] ?? r['transOperationsPlanId']) as String?,
       itemId: resource?['itemId'] as String?,
+      takenQuantity: open?.taken,
+      openWorkRecordId: open?.id,
     );
   }
 
@@ -357,30 +367,6 @@ class ScanClient {
     return id;
   }
 
-  /// 作業実績(`trans_work_record`)。
-  Future<String> createWorkRecord({
-    required String workPlanId,
-    int? quantity,
-    bool started = false,
-    bool stopped = false,
-    String? staffId,
-    String? equipmentId,
-    String? remarks,
-  }) async => _create(
-    wr.documentNodeMutationWorkRecordPageCreate,
-    {
-      'transWorkPlanId': workPlanId,
-      if (started) 'startAt': _stamp(),
-      if (stopped) 'stopAt': _stamp(),
-      if (quantity != null) 'qty': '$quantity',
-      if (staffId != null) ...await _staff(staffId),
-      if (equipmentId != null) 'equipmentId': equipmentId,
-      if (remarks != null) 'remarks': remarks,
-    },
-    'createTransWorkRecord',
-    'transWorkRecord',
-    'transWorkRecordId',
-  );
 
   /// 棚ビジター(`trans_visiter`)。数量は棚ビジターだけが持つ(+が入庫、-が出庫)。
   /// 出庫・棚卸しの行は [parentVisiterId](取り出したロット)が必須。
@@ -426,102 +412,92 @@ class ScanClient {
     'transConveyId',
   );
 
-  /// 作業実績と棚ビジターの結び付き(`trans_work_record_visiter`。数量は持たない)。
-  Future<String> linkWorkRecordVisiter({
-    required String workRecordId,
-    required String visiterId,
-  }) => _create(
-    wr.documentNodeMutationWorkRecordVisiterPageCreate,
-    {'transWorkRecordId': workRecordId, 'transVisiterId': visiterId},
-    'createTransWorkRecordVisiter',
-    'transWorkRecordVisiter',
-    'transWorkRecordVisiterId',
-  );
 
-  /// 購入品受入(`trans_purchase_rec`)。
-  Future<String> createPurchaseRec({
-    required String purchaseDetailId,
-    required int quantity,
-    String? remarks,
-  }) => _create(
-    pu.documentNodeMutationPurchaseRecPageCreate,
-    {
-      'transPurchaseDetailId': purchaseDetailId,
-      'receiveAt': _stamp(),
-      'quantity': '$quantity',
-      if (remarks != null) 'remarks': remarks,
-    },
-    'createTransPurchaseRec',
-    'transPurchaseRec',
-    'transPurchaseRecId',
-  );
 
-  /// 受入と棚ビジターの結び付き(`trans_purchase_rec_visiter`。数量は持たない)。
-  Future<String> linkPurchaseRecVisiter({
-    required String purchaseRecId,
-    required String visiterId,
-  }) => _create(
-    pu.documentNodeMutationPurchaseRecVisiterPageCreate,
-    {'transPurchaseRecId': purchaseRecId, 'transVisiterId': visiterId},
-    'createTransPurchaseRecVisiter',
-    'transPurchaseRecVisiter',
-    'transPurchaseRecVisiterId',
-  );
 
-  // ---- 登録(組み合わせ) ----
 
-  /// 作業の開始(作業実績だけ)。棚出庫(払出)は、ビジターに品目の列が無く材料の消費量と結び付けられないため行わない。
-  Future<String> startWork({required String workPlanId, String? staffId}) =>
-      createWorkRecord(workPlanId: workPlanId, started: true, staffId: staffId);
 
-  /// 作業の完了数量を棚へ入庫する(作業実績 + ビジター + 入庫 + 結び付け)。
-  /// 不合格は理由を備考に残す(異常(`trans_complaint`)の登録は、表題・詳細の文書が必要なため別に行う)。
-  Future<void> putWork({
-    required String workPlanId,
-    required int quantity,
-    required ScanFound shelf,
-    String? staffId,
-    String? rejectNote,
-  }) async {
-    final record = await createWorkRecord(
-      workPlanId: workPlanId,
-      quantity: quantity,
-      stopped: true,
-      staffId: staffId,
-      remarks: rejectNote,
-    );
-    final visiter = await createVisiter(containerId: shelf.id, quantity: quantity, remarks: rejectNote);
-    await createConvey(
-      visiterId: visiter,
-      locationId: shelf.locationId,
-      staffId: staffId,
-    );
-    await linkWorkRecordVisiter(workRecordId: record, visiterId: visiter);
-  }
-
-  /// 購入品の受入数量を棚へ入庫する(受入 + ビジター + 入庫 + 結び付け)。
-  Future<void> putPurchase({
-    required String purchaseDetailId,
-    required int quantity,
-    required ScanFound shelf,
-    String? staffId,
-    String? rejectNote,
-  }) async {
-    final rec = await createPurchaseRec(
-      purchaseDetailId: purchaseDetailId,
-      quantity: quantity,
-      remarks: rejectNote,
-    );
-    final visiter = await createVisiter(containerId: shelf.id, quantity: quantity, remarks: rejectNote);
-    await createConvey(
-      visiterId: visiter,
-      locationId: shelf.locationId,
-      staffId: staffId,
-    );
-    await linkPurchaseRecVisiter(purchaseRecId: rec, visiterId: visiter);
-  }
 
   /// 棚移動(製品/購入品を棚へ入れる)。ビジターに品目の列が無いため、品目の symbol を備考に残す。
+  /// 作業の開始(DB 関数 `work_record_start`)。コンテナ [containerId] から [quantity] を、複数のロットにまたがって払い出し、
+  /// 実施中の作業実績を登録する(1 つの処理)。戻り値は作業実績の id。
+  /// 生成モデルはコンテナを渡す引数(`p_container_id`)を持たない版のため、文書を直接書く(DB の再構築・モデルの再生成のあとは置き換えられる)。
+  Future<String> workRecordStart({
+    required String workPlanId,
+    required String containerId,
+    required int quantity,
+    String? staffId,
+  }) async {
+    final data = await _run(
+      gql(r'''mutation ScanWorkRecordStart($w: UUID!, $q: BigFloat!, $c: UUID, $s: UUID) {
+        workRecordStart(input: {pWorkPlanId: $w, pQty: $q, pContainerId: $c, pStaffId: $s}) {
+          transWorkRecord { transWorkRecordId }
+        }
+      }'''),
+      {'w': workPlanId, 'q': '$quantity', 'c': containerId, if (staffId != null) 's': staffId},
+      mutation: true,
+    );
+    final id = (((data['workRecordStart'] as Map?)?['transWorkRecord']) as Map?)?['transWorkRecordId'];
+    if (id is! String) throw const ScanClientException('作業の開始の登録結果にIDがありません');
+    return id;
+  }
+
+  /// 作業の終了・受入検品(DB 関数 `inspection_register`)。作業実績 [workRecordId] か発注明細 [purchaseDetailId] の
+  /// どちらか 1 つを渡す。合格は [passContainerId] へ、不合格は異常を登録して [failContainerId] へ入庫し、
+  /// 作業で完了が取り出しより少ない差は払出元へ返す([returnReason])。1 つの処理。
+  Future<void> inspectionRegister({
+    required int passQuantity,
+    String? passContainerId,
+    String? workRecordId,
+    String? purchaseDetailId,
+    int failQuantity = 0,
+    String? failContainerId,
+    String? reason,
+    String? returnReason,
+    String? staffId,
+  }) async {
+    await _run(
+      wr.documentNodeMutationRegisterInspectionPageCall,
+      {
+        'pPassQty': '$passQuantity',
+        if (passContainerId != null) 'pContainerId': passContainerId,
+        if (workRecordId != null) 'pWorkRecordId': workRecordId,
+        if (purchaseDetailId != null) 'pPurchaseDetailId': purchaseDetailId,
+        'pFailQty': '$failQuantity',
+        if (failContainerId != null) 'pFailContainerId': failContainerId,
+        if (reason != null) 'pReason': reason,
+        if (returnReason != null) 'pReturnReason': returnReason,
+        if (staffId != null) 'pStaffId': staffId,
+      },
+      mutation: true,
+    );
+  }
+
+  /// 作業指示の、実施中の作業実績の id と、取り出した数量(払出の − の行の合計)。実施中が無ければ null。
+  Future<({String id, int taken})?> openWorkRecord(String workPlanId) async {
+    final recs = await _nodes(wr.documentNodeQueryRegisterWorkRecordPageRead, 'allTransWorkRecords', {
+      'first': 5,
+      'filter': {
+        'transWorkPlanId': {'equalTo': workPlanId},
+        'stopAt': {'isNull': true},
+      },
+    });
+    if (recs.isEmpty) return null;
+    final id = recs.first['transWorkRecordId'] as String;
+    final links = await _nodes(wr.documentNodeQueryRegisterRecordVisiterPageRead, 'allTransWorkRecordVisiters', {
+      'first': 200,
+      'filter': {
+        'transWorkRecordId': {'equalTo': id},
+      },
+    });
+    var taken = 0;
+    for (final l in links) {
+      final q = _int((l['visiter'] as Map?)?['quantity']);
+      if (q < 0) taken -= q;
+    }
+    return (id: id, taken: taken);
+  }
+
   Future<void> putItem({
     required ScanFound item,
     required int quantity,

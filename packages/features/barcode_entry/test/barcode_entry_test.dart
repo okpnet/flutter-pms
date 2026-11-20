@@ -7,11 +7,14 @@ import 'package:logger_provider/logger_provider.dart';
 /// 登録だけ失敗する取得元(通信の異常の代わり)。
 class _FailingGateway extends InMemoryScanGateway {
   @override
-  Future<void> putAway({
+  Future<void> registerResult({
     required StockSource source,
-    required int quantity,
-    required ShelfTarget shelf,
-    RejectReason? reason,
+    required int passQuantity,
+    ShelfTarget? passShelf,
+    int failQuantity = 0,
+    ShelfTarget? failShelf,
+    RejectReason? failReason,
+    ReturnReason? returnReason,
   }) => throw StateError('offline');
 }
 
@@ -46,7 +49,7 @@ void main() {
     expect(st().log.first.kind, LogKind.unknown);
   });
 
-  test('未開始の作業指示: 開始 → 棚出庫 → トップへ', () async {
+  test('未開始の作業指示: 開始 → 棚 → 開始数量 → 登録(棚出庫 + 実績)→ トップへ', () async {
     await flow().submit('wo-2610-001');
     expect(st().step, ScanStep.start);
     flow().answerStart(true);
@@ -54,9 +57,26 @@ void main() {
     await flow().submit('IT-BAR'); // 棚ではない
     expect(st().notice?.kind, NoticeKind.expectShelf);
     await flow().submit('SH-M-01');
+    expect(st().step, ScanStep.issueQty);
+    expect(gateway.journal, isEmpty, reason: '数量を入れるまで登録しない');
+    await flow().submit('0');
+    expect(st().notice?.kind, NoticeKind.qtyInvalid);
+    await flow().submit('101'); // 残り 100
+    expect(st().notice?.kind, NoticeKind.qtyOverWork);
+    await flow().submit('40');
     expect(st().step, ScanStep.top);
     expect(st().notice?.kind, NoticeKind.started);
-    expect(gateway.journal.single, 'start WO-2610-001 <- SH-M-01');
+    expect(gateway.journal.single, 'start WO-2610-001 <- SH-M-01 x40');
+  });
+
+  test('開始の数量の入力から「戻る」と、棚の読み取りへ戻る(登録しない)', () async {
+    await flow().submit('WO-2610-001');
+    flow().answerStart(true);
+    await flow().submit('SH-M-01');
+    expect(st().step, ScanStep.issueQty);
+    flow().back();
+    expect(st().step, ScanStep.issueShelf);
+    expect(gateway.journal, isEmpty);
   });
 
   test('「いいえ」なら開始せずトップへ戻る', () async {
@@ -67,51 +87,112 @@ void main() {
     expect(gateway.journal, isEmpty);
   });
 
-  test('開始中の作業指示: 数量 → 合格 → 入庫', () async {
+  test('終了: 合格数量 → 合格の棚 → 不合格なし → 登録(1 回)', () async {
     await flow().submit('WO-2610-002');
     expect(st().step, ScanStep.qty);
-    await flow().submit('0');
+    await flow().submit('-1');
     expect(st().notice?.kind, NoticeKind.qtyInvalid);
     await flow().submit('121'); // 残り 120
     expect(st().notice?.kind, NoticeKind.qtyOverWork);
-    await flow().submit('20');
-    expect(st().step, ScanStep.eval);
-    flow().evaluate(pass: true);
-    expect(st().step, ScanStep.putShelf);
-    await flow().submit('SH-A-01');
-    expect(st().step, ScanStep.top);
-    expect(gateway.journal.single, 'put WO-2610-002 x20 -> SH-A-01');
-    expect(st().log.first.kind, LogKind.storedWork);
-    // 残りが 100 に減っている
-    await flow().submit('WO-2610-002');
-    expect(st().context.order!.remaining, 100);
-  });
-
-  test('不合格は理由を決めて入庫し、指示数量が完了すると次は完了の通知', () async {
-    await flow().submit('WO-2610-002');
     await flow().submit('120');
-    flow().evaluate(pass: false);
-    expect(st().step, ScanStep.ng);
-    flow().confirmReject(RejectReason.appearance);
-    await flow().submit('SH-X-01');
-    expect(
-      gateway.journal.single,
-      'put WO-2610-002 x120 -> SH-X-01 (appearance)',
-    );
+    expect(st().step, ScanStep.putShelf);
+    expect(gateway.journal, isEmpty, reason: '棚・不合格の有無がそろうまで登録しない');
+    await flow().submit('SH-A-01');
+    expect(st().step, ScanStep.eval);
+    await flow().evaluate(pass: true); // 不合格なし
+    expect(st().step, ScanStep.top);
+    expect(gateway.journal.single, 'result WO-2610-002 pass x120 -> SH-A-01');
     expect(st().log.first.kind, LogKind.storedWorkDone);
     await flow().submit('WO-2610-002');
     expect(st().notice?.kind, NoticeKind.workDone);
-    expect(st().step, ScanStep.top);
   });
 
-  test('購入品: 受入数量 → 評価 → 入庫。受入済みの残りを超えられない', () async {
+  test('終了: 不合格があるときは、数量・理由・不合格の棚も集めて 1 回で登録する', () async {
+    await flow().submit('WO-2610-002');
+    await flow().submit('100'); // 合格 100
+    await flow().submit('SH-A-01');
+    await flow().evaluate(pass: false); // 不合格あり
+    expect(st().step, ScanStep.failQty);
+    await flow().submit('21'); // 残り 120 − 合格 100 = 20
+    expect(st().notice?.kind, NoticeKind.qtyOverWork);
+    await flow().submit('20');
+    expect(st().step, ScanStep.ng);
+    await flow().confirmReject(RejectReason.appearance);
+    expect(st().step, ScanStep.putShelf);
+    expect(st().context.rejected, isTrue);
+    expect(gateway.journal, isEmpty);
+    await flow().submit('SH-X-01');
+    expect(st().step, ScanStep.top, reason: '合格 + 不合格 = 上限なので、差の理由は聞かない');
+    expect(
+      gateway.journal.single,
+      'result WO-2610-002 pass x100 -> SH-A-01 fail x20 -> SH-X-01 (appearance)',
+    );
+    expect(st().log.map((e) => e.kind), everyElement(LogKind.storedWorkDone));
+  });
+
+  test('終了: 全量が不合格のときは、合格数量 0 から不合格の数量へ進む', () async {
+    await flow().submit('WO-2610-002');
+    await flow().submit('0');
+    expect(st().step, ScanStep.failQty);
+    await flow().submit('120');
+    await flow().confirmReject(RejectReason.dimension);
+    await flow().submit('SH-X-01');
+    expect(gateway.journal.single, 'result WO-2610-002 fail x120 -> SH-X-01 (dimension)');
+  });
+
+  test('終了: 取り出した数量より少ないときは、差の理由を選んで登録する(差は払出元へ返る)', () async {
+    // 開始 → 40 取り出し → 終了で合格 30(差 10)
+    await flow().submit('WO-2610-001');
+    flow().answerStart(true);
+    await flow().submit('SH-M-01');
+    await flow().submit('40');
+    await flow().submit('WO-2610-001');
+    expect(st().step, ScanStep.qty);
+    expect(st().context.order!.finishLimit, 40, reason: '取り出した数量が上限');
+    await flow().submit('41');
+    expect(st().notice?.kind, NoticeKind.qtyOverWork);
+    await flow().submit('30');
+    await flow().submit('SH-A-01');
+    await flow().evaluate(pass: true);
+    expect(st().step, ScanStep.returnReason);
+    expect(gateway.journal.length, 1, reason: '差の理由が決まるまで登録しない(開始だけ)');
+    await flow().confirmReturn(ReturnReason.overDay);
+    expect(st().step, ScanStep.top);
+    expect(
+      gateway.journal.last,
+      'result WO-2610-001 pass x30 -> SH-A-01 return (overDay)',
+    );
+  });
+
+  test('終了の「戻る」: 差の理由 → 不合格の有無 → 合格の棚 → 合格数量', () async {
+    await flow().submit('WO-2610-001');
+    flow().answerStart(true);
+    await flow().submit('SH-M-01');
+    await flow().submit('40');
+    await flow().submit('WO-2610-001');
+    await flow().submit('30');
+    await flow().submit('SH-A-01');
+    await flow().evaluate(pass: true);
+    expect(st().step, ScanStep.returnReason);
+    flow().back();
+    expect(st().step, ScanStep.eval);
+    flow().back();
+    expect(st().step, ScanStep.putShelf);
+    flow().back();
+    expect(st().step, ScanStep.qty);
+    expect(gateway.journal.length, 1);
+  });
+
+  test('購入品: 合格数量 → 棚 → 不合格なし → 登録。受入済みの残りを超えられない', () async {
     await flow().submit('PO-2610-002-1');
     expect(st().step, ScanStep.recvQty);
     await flow().submit('4001'); // 残り 4000
     expect(st().notice?.kind, NoticeKind.qtyOverPurchase);
     await flow().submit('4000');
-    flow().evaluate(pass: true);
     await flow().submit('SH-R-01');
+    expect(st().step, ScanStep.recvEval);
+    await flow().evaluate(pass: true);
+    expect(gateway.journal.single, 'result PO-2610-002-1 pass x4000 -> SH-R-01');
     await flow().submit('PO-2610-002-1');
     expect(st().notice?.kind, NoticeKind.purchaseDone);
   });
@@ -167,11 +248,11 @@ void main() {
     final failing = _container(_FailingGateway());
     final f = failing.read(scanFlowProvider.notifier);
     await f.submit('WO-2610-002');
-    await f.submit('10');
-    f.evaluate(pass: true);
+    await f.submit('120');
     await f.submit('SH-A-01');
+    await f.evaluate(pass: true);
     final s = failing.read(scanFlowProvider);
-    expect(s.step, ScanStep.putShelf);
+    expect(s.step, ScanStep.eval, reason: '登録に失敗したら、同じ段階にとどまる(入力は残る)');
     expect(s.notice?.kind, NoticeKind.failed);
     expect(s.working, isFalse);
   });

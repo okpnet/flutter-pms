@@ -170,6 +170,18 @@ void main() {
         Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
       );
     });
+    serverTest('StaffIconPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryStaffIconPageRead,
+          variables: Variables$Query$StaffIconPageRead(first: 1, languageCodeId: _zeroId, staffId: _zeroId).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$StaffIconPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
     serverTest('StaffPageRead', (server) async {
       final result = await server.provider.query(
         QueryOptions(

@@ -31,6 +31,18 @@ class GraphqlScanGateway implements IScanGateway {
     return found;
   }
 
+  Future<ScanFound> _resolveWork(String symbol) async {
+    final found = await client.findWorkPlan(symbol.trim());
+    if (found == null) throw ScanClientException('登録のない作業指示: $symbol');
+    return found;
+  }
+
+  Future<ScanFound> _resolvePurchase(String symbol) async {
+    final found = await client.findPurchaseDetail(symbol.trim());
+    if (found == null) throw ScanClientException('登録のない発注明細: $symbol');
+    return found;
+  }
+
   Future<ScanFound> _resolve(String symbol) async {
     final cached = _found[_key(symbol)];
     if (cached != null) return cached;
@@ -122,6 +134,7 @@ class GraphqlScanGateway implements IScanGateway {
         stopped: f.stopped,
         closed: f.closed,
         operationsPlanId: f.operationsPlanId,
+        takenQuantity: f.takenQuantity,
         state: f.quantity > 0 && f.doneQuantity >= f.quantity
             ? WorkState.done
             : f.started
@@ -154,12 +167,82 @@ class GraphqlScanGateway implements IScanGateway {
     };
   }
 
+  /// 作業の開始: 棚(コンテナ)から [quantity] を払い出して、実績(実施中)を登録する(DB 関数 `work_record_start`。1 つの処理)。
   @override
-  Future<void> startWork(WorkOrderTarget order, ShelfTarget shelf) async {
-    final plan = await _resolve(order.symbol);
-    await client.startWork(workPlanId: plan.id, staffId: staffId);
+  Future<void> startWork(WorkOrderTarget order, ShelfTarget shelf, int quantity) async {
+    final plan = await _resolveWork(order.symbol);
+    final box = await _resolveShelf(shelf.symbol);
+    await client.workRecordStart(
+      workPlanId: plan.id,
+      containerId: box.id,
+      quantity: quantity,
+      staffId: staffId,
+    );
+    _found.remove(_key(order.symbol)); // 実施中になり、取り出した数量が変わったため、次の照会で引き直す
   }
 
+  /// 作業の終了・受入検品(DB 関数 `inspection_register`。実績の記録・合格の入庫・不合格の異常と入庫・差の返却を 1 つの処理で)。
+  /// 不合格の理由・差の理由は、自由な文として送る(マスタは持たない。決定 2026-11-20)。
+  @override
+  Future<void> registerResult({
+    required StockSource source,
+    required int passQuantity,
+    ShelfTarget? passShelf,
+    int failQuantity = 0,
+    ShelfTarget? failShelf,
+    RejectReason? failReason,
+    ReturnReason? returnReason,
+  }) async {
+    final pass = passShelf == null ? null : await _resolveShelf(passShelf.symbol);
+    final fail = failShelf == null ? null : await _resolveShelf(failShelf.symbol);
+    switch (source) {
+      case WorkSource(:final order):
+        // 実施中の作業実績(読み直す。取り出した数量・実績の id は、開始のあとに変わる)
+        final plan = await client.findWorkPlan(order.symbol);
+        final record = plan?.openWorkRecordId;
+        if (record == null) throw const ScanClientException('実施中の作業実績がありません');
+        await client.inspectionRegister(
+          passQuantity: passQuantity,
+          passContainerId: pass?.id,
+          workRecordId: record,
+          failQuantity: failQuantity,
+          failContainerId: fail?.id,
+          reason: failReason == null ? null : _rejectText(failReason),
+          returnReason: returnReason == null ? null : _returnText(returnReason),
+          staffId: staffId,
+        );
+      case PurchaseSource(:final purchase):
+        await client.inspectionRegister(
+          passQuantity: passQuantity,
+          passContainerId: pass?.id,
+          purchaseDetailId: (await _resolvePurchase(purchase.symbol)).id,
+          failQuantity: failQuantity,
+          failContainerId: fail?.id,
+          reason: failReason == null ? null : _rejectText(failReason),
+          staffId: staffId,
+        );
+      case ItemSource():
+        throw ArgumentError('製品/購入品の棚移動は putAway で登録します');
+    }
+    _found.remove(_key(source.symbol)); // 数量が変わったため、次の照会で引き直す
+  }
+
+  static String _rejectText(RejectReason r) => switch (r) {
+    RejectReason.dimension => '寸法不良',
+    RejectReason.appearance => '外観不良',
+    RejectReason.material => '材料不良',
+    RejectReason.shortage => '数量不足',
+    RejectReason.other => 'その他',
+  };
+
+  static String _returnText(ReturnReason r) => switch (r) {
+    ReturnReason.overDay => '日またぎ',
+    ReturnReason.handover => '交代の引き継ぎ',
+    ReturnReason.setup => '段取り替え',
+    ReturnReason.other => 'その他',
+  };
+
+  /// 棚移動(製品/購入品)の入庫。作業の終了・受入検品は [registerResult] で登録する。
   @override
   Future<void> putAway({
     required StockSource source,
@@ -168,24 +251,10 @@ class GraphqlScanGateway implements IScanGateway {
     RejectReason? reason,
   }) async {
     final shelfFound = await _resolveShelf(shelf.symbol);
-    final note = reason == null ? null : '不合格(${reason.name})';
     switch (source) {
-      case WorkSource(:final order):
-        await client.putWork(
-          workPlanId: (await _resolve(order.symbol)).id,
-          quantity: quantity,
-          shelf: shelfFound,
-          staffId: staffId,
-          rejectNote: note,
-        );
-      case PurchaseSource(:final purchase):
-        await client.putPurchase(
-          purchaseDetailId: (await _resolve(purchase.symbol)).id,
-          quantity: quantity,
-          shelf: shelfFound,
-          staffId: staffId,
-          rejectNote: note,
-        );
+      case WorkSource():
+      case PurchaseSource():
+        throw ArgumentError('作業の終了・受入検品は registerResult で登録します');
       case ItemSource(:final item):
         await client.putItem(
           item: await _resolve(item.symbol),
@@ -194,7 +263,6 @@ class GraphqlScanGateway implements IScanGateway {
           staffId: staffId,
         );
     }
-    // 数量が変わったため、次の照会で引き直す
     _found.remove(_key(source.symbol));
   }
 
