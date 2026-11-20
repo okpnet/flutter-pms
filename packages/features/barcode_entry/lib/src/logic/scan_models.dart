@@ -1,7 +1,7 @@
 import '../barcode_code.dart';
 
 /// 読み込んだ symbol の種類。
-enum SymbolKind { work, shelf, purchase, item, equipment, supply }
+enum SymbolKind { work, shelf, purchase, item, equipment, supply, staff }
 
 /// バーコードのコードが表すメニューの種類に対応する、対象の種類。
 extension BarcodeCodeKind on BarcodeCode {
@@ -12,6 +12,7 @@ extension BarcodeCodeKind on BarcodeCode {
     BarcodeCode.equipment => SymbolKind.equipment,
     BarcodeCode.item => SymbolKind.item,
     BarcodeCode.supply => SymbolKind.supply,
+    BarcodeCode.operator => SymbolKind.staff,
   };
 }
 

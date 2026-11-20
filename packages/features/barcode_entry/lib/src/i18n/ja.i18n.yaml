@@ -24,6 +24,7 @@ kinds:
   item: 製品/購入品
   equipment: 設備
   supply: 支給
+  staff: 担当者
 modes:
   work:
     label: 作業実績

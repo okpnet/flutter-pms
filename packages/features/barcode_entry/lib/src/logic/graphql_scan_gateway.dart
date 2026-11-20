@@ -24,6 +24,13 @@ class GraphqlScanGateway implements IScanGateway {
 
   String _key(String symbol) => symbol.trim().toUpperCase();
 
+  /// 棚(コンテナ)を引く。symbol は表をまたいで重複しうる(作業指示と棚が同じ symbol)ため、棚の操作は棚として引く。
+  Future<ScanFound> _resolveShelf(String symbol) async {
+    final found = await client.findContainer(symbol.trim());
+    if (found == null) throw ScanClientException('登録のない棚: $symbol');
+    return found;
+  }
+
   Future<ScanFound> _resolve(String symbol) async {
     final cached = _found[_key(symbol)];
     if (cached != null) return cached;
@@ -41,25 +48,51 @@ class GraphqlScanGateway implements IScanGateway {
   }
 
   /// 棚の中身: 棚にあるロットを品目ごとにまとめる(取り出せるロットのビュー `v_visiter_issuable` と、ロットの品目 `v_visiter_item`)。
-  /// 入れ子の子の棚は未対応(DB に棚の親子の列が無いため、空)。
+  /// 入れ子の子の棚は、コンテナ体系(`trans_container_tree`)の直下を、深さ 4 までたどる。
   @override
   Future<ShelfContents?> contentsOf(ShelfTarget shelf) async {
-    final found = await _resolve(shelf.symbol);
-    final held = await client.contents(found.id);
+    final found = await _resolveShelf(shelf.symbol);
+    return _contents(shelf, found.id, 4);
+  }
+
+  Future<ShelfContents> _contents(ShelfTarget shelf, String containerId, int depth) async {
+    final held = await client.contents(containerId);
+    final children = <ShelfContents>[];
+    if (depth > 0) {
+      for (final c in await client.childContainers(containerId)) {
+        children.add(
+          await _contents(
+            ShelfTarget(symbol: c.symbol, name: c.name.isEmpty ? c.symbol : c.name),
+            c.id,
+            depth - 1,
+          ),
+        );
+      }
+    }
     return ShelfContents(
       shelf: shelf,
       items: [for (final h in held) HeldItem(itemName: h.itemName, quantity: h.quantity, unit: '')],
+      children: children,
     );
   }
 
-  /// 合格のおすすめ: 同じ品目が入っている棚(数量の多い順)。不合格のおすすめ(不良品棚)は、棚に不良品の区分が DB に無いため空
-  /// (`issue/20261120_0001.md`。判断: DB に棚の区分の列を足すか)。
+  /// 入庫先のおすすめ。合格: 同じ品目が入っている棚(数量の多い順)。
+  /// 不合格: 未完了の異常につながったロットがある棚(「不良品棚」の区分は持たず、異常とのつながりで決める)。
   @override
   Future<List<ShelfRecommendation>> recommendShelves({
     required StockSource source,
     required bool rejected,
   }) async {
-    if (rejected) return const [];
+    if (rejected) {
+      return [
+        for (final s in await client.shelvesWithComplaints())
+          ShelfRecommendation(
+            shelf: ShelfTarget(symbol: s.symbol, name: s.name.isEmpty ? s.symbol : s.name, reject: true),
+            heldQuantity: s.quantity,
+            reject: true,
+          ),
+      ];
+    }
     final itemId = (await _resolve(source.symbol)).itemId;
     if (itemId == null) return const [];
     final shelves = await client.shelvesHolding(itemId);
@@ -134,7 +167,7 @@ class GraphqlScanGateway implements IScanGateway {
     required ShelfTarget shelf,
     RejectReason? reason,
   }) async {
-    final shelfFound = await _resolve(shelf.symbol);
+    final shelfFound = await _resolveShelf(shelf.symbol);
     final note = reason == null ? null : '不合格(${reason.name})';
     switch (source) {
       case WorkSource(:final order):

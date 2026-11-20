@@ -24,7 +24,10 @@ enum BarcodeCode {
   item('IT'),
 
   /// 支給(顧客支給の受け入れ・検品。受け入れ・合格・不合格を1つの画面で選ぶ)。
-  supply('SP');
+  supply('SP'),
+
+  /// 担当者(作業者のバーコード。最初に読み取って、以降の登録の担当者にする。メニューの種類ではなく、人を表す)。
+  operator('ST');
 
   const BarcodeCode(this.prefix);
 

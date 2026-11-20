@@ -197,6 +197,12 @@ void main() {
       expect(BarcodeCode.parse('WR').code, isNull);
       expect(BarcodeCode.parse('WR').symbol, 'WR');
       expect(BarcodeCode.container.encode('X1'), 'CNX1');
+      // 担当者(ST)。メニューの種類ではなく、人を表す
+      final st = BarcodeCode.parse('stAB12');
+      expect(st.code, BarcodeCode.operator);
+      expect(st.symbol, 'AB12');
+      expect(BarcodeCode.operator.kind, SymbolKind.staff);
+      expect(BarcodeCode.operator.encode('AB12'), 'STAB12');
     });
 
     test('コード付きの棚 → コード付きの品目で、棚移動が進む', () async {

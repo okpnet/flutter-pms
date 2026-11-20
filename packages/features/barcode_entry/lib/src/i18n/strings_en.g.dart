@@ -101,6 +101,7 @@ class _BarcodeEntryStrings$kinds$en extends BarcodeEntryStrings$kinds$ja {
 	@override String get item => 'Product / purchased item';
 	@override String get equipment => 'Equipment';
 	@override String get supply => 'Supplied material';
+	@override String get staff => 'Staff';
 }
 
 // Path: modes
@@ -410,6 +411,7 @@ extension on BarcodeEntryStringsEn {
 			'kinds.item' => 'Product / purchased item',
 			'kinds.equipment' => 'Equipment',
 			'kinds.supply' => 'Supplied material',
+			'kinds.staff' => 'Staff',
 			'modes.work.label' => 'Work record',
 			'modes.work.hint' => 'Scan the barcode of a work order (manufactured / outsourced item).',
 			'modes.receive.label' => 'Receiving inspection',

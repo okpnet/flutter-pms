@@ -385,8 +385,6 @@ ScanContentsPage:
   kind: read
   from: v_visiter_issuable
   filter: true
-  requiredWhere:
-    - languageCode
   columns:
     - trans_visiter_id
     - symbol
@@ -394,6 +392,7 @@ ScanContentsPage:
     - quantity
     - release
     - issuable
+    - open_complaint_count
 
 # ロットの品目(DB のビュー v_visiter_item)。ロットの ID で絞る(棚の中身・おすすめの品目)
 ScanLotItemPage:
@@ -405,3 +404,19 @@ ScanLotItemPage:
   columns:
     - trans_visiter_id
     - mstr_item_id
+
+# 棚の入れ子(コンテナ体系 trans_container_tree。親の棚の ID で子の棚を引く。祖先・子孫のすべての組は hrchy_trans_container)
+ScanContainerChildPage:
+  # 子のレコード数(v_*_count)を読まない軽い読み込み(symbol の照会用。要件0056の対象外)
+  lightRead: true
+  kind: read
+  from: trans_container_tree
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - trans_container_tree_id
+    - trans_container_id
+    - parent_trans_container_id

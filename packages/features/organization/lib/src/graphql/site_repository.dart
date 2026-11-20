@@ -18,12 +18,7 @@ import 'package:pms_graphql/pms_graphql.dart' show AuditUser, AuditUserSource;
 ///
 /// パターン: Adapter(生成された読み込みの結果と、画面の [EntityRecord] を変換する)
 class SiteRepository implements IEntityRepository {
-  SiteRepository(
-    this.definition,
-    this.client,
-    this._language,
-    this.auditUser,
-  );
+  SiteRepository(this.definition, this.client, this._language, this.auditUser);
 
   @override
   final EntityDefinition definition;
@@ -68,9 +63,15 @@ class SiteRepository implements IEntityRepository {
         'nickname': _dict(l?.sharedDictionaryBySharedDictionaryNicknameId),
         'country_code_2': _text(a?.countryCode2),
         'zip_code': _text(a?.zipCode),
-        'address1': _dict(a?.address1?.sharedDictionaryBySharedDictionaryNameId),
-        'address2': _dict(a?.address2?.sharedDictionaryBySharedDictionaryNameId),
-        'building': _dict(a?.building?.sharedDictionaryBySharedDictionaryNameId),
+        'address1': _dict(
+          a?.address1?.sharedDictionaryBySharedDictionaryNameId,
+        ),
+        'address2': _dict(
+          a?.address2?.sharedDictionaryBySharedDictionaryNameId,
+        ),
+        'building': _dict(
+          a?.building?.sharedDictionaryBySharedDictionaryNameId,
+        ),
         'phone': _text(a?.phone),
         'fax_number': _text(a?.faxNumber),
       },
@@ -210,20 +211,25 @@ class SiteRepository implements IEntityRepository {
     final existingAddress = node?.address;
     var addressId = node?.infoAddressId;
     if (addressKeys.any(changed)) {
-      final a1 = await _saveAppellation(
+      // 住所1・住所2・建物は、空にしたときは呼称を作らず、列を空(null)にする(呼称は、いずれかの言語に値が必要なため)
+      Future<String?> part(String key, String? existing) async => t(key).isEmpty
+          ? null
+          : await _saveAppellation(
+              existing,
+              name: changed(key) ? {'ja': t(key)} : null,
+              au: au,
+            );
+      final a1 = await part(
+        'address1',
         existingAddress?.address1?.sharedAppellationsId,
-        name: changed('address1') ? {'ja': t('address1')} : null,
-        au: au,
       );
-      final a2 = await _saveAppellation(
+      final a2 = await part(
+        'address2',
         existingAddress?.address2?.sharedAppellationsId,
-        name: changed('address2') ? {'ja': t('address2')} : null,
-        au: au,
       );
-      final b = await _saveAppellation(
+      final b = await part(
+        'building',
         existingAddress?.building?.sharedAppellationsId,
-        name: changed('building') ? {'ja': t('building')} : null,
-        au: au,
       );
       if (existingAddress == null || addressId == null) {
         final result = await client.mutate$OfficeAddressPageCreate(
@@ -243,11 +249,8 @@ class SiteRepository implements IEntityRepository {
         );
         final e = result.exception;
         if (e != null) _throwMapped(e);
-        addressId = result
-            .parsedData
-            ?.createInfoAddress
-            ?.infoAddress
-            ?.infoAddressId;
+        addressId =
+            result.parsedData?.createInfoAddress?.infoAddress?.infoAddressId;
         if (addressId == null) throw StateError('住所を登録できませんでした');
       } else {
         final patch = <String, dynamic>{

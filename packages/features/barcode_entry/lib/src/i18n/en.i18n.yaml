@@ -24,6 +24,7 @@ kinds:
   item: Product / purchased item
   equipment: Equipment
   supply: Supplied material
+  staff: Staff
 modes:
   work:
     label: Work record

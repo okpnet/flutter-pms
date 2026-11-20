@@ -32,6 +32,8 @@ dependencies:
     path: ../../infra/logger_provider
 
 dev_dependencies:
+  data_test_harness:
+    path: ../../infra/data_test_harness
   graphql: ^5.2.3
   flutter_test:
     sdk: flutter

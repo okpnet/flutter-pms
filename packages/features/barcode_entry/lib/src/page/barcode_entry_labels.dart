@@ -27,6 +27,7 @@ extension BarcodeEntryLabels on BarcodeEntryStrings {
     SymbolKind.item => kinds.item,
     SymbolKind.equipment => kinds.equipment,
     SymbolKind.supply => kinds.supply,
+    SymbolKind.staff => kinds.staff,
   };
 
   String modeLabel(ScanMode mode) => switch (mode) {

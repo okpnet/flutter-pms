@@ -8,7 +8,6 @@ query ScanContentsPageRead(
   $offset: Int
   $filter: VVisiterIssuableFilter = {and: []}
   $orderBy: [VVisiterIssuablesOrderBy!]
-  $languageCodeId: UUID!
 ) {
   allVVisiterIssuables(
     first: $first
@@ -28,6 +27,7 @@ query ScanContentsPageRead(
       quantity
       release
       issuable
+      openComplaintCount
     }
   }
 }

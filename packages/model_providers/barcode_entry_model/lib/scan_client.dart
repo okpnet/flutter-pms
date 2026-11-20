@@ -813,7 +813,6 @@ class ScanClient {
   Future<List<ScanHeld>> contents(String containerId) async {
     final lots = await _nodes(scan.documentNodeQueryScanContentsPageRead, 'allVVisiterIssuables', {
       'first': 1000,
-      'languageCodeId': languageCodeId,
       'filter': {
         'transContainerId': {'equalTo': containerId},
         'quantity': {'greaterThan': 0},
@@ -838,6 +837,68 @@ class ScanClient {
     return [for (final e in byItem.entries) ScanHeld(itemId: e.key, itemName: names[e.key] ?? '', quantity: e.value)];
   }
 
+  /// 棚(コンテナ)の子の棚(コンテナ体系の直下)。
+  Future<List<ScanFound>> childContainers(String containerId) async {
+    final links = await _nodes(scan.documentNodeQueryScanContainerChildPageRead, 'allTransContainerTrees', {
+      'first': 500,
+      'filter': {
+        'parentTransContainerId': {'equalTo': containerId},
+      },
+    });
+    if (links.isEmpty) return const [];
+    final rows = await _nodes(scan.documentNodeQueryScanContainerPageRead, 'allTransContainers', {
+      'first': links.length,
+      'languageCodeId': languageCodeId,
+      'filter': {
+        'transContainerId': {'in': [for (final l in links) l['transContainerId'] as String]},
+      },
+    });
+    return [
+      for (final r in rows)
+        ScanFound(
+          kind: ScanFoundKind.container,
+          id: r['transContainerId'] as String,
+          symbol: r['symbol'] as String? ?? '',
+          name: _label(r['labels']),
+          locationId: r['mstrLocationId'] as String?,
+        ),
+    ];
+  }
+
+  /// 未完了の異常につながったロット(仮止めの不合格品など)がある棚(不合格の入庫先のおすすめ)。数量の多い順。
+  /// 「不良品棚」という区分は持たず、異常(`trans_complaint_visiter`)とのつながりで決める。
+  Future<List<ScanShelfHolding>> shelvesWithComplaints() async {
+    final lots = await _nodes(scan.documentNodeQueryScanContentsPageRead, 'allVVisiterIssuables', {
+      'first': 2000,
+      'filter': {
+        'quantity': {'greaterThan': 0},
+        'openComplaintCount': {'greaterThan': 0},
+      },
+    });
+    final byContainer = <String, int>{};
+    for (final l in lots) {
+      final c = l['transContainerId'] as String;
+      byContainer[c] = (byContainer[c] ?? 0) + _int(l['quantity']);
+    }
+    if (byContainer.isEmpty) return const [];
+    final containers = await _nodes(scan.documentNodeQueryScanContainerPageRead, 'allTransContainers', {
+      'first': byContainer.length,
+      'languageCodeId': languageCodeId,
+      'filter': {
+        'transContainerId': {'in': byContainer.keys.toList()},
+      },
+    });
+    return [
+      for (final c in containers)
+        ScanShelfHolding(
+          containerId: c['transContainerId'] as String,
+          symbol: c['symbol'] as String? ?? '',
+          name: _label(c['labels']),
+          quantity: byContainer[c['transContainerId'] as String] ?? 0,
+        ),
+    ]..sort((a, b) => b.quantity.compareTo(a.quantity));
+  }
+
   /// 同じ品目を持つ棚(入庫先のおすすめ)。数量の多い順。
   Future<List<ScanShelfHolding>> shelvesHolding(String itemId) async {
     final items = await _nodes(scan.documentNodeQueryScanLotItemPageRead, 'allVVisiterItems', {
@@ -850,7 +911,6 @@ class ScanClient {
     final lotIds = [for (final i in items) i['transVisiterId'] as String];
     final lots = await _nodes(scan.documentNodeQueryScanContentsPageRead, 'allVVisiterIssuables', {
       'first': lotIds.length + 10,
-      'languageCodeId': languageCodeId,
       'filter': {
         'transVisiterId': {'in': lotIds},
         'quantity': {'greaterThan': 0},

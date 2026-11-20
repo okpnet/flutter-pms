@@ -267,6 +267,30 @@ enum MstrItemsOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum TransContainerTreesOrderBy {
+  NATURAL
+  TRANS_CONTAINER_TREE_ID_ASC
+  TRANS_CONTAINER_TREE_ID_DESC
+  TRANS_CONTAINER_ID_ASC
+  TRANS_CONTAINER_ID_DESC
+  PARENT_TRANS_CONTAINER_ID_ASC
+  PARENT_TRANS_CONTAINER_ID_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 enum TransContainersOrderBy {
   NATURAL
   TRANS_CONTAINER_ID_ASC
@@ -745,6 +769,7 @@ type Query {
   allMstrInspectionFormulas(first: Int, offset: Int, orderBy: [MstrInspectionFormulasOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrInspectionFormulaFilter): MstrInspectionFormulasConnection
   allMstrItems(first: Int, offset: Int, orderBy: [MstrItemsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrItemFilter): MstrItemsConnection
   allTransContainers(first: Int, offset: Int, orderBy: [TransContainersOrderBy!] = [PRIMARY_KEY_ASC], filter: TransContainerFilter): TransContainersConnection
+  allTransContainerTrees(first: Int, offset: Int, orderBy: [TransContainerTreesOrderBy!] = [PRIMARY_KEY_ASC], filter: TransContainerTreeFilter): TransContainerTreesConnection
   allTransInspectRecords(first: Int, offset: Int, orderBy: [TransInspectRecordsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransInspectRecordFilter): TransInspectRecordsConnection
   allTransInspectSches(first: Int, offset: Int, orderBy: [TransInspectSchesOrderBy!] = [PRIMARY_KEY_ASC], filter: TransInspectSchFilter): TransInspectSchesConnection
   allTransInspectSchDetails(first: Int, offset: Int, orderBy: [TransInspectSchDetailsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransInspectSchDetailFilter): TransInspectSchDetailsConnection
@@ -788,6 +813,18 @@ type TransContainer {
   mstrLocationId: UUID
   symbol: String
   transLabelByNames: TransLabel
+}
+
+type TransContainerTree {
+  transContainerTreeId: UUID!
+  transContainerId: UUID!
+  parentTransContainerId: UUID
+}
+
+type TransContainerTreesConnection {
+  nodes: [TransContainerTree]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type TransContainersConnection {
@@ -952,6 +989,7 @@ type VVisiterIssuable {
   transContainerId: UUID
   quantity: BigFloat
   release: Boolean
+  openComplaintCount: Int
   issuable: Boolean
 }
 
@@ -1846,6 +1884,23 @@ input TransContainerFilter {
   and: [TransContainerFilter!]
   or: [TransContainerFilter!]
   not: TransContainerFilter
+}
+
+input TransContainerTreeFilter {
+  transContainerTreeId: UUIDFilter
+  transContainerId: UUIDFilter
+  parentTransContainerId: UUIDFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transContainerByParentTransContainerIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransContainerTreeFilter!]
+  or: [TransContainerTreeFilter!]
+  not: TransContainerTreeFilter
 }
 
 input TransInspectRecordFilter {

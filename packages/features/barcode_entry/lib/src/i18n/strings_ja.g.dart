@@ -143,6 +143,9 @@ class BarcodeEntryStrings$kinds$ja {
 
 	/// ja: '支給'
 	String get supply => '支給';
+
+	/// ja: '担当者'
+	String get staff => '担当者';
 }
 
 // Path: modes
@@ -689,6 +692,7 @@ extension on BarcodeEntryStrings {
 			'kinds.item' => '製品/購入品',
 			'kinds.equipment' => '設備',
 			'kinds.supply' => '支給',
+			'kinds.staff' => '担当者',
 			'modes.work.label' => '作業実績',
 			'modes.work.hint' => '作業指示(製造/委託品)のバーコードを読み取ります。',
 			'modes.receive.label' => '受入検品',

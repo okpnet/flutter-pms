@@ -22,6 +22,12 @@ class _FakeClient extends ScanClient {
   }
 
   @override
+  Future<ScanFound?> findContainer(String symbol) async {
+    final f = table[symbol.trim().toUpperCase()];
+    return f != null && f.kind == ScanFoundKind.container ? f : null;
+  }
+
+  @override
   Future<String> startWork({
     required String workPlanId,
     String? staffId,

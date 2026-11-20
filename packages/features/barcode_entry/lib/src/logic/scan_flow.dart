@@ -457,7 +457,14 @@ class ScanFlow extends Notifier<ScanState> {
 
   /// 最初の読み取り: 担当者。担当者以外から始めたら警告して、処理待ちを消す。
   Future<void> _submitOperator(String v) async {
-    final op = await _guard('担当者の照会', v, () => _gateway.findOperator(v));
+    // 担当者のコード(ST)があれば外す。無い従来の symbol もそのまま読める
+    final parsed = BarcodeCode.parse(v);
+    final symbol = parsed.code == BarcodeCode.operator ? parsed.symbol : v;
+    final op = await _guard('担当者の照会', v, () async {
+      final byCode = await _gateway.findOperator(symbol);
+      // コードを外した symbol で見つからないとき、全体を symbol として引く(コードに似た接頭辞の symbol)
+      return byCode ?? (symbol == v ? null : await _gateway.findOperator(v));
+    });
     if (_failed) return;
     if (op == null) {
       state = state.copyWith(

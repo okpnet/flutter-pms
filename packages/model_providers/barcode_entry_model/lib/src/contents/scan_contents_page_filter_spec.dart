@@ -13,5 +13,6 @@ abstract class ScanContentsPageFilterSpec {
     'quantity': FlatFilterPath([], 'quantity'),
     'release': FlatFilterPath([], 'release'),
     'issuable': FlatFilterPath([], 'issuable'),
+    'openComplaintCount': FlatFilterPath([], 'openComplaintCount'),
   });
 }
