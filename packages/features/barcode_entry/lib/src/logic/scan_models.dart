@@ -92,14 +92,38 @@ final class OperatorTarget {
 
 /// 棚。
 final class ShelfTarget extends ScanTarget {
-  const ShelfTarget({required this.symbol, required this.name});
+  const ShelfTarget({required this.symbol, required this.name, this.reject = false});
 
   @override
   final String symbol;
   final String name;
 
+  /// 不良品棚か(不合格品を入れる棚。おすすめの判定に使う。名前や symbol で判定しない)。
+  final bool reject;
+
   @override
   SymbolKind get kind => SymbolKind.shelf;
+}
+
+/// 棚が持っているアイテム 1 件(品目・数量)。
+final class HeldItem {
+  const HeldItem({required this.itemName, required this.quantity, required this.unit});
+
+  final String itemName;
+  final int quantity;
+  final String unit;
+}
+
+/// 棚(コンテナ)の中身。持っているアイテムと、入れ子の子の棚(再帰)。
+final class ShelfContents {
+  const ShelfContents({required this.shelf, this.items = const [], this.children = const []});
+
+  final ShelfTarget shelf;
+  final List<HeldItem> items;
+  final List<ShelfContents> children;
+
+  /// 入れ子を含むアイテムの数。
+  int get totalItems => items.length + children.fold(0, (n, c) => n + c.totalItems);
 }
 
 /// 購入品(発注明細)。
@@ -209,6 +233,9 @@ sealed class StockSource {
   const StockSource();
 
   String get symbol;
+
+  /// 入れる品目の名称(同じ品目の棚のおすすめに使う)。
+  String get itemName;
 }
 
 /// 作業指示の完了数量。
@@ -218,6 +245,9 @@ final class WorkSource extends StockSource {
 
   @override
   String get symbol => order.symbol;
+
+  @override
+  String get itemName => order.itemName;
 }
 
 /// 購入品の受入数量。
@@ -227,6 +257,9 @@ final class PurchaseSource extends StockSource {
 
   @override
   String get symbol => purchase.symbol;
+
+  @override
+  String get itemName => purchase.itemName;
 }
 
 /// 棚へ入れる製品/購入品。
@@ -236,4 +269,7 @@ final class ItemSource extends StockSource {
 
   @override
   String get symbol => item.symbol;
+
+  @override
+  String get itemName => item.name;
 }

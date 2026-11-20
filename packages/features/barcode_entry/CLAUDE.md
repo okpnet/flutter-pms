@@ -68,7 +68,8 @@ graph TD;
 作業指示を読み込むと、概要の下に「実績登録の画面を開く」(キー `openWorkRegister`)を出す。押すと、その生産計画を先頭にして実績登録(`work_record` の `WorkRegisterDestination(planId:)`。契約 `work_record_api.dart` だけに依存)を CommandBus で開く。生産計画の id は作業指示の対象(`WorkOrderTarget.operationsPlanId`)が持つ(GraphQL 版は `ScanFound.operationsPlanId`)。分からないときと、実績登録の画面を持たないアプリ(`entry_app` が `openWorkRegisterLinkProvider` を false に上書き)では出さない。
 
 ## 処理待ち(キュー)
-入庫をその場で登録せず、処理待ちにためて「まとめて登録(N件)」できる(画面案 6.4)。`batchQueueProvider`(既定 false)が true のときだけ。キューは画面内のメモリだけに持つ(保存・復元しない)。`ScanFlow.flushQueue` は順に登録し、途中で失敗したら残りのキューを消して理由(`NoticeKind.queueFailed`)を通知する。`removeQueued` で 1 件ずつ取り消せる。担当者の読み取り(`requireOperatorProvider`、既定 false。取得元の `findOperator`。GraphQL 版は未対応で null)と、選んだ棚を残して次の合格の棚の読み取りを省く動き(`selectedShelf`)を持つ。未実装: コンテナの保持アイテム・おすすめ・30 秒操作なしの自動登録(`issue/20261120_0001.md` 3-2-2)。
+入出庫(作業の開始の棚出庫・入庫。`QueuedIssue`・`QueuedPut`)をその場で登録せず、処理待ちにためて「まとめて登録(N件)」できる(画面案 6.4)。`batchQueueProvider`(既定 false)が true のときだけ。目的は、ハンディ端末で 1 件ごとに通信せず連続して読み取ること。有効にするのは、担当者を引ける取得元と、通信できる環境での確認(`issue/20261120_0001.md`)が済んでから。`example` と各アプリは有効にしていない。キューは画面内のメモリだけに持つ(保存・復元しない)。`ScanFlow.flushQueue` は順に登録し、途中で失敗したら残りのキューを消して理由(`NoticeKind.queueFailed`)を通知する。`removeQueued` で 1 件ずつ取り消せる。担当者の読み取り(`requireOperatorProvider`、既定 false。取得元の `findOperator`。GraphQL 版は未対応で null)と、選んだ棚を残して次の合格の棚の読み取りを省く動き(`selectedShelf`)を持つ。入庫先を読み取る段階では、同じ品目の棚(合格)・不良品棚(不合格。`ShelfTarget.reject`)をおすすめに出し(`recommendShelves`)、棚を読み取ると中身(持っているアイテム・入れ子。`contentsOf`)を出す。GraphQL 版は両方未対応(空・null)。操作なしが `idleTimeoutProvider`(既定 30 秒)続くと、処理待ちを消してトップへ戻る(`ScanFlow.idleClear`。自動では登録しない。残り `idleWarningProvider`(10 秒)から案内)。
+1.  画面は、状態(`ScanFlow`)を 1 つにして、ブロックを並べ替える。PC・タブレット(`view_responsiveness` がモバイル以外)は左に読み取り・入力・おすすめ、右に処理待ち・棚の中身・履歴。モバイルは 1 列に積む。画面のライブラリを 2 つに分けない。
 
 ## 規則
 1.  symbol の種類は取得元が判定する。画面・流れは symbol の接頭辞を知らない。設備はコードで引く。大文字小文字は区別しない。

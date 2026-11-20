@@ -49,6 +49,9 @@ class BarcodeEntryStringsEn extends BarcodeEntryStrings with BaseTranslations<Ba
 	@override late final _BarcodeEntryStrings$log$en log = _BarcodeEntryStrings$log$en._(_root);
 	@override late final _BarcodeEntryStrings$queue$en queue = _BarcodeEntryStrings$queue$en._(_root);
 	@override late final _BarcodeEntryStrings$staff$en staff = _BarcodeEntryStrings$staff$en._(_root);
+	@override late final _BarcodeEntryStrings$recommend$en recommend = _BarcodeEntryStrings$recommend$en._(_root);
+	@override late final _BarcodeEntryStrings$contents$en contents = _BarcodeEntryStrings$contents$en._(_root);
+	@override late final _BarcodeEntryStrings$idle$en idle = _BarcodeEntryStrings$idle$en._(_root);
 }
 
 // Path: menu
@@ -199,6 +202,7 @@ class _BarcodeEntryStrings$notice$en extends BarcodeEntryStrings$notice$ja {
 	@override String qtyOverSupply({required Object remain, required Object unit}) => 'You can register up to ${remain} ${unit}. Enter that or less.';
 	@override String get needOperator => 'Scan the operator\'s barcode first. The queue was cleared.';
 	@override String operatorSet({required Object name}) => 'Operator: ${name}. Scan the next barcode.';
+	@override String get idleCleared => 'No activity: the queue was cleared and you are back at the start (nothing was registered).';
 	@override String queued({required Object count}) => 'Added to the queue (${count}). Scan the next barcode.';
 	@override String queueFailed({required Object done, required Object total}) => 'Registered ${done} of ${total}, then failed. The queue was cleared. Start scanning again.';
 	@override String get failed => 'Could not register. Check the connection and try again.';
@@ -243,6 +247,7 @@ class _BarcodeEntryStrings$queue$en extends BarcodeEntryStrings$queue$ja {
 	@override String register({required Object count}) => 'Register all (${count})';
 	@override String get remove => 'Remove';
 	@override String item({required Object sym, required Object qty, required Object unit, required Object shelf}) => '${sym} ${qty}${unit} → ${shelf}';
+	@override String issueItem({required Object sym, required Object shelf}) => '${sym} issue ← ${shelf}';
 }
 
 // Path: staff
@@ -257,6 +262,40 @@ class _BarcodeEntryStrings$staff$en extends BarcodeEntryStrings$staff$ja {
 	@override String shelf({required Object name}) => 'Destination: ${name}';
 	@override String get changeShelf => 'Change destination';
 	@override String get topTitle => 'Scan the operator barcode';
+}
+
+// Path: recommend
+class _BarcodeEntryStrings$recommend$en extends BarcodeEntryStrings$recommend$ja {
+	_BarcodeEntryStrings$recommend$en._(BarcodeEntryStringsEn root) : this._root = root, super.internal(root);
+
+	final BarcodeEntryStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Suggested destinations';
+	@override String get pass => 'Shelves that already hold this item';
+	@override String get fail => 'Reject shelves';
+}
+
+// Path: contents
+class _BarcodeEntryStrings$contents$en extends BarcodeEntryStrings$contents$ja {
+	_BarcodeEntryStrings$contents$en._(BarcodeEntryStringsEn root) : this._root = root, super.internal(root);
+
+	final BarcodeEntryStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String title({required Object name}) => 'Contents of ${name}';
+	@override String get empty => 'Nothing is stored here.';
+	@override String item({required Object item, required Object qty, required Object unit}) => '${item} ${qty}${unit}';
+}
+
+// Path: idle
+class _BarcodeEntryStrings$idle$en extends BarcodeEntryStrings$idle$ja {
+	_BarcodeEntryStrings$idle$en._(BarcodeEntryStringsEn root) : this._root = root, super.internal(root);
+
+	final BarcodeEntryStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String warning({required Object sec}) => 'No activity: the queue will be cleared and you will return to the start in ${sec} s.';
 }
 
 // Path: modes.work
@@ -429,6 +468,7 @@ extension on BarcodeEntryStringsEn {
 			'notice.qtyOverSupply' => ({required Object remain, required Object unit}) => 'You can register up to ${remain} ${unit}. Enter that or less.',
 			'notice.needOperator' => 'Scan the operator\'s barcode first. The queue was cleared.',
 			'notice.operatorSet' => ({required Object name}) => 'Operator: ${name}. Scan the next barcode.',
+			'notice.idleCleared' => 'No activity: the queue was cleared and you are back at the start (nothing was registered).',
 			'notice.queued' => ({required Object count}) => 'Added to the queue (${count}). Scan the next barcode.',
 			'notice.queueFailed' => ({required Object done, required Object total}) => 'Registered ${done} of ${total}, then failed. The queue was cleared. Start scanning again.',
 			'notice.failed' => 'Could not register. Check the connection and try again.',
@@ -455,11 +495,19 @@ extension on BarcodeEntryStringsEn {
 			'queue.register' => ({required Object count}) => 'Register all (${count})',
 			'queue.remove' => 'Remove',
 			'queue.item' => ({required Object sym, required Object qty, required Object unit, required Object shelf}) => '${sym} ${qty}${unit} → ${shelf}',
+			'queue.issueItem' => ({required Object sym, required Object shelf}) => '${sym} issue ← ${shelf}',
 			'staff.label' => ({required Object name}) => 'Operator: ${name}',
 			'staff.change' => 'Change operator',
 			'staff.shelf' => ({required Object name}) => 'Destination: ${name}',
 			'staff.changeShelf' => 'Change destination',
 			'staff.topTitle' => 'Scan the operator barcode',
+			'recommend.title' => 'Suggested destinations',
+			'recommend.pass' => 'Shelves that already hold this item',
+			'recommend.fail' => 'Reject shelves',
+			'contents.title' => ({required Object name}) => 'Contents of ${name}',
+			'contents.empty' => 'Nothing is stored here.',
+			'contents.item' => ({required Object item, required Object qty, required Object unit}) => '${item} ${qty}${unit}',
+			'idle.warning' => ({required Object sec}) => 'No activity: the queue will be cleared and you will return to the start in ${sec} s.',
 			_ => null,
 		};
 	}

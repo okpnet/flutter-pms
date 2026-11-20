@@ -107,6 +107,7 @@ notice:
   qtyOverSupply: You can register up to {remain} {unit}. Enter that or less.
   needOperator: Scan the operator's barcode first. The queue was cleared.
   operatorSet: 'Operator: {name}. Scan the next barcode.'
+  idleCleared: 'No activity: the queue was cleared and you are back at the start (nothing was registered).'
   queued: 'Added to the queue ({count}). Scan the next barcode.'
   queueFailed: 'Registered {done} of {total}, then failed. The queue was cleared. Start scanning again.'
   failed: Could not register. Check the connection and try again.
@@ -135,9 +136,20 @@ queue:
   register: 'Register all ({count})'
   remove: Remove
   item: '{sym} {qty}{unit} → {shelf}'
+  issueItem: '{sym} issue ← {shelf}'
 staff:
   label: 'Operator: {name}'
   change: Change operator
   shelf: 'Destination: {name}'
   changeShelf: Change destination
   topTitle: Scan the operator barcode
+recommend:
+  title: Suggested destinations
+  pass: Shelves that already hold this item
+  fail: Reject shelves
+contents:
+  title: 'Contents of {name}'
+  empty: Nothing is stored here.
+  item: '{item} {qty}{unit}'
+idle:
+  warning: 'No activity: the queue will be cleared and you will return to the start in {sec} s.'

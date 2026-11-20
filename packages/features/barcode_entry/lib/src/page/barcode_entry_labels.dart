@@ -103,6 +103,7 @@ extension BarcodeEntryLabels on BarcodeEntryStrings {
       NoticeKind.failed => notice.failed,
       NoticeKind.needOperator => notice.needOperator,
       NoticeKind.operatorSet => notice.operatorSet(name: a['name']!),
+      NoticeKind.idleCleared => notice.idleCleared,
       NoticeKind.queued => notice.queued(count: a['count']!),
       NoticeKind.queueFailed => notice.queueFailed(
         done: a['done']!,

@@ -11,6 +11,17 @@ abstract interface class IScanGateway {
   /// 担当者の symbol から担当者を引く。登録がない・取得元が未対応なら null。
   Future<OperatorTarget?> findOperator(String symbol);
 
+  /// 棚(コンテナ)の中身(持っているアイテムと入れ子の棚)を返す。表示用。
+  /// 取得元が未対応・中身を引けないときは null(画面は中身の枠を出さない。登録の流れには影響しない)。
+  Future<ShelfContents?> contentsOf(ShelfTarget shelf);
+
+  /// 入庫先のおすすめの棚を返す。[rejected] が false のときは同じ品目を持つ棚、true のときは不良品棚。
+  /// 取得元が未対応なら空(おすすめを出さない)。
+  Future<List<ShelfTarget>> recommendShelves({
+    required StockSource source,
+    required bool rejected,
+  });
+
   /// 作業を開始する。[shelf] から材料を出庫する(棚出庫処理)。
   Future<void> startWork(WorkOrderTarget order, ShelfTarget shelf);
 

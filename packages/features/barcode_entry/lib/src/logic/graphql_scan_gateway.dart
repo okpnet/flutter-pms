@@ -37,6 +37,17 @@ class GraphqlScanGateway implements IScanGateway {
   @override
   Future<OperatorTarget?> findOperator(String symbol) async => null;
 
+  /// 棚の中身・おすすめは、ロット(`v_shelf_inventory_status`)の読み込みが要るため未対応(null・空)。
+  /// 対応は `issue/20261120_0001.md`(未実施。DB に接続できる環境で行う)。
+  @override
+  Future<ShelfContents?> contentsOf(ShelfTarget shelf) async => null;
+
+  @override
+  Future<List<ShelfTarget>> recommendShelves({
+    required StockSource source,
+    required bool rejected,
+  }) async => const [];
+
   @override
   Future<ScanTarget?> find(String symbol) async {
     final f = await client.find(symbol.trim());

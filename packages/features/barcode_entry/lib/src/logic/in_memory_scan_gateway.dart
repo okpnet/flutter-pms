@@ -62,10 +62,11 @@ class InMemoryScanGateway implements IScanGateway {
       held: 10,
     ),
     ShelfTarget(symbol: 'SH-M-01', name: '材料棚 M-1'),
+    ShelfTarget(symbol: 'SH-M-01A', name: '材料棚 M-1 上段'),
     ShelfTarget(symbol: 'SH-A-01', name: '完成品棚 A-1'),
     ShelfTarget(symbol: 'SH-A-02', name: '完成品棚 A-2'),
     ShelfTarget(symbol: 'SH-R-01', name: '受入棚 R-1'),
-    ShelfTarget(symbol: 'SH-X-01', name: '不良品棚 X-1'),
+    ShelfTarget(symbol: 'SH-X-01', name: '不良品棚 X-1', reject: true),
     PurchaseTarget(
       symbol: 'PO-2610-001-1',
       itemName: '丸棒 SS400',
@@ -89,6 +90,44 @@ class InMemoryScanGateway implements IScanGateway {
       checkItems: ['潤滑油量の確認', '異音・振動の確認', '安全装置の作動確認'],
     ),
   ];
+
+  /// 棚が持っているアイテム(サンプル)。入れ子は [_nested](親の棚の symbol → 子の棚の symbol)。
+  static const Map<String, List<HeldItem>> _holdings = {
+    'SH-A-01': [HeldItem(itemName: 'ユニットA', quantity: 12, unit: '台')],
+    'SH-A-02': [HeldItem(itemName: 'ブラケット', quantity: 30, unit: '個')],
+    'SH-M-01': [HeldItem(itemName: 'ボルト M8×20', quantity: 800, unit: '個')],
+    'SH-M-01A': [HeldItem(itemName: '丸棒 SS400', quantity: 25, unit: '本')],
+    'SH-X-01': [HeldItem(itemName: 'ブラケット', quantity: 3, unit: '個')],
+  };
+  static const Map<String, List<String>> _nested = {
+    'SH-M-01': ['SH-M-01A'],
+  };
+
+  ShelfContents _contents(ShelfTarget shelf) => ShelfContents(
+    shelf: shelf,
+    items: _holdings[shelf.symbol] ?? const [],
+    children: [
+      for (final child in _nested[shelf.symbol] ?? const <String>[])
+        if (_targets[child] case final ShelfTarget c) _contents(c),
+    ],
+  );
+
+  @override
+  Future<ShelfContents?> contentsOf(ShelfTarget shelf) async => _contents(shelf);
+
+  /// 合格: 同じ品目を持つ棚(不良品棚を除く)。不合格: 不良品棚。
+  @override
+  Future<List<ShelfTarget>> recommendShelves({
+    required StockSource source,
+    required bool rejected,
+  }) async {
+    final shelves = _targets.values.whereType<ShelfTarget>();
+    if (rejected) return [for (final s in shelves) if (s.reject) s];
+    return [
+      for (final s in shelves)
+        if (!s.reject && (_holdings[s.symbol] ?? const []).any((h) => h.itemName == source.itemName)) s,
+    ];
+  }
 
   /// 画面の見本として並べる symbol。
   List<String> get sampleSymbols => _targets.keys.toList();

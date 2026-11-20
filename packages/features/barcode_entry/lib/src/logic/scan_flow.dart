@@ -61,6 +61,7 @@ enum NoticeKind {
   queueFailed,
   needOperator,
   operatorSet,
+  idleCleared,
 }
 
 /// 通知。[isError] はやり直しを求める通知、[args] は文面に差し込む値。
@@ -108,9 +109,33 @@ class ScanLogEntry {
   final Map<String, Object> args;
 }
 
-/// 処理待ち(キュー)の 1 件: まとめて登録するまで取得元へ送らない入庫。
+/// 処理待ち(キュー)の 1 件: まとめて登録するまで取得元へ送らないもの(入庫・出庫)。
+sealed class QueuedEntry {
+  const QueuedEntry();
+
+  /// 対象の symbol(作業指示・購入品・品目)。
+  String get symbol;
+
+  Map<String, Object?> toJson();
+}
+
+/// 処理待ちの出庫: 作業の開始で、[shelf] から材料を出庫する(棚出庫処理)。
+class QueuedIssue extends QueuedEntry {
+  const QueuedIssue({required this.order, required this.shelf});
+
+  final WorkOrderTarget order;
+  final ShelfTarget shelf;
+
+  @override
+  String get symbol => order.symbol;
+
+  @override
+  Map<String, Object?> toJson() => {'kind': 'issue', 'order': order.symbol, 'shelf': shelf.symbol};
+}
+
+/// 処理待ちの入庫。
 /// 不合格かは [reason] の有無で分かる(不合格のときだけ理由を持つ)。
-class QueuedPut {
+class QueuedPut extends QueuedEntry {
   const QueuedPut({
     required this.source,
     required this.quantity,
@@ -123,7 +148,12 @@ class QueuedPut {
   final ShelfTarget shelf;
   final RejectReason? reason;
 
+  @override
+  String get symbol => source.symbol;
+
+  @override
   Map<String, Object?> toJson() => {
+    'kind': 'put',
     'source': source.symbol,
     'quantity': quantity,
     'shelf': shelf.symbol,
@@ -202,6 +232,8 @@ class ScanState {
     this.queue = const [],
     this.operator,
     this.selectedShelf,
+    this.shelfContents,
+    this.recommended = const [],
   });
 
   /// 受け付ける種類を絞るモード。null は自動判定。
@@ -215,13 +247,19 @@ class ScanState {
   final bool working;
 
   /// 処理待ち(キュー)。画面内のメモリだけに持つ。
-  final List<QueuedPut> queue;
+  final List<QueuedEntry> queue;
 
   /// 読み取った担当者(null は未読み取り)。
   final OperatorTarget? operator;
 
   /// 選択して残しているコンテナ(棚)。入庫のたびの選択を省く。null は未選択。
   final ShelfTarget? selectedShelf;
+
+  /// 読み取った棚の中身(持っているアイテム・入れ子)。表示用。引けない・未対応なら null。
+  final ShelfContents? shelfContents;
+
+  /// 入庫先のおすすめの棚(合格: 同じ品目の棚 / 不合格: 不良品棚)。入庫先を読み取る段階だけ持つ。
+  final List<ShelfTarget> recommended;
 
   ScanState copyWith({
     ScanMode? Function()? mode,
@@ -230,9 +268,11 @@ class ScanState {
     ScanNotice? Function()? notice,
     List<ScanLogEntry>? log,
     bool? working,
-    List<QueuedPut>? queue,
+    List<QueuedEntry>? queue,
     OperatorTarget? Function()? operator,
     ShelfTarget? Function()? selectedShelf,
+    ShelfContents? Function()? shelfContents,
+    List<ShelfTarget>? recommended,
   }) => ScanState(
     mode: mode != null ? mode() : this.mode,
     step: step ?? this.step,
@@ -243,6 +283,8 @@ class ScanState {
     queue: queue ?? this.queue,
     operator: operator != null ? operator() : this.operator,
     selectedShelf: selectedShelf != null ? selectedShelf() : this.selectedShelf,
+    shelfContents: shelfContents != null ? shelfContents() : this.shelfContents,
+    recommended: recommended ?? this.recommended,
   );
 
   Map<String, Object?> toJson() => {
@@ -254,6 +296,8 @@ class ScanState {
     'queue': queue.map((q) => q.toJson()).toList(),
     'operator': operator?.symbol,
     'selectedShelf': selectedShelf?.symbol,
+    'shelfContents': shelfContents?.shelf.symbol,
+    'recommended': recommended.map((r) => r.symbol).toList(),
   };
 }
 
@@ -296,8 +340,48 @@ class ScanFlow extends Notifier<ScanState> {
         selectedShelf: state.selectedShelf,
       );
 
-  void _go(ScanStep step, ScanContext context) =>
-      state = state.copyWith(step: step, context: context, notice: () => null);
+  void _go(ScanStep step, ScanContext context) => state = state.copyWith(
+    step: step,
+    context: context,
+    notice: () => null,
+    recommended: step == ScanStep.putShelf ? null : const [],
+  );
+
+  /// 補助の読み込み(棚の中身・おすすめ)。失敗しても流れを止めない(ログだけ残して null)。
+  Future<T?> _soft<T>(String what, Future<T> Function() run) async {
+    try {
+      return await run();
+    } catch (e, st) {
+      ref.read(loggerProvider).error('[barcode_entry] $what に失敗', ex: e, trace: st);
+      return null;
+    }
+  }
+
+  /// 入庫先を読み取る段階へ入ったとき、おすすめの棚を引く。
+  Future<void> _loadRecommended() async {
+    final c = state.context;
+    final StockSource? source = c.order != null
+        ? WorkSource(c.order!)
+        : c.purchase != null
+        ? PurchaseSource(c.purchase!)
+        : c.item != null
+        ? ItemSource(c.item!)
+        : null;
+    if (source == null) return;
+    final list = await _soft(
+      'おすすめの棚の取得',
+      () => _gateway.recommendShelves(source: source, rejected: c.rejected),
+    );
+    if (state.step != ScanStep.putShelf || list == null) return;
+    state = state.copyWith(recommended: list);
+  }
+
+  /// 読み取った棚の中身を引く(表示用)。
+  Future<void> _loadContents(ShelfTarget shelf) async {
+    final contents = await _soft('棚の中身の取得', () => _gateway.contentsOf(shelf));
+    if (state.context.shelf?.symbol != shelf.symbol) return;
+    state = state.copyWith(shelfContents: () => contents);
+  }
 
   /// 直近の [_guard] が失敗したか。
   bool _failed = false;
@@ -411,16 +495,37 @@ class ScanFlow extends Notifier<ScanState> {
       _go(ScanStep.putShelf, state.context.copyWith(rejected: false));
       // 処理待ちを使うとき、選択を残したコンテナがあれば棚の読み取りを省く
       final shelf = state.selectedShelf;
-      if (shelf != null && ref.read(batchQueueProvider)) await _put(shelf);
-      return;
+      if (shelf != null && ref.read(batchQueueProvider)) return _put(shelf);
+      return _loadRecommended();
     }
     _go(ScanStep.ng, state.context.copyWith(rejected: true));
   }
 
   /// 不合格処理(理由を決めて入庫へ)。
-  void confirmReject(RejectReason reason) {
+  Future<void> confirmReject(RejectReason reason) async {
     if (state.step != ScanStep.ng) return;
     _go(ScanStep.putShelf, state.context.copyWith(reason: reason));
+    await _loadRecommended();
+  }
+
+  /// おすすめの棚を選んで入庫する(読み取りと同じ。入庫先を読み取る段階だけ)。
+  Future<void> pickShelf(ShelfTarget shelf) async {
+    if (state.working || state.step != ScanStep.putShelf) return;
+    await _put(shelf);
+  }
+
+  /// 操作なしが続いたとき(画面の時計が呼ぶ): 処理待ちを消してリーディングトップへ戻る。
+  /// 自動では登録しない。担当者・選んだ棚は残す。消すものが無い(トップで処理待ちが空)ときは何もしない。
+  void idleClear() {
+    if (state.working) return;
+    if (state.step == ScanStep.top && state.queue.isEmpty) return;
+    state = ScanState(
+      mode: state.mode,
+      log: state.log,
+      operator: state.operator,
+      selectedShelf: state.selectedShelf,
+      notice: const ScanNotice(NoticeKind.idleCleared),
+    );
   }
 
   /// 設備点検の結果を記録する(点検項目ごと)。
@@ -563,6 +668,8 @@ class ScanFlow extends Notifier<ScanState> {
         );
       case ShelfTarget():
         _go(ScanStep.stockItem, ScanContext(shelf: target));
+        state = state.copyWith(shelfContents: () => null);
+        await _loadContents(target);
       case PurchaseTarget():
         if (target.blocked) {
           _log(
@@ -605,20 +712,18 @@ class ScanFlow extends Notifier<ScanState> {
     if (state.step == ScanStep.putShelf) return _put(target);
     final order = state.context.order;
     if (order == null) return;
+    if (ref.read(batchQueueProvider)) {
+      // 登録せず、処理待ちにためる(まとめて登録は [flushQueue])
+      final queue = [...state.queue, QueuedIssue(order: order, shelf: target)];
+      state = state.copyWith(queue: queue);
+      return _reset(ScanNotice(NoticeKind.queued, args: {'count': queue.length}));
+    }
     final done = await _guard('棚出庫', order.symbol, () async {
       await _gateway.startWork(order, target);
       return true;
     });
     if (done != true) return;
-    _log(
-      LogKind.started,
-      args: {
-        'sym': order.symbol,
-        'item': order.itemName,
-        'task': order.taskName,
-        'shelf': target.name,
-      },
-    );
+    _logIssue(order, target);
     _reset(ScanNotice(NoticeKind.started, args: {'shelf': target.name}));
   }
 
@@ -730,20 +835,25 @@ class ScanFlow extends Notifier<ScanState> {
   /// (登録済みの分は履歴に残る。やり直しは最初から読み取る)。
   Future<void> flushQueue() async {
     if (state.working || state.queue.isEmpty) return;
-    final items = List<QueuedPut>.of(state.queue);
+    final items = List<QueuedEntry>.of(state.queue);
     var done = 0;
     for (final q in items) {
-      final ok = await _guard('入庫', q.source.symbol, () async {
-        await _gateway.putAway(
-          source: q.source,
-          quantity: q.quantity,
-          shelf: q.shelf,
-          reason: q.reason,
-        );
+      final ok = await _guard(q is QueuedIssue ? '棚出庫' : '入庫', q.symbol, () async {
+        switch (q) {
+          case QueuedIssue(:final order, :final shelf):
+            await _gateway.startWork(order, shelf);
+          case QueuedPut():
+            await _gateway.putAway(
+              source: q.source,
+              quantity: q.quantity,
+              shelf: q.shelf,
+              reason: q.reason,
+            );
+        }
         return true;
       });
       if (ok != true) {
-        _log(LogKind.queueFailed, ok: false, args: {'sym': q.source.symbol, 'done': done, 'total': items.length});
+        _log(LogKind.queueFailed, ok: false, args: {'sym': q.symbol, 'done': done, 'total': items.length});
         state = state.copyWith(
           queue: const [],
           notice: () => ScanNotice(
@@ -755,13 +865,37 @@ class ScanFlow extends Notifier<ScanState> {
         return;
       }
       done++;
-      _logPut(q.source, q.quantity, q.reason != null, q.shelf);
+      switch (q) {
+        case QueuedIssue(:final order, :final shelf):
+          _logIssue(order, shelf);
+        case QueuedPut():
+          _logPut(q.source, q.quantity, q.reason != null, q.shelf);
+      }
     }
+    final last = items.last;
     state = state.copyWith(
       queue: const [],
-      notice: () => ScanNotice(NoticeKind.stored, args: {'shelf': items.last.shelf.name}),
+      notice: () => ScanNotice(
+        last is QueuedIssue ? NoticeKind.started : NoticeKind.stored,
+        args: {
+          'shelf': switch (last) {
+            QueuedIssue(:final shelf) => shelf.name,
+            QueuedPut(:final shelf) => shelf.name,
+          },
+        },
+      ),
     );
   }
+
+  void _logIssue(WorkOrderTarget order, ShelfTarget shelf) => _log(
+    LogKind.started,
+    args: {
+      'sym': order.symbol,
+      'item': order.itemName,
+      'task': order.taskName,
+      'shelf': shelf.name,
+    },
+  );
 
   /// 入庫の履歴を 1 件残す。
   void _logPut(StockSource source, int quantity, bool rejected, ShelfTarget shelf) {

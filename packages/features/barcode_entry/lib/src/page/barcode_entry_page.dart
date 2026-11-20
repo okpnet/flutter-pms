@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:app_shell/app_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:view_responsiveness/constants/media_break_point.dart';
 import 'package:work_record/work_record_api.dart';
 
 import '../i18n/strings_provider.dart';
@@ -42,9 +45,18 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
   _SupplyChoice _supplyChoice = _SupplyChoice.receive;
   final _supplyQty = TextEditingController();
 
+  /// 操作なしの時計(画面案 6.4。処理待ちを消して最初に戻る。登録はしない)。
+  Timer? _idleTimer;
+  DateTime _lastActivity = DateTime.now();
+
+  /// 戻るまでの残り秒(案内中だけ。null は案内なし)。
+  int? _idleWarnSec;
+
   @override
   void initState() {
     super.initState();
+    _input.addListener(_touch);
+    _idleTimer = Timer.periodic(const Duration(seconds: 1), (_) => _onIdleTick());
     final symbol = widget.symbol;
     if (symbol != null && symbol.isNotEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -58,8 +70,36 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
     }
   }
 
+  /// 操作があった(入力・状態の変化)。時計をやり直す。
+  void _touch() {
+    _lastActivity = DateTime.now();
+    if (mounted && _idleWarnSec != null) setState(() => _idleWarnSec = null);
+  }
+
+  void _onIdleTick() {
+    if (!mounted) return;
+    final timeout = ref.read(idleTimeoutProvider);
+    final st = ref.read(scanFlowProvider);
+    // 消すものが無い(トップで処理待ちが空)・通信中は数えない
+    final idleable = st.queue.isNotEmpty || st.step != ScanStep.top;
+    if (timeout == Duration.zero || !idleable || st.working) {
+      _lastActivity = DateTime.now();
+      if (_idleWarnSec != null) setState(() => _idleWarnSec = null);
+      return;
+    }
+    final remaining = timeout - DateTime.now().difference(_lastActivity);
+    if (remaining <= Duration.zero) {
+      ref.read(scanFlowProvider.notifier).idleClear();
+      _lastActivity = DateTime.now();
+      setState(() => _idleWarnSec = null);
+    } else if (remaining <= ref.read(idleWarningProvider)) {
+      setState(() => _idleWarnSec = (remaining.inMilliseconds / 1000).ceil());
+    }
+  }
+
   @override
   void dispose() {
+    _idleTimer?.cancel();
     _input.dispose();
     _focus.dispose();
     _supplyQty.dispose();
@@ -86,6 +126,114 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
         InspectionResult.pass,
       );
     }
+    ref.listen<ScanState>(scanFlowProvider, (_, _) => _touch());
+
+    // 1 層目: 状態(ScanFlow)は 1 つ。2 層目: それを見る部品(ブロック)。広い画面は並べ、モバイルは縦に積む。
+    final primary = <Widget>[
+      if (s.step == ScanStep.top)
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            for (final m in ScanMode.values)
+              ChoiceChip(
+                label: Text(t.modeLabel(m)),
+                selected: s.mode == m,
+                onSelected: (_) => flow.toggleMode(m),
+              ),
+          ],
+        ),
+      const SizedBox(height: 12),
+      Text(
+        s.step == ScanStep.top
+            ? (ref.watch(requireOperatorProvider) && s.operator == null
+                ? t.staff.topTitle
+                : t.input.topTitle)
+            : t.stepTitle(s.step),
+        style: theme.textTheme.titleLarge,
+      ),
+      const SizedBox(height: 8),
+      _Summary(context: s.context),
+      // 作業指示の工程から、その生産計画の実績登録の画面(作業実績 › 実績登録)を開く(画面案 6.5)
+      if (ref.watch(openWorkRegisterLinkProvider))
+        if (s.context.order?.operationsPlanId case final planId?)
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton.icon(
+              key: const ValueKey('openWorkRegister'),
+              icon: const Icon(Icons.open_in_new, size: 18),
+              label: Text(t.input.openRegister),
+              onPressed: () => ref
+                  .read(commandBusProvider)
+                  .execute(WorkRegisterDestination(planId: planId)),
+            ),
+          ),
+      if (_idleWarnSec case final sec?)
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: Text(
+            t.idle.warning(sec: sec),
+            key: const ValueKey('idleWarning'),
+            style: TextStyle(color: theme.colorScheme.tertiary),
+          ),
+        ),
+      if (notice != null)
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Text(
+            t.noticeText(notice),
+            style: TextStyle(
+              color: notice.isError ? theme.colorScheme.error : theme.colorScheme.primary,
+            ),
+          ),
+        ),
+      const SizedBox(height: 8),
+      _stepBody(t, s, flow),
+      if (s.step == ScanStep.putShelf && s.recommended.isNotEmpty)
+        _RecommendPanel(state: s, flow: flow),
+      const SizedBox(height: 16),
+      if (s.operator != null || s.selectedShelf != null)
+        Wrap(
+          spacing: 8,
+          children: [
+            if (s.operator case final op?)
+              InputChip(
+                key: const ValueKey('operatorChip'),
+                label: Text(t.staff.label(name: op.name)),
+                onDeleted: s.working ? null : flow.changeOperator,
+                deleteButtonTooltipMessage: t.staff.change,
+              ),
+            if (s.selectedShelf case final shelf?)
+              InputChip(
+                key: const ValueKey('shelfChip'),
+                label: Text(t.staff.shelf(name: shelf.name)),
+                onDeleted: s.working ? null : flow.changeShelf,
+                deleteButtonTooltipMessage: t.staff.changeShelf,
+              ),
+          ],
+        ),
+      _SampleSymbols(onPick: _commit),
+    ];
+    final secondary = <Widget>[
+      if (s.queue.isNotEmpty) _QueuePanel(state: s, flow: flow),
+      if (s.shelfContents case final contents?) _ContentsPanel(contents: contents),
+      const SizedBox(height: 16),
+      Text(t.log.title, style: theme.textTheme.titleMedium),
+      const SizedBox(height: 4),
+      if (s.log.isEmpty)
+        Text(t.log.empty)
+      else
+        for (final e in s.log)
+          ListTile(
+            dense: true,
+            leading: Icon(
+              e.ok ? Icons.check_circle_outline : Icons.error_outline,
+              color: e.ok ? null : theme.colorScheme.error,
+            ),
+            title: Text(t.logText(e)),
+            subtitle: Text(_time(e.time)),
+          ),
+    ];
     return ScreenScaffold(
       title: t.title,
       actions: [
@@ -95,109 +243,47 @@ class _BarcodeEntryPageState extends ConsumerState<BarcodeEntryPage> {
             child: Text(t.input.cancel),
           ),
       ],
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 720),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                if (s.step == ScanStep.top)
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      for (final m in ScanMode.values)
-                        ChoiceChip(
-                          label: Text(t.modeLabel(m)),
-                          selected: s.mode == m,
-                          onSelected: (_) => flow.toggleMode(m),
-                        ),
-                    ],
-                  ),
-                const SizedBox(height: 12),
-                Text(
-                  s.step == ScanStep.top
-                      ? (ref.watch(requireOperatorProvider) && s.operator == null
-                          ? t.staff.topTitle
-                          : t.input.topTitle)
-                      : t.stepTitle(s.step),
-                  style: theme.textTheme.titleLarge,
-                ),
-                const SizedBox(height: 8),
-                _Summary(context: s.context),
-                // 作業指示の工程から、その生産計画の実績登録の画面(作業実績 › 実績登録)を開く(画面案 6.5)
-                if (ref.watch(openWorkRegisterLinkProvider))
-                  if (s.context.order?.operationsPlanId case final planId?)
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: TextButton.icon(
-                        key: const ValueKey('openWorkRegister'),
-                        icon: const Icon(Icons.open_in_new, size: 18),
-                        label: Text(t.input.openRegister),
-                        onPressed: () => ref
-                            .read(commandBusProvider)
-                            .execute(WorkRegisterDestination(planId: planId)),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final wide = MediaBreakPoint.of(constraints.maxWidth) != MediaBreakPoint.mobile;
+          return SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: wide ? 1200 : 720),
+                child: wide
+                    // PC・タブレット: 左に読み取りと入力、右に処理待ち・棚の中身・履歴(同じ状態を見る 2 つのブロック)
+                    ? Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 5,
+                            child: Column(
+                              key: const ValueKey('primaryBlock'),
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: primary,
+                            ),
+                          ),
+                          const SizedBox(width: 24),
+                          Expanded(
+                            flex: 4,
+                            child: Column(
+                              key: const ValueKey('secondaryBlock'),
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: secondary,
+                            ),
+                          ),
+                        ],
+                      )
+                    // モバイル: 1 列(現在の段階を先頭に、処理待ち・棚の中身・履歴を続ける)
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [...primary, ...secondary],
                       ),
-                    ),
-                if (notice != null)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: Text(
-                      t.noticeText(notice),
-                      style: TextStyle(
-                        color: notice.isError
-                            ? theme.colorScheme.error
-                            : theme.colorScheme.primary,
-                      ),
-                    ),
-                  ),
-                const SizedBox(height: 8),
-                _stepBody(t, s, flow),
-                const SizedBox(height: 24),
-                if (s.queue.isNotEmpty) _QueuePanel(state: s, flow: flow),
-                if (s.operator != null || s.selectedShelf != null)
-                  Wrap(
-                    spacing: 8,
-                    children: [
-                      if (s.operator case final op?)
-                        InputChip(
-                          key: const ValueKey('operatorChip'),
-                          label: Text(t.staff.label(name: op.name)),
-                          onDeleted: s.working ? null : flow.changeOperator,
-                          deleteButtonTooltipMessage: t.staff.change,
-                        ),
-                      if (s.selectedShelf case final shelf?)
-                        InputChip(
-                          key: const ValueKey('shelfChip'),
-                          label: Text(t.staff.shelf(name: shelf.name)),
-                          onDeleted: s.working ? null : flow.changeShelf,
-                          deleteButtonTooltipMessage: t.staff.changeShelf,
-                        ),
-                    ],
-                  ),
-                _SampleSymbols(onPick: _commit),
-                const SizedBox(height: 16),
-                Text(t.log.title, style: theme.textTheme.titleMedium),
-                const SizedBox(height: 4),
-                if (s.log.isEmpty)
-                  Text(t.log.empty)
-                else
-                  for (final e in s.log)
-                    ListTile(
-                      dense: true,
-                      leading: Icon(
-                        e.ok ? Icons.check_circle_outline : Icons.error_outline,
-                        color: e.ok ? null : theme.colorScheme.error,
-                      ),
-                      title: Text(t.logText(e)),
-                      subtitle: Text(_time(e.time)),
-                    ),
-              ],
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
@@ -518,6 +604,12 @@ class _QueuePanel extends ConsumerWidget {
     ItemSource(:final item) => item.unit,
   };
 
+  static String _label(BarcodeEntryStrings t, QueuedEntry e) => switch (e) {
+    QueuedIssue(:final order, :final shelf) => t.queue.issueItem(sym: order.symbol, shelf: shelf.name),
+    QueuedPut(:final source, :final quantity, :final shelf) =>
+      t.queue.item(sym: source.symbol, qty: quantity, unit: _unit(source), shelf: shelf.name),
+  };
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = ref.watch(barcodeEntryStringsProvider);
@@ -533,14 +625,7 @@ class _QueuePanel extends ConsumerWidget {
             for (var i = 0; i < state.queue.length; i++)
               ListTile(
                 dense: true,
-                title: Text(
-                  t.queue.item(
-                    sym: state.queue[i].source.symbol,
-                    qty: state.queue[i].quantity,
-                    unit: _unit(state.queue[i].source),
-                    shelf: state.queue[i].shelf.name,
-                  ),
-                ),
+                title: Text(_label(t, state.queue[i])),
                 trailing: TextButton(
                   key: ValueKey('queueRemove$i'),
                   onPressed: state.working ? null : () => flow.removeQueued(i),
@@ -558,4 +643,82 @@ class _QueuePanel extends ConsumerWidget {
       ),
     );
   }
+}
+/// 入庫先のおすすめ(合格: 同じ品目が入っている棚 / 不合格: 不良品棚)。押すと、その棚を読み取ったものとして入庫する。
+class _RecommendPanel extends ConsumerWidget {
+  const _RecommendPanel({required this.state, required this.flow});
+
+  final ScanState state;
+  final ScanFlow flow;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(barcodeEntryStringsProvider);
+    return Padding(
+      key: const ValueKey('recommendPanel'),
+      padding: const EdgeInsets.only(top: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '${t.recommend.title}(${state.context.rejected ? t.recommend.fail : t.recommend.pass})',
+            style: Theme.of(context).textTheme.labelLarge,
+          ),
+          const SizedBox(height: 4),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              for (final shelf in state.recommended)
+                ActionChip(
+                  key: ValueKey('recommend_${shelf.symbol}'),
+                  label: Text(shelf.name),
+                  onPressed: state.working ? null : () => flow.pickShelf(shelf),
+                ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// 読み取った棚(コンテナ)の中身。持っているアイテムと、入れ子の子の棚を字下げで出す。
+class _ContentsPanel extends ConsumerWidget {
+  const _ContentsPanel({required this.contents});
+
+  final ShelfContents contents;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(barcodeEntryStringsProvider);
+    return Card(
+      key: const ValueKey('contentsPanel'),
+      margin: const EdgeInsets.only(bottom: 16),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(t.contents.title(name: contents.shelf.name), style: Theme.of(context).textTheme.titleMedium),
+            if (contents.totalItems == 0) Text(t.contents.empty) else ..._lines(t, contents, 0),
+          ],
+        ),
+      ),
+    );
+  }
+
+  List<Widget> _lines(BarcodeEntryStrings t, ShelfContents node, int depth) => [
+    if (depth > 0)
+      Padding(
+        padding: EdgeInsets.only(left: 16.0 * depth, top: 4),
+        child: Text(node.shelf.name, style: const TextStyle(fontWeight: FontWeight.w600)),
+      ),
+    for (final h in node.items)
+      Padding(
+        padding: EdgeInsets.only(left: 16.0 * (depth + 1)),
+        child: Text(t.contents.item(item: h.itemName, qty: h.quantity, unit: h.unit)),
+      ),
+    for (final c in node.children) ..._lines(t, c, depth + 1),
+  ];
 }
