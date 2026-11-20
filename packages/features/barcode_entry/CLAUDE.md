@@ -98,7 +98,7 @@ graph TD;
 `example` は `feature_shared` の `FeatureHost` でこの機能だけを載せる。`flutter run -d windows`。起動と symbol の読み込みは `example/test/widget_test.dart`、流れの判定は `test/barcode_entry_test.dart`。
 
 ## GraphQL 版の制限
-単位・設備点検・支給の登録は、DB の構成から決められず未対応(`issue/20261031_0003.md`)。作業の開始・終了と受入検品は、DB 関数(`work_record_start`・`inspection_register`。`issue/20261120_0001.md`)の 1 回の呼び出しで登録する(上の「開始と終了・受入」)。開始のコンテナ渡し(`p_container_id`)は、DB を再構築したあとに使える(それまでは、モデルの再生成もできない。`ScanClient.workRecordStart` は文書を直接書いている)。登録の通信テストは書かない(読み取り専用。登録の関数は DB の検査 `tools/docker/postgresql/test/20261120_0001_register_tests.sql` で確認する)。モデルは `packages/model_providers/barcode_entry_model` だけに依存する。
+単位・設備点検・支給の登録は、DB の構成から決められず未対応(`issue/20261031_0003.md`)。作業の開始・終了と受入検品は、DB 関数(`work_record_start`・`inspection_register`。`issue/20261120_0001.md`)の 1 回の呼び出しで登録する(上の「開始と終了・受入」)。開始はコンテナを渡す(`p_container_id`。生成モデルの文書を使う)。登録の通信テストは書かない(読み取り専用。登録の関数は DB の検査 `tools/docker/postgresql/test/20261120_0001_register_tests.sql` で確認する)。モデルは `packages/model_providers/barcode_entry_model` だけに依存する。
 
 
 ## 規則: プロジェクト間をまたぐ指示

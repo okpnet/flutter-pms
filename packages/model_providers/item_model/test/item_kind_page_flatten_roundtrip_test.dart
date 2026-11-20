@@ -144,10 +144,7 @@ void main() {
           'mstrItemKindId': 'k1111111-1111-1111-1111-111111111111',
           'code': 'IK001',
           'remarks': '備考テキスト(編集後)',
-          'labels': _labelsJsonJaEn(
-            'a1111111-1111-1111-1111-111111111111',
-            '完成品',
-          ),
+          'names': 'a1111111-1111-1111-1111-111111111111',
           '__typename': 'MstrItemKind',
         },
         'clientMutationId': null,
@@ -181,10 +178,7 @@ void main() {
         'updateUserId': 'u1111111-1111-1111-1111-111111111111',
         'updateUserHistoryId': 'h2222222-2222-2222-2222-222222222222',
         'remove': false,
-        'labels': _labelsJsonJaEn(
-          'a1111111-1111-1111-1111-111111111111',
-          '完成品',
-        ),
+        'names': 'a1111111-1111-1111-1111-111111111111',
         '__typename': 'MstrItemKind',
       },
       '__typename': 'Query',

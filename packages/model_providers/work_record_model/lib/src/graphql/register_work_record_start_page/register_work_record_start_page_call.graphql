@@ -5,8 +5,9 @@
 
 mutation RegisterWorkRecordStartPageCall(
   $pWorkPlanId: UUID
-  $pVisiterId: UUID
   $pQty: BigFloat
+  $pVisiterId: UUID
+  $pContainerId: UUID
   $pStaffId: UUID
   $pEquipmentId: UUID
   $pLocationId: UUID
@@ -15,8 +16,9 @@ mutation RegisterWorkRecordStartPageCall(
   workRecordStart(
     input: {
       pWorkPlanId: $pWorkPlanId
-      pVisiterId: $pVisiterId
       pQty: $pQty
+      pVisiterId: $pVisiterId
+      pContainerId: $pContainerId
       pStaffId: $pStaffId
       pEquipmentId: $pEquipmentId
       pLocationId: $pLocationId

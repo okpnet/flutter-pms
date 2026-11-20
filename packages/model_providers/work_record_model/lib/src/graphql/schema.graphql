@@ -3659,8 +3659,9 @@ input VisiterOwnerRebuildInput {
 
 input WorkRecordStartInput {
   pWorkPlanId: UUID
-  pVisiterId: UUID
   pQty: BigFloat
+  pVisiterId: UUID
+  pContainerId: UUID
   pStaffId: UUID
   pEquipmentId: UUID
   pLocationId: UUID

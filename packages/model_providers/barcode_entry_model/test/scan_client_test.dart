@@ -178,7 +178,7 @@ void main() {
 
     test('作業の開始は、コンテナを渡して関数を 1 回呼ぶ(実績の登録と払出は DB が 1 つの処理で行う)', () async {
       final link = _FakeLink({
-        'ScanWorkRecordStart': {
+        'RegisterWorkRecordStartPageCall': {
           'workRecordStart': {
             '__typename': 'Payload',
             'transWorkRecord': {'__typename': 'Row', 'transWorkRecordId': 'wr-1'},
@@ -194,10 +194,11 @@ void main() {
       expect(id, 'wr-1');
       expect(link.calls, hasLength(1), reason: '1 回の呼び出し(クライアントで順に呼ばない)');
       final v = link.calls.single.$2;
-      expect(v['w'], 'plan-1');
-      expect(v['q'], '40');
-      expect(v['c'], 'shelf-1');
-      expect(v['s'], 'staff-1');
+      expect(v['pWorkPlanId'], 'plan-1');
+      expect(v['pQty'], '40');
+      expect(v['pContainerId'], 'shelf-1');
+      expect(v.containsKey('pVisiterId'), isFalse, reason: 'ロットかコンテナのどちらか 1 つ');
+      expect(v['pStaffId'], 'staff-1');
     });
 
     test('作業の終了は、作業実績・合格・不合格・差の理由を 1 回の関数で渡す', () async {

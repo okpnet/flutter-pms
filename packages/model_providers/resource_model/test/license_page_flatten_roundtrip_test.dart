@@ -156,7 +156,7 @@ void main() {
         'mstrLicense': {
           'mstrLicenseId': 'l1111111-1111-1111-1111-111111111111',
           'code': 'LC001',
-          'detail': '資格の詳細テキスト(編集後)',
+          'details': 'd1111111-1111-1111-1111-111111111111',
           'publicLicense': true,
           'customerLicense': false,
           'organizationLicense': true,
@@ -170,10 +170,7 @@ void main() {
             '__typename': 'Interval',
           },
           'remarks': '備考テキスト(編集後)',
-          'labels': _labelsJsonJaEn(
-            'a1111111-1111-1111-1111-111111111111',
-            '危険物取扱者',
-          ),
+          'names': 'a1111111-1111-1111-1111-111111111111',
           '__typename': 'MstrLicense',
         },
         'clientMutationId': null,
@@ -202,7 +199,7 @@ void main() {
       'mstrLicenseByMstrLicenseId': {
         'mstrLicenseId': 'l1111111-1111-1111-1111-111111111111',
         'code': 'LC001',
-        'detail': '資格の詳細テキスト',
+        'details': 'd1111111-1111-1111-1111-111111111111',
         'publicLicense': true,
         'customerLicense': false,
         'organizationLicense': true,
@@ -220,10 +217,7 @@ void main() {
         'updateUserId': 'u1111111-1111-1111-1111-111111111111',
         'updateUserHistoryId': 'h2222222-2222-2222-2222-222222222222',
         'remove': false,
-        'labels': _labelsJsonJaEn(
-          'a1111111-1111-1111-1111-111111111111',
-          '危険物取扱者',
-        ),
+        'names': 'a1111111-1111-1111-1111-111111111111',
         '__typename': 'MstrLicense',
       },
       '__typename': 'Query',

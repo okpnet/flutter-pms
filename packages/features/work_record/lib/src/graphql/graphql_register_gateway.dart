@@ -16,7 +16,7 @@ import '../register/register_models.dart';
 /// 制限(`issue/20261120_0001.md`):
 /// 1. コンテナの候補は、取り出せるロット(`v_visiter_issuable`)から作る。最初の工程は「この生産計画の品目とは別の品目(材料)のロット」、
 ///    2 工程目以降は「前の工程の作業実績が入庫したロット」。同じ注文の材料への絞り込み・引当の優先・入れ子(分割・移動したロット)の
-///    たどりは未対応。コンテナの在庫数は、取り出せるロットのうち最大の 1 ロットの数量(1 回の開始は 1 ロットから払い出すため)。
+///    たどりは未対応。コンテナの在庫数は、取り出せるロットの合計(開始はコンテナを渡し、DB 関数が複数のロットから払い出す)。
 /// 2. 引継ぎ(`ResultRow.handover`)は DB に列が無いため、常に false。
 /// 3. 理由(不合格・意図的な差)は、決定(2026-11-20)により自由な文(マスタを足さない)。選択肢の文を、そのまま理由として送る。
 ///
@@ -438,6 +438,7 @@ class GraphqlWorkRegisterGateway implements IWorkRegisterGateway {
       }
     }
 
+    // コンテナごとに、取り出せるロットの合計(開始はコンテナを渡し、複数のロットにまたがって払い出す)
     final byContainer = <String, ContainerStock>{};
     for (final l in lots) {
       final container = l['container'] as Map?;
@@ -461,21 +462,35 @@ class GraphqlWorkRegisterGateway implements IWorkRegisterGateway {
           : seq == 1
           ? 'この生産計画の材料ではありません'
           : '前の工程の完了品ではありません';
-      final stock = ContainerStock(
-        id: cid,
-        name: name,
-        location: '',
-        contents: matches ? (seq == 1 ? '材料' : '前工程の完了品') : '',
-        quantity: qty,
-        available: available,
-        unavailableReason: reason,
-      );
       final current = byContainer[cid];
-      // 同じコンテナに複数のロットがあるとき、取り出せるものの最大の 1 ロットを候補にする
-      if (current == null ||
-          (!current.available && available) ||
-          (current.available == available && qty > current.quantity)) {
-        byContainer[cid] = stock;
+      if (current == null) {
+        byContainer[cid] = ContainerStock(
+          id: cid,
+          name: name,
+          location: '',
+          contents: matches ? (seq == 1 ? '材料' : '前工程の完了品') : '',
+          quantity: qty,
+          available: available,
+          unavailableReason: reason,
+        );
+      } else if (available && current.available) {
+        // 取り出せるロットは合計する
+        byContainer[cid] = ContainerStock(
+          id: cid,
+          name: name,
+          location: '',
+          contents: current.contents,
+          quantity: current.quantity + qty,
+        );
+      } else if (available && !current.available) {
+        // 取り出せるロットがあれば、取り出せないロットより優先する
+        byContainer[cid] = ContainerStock(
+          id: cid,
+          name: name,
+          location: '',
+          contents: matches ? (seq == 1 ? '材料' : '前工程の完了品') : '',
+          quantity: qty,
+        );
       }
     }
     final q = query.trim().toLowerCase();
@@ -565,14 +580,12 @@ class GraphqlWorkRegisterGateway implements IWorkRegisterGateway {
         'quantity': RegisterError.overStock,
       });
     }
-    // 払い出す 1 ロット = そのコンテナの、取り出せる最大のロット
-    final lot = await _lotOf(request.stepId, request.containerId);
     try {
       final data = await _run(
         documentNodeMutationRegisterWorkRecordStartPageCall,
         {
           'pWorkPlanId': request.stepId,
-          'pVisiterId': lot,
+          'pContainerId': request.containerId,
           'pQty': '${request.quantity}',
           'pStaffId': request.staffId,
         },
@@ -595,24 +608,6 @@ class GraphqlWorkRegisterGateway implements IWorkRegisterGateway {
       if (e is RegisterFailedException) rethrow;
       _fail(e);
     }
-  }
-
-  /// 開始で払い出すロット(そのコンテナの、取り出せる最大のロット)の ID。
-  Future<String> _lotOf(String stepId, String containerId) async {
-    final lots = await _nodes(documentNodeQueryRegisterLotPageRead, {
-      'first': 500,
-      'languageCodeId': await _language(),
-      'filter': {
-        'transContainerId': {'equalTo': containerId},
-        'issuable': {'equalTo': true},
-        'quantity': {'greaterThan': 0},
-      },
-      'orderBy': ['QUANTITY_DESC'],
-    });
-    if (lots.isEmpty) {
-      throw const RegisterFailedException('取り出せるロットがありません');
-    }
-    return _s(lots.first['transVisiterId']);
   }
 
   Future<Map<String, dynamic>?> _openRecord(String stepId) async {

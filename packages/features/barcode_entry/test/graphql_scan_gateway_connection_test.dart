@@ -85,4 +85,18 @@ void main() {
       expect(r.heldQuantity, greaterThan(0));
     }
   });
+
+  // 登録の関数は、データが残らない失敗(存在しない対象)で、呼び出しの配線だけを確かめる
+  serverTest('開始・終了の DB 関数への配線: 存在しない対象は OPR01 で失敗し、何も登録されない', (server) async {
+    final client = await _client(server);
+    const zero = '00000000-0000-0000-0000-000000000000';
+    await expectLater(
+      client.workRecordStart(workPlanId: zero, containerId: zero, quantity: 1),
+      throwsA(isA<ScanClientException>().having((e) => e.message, 'message', contains('作業指示が見つかりません'))),
+    );
+    await expectLater(
+      client.inspectionRegister(passQuantity: 1, passContainerId: zero, workRecordId: zero),
+      throwsA(isA<ScanClientException>().having((e) => e.message, 'message', contains('作業実績が見つかりません'))),
+    );
+  });
 }

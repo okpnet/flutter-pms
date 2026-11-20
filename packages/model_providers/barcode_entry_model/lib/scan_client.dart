@@ -421,7 +421,6 @@ class ScanClient {
   /// 棚移動(製品/購入品を棚へ入れる)。ビジターに品目の列が無いため、品目の symbol を備考に残す。
   /// 作業の開始(DB 関数 `work_record_start`)。コンテナ [containerId] から [quantity] を、複数のロットにまたがって払い出し、
   /// 実施中の作業実績を登録する(1 つの処理)。戻り値は作業実績の id。
-  /// 生成モデルはコンテナを渡す引数(`p_container_id`)を持たない版のため、文書を直接書く(DB の再構築・モデルの再生成のあとは置き換えられる)。
   Future<String> workRecordStart({
     required String workPlanId,
     required String containerId,
@@ -429,12 +428,13 @@ class ScanClient {
     String? staffId,
   }) async {
     final data = await _run(
-      gql(r'''mutation ScanWorkRecordStart($w: UUID!, $q: BigFloat!, $c: UUID, $s: UUID) {
-        workRecordStart(input: {pWorkPlanId: $w, pQty: $q, pContainerId: $c, pStaffId: $s}) {
-          transWorkRecord { transWorkRecordId }
-        }
-      }'''),
-      {'w': workPlanId, 'q': '$quantity', 'c': containerId, if (staffId != null) 's': staffId},
+      wr.documentNodeMutationRegisterWorkRecordStartPageCall,
+      {
+        'pWorkPlanId': workPlanId,
+        'pQty': '$quantity',
+        'pContainerId': containerId,
+        if (staffId != null) 'pStaffId': staffId,
+      },
       mutation: true,
     );
     final id = (((data['workRecordStart'] as Map?)?['transWorkRecord']) as Map?)?['transWorkRecordId'];
