@@ -33,6 +33,7 @@ stamp:
   offsetY: Vertical offset (mm)
   pages: Pages
   look: Appearance
+  layer: Layering
   opacity: Opacity
   shape: Shape
   width: Width (mm)
@@ -63,6 +64,9 @@ stamp:
   pagesValues:
     first: First page only
     all: All pages
+  layers:
+    background: Watermark (behind the text)
+    foreground: In front of the text
   shapes:
     circle: Circle
     roundRect: Rounded rectangle

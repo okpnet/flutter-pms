@@ -149,6 +149,24 @@ window.OD_EXTRA = {
         md: "| 用語 | 意味 |\n| --- | --- |\n| 不適合 | 要求を満たしていないこと |\n| 工程異常 | 工程の中で見つかった不適合の記録 |\n| コンテナ | 材料・仕掛品・完成品を入れて動かす単位 |\n| 引当 | 材料や在庫を、特定の注文や計画のために確保すること |\n\n未作成の項目: [[棚卸し]]" },
     ],
   },
+  /* 承認一覧（メニューごと）のサンプル。承認者が D.user.name（ログインユーザー）の未承認だけが、ダッシュボードの通知と承認一覧に出る。
+     ref は該当するレコードの行 ID（生産管理の台帳）またはマニュアルのページ ID */
+  approval: {
+    items: [
+      { id: "ap1", kind: "doc", ref: "m4", refLabel: "工程管理", title: "工程管理（改訂 3）", detail: "ページの改訂", applicant: "高橋 美咲", at: "2026-11-19", step: "第1段階", approver: "鈴木 一郎", status: "未承認" },
+      { id: "ap2", kind: "doc", ref: "m5", refLabel: "不適合の管理", title: "不適合の管理（改訂 2）", detail: "ページの改訂", applicant: "田中 誠", at: "2026-11-19", step: "第1段階", approver: "鈴木 一郎", status: "未承認" },
+      { id: "ap3", kind: "doc", ref: "m7", refLabel: "用語集", title: "用語集（改訂 1）", detail: "ページの新規", applicant: "田中 誠", at: "2026-11-12", step: "第1段階", approver: "山田 太郎", status: "未承認" },
+      { id: "ap4", kind: "order", ref: "order1", refLabel: "SO-2610-001", title: "北斗機械株式会社 受注", detail: "納期 2026年11月10日", applicant: "小林 恵子", at: "2026-10-02", step: "第1段階", approver: "鈴木 一郎", status: "未承認" },
+      { id: "ap5", kind: "order", ref: "order2", refLabel: "SO-2610-002", title: "みなと精密株式会社 受注", detail: "納期 2026年11月20日", applicant: "吉田 裕子", at: "2026-10-08", step: "第2段階", approver: "鈴木 一郎", status: "未承認" },
+      { id: "ap6", kind: "purchase", ref: "purchase1", refLabel: "発注日 2026/10/20", title: "北斗ファスナー株式会社 発注", detail: "発注期限 2026年10月10日", applicant: "中村 大輔", at: "2026-10-06", step: "第1段階", approver: "鈴木 一郎", status: "未承認" },
+      { id: "ap7", kind: "purchase", ref: "purchase2", refLabel: "発注日 2026/10/28", title: "大和鋼材株式会社 発注", detail: "発注期限 2026年10月11日", applicant: "中村 大輔", at: "2026-10-09", step: "第1段階", approver: "山田 太郎", status: "未承認" },
+      { id: "ap8", kind: "unrec", ref: "unrec1", refLabel: "決定日 2026/10/05", title: "非計上発注", detail: "納期 2026年10月10日", applicant: "中村 大輔", at: "2026-10-05", step: "第1段階", approver: "鈴木 一郎", status: "未承認" },
+      { id: "ap9", kind: "shipplan", ref: "shipplan1", refLabel: "SP-001", title: "出荷予定 SP-001", detail: "出荷予定日 2026年11月8日", applicant: "渡辺 真由美", at: "2026-11-05", step: "第1段階", approver: "鈴木 一郎", status: "未承認" },
+      { id: "ap10", kind: "shipplan", ref: "shipplan2", refLabel: "SP-002", title: "出荷予定 SP-002", detail: "出荷予定日 2026年11月15日", applicant: "渡辺 真由美", at: "2026-11-06", step: "第1段階", approver: "山田 太郎", status: "未承認" },
+      { id: "ap11", kind: "disposal", ref: "disposal1", refLabel: "寸法不良品の選別", title: "異常処置: 寸法不良品の選別", detail: "処置年月日 2026年10月12日", applicant: "田中 誠", at: "2026-10-12", step: "第1段階", approver: "鈴木 一郎", status: "未承認" },
+      { id: "ap12", kind: "recur", ref: "recur1", refLabel: "測定手順の見直し", title: "再発防止処置: 測定手順の見直し", detail: "発生年月日 2026年10月14日", applicant: "伊藤 直樹", at: "2026-10-14", step: "第1段階", approver: "鈴木 一郎", status: "未承認" },
+    ],
+  },
   company: { pronunciation: "サンプルセイコウカブシキガイシャ", nickname: "サンプル精工", web_page: "https://www.example.co.jp", remarks: "" },
   siteCode: { hq: ["HQ", "ホンシャ"], kt: ["KT", "カントウコウジョウ"], ks: ["KS", "カンサイコウジョウ"], ch: ["CH", "チュウブブツリュウ"], ky: ["KY", "キュウシュウエイギョウショ"], hk: ["HK", "ホッカイドウエイギョウショ"] },
   /* 名称 -> 読み（部署・役割・力量・資格・場所・設備分類・設備・点検整備・承認パターン・従業員） */

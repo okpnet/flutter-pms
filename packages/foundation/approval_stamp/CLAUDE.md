@@ -5,6 +5,7 @@
 ## 設定の置き場所
 1.  標準: `info_app.settings`(jsonb。DB の列の既定値が標準値)。`{ "version": 1, "stamp": {…}, "pdf": {…} }`。読み取りは一般ユーザー、書き込みは管理者の画面だけ(DB では制限していない)。接続先・ログイン入口・秘密情報は DB に置けない(接続前に要る。裏設定 `backstage` に残す)。
 1.  承認パターンごとの上書き: `mstr_approval_pattern.stamp_style`(jsonb、NULL 可)。NULL は標準。書いた項目だけが標準を上書きする(`StampStyle.resolve`。`items` は渡したら全体を置き換える)。
+1.  スタンプの重ね方 `stamp.layer`: 既定は `background`(透かし。本文の後ろ)、`foreground`(本文の前)。位置の既定は右上・10mm(`position`)。PDF(`markdown_pdf`)・プレビュー(`approval_stamp_view`)とも従う。
 1.  読むときは寛容: 欠けた・型の違う値は既定に戻し、`Problems` に残す(呼び出し側がログに出す)。設定の不備でアプリ・PDF の出力を止めない。知らないキーは `AppSettings.extra` に保ち、書き戻しても消さない。新しい版は問題として知らせる。
 1.  コードの標準値(`AppSettings.standard`)は、DB の既定値と同じ(`test/db_default_settings.dart` と照合するテストがある)。DB の既定値を変えたら、コードの標準値と `test/db_default_settings.dart` も直す。
 

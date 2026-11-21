@@ -109,6 +109,18 @@ void main() {
     expect(find.byKey(const Key('stamp-preview-0')), findsNothing);
   });
 
+  testWidgets('重ね方を変えて保存すると、JSON の layer に入る(既定は background)', (tester) async {
+    final g = InMemoryAppSettingsGateway();
+    await _pump(tester, _app(admin: true, gateway: g));
+    await tester.tap(find.byKey(const Key('f-stamp.layer-background')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('本文の前').last);
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('ds-save')));
+    await tester.pumpAndSettle();
+    expect(((g.value as Map)['stamp'] as Map)['layer'], 'foreground');
+  });
+
   testWidgets('表示項目の追加・削除がプレビューの行に反映される', (tester) async {
     await _pump(tester, _app(admin: true));
     expect(find.byKey(const Key('ds-item-2')), findsOneWidget);

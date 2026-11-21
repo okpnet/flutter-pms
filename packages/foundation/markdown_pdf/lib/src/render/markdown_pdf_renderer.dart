@@ -294,7 +294,9 @@ class MarkdownPdfRenderer {
           pageFormat: pageFmt,
           margin: margin,
           theme: pw.ThemeData.withFont(base: regular, bold: bold),
-          buildForeground: stamps.isEmpty ? null : foreground,
+          // 重ね方: 透かし(本文の後ろ。既定)か、本文の前
+          buildBackground: stamps.isEmpty || stampStyle.layer != StampLayer.background ? null : foreground,
+          buildForeground: stamps.isEmpty || stampStyle.layer != StampLayer.foreground ? null : foreground,
         ),
         header: settings.header.enabled ? (ctx) => bandBuilder(ctx, settings.header, true) : null,
         footer: settings.footer.enabled ? (ctx) => bandBuilder(ctx, settings.footer, false) : null,

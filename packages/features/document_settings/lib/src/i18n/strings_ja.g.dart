@@ -179,6 +179,9 @@ class DocumentSettingsStrings$stamp$ja {
 	/// ja: '見た目'
 	String get look => '見た目';
 
+	/// ja: '重ね方'
+	String get layer => '重ね方';
+
 	/// ja: 'すかし(不透明度)'
 	String get opacity => 'すかし(不透明度)';
 
@@ -244,6 +247,7 @@ class DocumentSettingsStrings$stamp$ja {
 
 	late final DocumentSettingsStrings$stamp$anchors$ja anchors = DocumentSettingsStrings$stamp$anchors$ja.internal(_root);
 	late final DocumentSettingsStrings$stamp$pagesValues$ja pagesValues = DocumentSettingsStrings$stamp$pagesValues$ja.internal(_root);
+	late final DocumentSettingsStrings$stamp$layers$ja layers = DocumentSettingsStrings$stamp$layers$ja.internal(_root);
 	late final DocumentSettingsStrings$stamp$shapes$ja shapes = DocumentSettingsStrings$stamp$shapes$ja.internal(_root);
 	late final DocumentSettingsStrings$stamp$stagesValues$ja stagesValues = DocumentSettingsStrings$stamp$stagesValues$ja.internal(_root);
 	late final DocumentSettingsStrings$stamp$fields$ja fields = DocumentSettingsStrings$stamp$fields$ja.internal(_root);
@@ -438,6 +442,21 @@ class DocumentSettingsStrings$stamp$pagesValues$ja {
 	String get all => '全ページ';
 }
 
+// Path: stamp.layers
+class DocumentSettingsStrings$stamp$layers$ja {
+	DocumentSettingsStrings$stamp$layers$ja.internal(this._root);
+
+	final DocumentSettingsStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '透かし(本文の後ろ)'
+	String get background => '透かし(本文の後ろ)';
+
+	/// ja: '本文の前'
+	String get foreground => '本文の前';
+}
+
 // Path: stamp.shapes
 class DocumentSettingsStrings$stamp$shapes$ja {
 	DocumentSettingsStrings$stamp$shapes$ja.internal(this._root);
@@ -545,6 +564,7 @@ extension on DocumentSettingsStrings {
 			'stamp.offsetY' => '上下の距離(mm)',
 			'stamp.pages' => '出すページ',
 			'stamp.look' => '見た目',
+			'stamp.layer' => '重ね方',
 			'stamp.opacity' => 'すかし(不透明度)',
 			'stamp.shape' => '形',
 			'stamp.width' => '幅(mm)',
@@ -573,6 +593,8 @@ extension on DocumentSettingsStrings {
 			'stamp.anchors.center' => '中央',
 			'stamp.pagesValues.first' => '先頭のページだけ',
 			'stamp.pagesValues.all' => '全ページ',
+			'stamp.layers.background' => '透かし(本文の後ろ)',
+			'stamp.layers.foreground' => '本文の前',
 			'stamp.shapes.circle' => '円',
 			'stamp.shapes.roundRect' => '角丸の四角',
 			'stamp.shapes.doubleFrame' => '二重枠',

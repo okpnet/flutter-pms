@@ -1041,3 +1041,13 @@ body[data-device="mobile"] .mn-side, body[data-device="tablet"] .mn-side { posit
   #print-root .md table { display: table; font-size: 9.5pt; }
   #print-root .md th, #print-root .md td { border-color: #888; }
 }
+
+/* ---------- 承認一覧 ---------- */
+.ap-bar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); padding: var(--sp-3) var(--sp-4); border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); position: sticky; top: calc(56px + var(--sp-2)); z-index: 5; }
+body[data-device="mobile"] .ap-bar { position: sticky; top: 0; }
+.ap-count { margin-right: auto; font-weight: 600; }
+.ap-chk { width: 24px; height: 24px; accent-color: var(--accent); cursor: pointer; }
+.tbl-host[data-tkey^="apv_"] tbody tr { cursor: pointer; }
+.tbl-host[data-tkey^="apv_"] tbody tr.is-selected { background: var(--accent-soft); }
+.apv-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-2); max-height: 38dvh; overflow-y: auto; }
+.apv-list li { display: grid; gap: 2px; padding: var(--sp-2) var(--sp-3); border: 1px solid var(--line); border-radius: var(--radius); }

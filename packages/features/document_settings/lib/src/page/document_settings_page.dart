@@ -243,6 +243,10 @@ class _StampForm extends StatelessWidget {
               ],
             ),
             FieldRow(children: [
+              drop(['stamp', 'layer'], s.stamp.layer, {
+                'background': s.stamp.layers.background,
+                'foreground': s.stamp.layers.foreground,
+              }, width: 230),
               drop(['stamp', 'shape', 'kind'], s.stamp.shape, {
                 'circle': s.stamp.shapes.circle,
                 'roundRect': s.stamp.shapes.roundRect,

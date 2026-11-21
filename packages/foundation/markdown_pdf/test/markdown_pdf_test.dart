@@ -154,6 +154,22 @@ void main() {
     expect(bytes.length, greaterThan(plain.length)); // スタンプの分だけ大きい
   });
 
+  test('重ね方: 透かし(既定)でも本文の前でも出力できる(スタンプの分だけ大きい)', () async {
+    final plain = await renderer.render(markdown: _sample, settings: PdfSettings.standard, info: info, fonts: _fonts());
+    for (final layer in ['background', 'foreground']) {
+      final style = StampStyle.fromJson({'layer': layer});
+      final bytes = await renderer.render(
+        markdown: _sample,
+        settings: PdfSettings.standard,
+        info: info,
+        fonts: _fonts(),
+        stampStyle: style,
+        stamps: const StampContentBuilder().build(style, [approved]),
+      );
+      expect(bytes.length, greaterThan(plain.length), reason: layer);
+    }
+  });
+
   test('空の Markdown・設定の不備があっても出力できる', () async {
     final bytes = await renderer.render(markdown: '', settings: PdfSettings.fromJson({'page': {'size': 'Z9'}}), info: info, fonts: _fonts());
     expect(pageCount(bytes), 1);

@@ -77,6 +77,24 @@ void main() {
     expect(find.text('1 / 2'), findsOneWidget);
   });
 
+  testWidgets('重ね方: 透かし(既定)は本文の線より後ろ、前面は本文の線より前に描く', (tester) async {
+    for (final layer in ['background', 'foreground']) {
+      final style = StampStyle.fromJson({'layer': layer});
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Align(
+            alignment: Alignment.topLeft,
+            child: StampPagePreview(settings: PdfSettings.standard, style: style, cards: [_card()], pxPerMm: 1),
+          ),
+        ),
+      );
+      final stack = tester.widget<Stack>(find.descendant(of: find.byKey(const Key('page-preview')), matching: find.byType(Stack)).first);
+      final stampIndex = stack.children.indexWhere((w) => w is Positioned && w.child is ApprovalStampView);
+      final bodyIndex = stack.children.indexWhere((w) => w is Positioned && w.child is Column);
+      expect(layer == 'background' ? stampIndex < bodyIndex : stampIndex > bodyIndex, isTrue, reason: layer);
+    }
+  });
+
   testWidgets('pages = first のとき、2 ページ目のプレビューにはスタンプが出ない', (tester) async {
     await tester.pumpWidget(
       MaterialApp(

@@ -1620,6 +1620,34 @@ COMMENT ON COLUMN tests.mstr_approval_pattern.update_user_history_id IS '更新�
 
 COMMENT ON COLUMN tests.mstr_approval_pattern.remove IS '削除';
 
+CREATE OR REPLACE FUNCTION tests.trg_00_admin_only_column() RETURNS trigger AS
+$BODY$
+-- 列(TG_ARGV[0])の変更は、管理者(ロール pms_admin)だけが行える。一般ユーザー(ロール pms_user のメンバーで、管理者でない)が変えようとしたら止める。
+-- DB の所有者・初期化のスクリプト(pms_user のメンバーでない)は止めない。
+DECLARE
+    v_col text := TG_ARGV[0];
+    v_user boolean;
+    v_admin boolean;
+BEGIN
+    IF (to_jsonb(NEW) -> v_col) IS NOT DISTINCT FROM (to_jsonb(OLD) -> v_col) THEN
+        RETURN NEW;
+    END IF;
+    SELECT COALESCE(bool_or(pg_has_role(current_user, r.oid, 'member')) FILTER (WHERE r.rolname = 'pms_user'), false),
+           COALESCE(bool_or(pg_has_role(current_user, r.oid, 'member')) FILTER (WHERE r.rolname = 'pms_admin'), false)
+    INTO v_user, v_admin FROM pg_roles AS r WHERE r.rolname IN ('pms_user', 'pms_admin');
+    IF v_user AND NOT v_admin THEN
+        RAISE EXCEPTION '管理者だけが変更できる項目です (%.%)', TG_TABLE_NAME, v_col USING ERRCODE = 'ADM01';
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE TRIGGER trg_00_admin_only_stamp_style BEFORE UPDATE ON tests.mstr_approval_pattern FOR EACH ROW EXECUTE FUNCTION tests.trg_00_admin_only_column('stamp_style');
+
+COMMENT ON FUNCTION tests.trg_00_admin_only_column() IS '@omit
+管理者(ロール pms_admin)だけが変更できる列の保護。列は TG_ARGV[0]';
+
 CREATE TABLE tests.trans_approval_pattern (
   trans_approval_pattern_id uuid DEFAULT gen_random_uuid() NOT NULL,
   mstr_approval_pattern_id uuid NOT NULL,
@@ -4326,7 +4354,7 @@ CREATE TABLE tests.info_app (
   info_app_id uuid DEFAULT gen_random_uuid() NOT NULL,
   info_company_id uuid,
   name varchar(255) NOT NULL,
-  settings jsonb DEFAULT '{"version":1,"stamp":{"position":{"anchor":"topRight","offsetXmm":10,"offsetYmm":10,"pages":"first"},"opacity":0.6,"shape":{"kind":"roundRect","widthMm":32,"heightMm":32,"rotationDeg":0},"color":{"text":"#C62828","frame":"#C62828","fill":null},"labelLanguage":"ja","stages":"all","items":[{"field":"stamp_label","size":14,"line":1},{"field":"approved_at","format":"yyyy/MM/dd","size":10,"line":2},{"field":"approved_staff","format":"name","size":10,"line":3}],"pending":{"dashed":true,"color":"#757575"}},"pdf":{"page":{"size":"A4","orientation":"portrait","marginMm":{"top":22,"right":18,"bottom":20,"left":18}},"theme":{"vars":{"accent":"#0D47A1","muted":"#616161","line":"#BDBDBD"},"font":{"family":"NotoSansJP","monoFamily":"NotoSansJPMono","baseSize":10.5,"lineHeight":1.5},"colors":{"text":"#212121","heading":"$accent","link":"#1565C0","quote":"$muted","codeBackground":"#F5F5F5","tableBorder":"$line","tableHeaderBackground":"#ECEFF1","missingLink":"#C62828"},"headings":{"h1":{"size":20,"bold":true,"color":null,"spaceBeforeMm":0,"spaceAfterMm":5,"pageBreakBefore":true},"h2":{"size":15,"bold":true,"color":null,"spaceBeforeMm":6,"spaceAfterMm":3,"pageBreakBefore":false},"h3":{"size":12,"bold":true,"color":null,"spaceBeforeMm":4,"spaceAfterMm":2,"pageBreakBefore":false}},"paragraph":{"spaceAfterMm":2.5},"code":{"size":9},"table":{"borderWidth":0.5,"cellPaddingMm":1.5,"headerBold":true}},"header":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{title}","center":"","right":"{controlNumber}"},"footer":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{versionCode}  {statusLabel}","center":"{page} / {pages}","right":"{printedAt:yyyy/MM/dd}"},"custom":{"company":""}}}',
+  settings jsonb DEFAULT '{"version":1,"stamp":{"position":{"anchor":"topRight","offsetXmm":10,"offsetYmm":10,"pages":"first"},"opacity":0.6,"shape":{"kind":"roundRect","widthMm":32,"heightMm":32,"rotationDeg":0},"color":{"text":"#C62828","frame":"#C62828","fill":null},"labelLanguage":"ja","stages":"all","layer":"background","items":[{"field":"stamp_label","size":14,"line":1},{"field":"approved_at","format":"yyyy/MM/dd","size":10,"line":2},{"field":"approved_staff","format":"name","size":10,"line":3}],"pending":{"dashed":true,"color":"#757575"}},"pdf":{"page":{"size":"A4","orientation":"portrait","marginMm":{"top":22,"right":18,"bottom":20,"left":18}},"theme":{"vars":{"accent":"#0D47A1","muted":"#616161","line":"#BDBDBD"},"font":{"family":"NotoSansJP","monoFamily":"NotoSansJPMono","baseSize":10.5,"lineHeight":1.5},"colors":{"text":"#212121","heading":"$accent","link":"#1565C0","quote":"$muted","codeBackground":"#F5F5F5","tableBorder":"$line","tableHeaderBackground":"#ECEFF1","missingLink":"#C62828"},"headings":{"h1":{"size":20,"bold":true,"color":null,"spaceBeforeMm":0,"spaceAfterMm":5,"pageBreakBefore":true},"h2":{"size":15,"bold":true,"color":null,"spaceBeforeMm":6,"spaceAfterMm":3,"pageBreakBefore":false},"h3":{"size":12,"bold":true,"color":null,"spaceBeforeMm":4,"spaceAfterMm":2,"pageBreakBefore":false}},"paragraph":{"spaceAfterMm":2.5},"code":{"size":9},"table":{"borderWidth":0.5,"cellPaddingMm":1.5,"headerBold":true}},"header":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{title}","center":"","right":"{controlNumber}"},"footer":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{versionCode}  {statusLabel}","center":"{page} / {pages}","right":"{printedAt:yyyy/MM/dd}"},"custom":{"company":""}}}',
   revision integer DEFAULT 1,
   symbol varchar(16) DEFAULT '',
   remarks varchar(1024),
@@ -4364,6 +4392,34 @@ COMMENT ON COLUMN tests.info_app.update_user_id IS '更新者ID';
 COMMENT ON COLUMN tests.info_app.update_user_history_id IS '更新者履歴ID';
 
 COMMENT ON COLUMN tests.info_app.remove IS '削除';
+
+CREATE OR REPLACE FUNCTION tests.trg_00_admin_only_column() RETURNS trigger AS
+$BODY$
+-- 列(TG_ARGV[0])の変更は、管理者(ロール pms_admin)だけが行える。一般ユーザー(ロール pms_user のメンバーで、管理者でない)が変えようとしたら止める。
+-- DB の所有者・初期化のスクリプト(pms_user のメンバーでない)は止めない。
+DECLARE
+    v_col text := TG_ARGV[0];
+    v_user boolean;
+    v_admin boolean;
+BEGIN
+    IF (to_jsonb(NEW) -> v_col) IS NOT DISTINCT FROM (to_jsonb(OLD) -> v_col) THEN
+        RETURN NEW;
+    END IF;
+    SELECT COALESCE(bool_or(pg_has_role(current_user, r.oid, 'member')) FILTER (WHERE r.rolname = 'pms_user'), false),
+           COALESCE(bool_or(pg_has_role(current_user, r.oid, 'member')) FILTER (WHERE r.rolname = 'pms_admin'), false)
+    INTO v_user, v_admin FROM pg_roles AS r WHERE r.rolname IN ('pms_user', 'pms_admin');
+    IF v_user AND NOT v_admin THEN
+        RAISE EXCEPTION '管理者だけが変更できる項目です (%.%)', TG_TABLE_NAME, v_col USING ERRCODE = 'ADM01';
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE TRIGGER trg_00_admin_only_settings BEFORE UPDATE ON tests.info_app FOR EACH ROW EXECUTE FUNCTION tests.trg_00_admin_only_column('settings');
+
+COMMENT ON FUNCTION tests.trg_00_admin_only_column() IS '@omit
+管理者(ロール pms_admin)だけが変更できる列の保護。列は TG_ARGV[0]';
 
 CREATE TABLE tests.info_access_path (
   info_access_path_id uuid DEFAULT gen_random_uuid() NOT NULL,
@@ -11708,7 +11764,7 @@ CREATE TABLE tests.history_info_app (
   info_app_id uuid NOT NULL,
   info_company_id uuid,
   name varchar(255) NOT NULL,
-  settings jsonb DEFAULT '{"version":1,"stamp":{"position":{"anchor":"topRight","offsetXmm":10,"offsetYmm":10,"pages":"first"},"opacity":0.6,"shape":{"kind":"roundRect","widthMm":32,"heightMm":32,"rotationDeg":0},"color":{"text":"#C62828","frame":"#C62828","fill":null},"labelLanguage":"ja","stages":"all","items":[{"field":"stamp_label","size":14,"line":1},{"field":"approved_at","format":"yyyy/MM/dd","size":10,"line":2},{"field":"approved_staff","format":"name","size":10,"line":3}],"pending":{"dashed":true,"color":"#757575"}},"pdf":{"page":{"size":"A4","orientation":"portrait","marginMm":{"top":22,"right":18,"bottom":20,"left":18}},"theme":{"vars":{"accent":"#0D47A1","muted":"#616161","line":"#BDBDBD"},"font":{"family":"NotoSansJP","monoFamily":"NotoSansJPMono","baseSize":10.5,"lineHeight":1.5},"colors":{"text":"#212121","heading":"$accent","link":"#1565C0","quote":"$muted","codeBackground":"#F5F5F5","tableBorder":"$line","tableHeaderBackground":"#ECEFF1","missingLink":"#C62828"},"headings":{"h1":{"size":20,"bold":true,"color":null,"spaceBeforeMm":0,"spaceAfterMm":5,"pageBreakBefore":true},"h2":{"size":15,"bold":true,"color":null,"spaceBeforeMm":6,"spaceAfterMm":3,"pageBreakBefore":false},"h3":{"size":12,"bold":true,"color":null,"spaceBeforeMm":4,"spaceAfterMm":2,"pageBreakBefore":false}},"paragraph":{"spaceAfterMm":2.5},"code":{"size":9},"table":{"borderWidth":0.5,"cellPaddingMm":1.5,"headerBold":true}},"header":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{title}","center":"","right":"{controlNumber}"},"footer":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{versionCode}  {statusLabel}","center":"{page} / {pages}","right":"{printedAt:yyyy/MM/dd}"},"custom":{"company":""}}}',
+  settings jsonb DEFAULT '{"version":1,"stamp":{"position":{"anchor":"topRight","offsetXmm":10,"offsetYmm":10,"pages":"first"},"opacity":0.6,"shape":{"kind":"roundRect","widthMm":32,"heightMm":32,"rotationDeg":0},"color":{"text":"#C62828","frame":"#C62828","fill":null},"labelLanguage":"ja","stages":"all","layer":"background","items":[{"field":"stamp_label","size":14,"line":1},{"field":"approved_at","format":"yyyy/MM/dd","size":10,"line":2},{"field":"approved_staff","format":"name","size":10,"line":3}],"pending":{"dashed":true,"color":"#757575"}},"pdf":{"page":{"size":"A4","orientation":"portrait","marginMm":{"top":22,"right":18,"bottom":20,"left":18}},"theme":{"vars":{"accent":"#0D47A1","muted":"#616161","line":"#BDBDBD"},"font":{"family":"NotoSansJP","monoFamily":"NotoSansJPMono","baseSize":10.5,"lineHeight":1.5},"colors":{"text":"#212121","heading":"$accent","link":"#1565C0","quote":"$muted","codeBackground":"#F5F5F5","tableBorder":"$line","tableHeaderBackground":"#ECEFF1","missingLink":"#C62828"},"headings":{"h1":{"size":20,"bold":true,"color":null,"spaceBeforeMm":0,"spaceAfterMm":5,"pageBreakBefore":true},"h2":{"size":15,"bold":true,"color":null,"spaceBeforeMm":6,"spaceAfterMm":3,"pageBreakBefore":false},"h3":{"size":12,"bold":true,"color":null,"spaceBeforeMm":4,"spaceAfterMm":2,"pageBreakBefore":false}},"paragraph":{"spaceAfterMm":2.5},"code":{"size":9},"table":{"borderWidth":0.5,"cellPaddingMm":1.5,"headerBold":true}},"header":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{title}","center":"","right":"{controlNumber}"},"footer":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{versionCode}  {statusLabel}","center":"{page} / {pages}","right":"{printedAt:yyyy/MM/dd}"},"custom":{"company":""}}}',
   revision integer DEFAULT 1,
   symbol varchar(16) DEFAULT '',
   remarks varchar(1024),

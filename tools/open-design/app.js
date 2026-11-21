@@ -99,6 +99,7 @@
     wr: "実績登録",
     "wr/plan": "実績登録",
     manual: "マニュアル",
+    "ap/list": "承認一覧",
     "manual/page": "マニュアル",
     customers: "顧客",
     orders: "出荷",
@@ -182,6 +183,7 @@
     if ((m = r.match(/^departments\/([\w-]+)\/kind$/))) return { name: "departments/kind", id: m[1] };
     if (!ROUTES[r] && (m = r.match(/^departments\/([\w-]+)$/))) return { name: "departments/dept", id: m[1] };
     if ((m = r.match(/^manual\/([\w-]+)$/))) return { name: "manual/page", id: m[1] };
+    if ((m = r.match(/^ap\/(\w+)$/))) return { name: "ap/list", gid: m[1] };
     if ((m = r.match(/^wr\/([\w-]+)$/))) return { name: "wr/plan", id: m[1] };
     if (!ROUTES[r] && (m = r.match(/^locations\/([\w-]+)$/))) return { name: "locations/item", id: m[1] };
     if ((m = r.match(/^equipment\/cat\/([\w-]+)$/))) return { name: "equipment/cat", id: m[1] };
@@ -305,6 +307,7 @@
         ${avatarImg("avatar-lg")}
         <div class="od-fill"><p class="dash-hello">ログイン中</p><h2 class="dash-name od-truncate">${D.user.name}</h2><p class="muted od-truncate">${D.user.role} ・ ${D.asOf}</p></div>
       </section>
+      ${apvAlert()}
       ${late.length ? `<div class="alert" role="alert">${icon("alert")}<div class="od-fill"><strong>遅延ラインが${late.length}本あります</strong><p>${late.map((l) => `${l.site} ${l.name}`).join("、")}。<a href="#/production">生産計画・進捗で確認する</a></p></div></div>` : ""}
       <section aria-label="本日の概況"><div class="grid-stats">
         ${stat("#/orders", "orders", "新規受注", cnt("受注"), "件")}
@@ -943,10 +946,10 @@
   /* ---------- generic table structure (used by the approval tables) ---------- */
   const TABLES = {}; // every makeTable() result, looked up by key from the DOM (data-tkey)
   function makeTable({ key, cols, hidden = [], list, search, placeholder = "", filter = null, sort = null, href = null, pick = null, nest = null, always = false, noun = "件", rowNote = null, linkAria = "を編集" }) {
-    const view = { sort: sort ? { ...sort } : { key: null, dir: 1 }, q: "", type: "すべて", hidden: new Set(hidden), colsOpen: false, limit: null };
+    const view = { sort: sort ? { ...sort } : { key: null, dir: 1 }, q: "", type: "すべて", hidden: new Set(hidden), colsOpen: false, limit: null, only: null };
     const shown = () => cols.filter((c) => c.fixed || !view.hidden.has(c.key));
     const rows = () => {
-      let l = list().filter((r) => (!filter || view.type === "すべて" || filter.get(r) === view.type) && (!view.q || search(r).includes(view.q)));
+      let l = list().filter((r) => (!view.only || r.id === view.only) && (!filter || view.type === "すべて" || filter.get(r) === view.type) && (!view.q || search(r).includes(view.q)));
       const c = cols.find((x) => x.key === view.sort.key);
       if (c) l = [...l].sort((a, b) => { const x = c.val(a), y = c.val(b); return view.sort.dir * (typeof x === "number" ? x - y : String(x).localeCompare(String(y), "ja", { numeric: true })); });
       return l;
@@ -2672,6 +2675,10 @@
     const tab = S.tabs.find((t) => t.id === tabId) ?? S.tabs[0];
     const E = G[tab.root];
     const base = `#/g/${sid}/${tab.id}`;
+    /* 承認一覧などから ?id=<行ID> で開いたときは、そのレコード 1 件に絞り込んで選択する */
+    const onlyId = hashQuery().get("id");
+    [E.table, E.rootTable].forEach((T) => { if (T) T.view.only = onlyId && D[E.coll].some((r) => r.id === onlyId) ? onlyId : null; });
+    if (E.table?.view.only) gSelect(E.key, onlyId);
     if (tab.nest) {
       return `${backLink(edit ? base : "#/menu", edit ? "閲覧に戻る" : "メニューに戻る")}${flashHtml()}
         ${gTabBar(S, tab.id, edit)}
@@ -2690,7 +2697,7 @@
       ? block(true, addBtn)
       : block(false, editLink(`${base}/edit`, tab.label)) +
         (gSel[E.key] ? gWalk(E.key) : E.children.length ? `<section class="card">${emptyState(`${E.label}を選んでください`, `上の一覧で${E.label}の名称を選ぶと、${E.children.map((c) => G[c].label).join("・")}がここに表示されます。`)}</section>` : "");
-    return `${backLink(edit ? base : "#/menu", edit ? "閲覧に戻る" : "メニューに戻る")}${flashHtml()}
+    return `${backLink(edit ? base : "#/menu", edit ? "閲覧に戻る" : "メニューに戻る")}${flashHtml()}${E.table?.view.only ? `<p class="tbl-note-out">承認一覧から開いたレコード1件に絞り込んでいます。<a href="${base}">絞り込みを解除</a></p>` : ""}
       ${gTabBar(S, tab.id, edit)}
       <div class="tab-panel" ${S.tabs.length > 1 ? `role="tabpanel" aria-labelledby="tab-${tab.id}"` : ""}>${body}</div>`;
   }
@@ -2771,7 +2778,7 @@
       const S = GS[sid];
       if (sid === "doc") return row("#/manual", "list", "マニュアル", "品質管理文書のWiki（管理者は編集できます）");
       return row(`#/g/${sid}`, S.icon, S.label, S.tabs.map((t) => t.label).join("・"));
-    }).join("")}${g.id === "result" ? row("#/wr", "wrench", "実績登録", "生産計画の工程計画明細と、対になる実績の登録") : ""}${g.id === "result" ? row("#/barcode", "barcode", "バーコード", "作業実績・受入検品・棚移動・設備点検") + row("#/stock", "box", "在庫状況", "場所・コンテナ別の在庫と出庫可能数") : ""}${g.id === "plan" ? row("#/mrp", "box", "資材所要計算", "MRP・再MRPの実行") : ""}</section>`).join("") +
+    }).join("")}${APV_GROUPS[g.id] ? row(`#/ap/${g.id}`, "check", "承認一覧", `未承認 ${apvCount(g.id)}件`) : ""}${g.id === "result" ? row("#/wr", "wrench", "実績登録", "生産計画の工程計画明細と、対になる実績の登録") : ""}${g.id === "result" ? row("#/barcode", "barcode", "バーコード", "作業実績・受入検品・棚移動・設備点検") + row("#/stock", "box", "在庫状況", "場所・コンテナ別の在庫と出庫可能数") : ""}${g.id === "plan" ? row("#/mrp", "box", "資材所要計算", "MRP・再MRPの実行") : ""}</section>`).join("") +
       `<section class="card list-card" aria-label="アプリケーション">${row("#/settings", "gear", "設定", "自分のイメージ・読込件数・テーマ・言語・画面の列")}</section>`;
   }
 
@@ -3141,6 +3148,151 @@
     if (first && !q) first.focus?.();
   }
   function bindWr() { /* ボタンは document の委譲（表の再描画で消えないように） */ }
+
+  /* ---------- 承認一覧（メニューごと）と、ダッシュボードの承認待ち通知 ----------
+     ログインユーザーが承認者になっている「未承認」のレコードだけを、区分ごとのタブで表示する。
+       品質管理文書 → 文書 / 営業 → 受注 / 購買 → 発注・非計上発注 / 出荷管理 → 出荷 / 品質共通 → 異常・再発防止
+     「参照」を押すと、該当するレコードの画面へ移り、そのレコード 1 件に絞り込む（?id=）。
+     行を押して複数を選び、まとめて承認する。承認の前に内容を確認し、担当者のパスワードでアカウントを照合する
+     （プロトタイプのパスワードは、ログインと同じ demo-password）。承認すると、DB の更新結果を表示する（模擬）。 */
+  const APV = JSON.parse(JSON.stringify(X.approval ?? { items: [] }));
+  const APV_GROUPS = {
+    qdoc: [{ kind: "doc", label: "文書" }],
+    sales: [{ kind: "order", label: "受注" }],
+    ship: [{ kind: "shipplan", label: "出荷" }],
+    purchasing: [{ kind: "purchase", label: "発注" }, { kind: "unrec", label: "非計上発注" }],
+    qcommon: [{ kind: "disposal", label: "異常" }, { kind: "recur", label: "再発防止" }],
+  };
+  const APV_KIND = { doc: "文書", order: "受注", shipplan: "出荷", purchase: "発注", unrec: "非計上発注", disposal: "異常", recur: "再発防止" };
+  const apvState = { tab: {}, sel: new Set(), dlg: { items: [], err: "", busy: false, result: null } };
+  const apvMine = (kind) => APV.items.filter((x) => x.kind === kind && x.status === "未承認" && x.approver === D.user.name);
+  const apvGroupLabel = (gid) => DOM.groups.find((g) => g.id === gid)?.label ?? gid;
+  const apvRoute = (it) => (it.kind === "doc" ? `#/manual/${it.ref}` : `#/g/${it.kind}/main?id=${it.ref}`);
+  const apvCount = (gid) => APV_GROUPS[gid].reduce((n, t) => n + apvMine(t.kind).length, 0);
+  const apvTotal = () => Object.keys(APV_GROUPS).reduce((n, g) => n + apvCount(g), 0);
+  /* ダッシュボードの通知（遅延ラインと同じ注意レベルの表示） */
+  const apvAlert = () => {
+    const total = apvTotal();
+    if (!total) return "";
+    const links = Object.keys(APV_GROUPS).filter((g) => apvCount(g)).map((g) => `<a href="#/ap/${g}">${esc(apvGroupLabel(g))}の承認一覧（${APV_GROUPS[g].filter((t) => apvMine(t.kind).length).map((t) => `${t.label} ${apvMine(t.kind).length}件`).join("・")}）</a>`);
+    return `<div class="alert" role="alert">${icon("alert")}<div class="od-fill"><strong>承認待ちが${total}件あります</strong><p>${links.join("、")}。</p></div></div>`;
+  };
+  const apvTables = {};
+  const apvTable = (kind) => (apvTables[kind] ??= makeTable({
+    key: `apv_${kind}`, noun: "件", list: () => apvMine(kind), search: (r) => `${r.refLabel} ${r.title} ${r.applicant} ${r.detail}`, placeholder: "番号・件名・申請者",
+    cols: [
+      { key: "sel", label: "選択", val: (r) => (apvState.sel.has(r.id) ? 0 : 1), html: (r) => `<input type="checkbox" class="ap-chk" data-ap-sel="${r.id}" ${apvState.sel.has(r.id) ? "checked" : ""} aria-label="${esc(r.refLabel)}を選択">` },
+      { key: "ref", label: "参照", fixed: true, val: (r) => r.refLabel, html: (r) => `<a class="wk" href="${apvRoute(r)}" title="該当するレコードの画面を開きます">${esc(r.refLabel)}</a>` },
+      { key: "title", label: "件名", val: (r) => r.title },
+      { key: "detail", label: "内容", val: (r) => r.detail },
+      { key: "applicant", label: "申請者", val: (r) => r.applicant },
+      { key: "at", label: "申請日", val: (r) => r.at, html: (r) => `<span class="od-nowrap">${fmtDate(r.at)}</span>` },
+      { key: "step", label: "承認の段階", val: (r) => r.step },
+    ],
+  }));
+  function apvScreen(gid) {
+    const tabs = APV_GROUPS[gid];
+    if (!tabs) return notFound("承認一覧が見つかりません", "#/menu");
+    const tab = tabs.find((t) => t.kind === apvState.tab[gid]) ?? tabs[0];
+    apvState.tab[gid] = tab.kind;
+    const ids = new Set(apvMine(tab.kind).map((x) => x.id));
+    [...apvState.sel].forEach((i) => { if (!ids.has(i)) apvState.sel.delete(i); });
+    const tabBar = `<div class="filters" role="tablist" aria-label="承認の区分">${tabs.map((t) => `<button class="fchip" type="button" role="tab" data-ap-tab="${t.kind}" aria-selected="${t.kind === tab.kind}" aria-pressed="${t.kind === tab.kind}">${t.label}<span class="fchip-n od-nowrap">${apvMine(t.kind).length}件</span></button>`).join("")}</div>`;
+    return `${backLink("#/menu", "メニューに戻る")}
+      <p class="tbl-note-out">${esc(D.user.name)} さんが承認者になっている、未承認のものです。参照を押すと、該当するレコードの画面を開きます。行を押して選ぶと、複数をまとめて承認できます。</p>
+      ${tabBar}
+      <div class="ap-bar" data-ap-bar role="region" aria-label="選択と承認"></div>
+      ${tableCard(apvTable(tab.kind), false, "h-apv", `${esc(apvGroupLabel(gid))} › ${tab.label}の未承認`, "")}`;
+  }
+  function apvPaintBar() {
+    const bar = document.querySelector("[data-ap-bar]");
+    if (!bar) return;
+    const n = apvState.sel.size;
+    bar.innerHTML = `<span class="ap-count" role="status">選択中 <strong>${n}</strong>件</span>
+      <button class="btn" type="button" data-ap-all>すべて選択</button><button class="btn" type="button" data-ap-none ${n ? "" : "disabled"}>選択を解除</button>
+      <button class="btn btn-primary" type="button" data-ap-go ${n ? "" : "disabled"}>${icon("check")}<span>承認する（${n}件）</span></button>`;
+    bar.querySelector("[data-ap-all]").addEventListener("click", () => { const k = document.querySelector("[data-ap-tab][aria-selected='true']").dataset.apTab; apvMine(k).forEach((x) => apvState.sel.add(x.id)); apvSyncRows(); });
+    bar.querySelector("[data-ap-none]").addEventListener("click", () => { apvState.sel.clear(); apvSyncRows(); });
+    bar.querySelector("[data-ap-go]").addEventListener("click", (e) => apvOpenDlg(e.currentTarget));
+  }
+  function apvSyncRows() {
+    document.querySelectorAll("[data-ap-sel]").forEach((cb) => { cb.checked = apvState.sel.has(cb.dataset.apSel); cb.closest("tr")?.classList.toggle("is-selected", cb.checked); });
+    apvPaintBar();
+  }
+  function bindApv() {
+    const tabs = document.querySelectorAll("[data-ap-tab]");
+    if (!tabs.length) return;
+    tabs.forEach((b) => b.addEventListener("click", () => {
+      const gid = Object.keys(APV_GROUPS).find((g) => APV_GROUPS[g].some((t) => t.kind === b.dataset.apTab));
+      apvState.tab[gid] = b.dataset.apTab;
+      apvState.sel.clear();
+      render();
+    }));
+    apvSyncRows();
+  }
+  /* 行を押して選ぶ（リンク・ボタンは除く）。表の再描画で消えないよう、document で受ける */
+  document.addEventListener("click", (e) => {
+    const tr = e.target.closest(".tbl-host[data-tkey^='apv_'] tbody tr");
+    if (!tr || e.target.closest("a, button")) return;
+    const cb = tr.querySelector("[data-ap-sel]");
+    if (!cb) return;
+    if (e.target !== cb) cb.checked = !cb.checked;
+    if (cb.checked) apvState.sel.add(cb.dataset.apSel); else apvState.sel.delete(cb.dataset.apSel);
+    tr.classList.toggle("is-selected", cb.checked);
+    apvPaintBar();
+  });
+
+  /* ---- 承認のダイアログ（内容の確認 → パスワードの照合 → 結果） ---- */
+  function apvDlgHtml() {
+    const d = apvState.dlg;
+    const list = (items) => `<ul class="apv-list">${items.map((x) => `<li><strong class="od-nowrap">${esc(APV_KIND[x.kind])}　${esc(x.refLabel)}</strong><span>${esc(x.title)}</span><span class="muted">${esc(x.detail)} ・ 申請者 ${esc(x.applicant)}（${fmtDate(x.at)}）</span></li>`).join("")}</ul>`;
+    if (d.busy) return `<div class="wr-busy" role="status" aria-busy="true"><span class="spinner" aria-hidden="true"></span><p>アカウントを照合して、DB に承認を登録しています…</p></div>`;
+    if (d.result) {
+      return `<div class="wr-result" role="status"><p class="wr-ok">${icon("check")}<strong>${d.result.items.length}件を承認しました</strong></p>${list(d.result.items)}
+        <dl class="wr-info"><div class="kv"><dt>承認者</dt><dd>${esc(D.user.name)}</dd></div><div class="kv"><dt>承認日時</dt><dd class="od-nowrap">${esc(d.result.at)}</dd></div></dl>
+        <p class="note">DB の更新結果: 承認 ${d.result.items.length}件を更新／承認履歴 +${d.result.items.length}件</p>
+        <div class="form-actions"><button class="btn btn-primary wr-big" type="button" data-apv-close>閉じる</button></div></div>`;
+    }
+    return `<form class="wr-form" data-apv-form novalidate>
+      <p class="wr-line">次の${d.items.length}件を承認します。内容を確認してください。</p>${list(d.items)}
+      <div class="field-row"><label for="apv-pw">担当者のパスワード<span class="req">必須</span></label>
+        <input id="apv-pw" type="password" autocomplete="current-password" aria-describedby="apv-note apv-err" ${d.err ? 'aria-invalid="true"' : ""}>
+        <p class="note" id="apv-note">${esc(D.user.name)} さんのアカウントを照合します。</p><p class="field-err" id="apv-err" role="alert">${esc(d.err)}</p></div>
+      <div class="form-actions"><button class="btn" type="button" data-close>キャンセル</button><button class="btn btn-primary wr-big" type="submit">承認する（${d.items.length}件）</button></div></form>`;
+  }
+  function apvPaint() {
+    const el = document.getElementById("apv-dlg");
+    if (!el) return;
+    el.innerHTML = apvDlgHtml();
+    el.querySelectorAll("[data-close]").forEach((b) => b.addEventListener("click", () => closeSheet()));
+    el.querySelector("[data-apv-close]")?.addEventListener("click", () => { closeSheet(); render(); });
+    el.querySelector("[data-apv-form]")?.addEventListener("submit", (e) => { e.preventDefault(); apvSubmit(el.querySelector("#apv-pw").value); });
+    el.querySelector("#apv-pw")?.focus();
+  }
+  function apvSubmit(pw) {
+    const d = apvState.dlg;
+    d.err = "";
+    if (!pw) { d.err = "パスワードを入力してください。"; return apvPaint(); }
+    d.busy = true;
+    apvPaint();
+    setTimeout(() => {
+      d.busy = false;
+      if (pw !== "demo-password") { d.err = "パスワードが正しくありません。もう一度入力してください。承認はまだ登録されていません。"; return apvPaint(); }
+      const at = `${manNowStr()} ${new Date().toTimeString().slice(0, 5)}`;
+      d.items.forEach((x) => { x.status = "承認済"; x.approvedAt = at; x.approvedBy = D.user.name; });
+      d.items.forEach((x) => apvState.sel.delete(x.id));
+      d.result = { items: d.items, at };
+      apvPaint();
+      render();
+    }, 900);
+  }
+  function apvOpenDlg(trigger) {
+    const kind = document.querySelector("[data-ap-tab][aria-selected='true']")?.dataset.apTab;
+    const items = apvMine(kind).filter((x) => apvState.sel.has(x.id));
+    if (!items.length) return;
+    Object.assign(apvState.dlg, { items, err: "", busy: false, result: null });
+    showSheet(trigger, { chip: chip("承認", "check"), title: "承認の確認", rows: [], extra: `<div id="apv-dlg" class="wr-dlg"></div>`, onMount: () => apvPaint() });
+  }
 
   /* ---------- マニュアル（Wiki）: 品質管理文書 › マニュアル ----------
      ページの正本は Markdown（body_md＝本文。ページ名は別項目）。表示は MD → HTML（HTML は無効化）、編集は MD / ビジュアル(WYSIWYG)を切り替え。
@@ -4433,6 +4585,7 @@
     bindBarcode();
     bindWr();
     bindMan();
+    bindApv();
     document.querySelector("[data-admin-toggle]")?.addEventListener("change", (e) => {
       SETTINGS.admin = e.target.checked;
       try { localStorage.setItem("od.admin", SETTINGS.admin ? "1" : "0"); } catch { /* session only */ }
@@ -4526,7 +4679,7 @@
       { id: "maintenance", icon: "wrench", label: "保全" },
     ] },
     ...DOM.groups.map((g) => ({ group: `g_${g.id}`, icon: g.icon, label: g.label,
-      children: [...(g.id === "result" ? [{ id: "wr", icon: "wrench", label: "実績登録" }, { id: "barcode", icon: "barcode", label: "バーコード" }] : []), ...g.screens.map((sid) => (sid === "doc" ? { id: "manual", icon: "list", label: "マニュアル" } : { id: `g/${sid}`, icon: GS[sid].icon, label: GS[sid].label }))] })),
+      children: [...(g.id === "result" ? [{ id: "wr", icon: "wrench", label: "実績登録" }, { id: "barcode", icon: "barcode", label: "バーコード" }] : []), ...g.screens.map((sid) => (sid === "doc" ? { id: "manual", icon: "list", label: "マニュアル" } : { id: `g/${sid}`, icon: GS[sid].icon, label: GS[sid].label })), ...(APV_GROUPS[g.id] ? [{ id: `ap/${g.id}`, icon: "check", label: "承認一覧" }] : [])] })),
     { id: "company", icon: "building", label: "会社情報" },
     /* DEV-ONLY: 確認用のメニュー（メンテナンス中・アクセス拒否）。実際の APP には含めない（フラグ・権限の結果で表示される） */
     { id: "maintenance-mode", icon: "wrench", label: "メンテナンス中", devOnly: true },
@@ -4536,7 +4689,7 @@
   NAV.find((n) => n.group === "g_result")?.children.push({ id: "stock", icon: "box", label: "在庫状況" });
   const navOpen = new Set(); // expanded groups (PC / drawer)
   let navPop = null; // group whose fly-out is open (icon-only tablet sidebar)
-  const isCurNav = (id, r) => (id.startsWith("g/") ? gCurScreen() === id.slice(2) : id === "company" ? /^(company|sites|departments|staff|approval|offerings)/.test(r) : id === "home" ? ["home", "orders", "production"].includes(r) : r === id || r.startsWith(id + "/"));
+  const isCurNav = (id, r) => (id.startsWith("ap/") ? (r === "ap/list" && parseRoute().gid === id.slice(3)) : id.startsWith("g/") ? gCurScreen() === id.slice(2) : id === "company" ? /^(company|sites|departments|staff|approval|offerings)/.test(r) : id === "home" ? ["home", "orders", "production"].includes(r) : r === id || r.startsWith(id + "/"));
   const navHtml = () => {
     const r = currentRoute();
     const link = (n, cls = "") =>
@@ -4709,6 +4862,7 @@
         "wr/plan": () => wrScreen(P.id),
         manual: () => manScreen(null),
         "manual/page": () => manScreen(P.id),
+        "ap/list": () => apvScreen(P.gid),
         settings: settingsScreen,
       }[route]();
       screen.innerHTML = pageHead(title, crumbOf(route)) + `<div class="${mobile ? "m-body" : "page-body"}">${["home", "orders", "production"].includes(route) ? dashTabs(route) : ""}${body}</div>`;

@@ -5,6 +5,9 @@ enum StampAnchor { topLeft, topRight, bottomLeft, bottomRight, center }
 /// どのページに出すか。first = 先頭のページ(ルートの文書の 1 ページ目)、all = 全ページ。
 enum StampPages { first, all }
 
+/// 本文との重なり。background = 透かし(本文の後ろ)、foreground = 本文の前。
+enum StampLayer { background, foreground }
+
 enum StampShapeKind { circle, roundRect, doubleFrame, dateStamp }
 
 /// 承認の段が複数のとき。all = 段ごとに並べる、last = 最後に承認した 1 つだけ。
@@ -177,6 +180,7 @@ class StampStyle {
     this.color = const StampColors(),
     this.labelLanguage = 'ja',
     this.stages = StampStages.all,
+    this.layer = StampLayer.background,
     this.items = const [
       StampItem(field: 'stamp_label', size: 14, line: 1),
       StampItem(field: 'approved_at', format: 'yyyy/MM/dd', size: 10, line: 2),
@@ -200,6 +204,9 @@ class StampStyle {
   /// スタンプの文字の言語(`ja`・`en`)。文字そのものは DB のビュー(`stamp_label_ja/en`)が持つ。
   final String labelLanguage;
   final StampStages stages;
+
+  /// 重ね方。既定は透かし(本文の後ろ)。
+  final StampLayer layer;
   final List<StampItem> items;
   final StampPendingStyle pending;
 
@@ -231,6 +238,7 @@ class StampStyle {
       color: StampColors.fromJson(m['color'], p),
       labelLanguage: readString(m, 'labelLanguage', d.labelLanguage, p, path),
       stages: readEnum(m, 'stages', StampStages.values, d.stages, p, path),
+      layer: readEnum(m, 'layer', StampLayer.values, d.layer, p, path),
       items: items,
       pending: StampPendingStyle.fromJson(m['pending'], p),
     );
@@ -248,6 +256,7 @@ class StampStyle {
     'color': color.toJson(),
     'labelLanguage': labelLanguage,
     'stages': stages.name,
+    'layer': layer.name,
     'items': [for (final e in items) e.toJson()],
     'pending': pending.toJson(),
   };

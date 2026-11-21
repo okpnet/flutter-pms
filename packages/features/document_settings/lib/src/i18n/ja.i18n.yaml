@@ -34,6 +34,7 @@ stamp:
   offsetY: 上下の距離(mm)
   pages: 出すページ
   look: 見た目
+  layer: 重ね方
   opacity: すかし(不透明度)
   shape: 形
   width: 幅(mm)
@@ -64,6 +65,9 @@ stamp:
   pagesValues:
     first: 先頭のページだけ
     all: 全ページ
+  layers:
+    background: 透かし(本文の後ろ)
+    foreground: 本文の前
   shapes:
     circle: 円
     roundRect: 角丸の四角

@@ -198,6 +198,24 @@ void main() {
     });
   });
 
+  group('重ね方(layer)', () {
+    test('既定は透かし(本文の後ろ)。右上 10mm', () {
+      expect(StampStyle.standard.layer, StampLayer.background);
+      expect(StampStyle.standard.position.anchor, StampAnchor.topRight);
+      expect(StampStyle.standard.position.offsetXmm, 10);
+      expect(StampStyle.standard.position.offsetYmm, 10);
+    });
+    test('JSON で本文の前に変えられ、不正な値は透かしに戻して知らせる', () {
+      expect(StampStyle.fromJson({'layer': 'foreground'}).layer, StampLayer.foreground);
+      final p = Problems();
+      expect(StampStyle.fromJson({'layer': 'middle'}, p).layer, StampLayer.background);
+      expect(p.messages.single, contains('layer'));
+    });
+    test('承認パターンの上書きで、そのパターンだけ本文の前にできる', () {
+      expect(StampStyle.resolve(StampStyle.standard.toJson(), {'layer': 'foreground'}).layer, StampLayer.foreground);
+    });
+  });
+
   group('StampContentBuilder', () {
     const b = StampContentBuilder();
     final approved = ApprovalStepInfo(

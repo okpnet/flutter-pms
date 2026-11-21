@@ -119,6 +119,7 @@ class _DocumentSettingsStrings$stamp$en extends DocumentSettingsStrings$stamp$ja
 	@override String get offsetY => 'Vertical offset (mm)';
 	@override String get pages => 'Pages';
 	@override String get look => 'Appearance';
+	@override String get layer => 'Layering';
 	@override String get opacity => 'Opacity';
 	@override String get shape => 'Shape';
 	@override String get width => 'Width (mm)';
@@ -142,6 +143,7 @@ class _DocumentSettingsStrings$stamp$en extends DocumentSettingsStrings$stamp$ja
 	@override String get pendingColor => 'Color';
 	@override late final _DocumentSettingsStrings$stamp$anchors$en anchors = _DocumentSettingsStrings$stamp$anchors$en._(_root);
 	@override late final _DocumentSettingsStrings$stamp$pagesValues$en pagesValues = _DocumentSettingsStrings$stamp$pagesValues$en._(_root);
+	@override late final _DocumentSettingsStrings$stamp$layers$en layers = _DocumentSettingsStrings$stamp$layers$en._(_root);
 	@override late final _DocumentSettingsStrings$stamp$shapes$en shapes = _DocumentSettingsStrings$stamp$shapes$en._(_root);
 	@override late final _DocumentSettingsStrings$stamp$stagesValues$en stagesValues = _DocumentSettingsStrings$stamp$stagesValues$en._(_root);
 	@override late final _DocumentSettingsStrings$stamp$fields$en fields = _DocumentSettingsStrings$stamp$fields$en._(_root);
@@ -228,6 +230,17 @@ class _DocumentSettingsStrings$stamp$pagesValues$en extends DocumentSettingsStri
 	@override String get all => 'All pages';
 }
 
+// Path: stamp.layers
+class _DocumentSettingsStrings$stamp$layers$en extends DocumentSettingsStrings$stamp$layers$ja {
+	_DocumentSettingsStrings$stamp$layers$en._(DocumentSettingsStringsEn root) : this._root = root, super.internal(root);
+
+	final DocumentSettingsStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get background => 'Watermark (behind the text)';
+	@override String get foreground => 'In front of the text';
+}
+
 // Path: stamp.shapes
 class _DocumentSettingsStrings$stamp$shapes$en extends DocumentSettingsStrings$stamp$shapes$ja {
 	_DocumentSettingsStrings$stamp$shapes$en._(DocumentSettingsStringsEn root) : this._root = root, super.internal(root);
@@ -307,6 +320,7 @@ extension on DocumentSettingsStringsEn {
 			'stamp.offsetY' => 'Vertical offset (mm)',
 			'stamp.pages' => 'Pages',
 			'stamp.look' => 'Appearance',
+			'stamp.layer' => 'Layering',
 			'stamp.opacity' => 'Opacity',
 			'stamp.shape' => 'Shape',
 			'stamp.width' => 'Width (mm)',
@@ -335,6 +349,8 @@ extension on DocumentSettingsStringsEn {
 			'stamp.anchors.center' => 'Center',
 			'stamp.pagesValues.first' => 'First page only',
 			'stamp.pagesValues.all' => 'All pages',
+			'stamp.layers.background' => 'Watermark (behind the text)',
+			'stamp.layers.foreground' => 'In front of the text',
 			'stamp.shapes.circle' => 'Circle',
 			'stamp.shapes.roundRect' => 'Rounded rectangle',
 			'stamp.shapes.doubleFrame' => 'Double frame',

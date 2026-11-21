@@ -202,6 +202,21 @@ class StampPagePreview extends StatelessWidget {
             ],
           ),
         );
+    final stampWidgets = <Widget>[
+      for (var i = 0; i < places.length; i++)
+        Positioned(
+          left: places[i].xMm * pxPerMm,
+          top: places[i].yMm * pxPerMm,
+          child: ApprovalStampView(
+            key: Key('stamp-preview-$i'),
+            card: cards[i],
+            style: style,
+            themeVars: settings.theme.vars,
+            pxPerMm: pxPerMm,
+            rotationDeg: places[i].rotationDeg,
+          ),
+        ),
+    ];
     return Semantics(
       label: 'page-preview',
       child: Container(
@@ -215,6 +230,7 @@ class StampPagePreview extends StatelessWidget {
         child: Stack(
           clipBehavior: Clip.none,
           children: [
+            if (style.layer == StampLayer.background) ...stampWidgets,
             Positioned(
               left: m.left * pxPerMm,
               right: m.right * pxPerMm,
@@ -244,19 +260,7 @@ class StampPagePreview extends StatelessWidget {
                 ],
               ),
             ),
-            for (var i = 0; i < places.length; i++)
-              Positioned(
-                left: places[i].xMm * pxPerMm,
-                top: places[i].yMm * pxPerMm,
-                child: ApprovalStampView(
-                  key: Key('stamp-preview-$i'),
-                  card: cards[i],
-                  style: style,
-                  themeVars: settings.theme.vars,
-                  pxPerMm: pxPerMm,
-                  rotationDeg: places[i].rotationDeg,
-                ),
-              ),
+            if (style.layer == StampLayer.foreground) ...stampWidgets,
           ],
         ),
       ),
