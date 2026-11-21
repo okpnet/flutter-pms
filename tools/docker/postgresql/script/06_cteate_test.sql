@@ -25065,7 +25065,6 @@ BEGIN
                 NEW.mstr_approval_pattern_id,
                 NEW.names,
                 NEW.stamp_style,
-
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
@@ -25073,7 +25072,6 @@ BEGIN
                 OLD.mstr_approval_pattern_id,
                 OLD.names,
                 OLD.stamp_style,
-
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -25089,6 +25087,7 @@ BEGIN
             mstr_approval_pattern_id,
             names,
             revision,
+            stamp_style,
             symbol,
             remarks,
             update_at,
@@ -25102,7 +25101,6 @@ BEGIN
             NEW.names,
             NEW.revision,
             NEW.stamp_style,
-
             NEW.symbol,
             NEW.remarks,
             NEW.update_at,
@@ -27296,7 +27294,6 @@ BEGIN
                 NEW.info_company_id,
                 NEW.name,
                 NEW.settings,
-
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
@@ -27305,7 +27302,6 @@ BEGIN
                 OLD.info_company_id,
                 OLD.name,
                 OLD.settings,
-
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -27322,6 +27318,7 @@ BEGIN
             info_company_id,
             name,
             revision,
+            settings,
             symbol,
             remarks,
             update_at,
@@ -27336,7 +27333,6 @@ BEGIN
             NEW.name,
             NEW.revision,
             NEW.settings,
-
             NEW.symbol,
             NEW.remarks,
             NEW.update_at,
