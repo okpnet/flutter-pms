@@ -216,6 +216,30 @@ enum SharedTextValuesOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum TransApprovalPatternsOrderBy {
+  NATURAL
+  TRANS_APPROVAL_PATTERN_ID_ASC
+  TRANS_APPROVAL_PATTERN_ID_DESC
+  MSTR_APPROVAL_PATTERN_ID_ASC
+  MSTR_APPROVAL_PATTERN_ID_DESC
+  STATUS_ASC
+  STATUS_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 enum VDocumentApprovalStampsOrderBy {
   NATURAL
   TRANS_PREAPPROVAL_ID_ASC
@@ -367,6 +391,11 @@ type MstrApproval {
   sharedAppellationByNames: SharedAppellation
 }
 
+type MstrApprovalPattern {
+  mstrApprovalPatternId: UUID!
+  stampStyle: JSON
+}
+
 type MstrDocument {
   mstrDocumentId: UUID!
   code: String!
@@ -475,6 +504,7 @@ type Query {
   allMstrDocumentTiers(first: Int, offset: Int, orderBy: [MstrDocumentTiersOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrDocumentTierFilter): MstrDocumentTiersConnection
   allSharedLanguageCodes(first: Int, offset: Int, orderBy: [SharedLanguageCodesOrderBy!] = [PRIMARY_KEY_ASC], filter: SharedLanguageCodeFilter): SharedLanguageCodesConnection
   allSharedTextValues(first: Int, offset: Int, orderBy: [SharedTextValuesOrderBy!] = [PRIMARY_KEY_ASC], filter: SharedTextValueFilter): SharedTextValuesConnection
+  allTransApprovalPatterns(first: Int, offset: Int, orderBy: [TransApprovalPatternsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransApprovalPatternFilter): TransApprovalPatternsConnection
   allVDocumentApprovalStamps(first: Int, offset: Int, orderBy: [VDocumentApprovalStampsOrderBy!] = [PRIMARY_KEY_ASC], filter: VDocumentApprovalStampFilter): VDocumentApprovalStampsConnection
   allVDocumentPublications(first: Int, offset: Int, orderBy: [VDocumentPublicationsOrderBy!] = [PRIMARY_KEY_ASC], filter: VDocumentPublicationFilter): VDocumentPublicationsConnection
 }
@@ -535,6 +565,18 @@ type SharedTextValue {
 
 type SharedTextValuesConnection {
   nodes: [SharedTextValue]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type TransApprovalPattern {
+  transApprovalPatternId: UUID!
+  mstrApprovalPatternId: UUID!
+  mstrApprovalPatternByMstrApprovalPatternId: MstrApprovalPattern
+}
+
+type TransApprovalPatternsConnection {
+  nodes: [TransApprovalPattern]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
@@ -1013,6 +1055,25 @@ input IntFilter {
   greaterThanOrEqualTo: Int
 }
 
+input JSONFilter {
+  isNull: Boolean
+  equalTo: JSON
+  notEqualTo: JSON
+  distinctFrom: JSON
+  notDistinctFrom: JSON
+  in: [JSON!]
+  notIn: [JSON!]
+  lessThan: JSON
+  lessThanOrEqualTo: JSON
+  greaterThan: JSON
+  greaterThanOrEqualTo: JSON
+  contains: JSON
+  containsKey: String
+  containsAllKeys: [String!]
+  containsAnyKeys: [String!]
+  containedBy: JSON
+}
+
 input MstrApprovalFilter {
   mstrApprovalId: UUIDFilter
   infoDepartmentId: UUIDFilter
@@ -1039,6 +1100,29 @@ input MstrApprovalFilter {
   and: [MstrApprovalFilter!]
   or: [MstrApprovalFilter!]
   not: MstrApprovalFilter
+}
+
+input MstrApprovalPatternFilter {
+  mstrApprovalPatternId: UUIDFilter
+  names: UUIDFilter
+  stampStyle: JSONFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transApprovalPatternsByMstrApprovalPatternIdExist: Boolean
+  mstrApprovalScopePatternsByMstrApprovalPatternIdExist: Boolean
+  historyMstrApprovalPatternsByMstrApprovalPatternIdExist: Boolean
+  mstrApprovalPatternDetailsByMstrApprovalPatternIdExist: Boolean
+  vApprovalPatternApprovalPatternCountByMstrApprovalPatternIdExists: Boolean
+  vApprovalPatternApprovalPatternDetailCountByMstrApprovalPatternIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrApprovalPatternFilter!]
+  or: [MstrApprovalPatternFilter!]
+  not: MstrApprovalPatternFilter
 }
 
 input MstrDocumentContentFilter {
@@ -1449,6 +1533,37 @@ input StringFilter {
   lessThanOrEqualToInsensitive: String
   greaterThanInsensitive: String
   greaterThanOrEqualToInsensitive: String
+}
+
+input TransApprovalPatternFilter {
+  transApprovalPatternId: UUIDFilter
+  mstrApprovalPatternId: UUIDFilter
+  status: JSONFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transOrdersByTransApprovalPatternIdExist: Boolean
+  transUnrecognizedsByTransApprovalPatternIdExist: Boolean
+  transPurchasesByTransApprovalPatternIdExist: Boolean
+  transComplaintsByApprovalsExist: Boolean
+  transShippingOrdersByTransApprovalPatternIdExist: Boolean
+  mstrDocumentsByTransApprovalPatternIdExist: Boolean
+  transPreapprovalsByTransApprovalPatternIdExist: Boolean
+  transDisposalsByApprovalsExist: Boolean
+  transRecurrencePreventionsByApprovalsExist: Boolean
+  vApprovalPatternDocumentCountByTransApprovalPatternIdExists: Boolean
+  vApprovalPatternPreapprovalCountByTransApprovalPatternIdExists: Boolean
+  vApprovalPendingsByTransApprovalPatternIdExist: Boolean
+  vDocumentApprovalStampsByTransApprovalPatternIdExist: Boolean
+  vDocumentPublicationsByTransApprovalPatternIdExist: Boolean
+  mstrApprovalPatternByMstrApprovalPatternId: MstrApprovalPatternFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransApprovalPatternFilter!]
+  or: [TransApprovalPatternFilter!]
+  not: TransApprovalPatternFilter
 }
 
 input UUIDFilter {

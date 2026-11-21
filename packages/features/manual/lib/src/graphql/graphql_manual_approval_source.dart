@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:approval_stamp/approval_stamp.dart';
 import 'package:manual_model/manual_model.dart';
 
@@ -8,7 +10,9 @@ import 'graphql_manual_client.dart';
 ///
 /// 判定・文字は DB のビューが持つ(`v_document_publication`: 公開・承認待ち・読める・スタンプ文字、`v_document_approval_stamp`:
 /// 承認の段ごとの状態)。この取得元は値を [ManualApproval] に詰めるだけで、公開の判定を持たない。
-/// 承認パターンごとのスタンプの様式(`stamp_style`)は読まない(標準の設定を使う)。
+/// 承認パターンごとのスタンプの様式(`mstr_approval_pattern.stamp_style`)は、承認の実行(`trans_approval_pattern`)から元の承認パターンを
+/// たどって読み、[ManualApproval.stampStyleOverride] に入れる(NULL は標準の設定。標準に重ねるのは `StampStyle.resolve`)。
+/// 様式は見た目だけのため、読めなくても(通信の失敗・不正な JSON)承認の状態は返し、標準の様式にする。
 ///
 /// パターン: Adapter(ビューの行 → 画面・PDF の承認の状態)
 class GraphqlManualApprovalSource implements IManualApprovalSource {
@@ -52,6 +56,8 @@ class GraphqlManualApprovalSource implements IManualApprovalSource {
         ),
     ]..sort((a, b) => a.priority.compareTo(b.priority));
 
+    final styleOverride = await _stampStyleOf(p['transApprovalPatternId']);
+
     return ManualApproval(
       published: p['published'] == true,
       pending: p['pending'] == true,
@@ -61,7 +67,28 @@ class GraphqlManualApprovalSource implements IManualApprovalSource {
       statusLabel: '${(_english ? p['stampLabelEn'] : p['stampLabelJa']) ?? ''}',
       controlNumber: '${p['controlNumber'] ?? ''}',
       versionCode: '${p['versionCode'] ?? ''}',
+      stampStyleOverride: styleOverride,
     );
+  }
+
+  /// 承認の実行([transApprovalPatternId])の元の承認パターンの `stamp_style`(JSON のオブジェクト)。無い・読めないときは null。
+  Future<Object?> _stampStyleOf(Object? transApprovalPatternId) async {
+    if (transApprovalPatternId == null) return null;
+    try {
+      final data = await api.run(documentNodeQueryManualApprovalStylePageRead, {
+        'first': 1,
+        'filter': {
+          'transApprovalPatternId': {'equalTo': '$transApprovalPatternId'},
+        },
+      });
+      final rows = ManualGraphqlClient.nodesOf(data, 'allTransApprovalPatterns');
+      if (rows.isEmpty) return null;
+      var style = (rows.first['pattern'] as Map?)?['stampStyle'];
+      if (style is String) style = jsonDecode(style);
+      return style is Map ? style : null;
+    } catch (_) {
+      return null;
+    }
   }
 
   static String _label(Object? labels) => ManualGraphqlClient.labelOf(labels);

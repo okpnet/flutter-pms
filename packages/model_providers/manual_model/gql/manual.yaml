@@ -316,3 +316,22 @@ ManualApprovalStampPage:
     - version_code
     - control_number
     - document_revision
+
+# 承認パターンごとのスタンプの様式。文書の承認の実行(trans_approval_pattern。ビュー v_document_publication の trans_approval_pattern_id)から、
+# 元の承認パターン(mstr_approval_pattern)の stamp_style(JSON。NULL は info_app.settings の標準)を引く
+ManualApprovalStylePage:
+  lightRead: true
+  kind: read
+  from: trans_approval_pattern
+  filter: true
+  columns:
+    - trans_approval_pattern_id
+    - mstr_approval_pattern_id
+    - name: pattern
+      as: pattern
+      arrayType: toFirstOne
+      using: mstr_approval_pattern_id
+      from: mstr_approval_pattern
+      columns:
+        - mstr_approval_pattern_id
+        - stamp_style

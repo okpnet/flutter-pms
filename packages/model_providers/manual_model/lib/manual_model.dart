@@ -2,6 +2,7 @@
 library;
 
 export 'src/contents/manual_approval_stamp_page_filter_spec.dart';
+export 'src/contents/manual_approval_style_page_filter_spec.dart';
 export 'src/contents/manual_content_page_filter_spec.dart';
 export 'src/contents/manual_document_page_filter_spec.dart';
 export 'src/contents/manual_language_page_filter_spec.dart';
@@ -11,6 +12,7 @@ export 'src/contents/manual_text_value_page_filter_spec.dart';
 export 'src/contents/manual_tier_page_filter_spec.dart';
 export 'src/graphql/manual_appellation_save_page/manual_appellation_save_page_call.graphql.dart';
 export 'src/graphql/manual_approval_stamp_page/manual_approval_stamp_page_read.graphql.dart';
+export 'src/graphql/manual_approval_style_page/manual_approval_style_page_read.graphql.dart';
 export 'src/graphql/manual_content_page/manual_content_page_create.graphql.dart';
 export 'src/graphql/manual_content_page/manual_content_page_read.graphql.dart';
 export 'src/graphql/manual_content_tree_page/manual_content_tree_page_create.graphql.dart';

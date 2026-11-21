@@ -5,11 +5,16 @@ import 'package:gql/ast.dart' show OperationDefinitionNode;
 import 'package:go_router/go_router.dart';
 import 'package:graphql/client.dart';
 import 'package:manual/manual.dart';
+import 'package:approval_stamp/approval_stamp.dart' show AppSettings, StampAnchor, StampLayer, StampStyle;
 
 class _FakeLink extends Link {
   final List<Request> requests = [];
   List<Map<String, dynamic>> publication = [];
   List<Map<String, dynamic>> steps = [];
+
+  /// 承認パターンの様式の応答(null は、行が無い)。例外を入れると、様式の読み込みが失敗する。
+  Object? style;
+  bool styleFails = false;
 
   @override
   Stream<Response> request(Request request, [NextLink? forward]) {
@@ -30,6 +35,20 @@ class _FakeLink extends Link {
       'ManualApprovalStampPageRead' => {
         'allVDocumentApprovalStamps': {'nodes': steps},
       },
+      'ManualApprovalStylePageRead' => styleFails
+          ? throw StateError('style failed')
+          : {
+              'allTransApprovalPatterns': {
+                'nodes': [
+                  if (style != null)
+                    {
+                      'transApprovalPatternId': 't1',
+                      'mstrApprovalPatternId': 'm1',
+                      'pattern': {'mstrApprovalPatternId': 'm1', 'stampStyle': style},
+                    },
+                ],
+              },
+            },
       _ => throw StateError('想定外の操作: $op'),
     };
     return Stream.value(Response(data: {'__typename': 'Query', ...data}, response: const {}));
@@ -98,6 +117,62 @@ void main() {
     expect(a.steps.first.approvedStaff, '佐藤');
     expect(a.steps.first.approvalName, '作成者');
     expect(a.steps.first.approved, isTrue);
+  });
+
+  Map<String, dynamic> pubRow() => {
+    'transApprovalPatternId': 't1',
+    'published': true,
+    'pending': false,
+    'readable': true,
+    'stampVisible': true,
+    'stampLabelJa': '承認',
+    'stampLabelEn': 'Approval',
+  };
+
+  test('承認パターンごとのスタンプの様式: 承認の実行から元の承認パターンの stamp_style を読み、重ねる値として渡す', () async {
+    final l = _FakeLink()
+      ..publication = [pubRow()]
+      ..style = {
+        'position': {'anchor': 'bottomLeft'},
+        'layer': 'foreground',
+      };
+    final a = await _source(l).of('d1');
+    expect(a.stampStyleOverride, {
+      'position': {'anchor': 'bottomLeft'},
+      'layer': 'foreground',
+    });
+    // 標準に重ねる(書いた項目だけが標準を上書きする)
+    final style = StampStyle.resolve(AppSettings.standard.stamp.toJson(), a.stampStyleOverride);
+    expect(style.position.anchor, StampAnchor.bottomLeft);
+    expect(style.position.offsetXmm, 10); // 書いていない項目は標準
+    expect(style.layer, StampLayer.foreground);
+    final request = l.requests.firstWhere((r) => r.operation.document.definitions.whereType<OperationDefinitionNode>().first.name?.value == 'ManualApprovalStylePageRead');
+    expect((request.variables['filter'] as Map)['transApprovalPatternId'], {'equalTo': 't1'});
+  });
+
+  test('様式が NULL(標準を使う)・行が無い・JSON の文字列・読み込みの失敗: 承認の状態は返し、様式は必要なときだけ', () async {
+    final none = _FakeLink()..publication = [pubRow()];
+    expect((await _source(none).of('d1')).stampStyleOverride, isNull); // 行が無い
+    final nullStyle = _FakeLink()
+      ..publication = [pubRow()]
+      ..style = null;
+    expect((await _source(nullStyle).of('d1')).stampStyleOverride, isNull);
+    final asString = _FakeLink()
+      ..publication = [pubRow()]
+      ..style = '{"opacity":0.3}';
+    expect((await _source(asString).of('d1')).stampStyleOverride, {'opacity': 0.3});
+    final failing = _FakeLink()
+      ..publication = [pubRow()]
+      ..styleFails = true;
+    final a = await _source(failing).of('d1');
+    expect(a.published, isTrue); // 承認の状態は返る
+    expect(a.stampStyleOverride, isNull); // 様式は標準
+  });
+
+  test('承認の実行が無い(承認不要)ときは、様式を読みにいかない', () async {
+    final l = _FakeLink()..publication = [{...pubRow()}..remove('transApprovalPatternId')];
+    expect((await _source(l).of('d1')).stampStyleOverride, isNull);
+    expect(l.requests.where((r) => r.operation.document.definitions.whereType<OperationDefinitionNode>().first.name?.value == 'ManualApprovalStylePageRead'), isEmpty);
   });
 
   test('英語のときは、スタンプの文字も英語', () async {

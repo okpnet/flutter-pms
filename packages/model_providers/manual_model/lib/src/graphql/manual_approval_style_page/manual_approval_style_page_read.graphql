@@ -1,0 +1,33 @@
+# manual_approval_style_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ManualApprovalStylePage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ManualApprovalStylePageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransApprovalPatternFilter = {and: []}
+  $orderBy: [TransApprovalPatternsOrderBy!]
+) {
+  allTransApprovalPatterns(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transApprovalPatternId
+      mstrApprovalPatternId
+
+      pattern: mstrApprovalPatternByMstrApprovalPatternId {
+        mstrApprovalPatternId
+        stampStyle
+      }
+    }
+  }
+}
