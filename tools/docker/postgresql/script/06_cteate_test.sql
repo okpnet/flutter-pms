@@ -23399,14 +23399,14 @@ ALTER TABLE tests.trans_unrecognized ADD CONSTRAINT trans_unrecognized_approval_
 ALTER TABLE tests.trans_shipping_order ADD CONSTRAINT trans_shipping_order_approval_fk FOREIGN KEY (trans_approval_pattern_id) REFERENCES tests.trans_approval_pattern (trans_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
 ALTER TABLE tests.trans_announcement ADD CONSTRAINT trans_announcement_preapproval_fk FOREIGN KEY (trans_preapproval_id) REFERENCES tests.trans_preapproval (trans_preapproval_id) DEFERRABLE INITIALLY DEFERRED;
 
-CREATE TRIGGER trg_05_approval_request BEFORE INSERT ON tests.mstr_document FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('document', 'trans_approval_pattern_id');
-CREATE TRIGGER trg_05_approval_request BEFORE INSERT ON tests.trans_order FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('order', 'trans_approval_pattern_id');
-CREATE TRIGGER trg_05_approval_request BEFORE INSERT ON tests.trans_purchase FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('purchase', 'trans_approval_pattern_id');
-CREATE TRIGGER trg_05_approval_request BEFORE INSERT ON tests.trans_unrecognized FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('unrecognized', 'trans_approval_pattern_id');
-CREATE TRIGGER trg_05_approval_request BEFORE INSERT ON tests.trans_shipping_order FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('shipping_order', 'trans_approval_pattern_id');
-CREATE TRIGGER trg_05_approval_request BEFORE INSERT ON tests.trans_complaint FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('complaint', 'approvals');
-CREATE TRIGGER trg_05_approval_request BEFORE INSERT ON tests.trans_disposal FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('disposal', 'approvals');
-CREATE TRIGGER trg_05_approval_request BEFORE INSERT ON tests.trans_recurrence_prevention FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('recurrence_prevention', 'approvals');
+CREATE TRIGGER trg_05_approval_request_mstr_document BEFORE INSERT ON tests.mstr_document FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('document', 'trans_approval_pattern_id');
+CREATE TRIGGER trg_05_approval_request_trans_order BEFORE INSERT ON tests.trans_order FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('order', 'trans_approval_pattern_id');
+CREATE TRIGGER trg_05_approval_request_trans_purchase BEFORE INSERT ON tests.trans_purchase FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('purchase', 'trans_approval_pattern_id');
+CREATE TRIGGER trg_05_approval_request_trans_unrecognized BEFORE INSERT ON tests.trans_unrecognized FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('unrecognized', 'trans_approval_pattern_id');
+CREATE TRIGGER trg_05_approval_request_trans_shipping_order BEFORE INSERT ON tests.trans_shipping_order FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('shipping_order', 'trans_approval_pattern_id');
+CREATE TRIGGER trg_05_approval_request_trans_complaint BEFORE INSERT ON tests.trans_complaint FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('complaint', 'approvals');
+CREATE TRIGGER trg_05_approval_request_trans_disposal BEFORE INSERT ON tests.trans_disposal FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('disposal', 'approvals');
+CREATE TRIGGER trg_05_approval_request_trans_recurrence_prevention BEFORE INSERT ON tests.trans_recurrence_prevention FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('recurrence_prevention', 'approvals');
 
 CREATE VIEW tests.v_approval_pending AS
 SELECT
