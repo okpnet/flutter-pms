@@ -673,3 +673,23 @@ features:
         code: S
         page: DS
         label: 承認スタンプ・PDF の設定
+  - feature: approval
+    code: K
+    label: 承認一覧
+    screens:
+      - screen: approval_quality_document
+        code: A
+        page: KA
+        label: 品質管理文書の承認一覧
+      - screen: approval_sales
+        code: B
+        page: KB
+        label: 営業の承認一覧
+      - screen: approval_purchasing
+        code: C
+        page: KC
+        label: 購買の承認一覧
+      - screen: approval_quality_common
+        code: D
+        page: KD
+        label: 品質共通の承認一覧

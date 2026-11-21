@@ -48,6 +48,32 @@ class SessionService {
     return current!;
   }
 
+  /// ログイン中のユーザーのパスワードを確認する(承認などの重要な操作の前の再入力)。
+  ///
+  /// 使い捨てのクライアントで、ユーザーIDとパスワードをサーバーへ送って照合する。今のセッション・GraphQL 用のトークンは変えない
+  /// (承認の途中でログインが切り替わらない)。一致すれば true、不一致なら false。パスワードは保存・ログに出さない。
+  ///
+  /// [PbException]: ログインしていなければ [PbFailureKind.unauthorized]。試行が多すぎれば [PbFailureKind.rateLimited]。
+  /// 通信・サーバーの失敗はそのまま。
+  Future<bool> verifyPassword(String password) async {
+    _connection.requireLogin();
+    final username = current?.username ?? '';
+    if (username.isEmpty || password.isEmpty) return false;
+    final scratch = _connection.newScratchClient();
+    try {
+      await _connection.guard(
+        'verifyPassword',
+        () => scratch.collection('users').authWithPassword(username, password),
+        badRequestAs: PbFailureKind.invalidCredentials,
+      );
+      return true;
+    } on PbException catch (e) {
+      // 不一致と、状態によるログインの拒否(403)は、区別しない
+      if (e.kind == PbFailureKind.invalidCredentials || e.kind == PbFailureKind.forbidden) return false;
+      rethrow;
+    }
+  }
+
   /// この端末のトークンを破棄する。PocketBase のトークンはサーバーで失効させられないため、
   /// 全端末を止めたいときは管理者がパスワードを変更する。
   Future<void> logout() async {

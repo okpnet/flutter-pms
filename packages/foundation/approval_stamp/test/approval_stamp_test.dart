@@ -219,7 +219,7 @@ void main() {
   group('承認の設定(種類ごとの承認パターン)', () {
     test('標準は、すべての種類が承認不要(null)', () {
       final a = AppSettings.standard.approval;
-      expect(ApprovalSettings.kinds, hasLength(7));
+      expect(ApprovalSettings.kinds, hasLength(8));
       for (final k in ApprovalSettings.kinds) {
         expect(a.patternOf(k), isNull, reason: k);
       }

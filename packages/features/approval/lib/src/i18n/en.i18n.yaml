@@ -1,0 +1,58 @@
+menuLabel: Approvals
+title: Approvals
+loading: Loading…
+loadFailed: Could not load the pending approvals.
+empty: There are no pending approvals.
+menus:
+  quality_document: Quality documents
+  sales: Sales
+  purchasing: Purchasing
+  quality_common: Quality (common)
+kinds:
+  document: Documents
+  order: Orders
+  shipping_order: Shipments
+  purchase: Purchase orders
+  unrecognized: Unrecorded purchases
+  complaint: Complaints
+  disposal: Dispositions
+  recurrence_prevention: Recurrence prevention
+list:
+  searchHint: Search subject, detail, applicant
+  selectAll: Select all
+  clearSelection: Clear selection
+  approve: Approve
+  refer: Open
+  cols:
+    subject: Subject
+    detail: Detail
+    applicant: Applicant
+    appliedAt: Applied on
+    step: Approval step
+  step: 'Step ${n}'
+  tabCount: '${label} (${count})'
+  selectedNote: '${n} selected'
+dialog:
+  title: Confirm approval
+  note: You are about to approve the following. Enter your password.
+  password: Password
+  passwordWrong: The password is incorrect. Nothing was approved.
+  passwordUnavailable: Could not verify the password. Please try again later.
+  confirm: Approve
+  cancel: Cancel
+  close: Close
+  busy: Saving…
+  resultTitle: Approval result
+  resultOk: '${n} approval(s) saved.'
+  resultFailed: '${n} could not be approved.'
+  by: 'Approver: ${name}'
+  at: 'Approved at: ${at}'
+  errors:
+    notApprover: You are not an approver for this step.
+    notYet: The previous step has not been approved.
+    already: Already approved.
+    notFound: The approval was not found.
+    other: Could not approve.
+alert:
+  summary: '${n} approval(s) pending'
+  link: '${menu} approvals (${detail})'

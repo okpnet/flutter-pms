@@ -10,3 +10,4 @@ export 'settings/shared_preferences_settings_storage.dart';
 export 'backstage/backstage_startup.dart';
 export 'files/pocketbase_entity_file_transfer.dart';
 export 'manual/manual_overrides.dart';
+export 'approval/approval_overrides.dart';

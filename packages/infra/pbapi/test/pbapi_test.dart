@@ -193,6 +193,63 @@ void main() {
     });
   });
 
+  group('パスワードの確認(承認などの再入力)', () {
+    late FakePocketBase server;
+    setUp(() => server = FakePocketBase());
+
+    Future<SessionService> loggedIn() async {
+      server.on('POST', '/api/collections/users/auth-with-password', (r) => server.json(authBody()));
+      final session = SessionService(await server.open());
+      await session.login('tanaka.t', 'pass1234');
+      return session;
+    }
+
+    test('一致すれば true。今のセッション・GraphQL 用のトークンは変わらない', () async {
+      final session = await loggedIn();
+      final before = session.current!.token;
+      server.on('POST', '/api/collections/users/auth-with-password', (r) => server.json(authBody(token: fakeJwt(validFor: const Duration(days: 3)))));
+      expect(await session.verifyPassword('pass1234'), isTrue);
+      expect(session.current!.token, before); // 使い捨てのクライアントで照合したので、セッションは変わらない
+      final sent = jsonDecode(server.where('POST', '/api/collections/users/auth-with-password').last.body);
+      expect(sent['identity'], 'tanaka.t'); // ログイン中のユーザーのID
+    });
+
+    test('不一致(400)・状態による拒否(403)は false。空のパスワードは通信せず false', () async {
+      final session = await loggedIn();
+      server.on('POST', '/api/collections/users/auth-with-password', (r) => server.json({'message': 'x'}, status: 400));
+      expect(await session.verifyPassword('wrong'), isFalse);
+      server.on('POST', '/api/collections/users/auth-with-password', (r) => server.json({'message': 'x'}, status: 403));
+      expect(await session.verifyPassword('x'), isFalse);
+      final calls = server.where('POST', '/api/collections/users/auth-with-password').length;
+      expect(await session.verifyPassword(''), isFalse);
+      expect(server.where('POST', '/api/collections/users/auth-with-password').length, calls);
+    });
+
+    test('ログインしていなければ unauthorized。試行が多すぎれば rateLimited', () async {
+      final anon = SessionService(await server.open());
+      await expectLater(
+        anon.verifyPassword('x'),
+        throwsA(isA<PbException>().having((e) => e.kind, 'kind', PbFailureKind.unauthorized)),
+      );
+      final session = await loggedIn();
+      server.on('POST', '/api/collections/users/auth-with-password', (r) => server.json({'message': 'x'}, status: 429));
+      await expectLater(
+        session.verifyPassword('x'),
+        throwsA(isA<PbException>().having((e) => e.kind, 'kind', PbFailureKind.rateLimited)),
+      );
+    });
+
+    test('パスワードはログ・エラーに出ない', () async {
+      final logger = RecordingLogger();
+      server.on('POST', '/api/collections/users/auth-with-password', (r) => server.json(authBody()));
+      final session = SessionService(await server.open(logger: logger));
+      await session.login('tanaka.t', 'pass1234');
+      server.on('POST', '/api/collections/users/auth-with-password', (r) => server.json({'message': 'x'}, status: 500));
+      await expectLater(session.verifyPassword('secret-pw-9'), throwsA(isA<PbException>()));
+      expect(logger.errors.join(), isNot(contains('secret-pw-9')));
+    });
+  });
+
   group('セッション確認', () {
     late FakePocketBase server;
     late RecordingLogger logger;

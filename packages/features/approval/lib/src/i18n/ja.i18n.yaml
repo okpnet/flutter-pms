@@ -1,0 +1,59 @@
+# 承認一覧の文字列(日本語。基準言語)。
+menuLabel: 承認一覧
+title: 承認一覧
+loading: 読み込み中…
+loadFailed: 承認待ちを読み込めませんでした。
+empty: 承認待ちはありません。
+menus:
+  quality_document: 品質管理文書
+  sales: 営業
+  purchasing: 購買
+  quality_common: 品質共通
+kinds:
+  document: 文書
+  order: 受注
+  shipping_order: 出荷
+  purchase: 発注
+  unrecognized: 非計上発注
+  complaint: 異常
+  disposal: 異常の処置
+  recurrence_prevention: 再発防止
+list:
+  searchHint: 件名・内容・申請者で検索
+  selectAll: すべて選択
+  clearSelection: 選択を解除
+  approve: 承認する
+  refer: 参照
+  cols:
+    subject: 件名
+    detail: 内容
+    applicant: 申請者
+    appliedAt: 申請日
+    step: 承認の段階
+  step: '第${n}段階'
+  tabCount: '${label}(${count})'
+  selectedNote: '${n} 件を選択中'
+dialog:
+  title: 承認の確認
+  note: 次の内容を承認します。担当者のパスワードを入力してください。
+  password: パスワード
+  passwordWrong: パスワードが違います。承認は登録されていません。
+  passwordUnavailable: パスワードを確認できませんでした。しばらくしてからやり直してください。
+  confirm: 承認する
+  cancel: キャンセル
+  close: 閉じる
+  busy: 登録しています…
+  resultTitle: 承認の結果
+  resultOk: '承認 ${n} 件を登録しました。'
+  resultFailed: '${n} 件は承認できませんでした。'
+  by: '承認者: ${name}'
+  at: '承認日時: ${at}'
+  errors:
+    notApprover: 承認できる担当者ではありません。
+    notYet: 前の段階が承認されていません。
+    already: すでに承認されています。
+    notFound: 承認前が見つかりません。
+    other: 承認できませんでした。
+alert:
+  summary: '承認待ちが ${n} 件あります'
+  link: '${menu}の承認一覧(${detail})'

@@ -78,6 +78,8 @@ dependencies:
     path: ../../packages/features/manual
   document_settings:
     path: ../../packages/features/document_settings
+  approval:
+    path: ../../packages/features/approval
   system:
     path: ../../packages/features/system
   access_control_model:

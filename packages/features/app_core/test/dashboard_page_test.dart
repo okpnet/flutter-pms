@@ -3,6 +3,7 @@ import 'package:app_core/app_core_api.dart';
 import 'package:dashboard_container/dashboard_container_api.dart';
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:logger_provider/logger_provider.dart';
 import 'package:settings_keeper/settings_keeper.dart';
@@ -83,5 +84,51 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byKey(const ValueKey('addContainer')), findsNothing);
     expect(find.textContaining('当日出荷'), findsNWidgets(2));
+  });
+
+  testWidgets('通知の差し込み口: アプリが部品を差し込むと、ダッシュボードの上に出る(編集中は出さない)。無ければ何も出さない', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1200, 900));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    Future<void> open(List<Override> extra) async {
+      await tester.pumpWidget(
+        FeatureHost(
+          title: 'AppCore',
+          modules: const [AppCoreModule()],
+          entries: const [FeatureHostEntry('ダッシュボード', DashboardDestination())],
+          logger: const NoopLoggerProvider(),
+          overrides: [settingsStorageProvider.overrideWithValue(InMemorySettingsStorage()), ...extra],
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('ダッシュボード'));
+      await tester.pumpAndSettle();
+    }
+
+    await open([
+      dashboardAlertSlotProvider.overrideWithValue((_) => const Text('承認待ちが 3 件あります', key: ValueKey('alert-slot'))),
+    ]);
+    expect(find.byKey(const ValueKey('alert-slot')), findsOneWidget);
+    await tester.tap(find.byKey(const ValueKey('dashboardEdit')));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey('alert-slot')), findsNothing);
+  });
+
+  testWidgets('通知の差し込み口が無いときは、何も出さない', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1200, 900));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await tester.pumpWidget(
+      FeatureHost(
+        title: 'AppCore',
+        modules: const [AppCoreModule()],
+        entries: const [FeatureHostEntry('ダッシュボード', DashboardDestination())],
+        logger: const NoopLoggerProvider(),
+        overrides: [settingsStorageProvider.overrideWithValue(InMemorySettingsStorage())],
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('ダッシュボード'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey('alert-slot')), findsNothing);
+    expect(find.byKey(const ValueKey('dashboardEdit')), findsOneWidget);
   });
 }

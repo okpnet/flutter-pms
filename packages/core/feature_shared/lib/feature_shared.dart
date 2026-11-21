@@ -7,6 +7,7 @@
 /// - [userSummaryProvider]: ログインユーザーの表示用の情報(AppCore が提供)
 /// - [appNameProvider]: アプリの名前(画面の見出しに入れる。アプリが使用言語に合わせて上書きする)
 /// - [BackstageValues] / [backstageValuesProvider] / [IBackstageEntryGate]: アプリケーションの裏設定の値と入口の判定(実体は backstage が差し込む)
+/// - [dashboardAlertSlotProvider]: ダッシュボードの上に出す通知(承認待ちなど)の差し込み口
 /// - [busyProvider] / [BusyScope]: 長時間の処理中の状態と、画面全体を覆う部品(処理中は操作と戻る操作を無効にする)
 /// - [GoRouterDestinationNavigator]: 遷移先を GoRouter で実行する(アプリと example が共用)
 /// - [EntityFeatureModule]: 実体の定義から台帳・編集の画面を提供する機能の土台
@@ -22,6 +23,7 @@ export 'src/user_image_slot.dart';
 export 'src/busy.dart';
 
 export 'src/command_bus_provider.dart';
+export 'src/dashboard_alert_slot.dart';
 export 'src/entity_feature_module.dart';
 export 'src/feature_host.dart';
 export 'src/feature_module.dart';

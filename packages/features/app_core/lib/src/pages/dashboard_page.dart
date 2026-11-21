@@ -1,6 +1,7 @@
 import 'package:app_shell/app_shell.dart';
 import 'package:dashboard_container/dashboard_container_api.dart';
 import 'package:flutter/material.dart';
+import 'package:feature_shared/feature_shared.dart' show dashboardAlertSlotProvider;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../i18n/strings_provider.dart';
@@ -22,6 +23,8 @@ class _DashboardPageState extends ConsumerState<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     final t = ref.watch(appCoreStringsProvider).dashboard;
+    // 承認待ちなどの通知(アプリが差し込む。無いときは何も出さない)
+    final alert = ref.watch(dashboardAlertSlotProvider);
     return ScreenScaffold(
       title: t.title,
       actions: [
@@ -34,9 +37,13 @@ class _DashboardPageState extends ConsumerState<DashboardPage> {
       ],
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
-        child: _editing
-            ? const DashboardContainerEditor()
-            : const DashboardContainerArea(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (alert != null && !_editing) alert(context),
+            _editing ? const DashboardContainerEditor() : const DashboardContainerArea(),
+          ],
+        ),
       ),
     );
   }

@@ -42,6 +42,7 @@ const FEATURES = {
   user_profile: { code: 'F', label: 'ユーザー情報(顔写真)' },
   backstage: { code: 'Z', label: '裏設定' },
   manual: { code: 'N', label: 'マニュアル' },
+  approval: { code: 'K', label: '承認一覧' },
   document_settings: { code: 'D', label: '承認スタンプ・PDF の設定' },
 };
 
@@ -69,6 +70,7 @@ const EXTRA_SCREENS = {
   barcode_entry: [['top', 'リーディングトップ', 'T']],
   backstage: [['backstage', '裏設定', 'B']],
   manual: [['manual', 'マニュアル', 'M']],
+  approval: [['approval_quality_document', '品質管理文書の承認一覧', 'A'], ['approval_sales', '営業の承認一覧', 'B'], ['approval_purchasing', '購買の承認一覧', 'C'], ['approval_quality_common', '品質共通の承認一覧', 'D']],
   document_settings: [['document_settings', '承認スタンプ・PDF の設定', 'S']],
   production_plan: [['mrp', '資材所要計算(MRP)', 'M']],
   shared_master: [['shipkind', '配送区分', 'K']],

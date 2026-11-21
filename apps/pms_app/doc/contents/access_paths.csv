@@ -103,3 +103,7 @@
 /e/mrpvisiter,ビジター品目,Visiter item,work_record,false
 /e/stockstatus,在庫状況,Stock status,work_record,false
 /auth/admin/document-settings,承認スタンプ・PDFの設定,Approval stamp & PDF settings,document_settings,false
+/approval/quality_document,品質管理文書の承認一覧,Quality documents approvals,approval,false
+/approval/sales,営業の承認一覧,Sales approvals,approval,false
+/approval/purchasing,購買の承認一覧,Purchasing approvals,approval,false
+/approval/quality_common,品質共通の承認一覧,Quality (common) approvals,approval,false

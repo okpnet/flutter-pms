@@ -55,6 +55,14 @@ class PbConnection {
     }
   }
 
+  /// ログイン中のセッションを変えない、使い捨てのクライアント(同じ接続先。トークンはメモリ上だけ)。
+  /// パスワードの確認など、別の認証を試すときに使う。
+  PocketBase newScratchClient() => PocketBase(
+    endpoint.baseUrl,
+    authStore: AuthStore(),
+    httpClientFactory: _httpClientFactory,
+  );
+
   /// ファイルのダウンロードなど、SDK を通さない通信に使う HTTP クライアント。使い終わったら close する。
   http.Client newHttpClient() => _httpClientFactory();
 

@@ -1,5 +1,6 @@
 import 'package:access_control/access_control.dart';
 import 'package:app_core/app_core.dart';
+import 'package:approval/approval.dart';
 import 'package:auth_files/auth_files.dart';
 import 'package:backstage/backstage.dart';
 import 'package:document_settings/document_settings.dart';
@@ -60,4 +61,6 @@ const List<FeatureModule> featureModules = [
   AuthFilesModule(includeEntry: false),
   // ユーザー情報の表示(自分のイメージ)
   UserProfileModule(),
+  // 承認一覧(各メニューのグループの末尾に並ぶよう、最後に置く)
+  ApprovalModule(),
 ];

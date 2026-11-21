@@ -9,6 +9,7 @@ class ApprovalSettings {
 
   /// 承認の対象の種類(DB の対象の表に対応する)。
   static const List<String> kinds = [
+    'document',
     'order',
     'purchase',
     'unrecognized',
