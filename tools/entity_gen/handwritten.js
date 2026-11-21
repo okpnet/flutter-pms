@@ -145,16 +145,10 @@ module.exports = function build(D, X) {
 
   out.push({
     key: 'approvalpattern', label: '承認パターン', project: 'organization',
+    // 承認の段(部署・役職・順位。ドラッグで並べ替え)は専用の画面で編集する(機能が処理する操作。target は空)
+    actions: [{ key: 'steps', label: '承認の段', target: '', params: {} }],
     fields: [f('name', 'パターン名称'), f('pronunciation', '読み', 'text', { req: false }), f('remarks', '備考', 'multiline', { req: false })],
     rows: D.apPatterns.map((p) => row(p.id, { name: p.name, pronunciation: rd(p.name), remarks: p.desc })),
-  });
-
-  const posName = Object.fromEntries(D.positions.map((p) => [p.id, p.name]));
-  const deptName = Object.fromEntries(D.departments.map((d) => [d.id, d.name]));
-  out.push({
-    key: 'approver', label: '承認できる人', project: 'organization', owner: 'approvalpattern',
-    fields: [f('name', '名称'), f('pronunciation', '読み', 'text', { req: false }), f('nickname', '略称', 'text', { req: false }), f('department', '部署', 'reference', { ref: 'department', req: false }), f('position', '役職', 'reference', { ref: 'position', req: false }), f('priority', '優先順位', 'number', { req: false }), f('remarks', '備考', 'multiline', { req: false })],
-    rows: D.apScopes.map((a) => row(a.id, { name: `${deptName[a.dept] ?? ''} ${posName[a.pos] ?? ''}`.trim(), pronunciation: '', nickname: '', department: a.dept, position: a.pos, priority: String(a.step), remarks: '' }, a.ap)),
   });
 
   // 承認の範囲(DB の mstr_approval_scope_pattern): 承認パターンを、どのアクセスパスの承認に使うか(承認パターン × アクセスパス承認情報)。

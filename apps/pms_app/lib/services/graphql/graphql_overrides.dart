@@ -19,6 +19,9 @@ import 'package:item/item.dart' show itemRepositories;
 import 'package:organization/organization.dart'
     show
         GraphqlApprovalDefaultsGateway,
+        GraphqlApprovalStepsGateway,
+        InMemoryApprovalStepsGateway,
+        approvalStepsGatewayProvider,
         InMemoryApprovalDefaultsGateway,
         approvalDefaultsGatewayProvider,
         organizationRepositories,
@@ -164,6 +167,12 @@ List<Override> graphqlOverrides() => [
     final client = ref.watch(graphqlClientProvider);
     if (client == null) return InMemoryApprovalDefaultsGateway();
     return GraphqlApprovalDefaultsGateway(client, auditUser: ref.watch(auditUserProvider));
+  }),
+  // 承認の段(承認パターンの編集の表。ドラッグで並べ替え)。接続先が無いときはメモリ上
+  approvalStepsGatewayProvider.overrideWith((ref) {
+    final client = ref.watch(graphqlClientProvider);
+    if (client == null) return InMemoryApprovalStepsGateway();
+    return GraphqlApprovalStepsGateway(client, auditUser: ref.watch(auditUserProvider));
   }),
   // 実績登録: GraphQL 版(開始・終了は DB 関数)。接続先が無いときはサンプル
   workRegisterGatewayProvider.overrideWith((ref) {

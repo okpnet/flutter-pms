@@ -16,3 +16,12 @@ export 'src/approval_defaults/approval_defaults_gateway.dart'
         approvalDefaultKinds,
         approvalDefaultsGatewayProvider;
 export 'src/graphql/graphql_approval_defaults_gateway.dart' show GraphqlApprovalDefaultsGateway;
+export 'src/approval_steps/approval_steps_gateway.dart'
+    show
+        ApprovalStep,
+        ApprovalStepOption,
+        IApprovalStepsGateway,
+        InMemoryApprovalStepsGateway,
+        approvalStepsGatewayProvider,
+        renumberSteps;
+export 'src/graphql/graphql_approval_steps_gateway.dart' show GraphqlApprovalStepsGateway;

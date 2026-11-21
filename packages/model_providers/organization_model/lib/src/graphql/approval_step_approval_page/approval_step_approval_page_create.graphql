@@ -1,0 +1,39 @@
+# approval_step_approval_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ApprovalStepApprovalPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ApprovalStepApprovalPageCreate(
+  $infoDepartmentId: UUID
+  $infoPositionId: UUID
+  $priority: Int
+  $names: UUID
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  createMstrApproval(
+    input: {
+      mstrApproval: {
+        infoDepartmentId: $infoDepartmentId
+        infoPositionId: $infoPositionId
+        priority: $priority
+        names: $names
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    mstrApproval {
+      mstrApprovalId
+      infoDepartmentId
+      infoPositionId
+      priority
+      names
+      remarks
+      updateUserId
+      updateUserHistoryId
+    }
+  }
+}

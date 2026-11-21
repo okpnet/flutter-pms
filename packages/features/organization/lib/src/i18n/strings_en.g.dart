@@ -40,6 +40,7 @@ class OrganizationStringsEn extends OrganizationStrings with BaseTranslations<Or
 	// Translations
 	@override late final _OrganizationStrings$home$en home = _OrganizationStrings$home$en._(_root);
 	@override late final _OrganizationStrings$approvalDefaults$en approvalDefaults = _OrganizationStrings$approvalDefaults$en._(_root);
+	@override late final _OrganizationStrings$approvalSteps$en approvalSteps = _OrganizationStrings$approvalSteps$en._(_root);
 	@override late final _OrganizationStrings$menu$en menu = _OrganizationStrings$menu$en._(_root);
 	@override late final _OrganizationStrings$entity$en entity = _OrganizationStrings$entity$en._(_root);
 }
@@ -107,6 +108,37 @@ class _OrganizationStrings$approvalDefaults$en extends OrganizationStrings$appro
 	@override String get kindRecurrencePrevention => 'Recurrence prevention';
 }
 
+// Path: approvalSteps
+class _OrganizationStrings$approvalSteps$en extends OrganizationStrings$approvalSteps$ja {
+	_OrganizationStrings$approvalSteps$en._(OrganizationStringsEn root) : this._root = root, super.internal(root);
+
+	final OrganizationStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Approval steps';
+	@override String get back => 'Back';
+	@override String pattern({required Object name}) => 'Approval pattern: ${name}';
+	@override String get hint => 'Approval goes from the top step down. Drag a row to reorder; the priority is renumbered. Double-click a row to change its department or position, or to delete the step.';
+	@override String get empty => 'There are no approval steps. Use "Add step" (a pattern with no steps is treated as no approval).';
+	@override String get loadFailed => 'Could not load the approval steps.';
+	@override String get actionFailed => 'Could not save. Please try again.';
+	@override String get add => 'Add step';
+	@override String get colStep => 'Step';
+	@override String get colDepartment => 'Department';
+	@override String get colPosition => 'Position';
+	@override String stepLabel({required Object n}) => 'Step ${n}';
+	@override String get anyDepartment => '(any)';
+	@override String get addTitle => 'Add approval step';
+	@override String get editTitle => 'Edit approval step';
+	@override String get department => 'Department';
+	@override String get position => 'Position';
+	@override String get positionRequired => 'Choose a position.';
+	@override String get save => 'Save';
+	@override String get cancel => 'Cancel';
+	@override String get delete => 'Delete';
+	@override String get deleteConfirm => 'Delete this approval step?';
+}
+
 // Path: menu
 class _OrganizationStrings$menu$en extends OrganizationStrings$menu$ja {
 	_OrganizationStrings$menu$en._(OrganizationStringsEn root) : this._root = root, super.internal(root);
@@ -136,7 +168,6 @@ class _OrganizationStrings$entity$en extends OrganizationStrings$entity$ja {
 	@override late final _OrganizationStrings$entity$staffcapability$en staffcapability = _OrganizationStrings$entity$staffcapability$en._(_root);
 	@override late final _OrganizationStrings$entity$stafflicense$en stafflicense = _OrganizationStrings$entity$stafflicense$en._(_root);
 	@override late final _OrganizationStrings$entity$approvalpattern$en approvalpattern = _OrganizationStrings$entity$approvalpattern$en._(_root);
-	@override late final _OrganizationStrings$entity$approver$en approver = _OrganizationStrings$entity$approver$en._(_root);
 	@override late final _OrganizationStrings$entity$accesspathapproval$en accesspathapproval = _OrganizationStrings$entity$accesspathapproval$en._(_root);
 	@override late final _OrganizationStrings$entity$approvalscope$en approvalscope = _OrganizationStrings$entity$approvalscope$en._(_root);
 }
@@ -272,17 +303,6 @@ class _OrganizationStrings$entity$approvalpattern$en extends OrganizationStrings
 	// Translations
 	@override String get title => 'Approval patterns';
 	@override late final _OrganizationStrings$entity$approvalpattern$fields$en fields = _OrganizationStrings$entity$approvalpattern$fields$en._(_root);
-}
-
-// Path: entity.approver
-class _OrganizationStrings$entity$approver$en extends OrganizationStrings$entity$approver$ja {
-	_OrganizationStrings$entity$approver$en._(OrganizationStringsEn root) : this._root = root, super.internal(root);
-
-	final OrganizationStringsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Approvers';
-	@override late final _OrganizationStrings$entity$approver$fields$en fields = _OrganizationStrings$entity$approver$fields$en._(_root);
 }
 
 // Path: entity.accesspathapproval
@@ -422,7 +442,6 @@ class _OrganizationStrings$entity$department$reverse$en extends OrganizationStri
 
 	// Translations
 	@override String get assignment => 'Assignments';
-	@override String get approver => 'Approvers';
 	@override String get taskres => 'Task locations';
 	@override String get preventiondetail => 'Preventive actions';
 	@override String get audit => 'Audits';
@@ -494,22 +513,7 @@ class _OrganizationStrings$entity$approvalpattern$fields$en extends Organization
 	@override String get f_name => 'Pattern name';
 	@override String get f_pronunciation => 'Reading';
 	@override String get f_remarks => 'Remarks';
-}
-
-// Path: entity.approver.fields
-class _OrganizationStrings$entity$approver$fields$en extends OrganizationStrings$entity$approver$fields$ja {
-	_OrganizationStrings$entity$approver$fields$en._(OrganizationStringsEn root) : this._root = root, super.internal(root);
-
-	final OrganizationStringsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get f_name => 'Name';
-	@override String get f_pronunciation => 'Reading';
-	@override String get f_nickname => 'Abbreviation';
-	@override String get f_department => 'Department';
-	@override String get f_position => 'Position';
-	@override String get f_priority => 'Priority';
-	@override String get f_remarks => 'Remarks';
+	@override String get f_steps => 'Approval steps';
 }
 
 // Path: entity.accesspathapproval.fields
@@ -588,6 +592,28 @@ extension on OrganizationStringsEn {
 			'approvalDefaults.kindComplaint' => 'Complaint',
 			'approvalDefaults.kindDisposal' => 'Disposal',
 			'approvalDefaults.kindRecurrencePrevention' => 'Recurrence prevention',
+			'approvalSteps.title' => 'Approval steps',
+			'approvalSteps.back' => 'Back',
+			'approvalSteps.pattern' => ({required Object name}) => 'Approval pattern: ${name}',
+			'approvalSteps.hint' => 'Approval goes from the top step down. Drag a row to reorder; the priority is renumbered. Double-click a row to change its department or position, or to delete the step.',
+			'approvalSteps.empty' => 'There are no approval steps. Use "Add step" (a pattern with no steps is treated as no approval).',
+			'approvalSteps.loadFailed' => 'Could not load the approval steps.',
+			'approvalSteps.actionFailed' => 'Could not save. Please try again.',
+			'approvalSteps.add' => 'Add step',
+			'approvalSteps.colStep' => 'Step',
+			'approvalSteps.colDepartment' => 'Department',
+			'approvalSteps.colPosition' => 'Position',
+			'approvalSteps.stepLabel' => ({required Object n}) => 'Step ${n}',
+			'approvalSteps.anyDepartment' => '(any)',
+			'approvalSteps.addTitle' => 'Add approval step',
+			'approvalSteps.editTitle' => 'Edit approval step',
+			'approvalSteps.department' => 'Department',
+			'approvalSteps.position' => 'Position',
+			'approvalSteps.positionRequired' => 'Choose a position.',
+			'approvalSteps.save' => 'Save',
+			'approvalSteps.cancel' => 'Cancel',
+			'approvalSteps.delete' => 'Delete',
+			'approvalSteps.deleteConfirm' => 'Delete this approval step?',
 			'menu.group' => 'Company',
 			'entity.company.title' => 'Company information',
 			'entity.company.fields.f_name' => 'Company name',
@@ -641,7 +667,6 @@ extension on OrganizationStringsEn {
 			'entity.department.fields.f_nickname' => 'Abbreviation',
 			'entity.department.fields.f_site' => 'Site',
 			'entity.department.reverse.assignment' => 'Assignments',
-			'entity.department.reverse.approver' => 'Approvers',
 			'entity.department.reverse.taskres' => 'Task locations',
 			'entity.department.reverse.preventiondetail' => 'Preventive actions',
 			'entity.department.reverse.audit' => 'Audits',
@@ -673,14 +698,7 @@ extension on OrganizationStringsEn {
 			'entity.approvalpattern.fields.f_name' => 'Pattern name',
 			'entity.approvalpattern.fields.f_pronunciation' => 'Reading',
 			'entity.approvalpattern.fields.f_remarks' => 'Remarks',
-			'entity.approver.title' => 'Approvers',
-			'entity.approver.fields.f_name' => 'Name',
-			'entity.approver.fields.f_pronunciation' => 'Reading',
-			'entity.approver.fields.f_nickname' => 'Abbreviation',
-			'entity.approver.fields.f_department' => 'Department',
-			'entity.approver.fields.f_position' => 'Position',
-			'entity.approver.fields.f_priority' => 'Priority',
-			'entity.approver.fields.f_remarks' => 'Remarks',
+			'entity.approvalpattern.fields.f_steps' => 'Approval steps',
 			'entity.accesspathapproval.title' => 'Access path approvals',
 			'entity.accesspathapproval.fields.f_name' => 'Name',
 			'entity.accesspathapproval.fields.f_access_path' => 'Access path',

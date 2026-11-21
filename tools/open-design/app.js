@@ -113,6 +113,9 @@
     "company/provision": "提供の編集",
     "company/position": "役職の編集",
     "company/assign": "割当の編集",
+    "company/approval": "承認パターン",
+    "company/approval/pattern": "承認パターンの編集",
+    "company/approval/add": "役職の追加",
     sites: "事業所",
     "sites/edit": "事業所の編集",
     "sites/office": "事業所情報の編集",
@@ -172,6 +175,8 @@
     if ((m = r.match(/^company\/provision\/([\w-]+)$/))) return { name: "company/provision", id: m[1] };
     if ((m = r.match(/^company\/position\/([\w-]+)\/assign\/([\w-]+)$/))) return { name: "company/assign", pid: m[1], id: m[2] };
     if ((m = r.match(/^company\/position\/([\w-]+)$/))) return { name: "company/position", id: m[1] };
+    if ((m = r.match(/^company\/approval\/([\w-]+)\/add$/))) return { name: "company/approval/add", pid: m[1] };
+    if ((m = r.match(/^company\/approval\/([\w-]+)$/))) return { name: "company/approval/pattern", id: m[1] };
     if (!ROUTES[r] && (m = r.match(/^sites\/([\w-]+)$/))) return { name: "sites/office", id: m[1] };
     if ((m = r.match(/^approval\/([\w-]+)\/scope\/([\w-]+)\/approver\/([\w-]+)$/))) return { name: "approval/approver", pid: m[1], sid: m[2], id: m[3] };
     if ((m = r.match(/^approval\/([\w-]+)\/scope\/([\w-]+)$/))) return { name: "approval/scope", pid: m[1], id: m[2] };
@@ -209,6 +214,9 @@
     "company/provision": "会社情報 › 編集",
     "company/position": "会社情報 › 編集",
     "company/assign": "会社情報 › 編集 › 役職",
+    "company/approval": "会社情報",
+    "company/approval/pattern": "会社情報 › 承認パターン",
+    "company/approval/add": "会社情報 › 承認パターン › 役職の追加",
     "sites/edit": "事業所",
     "sites/office": "事業所 › 編集",
     locations: "資源",
@@ -507,6 +515,11 @@
       <section aria-labelledby="dept-title">
         <div class="sec-head"><div class="od-row sec-left"><h2 class="sec-title" id="dept-title">部署の構成</h2>${editLink("#/departments", "部署の構成")}<a class="edit-btn" href="#/approval">${icon("check")}<span>承認経路</span></a></div><span class="sec-note od-nowrap">${D.departments.length}部署</span></div>
         <div class="card dept-read"><ul class="dept-read-list" aria-label="部署の構成">${deptWalk().map(({ d, depth }) => `<li style="--depth:${depth}"><span class="dept-read-name">${esc(d.name)}</span><span class="tree-tags">${deptTags(d)}</span></li>`).join("")}</ul></div>
+      </section>
+
+      <section aria-labelledby="coap-title">
+        <div class="sec-head"><div class="od-row sec-left"><h2 class="sec-title" id="coap-title">承認パターン</h2>${editLink("#/company/approval", "承認パターン")}</div><span class="sec-note od-nowrap">${D.apPatterns.length}件</span></div>
+        <div class="card dept-read"><ul class="dept-read-list" aria-label="承認パターン">${D.apPatterns.map((p) => `<li><span class="dept-read-name">${esc(p.name)}</span><span class="tree-tags">${apSteps(p.id).map((s) => chip(posName(s.pos))).join("")}</span></li>`).join("") || `<li>${emptyState("承認パターンがありません", "「承認パターン」から登録してください。")}</li>`}</ul></div>
       </section>
 
       <section aria-labelledby="offer-title">
@@ -1118,6 +1131,248 @@
         ${isNew ? "" : metaHtml(m)}
         <div class="form-actions">${isNew ? "" : '<button class="btn btn-danger" type="button" id="del-btn">削除</button>'}<button class="btn btn-primary" type="submit">${isNew ? "追加" : "保存"}</button></div>
       </form>`;
+  }
+
+  /* ---------- company: 承認パターン（パターン名の一覧 → 承認順の編集）。承認順は apScopes.step で持つ ---------- */
+  const coAp = { pid: null, sel: new Set(), pick: new Set() }; // 行の選択と役職の選択は、同じパターンの画面のあいだだけ保つ
+  const COAP_DEL = 88; // モバイルのスワイプで現れる削除ボタンの幅(px)
+  const apSteps = (pid) => D.apScopes.filter((s) => s.ap === pid).sort((a, b) => a.step - b.step);
+  const apIncluded = (pid) => new Set(apSteps(pid).map((s) => s.pos));
+  const coApRenumber = (arr) => arr.forEach((s, i) => { if (s.step !== i + 1) { s.step = i + 1; s.updatedBy = D.user.name; s.updatedAt = TODAY; } });
+  const coApMove = (pid, sid, to) => {
+    const arr = apSteps(pid);
+    const [it] = arr.splice(arr.findIndex((s) => s.id === sid), 1);
+    arr.splice(to, 0, it);
+    coApRenumber(arr);
+  };
+  const coApT = makeTable({
+    key: "coAp",
+    list: () => D.apPatterns, search: (r) => r.name + (r.reading ?? "") + (r.desc ?? ""), placeholder: "パターン名・読み", hidden: ["updatedBy", "updatedAt", "desc"],
+    href: (r) => `#/company/approval/${r.id}`,
+    cols: [
+      { key: "name", label: "パターン名称", fixed: true, val: (r) => r.name },
+      { key: "reading", label: "読み", val: (r) => r.reading || "―" },
+      { key: "chain", label: "承認の流れ", val: (r) => apSteps(r.id).map((s) => posName(s.pos)).join(" → ") || "未登録" },
+      { key: "count", label: "段階数", num: true, val: (r) => apSteps(r.id).length, html: (r) => `${apSteps(r.id).length}段階` },
+      { key: "desc", label: "備考", val: (r) => r.desc },
+      byCol, dateCol,
+    ],
+  });
+  function coApListScreen() {
+    return `${backLink("#/company", "会社情報に戻る")}${flashHtml()}
+      ${tableCard(coApT, true, "h-coap", "承認パターンの一覧", `<a class="btn" href="#/company/approval/new">${icon("plus")}<span>パターンを追加</span></a>`)}`;
+  }
+  function coApPatternScreen(id) {
+    const isNew = id === "new";
+    const p = isNew ? { name: "", reading: "", desc: "" } : D.apPatterns.find((x) => x.id === id);
+    if (!p) return notFound("承認パターンが見つかりません", "#/company/approval");
+    if (coAp.pid !== id) { coAp.pid = id; coAp.sel = new Set(); }
+    return `${backLink("#/company/approval", "パターン一覧に戻る")}${flashHtml()}
+      <form class="card form" id="edit-form" data-kind="coApPattern" data-id="${id}" novalidate>
+        <div class="err-sum" id="err-sum" role="alert" tabindex="-1" hidden></div>
+        ${fieldRow({ id: "name", label: "パターン名称", max: 30, value: p.name, taken: D.apPatterns.filter((x) => x.id !== id).map((x) => x.name) })}
+        ${fieldRow({ id: "reading", label: "読み", max: 60, req: false, value: p.reading ?? "" })}
+        ${fieldRow({ id: "desc", label: "備考", kind: "textarea", max: 120, req: false, value: p.desc ?? "" })}
+        ${isNew ? "" : metaHtml(p)}
+        <div class="form-actions">${isNew ? "" : '<button class="btn btn-danger" type="button" id="del-btn">削除</button>'}<button class="btn btn-primary" type="submit">${isNew ? "追加" : "保存"}</button></div>
+      </form>
+      ${isNew ? `<p class="tbl-note-out">パターンを追加すると、続けて役職の承認順を登録できます。</p>` : coApOrderSection(id)}`;
+  }
+  /* 承認順の表。上から 1, 2, … の順。行の選択・先頭/最後/選択行の後への追加・ドラッグ（PC/タブレット/モバイル共通）・モバイルはスワイプで削除 */
+  function coApOrderSection(pid) {
+    const steps = apSteps(pid);
+    const ids = new Set(steps.map((s) => s.id));
+    const picked = [...coAp.sel].filter((x) => ids.has(x));
+    const single = picked.length === 1 ? picked[0] : null;
+    const btn = (href, label, cls = "") => href
+      ? `<a class="btn ${cls}" href="${href}">${icon("plus")}<span>${label}</span></a>`
+      : `<span class="btn" aria-disabled="true">${icon("plus")}<span>${label}</span></span>`;
+    const rows = steps.map((s, i) => {
+      const nm = posName(s.pos);
+      return `<div class="ap-row${coAp.sel.has(s.id) ? " is-selected" : ""}" data-ap-row="${s.id}">
+        <div class="ap-front ap-grid" role="row">
+          <span class="ap-cell ap-check" role="cell"><input type="checkbox" data-ap-sel="${s.id}" ${coAp.sel.has(s.id) ? "checked" : ""} aria-label="${esc(nm)}を選択"></span>
+          <span class="ap-cell ap-step" role="cell" data-label="承認順">${i + 1}</span>
+          <span class="ap-cell ap-pos" role="cell" data-label="役職"><strong>${esc(nm)}</strong></span>
+          <span class="ap-cell ap-dept" role="cell" data-label="対象の組織">${esc(deptName(s.dept))}</span>
+          <span class="ap-cell ap-incl" role="cell" data-label="配下の部署">${s.incl ? "含む" : "含まない"}</span>
+          <span class="ap-cell ap-grip" role="cell"><button class="ap-handle" type="button" data-ap-drag="${s.id}" aria-label="${esc(nm)}の承認順をドラッグで変更">⋮⋮</button></span>
+        </div>${mobile ? `<button class="ap-del" type="button" data-ap-del="${s.id}" aria-label="${esc(nm)}を承認順から外す">削除</button>` : ""}
+      </div>`;
+    }).join("");
+    const head = `<div class="ap-thead ap-grid" role="row">
+        <span class="ap-cell ap-check" role="columnheader"><span class="sr-only">選択</span></span>
+        <span class="ap-cell ap-step" role="columnheader">承認順</span>
+        <span class="ap-cell" role="columnheader">役職</span>
+        <span class="ap-cell ap-dept" role="columnheader">対象の組織</span>
+        <span class="ap-cell ap-incl" role="columnheader">配下の部署</span>
+        <span class="ap-cell ap-grip" role="columnheader"><span class="sr-only">並べ替え</span></span>
+      </div>`;
+    return `<section class="card tbl-card" aria-labelledby="h-coap-ord">
+      <div class="sec-head tbl-head"><h2 class="sec-title" id="h-coap-ord">承認順（上が1番目）</h2><span class="sec-note od-nowrap">${steps.length}段階</span></div>
+      <div class="ap-tools" role="toolbar" aria-label="承認順の操作">
+        ${btn(`#/company/approval/${pid}/add?at=head`, "先頭に追加")}
+        ${btn(`#/company/approval/${pid}/add?at=tail`, "最後に追加")}
+        ${btn(single ? `#/company/approval/${pid}/add?at=after&sid=${single}` : null, "選択行の後に挿入")}
+        ${mobile ? "" : `<button class="btn btn-danger" type="button" data-ap-delsel ${picked.length ? "" : "disabled"}>選択した役職を削除${picked.length ? `（${picked.length}件）` : ""}</button>`}
+      </div>
+      <p class="tbl-note">${steps.length ? `行の左の欄で選ぶと、挿入や削除の対象になります（挿入は1件を選んだときに使えます）。${mobile ? "行を左にスワイプすると削除ボタンが出ます。" : ""}${mobile ? "" : "削除は選んだ行をまとめて外します。"}` : ""}</p>
+      ${steps.length ? `<div class="ap-table" role="table" aria-label="承認順">${head}${rows}</div>` : emptyState("承認順がありません", "「先頭に追加」または「最後に追加」から役職を登録してください。")}
+    </section>`;
+  }
+  function coApAddScreen(pid) {
+    const p = D.apPatterns.find((x) => x.id === pid);
+    if (!p) return notFound("承認パターンが見つかりません", "#/company/approval");
+    const q = hashQuery();
+    const at = ["head", "tail", "after"].includes(q.get("at")) ? q.get("at") : "tail";
+    const anchor = apSteps(pid).find((s) => s.id === q.get("sid"));
+    if (at === "after" && !anchor) return notFound("挿入位置の役職が見つかりません", `#/company/approval/${pid}`);
+    const where = at === "head" ? "先頭" : at === "tail" ? "最後" : `「${posName(anchor.pos)}」の後`;
+    const have = apIncluded(pid);
+    const cands = D.positions.filter((x) => !have.has(x.id));
+    const list = cands.map((x) => `<label class="ap-pick">
+        <input type="checkbox" name="pos" value="${x.id}" ${coAp.pick.has(x.id) ? "checked" : ""}>
+        <span><span class="ap-pick-name">${esc(x.name)}</span><span class="ap-pick-sub">${esc(x.desc ?? "")}</span></span>
+      </label>`).join("");
+    return `${backLink(`#/company/approval/${pid}`, "承認順に戻る")}${flashHtml()}
+      <form class="card form" id="ap-pick" data-pid="${pid}" data-at="${at}" data-sid="${anchor?.id ?? ""}" novalidate>
+        <dl><div class="kv"><dt>承認パターン</dt><dd>${esc(p.name)}</dd></div><div class="kv"><dt>追加する位置</dt><dd>${where}</dd></div></dl>
+        <p class="tbl-note-out">役職を1つ以上選んで「追加して戻る」を押すと、役職の並び順で承認順に入ります。</p>
+        ${cands.length ? `<div role="group" aria-label="役職">${list}</div>` : emptyState("追加できる役職がありません", "すべての役職がこのパターンに入っています。")}
+        <div class="form-actions"><button class="btn btn-primary" type="submit" id="ap-pick-go" ${coAp.pick.size ? "" : "disabled"}>追加して戻る（${coAp.pick.size}件）</button></div>
+      </form>`;
+  }
+  function coApCommitPick(form) {
+    const { pid, at, sid } = form.dataset;
+    const have = apIncluded(pid);
+    const picks = D.positions.filter((x) => coAp.pick.has(x.id) && !have.has(x.id));
+    if (!picks.length) return;
+    const arr = apSteps(pid);
+    const idx = at === "head" ? 0 : at === "after" ? arr.findIndex((s) => s.id === sid) + 1 : arr.length;
+    const news = picks.map((x) => {
+      const n = { id: nextId("s", D.apScopes), ap: pid, step: 0, pos: x.id, dept: deptWalk()[0]?.d.id ?? "", incl: true, updatedBy: D.user.name, updatedAt: TODAY };
+      D.apScopes.push(n);
+      return n;
+    });
+    arr.splice(idx, 0, ...news);
+    coApRenumber(arr);
+    coAp.pick = new Set();
+    coAp.sel = new Set();
+    flash = `役職を${picks.length}件、承認順に追加しました。`;
+    location.hash = `#/company/approval/${pid}`;
+  }
+  /* 削除の確認。承認できる人の登録も一緒に外す（既存の承認の範囲の削除と同じ扱い） */
+  function coApRemove(trigger, pid, ids) {
+    const gone = D.apScopes.filter((s) => s.ap === pid && ids.includes(s.id));
+    if (!gone.length) return;
+    const names = gone.map((s) => posName(s.pos)).join("、");
+    confirmSheet(trigger, { title: `${gone.length}件の役職を承認順から外しますか？`, text: `${esc(names)}。承認できる人の登録も削除されます。元に戻せません。`, okLabel: "削除する",
+      onOk: () => {
+        D.apApprovers = D.apApprovers.filter((m) => !ids.includes(m.scope));
+        D.apScopes = D.apScopes.filter((s) => !ids.includes(s.id));
+        coApRenumber(apSteps(pid));
+        ids.forEach((x) => coAp.sel.delete(x));
+        flash = `${gone.length}件の役職を承認順から外しました。`;
+        render();
+      } });
+  }
+  /* 行のドラッグ（ポインター操作で、マウスとタッチの両方に対応）。離した位置の順番に入れ替える */
+  function coApDrag(handle, e) {
+    e.preventDefault();
+    const pid = coAp.pid, sid = handle.dataset.apDrag;
+    const rows = [...document.querySelectorAll(".ap-table .ap-row")];
+    const from = rows.findIndex((r) => r.dataset.apRow === sid);
+    const row = rows[from];
+    const centers = rows.map((r) => { const b = r.getBoundingClientRect(); return b.top + b.height / 2; });
+    const startY = e.clientY;
+    let to = from;
+    row.classList.add("is-dragging");
+    const move = (ev) => {
+      const dy = ev.clientY - startY;
+      row.style.transform = `translateY(${dy}px)`;
+      const c = centers[from] + dy;
+      to = centers.filter((y, i) => i !== from && y < c).length;
+    };
+    const stop = (apply) => {
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
+      window.removeEventListener("pointercancel", cancel);
+      window.removeEventListener("keydown", key);
+      row.classList.remove("is-dragging");
+      row.style.transform = "";
+      if (apply && to !== from) {
+        coApMove(pid, sid, to);
+        flash = "承認順を変更しました。";
+        const keep = scroller().scrollTop;
+        render();
+        scroller().scrollTop = keep;
+      }
+    };
+    const up = () => stop(true);
+    const cancel = () => stop(false);
+    const key = (ev) => { if (ev.key === "Escape") stop(false); };
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+    window.addEventListener("pointercancel", cancel);
+    window.addEventListener("keydown", key);
+    move(e);
+  }
+  /* モバイル: 行を左にスワイプすると削除ボタンが現れる。半分以上開いたら開いたままにする */
+  function coApSwipe(front, e) {
+    if (e.button > 0 || e.target.closest("button, input, label")) return;
+    const wrap = front.parentElement;
+    delete wrap.dataset.swiped;
+    const sx = e.clientX;
+    const base = wrap.classList.contains("is-open") ? -COAP_DEL : 0;
+    let dx = 0;
+    const move = (ev) => {
+      dx = ev.clientX - sx;
+      if (Math.abs(dx) > 6) wrap.dataset.swiped = "1";
+      front.classList.add("is-swiping");
+      front.style.transform = `translateX(${Math.min(0, Math.max(-COAP_DEL, base + dx))}px)`;
+    };
+    const up = () => {
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
+      window.removeEventListener("pointercancel", up);
+      front.classList.remove("is-swiping");
+      front.style.transform = "";
+      const open = base + dx < -COAP_DEL / 2;
+      if (open) document.querySelectorAll(".ap-row.is-open").forEach((r) => { if (r !== wrap) r.classList.remove("is-open"); });
+      wrap.classList.toggle("is-open", open);
+    };
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+    window.addEventListener("pointercancel", up);
+  }
+  function bindCoAp() {
+    const refresh = (sel) => {
+      const keep = scroller().scrollTop;
+      render();
+      scroller().scrollTop = keep;
+      if (sel) document.querySelector(sel)?.focus();
+    };
+    document.querySelectorAll("[data-ap-sel]").forEach((cb) => cb.addEventListener("change", () => {
+      if (cb.checked) coAp.sel.add(cb.dataset.apSel); else coAp.sel.delete(cb.dataset.apSel);
+      refresh(`[data-ap-sel="${cb.dataset.apSel}"]`);
+    }));
+    document.querySelectorAll("[data-ap-drag]").forEach((h) => h.addEventListener("pointerdown", (e) => { if (e.button === 0) coApDrag(h, e); }));
+    document.querySelector("[data-ap-delsel]")?.addEventListener("click", (e) => coApRemove(e.currentTarget, coAp.pid, [...coAp.sel]));
+    document.querySelectorAll("[data-ap-del]").forEach((b) => b.addEventListener("click", () => coApRemove(b, coAp.pid, [b.dataset.apDel])));
+    if (mobile) document.querySelectorAll(".ap-front").forEach((f) => {
+      f.addEventListener("pointerdown", (e) => coApSwipe(f, e));
+      f.addEventListener("click", (e) => {
+        const w = f.parentElement;
+        if (w.dataset.swiped) { delete w.dataset.swiped; e.preventDefault(); return; }
+        if (w.classList.contains("is-open")) { w.classList.remove("is-open"); e.preventDefault(); }
+      });
+    });
+    document.querySelectorAll("#ap-pick input[name=pos]").forEach((cb) => cb.addEventListener("change", () => {
+      if (cb.checked) coAp.pick.add(cb.value); else coAp.pick.delete(cb.value);
+      const go = document.getElementById("ap-pick-go");
+      if (go) { go.disabled = !coAp.pick.size; go.textContent = `追加して戻る（${coAp.pick.size}件）`; }
+    }));
+    document.getElementById("ap-pick")?.addEventListener("submit", (e) => { e.preventDefault(); coApCommitPick(e.currentTarget); });
   }
 
   /* ---------- resources: capabilities / licenses (items + holders) ---------- */
@@ -2059,6 +2314,17 @@
       flash = `承認パターン「${v.name}」を保存しました。`;
       return "#/approval/edit";
     }
+    if (kind === "coApPattern") {
+      if (id === "new") {
+        const n = { id: nextId("ap", D.apPatterns), ...v, ...stamp };
+        D.apPatterns.push(n);
+        flash = `承認パターン「${v.name}」を追加しました。続けて役職の承認順を登録できます。`;
+        return `#/company/approval/${n.id}`;
+      }
+      Object.assign(D.apPatterns.find((x) => x.id === id), v, stamp);
+      flash = `承認パターン「${v.name}」を保存しました。`;
+      return `#/company/approval/${id}`;
+    }
     if (kind === "apScope") {
       const r = { step: Number(v.step), pos: v.pos, dept: v.dept, incl: v.incl === "yes" };
       if (id === "new") {
@@ -2236,7 +2502,7 @@
         onOk: () => { D[R.recs].splice(D[R.recs].indexOf(rec), 1); flash = `${staffName(rec.staff)} さんを保持者から外しました。`; location.hash = `#/${res}/${pid}`; } });
       return;
     }
-    if (kind === "apPattern") {
+    if (kind === "apPattern" || kind === "coApPattern") {
       const p = D.apPatterns.find((x) => x.id === id);
       const n = D.apScopes.filter((x) => x.ap === id).length;
       confirmSheet(trigger, { title: `「${p.name}」を削除しますか？`, text: n ? `承認の範囲${n}件と、登録されている承認できる人も削除されます。元に戻せません。` : "元に戻せません。", okLabel: "削除する",
@@ -2246,7 +2512,7 @@
           D.apScopes = D.apScopes.filter((x) => x.ap !== id);
           D.apPatterns.splice(D.apPatterns.indexOf(p), 1);
           flash = `承認パターン「${p.name}」を削除しました。`;
-          location.hash = "#/approval/edit";
+          location.hash = kind === "coApPattern" ? "#/company/approval" : "#/approval/edit";
         } });
       return;
     }
@@ -4786,6 +5052,7 @@
     navPop = null;
     NAV.forEach((n) => { if (n.group && (n.children.some((c) => c.id && isCurNav(c.id, route)) || route === "resources")) navOpen.add(n.group); });
     if (route === "company") draft = null;
+    if (route !== "company/approval/add") coAp.pick = new Set();
     if (!["departments/dept", "departments/kind", "departments/kindedit"].includes(route)) deptDraft = null;
     if (!["staff/person", "staff/capability", "staff/license"].includes(route)) staffDraft = null;
     document.body.classList.toggle("signed-out", (isLogout && logoutState === "done") || bare);
@@ -4816,6 +5083,9 @@
         "company/provision": () => provisionEditScreen(P.id),
         "company/position": () => positionEditScreen(P.id),
         "company/assign": () => assignEditScreen(P.pid, P.id),
+        "company/approval": coApListScreen,
+        "company/approval/pattern": () => coApPatternScreen(P.id),
+        "company/approval/add": () => coApAddScreen(P.pid),
         sites: () => officeScreen(false),
         "sites/edit": () => officeScreen(true),
         "sites/office": () => officeEditScreen(P.id),
@@ -5188,6 +5458,7 @@
       }));
     };
     document.querySelectorAll(".tbl-host").forEach(bindHost);
+    bindCoAp();
     document.querySelectorAll("[data-tq]").forEach((inp) => inp.addEventListener("input", () => {
       TABLES[inp.dataset.tq].view.q = inp.value.trim();
       TABLES[inp.dataset.tq].view.limit = null;

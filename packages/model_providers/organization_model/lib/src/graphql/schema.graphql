@@ -596,6 +596,18 @@ type CreateInfoOfficePayload {
   infoOffice: InfoOffice
 }
 
+type CreateMstrApprovalPatternDetailPayload {
+  mstrApprovalPatternDetail: MstrApprovalPatternDetail
+}
+
+type CreateMstrApprovalPatternPayload {
+  mstrApprovalPattern: MstrApprovalPattern
+}
+
+type CreateMstrApprovalPayload {
+  mstrApproval: MstrApproval
+}
+
 type HistoryInfoStaff {
   historyId: UUID!
   infoStaffId: UUID!
@@ -920,9 +932,12 @@ type MstrApproval {
   infoDepartmentId: UUID
   infoPositionId: UUID!
   priority: Int
+  names: UUID!
   symbol: String
   remarks: String
   updateAt: Datetime
+  updateUserId: UUID
+  updateUserHistoryId: UUID
   remove: Boolean
   infoDepartmentByInfoDepartmentId: InfoDepartment
   infoPositionByInfoPositionId: InfoPosition
@@ -932,6 +947,7 @@ type MstrApproval {
 
 type MstrApprovalPattern {
   mstrApprovalPatternId: UUID!
+  names: UUID!
   symbol: String
   remarks: String
   updateAt: Datetime
@@ -952,6 +968,8 @@ type MstrApprovalPatternDetail {
   symbol: String
   remarks: String
   updateAt: Datetime
+  updateUserId: UUID
+  updateUserHistoryId: UUID
   remove: Boolean
   mstrApprovalByMstrApprovalId: MstrApproval
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
@@ -1071,6 +1089,9 @@ type MstrStaffLicensesConnection {
 type Mutation {
   createInfoAddress(input: CreateInfoAddressInput!): CreateInfoAddressPayload
   createInfoOffice(input: CreateInfoOfficeInput!): CreateInfoOfficePayload
+  createMstrApproval(input: CreateMstrApprovalInput!): CreateMstrApprovalPayload
+  createMstrApprovalPattern(input: CreateMstrApprovalPatternInput!): CreateMstrApprovalPatternPayload
+  createMstrApprovalPatternDetail(input: CreateMstrApprovalPatternDetailInput!): CreateMstrApprovalPatternDetailPayload
   updateInfoAddressByInfoAddressId(input: UpdateInfoAddressByInfoAddressIdInput!): UpdateInfoAddressPayload
   updateInfoAppByInfoAppId(input: UpdateInfoAppByInfoAppIdInput!): UpdateInfoAppPayload
   updateInfoAssignByInfoAssignId(input: UpdateInfoAssignByInfoAssignIdInput!): UpdateInfoAssignPayload
@@ -1083,7 +1104,9 @@ type Mutation {
   updateInfoProvisionByInfoProvisionId(input: UpdateInfoProvisionByInfoProvisionIdInput!): UpdateInfoProvisionPayload
   updateInfoStaffByInfoStaffId(input: UpdateInfoStaffByInfoStaffIdInput!): UpdateInfoStaffPayload
   updateInfoStaffIconByInfoStaffIconId(input: UpdateInfoStaffIconByInfoStaffIconIdInput!): UpdateInfoStaffIconPayload
+  updateMstrApprovalByMstrApprovalId(input: UpdateMstrApprovalByMstrApprovalIdInput!): UpdateMstrApprovalPayload
   updateMstrApprovalPatternByMstrApprovalPatternId(input: UpdateMstrApprovalPatternByMstrApprovalPatternIdInput!): UpdateMstrApprovalPatternPayload
+  updateMstrApprovalPatternDetailByMstrApprovalPatternDetailId(input: UpdateMstrApprovalPatternDetailByMstrApprovalPatternDetailIdInput!): UpdateMstrApprovalPatternDetailPayload
   updateMstrApprovalScopePatternByMstrApprovalScopePatternId(input: UpdateMstrApprovalScopePatternByMstrApprovalScopePatternIdInput!): UpdateMstrApprovalScopePatternPayload
   updateMstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId(input: UpdateMstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffIdInput!): UpdateMstrStaffCapabilityPayload
   updateMstrStaffLicenseByMstrStaffLicenseId(input: UpdateMstrStaffLicenseByMstrStaffLicenseIdInput!): UpdateMstrStaffLicensePayload
@@ -1108,6 +1131,7 @@ type Query {
   allInfoStaffs(first: Int, offset: Int, orderBy: [InfoStaffsOrderBy!] = [PRIMARY_KEY_ASC], filter: InfoStaffFilter): InfoStaffsConnection
   allInfoStaffIcons(first: Int, offset: Int, orderBy: [InfoStaffIconsOrderBy!] = [PRIMARY_KEY_ASC], filter: InfoStaffIconFilter): InfoStaffIconsConnection
   allMstrApprovalPatterns(first: Int, offset: Int, orderBy: [MstrApprovalPatternsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrApprovalPatternFilter): MstrApprovalPatternsConnection
+  allMstrApprovalPatternDetails(first: Int, offset: Int, orderBy: [MstrApprovalPatternDetailsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrApprovalPatternDetailFilter): MstrApprovalPatternDetailsConnection
   allMstrApprovalScopePatterns(first: Int, offset: Int, orderBy: [MstrApprovalScopePatternsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrApprovalScopePatternFilter): MstrApprovalScopePatternsConnection
   allSharedLanguageCodes(first: Int, offset: Int, orderBy: [SharedLanguageCodesOrderBy!] = [PRIMARY_KEY_ASC], filter: SharedLanguageCodeFilter): SharedLanguageCodesConnection
   allVStaffCounts(first: Int, offset: Int, orderBy: [VStaffCountsOrderBy!] = [PRIMARY_KEY_ASC], filter: VStaffCountFilter): VStaffCountsConnection
@@ -1122,7 +1146,9 @@ type Query {
   infoProvisionByInfoProvisionId(infoProvisionId: UUID!): InfoProvision
   infoStaffByInfoStaffId(infoStaffId: UUID!): InfoStaff
   infoStaffIconByInfoStaffIconId(infoStaffIconId: UUID!): InfoStaffIcon
+  mstrApprovalByMstrApprovalId(mstrApprovalId: UUID!): MstrApproval
   mstrApprovalPatternByMstrApprovalPatternId(mstrApprovalPatternId: UUID!): MstrApprovalPattern
+  mstrApprovalPatternDetailByMstrApprovalPatternDetailId(mstrApprovalPatternDetailId: UUID!): MstrApprovalPatternDetail
   mstrApprovalScopePatternByMstrApprovalScopePatternId(mstrApprovalScopePatternId: UUID!): MstrApprovalScopePattern
   mstrStaffCapabilityByMstrStaffCapabilityIdAndInfoStaffId(mstrStaffCapabilityId: UUID!, infoStaffId: UUID!): MstrStaffCapability
   mstrStaffLicenseByMstrStaffLicenseId(mstrStaffLicenseId: UUID!): MstrStaffLicense
@@ -1232,8 +1258,16 @@ type UpdateInfoStaffPayload {
   infoStaff: InfoStaff
 }
 
+type UpdateMstrApprovalPatternDetailPayload {
+  mstrApprovalPatternDetail: MstrApprovalPatternDetail
+}
+
 type UpdateMstrApprovalPatternPayload {
   mstrApprovalPattern: MstrApprovalPattern
+}
+
+type UpdateMstrApprovalPayload {
+  mstrApproval: MstrApproval
 }
 
 type UpdateMstrApprovalScopePatternPayload {
@@ -1406,6 +1440,18 @@ input CreateInfoAddressInput {
 
 input CreateInfoOfficeInput {
   infoOffice: InfoOfficeInput!
+}
+
+input CreateMstrApprovalInput {
+  mstrApproval: MstrApprovalInput!
+}
+
+input CreateMstrApprovalPatternDetailInput {
+  mstrApprovalPatternDetail: MstrApprovalPatternDetailInput!
+}
+
+input CreateMstrApprovalPatternInput {
+  mstrApprovalPattern: MstrApprovalPatternInput!
 }
 
 input DatetimeFilter {
@@ -2573,6 +2619,27 @@ input MstrApprovalFilter {
   not: MstrApprovalFilter
 }
 
+input MstrApprovalInput {
+  infoDepartmentId: UUID
+  infoPositionId: UUID
+  priority: Int
+  names: UUID
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
+input MstrApprovalPatch {
+  infoDepartmentId: UUID
+  infoPositionId: UUID
+  priority: Int
+  names: UUID
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+  remove: Boolean
+}
+
 input MstrApprovalPatternDetailFilter {
   mstrApprovalPatternDetailId: UUIDFilter
   mstrApprovalId: UUIDFilter
@@ -2611,6 +2678,14 @@ input MstrApprovalPatternDetailFk1MstrApprovalPatternDetailCreateInput {
   remove: Boolean
 }
 
+input MstrApprovalPatternDetailInput {
+  mstrApprovalId: UUID
+  mstrApprovalPatternId: UUID
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
 input MstrApprovalPatternDetailMstrApprovalPatternDetailPkDelete {
   mstrApprovalPatternDetailId: UUID!
 }
@@ -2618,6 +2693,13 @@ input MstrApprovalPatternDetailMstrApprovalPatternDetailPkDelete {
 input MstrApprovalPatternDetailOnMstrApprovalPatternDetailForMstrApprovalPatternDetailFk1UsingMstrApprovalPatternDetailPkUpdate {
   mstrApprovalPatternDetailPatch: updateMstrApprovalPatternDetailOnMstrApprovalPatternDetailForMstrApprovalPatternDetailFk1Patch!
   mstrApprovalPatternDetailId: UUID!
+}
+
+input MstrApprovalPatternDetailPatch {
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+  remove: Boolean
 }
 
 input MstrApprovalPatternFilter {
@@ -2660,8 +2742,18 @@ input MstrApprovalPatternFk1Input {
   updateBySharedAppellationsId: SharedAppellationOnMstrApprovalPatternForMstrApprovalPatternFk1UsingSharedAppellationsPkUpdate
 }
 
-input MstrApprovalPatternPatch {
+input MstrApprovalPatternInput {
+  names: UUID
   remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
+input MstrApprovalPatternPatch {
+  names: UUID
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
   remove: Boolean
   sharedAppellationToNames: MstrApprovalPatternFk1Input
   mstrApprovalPatternDetailsUsingMstrApprovalPatternId: MstrApprovalPatternDetailFk1InverseInput
@@ -3619,9 +3711,19 @@ input UpdateInfoStaffIconByInfoStaffIconIdInput {
   infoStaffIconId: UUID!
 }
 
+input UpdateMstrApprovalByMstrApprovalIdInput {
+  mstrApprovalPatch: MstrApprovalPatch!
+  mstrApprovalId: UUID!
+}
+
 input UpdateMstrApprovalPatternByMstrApprovalPatternIdInput {
   mstrApprovalPatternPatch: MstrApprovalPatternPatch!
   mstrApprovalPatternId: UUID!
+}
+
+input UpdateMstrApprovalPatternDetailByMstrApprovalPatternDetailIdInput {
+  mstrApprovalPatternDetailPatch: MstrApprovalPatternDetailPatch!
+  mstrApprovalPatternDetailId: UUID!
 }
 
 input UpdateMstrApprovalScopePatternByMstrApprovalScopePatternIdInput {

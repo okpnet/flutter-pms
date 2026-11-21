@@ -1,0 +1,23 @@
+# approval_step_approval_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ApprovalStepApprovalPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ApprovalStepApprovalPageRemove(
+  $mstrApprovalId: UUID!
+  $remove: Boolean!
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  updateMstrApprovalByMstrApprovalId(
+    input: {
+      mstrApprovalId: $mstrApprovalId
+      mstrApprovalPatch: { remove: $remove, updateUserId: $updateUserId, updateUserHistoryId: $updateUserHistoryId }
+    }
+  ) {
+    mstrApproval {
+      mstrApprovalId
+      remove
+    }
+  }
+}

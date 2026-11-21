@@ -1051,3 +1051,30 @@ body[data-device="mobile"] .ap-bar { position: sticky; top: 0; }
 .tbl-host[data-tkey^="apv_"] tbody tr.is-selected { background: var(--accent-soft); }
 .apv-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-2); max-height: 38dvh; overflow-y: auto; }
 .apv-list li { display: grid; gap: 2px; padding: var(--sp-2) var(--sp-3); border: 1px solid var(--line); border-radius: var(--radius); }
+
+/* ---------- 会社情報: 承認パターンの承認順（ドラッグ・追加・スワイプ削除） ---------- */
+.ap-table { display: block; }
+.ap-grid { display: grid; grid-template-columns: 40px 56px minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 1fr) 44px; align-items: center; gap: var(--sp-2); min-height: 44px; padding: var(--sp-1) var(--sp-3); }
+.ap-thead { font-size: var(--fs-sm); color: var(--muted); font-weight: 700; border-bottom: 1px solid var(--line); }
+.ap-row { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
+.ap-front { position: relative; background: var(--surface); touch-action: pan-y; }
+.ap-front.is-swiping { transition: none; }
+.ap-front { transition: transform 200ms ease-out; }
+.ap-row.is-open .ap-front { transform: translateX(-88px); }
+.ap-row.is-selected .ap-front { background: var(--accent-soft); }
+.ap-row.is-dragging { z-index: 2; background: var(--surface); box-shadow: 0 4px 16px rgba(10, 30, 40, .25); }
+.ap-cell { min-width: 0; overflow-wrap: anywhere; }
+.ap-check input { width: 20px; height: 20px; }
+.ap-step { font-weight: 700; text-align: center; font-variant-numeric: tabular-nums; }
+.ap-handle { min-width: 44px; min-height: 44px; border: 0; background: transparent; color: var(--muted); font-size: 18px; line-height: 1; cursor: grab; touch-action: none; }
+.ap-del { position: absolute; top: 0; right: 0; bottom: 0; width: 88px; border: 0; background: var(--danger); color: var(--accent-ink); font-weight: 700; cursor: pointer; }
+.ap-tools { display: flex; flex-wrap: wrap; gap: var(--sp-2); padding: var(--sp-3); }
+.ap-tools .btn[aria-disabled="true"] { opacity: .5; pointer-events: none; }
+.ap-pick { display: flex; gap: var(--sp-3); align-items: flex-start; min-height: 44px; padding: var(--sp-2) 0; border-bottom: 1px solid var(--line); }
+.ap-pick input { width: 20px; height: 20px; margin-top: 4px; flex: none; }
+.ap-pick-name { display: block; font-weight: 700; }
+.ap-pick-sub { display: block; color: var(--muted); font-size: var(--fs-sm); }
+body[data-device="mobile"] .ap-dept,
+body[data-device="mobile"] .ap-incl { display: none; }
+body[data-device="mobile"] .ap-grid { grid-template-columns: 40px 40px minmax(0, 1fr) 44px; }
+body[data-device="mobile"] .ap-pick { min-height: 56px; }

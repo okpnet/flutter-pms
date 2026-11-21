@@ -37,6 +37,7 @@ class OrganizationStrings with BaseTranslations<OrganizationLocale, Organization
 	// Translations
 	late final OrganizationStrings$home$ja home = OrganizationStrings$home$ja.internal(_root);
 	late final OrganizationStrings$approvalDefaults$ja approvalDefaults = OrganizationStrings$approvalDefaults$ja.internal(_root);
+	late final OrganizationStrings$approvalSteps$ja approvalSteps = OrganizationStrings$approvalSteps$ja.internal(_root);
 	late final OrganizationStrings$menu$ja menu = OrganizationStrings$menu$ja.internal(_root);
 	late final OrganizationStrings$entity$ja entity = OrganizationStrings$entity$ja.internal(_root);
 }
@@ -194,6 +195,81 @@ class OrganizationStrings$approvalDefaults$ja {
 	String get kindRecurrencePrevention => '再発防止';
 }
 
+// Path: approvalSteps
+class OrganizationStrings$approvalSteps$ja {
+	OrganizationStrings$approvalSteps$ja.internal(this._root);
+
+	final OrganizationStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '承認の段'
+	String get title => '承認の段';
+
+	/// ja: '戻る'
+	String get back => '戻る';
+
+	/// ja: '承認パターン: ${name}'
+	String pattern({required Object name}) => '承認パターン: ${name}';
+
+	/// ja: '承認は、上の段から順に行います。行をドラッグして並べ替えると、順位が付け替わります。行をダブルクリックすると、部署・役職を変えたり、段を削除したりできます。'
+	String get hint => '承認は、上の段から順に行います。行をドラッグして並べ替えると、順位が付け替わります。行をダブルクリックすると、部署・役職を変えたり、段を削除したりできます。';
+
+	/// ja: '承認の段がありません。「段を追加」で登録します(段が無いパターンは、承認不要として扱われます)。'
+	String get empty => '承認の段がありません。「段を追加」で登録します(段が無いパターンは、承認不要として扱われます)。';
+
+	/// ja: '承認の段を読み込めませんでした。'
+	String get loadFailed => '承認の段を読み込めませんでした。';
+
+	/// ja: '保存できませんでした。もう一度お試しください。'
+	String get actionFailed => '保存できませんでした。もう一度お試しください。';
+
+	/// ja: '段を追加'
+	String get add => '段を追加';
+
+	/// ja: '段階'
+	String get colStep => '段階';
+
+	/// ja: '部署'
+	String get colDepartment => '部署';
+
+	/// ja: '役職'
+	String get colPosition => '役職';
+
+	/// ja: '第${n}段階'
+	String stepLabel({required Object n}) => '第${n}段階';
+
+	/// ja: '(指定なし)'
+	String get anyDepartment => '(指定なし)';
+
+	/// ja: '承認の段の追加'
+	String get addTitle => '承認の段の追加';
+
+	/// ja: '承認の段の編集'
+	String get editTitle => '承認の段の編集';
+
+	/// ja: '部署'
+	String get department => '部署';
+
+	/// ja: '役職'
+	String get position => '役職';
+
+	/// ja: '役職を選んでください。'
+	String get positionRequired => '役職を選んでください。';
+
+	/// ja: '保存'
+	String get save => '保存';
+
+	/// ja: 'キャンセル'
+	String get cancel => 'キャンセル';
+
+	/// ja: '削除'
+	String get delete => '削除';
+
+	/// ja: 'この承認の段を削除しますか。'
+	String get deleteConfirm => 'この承認の段を削除しますか。';
+}
+
 // Path: menu
 class OrganizationStrings$menu$ja {
 	OrganizationStrings$menu$ja.internal(this._root);
@@ -226,7 +302,6 @@ class OrganizationStrings$entity$ja {
 	late final OrganizationStrings$entity$staffcapability$ja staffcapability = OrganizationStrings$entity$staffcapability$ja.internal(_root);
 	late final OrganizationStrings$entity$stafflicense$ja stafflicense = OrganizationStrings$entity$stafflicense$ja.internal(_root);
 	late final OrganizationStrings$entity$approvalpattern$ja approvalpattern = OrganizationStrings$entity$approvalpattern$ja.internal(_root);
-	late final OrganizationStrings$entity$approver$ja approver = OrganizationStrings$entity$approver$ja.internal(_root);
 	late final OrganizationStrings$entity$accesspathapproval$ja accesspathapproval = OrganizationStrings$entity$accesspathapproval$ja.internal(_root);
 	late final OrganizationStrings$entity$approvalscope$ja approvalscope = OrganizationStrings$entity$approvalscope$ja.internal(_root);
 }
@@ -412,20 +487,6 @@ class OrganizationStrings$entity$approvalpattern$ja {
 	String get title => '承認パターン';
 
 	late final OrganizationStrings$entity$approvalpattern$fields$ja fields = OrganizationStrings$entity$approvalpattern$fields$ja.internal(_root);
-}
-
-// Path: entity.approver
-class OrganizationStrings$entity$approver$ja {
-	OrganizationStrings$entity$approver$ja.internal(this._root);
-
-	final OrganizationStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '承認できる人'
-	String get title => '承認できる人';
-
-	late final OrganizationStrings$entity$approver$fields$ja fields = OrganizationStrings$entity$approver$fields$ja.internal(_root);
 }
 
 // Path: entity.accesspathapproval
@@ -662,9 +723,6 @@ class OrganizationStrings$entity$department$reverse$ja {
 	/// ja: '割当'
 	String get assignment => '割当';
 
-	/// ja: '承認できる人'
-	String get approver => '承認できる人';
-
 	/// ja: '工程場所'
 	String get taskres => '工程場所';
 
@@ -805,36 +863,9 @@ class OrganizationStrings$entity$approvalpattern$fields$ja {
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
-}
 
-// Path: entity.approver.fields
-class OrganizationStrings$entity$approver$fields$ja {
-	OrganizationStrings$entity$approver$fields$ja.internal(this._root);
-
-	final OrganizationStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '名称'
-	String get f_name => '名称';
-
-	/// ja: '読み'
-	String get f_pronunciation => '読み';
-
-	/// ja: '略称'
-	String get f_nickname => '略称';
-
-	/// ja: '部署'
-	String get f_department => '部署';
-
-	/// ja: '役職'
-	String get f_position => '役職';
-
-	/// ja: '優先順位'
-	String get f_priority => '優先順位';
-
-	/// ja: '備考'
-	String get f_remarks => '備考';
+	/// ja: '承認の段'
+	String get f_steps => '承認の段';
 }
 
 // Path: entity.accesspathapproval.fields
@@ -923,6 +954,28 @@ extension on OrganizationStrings {
 			'approvalDefaults.kindComplaint' => '異常',
 			'approvalDefaults.kindDisposal' => '処置',
 			'approvalDefaults.kindRecurrencePrevention' => '再発防止',
+			'approvalSteps.title' => '承認の段',
+			'approvalSteps.back' => '戻る',
+			'approvalSteps.pattern' => ({required Object name}) => '承認パターン: ${name}',
+			'approvalSteps.hint' => '承認は、上の段から順に行います。行をドラッグして並べ替えると、順位が付け替わります。行をダブルクリックすると、部署・役職を変えたり、段を削除したりできます。',
+			'approvalSteps.empty' => '承認の段がありません。「段を追加」で登録します(段が無いパターンは、承認不要として扱われます)。',
+			'approvalSteps.loadFailed' => '承認の段を読み込めませんでした。',
+			'approvalSteps.actionFailed' => '保存できませんでした。もう一度お試しください。',
+			'approvalSteps.add' => '段を追加',
+			'approvalSteps.colStep' => '段階',
+			'approvalSteps.colDepartment' => '部署',
+			'approvalSteps.colPosition' => '役職',
+			'approvalSteps.stepLabel' => ({required Object n}) => '第${n}段階',
+			'approvalSteps.anyDepartment' => '(指定なし)',
+			'approvalSteps.addTitle' => '承認の段の追加',
+			'approvalSteps.editTitle' => '承認の段の編集',
+			'approvalSteps.department' => '部署',
+			'approvalSteps.position' => '役職',
+			'approvalSteps.positionRequired' => '役職を選んでください。',
+			'approvalSteps.save' => '保存',
+			'approvalSteps.cancel' => 'キャンセル',
+			'approvalSteps.delete' => '削除',
+			'approvalSteps.deleteConfirm' => 'この承認の段を削除しますか。',
 			'menu.group' => '会社情報',
 			'entity.company.title' => '会社情報',
 			'entity.company.fields.f_name' => '会社名',
@@ -976,7 +1029,6 @@ extension on OrganizationStrings {
 			'entity.department.fields.f_nickname' => '略称',
 			'entity.department.fields.f_site' => '事業所',
 			'entity.department.reverse.assignment' => '割当',
-			'entity.department.reverse.approver' => '承認できる人',
 			'entity.department.reverse.taskres' => '工程場所',
 			'entity.department.reverse.preventiondetail' => '未然防止処置',
 			'entity.department.reverse.audit' => '監査',
@@ -1012,14 +1064,7 @@ extension on OrganizationStrings {
 			'entity.approvalpattern.fields.f_name' => 'パターン名称',
 			'entity.approvalpattern.fields.f_pronunciation' => '読み',
 			'entity.approvalpattern.fields.f_remarks' => '備考',
-			'entity.approver.title' => '承認できる人',
-			'entity.approver.fields.f_name' => '名称',
-			'entity.approver.fields.f_pronunciation' => '読み',
-			'entity.approver.fields.f_nickname' => '略称',
-			'entity.approver.fields.f_department' => '部署',
-			'entity.approver.fields.f_position' => '役職',
-			'entity.approver.fields.f_priority' => '優先順位',
-			'entity.approver.fields.f_remarks' => '備考',
+			'entity.approvalpattern.fields.f_steps' => '承認の段',
 			'entity.accesspathapproval.title' => 'アクセスパスの承認',
 			'entity.accesspathapproval.fields.f_name' => '名称',
 			'entity.accesspathapproval.fields.f_access_path' => 'アクセスパス',

@@ -1,0 +1,205 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 承認パターンの台帳と承認の段(会社情報 > 承認。Issue 20261122_0001)。
+# 承認パターン(mstr_approval_pattern)= 名称(呼称)+ 備考。段 = 承認パターン明細(mstr_approval_pattern_detail)+ 承認(mstr_approval: 部署・役職・順位)。
+# 呼称(名称・読み)は共通関数 shared_appellation_save で作り、返った ID を names に渡す。
+
+# 承認パターンの台帳(名称は言語 languageCode)
+ApprovalPatternLedgerPage:
+  lightRead: true
+  kind: read
+  from: mstr_approval_pattern
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - mstr_approval_pattern_id
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+        - pronunciation
+      <<: *AppellationLabelsReadFields
+    - symbol
+    - remarks
+    - update_at
+
+# 承認パターンの更新(渡した列だけが変わる。論理削除は ApprovalPatternLedgerPageRemove)
+ApprovalPatternLedgerPageEdit:
+  kind: edit
+  from: mstr_approval_pattern
+  requiredWhere:
+    - mstr_approval_pattern_id
+  generateRfe: true
+  withUpdater: true
+  columns:
+    - mstr_approval_pattern_id
+    - names
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+ApprovalPatternLedgerPageCreate:
+  kind: create
+  from: mstr_approval_pattern
+  columns:
+    - names
+    - remarks
+    - update_user_id
+    - update_user_history_id
+
+# 呼称(言語別の値)を作る・変える
+ApprovalPatternAppellationSavePageCall:
+  kind: function
+  mutation: sharedAppellationSave
+  returns: sharedAppellation
+  columns:
+    - shared_appellations_id
+
+# 承認の段の読み込み(承認パターンごと。段 = 承認パターン明細 + 承認)
+ApprovalStepApprovalRead: &ApprovalStepApprovalRead
+  kind: read
+  from: mstr_approval
+  filter: true
+  requiredWhere:
+    - languageCode
+  columns:
+    - mstr_approval_id
+    - info_department_id
+    - info_position_id
+    - priority
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+      <<: *AppellationLabelsReadFields
+    - remarks
+
+ApprovalStepPage:
+  kind: read
+  from: mstr_approval_pattern_detail
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - mstr_approval_pattern_detail_id
+    - mstr_approval_pattern_id
+    - mstr_approval_id
+    - name: approval
+      as: approval
+      arrayType: toFirstOne
+      using: mstr_approval_id
+      <<: *ApprovalStepApprovalRead
+    - remarks
+
+# 承認(段の中身: 部署・役職・順位)の登録・更新。順位の付け替えは、変えた段だけ更新する
+ApprovalStepApprovalPageEdit:
+  kind: edit
+  from: mstr_approval
+  requiredWhere:
+    - mstr_approval_id
+  generateRfe: true
+  withUpdater: true
+  columns:
+    - mstr_approval_id
+    - info_department_id
+    - info_position_id
+    - priority
+    - names
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+ApprovalStepApprovalPageCreate:
+  kind: create
+  from: mstr_approval
+  columns:
+    - info_department_id
+    - info_position_id
+    - priority
+    - names
+    - remarks
+    - update_user_id
+    - update_user_history_id
+
+# 承認パターン明細(パターンと承認のつなぎ)。削除は論理削除(ApprovalStepDetailPageRemove)
+ApprovalStepDetailPageEdit:
+  kind: edit
+  from: mstr_approval_pattern_detail
+  requiredWhere:
+    - mstr_approval_pattern_detail_id
+  generateRfe: true
+  withUpdater: true
+  columns:
+    - mstr_approval_pattern_detail_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+ApprovalStepDetailPageCreate:
+  kind: create
+  from: mstr_approval_pattern_detail
+  columns:
+    - mstr_approval_pattern_id
+    - mstr_approval_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+
+# 段の選択肢(部署・役職。名称は言語 languageCode)
+ApprovalStepDepartmentOptionPage:
+  lightRead: true
+  kind: read
+  from: info_department
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - info_department_id
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+      <<: *AppellationLabelsReadFields
+
+ApprovalStepPositionOptionPage:
+  lightRead: true
+  kind: read
+  from: info_position
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - info_position_id
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+      <<: *AppellationLabelsReadFields

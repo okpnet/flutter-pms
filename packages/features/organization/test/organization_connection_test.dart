@@ -109,14 +109,16 @@ void main() {
 
     test('実体は読み取り専用: 新規・保存・削除を出さず、書き込もうとすると失敗する', () {
       final repos = organizationRepositories(GraphQLClient(link: HttpLink('http://localhost:1'), cache: GraphQLCache()));
-      expect(repos.map((r) => r.definition.key), ['stafficon', 'staff', 'site', 'department']);
-      for (final r in repos.where((r) => !['stafficon', 'site'].contains(r.definition.key))) {
+      expect(repos.map((r) => r.definition.key), ['stafficon', 'staff', 'site', 'department', 'approvalpattern']);
+      for (final r in repos.where((r) => !['stafficon', 'site', 'approvalpattern'].contains(r.definition.key))) {
         expect(r.definition.viewOnly, isTrue);
         expect(r.definition.fields.every((f) => f.readOnly), isTrue);
         expect(() => r.save(const EntityRecord(id: '', values: {})), throwsUnsupportedError);
         expect(() => r.remove('x'), throwsUnsupportedError);
       }
-      expect(repos.last.definition.isTree, isTrue);
+      expect(repos.firstWhere((r) => r.definition.key == 'department').definition.isTree, isTrue);
+      // 承認パターンは書き込みできる(承認の段は専用の画面)
+      expect(repos.last.definition.viewOnly, isFalse);
     });
   });
 }

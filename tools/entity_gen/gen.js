@@ -103,7 +103,6 @@ const REVERSE = {
   equipment: [{ entity: 'inspectionoperation', field: 'equipment', label: '設備点検整備運用' }],
   department: [
     { entity: 'assignment', field: 'department', label: '割当' },
-    { entity: 'approver', field: 'department', label: '承認できる人' },
     { entity: 'taskres', field: 'info_department_id', label: '工程場所' },
     { entity: 'preventiondetail', field: 'info_department_id', label: '未然防止処置' },
     { entity: 'audit', field: 'info_department_id', label: '監査' },

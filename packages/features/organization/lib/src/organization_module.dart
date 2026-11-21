@@ -11,6 +11,9 @@ import 'i18n/strings_provider.dart';
 import 'page/approval_defaults_destination.dart';
 import 'page/approval_defaults_page.dart';
 import 'page/approval_defaults_paths.dart';
+import 'page/approval_steps_destination.dart';
+import 'page/approval_steps_page.dart';
+import 'page/approval_steps_paths.dart';
 import 'page/company_home_page.dart';
 
 /// 会社情報をアプリへ組み込むための口。
@@ -57,13 +60,30 @@ class OrganizationModule extends EntityFeatureModule {
   List<RouteBase> get routes => [
     ...super.routes,
     GoRoute(path: ApprovalDefaultsPaths.home, builder: (context, state) => const ApprovalDefaultsPage()),
+    GoRoute(
+      path: ApprovalStepsPaths.home,
+      builder: (context, state) => ApprovalStepsPage(
+        key: ValueKey(state.uri.queryParameters['id']),
+        patternId: state.uri.queryParameters['id'] ?? '',
+        patternName: state.uri.queryParameters['name'] ?? '',
+      ),
+    ),
   ];
 
   @override
   String? locationOf(PageDestination<Object?> destination) => switch (destination) {
     ApprovalDefaultsDestination() => ApprovalDefaultsPaths.home,
+    ApprovalStepsDestination(:final patternId, :final patternName) => ApprovalStepsPaths.of(patternId, patternName: patternName),
     _ => super.locationOf(destination),
   };
+
+  /// 承認パターンの台帳の行の操作「承認の段」で、承認の段の画面(ドラッグで並べ替え)へ進む。
+  @override
+  Future<bool> handleRowAction(WidgetRef ref, RowAction action, EntityRecord record) async {
+    if (action.key != 'steps') return false;
+    await ref.read(commandBusProvider).execute(ApprovalStepsDestination(record.id, patternName: record.valueOf('name')));
+    return true;
+  }
 
   @override
   String menuGroupLabel(WidgetRef ref) =>

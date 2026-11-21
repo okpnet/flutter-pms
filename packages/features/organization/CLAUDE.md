@@ -24,7 +24,6 @@
 | 作業者の力量 | `staffcapability` | 子の台帳(親: 作業者) | 3 | `capability` |
 | 作業者の資格 | `stafflicense` | 子の台帳(親: 作業者) | 8 | `license` |
 | 承認パターン | `approvalpattern` | テーブル構造 | 3 |  |
-| 承認できる人 | `approver` | 子の台帳(親: 承認パターン) | 7 | `department`, `position` |
 | アクセスパスの承認 | `accesspathapproval` | テーブル構造 | 3 | `accesspath` |
 | 承認の範囲 | `approvalscope` | 子の台帳(親: 承認パターン) | 2 | `accesspathapproval` |
 <!-- entity_gen:end -->
@@ -42,6 +41,13 @@
 ## 承認の範囲
 承認の範囲(`approvalscope`。承認パターンの子の台帳。DB の `mstr_approval_scope_pattern`)は、**承認パターンを、どのアクセスパスの承認に使うか**の対応(アクセスパスの承認 + 備考)。画面案の段階・承認する役職・対象の組織・配下を含むか、は DB に列が無いため持たない(DB を優先)。参照先の「アクセスパスの承認」(`accesspathapproval`。DB の `info_access_path_approval`。名称・アクセスパス・備考)も実体として持ち、会社情報の概要の「承認」の下から開く。どちらも、いまはサンプルの取得元(GraphQL 版は未作成。モデルは `approval.yaml` の `ApprovalScopePage`・`ApprovalScopePageEdit` のみで、`info_access_path_approval` のモデルは無い)。
 
+## 承認パターンの台帳と承認の段(GraphQL 版。Issue 20261122_0001)
+1.  承認パターン(`approvalpattern`。DB の `mstr_approval_pattern`)の台帳は、`ApprovalPatternRepository`(`lib/src/graphql/approval_pattern_repository.dart`。`organizationRepositories` が組み込む)で読み書きする。名称・読みは共通関数 `shared_appellation_save`(言語 `ja`)で作り、返った ID を本体の create・update の `names` に渡す。削除は論理削除。モデルは `organization_model/gql/approval_pattern.yaml`(`ApprovalPatternLedgerPage` ほか)。
+1.  承認の段(部署・役職・順位。DB の承認パターン明細 `mstr_approval_pattern_detail` + 承認 `mstr_approval`)は、台帳の行の操作「承認の段」(`RowAction(key: 'steps')`。`OrganizationModule.handleRowAction`)で開く専用の画面 `/organization/approval-steps?id=…&name=…`(`ApprovalStepsPage`。契約 `organization_api.dart` の `ApprovalStepsDestination`)で編集する。実体 `approver`(承認できる人)は、この画面に置き換えて廃止した(画面案の「承認できる人」(段ごとの担当者)は DB に表・列が無い)。
+1.  段の表は `flgtable_lib`(`TableConfig.dragEnabled`)。**行をドラッグして並べ替える**と、順位(`mstr_approval.priority`)を 1 から振り直して保存する(変わった段だけを更新。`renumberSteps`)。表は、ソート・絞り込みをしていないあいだ、渡した元のリストへ並べ替えの結果を書き戻すため、ドロップのあとにそのリストの順で保存する。保存に失敗したときは、読み直して元の並びに戻し、知らせる。行のダブルクリック・長押しで部署・役職の変更・段の削除(確認つき)、「段を追加」で最後の順位の段を足す(役職は必須。部署は指定なしにできる)。
+1.  段の取得元は `IApprovalStepsGateway`(`approvalStepsGatewayProvider`。既定はメモリ上。`pms_app` が `GraphqlApprovalStepsGateway` に差し替える)。追加は「呼称 → 承認 → 承認パターン明細」の順(別のトランザクション)。
+1.  通信テストは `test/approval_pattern_server_test.dart`(「変更する」テストは、登録した承認パターン・段を最後に論理削除する。呼称の行は残る)。
+
 ## 標準の承認パターン
 `/organization/approval-defaults`(`ApprovalDefaultsPage`。契約 `organization_api.dart` の `ApprovalDefaultsDestination`。会社情報の概要の「承認」の「標準の承認パターン」から開く)。登録が申請になる対象(文書・受注・発注・非計上発注・出荷オーダー・異常・処置・再発防止)ごとに、使う承認パターンを選ぶ。DB の `info_app` の対象ごとの列(`document_approval_pattern_id` など。`mstr_approval_pattern` への外部キー、NULL = 承認不要)を読み書きする。DB のトリガー(`trg_05_approval_request`)が、その対象のテーブルの登録で、この列から承認パターンを引く。
 1.  「承認不要(設定しない)」を選ぶと NULL。文書(マニュアルなど)は承認パターンが必須(NOT NULL)のため、未設定のときは案内を出す(承認が要らないときは、段が無いパターンを選ぶ。標準は `07_dummy.sql` の 7)。選択肢に無い ID が設定されていても、消さずに「(一覧に無いパターン) ID」として残す。変更は「保存」で反映(未保存の帯・「保存済みに戻す」)。
@@ -56,7 +62,7 @@
 
 ## 取得元(GraphQL 版。読み取り専用)
 `lib/src/graphql/organization_repositories.dart` の `organizationRepositories(GraphQLClient)` が、職員(`staff`)・事業所(`site`)・部署(`department`。ツリー)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
-1.  読み取り専用: 実体を `viewOnly`・各項目 `readOnly` にし、保存・削除は `UnsupportedError`。名称・読み・略称は多言語の辞書で、言語コード `ja` の値を読む。部署の親は部署ツリー(`info_department_tree`)の親の部署 ID(親ごとの絞り込みはサーバー側に無く、取得した中から選ぶ)。事業所の住所は、画面の項目を DB の住所(`info_address`)の列に合わせた: 国・郵便番号・住所1・住所2・建物・電話番号・FAX(画面案の都道府県・市区町村は、DB に列が無いため、住所1 = 都道府県と市区町村、住所2 = 町名・番地・号に統合した。住所1・住所2・建物は呼称(多言語の辞書)で、言語コード `ja` の値)。ほかの実体(会社・提供・役職・割当・部署区分・力量・資格・承認など)は、サンプルのまま。
+1.  読み取り専用: 実体を `viewOnly`・各項目 `readOnly` にし、保存・削除は `UnsupportedError`。名称・読み・略称は多言語の辞書で、言語コード `ja` の値を読む。部署の親は部署ツリー(`info_department_tree`)の親の部署 ID(親ごとの絞り込みはサーバー側に無く、取得した中から選ぶ)。事業所の住所は、画面の項目を DB の住所(`info_address`)の列に合わせた: 国・郵便番号・住所1・住所2・建物・電話番号・FAX(画面案の都道府県・市区町村は、DB に列が無いため、住所1 = 都道府県と市区町村、住所2 = 町名・番地・号に統合した。住所1・住所2・建物は呼称(多言語の辞書)で、言語コード `ja` の値)。ほかの実体(会社・提供・役職・割当・部署区分・力量・資格・アクセスパスの承認など)は、サンプルのまま(承認パターンは書き込みできる。下の「承認パターンの台帳と承認の段」)。
 1.  **【入れ替え: 呼称の DB 関数】** 書き込みは、共通関数(`shared_appellation_save`・`shared_text_save`)で呼称・文章を作り、返った ID を本体のミューテーションに渡す形で、職員・事業所・部署の取得元の `save` を入れ替え、`viewOnly` を外す(`issue/C_202611.md` の 2-1)。
 1.  **事業所は書き込みできる**(2026-11-19。`site_repository.dart`。通信テスト `test/site_test.dart`)。事業所(`info_office`)と住所(`info_address`)は 1 対 1 の入れ子のミューテーション: 呼称(事業所の名称・読み・略称、住所の住所1・住所2・建物)は共通関数、住所は先に登録・更新して返った ID を事業所に渡す。更新は変えた項目だけ。住所の入力が無く、住所も無い事業所は、住所を作らない(あとから足せる)。会社(`info_company_id` は必須)は、1 社だけの前提で最初の会社。別のトランザクションのため、事業所の登録が失敗すると住所・呼称が孤児として残る(許容)。コードの重複(`info_office_ix_code_active`)は、コードの項目の重複エラー。削除は論理削除(住所は残す)。**部署・作業者は未実施**(部署は `TreeCycleGuard` による循環の検査と、親の付け替えが要る。作業者は PocketBase とのつなぎ(ルート CLAUDE.md の「作業者の新規登録」)の決定が要る)。
 1.  更新者の履歴の ID: `lib/src/graphql/staff_history_lookup.dart` の `staffHistoryLookup(GraphQLClient)` が、担当者の最新の履歴の ID(`history_info_staff` の `revision` が最大の行。生成モデル `organization_model` の `StaffHistoryLatestPage`)を引く関数を作る。アプリが `current_user` の `CurrentUserHolder` の `lookupHistory` に渡す(履歴が無いときは null、通信の失敗は投げる)。テストは `test/staff_history_lookup_test.dart`(通信は差し替えた Link)。

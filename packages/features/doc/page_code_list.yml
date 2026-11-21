@@ -93,10 +93,15 @@ features:
         code: B
         page: OB
         label: 承認できる人
+        removed: true
       - screen: approvaldefaults
         code: Z
         page: OZ
         label: 標準の承認パターン
+      - screen: approvalsteps
+        code: Y
+        page: OY
+        label: 承認の段
 
   - feature: resource
     code: R

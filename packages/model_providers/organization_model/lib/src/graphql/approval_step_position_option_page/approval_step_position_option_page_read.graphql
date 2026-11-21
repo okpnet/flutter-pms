@@ -1,0 +1,43 @@
+# approval_step_position_option_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ApprovalStepPositionOptionPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ApprovalStepPositionOptionPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: InfoPositionFilter = {and: []}
+  $orderBy: [InfoPositionsOrderBy!]
+  $languageCodeId: UUID!
+  $removed: Boolean = false
+) {
+  allInfoPositions(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      infoPositionId
+
+      labels: sharedAppellationByNames {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+      }
+    }
+  }
+}

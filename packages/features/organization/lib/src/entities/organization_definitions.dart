@@ -73,7 +73,7 @@ const List<EntityDefinition> organizationDefinitions = [
       ],
     ),
     EntityDefinition(
-      key: 'department', isTree: true, treeTitle: ['code', 'name'], treeTags: 'departmentkind', uniqueKeys: [['code']], reverseLists: [ReverseList(entity: 'assignment', field: 'department'), ReverseList(entity: 'approver', field: 'department'), ReverseList(entity: 'taskres', field: 'info_department_id'), ReverseList(entity: 'preventiondetail', field: 'info_department_id'), ReverseList(entity: 'audit', field: 'info_department_id')],
+      key: 'department', isTree: true, treeTitle: ['code', 'name'], treeTags: 'departmentkind', uniqueKeys: [['code']], reverseLists: [ReverseList(entity: 'assignment', field: 'department'), ReverseList(entity: 'taskres', field: 'info_department_id'), ReverseList(entity: 'preventiondetail', field: 'info_department_id'), ReverseList(entity: 'audit', field: 'info_department_id')],
       fields: [
         FieldDefinition(key: 'code'),
         FieldDefinition(key: 'name'),
@@ -132,21 +132,10 @@ const List<EntityDefinition> organizationDefinitions = [
     ),
     EntityDefinition(
       key: 'approvalpattern',
+      rowActions: [RowAction(key: 'steps', target: '')],
       fields: [
         FieldDefinition(key: 'name'),
         FieldDefinition(key: 'pronunciation', required: false),
-        FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
-      ],
-    ),
-    EntityDefinition(
-      key: 'approver', owner: 'approvalpattern',
-      fields: [
-        FieldDefinition(key: 'name'),
-        FieldDefinition(key: 'pronunciation', required: false),
-        FieldDefinition(key: 'nickname', required: false),
-        FieldDefinition(key: 'department', kind: FieldKind.reference, required: false, reference: 'department'),
-        FieldDefinition(key: 'position', kind: FieldKind.reference, required: false, reference: 'position'),
-        FieldDefinition(key: 'priority', kind: FieldKind.number, required: false),
         FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false),
       ],
     ),

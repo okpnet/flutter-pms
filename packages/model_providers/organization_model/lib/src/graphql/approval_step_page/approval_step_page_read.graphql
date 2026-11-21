@@ -1,0 +1,56 @@
+# approval_step_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ApprovalStepPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ApprovalStepPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: MstrApprovalPatternDetailFilter = {and: []}
+  $orderBy: [MstrApprovalPatternDetailsOrderBy!]
+  $languageCodeId: UUID!
+  $removed: Boolean = false
+) {
+  allMstrApprovalPatternDetails(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      mstrApprovalPatternDetailId
+      mstrApprovalPatternId
+      mstrApprovalId
+
+      approval: mstrApprovalByMstrApprovalId {
+        mstrApprovalId
+        infoDepartmentId
+        infoPositionId
+        priority
+
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+
+        remarks
+      }
+
+      remarks
+    }
+  }
+}

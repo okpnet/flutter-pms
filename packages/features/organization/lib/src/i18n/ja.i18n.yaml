@@ -46,6 +46,29 @@ approvalDefaults:
   kindComplaint: 異常
   kindDisposal: 処置
   kindRecurrencePrevention: 再発防止
+approvalSteps:
+  title: 承認の段
+  back: 戻る
+  pattern: '承認パターン: ${name}'
+  hint: 承認は、上の段から順に行います。行をドラッグして並べ替えると、順位が付け替わります。行をダブルクリックすると、部署・役職を変えたり、段を削除したりできます。
+  empty: 承認の段がありません。「段を追加」で登録します(段が無いパターンは、承認不要として扱われます)。
+  loadFailed: 承認の段を読み込めませんでした。
+  actionFailed: 保存できませんでした。もう一度お試しください。
+  add: 段を追加
+  colStep: 段階
+  colDepartment: 部署
+  colPosition: 役職
+  stepLabel: '第${n}段階'
+  anyDepartment: (指定なし)
+  addTitle: 承認の段の追加
+  editTitle: 承認の段の編集
+  department: 部署
+  position: 役職
+  positionRequired: 役職を選んでください。
+  save: 保存
+  cancel: キャンセル
+  delete: 削除
+  deleteConfirm: この承認の段を削除しますか。
 # --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
 # 会社情報の実体と項目の表示名(日本語。基準言語)。
 # 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。
@@ -119,7 +142,6 @@ entity:
       f_site: "事業所"
     reverse:
       assignment: "割当"
-      approver: "承認できる人"
       taskres: "工程場所"
       preventiondetail: "未然防止処置"
       audit: "監査"
@@ -167,16 +189,7 @@ entity:
       f_name: "パターン名称"
       f_pronunciation: "読み"
       f_remarks: "備考"
-  approver:
-    title: "承認できる人"
-    fields:
-      f_name: "名称"
-      f_pronunciation: "読み"
-      f_nickname: "略称"
-      f_department: "部署"
-      f_position: "役職"
-      f_priority: "優先順位"
-      f_remarks: "備考"
+      f_steps: "承認の段"
   accesspathapproval:
     title: "アクセスパスの承認"
     fields:

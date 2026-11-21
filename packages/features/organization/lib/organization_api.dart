@@ -4,3 +4,4 @@ library;
 export 'src/dashboard/staff_count_metric_source.dart'
     show StaffCountMetricSource, staffCountMetricSource;
 export 'src/page/approval_defaults_destination.dart';
+export 'src/page/approval_steps_destination.dart';

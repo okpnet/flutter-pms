@@ -1,0 +1,30 @@
+# approval_pattern_ledger_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #ApprovalPatternLedgerPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ApprovalPatternLedgerPageEdit(
+  $mstrApprovalPatternId: UUID!
+  $names: UUID
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  updateMstrApprovalPatternByMstrApprovalPatternId(
+    input: {
+      mstrApprovalPatternId: $mstrApprovalPatternId
+      mstrApprovalPatternPatch: {
+        names: $names
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    mstrApprovalPattern {
+      mstrApprovalPatternId
+      names
+      remarks
+    }
+  }
+}

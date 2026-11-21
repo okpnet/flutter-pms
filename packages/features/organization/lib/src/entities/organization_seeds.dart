@@ -122,14 +122,6 @@ const Map<String, List<EntityRecord>> organizationSeeds = {
       EntityRecord(id: 'c1404734-0000-4000-8000-000000000002', values: {'name': '休暇申請', 'pronunciation': 'キュウカシンセイ', 'remarks': '従業員の長期休暇を承認する経路。'}),
       EntityRecord(id: 'c1404734-0000-4000-8000-000000000003', values: {'name': '設備投資', 'pronunciation': 'セツビトウシ', 'remarks': '設備の購入・更新を承認する経路。'}),
     ],
-    'approver': [
-      EntityRecord(id: '880e1bd8-0000-4000-8000-000000000001', values: {'name': '製造部 工場長', 'pronunciation': '', 'nickname': '', 'department': 'cf3da547-0000-4000-8000-000000000003', 'position': '934f4e0a-0000-4000-8000-000000000002', 'priority': '1', 'remarks': ''}, parentId: 'c1404734-0000-4000-8000-000000000001'),
-      EntityRecord(id: '880e1bd8-0000-4000-8000-000000000002', values: {'name': '生産管理部 生産管理部長', 'pronunciation': '', 'nickname': '', 'department': 'cf3da547-0000-4000-8000-000000000002', 'position': '934f4e0a-0000-4000-8000-000000000001', 'priority': '2', 'remarks': ''}, parentId: 'c1404734-0000-4000-8000-000000000001'),
-      EntityRecord(id: '880e1bd8-0000-4000-8000-000000000003', values: {'name': '製造部 工場長', 'pronunciation': '', 'nickname': '', 'department': 'cf3da547-0000-4000-8000-000000000003', 'position': '934f4e0a-0000-4000-8000-000000000002', 'priority': '1', 'remarks': ''}, parentId: 'c1404734-0000-4000-8000-000000000002'),
-      EntityRecord(id: '880e1bd8-0000-4000-8000-000000000004', values: {'name': '営業部 営業所長', 'pronunciation': '', 'nickname': '', 'department': 'cf3da547-0000-4000-8000-000000000008', 'position': '934f4e0a-0000-4000-8000-000000000005', 'priority': '2', 'remarks': ''}, parentId: 'c1404734-0000-4000-8000-000000000002'),
-      EntityRecord(id: '880e1bd8-0000-4000-8000-000000000005', values: {'name': '生産管理部 生産管理部長', 'pronunciation': '', 'nickname': '', 'department': 'cf3da547-0000-4000-8000-000000000002', 'position': '934f4e0a-0000-4000-8000-000000000001', 'priority': '1', 'remarks': ''}, parentId: 'c1404734-0000-4000-8000-000000000003'),
-      EntityRecord(id: '880e1bd8-0000-4000-8000-000000000006', values: {'name': '品質保証部 品質保証責任者', 'pronunciation': '', 'nickname': '', 'department': 'cf3da547-0000-4000-8000-000000000007', 'position': '934f4e0a-0000-4000-8000-000000000003', 'priority': '2', 'remarks': ''}, parentId: 'c1404734-0000-4000-8000-000000000003'),
-    ],
     'accesspathapproval': [
       EntityRecord(id: '84805c57-0000-4000-8000-000000000001', values: {'name': '受注の承認', 'access_path': '1a31253c-0000-4000-8000-000000000001', 'remarks': ''}),
       EntityRecord(id: '84805c57-0000-4000-8000-000000000002', values: {'name': '発注の承認', 'access_path': '1a31253c-0000-4000-8000-000000000002', 'remarks': ''}),

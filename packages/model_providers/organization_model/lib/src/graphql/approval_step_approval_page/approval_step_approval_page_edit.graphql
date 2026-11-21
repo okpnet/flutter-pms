@@ -1,0 +1,39 @@
+# approval_step_approval_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #ApprovalStepApprovalPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ApprovalStepApprovalPageEdit(
+  $mstrApprovalId: UUID!
+  $infoDepartmentId: UUID
+  $infoPositionId: UUID
+  $priority: Int
+  $names: UUID
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  updateMstrApprovalByMstrApprovalId(
+    input: {
+      mstrApprovalId: $mstrApprovalId
+      mstrApprovalPatch: {
+        infoDepartmentId: $infoDepartmentId
+        infoPositionId: $infoPositionId
+        priority: $priority
+        names: $names
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    mstrApproval {
+      mstrApprovalId
+      infoDepartmentId
+      infoPositionId
+      priority
+      names
+      remarks
+    }
+  }
+}
