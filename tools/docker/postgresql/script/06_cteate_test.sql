@@ -23043,6 +23043,29 @@ COMMENT ON VIEW tests.v_document_approval_stamp IS '@primaryKey trans_preapprova
 @foreignKey (approved_staff_id) references info_staff (info_staff_id)
 文書の承認ごとの状態(1 行 = 承認の段 1 つ)。承認スタンプの表示項目は、この列から選ぶ。承認した日時・人は承認結果(最新の 1 件。追記のみ)の値。承認(approved)・却下(rejected)・待ち(pending)は boolean。スタンプの文字(stamp_label_ja・stamp_label_en)は、このビューだけで定義する(画面・PDF で組み立てない)';
 
+COMMENT ON COLUMN tests.v_document_approval_stamp.trans_preapproval_id IS '承認前ID(承認の段 1 つ)';
+COMMENT ON COLUMN tests.v_document_approval_stamp.mstr_document_id IS '文書ID';
+COMMENT ON COLUMN tests.v_document_approval_stamp.trans_approval_pattern_id IS '承認実行パターンID';
+COMMENT ON COLUMN tests.v_document_approval_stamp.mstr_approval_id IS '承認ID(承認の段)';
+COMMENT ON COLUMN tests.v_document_approval_stamp.approval_priority IS '承認の順位';
+COMMENT ON COLUMN tests.v_document_approval_stamp.approval_names IS '承認の名称(呼称ID)';
+COMMENT ON COLUMN tests.v_document_approval_stamp.info_position_id IS '承認する役職ID';
+COMMENT ON COLUMN tests.v_document_approval_stamp.info_department_id IS '承認する部署ID(NULL は部署を問わない)';
+COMMENT ON COLUMN tests.v_document_approval_stamp.period IS '承認の期限';
+COMMENT ON COLUMN tests.v_document_approval_stamp.decided IS '判断済み(承認結果がある)';
+COMMENT ON COLUMN tests.v_document_approval_stamp.approved IS '承認適用(承認済み)';
+COMMENT ON COLUMN tests.v_document_approval_stamp.rejected IS '却下(判断済みで、承認適用でない)';
+COMMENT ON COLUMN tests.v_document_approval_stamp.pending IS '承認待ち(承認結果がまだ無い)';
+COMMENT ON COLUMN tests.v_document_approval_stamp.approved_at IS '承認(または却下)した日時';
+COMMENT ON COLUMN tests.v_document_approval_stamp.approved_staff_id IS '承認者の担当者ID';
+COMMENT ON COLUMN tests.v_document_approval_stamp.approved_staff_history_id IS '承認者の担当者履歴ID';
+COMMENT ON COLUMN tests.v_document_approval_stamp.approved_remarks IS '承認結果の備考';
+COMMENT ON COLUMN tests.v_document_approval_stamp.stamp_label_ja IS 'スタンプの文字(日本語)。承認・承認待ち・却下';
+COMMENT ON COLUMN tests.v_document_approval_stamp.stamp_label_en IS 'スタンプの文字(英語)。Approval・Pending・Rejected';
+COMMENT ON COLUMN tests.v_document_approval_stamp.version_code IS '文書の版コード';
+COMMENT ON COLUMN tests.v_document_approval_stamp.control_number IS '文書の管理番号';
+COMMENT ON COLUMN tests.v_document_approval_stamp.document_revision IS '文書のレビジョン';
+
 CREATE VIEW tests.v_document_publication AS
 SELECT
     d.mstr_document_id
@@ -23089,6 +23112,26 @@ COMMENT ON VIEW tests.v_document_publication IS '@primaryKey mstr_document_id
 @foreignKey (approved_staff_id) references info_staff (info_staff_id)
 文書の公開の判定(1 行 = 文書)。承認の段が 0 件(承認不要のパターン)、またはすべての段が承認済み(承認適用 = true)のとき published。それ以外は pending(承認待ち)。readable は、ログイン中の担当者(JWT の staff_id)が中身を読めるか(公開済み、または承認の該当者、または管理者)。承認待ちの文書は、読める人にも pending を表示する。公開の判定・スタンプの文字は、このビューだけで定義する(画面・PDF で判定しない)';
 
+COMMENT ON COLUMN tests.v_document_publication.mstr_document_id IS '文書ID';
+COMMENT ON COLUMN tests.v_document_publication.symbol IS 'リニアシンボル';
+COMMENT ON COLUMN tests.v_document_publication.code IS '文書のコード';
+COMMENT ON COLUMN tests.v_document_publication.control_number IS '管理番号';
+COMMENT ON COLUMN tests.v_document_publication.version_code IS '版コード';
+COMMENT ON COLUMN tests.v_document_publication.trans_approval_pattern_id IS '承認実行パターンID';
+COMMENT ON COLUMN tests.v_document_publication.total_count IS '承認の段の件数';
+COMMENT ON COLUMN tests.v_document_publication.approved_count IS '承認済みの段の件数';
+COMMENT ON COLUMN tests.v_document_publication.published IS '公開(承認の段が 0 件、またはすべて承認済み)';
+COMMENT ON COLUMN tests.v_document_publication.pending IS '承認待ち(承認していない段がある)';
+COMMENT ON COLUMN tests.v_document_publication.rejected IS '却下された段がある';
+COMMENT ON COLUMN tests.v_document_publication.stamp_visible IS 'スタンプを出す(承認の段が 1 件以上)';
+COMMENT ON COLUMN tests.v_document_publication.approved_at IS '最後に承認した日時';
+COMMENT ON COLUMN tests.v_document_publication.approved_staff_id IS '最後に承認した担当者ID';
+COMMENT ON COLUMN tests.v_document_publication.approved_staff_history_id IS '最後に承認した担当者の履歴ID';
+COMMENT ON COLUMN tests.v_document_publication.readable IS 'ログイン中の担当者が中身を読める(公開済み、承認の該当者、または管理者)';
+COMMENT ON COLUMN tests.v_document_publication.approver IS 'ログイン中の担当者が承認の該当者';
+COMMENT ON COLUMN tests.v_document_publication.stamp_label_ja IS 'スタンプの文字(日本語)。承認・承認待ち';
+COMMENT ON COLUMN tests.v_document_publication.stamp_label_en IS 'スタンプの文字(英語)。Approval・Pending';
+
 CREATE VIEW tests.v_document_content AS
 SELECT
     c.mstr_document_content_id
@@ -23112,6 +23155,21 @@ WHERE c.remove IS FALSE;
 COMMENT ON VIEW tests.v_document_content IS '@primaryKey mstr_document_content_id
 @foreignKey (mstr_document_id) references mstr_document (mstr_document_id)
 文書コンテンツの閲覧用(1 行 = コンテンツ)。読めない人(readable = false)には、中身(contents)とファイル(trans_file_id)を NULL で返す。画面は、この閲覧用のビューから読む(基の表を直接読まない)';
+
+COMMENT ON COLUMN tests.v_document_content.mstr_document_content_id IS 'コンテンツID';
+COMMENT ON COLUMN tests.v_document_content.mstr_document_id IS '文書ID';
+COMMENT ON COLUMN tests.v_document_content.code IS 'コード';
+COMMENT ON COLUMN tests.v_document_content.titles IS 'タイトル(呼称ID)';
+COMMENT ON COLUMN tests.v_document_content.sequence IS 'シーケンス';
+COMMENT ON COLUMN tests.v_document_content.image_content IS 'イメージコンテンツ';
+COMMENT ON COLUMN tests.v_document_content.symbol IS 'リニアシンボル';
+COMMENT ON COLUMN tests.v_document_content.revision IS 'レビジョン';
+COMMENT ON COLUMN tests.v_document_content.update_at IS '更新日時';
+COMMENT ON COLUMN tests.v_document_content.published IS '公開';
+COMMENT ON COLUMN tests.v_document_content.pending IS '承認待ち';
+COMMENT ON COLUMN tests.v_document_content.readable IS 'ログイン中の担当者が読める';
+COMMENT ON COLUMN tests.v_document_content.contents IS 'コンテンツ(読めないときは NULL)';
+COMMENT ON COLUMN tests.v_document_content.trans_file_id IS 'ファイルID(読めないときは NULL)';
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_shared_dictionary() RETURNS trigger AS
 $BODY$
