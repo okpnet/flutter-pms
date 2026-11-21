@@ -2,6 +2,7 @@ import 'package:access_control/access_control.dart';
 import 'package:app_core/app_core.dart';
 import 'package:auth_files/auth_files.dart';
 import 'package:backstage/backstage.dart';
+import 'package:document_settings/document_settings.dart';
 import 'package:barcode_entry/barcode_entry.dart';
 import 'package:item/item.dart';
 import 'package:manual/manual.dart';
@@ -51,6 +52,7 @@ const List<FeatureModule> featureModules = [
   QualityCommonModule(),
   QualityDocumentModule(),
   ManualModule(),
+  DocumentSettingsModule(),
   SharedMasterModule(),
   SystemModule(),
   AccessControlModule(),

@@ -76,6 +76,8 @@ dependencies:
     path: ../../packages/features/quality_document
   manual:
     path: ../../packages/features/manual
+  document_settings:
+    path: ../../packages/features/document_settings
   system:
     path: ../../packages/features/system
   access_control_model:

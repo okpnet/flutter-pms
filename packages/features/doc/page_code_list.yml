@@ -665,3 +665,11 @@ features:
         code: M
         page: NM
         label: マニュアル
+  - feature: document_settings
+    code: D
+    label: 承認スタンプ・PDF の設定
+    screens:
+      - screen: document_settings
+        code: S
+        page: DS
+        label: 承認スタンプ・PDF の設定

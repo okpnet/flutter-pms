@@ -1,0 +1,130 @@
+menuGroup: Quality documents
+menuLabel: Approval stamp & PDF settings
+title: Approval stamp & PDF settings
+loading: Loading…
+adminOnly: Only administrators can change these settings.
+loadFailed: Could not load the settings. Showing the defaults.
+tabs:
+  stamp: Approval stamp
+  pdf: PDF
+  json: JSON
+actions:
+  save: Save
+  revert: Revert
+  resetDefaults: Reset to defaults
+  apply: Apply
+saved: Saved.
+saveFailed: Could not save.
+unsaved: There are unsaved changes.
+problemsTitle: Items that could not be read (defaults are shown)
+preview:
+  title: Preview
+  page: Page
+  sampleNote: 'A sample document (two approval steps: approved and pending).'
+  pageFirst: Page 1
+  pageSecond: Page 2
+json:
+  hint: The settings JSON (info_app.settings). Edit it and press Apply to update the form and the preview.
+  invalid: Not valid JSON.
+stamp:
+  position: Position
+  anchor: Anchor
+  offsetX: Horizontal offset (mm)
+  offsetY: Vertical offset (mm)
+  pages: Pages
+  look: Appearance
+  opacity: Opacity
+  shape: Shape
+  width: Width (mm)
+  height: Height (mm)
+  rotation: Rotation (deg)
+  colors: Colors (#RRGGBB or a variable reference)
+  colorText: Text
+  colorFrame: Frame
+  colorFill: Fill (empty = none)
+  content: Content
+  labelLanguage: Label language
+  stages: Approval steps
+  items: Items
+  itemField: Item
+  itemFormat: Format
+  itemSize: Size
+  itemLine: Line
+  addItem: Add item
+  pending: Pending appearance
+  pendingDashed: Dashed frame
+  pendingColor: Color
+  anchors:
+    topLeft: Top left
+    topRight: Top right
+    bottomLeft: Bottom left
+    bottomRight: Bottom right
+    center: Center
+  pagesValues:
+    first: First page only
+    all: All pages
+  shapes:
+    circle: Circle
+    roundRect: Rounded rectangle
+    doubleFrame: Double frame
+    dateStamp: Date stamp
+  stagesValues:
+    all: One per step
+    last: Last approval only
+  fields:
+    stamp_label: Approval label
+    approved_at: Approved at
+    approved_staff: Approver
+    approval_name: Step name
+    version_code: Version code
+    control_number: Control number
+    document_revision: Revision
+    approved_remarks: Remarks
+pdf:
+  page: Paper
+  size: Paper size
+  orientation: Orientation
+  portrait: Portrait
+  landscape: Landscape
+  margins: Margins (mm)
+  marginTop: Top
+  marginRight: Right
+  marginBottom: Bottom
+  marginLeft: Left
+  theme: Theme
+  vars: Variables (color reference targets)
+  fonts: Text
+  fontFamily: Body font name
+  baseSize: Body size (pt)
+  lineHeight: Line height (x)
+  colors: Colors (#RRGGBB or a variable reference)
+  colorText: Text
+  colorHeading: Headings
+  colorLink: Links
+  colorQuote: Quotes
+  colorCodeBackground: Code background
+  colorTableBorder: Table border
+  colorTableHeader: Table header background
+  headings: Headings
+  headingSize: Size (pt)
+  headingBreak: Page break per chapter
+  header: Header
+  footer: Footer
+  bandEnabled: Show
+  bandHeight: Height (mm)
+  bandSize: Text size (pt)
+  bandColor: Text color
+  bandBorder: Line next to the body
+  bandFirstPage: First page
+  firstSame: Same as other pages
+  firstNone: Hide
+  bandLeft: Left
+  bandCenter: Center
+  bandRight: Right
+  variablesTitle: Variables (tap to insert into the focused field)
+  variablesHint: '{variable} or {variable:format}. Date formats: yyyy/MM/dd, HH:mm, G E (Japanese era). Use {{ and }} for braces.'
+  custom: Custom variables (use as {var.name})
+  customName: Name
+  customValue: Value
+  addCustom: Add variable
+  remove: Remove

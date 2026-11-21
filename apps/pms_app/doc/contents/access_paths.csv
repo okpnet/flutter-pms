@@ -102,3 +102,4 @@
 /e/workrec,作業実績,Work record,work_record,false
 /e/mrpvisiter,ビジター品目,Visiter item,work_record,false
 /e/stockstatus,在庫状況,Stock status,work_record,false
+/auth/admin/document-settings,承認スタンプ・PDFの設定,Approval stamp & PDF settings,document_settings,false

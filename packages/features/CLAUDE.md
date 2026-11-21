@@ -236,6 +236,7 @@ GraphQLから取得したデータのうち、イミュータブルな更新者�
 | 品質共通 | `quality_common` |
 | 品質管理文書 | `quality_document` |
 | マニュアル(Wiki。品質管理文書のグループに並ぶ。Markdown が正本・管理者だけ編集・ルートは複数) | `manual`(閲覧・編集(Markdown / ビジュアル)・履歴・Markdown の書き出し。パスは `/manual`。決定の経緯は `issue/20261120_0002.md`) |
+| 承認スタンプ・PDF の設定(管理者だけ。`info_app.settings` の `stamp`・`pdf` の編集とプレビュー。品質管理文書のグループ) | `document_settings`(フォーム(承認スタンプ・PDF)+ JSON + 用紙のプレビュー。パスは `/auth/admin/document-settings`。決定の経緯は `issue/20261121_0001.md`) |
 | 品質管理 | `quality` |
 | 会社情報 | `organization` |
 | 認証(PocketBase のログイン・ログアウト・登録申請・コード入力・管理者操作)と共有ファイルのアップロード/ダウンロード | `auth_files`(認証は `packages/infra/pbapi` を使う。遷移の仕様は `tools/docker/pocketbase/README.md`) |

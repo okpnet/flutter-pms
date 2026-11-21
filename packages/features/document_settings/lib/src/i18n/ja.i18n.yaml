@@ -1,0 +1,131 @@
+# 文書の設定(承認スタンプ・PDF)の文字列(日本語。基準言語)。
+menuGroup: 品質管理文書
+menuLabel: 承認スタンプ・PDF の設定
+title: 承認スタンプ・PDF の設定
+loading: 読み込み中…
+adminOnly: 管理者だけが変更できます。
+loadFailed: 設定を読み込めませんでした。標準の設定を表示します。
+tabs:
+  stamp: 承認スタンプ
+  pdf: PDF
+  json: JSON
+actions:
+  save: 保存
+  revert: 元に戻す
+  resetDefaults: 標準に戻す
+  apply: 反映
+saved: 保存しました。
+saveFailed: 保存できませんでした。
+unsaved: 未保存の変更があります。
+problemsTitle: 読み取れなかった項目(標準の値で表示しています)
+preview:
+  title: プレビュー
+  page: ページ
+  sampleNote: 見本の文書(承認済みと承認待ちの 2 段)です。
+  pageFirst: 1 ページ目
+  pageSecond: 2 ページ目
+json:
+  hint: 設定の JSON(info_app.settings)です。直して「反映」を押すと、フォームとプレビューに反映されます。
+  invalid: JSON として読めません。
+stamp:
+  position: 位置
+  anchor: 基準
+  offsetX: 左右の距離(mm)
+  offsetY: 上下の距離(mm)
+  pages: 出すページ
+  look: 見た目
+  opacity: すかし(不透明度)
+  shape: 形
+  width: 幅(mm)
+  height: 高さ(mm)
+  rotation: 回転(度)
+  colors: 色(#RRGGBB、または変数への参照)
+  colorText: 文字
+  colorFrame: 枠
+  colorFill: 塗り(空は塗らない)
+  content: 内容
+  labelLanguage: 文字の言語
+  stages: 承認の段
+  items: 表示項目
+  itemField: 項目
+  itemFormat: 書式
+  itemSize: 大きさ
+  itemLine: 行
+  addItem: 項目を追加
+  pending: 承認待ちの見た目
+  pendingDashed: 枠を破線にする
+  pendingColor: 色
+  anchors:
+    topLeft: 左上
+    topRight: 右上
+    bottomLeft: 左下
+    bottomRight: 右下
+    center: 中央
+  pagesValues:
+    first: 先頭のページだけ
+    all: 全ページ
+  shapes:
+    circle: 円
+    roundRect: 角丸の四角
+    doubleFrame: 二重枠
+    dateStamp: 日付印
+  stagesValues:
+    all: 段ごとに並べる
+    last: 最後に承認した 1 つだけ
+  fields:
+    stamp_label: 承認の文字
+    approved_at: 承認日時
+    approved_staff: 承認者
+    approval_name: 承認の段の名称
+    version_code: 版コード
+    control_number: 管理番号
+    document_revision: 改訂
+    approved_remarks: 備考
+pdf:
+  page: 用紙
+  size: 用紙の大きさ
+  orientation: 向き
+  portrait: 縦
+  landscape: 横
+  margins: 余白(mm)
+  marginTop: 上
+  marginRight: 右
+  marginBottom: 下
+  marginLeft: 左
+  theme: テーマ
+  vars: 変数(色の参照先)
+  fonts: 文字
+  fontFamily: 本文のフォント名
+  baseSize: 本文の大きさ(pt)
+  lineHeight: 行の高さ(倍)
+  colors: 色(#RRGGBB、または変数への参照)
+  colorText: 本文
+  colorHeading: 見出し
+  colorLink: リンク
+  colorQuote: 引用
+  colorCodeBackground: コードの背景
+  colorTableBorder: 表の罫線
+  colorTableHeader: 表の見出しの背景
+  headings: 見出し
+  headingSize: 大きさ(pt)
+  headingBreak: 章ごとに改ページ
+  header: ヘッダ
+  footer: フッタ
+  bandEnabled: 出す
+  bandHeight: 高さ(mm)
+  bandSize: 文字の大きさ(pt)
+  bandColor: 文字の色
+  bandBorder: 本文との境の線
+  bandFirstPage: 1 ページ目
+  firstSame: 他のページと同じ
+  firstNone: 出さない
+  bandLeft: 左
+  bandCenter: 中央
+  bandRight: 右
+  variablesTitle: 使える変数(押すと入力中の欄に入ります)
+  variablesHint: '{変数} または {変数:書式}。日時の書式は yyyy/MM/dd・HH:mm・G E(和暦)など。波括弧は {{ と }}。'
+  custom: 利用者の変数({var.名前} で使う)
+  customName: 名前
+  customValue: 値
+  addCustom: 変数を追加
+  remove: 削除
