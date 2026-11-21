@@ -57,6 +57,8 @@ class ManualStrings with BaseTranslations<ManualLocale, ManualStrings> {
 	late final ManualStrings$linkDialog$ja linkDialog = ManualStrings$linkDialog$ja.internal(_root);
 	late final ManualStrings$history$ja history = ManualStrings$history$ja.internal(_root);
 	late final ManualStrings$export$ja export = ManualStrings$export$ja.internal(_root);
+	late final ManualStrings$pdf$ja pdf = ManualStrings$pdf$ja.internal(_root);
+	late final ManualStrings$approval$ja approval = ManualStrings$approval$ja.internal(_root);
 	late final ManualStrings$errors$ja errors = ManualStrings$errors$ja.internal(_root);
 }
 
@@ -97,6 +99,9 @@ class ManualStrings$view$ja {
 
 	/// ja: 'Markdown'
 	String get markdown => 'Markdown';
+
+	/// ja: 'PDF'
+	String get pdf => 'PDF';
 
 	/// ja: 'マニュアル'
 	String get breadcrumbHome => 'マニュアル';
@@ -305,6 +310,72 @@ class ManualStrings$export$ja {
 	String get close => '閉じる';
 }
 
+// Path: pdf
+class ManualStrings$pdf$ja {
+	ManualStrings$pdf$ja.internal(this._root);
+
+	final ManualStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'PDF の出力'
+	String get title => 'PDF の出力';
+
+	/// ja: '範囲'
+	String get scope => '範囲';
+
+	/// ja: 'このページ'
+	String get scopePage => 'このページ';
+
+	/// ja: '文書全体'
+	String get scopeAll => '文書全体';
+
+	/// ja: '承認スタンプ・ヘッダ・フッタ・テーマは、アプリの設定に従います。'
+	String get note => '承認スタンプ・ヘッダ・フッタ・テーマは、アプリの設定に従います。';
+
+	/// ja: '保存'
+	String get save => '保存';
+
+	/// ja: '保存しました。'
+	String get saved => '保存しました。';
+
+	/// ja: '保存を取り消しました。'
+	String get canceled => '保存を取り消しました。';
+
+	/// ja: 'PDF を作成しています…'
+	String get building => 'PDF を作成しています…';
+
+	/// ja: 'PDF を作成できませんでした。'
+	String get failed => 'PDF を作成できませんでした。';
+
+	/// ja: '閉じる'
+	String get close => '閉じる';
+}
+
+// Path: approval
+class ManualStrings$approval$ja {
+	ManualStrings$approval$ja.internal(this._root);
+
+	final ManualStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '承認待ち'
+	String get pending => '承認待ち';
+
+	/// ja: 'この文書は承認待ちです。承認されるまで、承認者と管理者だけが読めます。'
+	String get pendingNote => 'この文書は承認待ちです。承認されるまで、承認者と管理者だけが読めます。';
+
+	/// ja: 'この文書は承認待ちのため、公開されていません。'
+	String get unreadable => 'この文書は承認待ちのため、公開されていません。';
+
+	/// ja: '承認'
+	String get stamps => '承認';
+
+	/// ja: '承認はルートの文書にあります。'
+	String get rootOnly => '承認はルートの文書にあります。';
+}
+
 // Path: errors
 class ManualStrings$errors$ja {
 	ManualStrings$errors$ja.internal(this._root);
@@ -391,6 +462,7 @@ extension on ManualStrings {
 			'view.addRoot' => 'ルートを追加',
 			'view.history' => '履歴',
 			'view.markdown' => 'Markdown',
+			'view.pdf' => 'PDF',
 			'view.breadcrumbHome' => 'マニュアル',
 			'view.pageToc' => 'このページの目次',
 			'view.children' => 'このページの下',
@@ -455,6 +527,22 @@ extension on ManualStrings {
 			'export.copy' => 'コピー',
 			'export.copied' => 'コピーしました。',
 			'export.close' => '閉じる',
+			'pdf.title' => 'PDF の出力',
+			'pdf.scope' => '範囲',
+			'pdf.scopePage' => 'このページ',
+			'pdf.scopeAll' => '文書全体',
+			'pdf.note' => '承認スタンプ・ヘッダ・フッタ・テーマは、アプリの設定に従います。',
+			'pdf.save' => '保存',
+			'pdf.saved' => '保存しました。',
+			'pdf.canceled' => '保存を取り消しました。',
+			'pdf.building' => 'PDF を作成しています…',
+			'pdf.failed' => 'PDF を作成できませんでした。',
+			'pdf.close' => '閉じる',
+			'approval.pending' => '承認待ち',
+			'approval.pendingNote' => 'この文書は承認待ちです。承認されるまで、承認者と管理者だけが読めます。',
+			'approval.unreadable' => 'この文書は承認待ちのため、公開されていません。',
+			'approval.stamps' => '承認',
+			'approval.rootOnly' => '承認はルートの文書にあります。',
 			'errors.titleRequired' => 'ページ名を入力してください。',
 			'errors.titleDuplicate' => '同じ名前のページがあります。',
 			'errors.notFound' => 'ページが見つかりません。',

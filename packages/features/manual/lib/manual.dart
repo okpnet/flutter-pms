@@ -7,7 +7,10 @@
 /// 他の機能が使う遷移先の型は `manual_api.dart` を読み込む。
 library;
 
+export 'package:approval_stamp/approval_stamp.dart' show AppSettings, ApprovalStepInfo;
 export 'src/data/in_memory_manual_repository.dart';
+export 'src/data/manual_approval.dart';
+export 'src/data/manual_pdf_service.dart';
 export 'src/data/manual_seed.dart' show manualSeedPages;
 export 'src/data/manual_providers.dart'
     show

@@ -1,0 +1,25 @@
+# markdown_pdf
+
+Markdown の読み取り(構文木)と、Markdown → PDF の出力(テーマ・ヘッダ/フッタ・承認スタンプ・日本語フォント)。`pdf` パッケージ(`dart_pdf`。PDF の標準的な実装で更新が活発)を使う。仕様の経緯は `issue/20261121_0001.md`(リポジトリのルート)。
+
+## 構成
+| 場所 | 内容 |
+|---|---|
+| `lib/src/markdown/markdown_ast.dart` | Markdown の構文木とインライン(`ManualMarkdown`。純 Dart。`manual` から移した。`manual` は再び公開する) |
+| `lib/src/render/markdown_pdf_renderer.dart` | `MarkdownPdfRenderer.render`(Markdown → PDF のバイト列) |
+| `lib/src/render/stamp_widget.dart` | PDF の承認スタンプ(枠・文字・すかし・回転・破線) |
+| `lib/src/fonts/pdf_fonts.dart` | `PdfFonts`・`loadBundledPdfFonts`(同梱のフォントを読む) |
+| `assets/fonts/` | BIZ UDP 明朝(標準・太字。SIL Open Font License 1.1。`OFL.txt`)。Google Fonts の `ofl/bizudpmincho`。合計約 13MB |
+
+## 仕様
+1.  設定は `approval_stamp` の `PdfSettings`(`info_app.settings.pdf`)と `StampStyle`・`StampCard`。用紙・余白・テーマ(色は `$変数`)・見出し(H1 は章。テーマで改ページ)・段落・コード・表・ヘッダ/フッタ(固定の文字 + 変数)を反映する。
+1.  ヘッダ/フッタの `{page}`・`{pages}` はページごとに展開する。`{chapter}`(今の章 = 直前の H1)は、書式に使われているときだけ 2 回描画して位置を調べる。未知の変数・設定の不備は `onProblem` に知らせ、出力は止めない。
+1.  承認スタンプは前景に描く(位置は `StampLayout`。画面のプレビュー `approval_stamp_view` と同じ計算)。`pages = first` は 1 ページ目だけ。
+1.  対応する Markdown: 見出し・段落・箇条書き・番号付き・引用・コード・表・区切り線、インラインの太字・コード・リンク(`[[ページ]]` は文字、外部リンクは URL 注釈つき)。斜体の字体は同梱しない(通常の字体)。画像・HTML は非対応。
+1.  フォントは `loadBundledPdfFonts()`(`rootBundle`)で 1 回読んで使い回す。テストはファイルから読む。等幅のフォントは同梱しない(コードも同じ字体)。
+
+## テスト
+`test/markdown_pdf_test.dart`(`flutter test`。サーバー不要)。目視用の出力は、環境変数 `MARKDOWN_PDF_OUT` にフォルダを渡すと、スタンプの形ごとのサンプル PDF を書き出す。
+
+## 規則/仕様
+`packages/foundation` の他のパッケージと同じ。生成結果のレポートは `doc/log`、使い方は `doc/contents`、追加・変更の指示は `issue`。ログは持たない(不備は `onProblem` で返す)。

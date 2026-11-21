@@ -9,6 +9,8 @@ import '../model/manual_page_record.dart';
 import '../model/manual_wiki.dart';
 import 'manual_content.dart';
 import 'manual_dialogs.dart';
+import 'manual_approval_view.dart';
+import 'manual_pdf_dialog.dart';
 import 'manual_editor.dart';
 import 'manual_format.dart';
 import 'manual_paths.dart';
@@ -155,6 +157,13 @@ class _ManualViewPageState extends ConsumerState<ManualViewPage> {
         ],
         if (!editing)
           OutlinedButton.icon(
+            key: const Key('manual-pdf'),
+            onPressed: () => showManualPdfDialog(context, pageId: page.id),
+            icon: const Icon(Icons.picture_as_pdf_outlined),
+            label: Text(s.view.pdf),
+          ),
+        if (!editing)
+          OutlinedButton.icon(
             key: const Key('manual-markdown'),
             onPressed: () => showManualExportDialog(context, pageId: page.id),
             icon: const Icon(Icons.description_outlined),
@@ -179,14 +188,18 @@ class _ManualViewPageState extends ConsumerState<ManualViewPage> {
                   page: page,
                   onDone: (_) => setState(() => _editing = false),
                 )
-              : _PageBody(
-                  page: page,
+              : ManualApprovalGate(
                   wiki: wiki,
-                  admin: admin,
-                  headingKeys: _headingKeys,
-                  onOpen: _open,
-                  onMissing: admin ? (t) => _createMissing(page, t) : null,
-                  onHeading: _scrollTo,
+                  page: page,
+                  child: _PageBody(
+                    page: page,
+                    wiki: wiki,
+                    admin: admin,
+                    headingKeys: _headingKeys,
+                    onOpen: _open,
+                    onMissing: admin ? (t) => _createMissing(page, t) : null,
+                    onHeading: _scrollTo,
+                  ),
                 );
           if (wide) {
             return Row(

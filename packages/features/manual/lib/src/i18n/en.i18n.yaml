@@ -15,6 +15,7 @@ view:
   addRoot: Add root
   history: History
   markdown: Markdown
+  pdf: PDF
   breadcrumbHome: Manual
   pageToc: On this page
   children: Under this page
@@ -85,6 +86,24 @@ export:
   copy: Copy
   copied: Copied.
   close: Close
+pdf:
+  title: Export PDF
+  scope: Scope
+  scopePage: This page
+  scopeAll: Whole document
+  note: The approval stamp, header, footer and theme follow the app settings.
+  save: Save
+  saved: Saved.
+  canceled: Save canceled.
+  building: Creating the PDF…
+  failed: Could not create the PDF.
+  close: Close
+approval:
+  pending: Pending approval
+  pendingNote: This document is pending approval. Only approvers and administrators can read it until it is approved.
+  unreadable: This document is pending approval and is not published.
+  stamps: Approval
+  rootOnly: Approval is recorded on the root document.
 errors:
   titleRequired: Enter a page name.
   titleDuplicate: A page with the same name exists.

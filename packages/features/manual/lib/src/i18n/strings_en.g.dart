@@ -49,6 +49,8 @@ class ManualStringsEn extends ManualStrings with BaseTranslations<ManualLocale, 
 	@override late final _ManualStrings$linkDialog$en linkDialog = _ManualStrings$linkDialog$en._(_root);
 	@override late final _ManualStrings$history$en history = _ManualStrings$history$en._(_root);
 	@override late final _ManualStrings$export$en export = _ManualStrings$export$en._(_root);
+	@override late final _ManualStrings$pdf$en pdf = _ManualStrings$pdf$en._(_root);
+	@override late final _ManualStrings$approval$en approval = _ManualStrings$approval$en._(_root);
 	@override late final _ManualStrings$errors$en errors = _ManualStrings$errors$en._(_root);
 }
 
@@ -69,6 +71,7 @@ class _ManualStrings$view$en extends ManualStrings$view$ja {
 	@override String get addRoot => 'Add root';
 	@override String get history => 'History';
 	@override String get markdown => 'Markdown';
+	@override String get pdf => 'PDF';
 	@override String get breadcrumbHome => 'Manual';
 	@override String get pageToc => 'On this page';
 	@override String get children => 'Under this page';
@@ -170,6 +173,40 @@ class _ManualStrings$export$en extends ManualStrings$export$ja {
 	@override String get close => 'Close';
 }
 
+// Path: pdf
+class _ManualStrings$pdf$en extends ManualStrings$pdf$ja {
+	_ManualStrings$pdf$en._(ManualStringsEn root) : this._root = root, super.internal(root);
+
+	final ManualStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Export PDF';
+	@override String get scope => 'Scope';
+	@override String get scopePage => 'This page';
+	@override String get scopeAll => 'Whole document';
+	@override String get note => 'The approval stamp, header, footer and theme follow the app settings.';
+	@override String get save => 'Save';
+	@override String get saved => 'Saved.';
+	@override String get canceled => 'Save canceled.';
+	@override String get building => 'Creating the PDF…';
+	@override String get failed => 'Could not create the PDF.';
+	@override String get close => 'Close';
+}
+
+// Path: approval
+class _ManualStrings$approval$en extends ManualStrings$approval$ja {
+	_ManualStrings$approval$en._(ManualStringsEn root) : this._root = root, super.internal(root);
+
+	final ManualStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get pending => 'Pending approval';
+	@override String get pendingNote => 'This document is pending approval. Only approvers and administrators can read it until it is approved.';
+	@override String get unreadable => 'This document is pending approval and is not published.';
+	@override String get stamps => 'Approval';
+	@override String get rootOnly => 'Approval is recorded on the root document.';
+}
+
 // Path: errors
 class _ManualStrings$errors$en extends ManualStrings$errors$ja {
 	_ManualStrings$errors$en._(ManualStringsEn root) : this._root = root, super.internal(root);
@@ -226,6 +263,7 @@ extension on ManualStringsEn {
 			'view.addRoot' => 'Add root',
 			'view.history' => 'History',
 			'view.markdown' => 'Markdown',
+			'view.pdf' => 'PDF',
 			'view.breadcrumbHome' => 'Manual',
 			'view.pageToc' => 'On this page',
 			'view.children' => 'Under this page',
@@ -290,6 +328,22 @@ extension on ManualStringsEn {
 			'export.copy' => 'Copy',
 			'export.copied' => 'Copied.',
 			'export.close' => 'Close',
+			'pdf.title' => 'Export PDF',
+			'pdf.scope' => 'Scope',
+			'pdf.scopePage' => 'This page',
+			'pdf.scopeAll' => 'Whole document',
+			'pdf.note' => 'The approval stamp, header, footer and theme follow the app settings.',
+			'pdf.save' => 'Save',
+			'pdf.saved' => 'Saved.',
+			'pdf.canceled' => 'Save canceled.',
+			'pdf.building' => 'Creating the PDF…',
+			'pdf.failed' => 'Could not create the PDF.',
+			'pdf.close' => 'Close',
+			'approval.pending' => 'Pending approval',
+			'approval.pendingNote' => 'This document is pending approval. Only approvers and administrators can read it until it is approved.',
+			'approval.unreadable' => 'This document is pending approval and is not published.',
+			'approval.stamps' => 'Approval',
+			'approval.rootOnly' => 'Approval is recorded on the root document.',
 			'errors.titleRequired' => 'Enter a page name.',
 			'errors.titleDuplicate' => 'A page with the same name exists.',
 			'errors.notFound' => 'Page not found.',

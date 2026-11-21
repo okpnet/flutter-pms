@@ -56,4 +56,17 @@ void main() {
     expect(find.byKey(const Key('manual-edit-title')), findsNothing);
     expect(find.byKey(const Key('manual-readonly')), findsOneWidget);
   });
+
+  testWidgets('承認の見本: 品質マニュアルは承認済みのスタンプ、安全衛生マニュアルは承認待ちの帯と 2 つのスタンプ', (tester) async {
+    await boot(tester);
+    await tester.tap(find.text('品質マニュアル'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('manual-approval-stamps')), findsOneWidget);
+    expect(find.byKey(const Key('manual-approval-pending')), findsNothing);
+
+    await tester.tap(find.byKey(const Key('manual-toc-m9000'))); // 目次から 2 つ目のルートへ
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('manual-approval-pending')), findsOneWidget);
+    expect(find.byKey(const Key('manual-approval-stamps')), findsOneWidget);
+  });
 }

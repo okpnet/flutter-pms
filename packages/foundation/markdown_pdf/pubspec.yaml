@@ -1,0 +1,28 @@
+name: markdown_pdf
+description: "Markdown(構文木・読み取り)と、PDF の出力(テーマ・ヘッダ/フッタ・承認スタンプ・日本語フォント)。"
+version: 0.0.1
+publish_to: none
+
+resolution: workspace
+
+environment:
+  sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  pdf: ^3.13.1
+  approval_stamp:
+    path: ../approval_stamp
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+
+flutter:
+  assets:
+    - assets/fonts/BIZUDPMincho-Regular.ttf
+    - assets/fonts/BIZUDPMincho-Bold.ttf
+    - assets/fonts/OFL.txt

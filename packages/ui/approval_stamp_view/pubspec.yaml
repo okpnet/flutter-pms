@@ -1,0 +1,21 @@
+name: approval_stamp_view
+description: "承認スタンプの画面の部品(スタンプ・用紙のプレビュー)。様式は approval_stamp。"
+version: 0.0.1
+publish_to: none
+
+resolution: workspace
+
+environment:
+  sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  approval_stamp:
+    path: ../../foundation/approval_stamp
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml

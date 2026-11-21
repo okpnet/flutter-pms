@@ -15,6 +15,7 @@ view:
   addRoot: ルートを追加
   history: 履歴
   markdown: Markdown
+  pdf: PDF
   breadcrumbHome: マニュアル
   pageToc: このページの目次
   children: このページの下
@@ -85,6 +86,24 @@ export:
   copy: コピー
   copied: コピーしました。
   close: 閉じる
+pdf:
+  title: PDF の出力
+  scope: 範囲
+  scopePage: このページ
+  scopeAll: 文書全体
+  note: 承認スタンプ・ヘッダ・フッタ・テーマは、アプリの設定に従います。
+  save: 保存
+  saved: 保存しました。
+  canceled: 保存を取り消しました。
+  building: PDF を作成しています…
+  failed: PDF を作成できませんでした。
+  close: 閉じる
+approval:
+  pending: 承認待ち
+  pendingNote: この文書は承認待ちです。承認されるまで、承認者と管理者だけが読めます。
+  unreadable: この文書は承認待ちのため、公開されていません。
+  stamps: 承認
+  rootOnly: 承認はルートの文書にあります。
 errors:
   titleRequired: ページ名を入力してください。
   titleDuplicate: 同じ名前のページがあります。

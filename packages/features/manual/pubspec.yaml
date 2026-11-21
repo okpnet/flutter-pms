@@ -18,6 +18,13 @@ dependencies:
     path: ../../core/baton_lib
   app_shell:
     path: ../../ui/app_shell
+  markdown_pdf:
+    path: ../../foundation/markdown_pdf
+  approval_stamp:
+    path: ../../foundation/approval_stamp
+  approval_stamp_view:
+    path: ../../ui/approval_stamp_view
+  file_picker: ^13.3.2
   flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   go_router: ^18.1.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   slang: ^4.19.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml

@@ -51,6 +51,56 @@ class ExampleApp extends StatelessWidget {
       themeLoggerProvider.overrideWithValue(logger),
       manualIsAdminProvider.overrideWithValue(isAdmin),
       manualEditorNameProvider.overrideWithValue('鈴木 一郎'),
+      manualApprovalSourceProvider.overrideWithValue(
+        InMemoryManualApprovalSource({
+          // 品質マニュアル: 承認済み(スタンプ)
+          'm1': ManualApproval(
+            statusLabel: '承認',
+            controlNumber: 'QM-001',
+            versionCode: 'v1.2',
+            steps: [
+              ApprovalStepInfo(
+                approved: true,
+                rejected: false,
+                pending: false,
+                stampLabelJa: '承認',
+                stampLabelEn: 'Approval',
+                priority: 1,
+                approvedAt: DateTime(2026, 11, 3, 9, 30),
+                approvedStaff: '田中 太郎',
+              ),
+            ],
+          ),
+          // 安全衛生マニュアル: 承認待ち(1 段目は承認済み、2 段目が待ち)
+          'm9000': ManualApproval(
+            published: false,
+            pending: true,
+            statusLabel: '承認待ち',
+            controlNumber: 'SH-001',
+            versionCode: 'v0.9',
+            steps: [
+              ApprovalStepInfo(
+                approved: true,
+                rejected: false,
+                pending: false,
+                stampLabelJa: '承認',
+                stampLabelEn: 'Approval',
+                priority: 1,
+                approvedAt: DateTime(2026, 11, 10, 14, 0),
+                approvedStaff: '佐藤 花子',
+              ),
+              ApprovalStepInfo(
+                approved: false,
+                rejected: false,
+                pending: true,
+                stampLabelJa: '承認待ち',
+                stampLabelEn: 'Pending',
+                priority: 2,
+              ),
+            ],
+          ),
+        }),
+      ),
       manualRepositoryProvider.overrideWith(
         (ref) => InMemoryManualRepository(
           initial: [...manualSeedPages(), _secondRoot()],
