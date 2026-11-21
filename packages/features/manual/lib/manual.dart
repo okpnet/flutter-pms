@@ -21,8 +21,6 @@ export 'src/data/manual_providers.dart'
         ManualState;
 export 'src/data/manual_repository.dart';
 export 'src/i18n/strings_provider.dart' show ManualStrings, manualStringsProvider;
-export 'src/model/manual_markdown.dart';
-export 'src/model/manual_md_edit.dart';
 export 'src/model/manual_page_record.dart';
 export 'src/model/manual_wiki.dart';
 export 'src/page/manual_module.dart' show ManualModule;

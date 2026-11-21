@@ -1,3 +1,5 @@
+// Markdown の構文木(ブロック・インライン)と、読み取り(MarkdownParser)。依存を持たない純 Dart。
+
 /// Markdown の構文木(ブロック)。
 ///
 /// 対応する書式: H2・H3(H1 はページ名のため本文では使わない)・段落・箇条書き・番号付き・引用・
@@ -85,7 +87,7 @@ class MdExternalLink extends MdInline {
 /// Markdown の読み取りと、インラインの分解。依存を持たない純 Dart。
 ///
 /// パターン: Interpreter(小さな文法を構文木にする)
-abstract final class ManualMarkdown {
+abstract final class MarkdownParser {
   static final _heading = RegExp(r'^(#{1,6})\s+(.*)$');
   static final _bullet = RegExp(r'^\s*[-*+]\s+(.*)$');
   static final _numbered = RegExp(r'^\s*\d+[.)]\s+(.*)$');

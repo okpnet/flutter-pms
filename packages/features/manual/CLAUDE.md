@@ -24,11 +24,11 @@
 1.  制約: 画像の取り込みなし・目次にページ番号なし。取得元はメモリ上のサンプル(再読み込みで初期データに戻る)。決定の経緯は `issue/20261120_0002.md`。
 
 ## 構成
+Markdown の読み取り・閲覧・編集・PDF は `packages/foundation` の Markdown 系のパッケージ(`markdown_ast`・`markdown_view`・`wysiwyg_editor`・`markdown_pdf` ほか)。この機能は組み合わせるだけ(本文の表示 `ManualContent` = `MarkdownView` + ページへのリンクの行き先、編集 `ManualEditor` = ページ名・保存・取り消し + `WysiwygEditor`)。
+
 | 場所 | 内容 |
 |---|---|
-| `lib/src/model/manual_markdown.dart` | Markdown の構文木とインライン(`ManualMarkdown`。純 Dart。実体は `markdown_pdf`。ここから再び公開) |
 | `lib/src/model/manual_wiki.dart` | ツリー・番号・被リンク・検索・見出し・書き出し(`ManualWiki`。読み取りだけ) |
-| `lib/src/model/manual_md_edit.dart` | 書式の挿入・ブロックの分割(`ManualMdEdit`。純粋な関数) |
 | `lib/src/model/manual_page_record.dart` | ページ(`ManualPageRecord`)と履歴の 1 件(`ManualVersion`) |
 | `lib/src/data/` | 取得元(`IManualRepository`・`InMemoryManualRepository`・サンプル)と、状態(`manualProvider`)・差し込み口。承認(`manual_approval.dart`)・PDF(`manual_pdf_service.dart`) |
 | `lib/src/page/` | 画面(`ManualViewPage`・`ManualContent`・`ManualEditor`・ダイアログ)・`ManualModule`・パス・遷移先 |

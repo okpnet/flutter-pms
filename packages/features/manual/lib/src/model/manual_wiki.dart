@@ -1,4 +1,4 @@
-import 'manual_markdown.dart';
+import 'package:markdown_ast/markdown_ast.dart';
 import 'manual_page_record.dart';
 
 /// 本文の見出し(このページの目次の 1 項目)。
@@ -92,7 +92,7 @@ class ManualWiki {
     if (title == null) return const [];
     return [
       for (final p in pages)
-        if (p.id != id && ManualMarkdown.wikiLinks(p.md).contains(title)) p,
+        if (p.id != id && MarkdownParser.wikiLinks(p.md).contains(title)) p,
     ];
   }
 
@@ -111,7 +111,7 @@ class ManualWiki {
   static List<ManualHeadingRef> headingsOf(String md) {
     final out = <ManualHeadingRef>[];
     var i = 0;
-    for (final b in ManualMarkdown.parse(md)) {
+    for (final b in MarkdownParser.parse(md)) {
       if (b is MdHeading) {
         if (b.level >= 2 && b.level <= 3) {
           out.add(ManualHeadingRef(b.level, b.text, i));

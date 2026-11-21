@@ -1,11 +1,12 @@
 import 'dart:typed_data';
 
 import 'package:approval_stamp/approval_stamp.dart';
+import 'package:markdown_ast/markdown_ast.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import '../fonts/pdf_fonts.dart';
-import '../markdown/markdown_ast.dart';
+
 import 'stamp_widget.dart';
 
 const double _mm = PdfPageFormat.mm;
@@ -126,13 +127,13 @@ class MarkdownPdfRenderer {
     }
 
     pw.Widget rich(String t, {bool isBold = false, PdfColor? c, double? size}) => pw.RichText(
-          text: pw.TextSpan(children: spans(ManualMarkdown.inlines(t), isBold: isBold, c: c, size: size)),
+          text: pw.TextSpan(children: spans(MarkdownParser.inlines(t), isBold: isBold, c: c, size: size)),
         );
 
     // ---- ブロック ----
     final widgets = <pw.Widget>[];
     var first = true;
-    for (final b in ManualMarkdown.parse(markdown)) {
+    for (final b in MarkdownParser.parse(markdown)) {
       switch (b) {
         case MdHeading(:final level, :final text):
           final h = level <= 1 ? theme.h1 : (level == 2 ? theme.h2 : theme.h3);

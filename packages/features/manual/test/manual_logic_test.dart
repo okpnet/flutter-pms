@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart' show TextEditingValue, TextSelection;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:manual/manual.dart';
 
@@ -20,53 +19,6 @@ ManualPageRecord _page(
 );
 
 void main() {
-  group('ManualMarkdown', () {
-    test('ブロック: 見出し・段落・箇条書き・番号付き・引用・コード・表・区切り線', () {
-      final blocks = ManualMarkdown.parse(
-        '## 見出し\n\n本文1\n本文2\n\n- a\n- b\n\n1. x\n2. y\n\n> 引用\n\n```\ncode\n\nmore\n```\n\n| A | B |\n| --- | --- |\n| 1 | 2 |\n\n---\n',
-      );
-      expect(blocks[0], isA<MdHeading>().having((h) => h.level, 'level', 2));
-      expect(blocks[1], isA<MdParagraph>().having((p) => p.text, 'text', '本文1\n本文2'));
-      expect(blocks[2], isA<MdList>().having((l) => l.ordered, 'ordered', false));
-      expect(blocks[3], isA<MdList>().having((l) => l.ordered, 'ordered', true));
-      expect(blocks[4], isA<MdQuote>());
-      expect(blocks[5], isA<MdCode>().having((c) => c.text, 'text', 'code\n\nmore'));
-      expect(
-        blocks[6],
-        isA<MdTable>()
-            .having((t) => t.header, 'header', ['A', 'B'])
-            .having((t) => t.rows, 'rows', [
-              ['1', '2'],
-            ]),
-      );
-      expect(blocks[7], isA<MdRule>());
-      expect(blocks, hasLength(8));
-    });
-
-    test('インライン: 太字・斜体・コード・ページへのリンク・外部リンク', () {
-      final n = ManualMarkdown.inlines(
-        'a **b** *c* `d` [[ページ]] [[ページ|表示]] [e](https://example.com/x)',
-      );
-      expect(n.whereType<MdBold>(), hasLength(1));
-      expect(n.whereType<MdItalic>(), hasLength(1));
-      expect(n.whereType<MdInlineCode>().single.text, 'd');
-      final links = n.whereType<MdWikiLink>().toList();
-      expect(links.map((l) => '${l.target}/${l.label}'), ['ページ/ページ', 'ページ/表示']);
-      expect(n.whereType<MdExternalLink>().single.url, 'https://example.com/x');
-    });
-
-    test('HTML は解釈しない(文字のまま)', () {
-      final n = ManualMarkdown.inlines('<script>x</script>');
-      expect(n.single, isA<MdText>());
-    });
-
-    test('wikiLinks は重複を除いて出現順、renameLink は表示文字を残す', () {
-      const md = '[[A]] [[B|b]] [[A|a]]';
-      expect(ManualMarkdown.wikiLinks(md), ['A', 'B']);
-      expect(ManualMarkdown.renameLink(md, 'A', 'Z'), '[[Z]] [[B|b]] [[Z|a]]');
-    });
-  });
-
   group('ManualWiki', () {
     final wiki = ManualWiki([
       _page('r1', null, 1, '品質', '[[工程]] と [[未作成]]'),
@@ -135,40 +87,6 @@ void main() {
       // 範囲内に無いページ(未作成)は文字だけ
       expect(out, contains('と 未作成'));
       expect(out, isNot(contains('[[')));
-    });
-  });
-
-  group('ManualMdEdit', () {
-    TextEditingValue v(String t, int a, int b) =>
-        TextEditingValue(text: t, selection: TextSelection(baseOffset: a, extentOffset: b));
-
-    test('wrap: 選択を囲む / 選択なしはひな形', () {
-      final a = ManualMdEdit.wrap(v('abc', 1, 2), '**', '**');
-      expect(a.text, 'a**b**c');
-      final b = ManualMdEdit.wrap(v('', 0, 0), '**', '**', placeholder: '太字');
-      expect(b.text, '**太字**');
-      expect(b.selection.textInside(b.text), '太字');
-    });
-
-    test('prefixLines: 行頭の記号・番号付き', () {
-      expect(ManualMdEdit.prefixLines(v('a\nb', 0, 3), '- ').text, '- a\n- b');
-      expect(ManualMdEdit.prefixLines(v('a\nb', 0, 3), '', numbered: true).text, '1. a\n2. b');
-      expect(ManualMdEdit.prefixLines(v('x\ny', 3, 3), '## ').text, 'x\n## y');
-    });
-
-    test('insertBlock は前後を空行で区切る', () {
-      expect(ManualMdEdit.insertBlock(v('abc', 3, 3), '---').text, 'abc\n\n---\n');
-    });
-
-    test('insertPageLink: 選択した文字は表示文字になる', () {
-      expect(ManualMdEdit.insertPageLink(v('x 表示 y', 2, 4), '工程').text, 'x [[工程|表示]] y');
-      expect(ManualMdEdit.insertPageLink(v('', 0, 0), '工程').text, '[[工程]]');
-    });
-
-    test('chunks / join は、コードの中の空行で分けず、空行 1 つに整える', () {
-      final c = ManualMdEdit.chunks('a\n\n\n\n```\nx\n\ny\n```\n\n- 1\n- 2');
-      expect(c, ['a', '```\nx\n\ny\n```', '- 1\n- 2']);
-      expect(ManualMdEdit.join(c), 'a\n\n```\nx\n\ny\n```\n\n- 1\n- 2');
     });
   });
 

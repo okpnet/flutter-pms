@@ -1,0 +1,21 @@
+name: markdown_view
+description: "Markdown(構文木)をテーマに沿った画面の部品にして出す(閲覧)。"
+version: 0.0.1
+publish_to: none
+
+resolution: workspace
+
+environment:
+  sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  markdown_ast:
+    path: ../markdown_ast
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml

@@ -20,6 +20,12 @@ dependencies:
     path: ../../ui/app_shell
   markdown_pdf:
     path: ../../foundation/markdown_pdf
+  markdown_ast:
+    path: ../../foundation/markdown_ast
+  markdown_view:
+    path: ../../foundation/markdown_view
+  wysiwyg_editor:
+    path: ../../foundation/wysiwyg_editor
   approval_stamp:
     path: ../../foundation/approval_stamp
   approval_stamp_view:

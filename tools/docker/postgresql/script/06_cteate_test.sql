@@ -1077,6 +1077,107 @@ $$ LANGUAGE sql STABLE;
 
 COMMENT ON FUNCTION tests.mrp_hist_stakeholder(uuid) IS '@omit';
 
+CREATE TABLE tests.mstr_approval_pattern (
+  mstr_approval_pattern_id uuid DEFAULT gen_random_uuid() NOT NULL,
+  names uuid NOT NULL,
+  stamp_style jsonb,
+  revision integer DEFAULT 1,
+  symbol varchar(16) DEFAULT '',
+  remarks varchar(1024),
+  update_at timestamp DEFAULT now(),
+  update_user_id uuid,
+  update_user_history_id uuid,
+  remove boolean DEFAULT false,
+  CONSTRAINT mstr_approval_pattern_pk PRIMARY KEY (mstr_approval_pattern_id)
+);
+
+ALTER TABLE tests.mstr_approval_pattern ADD CONSTRAINT mstr_approval_pattern_ix1 UNIQUE (symbol);
+
+COMMENT ON TABLE tests.mstr_approval_pattern IS '承認パターンマスタ';
+
+COMMENT ON COLUMN tests.mstr_approval_pattern.mstr_approval_pattern_id IS '承認パターンID';
+
+COMMENT ON COLUMN tests.mstr_approval_pattern.names IS 'パターン名称';
+
+COMMENT ON COLUMN tests.mstr_approval_pattern.stamp_style IS '承認スタンプの様式(JSON。NULL は info_app.settings の stamp(標準の様式)を使う)';
+
+COMMENT ON COLUMN tests.mstr_approval_pattern.revision IS 'レビジョン';
+
+COMMENT ON COLUMN tests.mstr_approval_pattern.symbol IS 'リニアシンボル';
+
+COMMENT ON COLUMN tests.mstr_approval_pattern.remarks IS '備考';
+
+COMMENT ON COLUMN tests.mstr_approval_pattern.update_at IS '更新日時';
+
+COMMENT ON COLUMN tests.mstr_approval_pattern.update_user_id IS '更新者ID';
+
+COMMENT ON COLUMN tests.mstr_approval_pattern.update_user_history_id IS '更新者履歴ID';
+
+COMMENT ON COLUMN tests.mstr_approval_pattern.remove IS '削除';
+
+CREATE OR REPLACE FUNCTION tests.trg_00_admin_only_column() RETURNS trigger AS
+$BODY$
+-- 列(TG_ARGV[0])の変更は、管理者(ロール pms_admin)だけが行える。一般ユーザー(ロール pms_user のメンバーで、管理者でない)が変えようとしたら止める。
+-- DB の所有者・初期化のスクリプト(pms_user のメンバーでない)は止めない。
+DECLARE
+    v_col text := TG_ARGV[0];
+    v_user boolean;
+    v_admin boolean;
+BEGIN
+    IF (to_jsonb(NEW) -> v_col) IS NOT DISTINCT FROM (to_jsonb(OLD) -> v_col) THEN
+        RETURN NEW;
+    END IF;
+    SELECT COALESCE(bool_or(pg_has_role(current_user, r.oid, 'member')) FILTER (WHERE r.rolname = 'pms_user'), false),
+           COALESCE(bool_or(pg_has_role(current_user, r.oid, 'member')) FILTER (WHERE r.rolname = 'pms_admin'), false)
+    INTO v_user, v_admin FROM pg_roles AS r WHERE r.rolname IN ('pms_user', 'pms_admin');
+    IF v_user AND NOT v_admin THEN
+        RAISE EXCEPTION '管理者だけが変更できる項目です (%.%)', TG_TABLE_NAME, v_col USING ERRCODE = 'ADM01';
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE TRIGGER trg_00_admin_only_stamp_style BEFORE UPDATE ON tests.mstr_approval_pattern FOR EACH ROW EXECUTE FUNCTION tests.trg_00_admin_only_column('stamp_style');
+
+COMMENT ON FUNCTION tests.trg_00_admin_only_column() IS '@omit
+管理者(ロール pms_admin)だけが変更できる列の保護。列は TG_ARGV[0]';
+
+CREATE TABLE tests.trans_approval_pattern (
+  trans_approval_pattern_id uuid DEFAULT gen_random_uuid() NOT NULL,
+  mstr_approval_pattern_id uuid NOT NULL,
+  status jsonb,
+  symbol varchar(16) DEFAULT '',
+  remarks varchar(1024),
+  update_at timestamp DEFAULT now(),
+  update_user_id uuid,
+  update_user_history_id uuid,
+  remove boolean DEFAULT false,
+  CONSTRAINT trans_approval_pattern_pk PRIMARY KEY (trans_approval_pattern_id)
+);
+
+ALTER TABLE tests.trans_approval_pattern ADD CONSTRAINT trans_approval_pattern_ix1 UNIQUE (symbol);
+
+COMMENT ON TABLE tests.trans_approval_pattern IS '承認実行パターン';
+
+COMMENT ON COLUMN tests.trans_approval_pattern.trans_approval_pattern_id IS '承認実行パターンID';
+
+COMMENT ON COLUMN tests.trans_approval_pattern.mstr_approval_pattern_id IS '承認パターンID';
+
+COMMENT ON COLUMN tests.trans_approval_pattern.status IS '状態';
+
+COMMENT ON COLUMN tests.trans_approval_pattern.symbol IS 'リニアシンボル';
+
+COMMENT ON COLUMN tests.trans_approval_pattern.remarks IS '備考';
+
+COMMENT ON COLUMN tests.trans_approval_pattern.update_at IS '更新日時';
+
+COMMENT ON COLUMN tests.trans_approval_pattern.update_user_id IS '更新者ID';
+
+COMMENT ON COLUMN tests.trans_approval_pattern.update_user_history_id IS '更新者履歴ID';
+
+COMMENT ON COLUMN tests.trans_approval_pattern.remove IS '削除';
+
 CREATE TABLE tests.trans_order (
   trans_order_id uuid DEFAULT gen_random_uuid() NOT NULL,
   order_number varchar(255) NOT NULL,
@@ -1590,107 +1691,6 @@ COMMENT ON COLUMN tests.trans_purchase_detail.update_user_id IS '更新者ID';
 COMMENT ON COLUMN tests.trans_purchase_detail.update_user_history_id IS '更新者履歴ID';
 
 COMMENT ON COLUMN tests.trans_purchase_detail.remove IS '削除';
-
-CREATE TABLE tests.mstr_approval_pattern (
-  mstr_approval_pattern_id uuid DEFAULT gen_random_uuid() NOT NULL,
-  names uuid NOT NULL,
-  stamp_style jsonb,
-  revision integer DEFAULT 1,
-  symbol varchar(16) DEFAULT '',
-  remarks varchar(1024),
-  update_at timestamp DEFAULT now(),
-  update_user_id uuid,
-  update_user_history_id uuid,
-  remove boolean DEFAULT false,
-  CONSTRAINT mstr_approval_pattern_pk PRIMARY KEY (mstr_approval_pattern_id)
-);
-
-ALTER TABLE tests.mstr_approval_pattern ADD CONSTRAINT mstr_approval_pattern_ix1 UNIQUE (symbol);
-
-COMMENT ON TABLE tests.mstr_approval_pattern IS '承認パターンマスタ';
-
-COMMENT ON COLUMN tests.mstr_approval_pattern.mstr_approval_pattern_id IS '承認パターンID';
-
-COMMENT ON COLUMN tests.mstr_approval_pattern.names IS 'パターン名称';
-
-COMMENT ON COLUMN tests.mstr_approval_pattern.stamp_style IS '承認スタンプの様式(JSON。NULL は info_app.settings の stamp(標準の様式)を使う)';
-
-COMMENT ON COLUMN tests.mstr_approval_pattern.revision IS 'レビジョン';
-
-COMMENT ON COLUMN tests.mstr_approval_pattern.symbol IS 'リニアシンボル';
-
-COMMENT ON COLUMN tests.mstr_approval_pattern.remarks IS '備考';
-
-COMMENT ON COLUMN tests.mstr_approval_pattern.update_at IS '更新日時';
-
-COMMENT ON COLUMN tests.mstr_approval_pattern.update_user_id IS '更新者ID';
-
-COMMENT ON COLUMN tests.mstr_approval_pattern.update_user_history_id IS '更新者履歴ID';
-
-COMMENT ON COLUMN tests.mstr_approval_pattern.remove IS '削除';
-
-CREATE OR REPLACE FUNCTION tests.trg_00_admin_only_column() RETURNS trigger AS
-$BODY$
--- 列(TG_ARGV[0])の変更は、管理者(ロール pms_admin)だけが行える。一般ユーザー(ロール pms_user のメンバーで、管理者でない)が変えようとしたら止める。
--- DB の所有者・初期化のスクリプト(pms_user のメンバーでない)は止めない。
-DECLARE
-    v_col text := TG_ARGV[0];
-    v_user boolean;
-    v_admin boolean;
-BEGIN
-    IF (to_jsonb(NEW) -> v_col) IS NOT DISTINCT FROM (to_jsonb(OLD) -> v_col) THEN
-        RETURN NEW;
-    END IF;
-    SELECT COALESCE(bool_or(pg_has_role(current_user, r.oid, 'member')) FILTER (WHERE r.rolname = 'pms_user'), false),
-           COALESCE(bool_or(pg_has_role(current_user, r.oid, 'member')) FILTER (WHERE r.rolname = 'pms_admin'), false)
-    INTO v_user, v_admin FROM pg_roles AS r WHERE r.rolname IN ('pms_user', 'pms_admin');
-    IF v_user AND NOT v_admin THEN
-        RAISE EXCEPTION '管理者だけが変更できる項目です (%.%)', TG_TABLE_NAME, v_col USING ERRCODE = 'ADM01';
-    END IF;
-    RETURN NEW;
-END
-$BODY$
-LANGUAGE plpgsql VOLATILE;
-
-CREATE TRIGGER trg_00_admin_only_stamp_style BEFORE UPDATE ON tests.mstr_approval_pattern FOR EACH ROW EXECUTE FUNCTION tests.trg_00_admin_only_column('stamp_style');
-
-COMMENT ON FUNCTION tests.trg_00_admin_only_column() IS '@omit
-管理者(ロール pms_admin)だけが変更できる列の保護。列は TG_ARGV[0]';
-
-CREATE TABLE tests.trans_approval_pattern (
-  trans_approval_pattern_id uuid DEFAULT gen_random_uuid() NOT NULL,
-  mstr_approval_pattern_id uuid NOT NULL,
-  status jsonb,
-  symbol varchar(16) DEFAULT '',
-  remarks varchar(1024),
-  update_at timestamp DEFAULT now(),
-  update_user_id uuid,
-  update_user_history_id uuid,
-  remove boolean DEFAULT false,
-  CONSTRAINT trans_approval_pattern_pk PRIMARY KEY (trans_approval_pattern_id)
-);
-
-ALTER TABLE tests.trans_approval_pattern ADD CONSTRAINT trans_approval_pattern_ix1 UNIQUE (symbol);
-
-COMMENT ON TABLE tests.trans_approval_pattern IS '承認実行パターン';
-
-COMMENT ON COLUMN tests.trans_approval_pattern.trans_approval_pattern_id IS '承認実行パターンID';
-
-COMMENT ON COLUMN tests.trans_approval_pattern.mstr_approval_pattern_id IS '承認パターンID';
-
-COMMENT ON COLUMN tests.trans_approval_pattern.status IS '状態';
-
-COMMENT ON COLUMN tests.trans_approval_pattern.symbol IS 'リニアシンボル';
-
-COMMENT ON COLUMN tests.trans_approval_pattern.remarks IS '備考';
-
-COMMENT ON COLUMN tests.trans_approval_pattern.update_at IS '更新日時';
-
-COMMENT ON COLUMN tests.trans_approval_pattern.update_user_id IS '更新者ID';
-
-COMMENT ON COLUMN tests.trans_approval_pattern.update_user_history_id IS '更新者履歴ID';
-
-COMMENT ON COLUMN tests.trans_approval_pattern.remove IS '削除';
 
 CREATE TABLE tests.trans_text (
   trans_text_id uuid DEFAULT gen_random_uuid() NOT NULL,
@@ -8914,6 +8914,88 @@ COMMENT ON COLUMN tests.history_info_app_status.update_user_history_id IS '更�
 
 COMMENT ON COLUMN tests.history_info_app_status.remove IS '削除';
 
+CREATE TABLE tests.mstr_approval (
+  mstr_approval_id uuid DEFAULT gen_random_uuid() NOT NULL,
+  info_department_id uuid,
+  info_position_id uuid NOT NULL,
+  priority smallint DEFAULT 32767,
+  names uuid NOT NULL,
+  revision integer DEFAULT 1,
+  symbol varchar(16) DEFAULT '',
+  remarks varchar(1024),
+  update_at timestamp DEFAULT now(),
+  update_user_id uuid,
+  update_user_history_id uuid,
+  remove boolean DEFAULT false,
+  CONSTRAINT mstr_approval_pk PRIMARY KEY (mstr_approval_id)
+);
+
+ALTER TABLE tests.mstr_approval ADD CONSTRAINT mstr_approval_ix1 UNIQUE (symbol);
+
+COMMENT ON TABLE tests.mstr_approval IS '承認マスタ';
+
+COMMENT ON COLUMN tests.mstr_approval.mstr_approval_id IS '承認ID';
+
+COMMENT ON COLUMN tests.mstr_approval.info_department_id IS '組織情報ID';
+
+COMMENT ON COLUMN tests.mstr_approval.info_position_id IS '役割ID';
+
+COMMENT ON COLUMN tests.mstr_approval.priority IS '順位';
+
+COMMENT ON COLUMN tests.mstr_approval.names IS '名称';
+
+COMMENT ON COLUMN tests.mstr_approval.revision IS 'レビジョン';
+
+COMMENT ON COLUMN tests.mstr_approval.symbol IS 'リニアシンボル';
+
+COMMENT ON COLUMN tests.mstr_approval.remarks IS '備考';
+
+COMMENT ON COLUMN tests.mstr_approval.update_at IS '更新日時';
+
+COMMENT ON COLUMN tests.mstr_approval.update_user_id IS '更新者ID';
+
+COMMENT ON COLUMN tests.mstr_approval.update_user_history_id IS '更新者履歴ID';
+
+COMMENT ON COLUMN tests.mstr_approval.remove IS '削除';
+
+CREATE TABLE tests.trans_preapproval (
+  trans_preapproval_id uuid DEFAULT gen_random_uuid() NOT NULL,
+  trans_approval_pattern_id uuid NOT NULL,
+  mstr_approval_id uuid NOT NULL,
+  period timestamp,
+  symbol varchar(16) DEFAULT '',
+  remarks varchar(1024),
+  update_at timestamp DEFAULT now(),
+  update_user_id uuid,
+  update_user_history_id uuid,
+  remove boolean DEFAULT false,
+  CONSTRAINT trans_preapproval_pk PRIMARY KEY (trans_preapproval_id)
+);
+
+ALTER TABLE tests.trans_preapproval ADD CONSTRAINT trans_preapproval_ix1 UNIQUE (symbol);
+
+COMMENT ON TABLE tests.trans_preapproval IS '承認前';
+
+COMMENT ON COLUMN tests.trans_preapproval.trans_preapproval_id IS '承認前ID';
+
+COMMENT ON COLUMN tests.trans_preapproval.trans_approval_pattern_id IS '承認実行パターンID';
+
+COMMENT ON COLUMN tests.trans_preapproval.mstr_approval_id IS '承認ID';
+
+COMMENT ON COLUMN tests.trans_preapproval.period IS '期限';
+
+COMMENT ON COLUMN tests.trans_preapproval.symbol IS 'リニアシンボル';
+
+COMMENT ON COLUMN tests.trans_preapproval.remarks IS '備考';
+
+COMMENT ON COLUMN tests.trans_preapproval.update_at IS '更新日時';
+
+COMMENT ON COLUMN tests.trans_preapproval.update_user_id IS '更新者ID';
+
+COMMENT ON COLUMN tests.trans_preapproval.update_user_history_id IS '更新者履歴ID';
+
+COMMENT ON COLUMN tests.trans_preapproval.remove IS '削除';
+
 CREATE TABLE tests.trans_announcement (
   trans_announcement_id uuid DEFAULT gen_random_uuid() NOT NULL,
   to_staff_history_id uuid NOT NULL,
@@ -11002,50 +11084,6 @@ COMMENT ON COLUMN tests.history_mstr_capability.update_user_history_id IS '更�
 
 COMMENT ON COLUMN tests.history_mstr_capability.remove IS '削除';
 
-CREATE TABLE tests.mstr_approval (
-  mstr_approval_id uuid DEFAULT gen_random_uuid() NOT NULL,
-  info_department_id uuid,
-  info_position_id uuid NOT NULL,
-  priority smallint DEFAULT 32767,
-  names uuid NOT NULL,
-  revision integer DEFAULT 1,
-  symbol varchar(16) DEFAULT '',
-  remarks varchar(1024),
-  update_at timestamp DEFAULT now(),
-  update_user_id uuid,
-  update_user_history_id uuid,
-  remove boolean DEFAULT false,
-  CONSTRAINT mstr_approval_pk PRIMARY KEY (mstr_approval_id)
-);
-
-ALTER TABLE tests.mstr_approval ADD CONSTRAINT mstr_approval_ix1 UNIQUE (symbol);
-
-COMMENT ON TABLE tests.mstr_approval IS '承認マスタ';
-
-COMMENT ON COLUMN tests.mstr_approval.mstr_approval_id IS '承認ID';
-
-COMMENT ON COLUMN tests.mstr_approval.info_department_id IS '組織情報ID';
-
-COMMENT ON COLUMN tests.mstr_approval.info_position_id IS '役割ID';
-
-COMMENT ON COLUMN tests.mstr_approval.priority IS '順位';
-
-COMMENT ON COLUMN tests.mstr_approval.names IS '名称';
-
-COMMENT ON COLUMN tests.mstr_approval.revision IS 'レビジョン';
-
-COMMENT ON COLUMN tests.mstr_approval.symbol IS 'リニアシンボル';
-
-COMMENT ON COLUMN tests.mstr_approval.remarks IS '備考';
-
-COMMENT ON COLUMN tests.mstr_approval.update_at IS '更新日時';
-
-COMMENT ON COLUMN tests.mstr_approval.update_user_id IS '更新者ID';
-
-COMMENT ON COLUMN tests.mstr_approval.update_user_history_id IS '更新者履歴ID';
-
-COMMENT ON COLUMN tests.mstr_approval.remove IS '削除';
-
 CREATE TABLE tests.mstr_approval_pattern_detail (
   mstr_approval_pattern_detail_id uuid DEFAULT gen_random_uuid() NOT NULL,
   mstr_approval_id uuid NOT NULL,
@@ -12136,44 +12174,6 @@ COMMENT ON COLUMN tests.trans_inspection_report.update_user_history_id IS '更�
 
 COMMENT ON COLUMN tests.trans_inspection_report.remove IS '削除';
 
-CREATE TABLE tests.trans_preapproval (
-  trans_preapproval_id uuid DEFAULT gen_random_uuid() NOT NULL,
-  trans_approval_pattern_id uuid NOT NULL,
-  mstr_approval_id uuid NOT NULL,
-  period timestamp,
-  symbol varchar(16) DEFAULT '',
-  remarks varchar(1024),
-  update_at timestamp DEFAULT now(),
-  update_user_id uuid,
-  update_user_history_id uuid,
-  remove boolean DEFAULT false,
-  CONSTRAINT trans_preapproval_pk PRIMARY KEY (trans_preapproval_id)
-);
-
-ALTER TABLE tests.trans_preapproval ADD CONSTRAINT trans_preapproval_ix1 UNIQUE (symbol);
-
-COMMENT ON TABLE tests.trans_preapproval IS '承認前';
-
-COMMENT ON COLUMN tests.trans_preapproval.trans_preapproval_id IS '承認前ID';
-
-COMMENT ON COLUMN tests.trans_preapproval.trans_approval_pattern_id IS '承認実行パターンID';
-
-COMMENT ON COLUMN tests.trans_preapproval.mstr_approval_id IS '承認ID';
-
-COMMENT ON COLUMN tests.trans_preapproval.period IS '期限';
-
-COMMENT ON COLUMN tests.trans_preapproval.symbol IS 'リニアシンボル';
-
-COMMENT ON COLUMN tests.trans_preapproval.remarks IS '備考';
-
-COMMENT ON COLUMN tests.trans_preapproval.update_at IS '更新日時';
-
-COMMENT ON COLUMN tests.trans_preapproval.update_user_id IS '更新者ID';
-
-COMMENT ON COLUMN tests.trans_preapproval.update_user_history_id IS '更新者履歴ID';
-
-COMMENT ON COLUMN tests.trans_preapproval.remove IS '削除';
-
 CREATE TABLE tests.trans_approved (
   trans_approved_id uuid DEFAULT gen_random_uuid() NOT NULL,
   trans_preapproval_id uuid NOT NULL,
@@ -12250,33 +12250,6 @@ $$ LANGUAGE plpgsql VOLATILE;
 COMMENT ON FUNCTION tests.approval_notify(uuid, smallint, uuid, uuid) IS '@omit
 承認の段(順位)の該当者へ、承認待ちの通知(trans_announcement。通知区分 approval、対象は承認前)を作る。戻り値は作った件数';
 
-CREATE OR REPLACE FUNCTION tests.approval_start(
-    p_pattern_id uuid,
-    p_staff_id uuid DEFAULT NULL,
-    p_staff_history_id uuid DEFAULT NULL
-) RETURNS uuid AS $$
-DECLARE
-    v_tp uuid; v_min smallint;
-BEGIN
-    INSERT INTO tests.trans_approval_pattern (mstr_approval_pattern_id, update_user_id, update_user_history_id)
-    VALUES (p_pattern_id, p_staff_id, p_staff_history_id) RETURNING trans_approval_pattern_id INTO v_tp;
-    INSERT INTO tests.trans_preapproval (trans_approval_pattern_id, mstr_approval_id, update_user_id, update_user_history_id)
-    SELECT v_tp, d.mstr_approval_id, p_staff_id, p_staff_history_id
-    FROM tests.mstr_approval_pattern_detail AS d
-    WHERE d.mstr_approval_pattern_id = p_pattern_id AND d.remove IS FALSE;
-    SELECT min(a.priority) INTO v_min
-    FROM tests.trans_preapproval AS q INNER JOIN tests.mstr_approval AS a ON a.mstr_approval_id = q.mstr_approval_id
-    WHERE q.trans_approval_pattern_id = v_tp;
-    IF v_min IS NOT NULL THEN
-        PERFORM tests.approval_notify(v_tp, v_min, p_staff_id, p_staff_history_id);
-    END IF;
-    RETURN v_tp;
-END
-$$ LANGUAGE plpgsql VOLATILE;
-
-COMMENT ON FUNCTION tests.approval_start(uuid, uuid, uuid) IS '@omit
-承認の実行を始める(承認パターンから、承認実行パターンと、段ごとの承認前を作り、最初の段の該当者へ通知する)。対象の登録のトリガー(trg_05_approval_request)が呼ぶ';
-
 CREATE OR REPLACE FUNCTION tests.document_approve(
     p_preapproval_id uuid,
     p_approved boolean DEFAULT true,
@@ -12346,6 +12319,33 @@ $$ LANGUAGE plpgsql VOLATILE;
 
 COMMENT ON FUNCTION tests.document_approve(uuid, boolean, varchar, uuid) IS '文書などの承認(または却下)を 1 件登録する(追記のみ)。承認できるのは、承認の段(部署・役職)に当てはまる担当者だけで、順位が小さい段がすべて承認済みのときだけ(同じ順位の段は並行)。この順位の段がすべて承認されたら、次の順位の段の該当者へ通知する。担当者は引数、省略時は JWT の staff_id。errcode: OPR01 承認前が無い / OPR02 引数が不正 / OPR03 承認できない・すでに承認済み・前の段階が未承認。戻り値は承認結果';
 
+CREATE OR REPLACE FUNCTION tests.approval_start(
+    p_pattern_id uuid,
+    p_staff_id uuid DEFAULT NULL,
+    p_staff_history_id uuid DEFAULT NULL
+) RETURNS uuid AS $$
+DECLARE
+    v_tp uuid; v_min smallint;
+BEGIN
+    INSERT INTO tests.trans_approval_pattern (mstr_approval_pattern_id, update_user_id, update_user_history_id)
+    VALUES (p_pattern_id, p_staff_id, p_staff_history_id) RETURNING trans_approval_pattern_id INTO v_tp;
+    INSERT INTO tests.trans_preapproval (trans_approval_pattern_id, mstr_approval_id, update_user_id, update_user_history_id)
+    SELECT v_tp, d.mstr_approval_id, p_staff_id, p_staff_history_id
+    FROM tests.mstr_approval_pattern_detail AS d
+    WHERE d.mstr_approval_pattern_id = p_pattern_id AND d.remove IS FALSE;
+    SELECT min(a.priority) INTO v_min
+    FROM tests.trans_preapproval AS q INNER JOIN tests.mstr_approval AS a ON a.mstr_approval_id = q.mstr_approval_id
+    WHERE q.trans_approval_pattern_id = v_tp;
+    IF v_min IS NOT NULL THEN
+        PERFORM tests.approval_notify(v_tp, v_min, p_staff_id, p_staff_history_id);
+    END IF;
+    RETURN v_tp;
+END
+$$ LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION tests.approval_start(uuid, uuid, uuid) IS '@omit
+承認の実行を始める(承認パターンから、承認実行パターンと、段ごとの承認前を作り、最初の段の該当者へ通知する)。対象の登録のトリガー(trg_05_approval_request)が呼ぶ';
+
 CREATE OR REPLACE FUNCTION tests.approval_approve_many(
     p_preapproval_ids uuid[],
     p_approved boolean DEFAULT true,
@@ -12382,34 +12382,6 @@ END
 $$ LANGUAGE plpgsql VOLATILE;
 
 COMMENT ON FUNCTION tests.approval_approve_many(uuid[], boolean, varchar, uuid) IS '複数の承認を一度に登録する(1 回の呼び出し。行ごとに成功・失敗を返し、失敗した行だけ登録されない)。順位の小さい段から処理する。担当者は引数、省略時は JWT の staff_id';
-
-CREATE OR REPLACE FUNCTION tests.trg_05_approval_request() RETURNS trigger AS
-$BODY$
--- 引数: TG_ARGV[0] = 種類(info_app.settings の approval.patterns のキー)、TG_ARGV[1] = 承認実行パターンの列
-DECLARE
-    v_kind text := TG_ARGV[0];
-    v_col text := TG_ARGV[1];
-    v_pattern uuid;
-    v_tp uuid;
-BEGIN
-    IF (to_jsonb(NEW) ->> v_col) IS NOT NULL THEN
-        RETURN NEW;
-    END IF;
-    SELECT NULLIF(a.settings #>> ARRAY['approval', 'patterns', v_kind], '')::uuid INTO v_pattern
-    FROM tests.info_app AS a WHERE a.remove IS FALSE ORDER BY a.update_at LIMIT 1;
-    IF v_pattern IS NULL THEN
-        RETURN NEW;
-    END IF;
-    v_tp := tests.approval_start(v_pattern, NEW.update_user_id, NEW.update_user_history_id);
-    NEW := jsonb_populate_record(NEW, jsonb_build_object(v_col, v_tp));
-    RETURN NEW;
-END
-$BODY$
-LANGUAGE plpgsql VOLATILE;
-
-COMMENT ON FUNCTION tests.trg_05_approval_request() IS '@omit
-対象の登録のトリガー関数(登録が申請)';
-
 
 CREATE TABLE tests.trans_audit (
   trans_audit_id uuid DEFAULT gen_random_uuid() NOT NULL,
@@ -15513,6 +15485,16 @@ ALTER TABLE tests.trans_mrp_load ADD CONSTRAINT trans_mrp_load_fk1 FOREIGN KEY (
 ALTER TABLE tests.trans_mrp_load ADD CONSTRAINT trans_mrp_load_fk2 FOREIGN KEY (mstr_equipment_id) REFERENCES tests.mstr_equipment (mstr_equipment_id) DEFERRABLE INITIALLY DEFERRED;
 
 ALTER TABLE tests.trans_mrp_load ADD CONSTRAINT trans_mrp_load_fk3 FOREIGN KEY (update_user_history_id, update_user_id) REFERENCES tests.history_info_staff (history_id, info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.trans_order ADD CONSTRAINT trans_order_approval_fk FOREIGN KEY (trans_approval_pattern_id) REFERENCES tests.trans_approval_pattern (trans_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.trans_purchase ADD CONSTRAINT trans_purchase_approval_fk FOREIGN KEY (trans_approval_pattern_id) REFERENCES tests.trans_approval_pattern (trans_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.trans_unrecognized ADD CONSTRAINT trans_unrecognized_approval_fk FOREIGN KEY (trans_approval_pattern_id) REFERENCES tests.trans_approval_pattern (trans_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.trans_shipping_order ADD CONSTRAINT trans_shipping_order_approval_fk FOREIGN KEY (trans_approval_pattern_id) REFERENCES tests.trans_approval_pattern (trans_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.trans_announcement ADD CONSTRAINT trans_announcement_preapproval_fk FOREIGN KEY (trans_preapproval_id) REFERENCES tests.trans_preapproval (trans_preapproval_id) DEFERRABLE INITIALLY DEFERRED;
 
 CREATE VIEW tests.v_plan_change_unreflected AS
 -- MRP 未反映の計画変更  claude/131
@@ -23393,21 +23375,6 @@ COMMENT ON COLUMN tests.v_document_content.readable IS 'ログイン中の担当
 COMMENT ON COLUMN tests.v_document_content.contents IS 'コンテンツ(読めないときは NULL)';
 COMMENT ON COLUMN tests.v_document_content.trans_file_id IS 'ファイルID(読めないときは NULL)';
 
-ALTER TABLE tests.trans_order ADD CONSTRAINT trans_order_approval_fk FOREIGN KEY (trans_approval_pattern_id) REFERENCES tests.trans_approval_pattern (trans_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE tests.trans_purchase ADD CONSTRAINT trans_purchase_approval_fk FOREIGN KEY (trans_approval_pattern_id) REFERENCES tests.trans_approval_pattern (trans_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE tests.trans_unrecognized ADD CONSTRAINT trans_unrecognized_approval_fk FOREIGN KEY (trans_approval_pattern_id) REFERENCES tests.trans_approval_pattern (trans_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE tests.trans_shipping_order ADD CONSTRAINT trans_shipping_order_approval_fk FOREIGN KEY (trans_approval_pattern_id) REFERENCES tests.trans_approval_pattern (trans_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
-ALTER TABLE tests.trans_announcement ADD CONSTRAINT trans_announcement_preapproval_fk FOREIGN KEY (trans_preapproval_id) REFERENCES tests.trans_preapproval (trans_preapproval_id) DEFERRABLE INITIALLY DEFERRED;
-
-CREATE TRIGGER trg_05_approval_request_mstr_document BEFORE INSERT ON tests.mstr_document FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('document', 'trans_approval_pattern_id');
-CREATE TRIGGER trg_05_approval_request_trans_order BEFORE INSERT ON tests.trans_order FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('order', 'trans_approval_pattern_id');
-CREATE TRIGGER trg_05_approval_request_trans_purchase BEFORE INSERT ON tests.trans_purchase FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('purchase', 'trans_approval_pattern_id');
-CREATE TRIGGER trg_05_approval_request_trans_unrecognized BEFORE INSERT ON tests.trans_unrecognized FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('unrecognized', 'trans_approval_pattern_id');
-CREATE TRIGGER trg_05_approval_request_trans_shipping_order BEFORE INSERT ON tests.trans_shipping_order FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('shipping_order', 'trans_approval_pattern_id');
-CREATE TRIGGER trg_05_approval_request_trans_complaint BEFORE INSERT ON tests.trans_complaint FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('complaint', 'approvals');
-CREATE TRIGGER trg_05_approval_request_trans_disposal BEFORE INSERT ON tests.trans_disposal FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('disposal', 'approvals');
-CREATE TRIGGER trg_05_approval_request_trans_recurrence_prevention BEFORE INSERT ON tests.trans_recurrence_prevention FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('recurrence_prevention', 'approvals');
-
 CREATE VIEW tests.v_approval_pending AS
 SELECT
     pre.trans_preapproval_id
@@ -25187,210 +25154,6 @@ CREATE TRIGGER trg_01_updatetimes_history_mstr_stakeholder BEFORE INSERT OR UPDA
 
 CREATE TRIGGER trg_04_symbol_history_mstr_stakeholder BEFORE INSERT ON tests.history_mstr_stakeholder FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_seq();
 
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_order() RETURNS trigger AS
-$BODY$
-DECLARE
-    latest_row record;
-BEGIN
-    IF (TG_OP = 'UPDATE') THEN
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP='INSERT') THEN
-        NEW.trans_order_id := gen_random_uuid();
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP = 'DELETE') THEN
-        RETURN OLD;
-    END IF;
-END
-$BODY$
-LANGUAGE plpgsql VOLATILE;
-
-CREATE TRIGGER trg_01_updatetimes_trans_order BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_order FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_order();
-
-CREATE OR REPLACE FUNCTION tests.trg_gen_symbol_by_month() RETURNs trigger AS
-$BODY$
-DECLARE
-    v_yy int;
-    v_mm int;
-    v_seq bigint;
-BEGIN
-    IF NULLIF(NEW.symbol, '') IS NOT null THEN
-        RETURN NEW;
-    END IF;
-    v_yy := extract(year from now())::int % 100;
-    v_mm := extract(month from now())::int;
-    v_seq := tests.next_seq(TG_TABLE_NAME::varchar, v_yy, v_mm);
-    NEW.symbol := lpad(v_yy::text, 2, '0') || lpad(v_mm::text, 2, '0')
-            || '-' || tests.to_base33(v_seq, 4);
-    RETURN NEW;
-END;
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE TRIGGER trg_04_symbol_trans_order BEFORE INSERT ON tests.trans_order FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
-
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_order_detail() RETURNS trigger AS
-$BODY$
-DECLARE
-    latest_row record;
-BEGIN
-    IF (TG_OP = 'UPDATE') THEN
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP='INSERT') THEN
-        NEW.trans_order_detail_id := gen_random_uuid();
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP = 'DELETE') THEN
-        RETURN OLD;
-    END IF;
-END
-$BODY$
-LANGUAGE plpgsql VOLATILE;
-
-CREATE TRIGGER trg_01_updatetimes_trans_order_detail BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_order_detail FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_order_detail();
-
-CREATE TRIGGER trg_04_symbol_trans_order_detail BEFORE INSERT ON tests.trans_order_detail FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
-
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_operations_plan() RETURNS trigger AS
-$BODY$
-DECLARE
-    latest_row record;
-BEGIN
-    IF (TG_OP = 'UPDATE') THEN
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP='INSERT') THEN
-        NEW.trans_operations_plan_id := gen_random_uuid();
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP = 'DELETE') THEN
-        RETURN OLD;
-    END IF;
-END
-$BODY$
-LANGUAGE plpgsql VOLATILE;
-
-CREATE TRIGGER trg_01_updatetimes_trans_operations_plan BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_operations_plan FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_operations_plan();
-
-CREATE TRIGGER trg_04_symbol_trans_operations_plan BEFORE INSERT ON tests.trans_operations_plan FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
-
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_unrecognized() RETURNS trigger AS
-$BODY$
-DECLARE
-    latest_row record;
-BEGIN
-    IF (TG_OP = 'UPDATE') THEN
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP='INSERT') THEN
-        NEW.trans_unrecognized_id := gen_random_uuid();
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP = 'DELETE') THEN
-        RETURN OLD;
-    END IF;
-END
-$BODY$
-LANGUAGE plpgsql VOLATILE;
-
-CREATE TRIGGER trg_01_updatetimes_trans_unrecognized BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_unrecognized FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_unrecognized();
-
-CREATE TRIGGER trg_04_symbol_trans_unrecognized BEFORE INSERT ON tests.trans_unrecognized FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
-
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_unrecognized_detail() RETURNS trigger AS
-$BODY$
-DECLARE
-    latest_row record;
-BEGIN
-    IF (TG_OP = 'UPDATE') THEN
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP='INSERT') THEN
-        NEW.trans_unrecognized_detail_id := gen_random_uuid();
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP = 'DELETE') THEN
-        RETURN OLD;
-    END IF;
-END
-$BODY$
-LANGUAGE plpgsql VOLATILE;
-
-CREATE TRIGGER trg_01_updatetimes_trans_unrecognized_detail BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_unrecognized_detail FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_unrecognized_detail();
-
-CREATE TRIGGER trg_04_symbol_trans_unrecognized_detail BEFORE INSERT ON tests.trans_unrecognized_detail FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
-
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_resource_plan() RETURNS trigger AS
-$BODY$
-DECLARE
-    latest_row record;
-BEGIN
-    IF (TG_OP = 'UPDATE') THEN
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP='INSERT') THEN
-        NEW.trans_resource_plan_id := gen_random_uuid();
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP = 'DELETE') THEN
-        RETURN OLD;
-    END IF;
-END
-$BODY$
-LANGUAGE plpgsql VOLATILE;
-
-CREATE TRIGGER trg_01_updatetimes_trans_resource_plan BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_resource_plan FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_resource_plan();
-
-CREATE TRIGGER trg_04_symbol_trans_resource_plan BEFORE INSERT ON tests.trans_resource_plan FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
-
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_purchase() RETURNS trigger AS
-$BODY$
-DECLARE
-    latest_row record;
-BEGIN
-    IF (TG_OP = 'UPDATE') THEN
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP='INSERT') THEN
-        NEW.trans_purchase_id := gen_random_uuid();
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP = 'DELETE') THEN
-        RETURN OLD;
-    END IF;
-END
-$BODY$
-LANGUAGE plpgsql VOLATILE;
-
-CREATE TRIGGER trg_01_updatetimes_trans_purchase BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_purchase FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_purchase();
-
-CREATE TRIGGER trg_04_symbol_trans_purchase BEFORE INSERT ON tests.trans_purchase FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
-
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_purchase_detail() RETURNS trigger AS
-$BODY$
-DECLARE
-    latest_row record;
-BEGIN
-    IF (TG_OP = 'UPDATE') THEN
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP='INSERT') THEN
-        NEW.trans_purchase_detail_id := gen_random_uuid();
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP = 'DELETE') THEN
-        RETURN OLD;
-    END IF;
-END
-$BODY$
-LANGUAGE plpgsql VOLATILE;
-
-CREATE TRIGGER trg_01_updatetimes_trans_purchase_detail BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_purchase_detail FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_purchase_detail();
-
-CREATE TRIGGER trg_04_symbol_trans_purchase_detail BEFORE INSERT ON tests.trans_purchase_detail FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
-
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_approval_pattern() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -25500,7 +25263,244 @@ LANGUAGE plpgsql VOLATILE;
 
 CREATE TRIGGER trg_01_updatetimes_trans_approval_pattern BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_approval_pattern FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_approval_pattern();
 
+CREATE OR REPLACE FUNCTION tests.trg_gen_symbol_by_month() RETURNs trigger AS
+$BODY$
+DECLARE
+    v_yy int;
+    v_mm int;
+    v_seq bigint;
+BEGIN
+    IF NULLIF(NEW.symbol, '') IS NOT null THEN
+        RETURN NEW;
+    END IF;
+    v_yy := extract(year from now())::int % 100;
+    v_mm := extract(month from now())::int;
+    v_seq := tests.next_seq(TG_TABLE_NAME::varchar, v_yy, v_mm);
+    NEW.symbol := lpad(v_yy::text, 2, '0') || lpad(v_mm::text, 2, '0')
+            || '-' || tests.to_base33(v_seq, 4);
+    RETURN NEW;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
 CREATE TRIGGER trg_04_symbol_trans_approval_pattern BEFORE INSERT ON tests.trans_approval_pattern FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
+
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_order() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_order_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE TRIGGER trg_01_updatetimes_trans_order BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_order FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_order();
+
+CREATE TRIGGER trg_04_symbol_trans_order BEFORE INSERT ON tests.trans_order FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
+
+CREATE OR REPLACE FUNCTION tests.trg_05_approval_request() RETURNS trigger AS
+$BODY$
+-- 引数: TG_ARGV[0] = 種類(info_app.settings の approval.patterns のキー)、TG_ARGV[1] = 承認実行パターンの列
+DECLARE
+    v_kind text := TG_ARGV[0];
+    v_col text := TG_ARGV[1];
+    v_pattern uuid;
+    v_tp uuid;
+BEGIN
+    IF (to_jsonb(NEW) ->> v_col) IS NOT NULL THEN
+        RETURN NEW;
+    END IF;
+    SELECT NULLIF(a.settings #>> ARRAY['approval', 'patterns', v_kind], '')::uuid INTO v_pattern
+    FROM tests.info_app AS a WHERE a.remove IS FALSE ORDER BY a.update_at LIMIT 1;
+    IF v_pattern IS NULL THEN
+        RETURN NEW;
+    END IF;
+    v_tp := tests.approval_start(v_pattern, NEW.update_user_id, NEW.update_user_history_id);
+    NEW := jsonb_populate_record(NEW, jsonb_build_object(v_col, v_tp));
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION tests.trg_05_approval_request() IS '@omit
+対象の登録のトリガー関数(登録が申請)';
+
+CREATE TRIGGER trg_05_approval_request_trans_order BEFORE INSERT ON tests.trans_order FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('order', 'trans_approval_pattern_id');
+
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_order_detail() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_order_detail_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE TRIGGER trg_01_updatetimes_trans_order_detail BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_order_detail FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_order_detail();
+
+CREATE TRIGGER trg_04_symbol_trans_order_detail BEFORE INSERT ON tests.trans_order_detail FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
+
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_operations_plan() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_operations_plan_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE TRIGGER trg_01_updatetimes_trans_operations_plan BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_operations_plan FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_operations_plan();
+
+CREATE TRIGGER trg_04_symbol_trans_operations_plan BEFORE INSERT ON tests.trans_operations_plan FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
+
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_unrecognized() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_unrecognized_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE TRIGGER trg_01_updatetimes_trans_unrecognized BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_unrecognized FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_unrecognized();
+
+CREATE TRIGGER trg_04_symbol_trans_unrecognized BEFORE INSERT ON tests.trans_unrecognized FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
+
+CREATE TRIGGER trg_05_approval_request_trans_unrecognized BEFORE INSERT ON tests.trans_unrecognized FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('unrecognized', 'trans_approval_pattern_id');
+
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_unrecognized_detail() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_unrecognized_detail_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE TRIGGER trg_01_updatetimes_trans_unrecognized_detail BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_unrecognized_detail FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_unrecognized_detail();
+
+CREATE TRIGGER trg_04_symbol_trans_unrecognized_detail BEFORE INSERT ON tests.trans_unrecognized_detail FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
+
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_resource_plan() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_resource_plan_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE TRIGGER trg_01_updatetimes_trans_resource_plan BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_resource_plan FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_resource_plan();
+
+CREATE TRIGGER trg_04_symbol_trans_resource_plan BEFORE INSERT ON tests.trans_resource_plan FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
+
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_purchase() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_purchase_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE TRIGGER trg_01_updatetimes_trans_purchase BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_purchase FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_purchase();
+
+CREATE TRIGGER trg_04_symbol_trans_purchase BEFORE INSERT ON tests.trans_purchase FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
+
+CREATE TRIGGER trg_05_approval_request_trans_purchase BEFORE INSERT ON tests.trans_purchase FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('purchase', 'trans_approval_pattern_id');
+
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_purchase_detail() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_purchase_detail_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE TRIGGER trg_01_updatetimes_trans_purchase_detail BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_purchase_detail FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_purchase_detail();
+
+CREATE TRIGGER trg_04_symbol_trans_purchase_detail BEFORE INSERT ON tests.trans_purchase_detail FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_text() RETURNS trigger AS
 $BODY$
@@ -25570,6 +25570,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_complaint BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_complaint FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_complaint();
 
 CREATE TRIGGER trg_04_symbol_trans_complaint BEFORE INSERT ON tests.trans_complaint FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
+
+CREATE TRIGGER trg_05_approval_request_trans_complaint BEFORE INSERT ON tests.trans_complaint FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('complaint', 'approvals');
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_change_reason() RETURNS trigger AS
 $BODY$
@@ -26177,6 +26179,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_shipping_order BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_shipping_order FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_shipping_order();
 
 CREATE TRIGGER trg_04_symbol_trans_shipping_order BEFORE INSERT ON tests.trans_shipping_order FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
+
+CREATE TRIGGER trg_05_approval_request_trans_shipping_order BEFORE INSERT ON tests.trans_shipping_order FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('shipping_order', 'trans_approval_pattern_id');
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_shipping_order_detail() RETURNS trigger AS
 $BODY$
@@ -30476,6 +30480,8 @@ LANGUAGE plpgsql VOLATILE;
 
 CREATE TRIGGER trg_02_history_mstr_document BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_document FOR EACH ROW EXECUTE FUNCTION tests.trg_02_history_mstr_document();
 
+CREATE TRIGGER trg_05_approval_request_mstr_document BEFORE INSERT ON tests.mstr_document FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('document', 'trans_approval_pattern_id');
+
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_document_content() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -33049,6 +33055,125 @@ CREATE TRIGGER trg_01_updatetimes_history_info_app_status BEFORE INSERT OR UPDAT
 
 CREATE TRIGGER trg_04_symbol_history_info_app_status BEFORE INSERT ON tests.history_info_app_status FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_seq();
 
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_approval() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.mstr_approval_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE TRIGGER trg_01_updatetimes_mstr_approval BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_approval FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_mstr_approval();
+
+CREATE TRIGGER trg_04_symbol_mstr_approval BEFORE INSERT ON tests.mstr_approval FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_seq();
+
+CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_approval() RETURNS trigger AS
+$BODY$
+DECLARE
+    revisions int;
+BEGIN
+    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN
+        SELECT Max(revision) INTO revisions FROM tests.history_mstr_approval WHERE mstr_approval_id=NEW.mstr_approval_id;
+        IF (revisions >= 0) THEN
+            IF (
+                NEW.mstr_approval_id,
+                NEW.info_department_id,
+                NEW.info_position_id,
+                NEW.priority,
+                NEW.names,
+                NEW.symbol,
+                NEW.remarks,
+                NEW.remove
+            ) IS NOT DISTINCT FROM (
+                OLD.mstr_approval_id,
+                OLD.info_department_id,
+                OLD.info_position_id,
+                OLD.priority,
+                OLD.names,
+                OLD.symbol,
+                OLD.remarks,
+                OLD.remove
+            )
+            THEN
+                RETURN NULL;
+            END IF;
+            NEW.revision := revisions + 1;
+        ELSE
+            NEW.revision := 1;
+        END IF;
+        INSERT INTO tests.history_mstr_approval (
+            mstr_approval_id,
+            info_department_id,
+            info_position_id,
+            priority,
+            names,
+            revision,
+            symbol,
+            remarks,
+            update_at,
+            update_user_id,
+            update_user_history_id,
+            remove
+        )
+        VALUES
+        (
+            NEW.mstr_approval_id,
+            NEW.info_department_id,
+            NEW.info_position_id,
+            NEW.priority,
+            NEW.names,
+            NEW.revision,
+            NEW.symbol,
+            NEW.remarks,
+            NEW.update_at,
+            NEW.update_user_id,
+            NEW.update_user_history_id,
+            NEW.remove
+        );
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE TRIGGER trg_02_history_mstr_approval BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_approval FOR EACH ROW EXECUTE FUNCTION tests.trg_02_history_mstr_approval();
+
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_preapproval() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_preapproval_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE TRIGGER trg_01_updatetimes_trans_preapproval BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_preapproval FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_preapproval();
+
+CREATE TRIGGER trg_04_symbol_trans_preapproval BEFORE INSERT ON tests.trans_preapproval FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
+
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_announcement() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -35480,102 +35605,6 @@ CREATE TRIGGER trg_01_updatetimes_history_mstr_capability BEFORE INSERT OR UPDAT
 
 CREATE TRIGGER trg_04_symbol_history_mstr_capability BEFORE INSERT ON tests.history_mstr_capability FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_seq();
 
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_approval() RETURNS trigger AS
-$BODY$
-DECLARE
-    latest_row record;
-BEGIN
-    IF (TG_OP = 'UPDATE') THEN
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP='INSERT') THEN
-        NEW.mstr_approval_id := gen_random_uuid();
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP = 'DELETE') THEN
-        RETURN OLD;
-    END IF;
-END
-$BODY$
-LANGUAGE plpgsql VOLATILE;
-
-CREATE TRIGGER trg_01_updatetimes_mstr_approval BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_approval FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_mstr_approval();
-
-CREATE TRIGGER trg_04_symbol_mstr_approval BEFORE INSERT ON tests.mstr_approval FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_seq();
-
-CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_approval() RETURNS trigger AS
-$BODY$
-DECLARE
-    revisions int;
-BEGIN
-    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN
-        SELECT Max(revision) INTO revisions FROM tests.history_mstr_approval WHERE mstr_approval_id=NEW.mstr_approval_id;
-        IF (revisions >= 0) THEN
-            IF (
-                NEW.mstr_approval_id,
-                NEW.info_department_id,
-                NEW.info_position_id,
-                NEW.priority,
-                NEW.names,
-                NEW.symbol,
-                NEW.remarks,
-                NEW.remove
-            ) IS NOT DISTINCT FROM (
-                OLD.mstr_approval_id,
-                OLD.info_department_id,
-                OLD.info_position_id,
-                OLD.priority,
-                OLD.names,
-                OLD.symbol,
-                OLD.remarks,
-                OLD.remove
-            )
-            THEN
-                RETURN NULL;
-            END IF;
-            NEW.revision := revisions + 1;
-        ELSE
-            NEW.revision := 1;
-        END IF;
-        INSERT INTO tests.history_mstr_approval (
-            mstr_approval_id,
-            info_department_id,
-            info_position_id,
-            priority,
-            names,
-            revision,
-            symbol,
-            remarks,
-            update_at,
-            update_user_id,
-            update_user_history_id,
-            remove
-        )
-        VALUES
-        (
-            NEW.mstr_approval_id,
-            NEW.info_department_id,
-            NEW.info_position_id,
-            NEW.priority,
-            NEW.names,
-            NEW.revision,
-            NEW.symbol,
-            NEW.remarks,
-            NEW.update_at,
-            NEW.update_user_id,
-            NEW.update_user_history_id,
-            NEW.remove
-        );
-        RETURN NEW;
-    ELSEIF (TG_OP = 'DELETE') THEN
-        RETURN OLD;
-    END IF;
-END
-$BODY$
-LANGUAGE plpgsql VOLATILE;
-
-CREATE TRIGGER trg_02_history_mstr_approval BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_approval FOR EACH ROW EXECUTE FUNCTION tests.trg_02_history_mstr_approval();
-
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_approval_pattern_detail() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -36320,29 +36349,6 @@ CREATE TRIGGER trg_01_updatetimes_trans_inspection_report BEFORE INSERT OR UPDAT
 
 CREATE TRIGGER trg_04_symbol_trans_inspection_report BEFORE INSERT ON tests.trans_inspection_report FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
 
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_preapproval() RETURNS trigger AS
-$BODY$
-DECLARE
-    latest_row record;
-BEGIN
-    IF (TG_OP = 'UPDATE') THEN
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP='INSERT') THEN
-        NEW.trans_preapproval_id := gen_random_uuid();
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP = 'DELETE') THEN
-        RETURN OLD;
-    END IF;
-END
-$BODY$
-LANGUAGE plpgsql VOLATILE;
-
-CREATE TRIGGER trg_01_updatetimes_trans_preapproval BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_preapproval FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_preapproval();
-
-CREATE TRIGGER trg_04_symbol_trans_preapproval BEFORE INSERT ON tests.trans_preapproval FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
-
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_approved() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -36663,6 +36669,8 @@ CREATE TRIGGER trg_01_updatetimes_trans_disposal BEFORE INSERT OR UPDATE OR DELE
 
 CREATE TRIGGER trg_04_symbol_trans_disposal BEFORE INSERT ON tests.trans_disposal FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
 
+CREATE TRIGGER trg_05_approval_request_trans_disposal BEFORE INSERT ON tests.trans_disposal FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('disposal', 'approvals');
+
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_recurrence_prevention() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -36685,6 +36693,8 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_recurrence_prevention BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_recurrence_prevention FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_recurrence_prevention();
 
 CREATE TRIGGER trg_04_symbol_trans_recurrence_prevention BEFORE INSERT ON tests.trans_recurrence_prevention FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
+
+CREATE TRIGGER trg_05_approval_request_trans_recurrence_prevention BEFORE INSERT ON tests.trans_recurrence_prevention FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('recurrence_prevention', 'approvals');
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_observer_disposal() RETURNS trigger AS
 $BODY$

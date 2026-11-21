@@ -1,0 +1,27 @@
+name: wysiwyg_editor
+description: "WYSIWYG(ビジュアル)と Markdown を切り替えて本文を編集する画面の部品。"
+version: 0.0.1
+publish_to: none
+
+resolution: workspace
+
+environment:
+  sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  markdown_ast:
+    path: ../markdown_ast
+  markdown_to_wysiwyg:
+    path: ../markdown_to_wysiwyg
+  wysiwyg_to_markdown:
+    path: ../wysiwyg_to_markdown
+  markdown_view:
+    path: ../markdown_view
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml

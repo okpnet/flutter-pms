@@ -43,6 +43,7 @@ cd tools/config_user_generator; dart run bin/config_user_generator.dart   # 裏�
 - `packages/features/`: 1機能=1パッケージ `xxx`(実装=画面・ルート・ハンドラ、`XxxModule implements FeatureModule`)。契約(遷移先・命令の型)は同じパッケージの `lib/xxx_api.dart`(契約だけのバレル)で公開し、実装の入口 `lib/xxx.dart` はアプリだけが読み込む。機能同士・アプリは `xxx_api.dart` の型だけを使い、`lib/src` や実装の入口は読み込まない。
 - `packages/core/`: `baton_lib`(コマンドバス)、`feature_shared`(機能とアプリの仲介)、`settings_keeper`(ローカル設定の保存と復元)、`page_mediator_extension`(ページ用の拡張。データ取得・設定の保存・セッション確認の窓口)、`selection_result`(選択画面が返す選択の結果`Selection`。対象の種類・一意な id・表示名・追加の値。JSON の`encode`/`decode`でも受け渡せる)。
 - `packages/ui/`: UI基盤。`entity_screens`(実体の定義から台帳・編集の画面を作る)、`app_shell`(タイトルバー・サイドバー・ハンバーガー・ログインユーザーの枠)、`loadux_lib`(読み込み中の円・バー。`theme_lib` の `LoadingTheme` で見た目を差し替える。各画面は `CircularProgressIndicator` を直接使わない)を含む。
+- `packages/foundation/` の Markdown 系: `markdown_ast`(構文木・読み取り・WYSIWYG の文書の型)、`markdown_view`(テーマを使った閲覧)、`markdown_to_wysiwyg`・`wysiwyg_to_markdown`(相互変換)、`wysiwyg_editor`(編集の部品)、`markdown_stream`(ストリームの読み書き)、`markdown_pdf`(PDF)。画面(`manual`・`quality_document`)は組み合わせるだけにする(各パッケージの `CLAUDE.md`)。
 - `packages/model_providers/`: 機能ごとの GraphQL モデル(`xxx_model`)。下の「GraphQL モデル生成ルール」を参照。
 - `packages/infra/`(pms_graphql, logger_provider, data_test_harness, pbapi), `packages/foundation/`(画面を持たない汎用部品)。
 

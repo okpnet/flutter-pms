@@ -1,4 +1,4 @@
-import '../model/manual_markdown.dart';
+import 'package:markdown_ast/markdown_ast.dart';
 import '../model/manual_page_record.dart';
 import 'manual_repository.dart';
 import 'manual_seed.dart';
@@ -102,7 +102,7 @@ class InMemoryManualRepository implements IManualRepository {
       // ページ名を変えたら、ほかのページのリンクも追従させる(改訂は上げない)
       for (var k = 0; k < _pages.length; k++) {
         if (k == i) continue;
-        final renamed = ManualMarkdown.renameLink(
+        final renamed = MarkdownParser.renameLink(
           _pages[k].md,
           old.title,
           newTitle,
