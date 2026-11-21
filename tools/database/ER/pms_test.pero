@@ -2,7 +2,7 @@
   "formatVersion": 3,
   "appVersion": "0.1.0",
   "id": 538067658,
-  "nextId": 6050,
+  "nextId": 6072,
   "properties": {
     "outputFileName": "pms_test",
     "outputFolder": "",
@@ -10673,12 +10673,12 @@
         "sqlite": ""
       },
       "bodies": {
-        "postgresql": "CREATE OR REPLACE FUNCTION tests.document_approve(\n    p_preapproval_id uuid,\n    p_approved boolean DEFAULT true,\n    p_remarks varchar DEFAULT NULL,\n    p_staff_id uuid DEFAULT NULL\n) RETURNS tests.trans_approved AS $$\nDECLARE\n    v_st record; v_pre tests.trans_preapproval; v_ap tests.mstr_approval; v_last tests.trans_approved; v_row tests.trans_approved;\nBEGIN\n    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);\n    SELECT * INTO v_pre FROM tests.trans_preapproval WHERE trans_preapproval_id = p_preapproval_id AND remove IS FALSE FOR UPDATE;\n    IF NOT FOUND THEN\n        RAISE EXCEPTION '承認前が見つかりません (%)', p_preapproval_id USING ERRCODE = 'OPR01';\n    END IF;\n    IF p_approved IS NULL THEN\n        RAISE EXCEPTION '承認の適用(承認・却下)を指定してください' USING ERRCODE = 'OPR02';\n    END IF;\n    SELECT * INTO v_ap FROM tests.mstr_approval WHERE mstr_approval_id = v_pre.mstr_approval_id;\n    IF NOT EXISTS (\n        SELECT 1 FROM tests.info_assign AS ia\n        WHERE ia.info_staff_id = v_st.staff_id AND ia.remove IS FALSE AND ia.enable IS TRUE\n          AND ia.info_position_id = v_ap.info_position_id\n          AND (v_ap.info_department_id IS NULL OR ia.info_department_id = v_ap.info_department_id)\n    ) THEN\n        RAISE EXCEPTION '承認できる担当者ではありません (%)', v_st.staff_id USING ERRCODE = 'OPR03';\n    END IF;\n    SELECT * INTO v_last FROM tests.trans_approved WHERE trans_preapproval_id = p_preapproval_id AND remove IS FALSE\n    ORDER BY update_at DESC LIMIT 1;\n    IF FOUND AND v_last.approved IS TRUE THEN\n        RAISE EXCEPTION 'すでに承認されています' USING ERRCODE = 'OPR03';\n    END IF;\n    INSERT INTO tests.trans_approved (trans_preapproval_id, approved, approved_staff_history_id, approved_staff_id,\n                                      remarks, update_user_id, update_user_history_id)\n    VALUES (p_preapproval_id, p_approved, v_st.staff_history_id, v_st.staff_id,\n            p_remarks, v_st.staff_id, v_st.staff_history_id)\n    RETURNING * INTO v_row;\n    RETURN v_row;\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.document_approve(\n    p_preapproval_id uuid,\n    p_approved boolean DEFAULT true,\n    p_remarks varchar DEFAULT NULL,\n    p_staff_id uuid DEFAULT NULL\n) RETURNS tests.trans_approved AS $$\nDECLARE\n    v_st record; v_pre tests.trans_preapproval; v_ap tests.mstr_approval; v_last tests.trans_approved; v_row tests.trans_approved;\n    v_next smallint;\nBEGIN\n    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);\n    SELECT * INTO v_pre FROM tests.trans_preapproval WHERE trans_preapproval_id = p_preapproval_id AND remove IS FALSE FOR UPDATE;\n    IF NOT FOUND THEN\n        RAISE EXCEPTION '承認前が見つかりません (%)', p_preapproval_id USING ERRCODE = 'OPR01';\n    END IF;\n    IF p_approved IS NULL THEN\n        RAISE EXCEPTION '承認の適用(承認・却下)を指定してください' USING ERRCODE = 'OPR02';\n    END IF;\n    SELECT * INTO v_ap FROM tests.mstr_approval WHERE mstr_approval_id = v_pre.mstr_approval_id;\n    IF NOT EXISTS (\n        SELECT 1 FROM tests.info_assign AS ia\n        WHERE ia.info_staff_id = v_st.staff_id AND ia.remove IS FALSE AND ia.enable IS TRUE\n          AND ia.info_position_id = v_ap.info_position_id\n          AND (v_ap.info_department_id IS NULL OR ia.info_department_id = v_ap.info_department_id)\n    ) THEN\n        RAISE EXCEPTION '承認できる担当者ではありません (%)', v_st.staff_id USING ERRCODE = 'OPR03';\n    END IF;\n    SELECT * INTO v_last FROM tests.trans_approved WHERE trans_preapproval_id = p_preapproval_id AND remove IS FALSE\n    ORDER BY update_at DESC LIMIT 1;\n    IF FOUND AND v_last.approved IS TRUE THEN\n        RAISE EXCEPTION 'すでに承認されています' USING ERRCODE = 'OPR03';\n    END IF;\n    -- 段の順序: 順位が小さい段が、すべて承認済みでなければ、この段は承認できない(同じ順位の段は並行)\n    IF EXISTS (\n        SELECT 1 FROM tests.trans_preapproval AS q\n        INNER JOIN tests.mstr_approval AS a2 ON a2.mstr_approval_id = q.mstr_approval_id\n        WHERE q.trans_approval_pattern_id = v_pre.trans_approval_pattern_id AND q.remove IS FALSE AND a2.priority < v_ap.priority\n          AND NOT COALESCE((SELECT r.approved FROM tests.trans_approved AS r WHERE r.trans_preapproval_id = q.trans_preapproval_id AND r.remove IS FALSE\n                            ORDER BY r.update_at DESC LIMIT 1), false)\n    ) THEN\n        RAISE EXCEPTION '前の段階が承認されていません' USING ERRCODE = 'OPR03';\n    END IF;\n    INSERT INTO tests.trans_approved (trans_preapproval_id, approved, approved_staff_history_id, approved_staff_id,\n                                      remarks, update_user_id, update_user_history_id)\n    VALUES (p_preapproval_id, p_approved, v_st.staff_history_id, v_st.staff_id,\n            p_remarks, v_st.staff_id, v_st.staff_history_id)\n    RETURNING * INTO v_row;\n    -- この順位の段がすべて承認されたら、次の順位の段の該当者へ通知する\n    IF p_approved IS TRUE AND NOT EXISTS (\n        SELECT 1 FROM tests.trans_preapproval AS q\n        INNER JOIN tests.mstr_approval AS a3 ON a3.mstr_approval_id = q.mstr_approval_id\n        WHERE q.trans_approval_pattern_id = v_pre.trans_approval_pattern_id AND q.remove IS FALSE AND a3.priority = v_ap.priority\n          AND NOT COALESCE((SELECT r.approved FROM tests.trans_approved AS r WHERE r.trans_preapproval_id = q.trans_preapproval_id AND r.remove IS FALSE\n                            ORDER BY r.update_at DESC LIMIT 1), false)\n    ) THEN\n        SELECT min(a4.priority) INTO v_next\n        FROM tests.trans_preapproval AS q\n        INNER JOIN tests.mstr_approval AS a4 ON a4.mstr_approval_id = q.mstr_approval_id\n        WHERE q.trans_approval_pattern_id = v_pre.trans_approval_pattern_id AND q.remove IS FALSE AND a4.priority > v_ap.priority;\n        IF v_next IS NOT NULL THEN\n            PERFORM tests.approval_notify(v_pre.trans_approval_pattern_id, v_next, v_st.staff_id, v_st.staff_history_id);\n        END IF;\n    END IF;\n    RETURN v_row;\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
         "mysql": "",
         "sqlserver": "",
         "sqlite": ""
       },
-      "comment": "文書の承認(または却下)を 1 件登録する(追記のみ)。承認できるのは、承認の段(部署・役職)に当てはまる担当者だけ。担当者は引数、省略時は JWT の staff_id。errcode: OPR01 承認前が無い / OPR02 引数が不正 / OPR03 承認できない・すでに承認済み。戻り値は承認結果",
+      "comment": "文書などの承認(または却下)を 1 件登録する(追記のみ)。承認できるのは、承認の段(部署・役職)に当てはまる担当者だけで、順位が小さい段がすべて承認済みのときだけ(同じ順位の段は並行)。この順位の段がすべて承認されたら、次の順位の段の該当者へ通知する。担当者は引数、省略時は JWT の staff_id。errcode: OPR01 承認前が無い / OPR02 引数が不正 / OPR03 承認できない・すでに承認済み・前の段階が未承認。戻り値は承認結果",
       "args": "uuid, boolean, varchar, uuid",
       "dependsOnTableIds": [
         2427,
@@ -10686,6 +10686,121 @@
         2393,
         2828
       ],
+      "schema": "tests"
+    },
+    {
+      "id": 6060,
+      "kind": "function",
+      "name": "approval_start",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.approval_start(\n    p_pattern_id uuid,\n    p_staff_id uuid DEFAULT NULL,\n    p_staff_history_id uuid DEFAULT NULL\n) RETURNS uuid AS $$\nDECLARE\n    v_tp uuid; v_min smallint;\nBEGIN\n    INSERT INTO tests.trans_approval_pattern (mstr_approval_pattern_id, update_user_id, update_user_history_id)\n    VALUES (p_pattern_id, p_staff_id, p_staff_history_id) RETURNING trans_approval_pattern_id INTO v_tp;\n    INSERT INTO tests.trans_preapproval (trans_approval_pattern_id, mstr_approval_id, update_user_id, update_user_history_id)\n    SELECT v_tp, d.mstr_approval_id, p_staff_id, p_staff_history_id\n    FROM tests.mstr_approval_pattern_detail AS d\n    WHERE d.mstr_approval_pattern_id = p_pattern_id AND d.remove IS FALSE;\n    SELECT min(a.priority) INTO v_min\n    FROM tests.trans_preapproval AS q INNER JOIN tests.mstr_approval AS a ON a.mstr_approval_id = q.mstr_approval_id\n    WHERE q.trans_approval_pattern_id = v_tp;\n    IF v_min IS NOT NULL THEN\n        PERFORM tests.approval_notify(v_tp, v_min, p_staff_id, p_staff_history_id);\n    END IF;\n    RETURN v_tp;\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "@omit\n承認の実行を始める(承認パターンから、承認実行パターンと、段ごとの承認前を作り、最初の段の該当者へ通知する)。対象の登録のトリガー(trg_05_approval_request)が呼ぶ",
+      "args": "uuid, uuid, uuid",
+      "dependsOnTableIds": [
+        2438,
+        2427,
+        2380,
+        2393,
+        2306,
+        2828,
+        1459,
+        1995
+      ],
+      "schema": "tests"
+    },
+    {
+      "id": 6061,
+      "kind": "function",
+      "name": "approval_notify",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.approval_notify(\n    p_trans_approval_pattern_id uuid,\n    p_priority smallint,\n    p_staff_id uuid DEFAULT NULL,\n    p_staff_history_id uuid DEFAULT NULL\n) RETURNS integer AS $$\nDECLARE\n    v_n integer := 0;\nBEGIN\n    -- 順位 p_priority の段のうち、まだ判断されていないものの該当者へ、通知を 1 件ずつ作る(同じ段・同じ人の重複は作らない)\n    INSERT INTO tests.trans_announcement (to_staff_history_id, to_staff_id, category, trans_preapproval_id, update_user_id, update_user_history_id)\n    SELECT (SELECT h.history_id FROM tests.history_info_staff AS h WHERE h.info_staff_id = s.info_staff_id ORDER BY h.revision DESC LIMIT 1),\n           s.info_staff_id, 'approval', q.trans_preapproval_id, p_staff_id, p_staff_history_id\n    FROM tests.trans_preapproval AS q\n    INNER JOIN tests.mstr_approval AS a ON a.mstr_approval_id = q.mstr_approval_id\n    INNER JOIN LATERAL (\n        SELECT DISTINCT ia.info_staff_id FROM tests.info_assign AS ia\n        WHERE ia.remove IS FALSE AND ia.enable IS TRUE AND ia.info_position_id = a.info_position_id\n          AND (a.info_department_id IS NULL OR ia.info_department_id = a.info_department_id)\n    ) AS s ON true\n    WHERE q.trans_approval_pattern_id = p_trans_approval_pattern_id AND q.remove IS FALSE AND a.priority = p_priority\n      AND NOT EXISTS (SELECT 1 FROM tests.trans_approved AS r WHERE r.trans_preapproval_id = q.trans_preapproval_id AND r.remove IS FALSE)\n      AND NOT EXISTS (SELECT 1 FROM tests.trans_announcement AS n WHERE n.trans_preapproval_id = q.trans_preapproval_id AND n.to_staff_id = s.info_staff_id AND n.remove IS FALSE)\n      AND EXISTS (SELECT 1 FROM tests.history_info_staff AS h2 WHERE h2.info_staff_id = s.info_staff_id);\n    GET DIAGNOSTICS v_n = ROW_COUNT;\n    RETURN v_n;\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "@omit\n承認の段(順位)の該当者へ、承認待ちの通知(trans_announcement。通知区分 approval、対象は承認前)を作る。戻り値は作った件数",
+      "args": "uuid, smallint, uuid, uuid",
+      "dependsOnTableIds": [
+        2438,
+        2427,
+        2380,
+        2393,
+        2306,
+        2828,
+        1459,
+        1995
+      ],
+      "schema": "tests"
+    },
+    {
+      "id": 6062,
+      "kind": "function",
+      "name": "approval_approve_many",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.approval_approve_many(\n    p_preapproval_ids uuid[],\n    p_approved boolean DEFAULT true,\n    p_remarks varchar DEFAULT NULL,\n    p_staff_id uuid DEFAULT NULL\n) RETURNS TABLE (preapproval_id uuid, ok boolean, error_code text, error_message text, approved_id uuid) AS $$\nDECLARE\n    v_id uuid; v_row tests.trans_approved;\nBEGIN\n    -- 順位の小さい段から処理する(同じ対象の第 1 段階と第 2 段階を、一度に選んでも通る)\n    FOR v_id IN\n        SELECT q.trans_preapproval_id FROM tests.trans_preapproval AS q\n        INNER JOIN unnest(p_preapproval_ids) WITH ORDINALITY AS u(id, n) ON u.id = q.trans_preapproval_id\n        LEFT JOIN tests.mstr_approval AS a ON a.mstr_approval_id = q.mstr_approval_id\n        ORDER BY a.priority, u.n\n    LOOP\n        BEGIN\n            v_row := tests.document_approve(v_id, p_approved, p_remarks, p_staff_id);\n            preapproval_id := v_id; ok := true; error_code := NULL; error_message := NULL; approved_id := v_row.trans_approved_id;\n            RETURN NEXT;\n        EXCEPTION WHEN OTHERS THEN\n            -- 失敗した行だけ巻き戻し(この BEGIN ブロックの分)、ほかの行は続ける\n            preapproval_id := v_id; ok := false; error_code := SQLSTATE; error_message := SQLERRM; approved_id := NULL;\n            RETURN NEXT;\n        END;\n    END LOOP;\n    -- 見つからなかった ID も、失敗として返す\n    FOR v_id IN SELECT x FROM unnest(p_preapproval_ids) AS x WHERE NOT EXISTS (SELECT 1 FROM tests.trans_preapproval AS q WHERE q.trans_preapproval_id = x)\n    LOOP\n        preapproval_id := v_id; ok := false; error_code := 'OPR01'; error_message := '承認前が見つかりません'; approved_id := NULL;\n        RETURN NEXT;\n    END LOOP;\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "複数の承認を一度に登録する(1 回の呼び出し。行ごとに成功・失敗を返し、失敗した行だけ登録されない)。順位の小さい段から処理する。担当者は引数、省略時は JWT の staff_id",
+      "args": "uuid[], boolean, varchar, uuid",
+      "dependsOnTableIds": [
+        2438,
+        2427,
+        2380,
+        2393,
+        2306,
+        2828,
+        1459,
+        1995
+      ],
+      "schema": "tests"
+    },
+    {
+      "id": 6063,
+      "kind": "trigger",
+      "name": "trg_05_approval_request",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_05_approval_request() RETURNS trigger AS\n$BODY$\n-- 引数: TG_ARGV[0] = 種類(info_app.settings の approval.patterns のキー)、TG_ARGV[1] = 承認実行パターンの列\nDECLARE\n    v_kind text := TG_ARGV[0];\n    v_col text := TG_ARGV[1];\n    v_pattern uuid;\n    v_tp uuid;\nBEGIN\n    IF (to_jsonb(NEW) ->> v_col) IS NOT NULL THEN\n        RETURN NEW;\n    END IF;\n    SELECT NULLIF(a.settings #>> ARRAY['approval', 'patterns', v_kind], '')::uuid INTO v_pattern\n    FROM tests.info_app AS a WHERE a.remove IS FALSE ORDER BY a.update_at LIMIT 1;\n    IF v_pattern IS NULL THEN\n        RETURN NEW;\n    END IF;\n    v_tp := tests.approval_start(v_pattern, NEW.update_user_id, NEW.update_user_history_id);\n    NEW := jsonb_populate_record(NEW, jsonb_build_object(v_col, v_tp));\n    RETURN NEW;\nEND\n$BODY$\nLANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "@omit\n対象の登録のトリガー関数(登録が申請)",
+      "args": "",
+      "dependsOnTableIds": [],
       "schema": "tests"
     }
   ],
@@ -31267,6 +31382,22 @@
           "defaultMethodId": null,
           "defaultExpression": "CURRENT_DATE + 30",
           "comment": "削除予定"
+        },
+        {
+          "id": 6058,
+          "logicalName": "承認前ID",
+          "physicalName": "trans_preapproval_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "承認前ID(承認待ちの通知の対象。通知区分 approval のとき)"
         }
       ],
       "indexes": [],
@@ -40218,7 +40349,7 @@
           "pk": false,
           "notNull": false,
           "defaultKind": "value",
-          "defaultValue": "{\"version\":1,\"stamp\":{\"position\":{\"anchor\":\"topRight\",\"offsetXmm\":10,\"offsetYmm\":10,\"pages\":\"first\"},\"opacity\":0.6,\"shape\":{\"kind\":\"roundRect\",\"widthMm\":32,\"heightMm\":32,\"rotationDeg\":0},\"color\":{\"text\":\"#C62828\",\"frame\":\"#C62828\",\"fill\":null},\"labelLanguage\":\"ja\",\"stages\":\"all\",\"layer\":\"background\",\"items\":[{\"field\":\"stamp_label\",\"size\":14,\"line\":1},{\"field\":\"approved_at\",\"format\":\"yyyy/MM/dd\",\"size\":10,\"line\":2},{\"field\":\"approved_staff\",\"format\":\"name\",\"size\":10,\"line\":3}],\"pending\":{\"dashed\":true,\"color\":\"#757575\"}},\"pdf\":{\"page\":{\"size\":\"A4\",\"orientation\":\"portrait\",\"marginMm\":{\"top\":22,\"right\":18,\"bottom\":20,\"left\":18}},\"theme\":{\"vars\":{\"accent\":\"#0D47A1\",\"muted\":\"#616161\",\"line\":\"#BDBDBD\"},\"font\":{\"family\":\"NotoSansJP\",\"monoFamily\":\"NotoSansJPMono\",\"baseSize\":10.5,\"lineHeight\":1.5},\"colors\":{\"text\":\"#212121\",\"heading\":\"$accent\",\"link\":\"#1565C0\",\"quote\":\"$muted\",\"codeBackground\":\"#F5F5F5\",\"tableBorder\":\"$line\",\"tableHeaderBackground\":\"#ECEFF1\",\"missingLink\":\"#C62828\"},\"headings\":{\"h1\":{\"size\":20,\"bold\":true,\"color\":null,\"spaceBeforeMm\":0,\"spaceAfterMm\":5,\"pageBreakBefore\":true},\"h2\":{\"size\":15,\"bold\":true,\"color\":null,\"spaceBeforeMm\":6,\"spaceAfterMm\":3,\"pageBreakBefore\":false},\"h3\":{\"size\":12,\"bold\":true,\"color\":null,\"spaceBeforeMm\":4,\"spaceAfterMm\":2,\"pageBreakBefore\":false}},\"paragraph\":{\"spaceAfterMm\":2.5},\"code\":{\"size\":9},\"table\":{\"borderWidth\":0.5,\"cellPaddingMm\":1.5,\"headerBold\":true}},\"header\":{\"enabled\":true,\"heightMm\":10,\"size\":9,\"color\":\"$muted\",\"border\":true,\"firstPage\":\"same\",\"left\":\"{title}\",\"center\":\"\",\"right\":\"{controlNumber}\"},\"footer\":{\"enabled\":true,\"heightMm\":10,\"size\":9,\"color\":\"$muted\",\"border\":true,\"firstPage\":\"same\",\"left\":\"{versionCode}  {statusLabel}\",\"center\":\"{page} / {pages}\",\"right\":\"{printedAt:yyyy/MM/dd}\"},\"custom\":{\"company\":\"\"}}}",
+          "defaultValue": "{\"version\":1,\"stamp\":{\"position\":{\"anchor\":\"topRight\",\"offsetXmm\":10,\"offsetYmm\":10,\"pages\":\"first\"},\"opacity\":0.6,\"shape\":{\"kind\":\"roundRect\",\"widthMm\":32,\"heightMm\":32,\"rotationDeg\":0},\"color\":{\"text\":\"#C62828\",\"frame\":\"#C62828\",\"fill\":null},\"labelLanguage\":\"ja\",\"stages\":\"all\",\"layer\":\"background\",\"items\":[{\"field\":\"stamp_label\",\"size\":14,\"line\":1},{\"field\":\"approved_at\",\"format\":\"yyyy/MM/dd\",\"size\":10,\"line\":2},{\"field\":\"approved_staff\",\"format\":\"name\",\"size\":10,\"line\":3}],\"pending\":{\"dashed\":true,\"color\":\"#757575\"}},\"approval\":{\"patterns\":{\"order\":null,\"purchase\":null,\"unrecognized\":null,\"shipping_order\":null,\"complaint\":null,\"disposal\":null,\"recurrence_prevention\":null}},\"pdf\":{\"page\":{\"size\":\"A4\",\"orientation\":\"portrait\",\"marginMm\":{\"top\":22,\"right\":18,\"bottom\":20,\"left\":18}},\"theme\":{\"vars\":{\"accent\":\"#0D47A1\",\"muted\":\"#616161\",\"line\":\"#BDBDBD\"},\"font\":{\"family\":\"NotoSansJP\",\"monoFamily\":\"NotoSansJPMono\",\"baseSize\":10.5,\"lineHeight\":1.5},\"colors\":{\"text\":\"#212121\",\"heading\":\"$accent\",\"link\":\"#1565C0\",\"quote\":\"$muted\",\"codeBackground\":\"#F5F5F5\",\"tableBorder\":\"$line\",\"tableHeaderBackground\":\"#ECEFF1\",\"missingLink\":\"#C62828\"},\"headings\":{\"h1\":{\"size\":20,\"bold\":true,\"color\":null,\"spaceBeforeMm\":0,\"spaceAfterMm\":5,\"pageBreakBefore\":true},\"h2\":{\"size\":15,\"bold\":true,\"color\":null,\"spaceBeforeMm\":6,\"spaceAfterMm\":3,\"pageBreakBefore\":false},\"h3\":{\"size\":12,\"bold\":true,\"color\":null,\"spaceBeforeMm\":4,\"spaceAfterMm\":2,\"pageBreakBefore\":false}},\"paragraph\":{\"spaceAfterMm\":2.5},\"code\":{\"size\":9},\"table\":{\"borderWidth\":0.5,\"cellPaddingMm\":1.5,\"headerBold\":true}},\"header\":{\"enabled\":true,\"heightMm\":10,\"size\":9,\"color\":\"$muted\",\"border\":true,\"firstPage\":\"same\",\"left\":\"{title}\",\"center\":\"\",\"right\":\"{controlNumber}\"},\"footer\":{\"enabled\":true,\"heightMm\":10,\"size\":9,\"color\":\"$muted\",\"border\":true,\"firstPage\":\"same\",\"left\":\"{versionCode}  {statusLabel}\",\"center\":\"{page} / {pages}\",\"right\":\"{printedAt:yyyy/MM/dd}\"},\"custom\":{\"company\":\"\"}}}",
           "defaultMethodId": null,
           "defaultExpression": "",
           "comment": "アプリの設定(JSON。接続後に効く設定。version と機能ごとのキー。stamp は承認スタンプの標準の様式、pdf は PDF の出力のテーマ・ヘッダ・フッタの標準)"
@@ -41648,6 +41779,22 @@
           "defaultMethodId": null,
           "defaultExpression": "",
           "comment": "出荷予定日"
+        },
+        {
+          "id": 6054,
+          "logicalName": "承認実行パターンID",
+          "physicalName": "trans_approval_pattern_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "承認実行パターンID(登録が申請。info_app.settings の approval.patterns に承認パターンがあるとき、登録のトリガーが作る。NULL は承認不要)"
         }
       ],
       "indexes": [],
@@ -41708,6 +41855,27 @@
           "forEach": "ROW",
           "when": "",
           "args": "",
+          "updateColumnIds": []
+        },
+        {
+          "id": 6066,
+          "source": "public",
+          "methodId": 6063,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_05_approval_request",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "'unrecognized', 'trans_approval_pattern_id'",
           "updateColumnIds": []
         }
       ]
@@ -47953,6 +48121,27 @@
           "when": "",
           "args": "",
           "updateColumnIds": []
+        },
+        {
+          "id": 6069,
+          "source": "public",
+          "methodId": 6063,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_05_approval_request",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "'disposal', 'approvals'",
+          "updateColumnIds": []
         }
       ]
     },
@@ -48152,6 +48341,27 @@
           "when": "",
           "args": "",
           "updateColumnIds": []
+        },
+        {
+          "id": 6070,
+          "source": "public",
+          "methodId": 6063,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_05_approval_request",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "'recurrence_prevention', 'approvals'",
+          "updateColumnIds": []
         }
       ]
     },
@@ -48334,6 +48544,27 @@
           "forEach": "ROW",
           "when": "",
           "args": "",
+          "updateColumnIds": []
+        },
+        {
+          "id": 6068,
+          "source": "public",
+          "methodId": 6063,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_05_approval_request",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "'complaint', 'approvals'",
           "updateColumnIds": []
         }
       ]
@@ -50005,7 +50236,7 @@
           "pk": false,
           "notNull": false,
           "defaultKind": "value",
-          "defaultValue": "{\"version\":1,\"stamp\":{\"position\":{\"anchor\":\"topRight\",\"offsetXmm\":10,\"offsetYmm\":10,\"pages\":\"first\"},\"opacity\":0.6,\"shape\":{\"kind\":\"roundRect\",\"widthMm\":32,\"heightMm\":32,\"rotationDeg\":0},\"color\":{\"text\":\"#C62828\",\"frame\":\"#C62828\",\"fill\":null},\"labelLanguage\":\"ja\",\"stages\":\"all\",\"layer\":\"background\",\"items\":[{\"field\":\"stamp_label\",\"size\":14,\"line\":1},{\"field\":\"approved_at\",\"format\":\"yyyy/MM/dd\",\"size\":10,\"line\":2},{\"field\":\"approved_staff\",\"format\":\"name\",\"size\":10,\"line\":3}],\"pending\":{\"dashed\":true,\"color\":\"#757575\"}},\"pdf\":{\"page\":{\"size\":\"A4\",\"orientation\":\"portrait\",\"marginMm\":{\"top\":22,\"right\":18,\"bottom\":20,\"left\":18}},\"theme\":{\"vars\":{\"accent\":\"#0D47A1\",\"muted\":\"#616161\",\"line\":\"#BDBDBD\"},\"font\":{\"family\":\"NotoSansJP\",\"monoFamily\":\"NotoSansJPMono\",\"baseSize\":10.5,\"lineHeight\":1.5},\"colors\":{\"text\":\"#212121\",\"heading\":\"$accent\",\"link\":\"#1565C0\",\"quote\":\"$muted\",\"codeBackground\":\"#F5F5F5\",\"tableBorder\":\"$line\",\"tableHeaderBackground\":\"#ECEFF1\",\"missingLink\":\"#C62828\"},\"headings\":{\"h1\":{\"size\":20,\"bold\":true,\"color\":null,\"spaceBeforeMm\":0,\"spaceAfterMm\":5,\"pageBreakBefore\":true},\"h2\":{\"size\":15,\"bold\":true,\"color\":null,\"spaceBeforeMm\":6,\"spaceAfterMm\":3,\"pageBreakBefore\":false},\"h3\":{\"size\":12,\"bold\":true,\"color\":null,\"spaceBeforeMm\":4,\"spaceAfterMm\":2,\"pageBreakBefore\":false}},\"paragraph\":{\"spaceAfterMm\":2.5},\"code\":{\"size\":9},\"table\":{\"borderWidth\":0.5,\"cellPaddingMm\":1.5,\"headerBold\":true}},\"header\":{\"enabled\":true,\"heightMm\":10,\"size\":9,\"color\":\"$muted\",\"border\":true,\"firstPage\":\"same\",\"left\":\"{title}\",\"center\":\"\",\"right\":\"{controlNumber}\"},\"footer\":{\"enabled\":true,\"heightMm\":10,\"size\":9,\"color\":\"$muted\",\"border\":true,\"firstPage\":\"same\",\"left\":\"{versionCode}  {statusLabel}\",\"center\":\"{page} / {pages}\",\"right\":\"{printedAt:yyyy/MM/dd}\"},\"custom\":{\"company\":\"\"}}}",
+          "defaultValue": "{\"version\":1,\"stamp\":{\"position\":{\"anchor\":\"topRight\",\"offsetXmm\":10,\"offsetYmm\":10,\"pages\":\"first\"},\"opacity\":0.6,\"shape\":{\"kind\":\"roundRect\",\"widthMm\":32,\"heightMm\":32,\"rotationDeg\":0},\"color\":{\"text\":\"#C62828\",\"frame\":\"#C62828\",\"fill\":null},\"labelLanguage\":\"ja\",\"stages\":\"all\",\"layer\":\"background\",\"items\":[{\"field\":\"stamp_label\",\"size\":14,\"line\":1},{\"field\":\"approved_at\",\"format\":\"yyyy/MM/dd\",\"size\":10,\"line\":2},{\"field\":\"approved_staff\",\"format\":\"name\",\"size\":10,\"line\":3}],\"pending\":{\"dashed\":true,\"color\":\"#757575\"}},\"approval\":{\"patterns\":{\"order\":null,\"purchase\":null,\"unrecognized\":null,\"shipping_order\":null,\"complaint\":null,\"disposal\":null,\"recurrence_prevention\":null}},\"pdf\":{\"page\":{\"size\":\"A4\",\"orientation\":\"portrait\",\"marginMm\":{\"top\":22,\"right\":18,\"bottom\":20,\"left\":18}},\"theme\":{\"vars\":{\"accent\":\"#0D47A1\",\"muted\":\"#616161\",\"line\":\"#BDBDBD\"},\"font\":{\"family\":\"NotoSansJP\",\"monoFamily\":\"NotoSansJPMono\",\"baseSize\":10.5,\"lineHeight\":1.5},\"colors\":{\"text\":\"#212121\",\"heading\":\"$accent\",\"link\":\"#1565C0\",\"quote\":\"$muted\",\"codeBackground\":\"#F5F5F5\",\"tableBorder\":\"$line\",\"tableHeaderBackground\":\"#ECEFF1\",\"missingLink\":\"#C62828\"},\"headings\":{\"h1\":{\"size\":20,\"bold\":true,\"color\":null,\"spaceBeforeMm\":0,\"spaceAfterMm\":5,\"pageBreakBefore\":true},\"h2\":{\"size\":15,\"bold\":true,\"color\":null,\"spaceBeforeMm\":6,\"spaceAfterMm\":3,\"pageBreakBefore\":false},\"h3\":{\"size\":12,\"bold\":true,\"color\":null,\"spaceBeforeMm\":4,\"spaceAfterMm\":2,\"pageBreakBefore\":false}},\"paragraph\":{\"spaceAfterMm\":2.5},\"code\":{\"size\":9},\"table\":{\"borderWidth\":0.5,\"cellPaddingMm\":1.5,\"headerBold\":true}},\"header\":{\"enabled\":true,\"heightMm\":10,\"size\":9,\"color\":\"$muted\",\"border\":true,\"firstPage\":\"same\",\"left\":\"{title}\",\"center\":\"\",\"right\":\"{controlNumber}\"},\"footer\":{\"enabled\":true,\"heightMm\":10,\"size\":9,\"color\":\"$muted\",\"border\":true,\"firstPage\":\"same\",\"left\":\"{versionCode}  {statusLabel}\",\"center\":\"{page} / {pages}\",\"right\":\"{printedAt:yyyy/MM/dd}\"},\"custom\":{\"company\":\"\"}}}",
           "defaultMethodId": null,
           "defaultExpression": "",
           "comment": "アプリの設定(JSON。接続後に効く設定。version と機能ごとのキー。stamp は承認スタンプの標準の様式、pdf は PDF の出力のテーマ・ヘッダ・フッタの標準)"
@@ -53592,6 +53823,22 @@
           "defaultMethodId": null,
           "defaultExpression": "",
           "comment": "利害関係者ID"
+        },
+        {
+          "id": 6056,
+          "logicalName": "承認実行パターンID",
+          "physicalName": "trans_approval_pattern_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "承認実行パターンID(登録が申請。info_app.settings の approval.patterns に承認パターンがあるとき、登録のトリガーが作る。NULL は承認不要)"
         }
       ],
       "indexes": [
@@ -53662,6 +53909,27 @@
           "forEach": "ROW",
           "when": "",
           "args": "",
+          "updateColumnIds": []
+        },
+        {
+          "id": 6067,
+          "source": "public",
+          "methodId": 6063,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_05_approval_request",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "'shipping_order', 'trans_approval_pattern_id'",
           "updateColumnIds": []
         }
       ]
@@ -54908,6 +55176,22 @@
           "defaultMethodId": null,
           "defaultExpression": "",
           "comment": "発注期限"
+        },
+        {
+          "id": 6052,
+          "logicalName": "承認実行パターンID",
+          "physicalName": "trans_approval_pattern_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "承認実行パターンID(登録が申請。info_app.settings の approval.patterns に承認パターンがあるとき、登録のトリガーが作る。NULL は承認不要)"
         }
       ],
       "indexes": [],
@@ -54968,6 +55252,27 @@
           "forEach": "ROW",
           "when": "",
           "args": "",
+          "updateColumnIds": []
+        },
+        {
+          "id": 6065,
+          "source": "public",
+          "methodId": 6063,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_05_approval_request",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "'purchase', 'trans_approval_pattern_id'",
           "updateColumnIds": []
         }
       ]
@@ -55187,6 +55492,22 @@
           "defaultMethodId": null,
           "defaultExpression": "",
           "comment": "完了期限"
+        },
+        {
+          "id": 6050,
+          "logicalName": "承認実行パターンID",
+          "physicalName": "trans_approval_pattern_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "承認実行パターンID(登録が申請。info_app.settings の approval.patterns に承認パターンがあるとき、登録のトリガーが作る。NULL は承認不要)"
         }
       ],
       "indexes": [],
@@ -55247,6 +55568,27 @@
           "forEach": "ROW",
           "when": "",
           "args": "",
+          "updateColumnIds": []
+        },
+        {
+          "id": 6064,
+          "source": "public",
+          "methodId": 6063,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_05_approval_request",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "'order', 'trans_approval_pattern_id'",
           "updateColumnIds": []
         }
       ]
@@ -65672,6 +66014,30 @@
       },
       "preQuery": "",
       "postQuery": "COMMENT ON COLUMN tests.v_document_content.mstr_document_content_id IS 'コンテンツID';\nCOMMENT ON COLUMN tests.v_document_content.mstr_document_id IS '文書ID';\nCOMMENT ON COLUMN tests.v_document_content.code IS 'コード';\nCOMMENT ON COLUMN tests.v_document_content.titles IS 'タイトル(呼称ID)';\nCOMMENT ON COLUMN tests.v_document_content.sequence IS 'シーケンス';\nCOMMENT ON COLUMN tests.v_document_content.image_content IS 'イメージコンテンツ';\nCOMMENT ON COLUMN tests.v_document_content.symbol IS 'リニアシンボル';\nCOMMENT ON COLUMN tests.v_document_content.revision IS 'レビジョン';\nCOMMENT ON COLUMN tests.v_document_content.update_at IS '更新日時';\nCOMMENT ON COLUMN tests.v_document_content.published IS '公開';\nCOMMENT ON COLUMN tests.v_document_content.pending IS '承認待ち';\nCOMMENT ON COLUMN tests.v_document_content.readable IS 'ログイン中の担当者が読める';\nCOMMENT ON COLUMN tests.v_document_content.contents IS 'コンテンツ(読めないときは NULL)';\nCOMMENT ON COLUMN tests.v_document_content.trans_file_id IS 'ファイルID(読めないときは NULL)';"
+    },
+    {
+      "id": 6071,
+      "kind": "view",
+      "logicalName": "",
+      "physicalName": "v_approval_pending",
+      "comment": "@primaryKey trans_preapproval_id\n@foreignKey (trans_preapproval_id) references trans_preapproval (trans_preapproval_id)\n@foreignKey (trans_approval_pattern_id) references trans_approval_pattern (trans_approval_pattern_id)\n@foreignKey (mstr_approval_id) references mstr_approval (mstr_approval_id)\n@foreignKey (mstr_document_id) references mstr_document (mstr_document_id)\n@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\n@foreignKey (trans_disposal_id) references trans_disposal (trans_disposal_id)\n@foreignKey (trans_recurrence_prevention_id) references trans_recurrence_prevention (trans_recurrence_prevention_id)\n@foreignKey (trans_order_id) references trans_order (trans_order_id)\n@foreignKey (trans_purchase_id) references trans_purchase (trans_purchase_id)\n@foreignKey (trans_unrecognized_id) references trans_unrecognized (trans_unrecognized_id)\n@foreignKey (trans_shipping_order_id) references trans_shipping_order (trans_shipping_order_id)\n@foreignKey (applicant_staff_id) references info_staff (info_staff_id)\n承認待ちの一覧(1 行 = 判断されていない承認の段 1 つ)。対象の区分は boolean の列(is_document・is_order…。ちょうど 1 つ true)で、対象の ID は区分ごとの列。申請者(applicant_staff_id)は対象の登録者(更新者)、申請日(applied_at)は対象の登録の日時。approver はログイン中の担当者(JWT の staff_id)がこの段の該当者か、actionable は順位が小さい段がすべて承認済みか。承認一覧は approver かつ actionable の行を出す。区分・順序の判定は、このビューだけで定義する",
+      "locked": false,
+      "viewType": "sql",
+      "join": {
+        "sources": [],
+        "columns": [],
+        "where": ""
+      },
+      "function": {
+        "methodId": null,
+        "args": [],
+        "columns": []
+      },
+      "sql": {
+        "sql": "SELECT\n    pre.trans_preapproval_id\n    , src.trans_approval_pattern_id\n    , pre.mstr_approval_id\n    , a.priority AS approval_priority\n    , a.names AS approval_names\n    , a.info_position_id\n    , a.info_department_id\n    , pre.period\n    , src.is_document\n    , src.is_complaint\n    , src.is_disposal\n    , src.is_recurrence_prevention\n    , src.is_order\n    , src.is_purchase\n    , src.is_unrecognized\n    , src.is_shipping_order\n    , src.mstr_document_id\n    , src.trans_complaint_id\n    , src.trans_disposal_id\n    , src.trans_recurrence_prevention_id\n    , src.trans_order_id\n    , src.trans_purchase_id\n    , src.trans_unrecognized_id\n    , src.trans_shipping_order_id\n    , src.target_symbol\n    , src.applicant_staff_id\n    , src.applicant_staff_history_id\n    , src.applied_at\n    , EXISTS (SELECT 1 FROM tests.info_assign AS ia\n        WHERE ia.info_staff_id = NULLIF(current_setting('jwt.claims.staff_id', true), '')::uuid AND ia.remove IS FALSE AND ia.enable IS TRUE\n          AND ia.info_position_id = a.info_position_id\n          AND (a.info_department_id IS NULL OR ia.info_department_id = a.info_department_id)) AS approver\n    , NOT EXISTS (\n        SELECT 1 FROM tests.trans_preapproval AS q\n        INNER JOIN tests.mstr_approval AS a2 ON a2.mstr_approval_id = q.mstr_approval_id\n        WHERE q.trans_approval_pattern_id = pre.trans_approval_pattern_id AND q.remove IS FALSE AND a2.priority < a.priority\n          AND NOT COALESCE((SELECT r.approved FROM tests.trans_approved AS r WHERE r.trans_preapproval_id = q.trans_preapproval_id AND r.remove IS FALSE\n                            ORDER BY r.update_at DESC LIMIT 1), false)\n      ) AS actionable\nFROM (\n    SELECT t.trans_approval_pattern_id AS trans_approval_pattern_id, true AS is_document, false AS is_complaint, false AS is_disposal, false AS is_recurrence_prevention, false AS is_order, false AS is_purchase, false AS is_unrecognized, false AS is_shipping_order, t.mstr_document_id AS mstr_document_id, NULL::uuid AS trans_complaint_id, NULL::uuid AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, NULL::uuid AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,\n           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at\n    FROM tests.mstr_document AS t WHERE t.remove IS FALSE AND t.trans_approval_pattern_id IS NOT NULL\n    UNION ALL\n    SELECT t.approvals AS trans_approval_pattern_id, false AS is_document, true AS is_complaint, false AS is_disposal, false AS is_recurrence_prevention, false AS is_order, false AS is_purchase, false AS is_unrecognized, false AS is_shipping_order, NULL::uuid AS mstr_document_id, t.trans_complaint_id AS trans_complaint_id, NULL::uuid AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, NULL::uuid AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,\n           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at\n    FROM tests.trans_complaint AS t WHERE t.remove IS FALSE AND t.approvals IS NOT NULL\n    UNION ALL\n    SELECT t.approvals AS trans_approval_pattern_id, false AS is_document, false AS is_complaint, true AS is_disposal, false AS is_recurrence_prevention, false AS is_order, false AS is_purchase, false AS is_unrecognized, false AS is_shipping_order, NULL::uuid AS mstr_document_id, NULL::uuid AS trans_complaint_id, t.trans_disposal_id AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, NULL::uuid AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,\n           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at\n    FROM tests.trans_disposal AS t WHERE t.remove IS FALSE AND t.approvals IS NOT NULL\n    UNION ALL\n    SELECT t.approvals AS trans_approval_pattern_id, false AS is_document, false AS is_complaint, false AS is_disposal, true AS is_recurrence_prevention, false AS is_order, false AS is_purchase, false AS is_unrecognized, false AS is_shipping_order, NULL::uuid AS mstr_document_id, NULL::uuid AS trans_complaint_id, NULL::uuid AS trans_disposal_id, t.trans_recurrence_prevention_id AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, NULL::uuid AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,\n           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at\n    FROM tests.trans_recurrence_prevention AS t WHERE t.remove IS FALSE AND t.approvals IS NOT NULL\n    UNION ALL\n    SELECT t.trans_approval_pattern_id AS trans_approval_pattern_id, false AS is_document, false AS is_complaint, false AS is_disposal, false AS is_recurrence_prevention, true AS is_order, false AS is_purchase, false AS is_unrecognized, false AS is_shipping_order, NULL::uuid AS mstr_document_id, NULL::uuid AS trans_complaint_id, NULL::uuid AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, t.trans_order_id AS trans_order_id, NULL::uuid AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,\n           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at\n    FROM tests.trans_order AS t WHERE t.remove IS FALSE AND t.trans_approval_pattern_id IS NOT NULL\n    UNION ALL\n    SELECT t.trans_approval_pattern_id AS trans_approval_pattern_id, false AS is_document, false AS is_complaint, false AS is_disposal, false AS is_recurrence_prevention, false AS is_order, true AS is_purchase, false AS is_unrecognized, false AS is_shipping_order, NULL::uuid AS mstr_document_id, NULL::uuid AS trans_complaint_id, NULL::uuid AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, t.trans_purchase_id AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,\n           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, COALESCE(t.register_at, t.update_at) AS applied_at\n    FROM tests.trans_purchase AS t WHERE t.remove IS FALSE AND t.trans_approval_pattern_id IS NOT NULL\n    UNION ALL\n    SELECT t.trans_approval_pattern_id AS trans_approval_pattern_id, false AS is_document, false AS is_complaint, false AS is_disposal, false AS is_recurrence_prevention, false AS is_order, false AS is_purchase, true AS is_unrecognized, false AS is_shipping_order, NULL::uuid AS mstr_document_id, NULL::uuid AS trans_complaint_id, NULL::uuid AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, NULL::uuid AS trans_purchase_id, t.trans_unrecognized_id AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,\n           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at\n    FROM tests.trans_unrecognized AS t WHERE t.remove IS FALSE AND t.trans_approval_pattern_id IS NOT NULL\n    UNION ALL\n    SELECT t.trans_approval_pattern_id AS trans_approval_pattern_id, false AS is_document, false AS is_complaint, false AS is_disposal, false AS is_recurrence_prevention, false AS is_order, false AS is_purchase, false AS is_unrecognized, true AS is_shipping_order, NULL::uuid AS mstr_document_id, NULL::uuid AS trans_complaint_id, NULL::uuid AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, NULL::uuid AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, t.trans_shipping_order_id AS trans_shipping_order_id, t.symbol AS target_symbol,\n           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at\n    FROM tests.trans_shipping_order AS t WHERE t.remove IS FALSE AND t.trans_approval_pattern_id IS NOT NULL\n) AS src\nINNER JOIN tests.trans_preapproval AS pre ON pre.trans_approval_pattern_id = src.trans_approval_pattern_id AND pre.remove IS FALSE\nINNER JOIN tests.mstr_approval AS a ON a.mstr_approval_id = pre.mstr_approval_id\nWHERE NOT EXISTS (SELECT 1 FROM tests.trans_approved AS r WHERE r.trans_preapproval_id = pre.trans_preapproval_id AND r.remove IS FALSE)"
+      },
+      "preQuery": "",
+      "postQuery": "COMMENT ON COLUMN tests.v_approval_pending.trans_preapproval_id IS '承認前ID(承認の段 1 つ)';\nCOMMENT ON COLUMN tests.v_approval_pending.trans_approval_pattern_id IS '承認実行パターンID';\nCOMMENT ON COLUMN tests.v_approval_pending.mstr_approval_id IS '承認ID(承認の段)';\nCOMMENT ON COLUMN tests.v_approval_pending.approval_priority IS '承認の順位(小さい順に承認する。同じ順位は並行)';\nCOMMENT ON COLUMN tests.v_approval_pending.approval_names IS '承認の名称(呼称ID)';\nCOMMENT ON COLUMN tests.v_approval_pending.info_position_id IS '承認する役職ID';\nCOMMENT ON COLUMN tests.v_approval_pending.info_department_id IS '承認する部署ID(NULL は部署を問わない)';\nCOMMENT ON COLUMN tests.v_approval_pending.period IS '承認の期限';\nCOMMENT ON COLUMN tests.v_approval_pending.is_document IS '対象が文書';\nCOMMENT ON COLUMN tests.v_approval_pending.is_complaint IS '対象が異常';\nCOMMENT ON COLUMN tests.v_approval_pending.is_disposal IS '対象が異常の処置';\nCOMMENT ON COLUMN tests.v_approval_pending.is_recurrence_prevention IS '対象が再発防止';\nCOMMENT ON COLUMN tests.v_approval_pending.is_order IS '対象が受注';\nCOMMENT ON COLUMN tests.v_approval_pending.is_purchase IS '対象が発注';\nCOMMENT ON COLUMN tests.v_approval_pending.is_unrecognized IS '対象が非計上発注';\nCOMMENT ON COLUMN tests.v_approval_pending.is_shipping_order IS '対象が出荷オーダー(出荷予定)';\nCOMMENT ON COLUMN tests.v_approval_pending.mstr_document_id IS '対象の文書ID';\nCOMMENT ON COLUMN tests.v_approval_pending.trans_complaint_id IS '対象の異常ID';\nCOMMENT ON COLUMN tests.v_approval_pending.trans_disposal_id IS '対象の処置ID';\nCOMMENT ON COLUMN tests.v_approval_pending.trans_recurrence_prevention_id IS '対象の再発防止ID';\nCOMMENT ON COLUMN tests.v_approval_pending.trans_order_id IS '対象の受注ID';\nCOMMENT ON COLUMN tests.v_approval_pending.trans_purchase_id IS '対象の発注ID';\nCOMMENT ON COLUMN tests.v_approval_pending.trans_unrecognized_id IS '対象の非計上ID';\nCOMMENT ON COLUMN tests.v_approval_pending.trans_shipping_order_id IS '対象の出荷オーダーID';\nCOMMENT ON COLUMN tests.v_approval_pending.target_symbol IS '対象のリニアシンボル';\nCOMMENT ON COLUMN tests.v_approval_pending.applicant_staff_id IS '申請者(対象の登録者)の担当者ID';\nCOMMENT ON COLUMN tests.v_approval_pending.applicant_staff_history_id IS '申請者の担当者履歴ID';\nCOMMENT ON COLUMN tests.v_approval_pending.applied_at IS '申請日時(対象の登録の日時)';\nCOMMENT ON COLUMN tests.v_approval_pending.approver IS 'ログイン中の担当者がこの段の承認の該当者';\nCOMMENT ON COLUMN tests.v_approval_pending.actionable IS '承認できる状態(順位が小さい段がすべて承認済み)';"
     }
   ],
   "relationships": [
@@ -82775,6 +83141,106 @@
       "childMultiplicity": "many",
       "nameMode": "manual",
       "name": "trans_mrp_load_fk3",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6051,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 2438,
+      "childId": 3221,
+      "columnPairs": [
+        {
+          "parentColumnId": 2439,
+          "childColumnId": 6050
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "trans_order_approval_fk",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6053,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 2438,
+      "childId": 3203,
+      "columnPairs": [
+        {
+          "parentColumnId": 2439,
+          "childColumnId": 6052
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "trans_purchase_approval_fk",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6055,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 2438,
+      "childId": 2232,
+      "columnPairs": [
+        {
+          "parentColumnId": 2439,
+          "childColumnId": 6054
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "trans_unrecognized_approval_fk",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6057,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 2438,
+      "childId": 3110,
+      "columnPairs": [
+        {
+          "parentColumnId": 2439,
+          "childColumnId": 6056
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "trans_shipping_order_approval_fk",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6059,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 2427,
+      "childId": 1459,
+      "columnPairs": [
+        {
+          "parentColumnId": 2428,
+          "childColumnId": 6058
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "trans_announcement_preapproval_fk",
       "onDelete": "none",
       "onUpdate": "none",
       "deferrable": "deferred"

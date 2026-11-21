@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import '../style/json_read.dart';
+import 'approval_settings.dart';
 import '../style/pdf_settings.dart';
 import '../style/stamp_style.dart';
 
@@ -11,6 +12,7 @@ class AppSettings {
     this.version = currentVersion,
     this.stamp = StampStyle.standard,
     this.pdf = PdfSettings.standard,
+    this.approval = const ApprovalSettings(),
     this.extra = const {},
   });
 
@@ -21,6 +23,9 @@ class AppSettings {
   /// 承認スタンプの標準の様式。
   final StampStyle stamp;
   final PdfSettings pdf;
+
+  /// 承認の設定(種類ごとの承認パターン)。
+  final ApprovalSettings approval;
   final Map<String, dynamic> extra;
 
   static const AppSettings standard = AppSettings();
@@ -52,19 +57,21 @@ class AppSettings {
       );
     }
     final extra = Map<String, dynamic>.from(m)
-      ..removeWhere((k, _) => const {'version', 'stamp', 'pdf'}.contains(k));
+      ..removeWhere((k, _) => const {'version', 'stamp', 'pdf', 'approval'}.contains(k));
     return AppSettings(
       version: version,
       stamp: StampStyle.fromJson(m['stamp'], problems),
       pdf: PdfSettings.fromJson(m['pdf'], problems),
+      approval: ApprovalSettings.fromJson(m['approval'], problems),
       extra: extra,
     );
   }
 
-  AppSettings copyWith({StampStyle? stamp, PdfSettings? pdf}) => AppSettings(
+  AppSettings copyWith({StampStyle? stamp, PdfSettings? pdf, ApprovalSettings? approval}) => AppSettings(
     version: version,
     stamp: stamp ?? this.stamp,
     pdf: pdf ?? this.pdf,
+    approval: approval ?? this.approval,
     extra: extra,
   );
 
@@ -73,5 +80,6 @@ class AppSettings {
     'version': version,
     'stamp': stamp.toJson(),
     'pdf': pdf.toJson(),
+    'approval': approval.toJson(),
   };
 }

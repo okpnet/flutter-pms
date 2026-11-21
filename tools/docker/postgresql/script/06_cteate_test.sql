@@ -1091,6 +1091,7 @@ CREATE TABLE tests.trans_order (
   order_processing_date timestamp,
   delivery_date timestamp,
   deadline timestamp,
+  trans_approval_pattern_id uuid,
   symbol varchar(16) DEFAULT '',
   remarks varchar(1024),
   update_at timestamp DEFAULT now(),
@@ -1129,6 +1130,8 @@ COMMENT ON COLUMN tests.trans_order.order_processing_date IS '受注日';
 COMMENT ON COLUMN tests.trans_order.delivery_date IS '納期';
 
 COMMENT ON COLUMN tests.trans_order.deadline IS '完了期限';
+
+COMMENT ON COLUMN tests.trans_order.trans_approval_pattern_id IS '承認実行パターンID(登録が申請。info_app.settings の approval.patterns に承認パターンがあるとき、登録のトリガーが作る。NULL は承認不要)';
 
 COMMENT ON COLUMN tests.trans_order.symbol IS 'リニアシンボル';
 
@@ -1263,6 +1266,7 @@ CREATE TABLE tests.trans_unrecognized (
   deadline timestamp,
   expected_completion_date timestamp,
   planned_shipping_date timestamp,
+  trans_approval_pattern_id uuid,
   symbol varchar(16) DEFAULT '',
   remarks varchar(1024),
   update_at timestamp DEFAULT now(),
@@ -1291,6 +1295,8 @@ COMMENT ON COLUMN tests.trans_unrecognized.deadline IS '納期';
 COMMENT ON COLUMN tests.trans_unrecognized.expected_completion_date IS '完了予定日';
 
 COMMENT ON COLUMN tests.trans_unrecognized.planned_shipping_date IS '出荷予定日';
+
+COMMENT ON COLUMN tests.trans_unrecognized.trans_approval_pattern_id IS '承認実行パターンID(登録が申請。info_app.settings の approval.patterns に承認パターンがあるとき、登録のトリガーが作る。NULL は承認不要)';
 
 COMMENT ON COLUMN tests.trans_unrecognized.symbol IS 'リニアシンボル';
 
@@ -1461,6 +1467,7 @@ CREATE TABLE tests.trans_purchase (
   register_at timestamp,
   purchase_order_date timestamp,
   deadline timestamp,
+  trans_approval_pattern_id uuid,
   symbol varchar(16) DEFAULT '',
   remarks varchar(1024),
   update_at timestamp DEFAULT now(),
@@ -1495,6 +1502,8 @@ COMMENT ON COLUMN tests.trans_purchase.register_at IS '登録日';
 COMMENT ON COLUMN tests.trans_purchase.purchase_order_date IS '発注日';
 
 COMMENT ON COLUMN tests.trans_purchase.deadline IS '発注期限';
+
+COMMENT ON COLUMN tests.trans_purchase.trans_approval_pattern_id IS '承認実行パターンID(登録が申請。info_app.settings の approval.patterns に承認パターンがあるとき、登録のトリガーが作る。NULL は承認不要)';
 
 COMMENT ON COLUMN tests.trans_purchase.symbol IS 'リニアシンボル';
 
@@ -2274,6 +2283,7 @@ CREATE TABLE tests.trans_shipping_order (
   estimated_arrival_date date NOT NULL,
   stakeholder_history_id uuid,
   stakeholder_id uuid,
+  trans_approval_pattern_id uuid,
   symbol varchar(16) DEFAULT '',
   remarks varchar(1024),
   update_at timestamp DEFAULT now(),
@@ -2302,6 +2312,8 @@ COMMENT ON COLUMN tests.trans_shipping_order.estimated_arrival_date IS '到着�
 COMMENT ON COLUMN tests.trans_shipping_order.stakeholder_history_id IS '履歴利害関係者ID';
 
 COMMENT ON COLUMN tests.trans_shipping_order.stakeholder_id IS '利害関係者ID';
+
+COMMENT ON COLUMN tests.trans_shipping_order.trans_approval_pattern_id IS '承認実行パターンID(登録が申請。info_app.settings の approval.patterns に承認パターンがあるとき、登録のトリガーが作る。NULL は承認不要)';
 
 COMMENT ON COLUMN tests.trans_shipping_order.symbol IS 'リニアシンボル';
 
@@ -4354,7 +4366,7 @@ CREATE TABLE tests.info_app (
   info_app_id uuid DEFAULT gen_random_uuid() NOT NULL,
   info_company_id uuid,
   name varchar(255) NOT NULL,
-  settings jsonb DEFAULT '{"version":1,"stamp":{"position":{"anchor":"topRight","offsetXmm":10,"offsetYmm":10,"pages":"first"},"opacity":0.6,"shape":{"kind":"roundRect","widthMm":32,"heightMm":32,"rotationDeg":0},"color":{"text":"#C62828","frame":"#C62828","fill":null},"labelLanguage":"ja","stages":"all","layer":"background","items":[{"field":"stamp_label","size":14,"line":1},{"field":"approved_at","format":"yyyy/MM/dd","size":10,"line":2},{"field":"approved_staff","format":"name","size":10,"line":3}],"pending":{"dashed":true,"color":"#757575"}},"pdf":{"page":{"size":"A4","orientation":"portrait","marginMm":{"top":22,"right":18,"bottom":20,"left":18}},"theme":{"vars":{"accent":"#0D47A1","muted":"#616161","line":"#BDBDBD"},"font":{"family":"NotoSansJP","monoFamily":"NotoSansJPMono","baseSize":10.5,"lineHeight":1.5},"colors":{"text":"#212121","heading":"$accent","link":"#1565C0","quote":"$muted","codeBackground":"#F5F5F5","tableBorder":"$line","tableHeaderBackground":"#ECEFF1","missingLink":"#C62828"},"headings":{"h1":{"size":20,"bold":true,"color":null,"spaceBeforeMm":0,"spaceAfterMm":5,"pageBreakBefore":true},"h2":{"size":15,"bold":true,"color":null,"spaceBeforeMm":6,"spaceAfterMm":3,"pageBreakBefore":false},"h3":{"size":12,"bold":true,"color":null,"spaceBeforeMm":4,"spaceAfterMm":2,"pageBreakBefore":false}},"paragraph":{"spaceAfterMm":2.5},"code":{"size":9},"table":{"borderWidth":0.5,"cellPaddingMm":1.5,"headerBold":true}},"header":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{title}","center":"","right":"{controlNumber}"},"footer":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{versionCode}  {statusLabel}","center":"{page} / {pages}","right":"{printedAt:yyyy/MM/dd}"},"custom":{"company":""}}}',
+  settings jsonb DEFAULT '{"version":1,"stamp":{"position":{"anchor":"topRight","offsetXmm":10,"offsetYmm":10,"pages":"first"},"opacity":0.6,"shape":{"kind":"roundRect","widthMm":32,"heightMm":32,"rotationDeg":0},"color":{"text":"#C62828","frame":"#C62828","fill":null},"labelLanguage":"ja","stages":"all","layer":"background","items":[{"field":"stamp_label","size":14,"line":1},{"field":"approved_at","format":"yyyy/MM/dd","size":10,"line":2},{"field":"approved_staff","format":"name","size":10,"line":3}],"pending":{"dashed":true,"color":"#757575"}},"approval":{"patterns":{"order":null,"purchase":null,"unrecognized":null,"shipping_order":null,"complaint":null,"disposal":null,"recurrence_prevention":null}},"pdf":{"page":{"size":"A4","orientation":"portrait","marginMm":{"top":22,"right":18,"bottom":20,"left":18}},"theme":{"vars":{"accent":"#0D47A1","muted":"#616161","line":"#BDBDBD"},"font":{"family":"NotoSansJP","monoFamily":"NotoSansJPMono","baseSize":10.5,"lineHeight":1.5},"colors":{"text":"#212121","heading":"$accent","link":"#1565C0","quote":"$muted","codeBackground":"#F5F5F5","tableBorder":"$line","tableHeaderBackground":"#ECEFF1","missingLink":"#C62828"},"headings":{"h1":{"size":20,"bold":true,"color":null,"spaceBeforeMm":0,"spaceAfterMm":5,"pageBreakBefore":true},"h2":{"size":15,"bold":true,"color":null,"spaceBeforeMm":6,"spaceAfterMm":3,"pageBreakBefore":false},"h3":{"size":12,"bold":true,"color":null,"spaceBeforeMm":4,"spaceAfterMm":2,"pageBreakBefore":false}},"paragraph":{"spaceAfterMm":2.5},"code":{"size":9},"table":{"borderWidth":0.5,"cellPaddingMm":1.5,"headerBold":true}},"header":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{title}","center":"","right":"{controlNumber}"},"footer":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{versionCode}  {statusLabel}","center":"{page} / {pages}","right":"{printedAt:yyyy/MM/dd}"},"custom":{"company":""}}}',
   revision integer DEFAULT 1,
   symbol varchar(16) DEFAULT '',
   remarks varchar(1024),
@@ -8913,6 +8925,7 @@ CREATE TABLE tests.trans_announcement (
   messages uuid,
   is_read boolean DEFAULT false,
   expiration_date timestamp DEFAULT CURRENT_DATE + 30,
+  trans_preapproval_id uuid,
   symbol varchar(16) DEFAULT '',
   remarks varchar(1024),
   update_at timestamp DEFAULT now(),
@@ -8945,6 +8958,8 @@ COMMENT ON COLUMN tests.trans_announcement.messages IS 'メッセージ';
 COMMENT ON COLUMN tests.trans_announcement.is_read IS '既読';
 
 COMMENT ON COLUMN tests.trans_announcement.expiration_date IS '削除予定';
+
+COMMENT ON COLUMN tests.trans_announcement.trans_preapproval_id IS '承認前ID(承認待ちの通知の対象。通知区分 approval のとき)';
 
 COMMENT ON COLUMN tests.trans_announcement.symbol IS 'リニアシンボル';
 
@@ -11764,7 +11779,7 @@ CREATE TABLE tests.history_info_app (
   info_app_id uuid NOT NULL,
   info_company_id uuid,
   name varchar(255) NOT NULL,
-  settings jsonb DEFAULT '{"version":1,"stamp":{"position":{"anchor":"topRight","offsetXmm":10,"offsetYmm":10,"pages":"first"},"opacity":0.6,"shape":{"kind":"roundRect","widthMm":32,"heightMm":32,"rotationDeg":0},"color":{"text":"#C62828","frame":"#C62828","fill":null},"labelLanguage":"ja","stages":"all","layer":"background","items":[{"field":"stamp_label","size":14,"line":1},{"field":"approved_at","format":"yyyy/MM/dd","size":10,"line":2},{"field":"approved_staff","format":"name","size":10,"line":3}],"pending":{"dashed":true,"color":"#757575"}},"pdf":{"page":{"size":"A4","orientation":"portrait","marginMm":{"top":22,"right":18,"bottom":20,"left":18}},"theme":{"vars":{"accent":"#0D47A1","muted":"#616161","line":"#BDBDBD"},"font":{"family":"NotoSansJP","monoFamily":"NotoSansJPMono","baseSize":10.5,"lineHeight":1.5},"colors":{"text":"#212121","heading":"$accent","link":"#1565C0","quote":"$muted","codeBackground":"#F5F5F5","tableBorder":"$line","tableHeaderBackground":"#ECEFF1","missingLink":"#C62828"},"headings":{"h1":{"size":20,"bold":true,"color":null,"spaceBeforeMm":0,"spaceAfterMm":5,"pageBreakBefore":true},"h2":{"size":15,"bold":true,"color":null,"spaceBeforeMm":6,"spaceAfterMm":3,"pageBreakBefore":false},"h3":{"size":12,"bold":true,"color":null,"spaceBeforeMm":4,"spaceAfterMm":2,"pageBreakBefore":false}},"paragraph":{"spaceAfterMm":2.5},"code":{"size":9},"table":{"borderWidth":0.5,"cellPaddingMm":1.5,"headerBold":true}},"header":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{title}","center":"","right":"{controlNumber}"},"footer":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{versionCode}  {statusLabel}","center":"{page} / {pages}","right":"{printedAt:yyyy/MM/dd}"},"custom":{"company":""}}}',
+  settings jsonb DEFAULT '{"version":1,"stamp":{"position":{"anchor":"topRight","offsetXmm":10,"offsetYmm":10,"pages":"first"},"opacity":0.6,"shape":{"kind":"roundRect","widthMm":32,"heightMm":32,"rotationDeg":0},"color":{"text":"#C62828","frame":"#C62828","fill":null},"labelLanguage":"ja","stages":"all","layer":"background","items":[{"field":"stamp_label","size":14,"line":1},{"field":"approved_at","format":"yyyy/MM/dd","size":10,"line":2},{"field":"approved_staff","format":"name","size":10,"line":3}],"pending":{"dashed":true,"color":"#757575"}},"approval":{"patterns":{"order":null,"purchase":null,"unrecognized":null,"shipping_order":null,"complaint":null,"disposal":null,"recurrence_prevention":null}},"pdf":{"page":{"size":"A4","orientation":"portrait","marginMm":{"top":22,"right":18,"bottom":20,"left":18}},"theme":{"vars":{"accent":"#0D47A1","muted":"#616161","line":"#BDBDBD"},"font":{"family":"NotoSansJP","monoFamily":"NotoSansJPMono","baseSize":10.5,"lineHeight":1.5},"colors":{"text":"#212121","heading":"$accent","link":"#1565C0","quote":"$muted","codeBackground":"#F5F5F5","tableBorder":"$line","tableHeaderBackground":"#ECEFF1","missingLink":"#C62828"},"headings":{"h1":{"size":20,"bold":true,"color":null,"spaceBeforeMm":0,"spaceAfterMm":5,"pageBreakBefore":true},"h2":{"size":15,"bold":true,"color":null,"spaceBeforeMm":6,"spaceAfterMm":3,"pageBreakBefore":false},"h3":{"size":12,"bold":true,"color":null,"spaceBeforeMm":4,"spaceAfterMm":2,"pageBreakBefore":false}},"paragraph":{"spaceAfterMm":2.5},"code":{"size":9},"table":{"borderWidth":0.5,"cellPaddingMm":1.5,"headerBold":true}},"header":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{title}","center":"","right":"{controlNumber}"},"footer":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{versionCode}  {statusLabel}","center":"{page} / {pages}","right":"{printedAt:yyyy/MM/dd}"},"custom":{"company":""}}}',
   revision integer DEFAULT 1,
   symbol varchar(16) DEFAULT '',
   remarks varchar(1024),
@@ -12203,6 +12218,65 @@ COMMENT ON COLUMN tests.trans_approved.update_user_history_id IS '更新者履�
 
 COMMENT ON COLUMN tests.trans_approved.remove IS '削除';
 
+CREATE OR REPLACE FUNCTION tests.approval_notify(
+    p_trans_approval_pattern_id uuid,
+    p_priority smallint,
+    p_staff_id uuid DEFAULT NULL,
+    p_staff_history_id uuid DEFAULT NULL
+) RETURNS integer AS $$
+DECLARE
+    v_n integer := 0;
+BEGIN
+    -- 順位 p_priority の段のうち、まだ判断されていないものの該当者へ、通知を 1 件ずつ作る(同じ段・同じ人の重複は作らない)
+    INSERT INTO tests.trans_announcement (to_staff_history_id, to_staff_id, category, trans_preapproval_id, update_user_id, update_user_history_id)
+    SELECT (SELECT h.history_id FROM tests.history_info_staff AS h WHERE h.info_staff_id = s.info_staff_id ORDER BY h.revision DESC LIMIT 1),
+           s.info_staff_id, 'approval', q.trans_preapproval_id, p_staff_id, p_staff_history_id
+    FROM tests.trans_preapproval AS q
+    INNER JOIN tests.mstr_approval AS a ON a.mstr_approval_id = q.mstr_approval_id
+    INNER JOIN LATERAL (
+        SELECT DISTINCT ia.info_staff_id FROM tests.info_assign AS ia
+        WHERE ia.remove IS FALSE AND ia.enable IS TRUE AND ia.info_position_id = a.info_position_id
+          AND (a.info_department_id IS NULL OR ia.info_department_id = a.info_department_id)
+    ) AS s ON true
+    WHERE q.trans_approval_pattern_id = p_trans_approval_pattern_id AND q.remove IS FALSE AND a.priority = p_priority
+      AND NOT EXISTS (SELECT 1 FROM tests.trans_approved AS r WHERE r.trans_preapproval_id = q.trans_preapproval_id AND r.remove IS FALSE)
+      AND NOT EXISTS (SELECT 1 FROM tests.trans_announcement AS n WHERE n.trans_preapproval_id = q.trans_preapproval_id AND n.to_staff_id = s.info_staff_id AND n.remove IS FALSE)
+      AND EXISTS (SELECT 1 FROM tests.history_info_staff AS h2 WHERE h2.info_staff_id = s.info_staff_id);
+    GET DIAGNOSTICS v_n = ROW_COUNT;
+    RETURN v_n;
+END
+$$ LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION tests.approval_notify(uuid, smallint, uuid, uuid) IS '@omit
+承認の段(順位)の該当者へ、承認待ちの通知(trans_announcement。通知区分 approval、対象は承認前)を作る。戻り値は作った件数';
+
+CREATE OR REPLACE FUNCTION tests.approval_start(
+    p_pattern_id uuid,
+    p_staff_id uuid DEFAULT NULL,
+    p_staff_history_id uuid DEFAULT NULL
+) RETURNS uuid AS $$
+DECLARE
+    v_tp uuid; v_min smallint;
+BEGIN
+    INSERT INTO tests.trans_approval_pattern (mstr_approval_pattern_id, update_user_id, update_user_history_id)
+    VALUES (p_pattern_id, p_staff_id, p_staff_history_id) RETURNING trans_approval_pattern_id INTO v_tp;
+    INSERT INTO tests.trans_preapproval (trans_approval_pattern_id, mstr_approval_id, update_user_id, update_user_history_id)
+    SELECT v_tp, d.mstr_approval_id, p_staff_id, p_staff_history_id
+    FROM tests.mstr_approval_pattern_detail AS d
+    WHERE d.mstr_approval_pattern_id = p_pattern_id AND d.remove IS FALSE;
+    SELECT min(a.priority) INTO v_min
+    FROM tests.trans_preapproval AS q INNER JOIN tests.mstr_approval AS a ON a.mstr_approval_id = q.mstr_approval_id
+    WHERE q.trans_approval_pattern_id = v_tp;
+    IF v_min IS NOT NULL THEN
+        PERFORM tests.approval_notify(v_tp, v_min, p_staff_id, p_staff_history_id);
+    END IF;
+    RETURN v_tp;
+END
+$$ LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION tests.approval_start(uuid, uuid, uuid) IS '@omit
+承認の実行を始める(承認パターンから、承認実行パターンと、段ごとの承認前を作り、最初の段の該当者へ通知する)。対象の登録のトリガー(trg_05_approval_request)が呼ぶ';
+
 CREATE OR REPLACE FUNCTION tests.document_approve(
     p_preapproval_id uuid,
     p_approved boolean DEFAULT true,
@@ -12211,6 +12285,7 @@ CREATE OR REPLACE FUNCTION tests.document_approve(
 ) RETURNS tests.trans_approved AS $$
 DECLARE
     v_st record; v_pre tests.trans_preapproval; v_ap tests.mstr_approval; v_last tests.trans_approved; v_row tests.trans_approved;
+    v_next smallint;
 BEGIN
     SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
     SELECT * INTO v_pre FROM tests.trans_preapproval WHERE trans_preapproval_id = p_preapproval_id AND remove IS FALSE FOR UPDATE;
@@ -12234,16 +12309,107 @@ BEGIN
     IF FOUND AND v_last.approved IS TRUE THEN
         RAISE EXCEPTION 'すでに承認されています' USING ERRCODE = 'OPR03';
     END IF;
+    -- 段の順序: 順位が小さい段が、すべて承認済みでなければ、この段は承認できない(同じ順位の段は並行)
+    IF EXISTS (
+        SELECT 1 FROM tests.trans_preapproval AS q
+        INNER JOIN tests.mstr_approval AS a2 ON a2.mstr_approval_id = q.mstr_approval_id
+        WHERE q.trans_approval_pattern_id = v_pre.trans_approval_pattern_id AND q.remove IS FALSE AND a2.priority < v_ap.priority
+          AND NOT COALESCE((SELECT r.approved FROM tests.trans_approved AS r WHERE r.trans_preapproval_id = q.trans_preapproval_id AND r.remove IS FALSE
+                            ORDER BY r.update_at DESC LIMIT 1), false)
+    ) THEN
+        RAISE EXCEPTION '前の段階が承認されていません' USING ERRCODE = 'OPR03';
+    END IF;
     INSERT INTO tests.trans_approved (trans_preapproval_id, approved, approved_staff_history_id, approved_staff_id,
                                       remarks, update_user_id, update_user_history_id)
     VALUES (p_preapproval_id, p_approved, v_st.staff_history_id, v_st.staff_id,
             p_remarks, v_st.staff_id, v_st.staff_history_id)
     RETURNING * INTO v_row;
+    -- この順位の段がすべて承認されたら、次の順位の段の該当者へ通知する
+    IF p_approved IS TRUE AND NOT EXISTS (
+        SELECT 1 FROM tests.trans_preapproval AS q
+        INNER JOIN tests.mstr_approval AS a3 ON a3.mstr_approval_id = q.mstr_approval_id
+        WHERE q.trans_approval_pattern_id = v_pre.trans_approval_pattern_id AND q.remove IS FALSE AND a3.priority = v_ap.priority
+          AND NOT COALESCE((SELECT r.approved FROM tests.trans_approved AS r WHERE r.trans_preapproval_id = q.trans_preapproval_id AND r.remove IS FALSE
+                            ORDER BY r.update_at DESC LIMIT 1), false)
+    ) THEN
+        SELECT min(a4.priority) INTO v_next
+        FROM tests.trans_preapproval AS q
+        INNER JOIN tests.mstr_approval AS a4 ON a4.mstr_approval_id = q.mstr_approval_id
+        WHERE q.trans_approval_pattern_id = v_pre.trans_approval_pattern_id AND q.remove IS FALSE AND a4.priority > v_ap.priority;
+        IF v_next IS NOT NULL THEN
+            PERFORM tests.approval_notify(v_pre.trans_approval_pattern_id, v_next, v_st.staff_id, v_st.staff_history_id);
+        END IF;
+    END IF;
     RETURN v_row;
 END
 $$ LANGUAGE plpgsql VOLATILE;
 
-COMMENT ON FUNCTION tests.document_approve(uuid, boolean, varchar, uuid) IS '文書の承認(または却下)を 1 件登録する(追記のみ)。承認できるのは、承認の段(部署・役職)に当てはまる担当者だけ。担当者は引数、省略時は JWT の staff_id。errcode: OPR01 承認前が無い / OPR02 引数が不正 / OPR03 承認できない・すでに承認済み。戻り値は承認結果';
+COMMENT ON FUNCTION tests.document_approve(uuid, boolean, varchar, uuid) IS '文書などの承認(または却下)を 1 件登録する(追記のみ)。承認できるのは、承認の段(部署・役職)に当てはまる担当者だけで、順位が小さい段がすべて承認済みのときだけ(同じ順位の段は並行)。この順位の段がすべて承認されたら、次の順位の段の該当者へ通知する。担当者は引数、省略時は JWT の staff_id。errcode: OPR01 承認前が無い / OPR02 引数が不正 / OPR03 承認できない・すでに承認済み・前の段階が未承認。戻り値は承認結果';
+
+CREATE OR REPLACE FUNCTION tests.approval_approve_many(
+    p_preapproval_ids uuid[],
+    p_approved boolean DEFAULT true,
+    p_remarks varchar DEFAULT NULL,
+    p_staff_id uuid DEFAULT NULL
+) RETURNS TABLE (preapproval_id uuid, ok boolean, error_code text, error_message text, approved_id uuid) AS $$
+DECLARE
+    v_id uuid; v_row tests.trans_approved;
+BEGIN
+    -- 順位の小さい段から処理する(同じ対象の第 1 段階と第 2 段階を、一度に選んでも通る)
+    FOR v_id IN
+        SELECT q.trans_preapproval_id FROM tests.trans_preapproval AS q
+        INNER JOIN unnest(p_preapproval_ids) WITH ORDINALITY AS u(id, n) ON u.id = q.trans_preapproval_id
+        LEFT JOIN tests.mstr_approval AS a ON a.mstr_approval_id = q.mstr_approval_id
+        ORDER BY a.priority, u.n
+    LOOP
+        BEGIN
+            v_row := tests.document_approve(v_id, p_approved, p_remarks, p_staff_id);
+            preapproval_id := v_id; ok := true; error_code := NULL; error_message := NULL; approved_id := v_row.trans_approved_id;
+            RETURN NEXT;
+        EXCEPTION WHEN OTHERS THEN
+            -- 失敗した行だけ巻き戻し(この BEGIN ブロックの分)、ほかの行は続ける
+            preapproval_id := v_id; ok := false; error_code := SQLSTATE; error_message := SQLERRM; approved_id := NULL;
+            RETURN NEXT;
+        END;
+    END LOOP;
+    -- 見つからなかった ID も、失敗として返す
+    FOR v_id IN SELECT x FROM unnest(p_preapproval_ids) AS x WHERE NOT EXISTS (SELECT 1 FROM tests.trans_preapproval AS q WHERE q.trans_preapproval_id = x)
+    LOOP
+        preapproval_id := v_id; ok := false; error_code := 'OPR01'; error_message := '承認前が見つかりません'; approved_id := NULL;
+        RETURN NEXT;
+    END LOOP;
+END
+$$ LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION tests.approval_approve_many(uuid[], boolean, varchar, uuid) IS '複数の承認を一度に登録する(1 回の呼び出し。行ごとに成功・失敗を返し、失敗した行だけ登録されない)。順位の小さい段から処理する。担当者は引数、省略時は JWT の staff_id';
+
+CREATE OR REPLACE FUNCTION tests.trg_05_approval_request() RETURNS trigger AS
+$BODY$
+-- 引数: TG_ARGV[0] = 種類(info_app.settings の approval.patterns のキー)、TG_ARGV[1] = 承認実行パターンの列
+DECLARE
+    v_kind text := TG_ARGV[0];
+    v_col text := TG_ARGV[1];
+    v_pattern uuid;
+    v_tp uuid;
+BEGIN
+    IF (to_jsonb(NEW) ->> v_col) IS NOT NULL THEN
+        RETURN NEW;
+    END IF;
+    SELECT NULLIF(a.settings #>> ARRAY['approval', 'patterns', v_kind], '')::uuid INTO v_pattern
+    FROM tests.info_app AS a WHERE a.remove IS FALSE ORDER BY a.update_at LIMIT 1;
+    IF v_pattern IS NULL THEN
+        RETURN NEW;
+    END IF;
+    v_tp := tests.approval_start(v_pattern, NEW.update_user_id, NEW.update_user_history_id);
+    NEW := jsonb_populate_record(NEW, jsonb_build_object(v_col, v_tp));
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION tests.trg_05_approval_request() IS '@omit
+対象の登録のトリガー関数(登録が申請)';
+
 
 CREATE TABLE tests.trans_audit (
   trans_audit_id uuid DEFAULT gen_random_uuid() NOT NULL,
@@ -23226,6 +23392,144 @@ COMMENT ON COLUMN tests.v_document_content.pending IS '承認待ち';
 COMMENT ON COLUMN tests.v_document_content.readable IS 'ログイン中の担当者が読める';
 COMMENT ON COLUMN tests.v_document_content.contents IS 'コンテンツ(読めないときは NULL)';
 COMMENT ON COLUMN tests.v_document_content.trans_file_id IS 'ファイルID(読めないときは NULL)';
+
+ALTER TABLE tests.trans_order ADD CONSTRAINT trans_order_approval_fk FOREIGN KEY (trans_approval_pattern_id) REFERENCES tests.trans_approval_pattern (trans_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE tests.trans_purchase ADD CONSTRAINT trans_purchase_approval_fk FOREIGN KEY (trans_approval_pattern_id) REFERENCES tests.trans_approval_pattern (trans_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE tests.trans_unrecognized ADD CONSTRAINT trans_unrecognized_approval_fk FOREIGN KEY (trans_approval_pattern_id) REFERENCES tests.trans_approval_pattern (trans_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE tests.trans_shipping_order ADD CONSTRAINT trans_shipping_order_approval_fk FOREIGN KEY (trans_approval_pattern_id) REFERENCES tests.trans_approval_pattern (trans_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE tests.trans_announcement ADD CONSTRAINT trans_announcement_preapproval_fk FOREIGN KEY (trans_preapproval_id) REFERENCES tests.trans_preapproval (trans_preapproval_id) DEFERRABLE INITIALLY DEFERRED;
+
+CREATE TRIGGER trg_05_approval_request BEFORE INSERT ON tests.trans_order FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('order', 'trans_approval_pattern_id');
+CREATE TRIGGER trg_05_approval_request BEFORE INSERT ON tests.trans_purchase FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('purchase', 'trans_approval_pattern_id');
+CREATE TRIGGER trg_05_approval_request BEFORE INSERT ON tests.trans_unrecognized FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('unrecognized', 'trans_approval_pattern_id');
+CREATE TRIGGER trg_05_approval_request BEFORE INSERT ON tests.trans_shipping_order FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('shipping_order', 'trans_approval_pattern_id');
+CREATE TRIGGER trg_05_approval_request BEFORE INSERT ON tests.trans_complaint FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('complaint', 'approvals');
+CREATE TRIGGER trg_05_approval_request BEFORE INSERT ON tests.trans_disposal FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('disposal', 'approvals');
+CREATE TRIGGER trg_05_approval_request BEFORE INSERT ON tests.trans_recurrence_prevention FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('recurrence_prevention', 'approvals');
+
+CREATE VIEW tests.v_approval_pending AS
+SELECT
+    pre.trans_preapproval_id
+    , src.trans_approval_pattern_id
+    , pre.mstr_approval_id
+    , a.priority AS approval_priority
+    , a.names AS approval_names
+    , a.info_position_id
+    , a.info_department_id
+    , pre.period
+    , src.is_document
+    , src.is_complaint
+    , src.is_disposal
+    , src.is_recurrence_prevention
+    , src.is_order
+    , src.is_purchase
+    , src.is_unrecognized
+    , src.is_shipping_order
+    , src.mstr_document_id
+    , src.trans_complaint_id
+    , src.trans_disposal_id
+    , src.trans_recurrence_prevention_id
+    , src.trans_order_id
+    , src.trans_purchase_id
+    , src.trans_unrecognized_id
+    , src.trans_shipping_order_id
+    , src.target_symbol
+    , src.applicant_staff_id
+    , src.applicant_staff_history_id
+    , src.applied_at
+    , EXISTS (SELECT 1 FROM tests.info_assign AS ia
+        WHERE ia.info_staff_id = NULLIF(current_setting('jwt.claims.staff_id', true), '')::uuid AND ia.remove IS FALSE AND ia.enable IS TRUE
+          AND ia.info_position_id = a.info_position_id
+          AND (a.info_department_id IS NULL OR ia.info_department_id = a.info_department_id)) AS approver
+    , NOT EXISTS (
+        SELECT 1 FROM tests.trans_preapproval AS q
+        INNER JOIN tests.mstr_approval AS a2 ON a2.mstr_approval_id = q.mstr_approval_id
+        WHERE q.trans_approval_pattern_id = pre.trans_approval_pattern_id AND q.remove IS FALSE AND a2.priority < a.priority
+          AND NOT COALESCE((SELECT r.approved FROM tests.trans_approved AS r WHERE r.trans_preapproval_id = q.trans_preapproval_id AND r.remove IS FALSE
+                            ORDER BY r.update_at DESC LIMIT 1), false)
+      ) AS actionable
+FROM (
+    SELECT t.trans_approval_pattern_id AS trans_approval_pattern_id, true AS is_document, false AS is_complaint, false AS is_disposal, false AS is_recurrence_prevention, false AS is_order, false AS is_purchase, false AS is_unrecognized, false AS is_shipping_order, t.mstr_document_id AS mstr_document_id, NULL::uuid AS trans_complaint_id, NULL::uuid AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, NULL::uuid AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,
+           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at
+    FROM tests.mstr_document AS t WHERE t.remove IS FALSE AND t.trans_approval_pattern_id IS NOT NULL
+    UNION ALL
+    SELECT t.approvals AS trans_approval_pattern_id, false AS is_document, true AS is_complaint, false AS is_disposal, false AS is_recurrence_prevention, false AS is_order, false AS is_purchase, false AS is_unrecognized, false AS is_shipping_order, NULL::uuid AS mstr_document_id, t.trans_complaint_id AS trans_complaint_id, NULL::uuid AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, NULL::uuid AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,
+           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at
+    FROM tests.trans_complaint AS t WHERE t.remove IS FALSE AND t.approvals IS NOT NULL
+    UNION ALL
+    SELECT t.approvals AS trans_approval_pattern_id, false AS is_document, false AS is_complaint, true AS is_disposal, false AS is_recurrence_prevention, false AS is_order, false AS is_purchase, false AS is_unrecognized, false AS is_shipping_order, NULL::uuid AS mstr_document_id, NULL::uuid AS trans_complaint_id, t.trans_disposal_id AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, NULL::uuid AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,
+           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at
+    FROM tests.trans_disposal AS t WHERE t.remove IS FALSE AND t.approvals IS NOT NULL
+    UNION ALL
+    SELECT t.approvals AS trans_approval_pattern_id, false AS is_document, false AS is_complaint, false AS is_disposal, true AS is_recurrence_prevention, false AS is_order, false AS is_purchase, false AS is_unrecognized, false AS is_shipping_order, NULL::uuid AS mstr_document_id, NULL::uuid AS trans_complaint_id, NULL::uuid AS trans_disposal_id, t.trans_recurrence_prevention_id AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, NULL::uuid AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,
+           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at
+    FROM tests.trans_recurrence_prevention AS t WHERE t.remove IS FALSE AND t.approvals IS NOT NULL
+    UNION ALL
+    SELECT t.trans_approval_pattern_id AS trans_approval_pattern_id, false AS is_document, false AS is_complaint, false AS is_disposal, false AS is_recurrence_prevention, true AS is_order, false AS is_purchase, false AS is_unrecognized, false AS is_shipping_order, NULL::uuid AS mstr_document_id, NULL::uuid AS trans_complaint_id, NULL::uuid AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, t.trans_order_id AS trans_order_id, NULL::uuid AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,
+           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at
+    FROM tests.trans_order AS t WHERE t.remove IS FALSE AND t.trans_approval_pattern_id IS NOT NULL
+    UNION ALL
+    SELECT t.trans_approval_pattern_id AS trans_approval_pattern_id, false AS is_document, false AS is_complaint, false AS is_disposal, false AS is_recurrence_prevention, false AS is_order, true AS is_purchase, false AS is_unrecognized, false AS is_shipping_order, NULL::uuid AS mstr_document_id, NULL::uuid AS trans_complaint_id, NULL::uuid AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, t.trans_purchase_id AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,
+           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, COALESCE(t.register_at, t.update_at) AS applied_at
+    FROM tests.trans_purchase AS t WHERE t.remove IS FALSE AND t.trans_approval_pattern_id IS NOT NULL
+    UNION ALL
+    SELECT t.trans_approval_pattern_id AS trans_approval_pattern_id, false AS is_document, false AS is_complaint, false AS is_disposal, false AS is_recurrence_prevention, false AS is_order, false AS is_purchase, true AS is_unrecognized, false AS is_shipping_order, NULL::uuid AS mstr_document_id, NULL::uuid AS trans_complaint_id, NULL::uuid AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, NULL::uuid AS trans_purchase_id, t.trans_unrecognized_id AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,
+           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at
+    FROM tests.trans_unrecognized AS t WHERE t.remove IS FALSE AND t.trans_approval_pattern_id IS NOT NULL
+    UNION ALL
+    SELECT t.trans_approval_pattern_id AS trans_approval_pattern_id, false AS is_document, false AS is_complaint, false AS is_disposal, false AS is_recurrence_prevention, false AS is_order, false AS is_purchase, false AS is_unrecognized, true AS is_shipping_order, NULL::uuid AS mstr_document_id, NULL::uuid AS trans_complaint_id, NULL::uuid AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, NULL::uuid AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, t.trans_shipping_order_id AS trans_shipping_order_id, t.symbol AS target_symbol,
+           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at
+    FROM tests.trans_shipping_order AS t WHERE t.remove IS FALSE AND t.trans_approval_pattern_id IS NOT NULL
+) AS src
+INNER JOIN tests.trans_preapproval AS pre ON pre.trans_approval_pattern_id = src.trans_approval_pattern_id AND pre.remove IS FALSE
+INNER JOIN tests.mstr_approval AS a ON a.mstr_approval_id = pre.mstr_approval_id
+WHERE NOT EXISTS (SELECT 1 FROM tests.trans_approved AS r WHERE r.trans_preapproval_id = pre.trans_preapproval_id AND r.remove IS FALSE);
+
+COMMENT ON VIEW tests.v_approval_pending IS '@primaryKey trans_preapproval_id
+@foreignKey (trans_preapproval_id) references trans_preapproval (trans_preapproval_id)
+@foreignKey (trans_approval_pattern_id) references trans_approval_pattern (trans_approval_pattern_id)
+@foreignKey (mstr_approval_id) references mstr_approval (mstr_approval_id)
+@foreignKey (mstr_document_id) references mstr_document (mstr_document_id)
+@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)
+@foreignKey (trans_disposal_id) references trans_disposal (trans_disposal_id)
+@foreignKey (trans_recurrence_prevention_id) references trans_recurrence_prevention (trans_recurrence_prevention_id)
+@foreignKey (trans_order_id) references trans_order (trans_order_id)
+@foreignKey (trans_purchase_id) references trans_purchase (trans_purchase_id)
+@foreignKey (trans_unrecognized_id) references trans_unrecognized (trans_unrecognized_id)
+@foreignKey (trans_shipping_order_id) references trans_shipping_order (trans_shipping_order_id)
+@foreignKey (applicant_staff_id) references info_staff (info_staff_id)
+承認待ちの一覧(1 行 = 判断されていない承認の段 1 つ)。対象の区分は boolean の列(is_document・is_order…。ちょうど 1 つ true)で、対象の ID は区分ごとの列。申請者(applicant_staff_id)は対象の登録者(更新者)、申請日(applied_at)は対象の登録の日時。approver はログイン中の担当者(JWT の staff_id)がこの段の該当者か、actionable は順位が小さい段がすべて承認済みか。承認一覧は approver かつ actionable の行を出す。区分・順序の判定は、このビューだけで定義する';
+
+COMMENT ON COLUMN tests.v_approval_pending.trans_preapproval_id IS '承認前ID(承認の段 1 つ)';
+COMMENT ON COLUMN tests.v_approval_pending.trans_approval_pattern_id IS '承認実行パターンID';
+COMMENT ON COLUMN tests.v_approval_pending.mstr_approval_id IS '承認ID(承認の段)';
+COMMENT ON COLUMN tests.v_approval_pending.approval_priority IS '承認の順位(小さい順に承認する。同じ順位は並行)';
+COMMENT ON COLUMN tests.v_approval_pending.approval_names IS '承認の名称(呼称ID)';
+COMMENT ON COLUMN tests.v_approval_pending.info_position_id IS '承認する役職ID';
+COMMENT ON COLUMN tests.v_approval_pending.info_department_id IS '承認する部署ID(NULL は部署を問わない)';
+COMMENT ON COLUMN tests.v_approval_pending.period IS '承認の期限';
+COMMENT ON COLUMN tests.v_approval_pending.is_document IS '対象が文書';
+COMMENT ON COLUMN tests.v_approval_pending.is_complaint IS '対象が異常';
+COMMENT ON COLUMN tests.v_approval_pending.is_disposal IS '対象が異常の処置';
+COMMENT ON COLUMN tests.v_approval_pending.is_recurrence_prevention IS '対象が再発防止';
+COMMENT ON COLUMN tests.v_approval_pending.is_order IS '対象が受注';
+COMMENT ON COLUMN tests.v_approval_pending.is_purchase IS '対象が発注';
+COMMENT ON COLUMN tests.v_approval_pending.is_unrecognized IS '対象が非計上発注';
+COMMENT ON COLUMN tests.v_approval_pending.is_shipping_order IS '対象が出荷オーダー(出荷予定)';
+COMMENT ON COLUMN tests.v_approval_pending.mstr_document_id IS '対象の文書ID';
+COMMENT ON COLUMN tests.v_approval_pending.trans_complaint_id IS '対象の異常ID';
+COMMENT ON COLUMN tests.v_approval_pending.trans_disposal_id IS '対象の処置ID';
+COMMENT ON COLUMN tests.v_approval_pending.trans_recurrence_prevention_id IS '対象の再発防止ID';
+COMMENT ON COLUMN tests.v_approval_pending.trans_order_id IS '対象の受注ID';
+COMMENT ON COLUMN tests.v_approval_pending.trans_purchase_id IS '対象の発注ID';
+COMMENT ON COLUMN tests.v_approval_pending.trans_unrecognized_id IS '対象の非計上ID';
+COMMENT ON COLUMN tests.v_approval_pending.trans_shipping_order_id IS '対象の出荷オーダーID';
+COMMENT ON COLUMN tests.v_approval_pending.target_symbol IS '対象のリニアシンボル';
+COMMENT ON COLUMN tests.v_approval_pending.applicant_staff_id IS '申請者(対象の登録者)の担当者ID';
+COMMENT ON COLUMN tests.v_approval_pending.applicant_staff_history_id IS '申請者の担当者履歴ID';
+COMMENT ON COLUMN tests.v_approval_pending.applied_at IS '申請日時(対象の登録の日時)';
+COMMENT ON COLUMN tests.v_approval_pending.approver IS 'ログイン中の担当者がこの段の承認の該当者';
+COMMENT ON COLUMN tests.v_approval_pending.actionable IS '承認できる状態(順位が小さい段がすべて承認済み)';
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_shared_dictionary() RETURNS trigger AS
 $BODY$
