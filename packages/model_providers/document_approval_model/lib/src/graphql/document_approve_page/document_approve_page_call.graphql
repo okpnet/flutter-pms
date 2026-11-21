@@ -1,0 +1,31 @@
+# document_approve_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #DocumentApprovePageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation DocumentApprovePageCall(
+  $pPreapprovalId: UUID
+  $pApproved: Boolean
+  $pRemarks: String
+  $pStaffId: UUID
+) {
+  documentApprove(
+    input: {
+      pPreapprovalId: $pPreapprovalId
+      pApproved: $pApproved
+      pRemarks: $pRemarks
+      pStaffId: $pStaffId
+    }
+  ) {
+    transApproved {
+      transApprovedId
+      symbol
+      transPreapprovalId
+      approved
+      approvedStaffId
+      approvedStaffHistoryId
+      remarks
+      updateAt
+    }
+  }
+}

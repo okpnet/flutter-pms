@@ -384,6 +384,8 @@ enum MstrApprovalPatternsOrderBy {
   MSTR_APPROVAL_PATTERN_ID_DESC
   NAMES_ASC
   NAMES_DESC
+  STAMP_STYLE_ASC
+  STAMP_STYLE_DESC
   REVISION_ASC
   REVISION_DESC
   SYMBOL_ASC
@@ -2235,6 +2237,8 @@ input InfoStaffFilter {
   mstrStaffCapabilitiesByInfoStaffId: InfoStaffToManyMstrStaffCapabilityFilter
   mstrStaffCapabilitiesByInfoStaffIdExist: Boolean
   mstrSignsByInfoStaffIdExist: Boolean
+  vDocumentApprovalStampsByApprovedStaffIdExist: Boolean
+  vDocumentPublicationsByApprovedStaffIdExist: Boolean
   vStaffAssignCountByInfoStaffId: VStaffAssignCountFilter
   vStaffAssignCountByInfoStaffIdExists: Boolean
   vStaffEffectiveAccessPathsByInfoStaffIdExist: Boolean
@@ -2351,6 +2355,25 @@ input IntervalInput {
   years: Int
 }
 
+input JSONFilter {
+  isNull: Boolean
+  equalTo: JSON
+  notEqualTo: JSON
+  distinctFrom: JSON
+  notDistinctFrom: JSON
+  in: [JSON!]
+  notIn: [JSON!]
+  lessThan: JSON
+  lessThanOrEqualTo: JSON
+  greaterThan: JSON
+  greaterThanOrEqualTo: JSON
+  contains: JSON
+  containsKey: String
+  containsAllKeys: [String!]
+  containsAnyKeys: [String!]
+  containedBy: JSON
+}
+
 input MstrApprovalFilter {
   mstrApprovalId: UUIDFilter
   infoDepartmentId: UUIDFilter
@@ -2369,6 +2392,7 @@ input MstrApprovalFilter {
   transPreapprovalsByMstrApprovalIdExist: Boolean
   vApprovalApprovalPatternDetailCountByMstrApprovalIdExists: Boolean
   vApprovalPreapprovalCountByMstrApprovalIdExists: Boolean
+  vDocumentApprovalStampsByMstrApprovalIdExist: Boolean
   infoDepartmentByInfoDepartmentId: InfoDepartmentFilter
   infoDepartmentByInfoDepartmentIdExists: Boolean
   infoPositionByInfoPositionId: InfoPositionFilter
@@ -2430,6 +2454,7 @@ input MstrApprovalPatternDetailOnMstrApprovalPatternDetailForMstrApprovalPattern
 input MstrApprovalPatternFilter {
   mstrApprovalPatternId: UUIDFilter
   names: UUIDFilter
+  stampStyle: JSONFilter
   revision: IntFilter
   symbol: StringFilter
   remarks: StringFilter

@@ -289,6 +289,18 @@ DB(`tools/docker/postgresql/script`、スキーマ `tests`)の仕様。正は DD
 1.  更新者(`update_user_id`・`update_user_history_id`)は、ログイン中のユーザーの ID を保持している状態(認証のセッション。`pbapi` の `SessionService.current.appUserId` = アプリの DB の担当者の ID)から貰う。履歴の ID は、その担当者の最新の履歴を、`organization_model` の生成モデル(`StaffHistoryLatestPage`。`organization` 機能の `staffHistoryLookup` が包む)で引く。アプリの `currentUserHolderProvider`(`CurrentUserHolder`。言語コードは `localeProvider` から呼ぶたびに取り直す)を、`auditUserProvider` が取得元の `auditUser` の形にして渡す(`pms_graphql` の `AuditUserResolver` は、テストの道具(`data_test_harness`)だけが使う)。ミューテーションの Edit・Remove に更新者を含めるには、YAML の定義に `withUpdater: true` を付ける(生成器。既定では監査列を含めない)。DB のトリガーで埋める方式は採らない。 ログイン中のユーザーの状態は `packages/core/current_user`(`CurrentUserHolder`。認証側は `IUserIdentitySource`、データ側は履歴の ID を引く関数。アプリが `pbapi`・GraphQL をつなぐ。権限は保持しない)。
 1.  詳細(マスタごとの本体の列、取得元の取り込み手順、DB への依頼)は `tools/docker/postgresql/issue/20261115_0001.md`。
 
+## 文書の公開・承認スタンプ・アプリの設定
+
+文書(`mstr_document`)の公開の判定・承認の登録・承認スタンプ・PDF の設定の決定事項。経緯は `issue/20261121_0001.md`。DB の正は `06_cteate_test.sql`。
+
+1.  **公開の判定は DB のビュー `v_document_publication`(1 行 = 文書)で 1 か所だけ**: 承認の段(承認前 `trans_preapproval`)が 0 件(承認不要のパターン)、またはすべての段に承認適用(`trans_approved.approved = true`。最新の 1 件)があれば `published`。そうでなければ `pending`(承認待ち)。画面・PDF・アプリごとに判定しない。文書の承認パターン(`trans_approval_pattern_id`)は NOT NULL のまま。
+1.  **閲覧の範囲**: `readable`(公開済み、または承認の段(部署・役職)に当てはまる担当者、または管理者)。非公開でも該当者・管理者は読め、「承認待ち」を表示する。中身は閲覧用のビュー `v_document_content`(読めないとき `contents`・`trans_file_id` が NULL)から読む。基の表 `mstr_document_content` は直接読める(行の権限(RLS)は次の段階の判断)。管理者の判定は DB のロール名 `pms_admin` の固定。
+1.  **承認の登録は DB 関数 `document_approve`**(追記のみ・1 回の呼び出し = 1 トランザクション)。承認の段に当てはまる担当者だけ。errcode: `OPR01` 承認前が無い / `OPR02` 引数 / `OPR03` 承認できない・すでに承認済み。承認の順序(段の順位順)は強制しない。モデルは `document_approval_model`(`DocumentApprovePageCall`)。
+1.  **承認スタンプ**: 承認した日時・人を、画面と PDF の両方に、ルートの文書だけスタンプ形式で出す(「承認 / Approval」・「承認待ち / Pending」・「却下 / Rejected」。文字はビュー `v_document_approval_stamp` の `stamp_label_ja/en`)。段ごとに並べる(設定で最終承認のみに切り替え可)。子ページは隅に小さく「承認済み」。版が変わったら承認をやり直す(新しい `trans_approval_pattern`。記録は追記のみ)。
+1.  **設定**: 標準は `info_app.settings`(jsonb。列の既定値に標準値)。`{ "version": 1, "stamp": {位置・すかし・形・色・表示項目・書式}, "pdf": {用紙・テーマ(変数 `$名前`)・ヘッダ・フッタ(固定の文字 + `{変数}`)・custom} }`。承認パターンごとの上書きは `mstr_approval_pattern.stamp_style`(NULL は標準)。読み取りは一般ユーザー、書き込みは管理者の画面だけ(DB では制限していない)。接続先・ログイン入口・秘密情報は DB に置けない(接続前に要る。裏設定 `backstage`)。優先順位: 裏設定の既定 < DB < 端末のローカル設定(表示の好みだけ)。部品は `packages/foundation/approval_stamp`(純 Dart。[CLAUDE.md](packages/foundation/approval_stamp/CLAUDE.md))。
+1.  **PDF の出力**はクライアントで生成する(サーバーに置かない)。日本語フォントは OFL のものを同梱する。未実装(描画・設定の画面・PDF の出力)。
+1.  履歴の表を持つ表に列を足すときは、履歴のトリガー(`trg_02_history_<表>`)の 3 か所(比較・INSERT の列・VALUES)を直す。PERO のビュー(`viewType: sql`)の本文は `SELECT` から始める(`CREATE VIEW … AS` は PERO が付ける)。列のコメントはビューの `postQuery` に書く。
+
 ## バージョン管理
 
 依存・SDK バージョンはルート [pubspec.yaml](pubspec.yaml) の `melos > command > bootstrap` で集中管理する。上げるときはここだけ直して `melos bootstrap`(各パッケージの該当行は "Managed by Melos" コメント付きで上書きされる)。

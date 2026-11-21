@@ -1,0 +1,214 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 文書の承認・公開・スタンプ/PDF の設定のモデル。
+# 公開の判定・スタンプの文字は DB のビュー(v_document_publication・v_document_approval_stamp)で 1 か所だけ定義する。
+# 画面は、ビューの boolean(published・pending・readable・approved・rejected)で判定し、文字(stamp_label_ja/en)を組み立てない。
+# 承認の登録は DB 関数(document_approve。追記のみ)。エラーは errcode(OPR01 承認前が無い / OPR02 引数 / OPR03 承認できない・済み)。
+
+# 承認者・承認の段の表示用(呼称だけの軽い結合)
+DocumentApprovalStaffFields: &DocumentApprovalStaffFields
+  kind: read
+  from: info_staff
+  requiredWhere:
+    - languageCode
+  columns:
+    - info_staff_id
+    - code
+    - symbol
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+      <<: *AppellationLabelsReadFields
+
+DocumentApprovalStepFields: &DocumentApprovalStepFields
+  kind: read
+  from: mstr_approval
+  requiredWhere:
+    - languageCode
+  columns:
+    - mstr_approval_id
+    - priority
+    - symbol
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+      <<: *AppellationLabelsReadFields
+
+# 文書の公開の判定(v_document_publication。1 行 = 文書)
+DocumentPublicationPage:
+  kind: read
+  from: v_document_publication
+  filter: true
+  requiredWhere:
+    - languageCode
+  columns:
+    - mstr_document_id
+    - symbol
+    - code
+    - control_number
+    - version_code
+    - trans_approval_pattern_id
+    - total_count
+    - approved_count
+    - published
+    - pending
+    - rejected
+    - stamp_visible
+    - readable
+    - approver
+    - approved_at
+    - approved_staff_id
+    - name: approved_staff
+      as: approved_staff
+      arrayType: toFirstOne
+      using: approved_staff_id
+      <<: *DocumentApprovalStaffFields
+    - stamp_label_ja
+    - stamp_label_en
+
+# 承認の段ごとの状態(v_document_approval_stamp。1 行 = 承認の段)。スタンプの表示項目の元
+DocumentApprovalStampPage:
+  kind: read
+  from: v_document_approval_stamp
+  filter: true
+  requiredWhere:
+    - languageCode
+  columns:
+    - trans_preapproval_id
+    - mstr_document_id
+    - trans_approval_pattern_id
+    - mstr_approval_id
+    - name: approval
+      as: approval
+      arrayType: toFirstOne
+      using: mstr_approval_id
+      <<: *DocumentApprovalStepFields
+    - approval_priority
+    - period
+    - decided
+    - approved
+    - rejected
+    - pending
+    - approved_at
+    - approved_staff_id
+    - name: approved_staff
+      as: approved_staff
+      arrayType: toFirstOne
+      using: approved_staff_id
+      <<: *DocumentApprovalStaffFields
+    - approved_remarks
+    - stamp_label_ja
+    - stamp_label_en
+    - version_code
+    - control_number
+    - document_revision
+
+# 文書コンテンツの閲覧用(v_document_content)。読めない人(readable = false)には contents・trans_file_id が NULL で返る
+DocumentApprovalContentPage:
+  kind: read
+  from: v_document_content
+  filter: true
+  columns:
+    - mstr_document_content_id
+    - mstr_document_id
+    - code
+    - titles
+    - contents
+    - sequence
+    - image_content
+    - trans_file_id
+    - symbol
+    - revision
+    - update_at
+    - published
+    - pending
+    - readable
+
+# 承認(または却下)の登録(DB 関数 document_approve。追記のみ・1 回の呼び出し = 1 トランザクション)
+DocumentApprovePageCall:
+  kind: function
+  mutation: documentApprove
+  returns: transApproved
+  columns:
+    - trans_approved_id
+    - symbol
+    - trans_preapproval_id
+    - approved
+    - approved_staff_id
+    - approved_staff_history_id
+    - remarks
+    - update_at
+
+# ---- アプリの設定(info_app.settings。stamp・pdf の標準)。読み取りは一般ユーザー、書き込みは管理者の画面だけ ----
+# info_app は固定の 1 件(名前で引く)。設定は JSON(version と機能ごとのキー)。
+AppSettingsPage:
+  lightRead: true
+  kind: read
+  from: info_app
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - info_app_id
+    - name
+    - symbol
+    - revision
+    - settings
+    - update_at
+
+# 設定の更新(settings だけ。渡した列だけが変わる)。更新者は引数
+AppSettingsPageEdit:
+  kind: edit
+  from: info_app
+  requiredWhere:
+    - info_app_id
+  withUpdater: true
+  columns:
+    - info_app_id
+    - settings
+    - update_user_id
+    - update_user_history_id
+
+# 承認パターンごとのスタンプの様式(mstr_approval_pattern.stamp_style。NULL は info_app.settings の標準を使う)
+ApprovalPatternStylePage:
+  lightRead: true # 承認パターンの子のレコード数(v_*_count)は読まない(様式の読み書きだけ)
+  kind: read
+  from: mstr_approval_pattern
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - mstr_approval_pattern_id
+    - symbol
+    - stamp_style
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+      <<: *AppellationLabelsReadFields
+
+ApprovalPatternStylePageEdit:
+  kind: edit
+  from: mstr_approval_pattern
+  requiredWhere:
+    - mstr_approval_pattern_id
+  withUpdater: true
+  columns:
+    - mstr_approval_pattern_id
+    - stamp_style
+    - update_user_id
+    - update_user_history_id

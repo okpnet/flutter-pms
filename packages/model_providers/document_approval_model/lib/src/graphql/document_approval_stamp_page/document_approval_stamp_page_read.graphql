@@ -1,0 +1,87 @@
+# document_approval_stamp_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #DocumentApprovalStampPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query DocumentApprovalStampPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VDocumentApprovalStampFilter = {and: []}
+  $orderBy: [VDocumentApprovalStampsOrderBy!]
+  $languageCodeId: UUID!
+) {
+  allVDocumentApprovalStamps(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transPreapprovalId
+      mstrDocumentId
+      transApprovalPatternId
+      mstrApprovalId
+
+      approval: mstrApprovalByMstrApprovalId {
+        mstrApprovalId
+        priority
+        symbol
+
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+      }
+
+      approvalPriority
+      period
+      decided
+      approved
+      rejected
+      pending
+      approvedAt
+      approvedStaffId
+
+      approved_staff: infoStaffByApprovedStaffId {
+        infoStaffId
+        code
+        symbol
+
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+      }
+
+      approvedRemarks
+      stampLabelJa
+      stampLabelEn
+      versionCode
+      controlNumber
+      documentRevision
+    }
+  }
+}

@@ -1408,6 +1408,8 @@ input InfoStaffFilter {
   infoStaffAccessPermissionsByInfoStaffIdExist: Boolean
   mstrStaffCapabilitiesByInfoStaffIdExist: Boolean
   mstrSignsByInfoStaffIdExist: Boolean
+  vDocumentApprovalStampsByApprovedStaffIdExist: Boolean
+  vDocumentPublicationsByApprovedStaffIdExist: Boolean
   vStaffAssignCountByInfoStaffIdExists: Boolean
   vStaffEffectiveAccessPathsByInfoStaffIdExist: Boolean
   vStaffSignCountByInfoStaffIdExists: Boolean

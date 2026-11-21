@@ -800,6 +800,7 @@ input JSONFilter {
 input MstrApprovalPatternFilter {
   mstrApprovalPatternId: UUIDFilter
   names: UUIDFilter
+  stampStyle: JSONFilter
   revision: IntFilter
   symbol: StringFilter
   remarks: StringFilter
@@ -925,10 +926,13 @@ input MstrDocumentFilter {
   mstrDocumentTreesByMstrDocumentIdExist: Boolean
   mstrDocumentTreesByParentMstrDocumentIdExist: Boolean
   historyMstrDocumentsByMstrDocumentIdExist: Boolean
+  vDocumentApprovalStampsByMstrDocumentIdExist: Boolean
+  vDocumentContentsByMstrDocumentIdExist: Boolean
   vDocumentDescendantByAncestorMstrDocumentId: VDocumentDescendantFilter
   vDocumentDescendantByAncestorMstrDocumentIdExists: Boolean
   vDocumentDocumentContentCountByMstrDocumentId: VDocumentDocumentContentCountFilter
   vDocumentDocumentContentCountByMstrDocumentIdExists: Boolean
+  vDocumentPublicationByMstrDocumentIdExists: Boolean
   sharedAppellationByTitles: SharedAppellationFilter
   mstrDocumentTierByMstrDocumentTierId: MstrDocumentTierFilter
   transFileByTransFileId: TransFileFilter
@@ -1376,6 +1380,8 @@ input TransApprovalPatternFilter {
   transRecurrencePreventionsByApprovalsExist: Boolean
   vApprovalPatternDocumentCountByTransApprovalPatternIdExists: Boolean
   vApprovalPatternPreapprovalCountByTransApprovalPatternIdExists: Boolean
+  vDocumentApprovalStampsByTransApprovalPatternIdExist: Boolean
+  vDocumentPublicationsByTransApprovalPatternIdExist: Boolean
   mstrApprovalPatternByMstrApprovalPatternId: MstrApprovalPatternFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean

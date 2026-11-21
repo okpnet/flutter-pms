@@ -1,0 +1,34 @@
+# app_settings_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #AppSettingsPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query AppSettingsPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: InfoAppFilter = {and: []}
+  $orderBy: [InfoAppsOrderBy!]
+  $removed: Boolean = false
+) {
+  allInfoApps(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      infoAppId
+      name
+      symbol
+      revision
+      settings
+      updateAt
+      remove
+    }
+  }
+}

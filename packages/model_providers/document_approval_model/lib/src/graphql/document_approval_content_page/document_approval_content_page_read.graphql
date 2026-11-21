@@ -1,0 +1,40 @@
+# document_approval_content_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #DocumentApprovalContentPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query DocumentApprovalContentPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VDocumentContentFilter = {and: []}
+  $orderBy: [VDocumentContentsOrderBy!]
+) {
+  allVDocumentContents(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      mstrDocumentContentId
+      mstrDocumentId
+      code
+      titles
+      contents
+      sequence
+      imageContent
+      transFileId
+      symbol
+      revision
+      updateAt
+      published
+      pending
+      readable
+    }
+  }
+}

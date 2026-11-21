@@ -1,0 +1,13 @@
+name: approval_stamp
+description: "承認スタンプの様式・PDF のテーマ・ヘッダ/フッタの書式(変数の展開)・配置の計算(画面を持たない純 Dart)。"
+version: 0.0.1
+publish_to: none
+
+resolution: workspace
+
+environment:
+  sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+
+dev_dependencies:
+  lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
+  test: ^1.25.6 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml

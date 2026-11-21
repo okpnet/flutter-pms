@@ -465,6 +465,7 @@
     +   作業指示照会台帳[ScanWorkPlanPage]
     +   作業実績照会台帳[ScanWorkRecordPage]
     +   コンテナ照会台帳[ScanContainerPage]
+    +   コンテナの子の照会台帳[ScanContainerChildPage]
     +   棚ビジター照会台帳[ScanVisiterPage]
     +   発注明細照会台帳[ScanPurchaseDetailPage]
     +   受入照会台帳[ScanPurchaseRecPage]
@@ -623,6 +624,17 @@
         +   Unit 登録[UnitPageCreate]
         +   UnitAppellation 登録・更新(共通関数)[UnitAppellationSavePageCall]
         +   UnitText 登録・更新(共通関数)[UnitTextSavePageCall]
+    1.  document_approval_model/document_approval.yaml
+        +   DocumentPublication 台帳[DocumentPublicationPage]<!--公開の判定(v_document_publication)-->
+        +   DocumentApprovalStamp 台帳[DocumentApprovalStampPage]<!--承認の段ごとの状態(v_document_approval_stamp)-->
+        +   DocumentApprovalContent 台帳[DocumentApprovalContentPage]<!--閲覧用のコンテンツ(v_document_content)-->
+        +   DocumentApprove 登録[DocumentApprovePageCall]<!--承認・却下(DB 関数 document_approve)-->
+        +   AppSettings 台帳[AppSettingsPage]<!--アプリの設定(info_app.settings)-->
+        +   AppSettings 情報[AppSettingsPageEdit]<!--管理者の画面だけ-->
+        +   ApprovalPatternStyle 台帳[ApprovalPatternStylePage]<!--承認パターンごとのスタンプの様式-->
+        +   ApprovalPatternStyle 情報[ApprovalPatternStylePageEdit]<!--管理者の画面だけ-->
+        +   DocumentApprovalStaff 項目[DocumentApprovalStaffFields]<!--承認者の名前-->
+        +   DocumentApprovalStep 項目[DocumentApprovalStepFields]<!--承認の段の名称-->
     1.  work_record_model/owner.yaml
         +   VisiterOwner 台帳[VisiterOwnerPage]
         +   ExternalProperty 台帳[ExternalPropertyPage]

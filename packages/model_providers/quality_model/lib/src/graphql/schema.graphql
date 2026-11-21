@@ -2642,6 +2642,7 @@ input JSONFilter {
 input MstrApprovalPatternFilter {
   mstrApprovalPatternId: UUIDFilter
   names: UUIDFilter
+  stampStyle: JSONFilter
   revision: IntFilter
   symbol: StringFilter
   remarks: StringFilter
@@ -3265,6 +3266,8 @@ input TransApprovalPatternFilter {
   transRecurrencePreventionsByApprovalsExist: Boolean
   vApprovalPatternDocumentCountByTransApprovalPatternIdExists: Boolean
   vApprovalPatternPreapprovalCountByTransApprovalPatternIdExists: Boolean
+  vDocumentApprovalStampsByTransApprovalPatternIdExist: Boolean
+  vDocumentPublicationsByTransApprovalPatternIdExist: Boolean
   mstrApprovalPatternByMstrApprovalPatternId: MstrApprovalPatternFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean

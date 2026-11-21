@@ -1,0 +1,27 @@
+# app_settings_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #AppSettingsPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AppSettingsPageEdit(
+  $infoAppId: UUID!
+  $settings: JSON
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  updateInfoAppByInfoAppId(
+    input: {
+      infoAppId: $infoAppId
+      infoAppPatch: {
+        settings: $settings
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    infoApp {
+      infoAppId
+      settings
+    }
+  }
+}

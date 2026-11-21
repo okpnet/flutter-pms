@@ -12,6 +12,8 @@ scalar Cursor
 
 scalar Datetime
 
+scalar JSON
+
 scalar UUID
 
 enum InfoAccessPathsOrderBy {
@@ -50,6 +52,8 @@ enum InfoAppsOrderBy {
   INFO_COMPANY_ID_DESC
   NAME_ASC
   NAME_DESC
+  SETTINGS_ASC
+  SETTINGS_DESC
   REVISION_ASC
   REVISION_DESC
   SYMBOL_ASC
@@ -833,6 +837,7 @@ input InfoAppFilter {
   infoAppId: UUIDFilter
   infoCompanyId: UUIDFilter
   name: StringFilter
+  settings: JSONFilter
   revision: IntFilter
   symbol: StringFilter
   remarks: StringFilter
@@ -937,6 +942,25 @@ input IntFilter {
   lessThanOrEqualTo: Int
   greaterThan: Int
   greaterThanOrEqualTo: Int
+}
+
+input JSONFilter {
+  isNull: Boolean
+  equalTo: JSON
+  notEqualTo: JSON
+  distinctFrom: JSON
+  notDistinctFrom: JSON
+  in: [JSON!]
+  notIn: [JSON!]
+  lessThan: JSON
+  lessThanOrEqualTo: JSON
+  greaterThan: JSON
+  greaterThanOrEqualTo: JSON
+  contains: JSON
+  containsKey: String
+  containsAllKeys: [String!]
+  containsAnyKeys: [String!]
+  containedBy: JSON
 }
 
 input SharedAppellationFilter {

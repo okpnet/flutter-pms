@@ -1,0 +1,23 @@
+# app_settings_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #AppSettingsPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AppSettingsPageRemove(
+  $infoAppId: UUID!
+  $remove: Boolean!
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  updateInfoAppByInfoAppId(
+    input: {
+      infoAppId: $infoAppId
+      infoAppPatch: { remove: $remove, updateUserId: $updateUserId, updateUserHistoryId: $updateUserHistoryId }
+    }
+  ) {
+    infoApp {
+      infoAppId
+      remove
+    }
+  }
+}

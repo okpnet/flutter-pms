@@ -1,0 +1,23 @@
+# approval_pattern_style_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ApprovalPatternStylePageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ApprovalPatternStylePageRemove(
+  $mstrApprovalPatternId: UUID!
+  $remove: Boolean!
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  updateMstrApprovalPatternByMstrApprovalPatternId(
+    input: {
+      mstrApprovalPatternId: $mstrApprovalPatternId
+      mstrApprovalPatternPatch: { remove: $remove, updateUserId: $updateUserId, updateUserHistoryId: $updateUserHistoryId }
+    }
+  ) {
+    mstrApprovalPattern {
+      mstrApprovalPatternId
+      remove
+    }
+  }
+}

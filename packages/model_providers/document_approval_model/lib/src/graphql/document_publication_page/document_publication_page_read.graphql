@@ -1,0 +1,66 @@
+# document_publication_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #DocumentPublicationPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query DocumentPublicationPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VDocumentPublicationFilter = {and: []}
+  $orderBy: [VDocumentPublicationsOrderBy!]
+  $languageCodeId: UUID!
+) {
+  allVDocumentPublications(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      mstrDocumentId
+      symbol
+      code
+      controlNumber
+      versionCode
+      transApprovalPatternId
+      totalCount
+      approvedCount
+      published
+      pending
+      rejected
+      stampVisible
+      readable
+      approver
+      approvedAt
+      approvedStaffId
+
+      approved_staff: infoStaffByApprovedStaffId {
+        infoStaffId
+        code
+        symbol
+
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+      }
+
+      stampLabelJa
+      stampLabelEn
+    }
+  }
+}
