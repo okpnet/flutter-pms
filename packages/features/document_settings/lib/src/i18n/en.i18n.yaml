@@ -26,6 +26,12 @@ preview:
 json:
   hint: The settings JSON (info_app.settings). Edit it and press Apply to update the form and the preview.
   invalid: Not valid JSON.
+  schemaHint: Before applying or importing, the JSON is checked against the schema (schema/app_settings.schema.json). Nothing is applied if there are errors.
+  import: Import from JSON file
+  imported: '${name} was imported. Check the contents, then press Save (not saved yet).'
+  schemaErrors: 'There are ${count} schema error(s). Fix them and apply again.'
+  schemaMore: '${count} more'
+  unreadable: The file could not be read.
 stamp:
   position: Position
   anchor: Anchor

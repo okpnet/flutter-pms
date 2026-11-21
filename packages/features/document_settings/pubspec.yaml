@@ -25,6 +25,7 @@ dependencies:
   document_approval_model:
     path: ../../model_providers/document_approval_model
   graphql: ^5.2.3
+  file_picker: ^13.3.2
   gql: ^1.0.1
   pms_graphql:
     path: ../../infra/pms_graphql

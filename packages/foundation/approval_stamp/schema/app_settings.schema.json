@@ -1,0 +1,664 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://pms.local/schema/app_settings.schema.json",
+  "title": "アプリの設定(info_app.settings)",
+  "description": "承認スタンプ・PDF・承認パターンの設定。ルートは、知らないキーを許す。",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "設定の版"
+    },
+    "stamp": {
+      "type": "object",
+      "description": "承認スタンプの標準の様式",
+      "properties": {
+        "position": {
+          "type": "object",
+          "description": "位置",
+          "properties": {
+            "anchor": {
+              "type": "string",
+              "enum": [
+                "topLeft",
+                "topRight",
+                "bottomLeft",
+                "bottomRight",
+                "center"
+              ],
+              "description": "基準(ページの角・中央)"
+            },
+            "offsetXmm": {
+              "type": "number",
+              "description": "基準から内側への左右の距離(mm)"
+            },
+            "offsetYmm": {
+              "type": "number",
+              "description": "基準から内側への上下の距離(mm)"
+            },
+            "pages": {
+              "type": "string",
+              "enum": [
+                "first",
+                "all"
+              ],
+              "description": "first = 先頭のページ、all = 全ページ"
+            }
+          },
+          "additionalProperties": false
+        },
+        "opacity": {
+          "type": "number",
+          "description": "すかし(0 = 透明、1 = 不透明)",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "shape": {
+          "type": "object",
+          "description": "形",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "circle",
+                "roundRect",
+                "doubleFrame",
+                "dateStamp"
+              ],
+              "description": "形"
+            },
+            "widthMm": {
+              "type": "number",
+              "description": "幅(mm)",
+              "exclusiveMinimum": 0
+            },
+            "heightMm": {
+              "type": "number",
+              "description": "高さ(mm)",
+              "exclusiveMinimum": 0
+            },
+            "rotationDeg": {
+              "type": "number",
+              "description": "時計回りの回転(度)"
+            }
+          },
+          "additionalProperties": false
+        },
+        "color": {
+          "type": "object",
+          "description": "色",
+          "properties": {
+            "text": {
+              "type": "string",
+              "description": "文字の色",
+              "pattern": "^(#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?|\\$[A-Za-z0-9_]+)$"
+            },
+            "frame": {
+              "type": "string",
+              "description": "枠の色",
+              "pattern": "^(#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?|\\$[A-Za-z0-9_]+)$"
+            },
+            "fill": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "塗りの色。null は塗らない",
+              "pattern": "^(#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?|\\$[A-Za-z0-9_]+)$"
+            }
+          },
+          "additionalProperties": false
+        },
+        "labelLanguage": {
+          "type": "string",
+          "enum": [
+            "ja",
+            "en"
+          ],
+          "description": "スタンプの文字の言語"
+        },
+        "stages": {
+          "type": "string",
+          "enum": [
+            "all",
+            "last"
+          ],
+          "description": "all = 段ごとに並べる、last = 最後に承認した 1 つだけ"
+        },
+        "layer": {
+          "type": "string",
+          "enum": [
+            "background",
+            "foreground"
+          ],
+          "description": "background = 透かし(本文の後ろ)、foreground = 本文の前"
+        },
+        "items": {
+          "type": "array",
+          "description": "スタンプに出す項目(1 項目 = 1 つの値)",
+          "items": {
+            "type": "object",
+            "properties": {
+              "field": {
+                "type": "string",
+                "enum": [
+                  "stamp_label",
+                  "approved_at",
+                  "approved_staff",
+                  "approval_name",
+                  "version_code",
+                  "control_number",
+                  "document_revision",
+                  "approved_remarks"
+                ],
+                "description": "項目"
+              },
+              "format": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "書式(日時の書式・氏名の書式)"
+              },
+              "size": {
+                "type": "number",
+                "description": "文字の大きさ(pt)",
+                "exclusiveMinimum": 0
+              },
+              "line": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "行(同じ行の項目は並べる)"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "field"
+            ]
+          }
+        },
+        "pending": {
+          "type": "object",
+          "description": "承認待ちの見た目",
+          "properties": {
+            "dashed": {
+              "type": "boolean",
+              "description": "破線にするか"
+            },
+            "color": {
+              "type": "string",
+              "description": "承認待ちの色",
+              "pattern": "^(#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?|\\$[A-Za-z0-9_]+)$"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "approval": {
+      "type": "object",
+      "description": "承認の設定",
+      "properties": {
+        "patterns": {
+          "type": "object",
+          "description": "種類ごとの承認パターン",
+          "properties": {
+            "document": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "document の承認パターンの ID(null は承認不要)",
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+            },
+            "order": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "order の承認パターンの ID(null は承認不要)",
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+            },
+            "purchase": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "purchase の承認パターンの ID(null は承認不要)",
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+            },
+            "unrecognized": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "unrecognized の承認パターンの ID(null は承認不要)",
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+            },
+            "shipping_order": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "shipping_order の承認パターンの ID(null は承認不要)",
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+            },
+            "complaint": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "complaint の承認パターンの ID(null は承認不要)",
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+            },
+            "disposal": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "disposal の承認パターンの ID(null は承認不要)",
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+            },
+            "recurrence_prevention": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "recurrence_prevention の承認パターンの ID(null は承認不要)",
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "pdf": {
+      "type": "object",
+      "description": "PDF の出力",
+      "properties": {
+        "page": {
+          "type": "object",
+          "description": "用紙",
+          "properties": {
+            "size": {
+              "type": "string",
+              "enum": [
+                "A3",
+                "A4",
+                "A5",
+                "B4",
+                "B5",
+                "LETTER",
+                "a3",
+                "a4",
+                "a5",
+                "b4",
+                "b5",
+                "letter"
+              ],
+              "description": "用紙"
+            },
+            "orientation": {
+              "type": "string",
+              "enum": [
+                "portrait",
+                "landscape"
+              ],
+              "description": "向き"
+            },
+            "marginMm": {
+              "type": "object",
+              "properties": {
+                "top": {
+                  "type": "number",
+                  "description": "上の余白(mm)",
+                  "minimum": 0
+                },
+                "right": {
+                  "type": "number",
+                  "description": "右の余白(mm)",
+                  "minimum": 0
+                },
+                "bottom": {
+                  "type": "number",
+                  "description": "下の余白(mm)",
+                  "minimum": 0
+                },
+                "left": {
+                  "type": "number",
+                  "description": "左の余白(mm)",
+                  "minimum": 0
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "theme": {
+          "type": "object",
+          "description": "テーマ",
+          "properties": {
+            "vars": {
+              "type": "object",
+              "description": "色の変数(名前 → 色)",
+              "additionalProperties": {
+                "type": "string",
+                "description": "色",
+                "pattern": "^(#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?|\\$[A-Za-z0-9_]+)$"
+              }
+            },
+            "font": {
+              "type": "object",
+              "description": "フォント",
+              "properties": {
+                "family": {
+                  "type": "string"
+                },
+                "monoFamily": {
+                  "type": "string"
+                },
+                "baseSize": {
+                  "type": "number",
+                  "description": "本文の文字の大きさ(pt)",
+                  "exclusiveMinimum": 0
+                },
+                "lineHeight": {
+                  "type": "number",
+                  "description": "行の高さ(倍)",
+                  "exclusiveMinimum": 0
+                }
+              },
+              "additionalProperties": false
+            },
+            "colors": {
+              "type": "object",
+              "description": "色(用途 → 色または変数)",
+              "additionalProperties": {
+                "type": "string",
+                "description": "色",
+                "pattern": "^(#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?|\\$[A-Za-z0-9_]+)$"
+              }
+            },
+            "headings": {
+              "type": "object",
+              "properties": {
+                "h1": {
+                  "type": "object",
+                  "description": "見出し H1",
+                  "properties": {
+                    "size": {
+                      "type": "number",
+                      "description": "H1 の文字の大きさ(pt)",
+                      "exclusiveMinimum": 0
+                    },
+                    "bold": {
+                      "type": "boolean"
+                    },
+                    "color": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "description": "見出しの色。null は theme.colors.heading",
+                      "pattern": "^(#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?|\\$[A-Za-z0-9_]+)$"
+                    },
+                    "spaceBeforeMm": {
+                      "type": "number",
+                      "description": "見出しの前の余白(mm)",
+                      "minimum": 0
+                    },
+                    "spaceAfterMm": {
+                      "type": "number",
+                      "description": "見出しの後ろの余白(mm)",
+                      "minimum": 0
+                    },
+                    "pageBreakBefore": {
+                      "type": "boolean",
+                      "description": "見出しの前で改ページするか"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "h2": {
+                  "type": "object",
+                  "description": "見出し H2",
+                  "properties": {
+                    "size": {
+                      "type": "number",
+                      "description": "H2 の文字の大きさ(pt)",
+                      "exclusiveMinimum": 0
+                    },
+                    "bold": {
+                      "type": "boolean"
+                    },
+                    "color": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "description": "見出しの色。null は theme.colors.heading",
+                      "pattern": "^(#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?|\\$[A-Za-z0-9_]+)$"
+                    },
+                    "spaceBeforeMm": {
+                      "type": "number",
+                      "description": "見出しの前の余白(mm)",
+                      "minimum": 0
+                    },
+                    "spaceAfterMm": {
+                      "type": "number",
+                      "description": "見出しの後ろの余白(mm)",
+                      "minimum": 0
+                    },
+                    "pageBreakBefore": {
+                      "type": "boolean",
+                      "description": "見出しの前で改ページするか"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "h3": {
+                  "type": "object",
+                  "description": "見出し H3",
+                  "properties": {
+                    "size": {
+                      "type": "number",
+                      "description": "H3 の文字の大きさ(pt)",
+                      "exclusiveMinimum": 0
+                    },
+                    "bold": {
+                      "type": "boolean"
+                    },
+                    "color": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "description": "見出しの色。null は theme.colors.heading",
+                      "pattern": "^(#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?|\\$[A-Za-z0-9_]+)$"
+                    },
+                    "spaceBeforeMm": {
+                      "type": "number",
+                      "description": "見出しの前の余白(mm)",
+                      "minimum": 0
+                    },
+                    "spaceAfterMm": {
+                      "type": "number",
+                      "description": "見出しの後ろの余白(mm)",
+                      "minimum": 0
+                    },
+                    "pageBreakBefore": {
+                      "type": "boolean",
+                      "description": "見出しの前で改ページするか"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false
+            },
+            "paragraph": {
+              "type": "object",
+              "properties": {
+                "spaceAfterMm": {
+                  "type": "number",
+                  "description": "段落の後ろの余白(mm)",
+                  "minimum": 0
+                }
+              },
+              "additionalProperties": false
+            },
+            "code": {
+              "type": "object",
+              "properties": {
+                "size": {
+                  "type": "number",
+                  "description": "コードの文字の大きさ(pt)",
+                  "exclusiveMinimum": 0
+                }
+              },
+              "additionalProperties": false
+            },
+            "table": {
+              "type": "object",
+              "properties": {
+                "borderWidth": {
+                  "type": "number",
+                  "description": "罫線の太さ",
+                  "minimum": 0
+                },
+                "cellPaddingMm": {
+                  "type": "number",
+                  "description": "セルの余白(mm)",
+                  "minimum": 0
+                },
+                "headerBold": {
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "header": {
+          "type": "object",
+          "description": "ヘッダ",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "ヘッダ を出すか"
+            },
+            "heightMm": {
+              "type": "number",
+              "description": "ヘッダ の高さ(mm)",
+              "minimum": 0
+            },
+            "size": {
+              "type": "number",
+              "description": "文字の大きさ(pt)",
+              "exclusiveMinimum": 0
+            },
+            "color": {
+              "type": "string",
+              "description": "文字の色",
+              "pattern": "^(#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?|\\$[A-Za-z0-9_]+)$"
+            },
+            "border": {
+              "type": "boolean",
+              "description": "本文との境の線を出すか"
+            },
+            "firstPage": {
+              "type": "string",
+              "enum": [
+                "same",
+                "none"
+              ],
+              "description": "1 ページ目: same = 出す、none = 出さない"
+            },
+            "left": {
+              "type": "string",
+              "description": "左の書式(固定の文字 + {変数})"
+            },
+            "center": {
+              "type": "string",
+              "description": "中央の書式"
+            },
+            "right": {
+              "type": "string",
+              "description": "右の書式"
+            }
+          },
+          "additionalProperties": false
+        },
+        "footer": {
+          "type": "object",
+          "description": "フッタ",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "フッタ を出すか"
+            },
+            "heightMm": {
+              "type": "number",
+              "description": "フッタ の高さ(mm)",
+              "minimum": 0
+            },
+            "size": {
+              "type": "number",
+              "description": "文字の大きさ(pt)",
+              "exclusiveMinimum": 0
+            },
+            "color": {
+              "type": "string",
+              "description": "文字の色",
+              "pattern": "^(#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?|\\$[A-Za-z0-9_]+)$"
+            },
+            "border": {
+              "type": "boolean",
+              "description": "本文との境の線を出すか"
+            },
+            "firstPage": {
+              "type": "string",
+              "enum": [
+                "same",
+                "none"
+              ],
+              "description": "1 ページ目: same = 出す、none = 出さない"
+            },
+            "left": {
+              "type": "string",
+              "description": "左の書式(固定の文字 + {変数})"
+            },
+            "center": {
+              "type": "string",
+              "description": "中央の書式"
+            },
+            "right": {
+              "type": "string",
+              "description": "右の書式"
+            }
+          },
+          "additionalProperties": false
+        },
+        "custom": {
+          "type": "object",
+          "description": "利用者の変数({var.名前})",
+          "additionalProperties": {
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true
+}

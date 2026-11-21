@@ -8,6 +8,9 @@ resolution: workspace
 environment:
   sdk: ^3.12.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
 
+dependencies:
+  json_schema: ^5.2.0
+
 dev_dependencies:
   lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   test: ^1.25.6 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml

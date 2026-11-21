@@ -27,6 +27,12 @@ preview:
 json:
   hint: 設定の JSON(info_app.settings)です。直して「反映」を押すと、フォームとプレビューに反映されます。
   invalid: JSON として読めません。
+  schemaHint: 反映・取り込みの前に、スキーマ(schema/app_settings.schema.json)で形を検査します。誤りがあるときは取り込みません。
+  import: JSON ファイルから取り込む
+  imported: '${name} を取り込みました。内容を確かめて「保存」を押してください(まだ保存していません)。'
+  schemaErrors: 'スキーマの誤りが ${count} 件あります。直してからもう一度反映してください。'
+  schemaMore: 'ほか ${count} 件'
+  unreadable: ファイルを読めませんでした。
 stamp:
   position: 位置
   anchor: 基準

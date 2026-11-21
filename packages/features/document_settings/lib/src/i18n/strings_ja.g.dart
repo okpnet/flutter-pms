@@ -151,6 +151,24 @@ class DocumentSettingsStrings$json$ja {
 
 	/// ja: 'JSON として読めません。'
 	String get invalid => 'JSON として読めません。';
+
+	/// ja: '反映・取り込みの前に、スキーマ(schema/app_settings.schema.json)で形を検査します。誤りがあるときは取り込みません。'
+	String get schemaHint => '反映・取り込みの前に、スキーマ(schema/app_settings.schema.json)で形を検査します。誤りがあるときは取り込みません。';
+
+	/// ja: 'JSON ファイルから取り込む'
+	String get import => 'JSON ファイルから取り込む';
+
+	/// ja: '${name} を取り込みました。内容を確かめて「保存」を押してください(まだ保存していません)。'
+	String imported({required Object name}) => '${name} を取り込みました。内容を確かめて「保存」を押してください(まだ保存していません)。';
+
+	/// ja: 'スキーマの誤りが ${count} 件あります。直してからもう一度反映してください。'
+	String schemaErrors({required Object count}) => 'スキーマの誤りが ${count} 件あります。直してからもう一度反映してください。';
+
+	/// ja: 'ほか ${count} 件'
+	String schemaMore({required Object count}) => 'ほか ${count} 件';
+
+	/// ja: 'ファイルを読めませんでした。'
+	String get unreadable => 'ファイルを読めませんでした。';
 }
 
 // Path: stamp
@@ -558,6 +576,12 @@ extension on DocumentSettingsStrings {
 			'preview.pageSecond' => '2 ページ目',
 			'json.hint' => '設定の JSON(info_app.settings)です。直して「反映」を押すと、フォームとプレビューに反映されます。',
 			'json.invalid' => 'JSON として読めません。',
+			'json.schemaHint' => '反映・取り込みの前に、スキーマ(schema/app_settings.schema.json)で形を検査します。誤りがあるときは取り込みません。',
+			'json.import' => 'JSON ファイルから取り込む',
+			'json.imported' => ({required Object name}) => '${name} を取り込みました。内容を確かめて「保存」を押してください(まだ保存していません)。',
+			'json.schemaErrors' => ({required Object count}) => 'スキーマの誤りが ${count} 件あります。直してからもう一度反映してください。',
+			'json.schemaMore' => ({required Object count}) => 'ほか ${count} 件',
+			'json.unreadable' => 'ファイルを読めませんでした。',
 			'stamp.position' => '位置',
 			'stamp.anchor' => '基準',
 			'stamp.offsetX' => '左右の距離(mm)',

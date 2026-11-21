@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../data/settings_draft.dart';
+import '../data/settings_file_picker.dart';
 import '../i18n/strings_provider.dart';
 import 'form_fields.dart';
 
@@ -77,7 +78,7 @@ class _DocumentSettingsPageState extends ConsumerState<DocumentSettingsPage> {
                 children: [
                   _scroll(_StampForm(draft: draft, set: notifier.set, s: s)),
                   _scroll(_PdfForm(draft: draft, set: notifier.set, s: s, onFocus: _onFocus, onInsert: _insertVariable, customNames: settings.pdf.custom.keys.toList())),
-                  _scroll(_JsonForm(draft: draft, s: s, onApply: notifier.replaceAll)),
+                  _scroll(_JsonForm(draft: draft, s: s, onApply: notifier.applyJson)),
                 ],
               ),
             ),
@@ -593,20 +594,27 @@ class _PdfFormState extends State<_PdfForm> {
 // JSON
 // ---------------------------------------------------------------------------------------------
 
-class _JsonForm extends StatefulWidget {
+class _JsonForm extends ConsumerStatefulWidget {
   const _JsonForm({required this.draft, required this.s, required this.onApply});
 
   final SettingsDraft draft;
   final DocumentSettingsStrings s;
-  final void Function(Object? json) onApply;
+
+  /// スキーマで検査して、誤りが無ければ取り込む。誤りを返す(空なら取り込んだ)。
+  final List<SettingsSchemaIssue> Function(Object? json) onApply;
 
   @override
-  State<_JsonForm> createState() => _JsonFormState();
+  ConsumerState<_JsonForm> createState() => _JsonFormState();
 }
 
-class _JsonFormState extends State<_JsonForm> {
+class _JsonFormState extends ConsumerState<_JsonForm> {
+  /// スキーマの誤りの一覧に出す件数の上限(残りは「ほか N 件」)。
+  static const _maxIssues = 30;
+
   late final TextEditingController _c = TextEditingController(text: _pretty());
   String? _error;
+  List<SettingsSchemaIssue> _issues = const [];
+  String? _imported;
   int _gen = 0;
 
   String _pretty() => const JsonEncoder.withIndent('  ').convert(widget.draft.json);
@@ -629,42 +637,131 @@ class _JsonFormState extends State<_JsonForm> {
     super.dispose();
   }
 
+  /// 読み込んだ JSON を、スキーマで検査して取り込む。取り込めたとき true。
+  bool _applyValue(Object? v) {
+    if (v is! Map) {
+      setState(() {
+        _error = widget.s.json.invalid;
+        _issues = const [];
+        _imported = null;
+      });
+      return false;
+    }
+    final issues = widget.onApply(v);
+    setState(() {
+      _error = null;
+      _issues = issues;
+      _imported = null;
+    });
+    if (issues.isEmpty) _c.text = _pretty();
+    return issues.isEmpty;
+  }
+
   void _apply() {
     try {
-      final v = jsonDecode(_c.text);
-      if (v is! Map) throw const FormatException('not an object');
-      setState(() => _error = null);
-      widget.onApply(v);
-      _c.text = _pretty();
+      _applyValue(jsonDecode(_c.text));
     } on FormatException {
-      setState(() => _error = widget.s.json.invalid);
+      setState(() {
+        _error = widget.s.json.invalid;
+        _issues = const [];
+      });
     }
   }
 
+  /// JSON ファイルを選んで、スキーマで検査して取り込む(取り込んだ設定は未保存)。
+  Future<void> _import() async {
+    final picked = await ref.read(documentSettingsFilePickerProvider).pick();
+    if (picked == null || !mounted) return;
+    Object? value;
+    try {
+      var bytes = picked.bytes;
+      if (bytes.length >= 3 && bytes[0] == 0xEF && bytes[1] == 0xBB && bytes[2] == 0xBF) bytes = bytes.sublist(3); // BOM
+      value = jsonDecode(utf8.decode(bytes));
+    } on FormatException {
+      setState(() {
+        _error = widget.s.json.invalid;
+        _issues = const [];
+        _imported = null;
+      });
+      return;
+    }
+    if (_applyValue(value)) setState(() => _imported = picked.name);
+  }
+
   @override
-  Widget build(BuildContext context) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(widget.s.json.hint, style: Theme.of(context).textTheme.bodySmall),
+  Widget build(BuildContext context) {
+    final s = widget.s;
+    final scheme = Theme.of(context).colorScheme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(s.json.hint, style: Theme.of(context).textTheme.bodySmall),
+        const SizedBox(height: 4),
+        Text(s.json.schemaHint, style: Theme.of(context).textTheme.bodySmall),
+        const SizedBox(height: 8),
+        Focus(
+          onFocusChange: (f) => _focused = f,
+          child: TextField(
+            key: Key('ds-json-$_gen'),
+            controller: _c,
+            minLines: 18,
+            maxLines: null,
+            style: const TextStyle(fontFamily: 'monospace', fontSize: 12.5),
+            decoration: InputDecoration(border: const OutlineInputBorder(), errorText: _error),
+          ),
+        ),
+        if (_issues.isNotEmpty) ...[
           const SizedBox(height: 8),
-          Focus(
-            onFocusChange: (f) => _focused = f,
-            child: TextField(
-              key: Key('ds-json-$_gen'),
-              controller: _c,
-              minLines: 18,
-              maxLines: null,
-              style: const TextStyle(fontFamily: 'monospace', fontSize: 12.5),
-              decoration: InputDecoration(border: const OutlineInputBorder(), errorText: _error),
+          Container(
+            key: const Key('ds-json-issues'),
+            width: double.infinity,
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: scheme.errorContainer,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  s.json.schemaErrors(count: _issues.length),
+                  style: TextStyle(fontWeight: FontWeight.w700, color: scheme.onErrorContainer),
+                ),
+                const SizedBox(height: 4),
+                for (final i in _issues.take(_maxIssues))
+                  Text(i.toString(), style: TextStyle(fontSize: 12.5, color: scheme.onErrorContainer)),
+                if (_issues.length > _maxIssues)
+                  Text(
+                    s.json.schemaMore(count: _issues.length - _maxIssues),
+                    style: TextStyle(fontSize: 12.5, color: scheme.onErrorContainer),
+                  ),
+              ],
             ),
           ),
-          const SizedBox(height: 8),
-          Align(
-            alignment: Alignment.centerRight,
-            child: FilledButton(key: const Key('ds-json-apply'), onPressed: _apply, child: Text(widget.s.actions.apply)),
-          ),
         ],
-      );
+        if (_imported != null) ...[
+          const SizedBox(height: 8),
+          Text(key: const Key('ds-json-imported'), s.json.imported(name: _imported!), style: TextStyle(color: scheme.primary)),
+        ],
+        const SizedBox(height: 8),
+        Align(
+          alignment: Alignment.centerRight,
+          child: Wrap(
+            spacing: 8,
+            children: [
+              OutlinedButton.icon(
+                key: const Key('ds-json-import'),
+                onPressed: _import,
+                icon: const Icon(Icons.file_open_outlined),
+                label: Text(s.json.import),
+              ),
+              FilledButton(key: const Key('ds-json-apply'), onPressed: _apply, child: Text(s.actions.apply)),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
 }
 
 // ---------------------------------------------------------------------------------------------

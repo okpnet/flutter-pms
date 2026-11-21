@@ -104,6 +104,12 @@ class _DocumentSettingsStrings$json$en extends DocumentSettingsStrings$json$ja {
 	// Translations
 	@override String get hint => 'The settings JSON (info_app.settings). Edit it and press Apply to update the form and the preview.';
 	@override String get invalid => 'Not valid JSON.';
+	@override String get schemaHint => 'Before applying or importing, the JSON is checked against the schema (schema/app_settings.schema.json). Nothing is applied if there are errors.';
+	@override String get import => 'Import from JSON file';
+	@override String imported({required Object name}) => '${name} was imported. Check the contents, then press Save (not saved yet).';
+	@override String schemaErrors({required Object count}) => 'There are ${count} schema error(s). Fix them and apply again.';
+	@override String schemaMore({required Object count}) => '${count} more';
+	@override String get unreadable => 'The file could not be read.';
 }
 
 // Path: stamp
@@ -314,6 +320,12 @@ extension on DocumentSettingsStringsEn {
 			'preview.pageSecond' => 'Page 2',
 			'json.hint' => 'The settings JSON (info_app.settings). Edit it and press Apply to update the form and the preview.',
 			'json.invalid' => 'Not valid JSON.',
+			'json.schemaHint' => 'Before applying or importing, the JSON is checked against the schema (schema/app_settings.schema.json). Nothing is applied if there are errors.',
+			'json.import' => 'Import from JSON file',
+			'json.imported' => ({required Object name}) => '${name} was imported. Check the contents, then press Save (not saved yet).',
+			'json.schemaErrors' => ({required Object count}) => 'There are ${count} schema error(s). Fix them and apply again.',
+			'json.schemaMore' => ({required Object count}) => '${count} more',
+			'json.unreadable' => 'The file could not be read.',
 			'stamp.position' => 'Position',
 			'stamp.anchor' => 'Anchor',
 			'stamp.offsetX' => 'Horizontal offset (mm)',

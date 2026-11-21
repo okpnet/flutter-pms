@@ -147,7 +147,15 @@ class SettingsDraftNotifier extends Notifier<SettingsDraft> {
   /// リストの項目を丸ごと置き換える(表示項目の追加・削除)。
   void setList(List<String> path, List<Object?> value) => set(path, value);
 
-  /// JSON 全体を置き換える(「JSON」タブの反映)。読めない項目は標準になる。
+  /// JSON を、スキーマ(`validateAppSettings`)で検査して、誤りが無ければ取り込む(「JSON」タブの反映・ファイルの取り込み)。
+  /// 誤りがあれば取り込まず、誤り(場所つき)を返す。取り込んだ設定は未保存(保存は別)。
+  List<SettingsSchemaIssue> applyJson(Object? raw) {
+    final issues = validateAppSettings(raw);
+    if (issues.isEmpty) replaceAll(raw);
+    return issues;
+  }
+
+  /// JSON 全体を置き換える(スキーマの検査をしない。標準・内部用)。読めない項目は標準になる。
   void replaceAll(Object? raw) {
     state = state.copyWith(json: _normalized(raw), notice: null, generation: state.generation + 1);
   }
