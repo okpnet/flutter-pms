@@ -151,6 +151,8 @@ class _ManualEditorState extends ConsumerState<ManualEditor> {
               ManualError.notFound => s.errors.notFound,
               ManualError.notAdmin => s.errors.notAdmin,
               ManualError.controlNumberRequired => s.errors.controlNumberRequired,
+              ManualError.rootTierMissing => s.errors.rootTierMissing,
+              ManualError.approvalPatternMissing => s.errors.approvalPatternMissing,
               null => null,
             },
           ),

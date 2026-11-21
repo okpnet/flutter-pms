@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:graphql/client.dart' show OperationException;
 import 'package:manual_model/manual_model.dart';
 import 'package:markdown_ast/markdown_ast.dart';
 
@@ -230,7 +231,7 @@ class GraphqlManualRepository implements IManualRepository {
         best = '${t['mstrDocumentTierId']}';
       }
     }
-    if (best == null) throw StateError('文書階層(mstr_document_tier)がありません');
+    if (best == null) throw const ManualException(ManualError.rootTierMissing);
     return best;
   }
 
@@ -261,13 +262,23 @@ class GraphqlManualRepository implements IManualRepository {
     if (parent == null) {
       final number = controlNumber?.trim() ?? '';
       if (number.isEmpty) throw const ManualException(ManualError.controlNumberRequired);
-      final doc = await api.run(documentNodeMutationManualDocumentPageCreate, {
-        'code': _newCode('man'),
-        'titles': titles,
-        'controlNumber': number,
-        'mstrDocumentTierId': await _rootTierId(),
-        ...updater,
-      }, mutation: true);
+      final tierId = await _rootTierId();
+      final Map<String, dynamic> doc;
+      try {
+        doc = await api.run(documentNodeMutationManualDocumentPageCreate, {
+          'code': _newCode('man'),
+          'titles': titles,
+          'controlNumber': number,
+          'mstrDocumentTierId': tierId,
+          ...updater,
+        }, mutation: true);
+      } on OperationException catch (e) {
+        // 承認パターンが設定されていないと、登録が申請のトリガーが承認パターンを入れられず、NOT NULL で止まる
+        if (e.toString().contains('trans_approval_pattern_id')) {
+          throw const ManualException(ManualError.approvalPatternMissing);
+        }
+        rethrow;
+      }
       final id = '${((doc['createMstrDocument'] as Map)['mstrDocument'] as Map)['mstrDocumentId']}';
       await api.run(documentNodeMutationManualDocumentTreePageCreate, {'mstrDocumentId': id, ...updater}, mutation: true);
       return _reloaded(id);

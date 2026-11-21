@@ -14,6 +14,8 @@ String manualErrorText(ManualStrings s, ManualError e) => switch (e) {
   ManualError.notFound => s.errors.notFound,
   ManualError.notAdmin => s.errors.notAdmin,
   ManualError.controlNumberRequired => s.errors.controlNumberRequired,
+  ManualError.rootTierMissing => s.errors.rootTierMissing,
+  ManualError.approvalPatternMissing => s.errors.approvalPatternMissing,
 };
 
 /// 新しいページ名を入れて作成する。作成したページを返す(取り消しは null)。

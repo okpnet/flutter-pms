@@ -16,6 +16,12 @@ enum ManualError {
 
   /// ルートの文書の管理番号が空(管理番号は利用者が決める)。
   controlNumberRequired,
+
+  /// ルートの文書の階層(文書階層)が登録されていない(文書を作れない)。
+  rootTierMissing,
+
+  /// 文書の承認パターンが設定されていない(`info_app.settings` の `approval.patterns.document`。承認不要でも、段が 0 件のパターンを設定する)。
+  approvalPatternMissing,
 }
 
 class ManualException implements Exception {

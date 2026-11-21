@@ -222,6 +222,8 @@ class _ManualStrings$errors$en extends ManualStrings$errors$ja {
 	@override String get notFound => 'Page not found.';
 	@override String get notAdmin => 'Only administrators can edit.';
 	@override String get controlNumberRequired => 'Enter a control number.';
+	@override String get rootTierMissing => 'No document tier is registered. Register a document tier in the quality documents first.';
+	@override String get approvalPatternMissing => 'The approval pattern for documents is not set. Set it in the app settings (approval patterns).';
 }
 
 // Path: edit.toolbar
@@ -356,6 +358,8 @@ extension on ManualStringsEn {
 			'errors.notFound' => 'Page not found.',
 			'errors.notAdmin' => 'Only administrators can edit.',
 			'errors.controlNumberRequired' => 'Enter a control number.',
+			'errors.rootTierMissing' => 'No document tier is registered. Register a document tier in the quality documents first.',
+			'errors.approvalPatternMissing' => 'The approval pattern for documents is not set. Set it in the app settings (approval patterns).',
 			_ => null,
 		};
 	}
