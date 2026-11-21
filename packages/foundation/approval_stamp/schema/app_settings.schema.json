@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://pms.local/schema/app_settings.schema.json",
   "title": "アプリの設定(info_app.settings)",
-  "description": "承認スタンプ・PDF・承認パターンの設定。ルートは、知らないキーを許す。",
+  "description": "承認スタンプ・PDF の設定。ルートは、知らないキーを許す。",
   "type": "object",
   "properties": {
     "version": {
@@ -190,84 +190,6 @@
               "type": "string",
               "description": "承認待ちの色",
               "pattern": "^(#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?|\\$[A-Za-z0-9_]+)$"
-            }
-          },
-          "additionalProperties": false
-        }
-      },
-      "additionalProperties": false
-    },
-    "approval": {
-      "type": "object",
-      "description": "承認の設定",
-      "properties": {
-        "patterns": {
-          "type": "object",
-          "description": "種類ごとの承認パターン",
-          "properties": {
-            "document": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "description": "document の承認パターンの ID(null は承認不要)",
-              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-            },
-            "order": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "description": "order の承認パターンの ID(null は承認不要)",
-              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-            },
-            "purchase": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "description": "purchase の承認パターンの ID(null は承認不要)",
-              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-            },
-            "unrecognized": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "description": "unrecognized の承認パターンの ID(null は承認不要)",
-              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-            },
-            "shipping_order": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "description": "shipping_order の承認パターンの ID(null は承認不要)",
-              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-            },
-            "complaint": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "description": "complaint の承認パターンの ID(null は承認不要)",
-              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-            },
-            "disposal": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "description": "disposal の承認パターンの ID(null は承認不要)",
-              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-            },
-            "recurrence_prevention": {
-              "type": [
-                "string",
-                "null"
-              ],
-              "description": "recurrence_prevention の承認パターンの ID(null は承認不要)",
-              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
             }
           },
           "additionalProperties": false

@@ -114,4 +114,4 @@ errors:
   notAdmin: Only administrators can edit.
   controlNumberRequired: Enter a control number.
   rootTierMissing: No document tier is registered. Register a document tier in the quality documents first.
-  approvalPatternMissing: The approval pattern for documents is not set. Set it in the app settings (approval patterns).
+  approvalPatternMissing: The approval pattern for documents is not set. Set the standard approval pattern for documents under Company > Approval (when no approval is needed, choose a pattern without approval steps).

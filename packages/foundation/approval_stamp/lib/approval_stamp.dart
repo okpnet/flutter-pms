@@ -7,7 +7,6 @@ library;
 export 'src/pdf/pdf_bands.dart';
 export 'src/settings/app_settings.dart';
 export 'src/settings/app_settings_schema.dart';
-export 'src/settings/approval_settings.dart';
 export 'src/stamp/stamp_content.dart';
 export 'src/stamp/stamp_layout.dart';
 export 'src/style/color_spec.dart';

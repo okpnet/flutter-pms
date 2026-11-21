@@ -46,8 +46,6 @@ Future<void> _tap(WidgetTester tester, String key) async {
   await tester.pumpAndSettle();
 }
 
-const _pattern = 'b467dcd7-42c1-47bd-9a85-a4121cb2519b';
-
 void main() {
   testWidgets('JSON ファイルの取り込み: スキーマに通れば、フォームに入り未保存になる(保存は別)', (tester) async {
     final g = InMemoryAppSettingsGateway();
@@ -57,8 +55,8 @@ void main() {
         'stamp': {
           'position': {'anchor': 'bottomLeft'},
         },
-        'approval': {
-          'patterns': {'document': _pattern},
+        'pdf': {
+          'page': {'size': 'A3'},
         },
       }),
     );
@@ -74,7 +72,7 @@ void main() {
     expect(g.saveCount, 1);
     final saved = g.value! as Map;
     expect(((saved['stamp'] as Map)['position'] as Map)['anchor'], 'bottomLeft');
-    expect(((saved['approval'] as Map)['patterns'] as Map)['document'], _pattern);
+    expect(((saved['pdf'] as Map)['page'] as Map)['size'], 'A3');
   });
 
   testWidgets('取り込み: スキーマの誤りは、場所つきで一覧に出して、何も取り込まない', (tester) async {
@@ -87,8 +85,8 @@ void main() {
           'opacty': 1,
           'position': {'anchor': 'middle'},
         },
-        'approval': {
-          'patterns': {'document': 'not-a-uuid'},
+        'pdf': {
+          'header': {'firstPage': 'maybe'},
         },
       }),
     );
@@ -98,7 +96,7 @@ void main() {
     expect(find.textContaining('スキーマの誤りが'), findsOneWidget);
     expect(find.textContaining('/stamp/position/anchor'), findsOneWidget);
     expect(find.textContaining('/stamp/opacity'), findsOneWidget);
-    expect(find.textContaining('/approval/patterns/document'), findsOneWidget);
+    expect(find.textContaining('/pdf/header/firstPage'), findsOneWidget);
     expect(find.byKey(const Key('ds-json-imported')), findsNothing);
     expect(find.byKey(const Key('ds-unsaved')), findsNothing); // 何も取り込んでいない
   });
@@ -121,8 +119,8 @@ void main() {
     final body = utf8.encode(
       jsonEncode({
         'version': 1,
-        'approval': {
-          'patterns': {'document': _pattern},
+        'stamp': {
+          'layer': 'foreground',
         },
       }),
     );

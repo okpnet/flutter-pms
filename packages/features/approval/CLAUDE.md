@@ -13,7 +13,7 @@
 
 ## 取得元と DB
 1.  取得元は `IApprovalGateway`(`approvalGatewayProvider`。既定はメモリ上)。GraphQL 版は、DB のビュー `v_approval_pending`(`approver` かつ `actionable` の行。区分は `is_document`・`is_order`…の boolean)と関数 `approval_approve_many`(`document_approval_model`)で実装する(DB の再構築・スキーマの更新のあと)。
-1.  承認の判定・順序(順位が小さい段がすべて承認済みのときだけ承認できる)・次の段への通知(`trans_announcement`。通知区分 `approval`、対象は承認前)は DB(`document_approve`・`approval_start`・`approval_notify`)。登録が申請: `info_app.settings` の `approval.patterns.<種類>` に承認パターンがあると、その種類の登録(`trg_05_approval_request`)が承認の実行を始める。申請者は対象の登録者(更新者)、申請日は対象の登録の日時。
+1.  承認の判定・順序(順位が小さい段がすべて承認済みのときだけ承認できる)・次の段への通知(`trans_announcement`。通知区分 `approval`、対象は承認前)は DB(`document_approve`・`approval_start`・`approval_notify`)。登録が申請: `info_app` の対象ごとの承認パターンの列(`order_approval_pattern_id` など)に承認パターンがあると、その対象の登録(`trg_05_approval_request`)が承認の実行を始める。申請者は対象の登録者(更新者)、申請日は対象の登録の日時。
 1.  判定・文字は DB のビューの値を使い、画面で組み立てない。
 
 ## テスト

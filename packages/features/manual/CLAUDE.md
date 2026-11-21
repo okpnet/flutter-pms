@@ -46,7 +46,7 @@ Markdown の読み取り・閲覧・編集・PDF は `packages/foundation` の M
 1.  書き込みは共通関数(`shared_appellation_save`・`shared_text_save`)で、渡した言語の値だけが入れ替わる(他の言語は残る)。ページの作成は、呼称 → 本文 → 本体 → ツリーの順に呼ぶ(マスタは同時実行の影響が小さいため。失敗したときの孤児の呼称・文章は許容する)。ページ名の変更は、ほかのページの `[[旧名]]` も書き換える。
 1.  改訂・履歴・更新者は DB の履歴の表(`history_shared_text_value`。改訂 = 本文の版、履歴 = 現在より前の版を新しい順に最大 10 件)。ページ名の版は DB に無いため、履歴の各版のページ名は現在のページ名。履歴の復元は、その版の本文を新しい版として保存する。
 1.  ルートの文書は本文の列を持たない(`IManualRepository.rootHasBody` = false)。ルートの編集はページ名だけ(本文のエディタを出さない)。本文は子のページに書く。
-1.  ルートの作成は、**管理番号(`control_number`)を利用者が決める**(作成のダイアログに欄が出る。空は `ManualError.controlNumberRequired`。`requiresControlNumber`)。文書階層は、階層番号が最小のもの(ルートの階層)。承認パターンは、DB のトリガー(登録が申請)が `info_app.settings` の `approval.patterns.document` から入れる。内部のコード(`code`)は自動で付ける。
+1.  ルートの作成は、**管理番号(`control_number`)を利用者が決める**(作成のダイアログに欄が出る。空は `ManualError.controlNumberRequired`。`requiresControlNumber`)。文書階層は、階層番号が最小のもの(ルートの階層)。承認パターンは、DB のトリガー(登録が申請)が `info_app.document_approval_pattern_id` から入れる。内部のコード(`code`)は自動で付ける。
 1.  公開・承認の状態(`ManualApproval`)は、DB のビュー `v_document_publication`・`v_document_approval_stamp` の値を詰めるだけ(判定は持たない)。承認パターンごとのスタンプの様式は、承認の実行(`trans_approval_pattern`)から元の承認パターンをたどって `mstr_approval_pattern.stamp_style` を読み(`ManualApprovalStylePage`)、`ManualApproval.stampStyleOverride` に入れる。画面・PDF は、標準の設定(`info_app.settings` の `stamp`)に重ねて使う(`StampStyle.resolve`。書いた項目だけが標準を上書きする)。NULL・行が無い・読めない(通信の失敗・不正な JSON)ときは標準の様式(承認の状態は返す)。承認一覧の「参照」は、文書をマニュアルのルート(`/manual?id=<文書の ID>`)へ向ける。
 1.  テスト: `test/graphql_manual_test.dart`・`test/graphql_manual_approval_test.dart`(仮の通路。サーバーには接続しない)。検証用サーバーでの書き込みの通信テストは書いていない(読み取りのクエリは `manual_model` の通信テストで確認)。
 

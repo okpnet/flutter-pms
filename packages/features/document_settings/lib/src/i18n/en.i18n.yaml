@@ -8,24 +8,10 @@ tabs:
   stamp: Approval stamp
   pdf: PDF
   json: JSON
-  approval: Approval patterns
   patternStyle: Stamp per pattern
 approval:
-  hint: Choose, for each kind, the approval pattern that makes a registration an approval request. "No approval" does not ask for approval. Press Save to apply.
-  none: No approval (not set)
-  unknown: '(pattern not in the list) ${id}'
-  documentNote: A document (such as the manual) cannot be registered without an approval pattern. When no approval is needed, choose a pattern without approval steps.
-  empty: No approval patterns are registered. Register them under Company > Approval.
-  loadFailed: Could not load the approval patterns.
   loading: Loading approval patterns…
-  kindDocument: Document
-  kindOrder: Order
-  kindPurchase: Purchase
-  kindUnrecognized: Unrecognized purchase
-  kindShippingOrder: Shipping order
-  kindComplaint: Complaint
-  kindDisposal: Disposal
-  kindRecurrencePrevention: Recurrence prevention
+  loadFailed: Could not load the approval patterns.
 patternStyle:
   hint: Per approval pattern, the stamp style can differ from the standard. The values are laid over the standard (the "Approval stamp" tab); only the items you write override it (items replaces the whole list when written). Changes are saved to the pattern with Save in this tab (separate from the settings Save).
   pattern: Approval pattern

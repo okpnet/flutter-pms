@@ -54,7 +54,7 @@ void main() {
       );
     } on ManualException catch (e) {
       if (e.error != ManualError.approvalPatternMissing) rethrow;
-      // 検証用 DB に、文書の承認パターンの設定(info_app.settings の approval.patterns.document)が無いと、文書は登録できない
+      // 検証用 DB に、文書の承認パターンの設定(info_app.document_approval_pattern_id)が無いと、文書は登録できない
       markTestSkipped('文書の承認パターンが設定されていないため、書き込みのテストを中止した');
       return;
     }

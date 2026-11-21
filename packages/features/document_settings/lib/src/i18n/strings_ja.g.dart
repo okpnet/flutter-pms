@@ -94,9 +94,6 @@ class DocumentSettingsStrings$tabs$ja {
 	/// ja: 'JSON'
 	String get json => 'JSON';
 
-	/// ja: '承認パターン'
-	String get approval => '承認パターン';
-
 	/// ja: 'パターン別のスタンプ'
 	String get patternStyle => 'パターン別のスタンプ';
 }
@@ -109,50 +106,11 @@ class DocumentSettingsStrings$approval$ja {
 
 	// Translations
 
-	/// ja: '種類ごとに、登録が申請になる承認パターンを選びます。「承認不要」は、その種類の登録で承認を求めません。設定は「保存」で反映されます。'
-	String get hint => '種類ごとに、登録が申請になる承認パターンを選びます。「承認不要」は、その種類の登録で承認を求めません。設定は「保存」で反映されます。';
-
-	/// ja: '承認不要(設定しない)'
-	String get none => '承認不要(設定しない)';
-
-	/// ja: '(一覧に無いパターン) ${id}'
-	String unknown({required Object id}) => '(一覧に無いパターン) ${id}';
-
-	/// ja: '文書(マニュアルなど)は、承認パターンが無いと登録できません。承認が要らないときは、承認の段が無いパターンを選びます。'
-	String get documentNote => '文書(マニュアルなど)は、承認パターンが無いと登録できません。承認が要らないときは、承認の段が無いパターンを選びます。';
-
-	/// ja: '承認パターンが登録されていません。会社情報の「承認」で登録してください。'
-	String get empty => '承認パターンが登録されていません。会社情報の「承認」で登録してください。';
-
-	/// ja: '承認パターンの一覧を読み込めませんでした。'
-	String get loadFailed => '承認パターンの一覧を読み込めませんでした。';
-
 	/// ja: '承認パターンを読み込んでいます…'
 	String get loading => '承認パターンを読み込んでいます…';
 
-	/// ja: '文書'
-	String get kindDocument => '文書';
-
-	/// ja: '受注'
-	String get kindOrder => '受注';
-
-	/// ja: '発注'
-	String get kindPurchase => '発注';
-
-	/// ja: '非計上発注'
-	String get kindUnrecognized => '非計上発注';
-
-	/// ja: '出荷オーダー'
-	String get kindShippingOrder => '出荷オーダー';
-
-	/// ja: '異常'
-	String get kindComplaint => '異常';
-
-	/// ja: '処置'
-	String get kindDisposal => '処置';
-
-	/// ja: '再発防止'
-	String get kindRecurrencePrevention => '再発防止';
+	/// ja: '承認パターンの一覧を読み込めませんでした。'
+	String get loadFailed => '承認パターンの一覧を読み込めませんでした。';
 }
 
 // Path: patternStyle
@@ -677,23 +635,9 @@ extension on DocumentSettingsStrings {
 			'tabs.stamp' => '承認スタンプ',
 			'tabs.pdf' => 'PDF',
 			'tabs.json' => 'JSON',
-			'tabs.approval' => '承認パターン',
 			'tabs.patternStyle' => 'パターン別のスタンプ',
-			'approval.hint' => '種類ごとに、登録が申請になる承認パターンを選びます。「承認不要」は、その種類の登録で承認を求めません。設定は「保存」で反映されます。',
-			'approval.none' => '承認不要(設定しない)',
-			'approval.unknown' => ({required Object id}) => '(一覧に無いパターン) ${id}',
-			'approval.documentNote' => '文書(マニュアルなど)は、承認パターンが無いと登録できません。承認が要らないときは、承認の段が無いパターンを選びます。',
-			'approval.empty' => '承認パターンが登録されていません。会社情報の「承認」で登録してください。',
-			'approval.loadFailed' => '承認パターンの一覧を読み込めませんでした。',
 			'approval.loading' => '承認パターンを読み込んでいます…',
-			'approval.kindDocument' => '文書',
-			'approval.kindOrder' => '受注',
-			'approval.kindPurchase' => '発注',
-			'approval.kindUnrecognized' => '非計上発注',
-			'approval.kindShippingOrder' => '出荷オーダー',
-			'approval.kindComplaint' => '異常',
-			'approval.kindDisposal' => '処置',
-			'approval.kindRecurrencePrevention' => '再発防止',
+			'approval.loadFailed' => '承認パターンの一覧を読み込めませんでした。',
 			'patternStyle.hint' => '承認パターンごとに、スタンプの様式を標準から変えられます。標準(「承認スタンプ」のタブ)に重ねる値で、書いた項目だけが標準を上書きします(items は、書いたときに全体を置き換えます)。変更は、このタブの「保存」でパターンへ保存されます(設定の「保存」とは別です)。',
 			'patternStyle.pattern' => '承認パターン',
 			'patternStyle.useStandard' => '標準の様式を使う(このパターン専用の様式を持たない)',

@@ -2,13 +2,11 @@ import 'dart:convert';
 
 import 'package:json_schema/json_schema.dart';
 
-import 'approval_settings.dart';
-
 /// アプリの設定(`info_app.settings`)の JSON スキーマ(JSON Schema draft-07)。設定の読み込み・取り込みの前に、形の誤り
 /// (キー名の打ち間違い・型・範囲・選択肢)を見つけるために使う。`AppSettings.parse` の読み方(欠けた値は標準・不正は標準に戻す)と
 /// 合わせてあり、標準の設定(`AppSettings.standard.toJson()`)はこのスキーマに通る(テストで確認)。
 ///
-/// - ルートは、知らないキーを許す(ほかの機能の設定を壊さない)。`stamp`・`pdf`・`approval` の中は、知らないキーを許さない
+/// - ルートは、知らないキーを許す(ほかの機能の設定を壊さない)。`stamp`・`pdf` の中は、知らないキーを許さない
 ///   (打ち間違いは、読み込みで黙って捨てられるため)。ただし、利用者がキーを決める入れ物(`pdf.theme.vars`・`colors`・`pdf.custom`)は開く。
 /// - 外部の道具(エディタの補完など)には、同じ内容を `schema/app_settings.schema.json` に置く(`appSettingsSchemaJson`)。
 ///   Dart のこの定義が正で、ファイルはテストが一致を確かめる(直したら `dart run tool/gen_schema.dart` で書き出す)。
@@ -19,7 +17,7 @@ const String _colorPattern = r'^(#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?|\$[A-Za-z0-9_]
 Map<String, Object?> _enum(List<String> values, [String? description]) => {
   'type': 'string',
   'enum': values,
-  if (description != null) 'description': description,
+  'description': ?description,
 };
 
 Map<String, Object?> _number(String description, {num? min, num? exclusiveMin, num? max}) => {
@@ -80,7 +78,7 @@ final Map<String, Object?> appSettingsSchema = {
   r'$schema': _draft,
   r'$id': 'https://pms.local/schema/app_settings.schema.json',
   'title': 'アプリの設定(info_app.settings)',
-  'description': '承認スタンプ・PDF・承認パターンの設定。ルートは、知らないキーを許す。',
+  'description': '承認スタンプ・PDF の設定。ルートは、知らないキーを許す。',
   'type': 'object',
   'properties': {
     'version': {'type': 'integer', 'minimum': 1, 'description': '設定の版'},
@@ -121,16 +119,6 @@ final Map<String, Object?> appSettingsSchema = {
         'color': _color('承認待ちの色'),
       }, description: '承認待ちの見た目'),
     }, description: '承認スタンプの標準の様式'),
-    'approval': _object({
-      'patterns': _object({
-        for (final kind in ApprovalSettings.kinds)
-          kind: {
-            'type': ['string', 'null'],
-            'description': '$kind の承認パターンの ID(null は承認不要)',
-            'pattern': r'^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$',
-          },
-      }, description: '種類ごとの承認パターン'),
-    }, description: '承認の設定'),
     'pdf': _object({
       'page': _object({
         'size': _enum(['A3', 'A4', 'A5', 'B4', 'B5', 'LETTER', 'a3', 'a4', 'a5', 'b4', 'b5', 'letter'], '用紙'),

@@ -14,21 +14,16 @@ void main() {
     expect(validateAppSettings(jsonDecode(dbDefaultSettingsJson)), isEmpty);
   });
 
+  test('承認パターンの設定は info_app の列へ移した: 設定に残っている approval のキーは、知らないキーとして保たれる(誤りにしない)', () {
+    final m = _standard()..['approval'] = {'patterns': {'order': 'p-1'}};
+    expect(validateAppSettings(m), isEmpty);
+    expect(AppSettings.parse(m).extra['approval'], {'patterns': {'order': 'p-1'}}); // 書き戻しても消さない
+  });
+
   test('知らないキーはルートでは許す(ほかの機能の設定)。値を読んで書き戻しても通る', () {
     final m = _standard()..['other'] = {'x': 1};
     expect(validateAppSettings(m), isEmpty);
     expect(validateAppSettings(AppSettings.parse(m).toJson()), isEmpty);
-  });
-
-  test('承認パターンの設定: UUID は通り、UUID でない文字・知らない種類は誤り', () {
-    final ok = _standard();
-    (ok['approval'] as Map)['patterns'] = {'document': 'b467dcd7-42c1-47bd-9a85-a4121cb2519b', 'order': null};
-    expect(validateAppSettings(ok), isEmpty);
-
-    final bad = _standard();
-    (bad['approval'] as Map)['patterns'] = {'document': 'not-a-uuid', 'documnt': null};
-    final issues = validateAppSettings(bad);
-    expect(issues.map((i) => i.path), containsAll(['/approval/patterns/document', '/approval/patterns']));
   });
 
   test('キー名の打ち間違い(スタンプ・PDF の中)は誤りになる(読み取りでは黙って捨てられるもの)', () {

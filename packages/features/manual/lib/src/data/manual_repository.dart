@@ -20,7 +20,7 @@ enum ManualError {
   /// ルートの文書の階層(文書階層)が登録されていない(文書を作れない)。
   rootTierMissing,
 
-  /// 文書の承認パターンが設定されていない(`info_app.settings` の `approval.patterns.document`。承認不要でも、段が 0 件のパターンを設定する)。
+  /// 文書の承認パターンが設定されていない(`info_app.document_approval_pattern_id`。承認不要でも、段が 0 件のパターンを設定する)。
   approvalPatternMissing,
 }
 

@@ -47,18 +47,6 @@
       "color": "#757575"
     }
   },
-  "approval": {
-    "patterns": {
-      "document": null,
-      "order": null,
-      "purchase": null,
-      "unrecognized": null,
-      "shipping_order": null,
-      "complaint": null,
-      "disposal": null,
-      "recurrence_prevention": null
-    }
-  },
   "pdf": {
     "page": {
       "size": "A4",

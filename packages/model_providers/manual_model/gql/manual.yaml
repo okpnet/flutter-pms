@@ -191,7 +191,7 @@ ManualTextSavePageCall:
   columns:
     - shared_text_id
 
-# ルートの文書の登録。承認パターンは、DB のトリガーが info_app.settings の approval.patterns.document から入れる(登録が申請)。管理番号は利用者が決める
+# ルートの文書の登録。承認パターンは、DB のトリガーが info_app.document_approval_pattern_id から入れる(登録が申請)。管理番号は利用者が決める
 ManualDocumentPageCreate:
   kind: create
   from: mstr_document

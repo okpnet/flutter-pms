@@ -68,7 +68,6 @@ class _DocumentSettingsStrings$tabs$en extends DocumentSettingsStrings$tabs$ja {
 	@override String get stamp => 'Approval stamp';
 	@override String get pdf => 'PDF';
 	@override String get json => 'JSON';
-	@override String get approval => 'Approval patterns';
 	@override String get patternStyle => 'Stamp per pattern';
 }
 
@@ -79,21 +78,8 @@ class _DocumentSettingsStrings$approval$en extends DocumentSettingsStrings$appro
 	final DocumentSettingsStringsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get hint => 'Choose, for each kind, the approval pattern that makes a registration an approval request. "No approval" does not ask for approval. Press Save to apply.';
-	@override String get none => 'No approval (not set)';
-	@override String unknown({required Object id}) => '(pattern not in the list) ${id}';
-	@override String get documentNote => 'A document (such as the manual) cannot be registered without an approval pattern. When no approval is needed, choose a pattern without approval steps.';
-	@override String get empty => 'No approval patterns are registered. Register them under Company > Approval.';
-	@override String get loadFailed => 'Could not load the approval patterns.';
 	@override String get loading => 'Loading approval patterns…';
-	@override String get kindDocument => 'Document';
-	@override String get kindOrder => 'Order';
-	@override String get kindPurchase => 'Purchase';
-	@override String get kindUnrecognized => 'Unrecognized purchase';
-	@override String get kindShippingOrder => 'Shipping order';
-	@override String get kindComplaint => 'Complaint';
-	@override String get kindDisposal => 'Disposal';
-	@override String get kindRecurrencePrevention => 'Recurrence prevention';
+	@override String get loadFailed => 'Could not load the approval patterns.';
 }
 
 // Path: patternStyle
@@ -357,23 +343,9 @@ extension on DocumentSettingsStringsEn {
 			'tabs.stamp' => 'Approval stamp',
 			'tabs.pdf' => 'PDF',
 			'tabs.json' => 'JSON',
-			'tabs.approval' => 'Approval patterns',
 			'tabs.patternStyle' => 'Stamp per pattern',
-			'approval.hint' => 'Choose, for each kind, the approval pattern that makes a registration an approval request. "No approval" does not ask for approval. Press Save to apply.',
-			'approval.none' => 'No approval (not set)',
-			'approval.unknown' => ({required Object id}) => '(pattern not in the list) ${id}',
-			'approval.documentNote' => 'A document (such as the manual) cannot be registered without an approval pattern. When no approval is needed, choose a pattern without approval steps.',
-			'approval.empty' => 'No approval patterns are registered. Register them under Company > Approval.',
-			'approval.loadFailed' => 'Could not load the approval patterns.',
 			'approval.loading' => 'Loading approval patterns…',
-			'approval.kindDocument' => 'Document',
-			'approval.kindOrder' => 'Order',
-			'approval.kindPurchase' => 'Purchase',
-			'approval.kindUnrecognized' => 'Unrecognized purchase',
-			'approval.kindShippingOrder' => 'Shipping order',
-			'approval.kindComplaint' => 'Complaint',
-			'approval.kindDisposal' => 'Disposal',
-			'approval.kindRecurrencePrevention' => 'Recurrence prevention',
+			'approval.loadFailed' => 'Could not load the approval patterns.',
 			'patternStyle.hint' => 'Per approval pattern, the stamp style can differ from the standard. The values are laid over the standard (the "Approval stamp" tab); only the items you write override it (items replaces the whole list when written). Changes are saved to the pattern with Save in this tab (separate from the settings Save).',
 			'patternStyle.pattern' => 'Approval pattern',
 			'patternStyle.useStandard' => 'Use the standard style (this pattern has no style of its own)',

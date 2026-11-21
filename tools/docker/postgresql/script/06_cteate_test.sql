@@ -1232,7 +1232,7 @@ COMMENT ON COLUMN tests.trans_order.delivery_date IS '納期';
 
 COMMENT ON COLUMN tests.trans_order.deadline IS '完了期限';
 
-COMMENT ON COLUMN tests.trans_order.trans_approval_pattern_id IS '承認実行パターンID(登録が申請。info_app.settings の approval.patterns に承認パターンがあるとき、登録のトリガーが作る。NULL は承認不要)';
+COMMENT ON COLUMN tests.trans_order.trans_approval_pattern_id IS '承認実行パターンID(登録が申請。info_app の承認パターン(対象ごとの列。例: 受注の承認パターン)があるとき、登録のトリガーが作る。NULL は承認不要)';
 
 COMMENT ON COLUMN tests.trans_order.symbol IS 'リニアシンボル';
 
@@ -1397,7 +1397,7 @@ COMMENT ON COLUMN tests.trans_unrecognized.expected_completion_date IS '完了�
 
 COMMENT ON COLUMN tests.trans_unrecognized.planned_shipping_date IS '出荷予定日';
 
-COMMENT ON COLUMN tests.trans_unrecognized.trans_approval_pattern_id IS '承認実行パターンID(登録が申請。info_app.settings の approval.patterns に承認パターンがあるとき、登録のトリガーが作る。NULL は承認不要)';
+COMMENT ON COLUMN tests.trans_unrecognized.trans_approval_pattern_id IS '承認実行パターンID(登録が申請。info_app の承認パターン(対象ごとの列。例: 受注の承認パターン)があるとき、登録のトリガーが作る。NULL は承認不要)';
 
 COMMENT ON COLUMN tests.trans_unrecognized.symbol IS 'リニアシンボル';
 
@@ -1604,7 +1604,7 @@ COMMENT ON COLUMN tests.trans_purchase.purchase_order_date IS '発注日';
 
 COMMENT ON COLUMN tests.trans_purchase.deadline IS '発注期限';
 
-COMMENT ON COLUMN tests.trans_purchase.trans_approval_pattern_id IS '承認実行パターンID(登録が申請。info_app.settings の approval.patterns に承認パターンがあるとき、登録のトリガーが作る。NULL は承認不要)';
+COMMENT ON COLUMN tests.trans_purchase.trans_approval_pattern_id IS '承認実行パターンID(登録が申請。info_app の承認パターン(対象ごとの列。例: 受注の承認パターン)があるとき、登録のトリガーが作る。NULL は承認不要)';
 
 COMMENT ON COLUMN tests.trans_purchase.symbol IS 'リニアシンボル';
 
@@ -2313,7 +2313,7 @@ COMMENT ON COLUMN tests.trans_shipping_order.stakeholder_history_id IS '履歴�
 
 COMMENT ON COLUMN tests.trans_shipping_order.stakeholder_id IS '利害関係者ID';
 
-COMMENT ON COLUMN tests.trans_shipping_order.trans_approval_pattern_id IS '承認実行パターンID(登録が申請。info_app.settings の approval.patterns に承認パターンがあるとき、登録のトリガーが作る。NULL は承認不要)';
+COMMENT ON COLUMN tests.trans_shipping_order.trans_approval_pattern_id IS '承認実行パターンID(登録が申請。info_app の承認パターン(対象ごとの列。例: 受注の承認パターン)があるとき、登録のトリガーが作る。NULL は承認不要)';
 
 COMMENT ON COLUMN tests.trans_shipping_order.symbol IS 'リニアシンボル';
 
@@ -4366,7 +4366,15 @@ CREATE TABLE tests.info_app (
   info_app_id uuid DEFAULT gen_random_uuid() NOT NULL,
   info_company_id uuid,
   name varchar(255) NOT NULL,
-  settings jsonb DEFAULT '{"version":1,"stamp":{"position":{"anchor":"topRight","offsetXmm":10,"offsetYmm":10,"pages":"first"},"opacity":0.6,"shape":{"kind":"roundRect","widthMm":32,"heightMm":32,"rotationDeg":0},"color":{"text":"#C62828","frame":"#C62828","fill":null},"labelLanguage":"ja","stages":"all","layer":"background","items":[{"field":"stamp_label","size":14,"line":1},{"field":"approved_at","format":"yyyy/MM/dd","size":10,"line":2},{"field":"approved_staff","format":"name","size":10,"line":3}],"pending":{"dashed":true,"color":"#757575"}},"approval":{"patterns":{"document":null,"order":null,"purchase":null,"unrecognized":null,"shipping_order":null,"complaint":null,"disposal":null,"recurrence_prevention":null}},"pdf":{"page":{"size":"A4","orientation":"portrait","marginMm":{"top":22,"right":18,"bottom":20,"left":18}},"theme":{"vars":{"accent":"#0D47A1","muted":"#616161","line":"#BDBDBD"},"font":{"family":"NotoSansJP","monoFamily":"NotoSansJPMono","baseSize":10.5,"lineHeight":1.5},"colors":{"text":"#212121","heading":"$accent","link":"#1565C0","quote":"$muted","codeBackground":"#F5F5F5","tableBorder":"$line","tableHeaderBackground":"#ECEFF1","missingLink":"#C62828"},"headings":{"h1":{"size":20,"bold":true,"color":null,"spaceBeforeMm":0,"spaceAfterMm":5,"pageBreakBefore":true},"h2":{"size":15,"bold":true,"color":null,"spaceBeforeMm":6,"spaceAfterMm":3,"pageBreakBefore":false},"h3":{"size":12,"bold":true,"color":null,"spaceBeforeMm":4,"spaceAfterMm":2,"pageBreakBefore":false}},"paragraph":{"spaceAfterMm":2.5},"code":{"size":9},"table":{"borderWidth":0.5,"cellPaddingMm":1.5,"headerBold":true}},"header":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{title}","center":"","right":"{controlNumber}"},"footer":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{versionCode}  {statusLabel}","center":"{page} / {pages}","right":"{printedAt:yyyy/MM/dd}"},"custom":{"company":""}}}',
+  settings jsonb DEFAULT '{"version":1,"stamp":{"position":{"anchor":"topRight","offsetXmm":10,"offsetYmm":10,"pages":"first"},"opacity":0.6,"shape":{"kind":"roundRect","widthMm":32,"heightMm":32,"rotationDeg":0},"color":{"text":"#C62828","frame":"#C62828","fill":null},"labelLanguage":"ja","stages":"all","layer":"background","items":[{"field":"stamp_label","size":14,"line":1},{"field":"approved_at","format":"yyyy/MM/dd","size":10,"line":2},{"field":"approved_staff","format":"name","size":10,"line":3}],"pending":{"dashed":true,"color":"#757575"}},"pdf":{"page":{"size":"A4","orientation":"portrait","marginMm":{"top":22,"right":18,"bottom":20,"left":18}},"theme":{"vars":{"accent":"#0D47A1","muted":"#616161","line":"#BDBDBD"},"font":{"family":"NotoSansJP","monoFamily":"NotoSansJPMono","baseSize":10.5,"lineHeight":1.5},"colors":{"text":"#212121","heading":"$accent","link":"#1565C0","quote":"$muted","codeBackground":"#F5F5F5","tableBorder":"$line","tableHeaderBackground":"#ECEFF1","missingLink":"#C62828"},"headings":{"h1":{"size":20,"bold":true,"color":null,"spaceBeforeMm":0,"spaceAfterMm":5,"pageBreakBefore":true},"h2":{"size":15,"bold":true,"color":null,"spaceBeforeMm":6,"spaceAfterMm":3,"pageBreakBefore":false},"h3":{"size":12,"bold":true,"color":null,"spaceBeforeMm":4,"spaceAfterMm":2,"pageBreakBefore":false}},"paragraph":{"spaceAfterMm":2.5},"code":{"size":9},"table":{"borderWidth":0.5,"cellPaddingMm":1.5,"headerBold":true}},"header":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{title}","center":"","right":"{controlNumber}"},"footer":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{versionCode}  {statusLabel}","center":"{page} / {pages}","right":"{printedAt:yyyy/MM/dd}"},"custom":{"company":""}}}',
+  document_approval_pattern_id uuid,
+  order_approval_pattern_id uuid,
+  purchase_approval_pattern_id uuid,
+  unrecognized_approval_pattern_id uuid,
+  shipping_order_approval_pattern_id uuid,
+  complaint_approval_pattern_id uuid,
+  disposal_approval_pattern_id uuid,
+  recurrence_prevention_approval_pattern_id uuid,
   revision integer DEFAULT 1,
   symbol varchar(16) DEFAULT '',
   remarks varchar(1024),
@@ -4390,6 +4398,22 @@ COMMENT ON COLUMN tests.info_app.info_company_id IS '会社ID';
 COMMENT ON COLUMN tests.info_app.name IS 'アプリケーション名';
 
 COMMENT ON COLUMN tests.info_app.settings IS 'アプリの設定(JSON。接続後に効く設定。version と機能ごとのキー。stamp は承認スタンプの標準の様式、pdf は PDF の出力のテーマ・ヘッダ・フッタの標準)';
+
+COMMENT ON COLUMN tests.info_app.document_approval_pattern_id IS '文書の承認パターン';
+
+COMMENT ON COLUMN tests.info_app.order_approval_pattern_id IS '受注の承認パターン';
+
+COMMENT ON COLUMN tests.info_app.purchase_approval_pattern_id IS '発注の承認パターン';
+
+COMMENT ON COLUMN tests.info_app.unrecognized_approval_pattern_id IS '非計上発注の承認パターン';
+
+COMMENT ON COLUMN tests.info_app.shipping_order_approval_pattern_id IS '出荷オーダーの承認パターン';
+
+COMMENT ON COLUMN tests.info_app.complaint_approval_pattern_id IS '異常の承認パターン';
+
+COMMENT ON COLUMN tests.info_app.disposal_approval_pattern_id IS '処置の承認パターン';
+
+COMMENT ON COLUMN tests.info_app.recurrence_prevention_approval_pattern_id IS '再発防止の承認パターン';
 
 COMMENT ON COLUMN tests.info_app.revision IS 'レビジョン';
 
@@ -7770,85 +7794,6 @@ COMMENT ON COLUMN tests.history_mstr_document_tree.update_user_id IS '更新者I
 COMMENT ON COLUMN tests.history_mstr_document_tree.update_user_history_id IS '更新者履歴ID';
 
 COMMENT ON COLUMN tests.history_mstr_document_tree.remove IS '削除';
-
-CREATE TABLE tests.info_table_approval (
-  info_table_approval_id uuid DEFAULT gen_random_uuid() NOT NULL,
-  table_name varchar(255) NOT NULL,
-  mstr_approval_pattern_id uuid NOT NULL,
-  revision integer DEFAULT 1,
-  symbol varchar(16) DEFAULT '',
-  remarks varchar(1024),
-  update_at timestamp DEFAULT now(),
-  update_user_id uuid,
-  update_user_history_id uuid,
-  remove boolean DEFAULT false,
-  CONSTRAINT info_table_approval_pk PRIMARY KEY (info_table_approval_id)
-);
-
-ALTER TABLE tests.info_table_approval ADD CONSTRAINT info_table_approval_ix1 UNIQUE (symbol);
-
-COMMENT ON TABLE tests.info_table_approval IS 'テーブル別承認パターン(登録が申請。テーブルの登録のトリガーが、この表から承認パターンを引く。行が無い・削除済みのテーブルは承認不要。承認パターンを使うテーブルが増えたら、行を足す)';
-
-COMMENT ON COLUMN tests.info_table_approval.info_table_approval_id IS 'テーブル別承認パターンID';
-
-COMMENT ON COLUMN tests.info_table_approval.table_name IS 'テーブル名(承認パターンを使うテーブルの物理名。そのテーブルの登録のトリガーが、この名前でこの表を引く)';
-
-COMMENT ON COLUMN tests.info_table_approval.mstr_approval_pattern_id IS '承認パターンID(このテーブルの登録で使う承認パターン。登録が申請になる)';
-
-COMMENT ON COLUMN tests.info_table_approval.revision IS 'レビジョン';
-
-COMMENT ON COLUMN tests.info_table_approval.symbol IS 'リニアシンボル';
-
-COMMENT ON COLUMN tests.info_table_approval.remarks IS '備考';
-
-COMMENT ON COLUMN tests.info_table_approval.update_at IS '更新日時';
-
-COMMENT ON COLUMN tests.info_table_approval.update_user_id IS '更新者ID';
-
-COMMENT ON COLUMN tests.info_table_approval.update_user_history_id IS '更新者履歴ID';
-
-COMMENT ON COLUMN tests.info_table_approval.remove IS '削除';
-
-CREATE TABLE tests.history_info_table_approval (
-  history_id uuid DEFAULT gen_random_uuid() NOT NULL,
-  info_table_approval_id uuid NOT NULL,
-  table_name varchar(255) NOT NULL,
-  mstr_approval_pattern_id uuid,
-  revision integer DEFAULT 1,
-  symbol varchar(16) DEFAULT '',
-  remarks varchar(1024),
-  update_at timestamp DEFAULT now(),
-  update_user_id uuid,
-  update_user_history_id uuid,
-  remove boolean DEFAULT false,
-  CONSTRAINT history_info_table_approval_pk PRIMARY KEY (history_id, info_table_approval_id)
-);
-
-ALTER TABLE tests.history_info_table_approval ADD CONSTRAINT history_info_table_approval_ix1 UNIQUE (info_table_approval_id, revision);
-
-COMMENT ON TABLE tests.history_info_table_approval IS 'テーブル別承認パターン履歴';
-
-COMMENT ON COLUMN tests.history_info_table_approval.history_id IS '履歴ID';
-
-COMMENT ON COLUMN tests.history_info_table_approval.info_table_approval_id IS 'テーブル別承認パターンID';
-
-COMMENT ON COLUMN tests.history_info_table_approval.table_name IS 'テーブル名(承認パターンを使うテーブルの物理名。そのテーブルの登録のトリガーが、この名前でこの表を引く)';
-
-COMMENT ON COLUMN tests.history_info_table_approval.mstr_approval_pattern_id IS '承認パターンID(このテーブルの登録で使う承認パターン。登録が申請になる)';
-
-COMMENT ON COLUMN tests.history_info_table_approval.revision IS 'レビジョン';
-
-COMMENT ON COLUMN tests.history_info_table_approval.symbol IS 'リニアシンボル';
-
-COMMENT ON COLUMN tests.history_info_table_approval.remarks IS '備考';
-
-COMMENT ON COLUMN tests.history_info_table_approval.update_at IS '更新日時';
-
-COMMENT ON COLUMN tests.history_info_table_approval.update_user_id IS '更新者ID';
-
-COMMENT ON COLUMN tests.history_info_table_approval.update_user_history_id IS '更新者履歴ID';
-
-COMMENT ON COLUMN tests.history_info_table_approval.remove IS '削除';
 
 CREATE TABLE tests.hrchy_mstr_document (
   hrchy_mstr_document_id uuid DEFAULT gen_random_uuid() NOT NULL,
@@ -11896,7 +11841,15 @@ CREATE TABLE tests.history_info_app (
   info_app_id uuid NOT NULL,
   info_company_id uuid,
   name varchar(255) NOT NULL,
-  settings jsonb DEFAULT '{"version":1,"stamp":{"position":{"anchor":"topRight","offsetXmm":10,"offsetYmm":10,"pages":"first"},"opacity":0.6,"shape":{"kind":"roundRect","widthMm":32,"heightMm":32,"rotationDeg":0},"color":{"text":"#C62828","frame":"#C62828","fill":null},"labelLanguage":"ja","stages":"all","layer":"background","items":[{"field":"stamp_label","size":14,"line":1},{"field":"approved_at","format":"yyyy/MM/dd","size":10,"line":2},{"field":"approved_staff","format":"name","size":10,"line":3}],"pending":{"dashed":true,"color":"#757575"}},"approval":{"patterns":{"document":null,"order":null,"purchase":null,"unrecognized":null,"shipping_order":null,"complaint":null,"disposal":null,"recurrence_prevention":null}},"pdf":{"page":{"size":"A4","orientation":"portrait","marginMm":{"top":22,"right":18,"bottom":20,"left":18}},"theme":{"vars":{"accent":"#0D47A1","muted":"#616161","line":"#BDBDBD"},"font":{"family":"NotoSansJP","monoFamily":"NotoSansJPMono","baseSize":10.5,"lineHeight":1.5},"colors":{"text":"#212121","heading":"$accent","link":"#1565C0","quote":"$muted","codeBackground":"#F5F5F5","tableBorder":"$line","tableHeaderBackground":"#ECEFF1","missingLink":"#C62828"},"headings":{"h1":{"size":20,"bold":true,"color":null,"spaceBeforeMm":0,"spaceAfterMm":5,"pageBreakBefore":true},"h2":{"size":15,"bold":true,"color":null,"spaceBeforeMm":6,"spaceAfterMm":3,"pageBreakBefore":false},"h3":{"size":12,"bold":true,"color":null,"spaceBeforeMm":4,"spaceAfterMm":2,"pageBreakBefore":false}},"paragraph":{"spaceAfterMm":2.5},"code":{"size":9},"table":{"borderWidth":0.5,"cellPaddingMm":1.5,"headerBold":true}},"header":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{title}","center":"","right":"{controlNumber}"},"footer":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{versionCode}  {statusLabel}","center":"{page} / {pages}","right":"{printedAt:yyyy/MM/dd}"},"custom":{"company":""}}}',
+  settings jsonb DEFAULT '{"version":1,"stamp":{"position":{"anchor":"topRight","offsetXmm":10,"offsetYmm":10,"pages":"first"},"opacity":0.6,"shape":{"kind":"roundRect","widthMm":32,"heightMm":32,"rotationDeg":0},"color":{"text":"#C62828","frame":"#C62828","fill":null},"labelLanguage":"ja","stages":"all","layer":"background","items":[{"field":"stamp_label","size":14,"line":1},{"field":"approved_at","format":"yyyy/MM/dd","size":10,"line":2},{"field":"approved_staff","format":"name","size":10,"line":3}],"pending":{"dashed":true,"color":"#757575"}},"pdf":{"page":{"size":"A4","orientation":"portrait","marginMm":{"top":22,"right":18,"bottom":20,"left":18}},"theme":{"vars":{"accent":"#0D47A1","muted":"#616161","line":"#BDBDBD"},"font":{"family":"NotoSansJP","monoFamily":"NotoSansJPMono","baseSize":10.5,"lineHeight":1.5},"colors":{"text":"#212121","heading":"$accent","link":"#1565C0","quote":"$muted","codeBackground":"#F5F5F5","tableBorder":"$line","tableHeaderBackground":"#ECEFF1","missingLink":"#C62828"},"headings":{"h1":{"size":20,"bold":true,"color":null,"spaceBeforeMm":0,"spaceAfterMm":5,"pageBreakBefore":true},"h2":{"size":15,"bold":true,"color":null,"spaceBeforeMm":6,"spaceAfterMm":3,"pageBreakBefore":false},"h3":{"size":12,"bold":true,"color":null,"spaceBeforeMm":4,"spaceAfterMm":2,"pageBreakBefore":false}},"paragraph":{"spaceAfterMm":2.5},"code":{"size":9},"table":{"borderWidth":0.5,"cellPaddingMm":1.5,"headerBold":true}},"header":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{title}","center":"","right":"{controlNumber}"},"footer":{"enabled":true,"heightMm":10,"size":9,"color":"$muted","border":true,"firstPage":"same","left":"{versionCode}  {statusLabel}","center":"{page} / {pages}","right":"{printedAt:yyyy/MM/dd}"},"custom":{"company":""}}}',
+  document_approval_pattern_id uuid,
+  order_approval_pattern_id uuid,
+  purchase_approval_pattern_id uuid,
+  unrecognized_approval_pattern_id uuid,
+  shipping_order_approval_pattern_id uuid,
+  complaint_approval_pattern_id uuid,
+  disposal_approval_pattern_id uuid,
+  recurrence_prevention_approval_pattern_id uuid,
   revision integer DEFAULT 1,
   symbol varchar(16) DEFAULT '',
   remarks varchar(1024),
@@ -11920,6 +11873,22 @@ COMMENT ON COLUMN tests.history_info_app.info_company_id IS '会社情報ID';
 COMMENT ON COLUMN tests.history_info_app.name IS 'アプリケーション名';
 
 COMMENT ON COLUMN tests.history_info_app.settings IS 'アプリの設定(JSON。接続後に効く設定。version と機能ごとのキー。stamp は承認スタンプの標準の様式、pdf は PDF の出力のテーマ・ヘッダ・フッタの標準)';
+
+COMMENT ON COLUMN tests.history_info_app.document_approval_pattern_id IS '文書の承認パターン';
+
+COMMENT ON COLUMN tests.history_info_app.order_approval_pattern_id IS '受注の承認パターン';
+
+COMMENT ON COLUMN tests.history_info_app.purchase_approval_pattern_id IS '発注の承認パターン';
+
+COMMENT ON COLUMN tests.history_info_app.unrecognized_approval_pattern_id IS '非計上発注の承認パターン';
+
+COMMENT ON COLUMN tests.history_info_app.shipping_order_approval_pattern_id IS '出荷オーダーの承認パターン';
+
+COMMENT ON COLUMN tests.history_info_app.complaint_approval_pattern_id IS '異常の承認パターン';
+
+COMMENT ON COLUMN tests.history_info_app.disposal_approval_pattern_id IS '処置の承認パターン';
+
+COMMENT ON COLUMN tests.history_info_app.recurrence_prevention_approval_pattern_id IS '再発防止の承認パターン';
 
 COMMENT ON COLUMN tests.history_info_app.revision IS 'レビジョン';
 
@@ -14469,13 +14438,9 @@ ALTER TABLE tests.mstr_document_tree ADD CONSTRAINT mstr_document_tree_fk2 FOREI
 
 ALTER TABLE tests.mstr_document_tree ADD CONSTRAINT mstr_document_tree_fk3 FOREIGN KEY (update_user_history_id, update_user_id) REFERENCES tests.history_info_staff (history_id, info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 
-ALTER TABLE tests.history_info_table_approval ADD CONSTRAINT history_info_table_approval_fk1 FOREIGN KEY (info_table_approval_id) REFERENCES tests.info_table_approval (info_table_approval_id) DEFERRABLE INITIALLY DEFERRED;
 
-ALTER TABLE tests.history_info_table_approval ADD CONSTRAINT history_info_table_approval_fk2 FOREIGN KEY (update_user_history_id, update_user_id) REFERENCES tests.history_info_staff (history_id, info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 
-ALTER TABLE tests.info_table_approval ADD CONSTRAINT info_table_approval_fk2 FOREIGN KEY (update_user_history_id, update_user_id) REFERENCES tests.history_info_staff (history_id, info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 
-ALTER TABLE tests.info_table_approval ADD CONSTRAINT info_table_approval_fk1 FOREIGN KEY (mstr_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
 
 ALTER TABLE tests.history_mstr_document ADD CONSTRAINT history_mstr_document_fk1 FOREIGN KEY (mstr_document_id) REFERENCES tests.mstr_document (mstr_document_id) DEFERRABLE INITIALLY DEFERRED;
 
@@ -15178,6 +15143,22 @@ ALTER TABLE tests.info_staff_access_permission ADD CONSTRAINT info_staff_access_
 ALTER TABLE tests.info_app ADD CONSTRAINT info_app_fk1 FOREIGN KEY (info_company_id) REFERENCES tests.info_company (info_company_id) DEFERRABLE INITIALLY DEFERRED;
 
 ALTER TABLE tests.info_app ADD CONSTRAINT info_app_fk2 FOREIGN KEY (update_user_history_id, update_user_id) REFERENCES tests.history_info_staff (history_id, info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.info_app ADD CONSTRAINT info_app_document_approval_fk FOREIGN KEY (document_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.info_app ADD CONSTRAINT info_app_order_approval_fk FOREIGN KEY (order_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.info_app ADD CONSTRAINT info_app_purchase_approval_fk FOREIGN KEY (purchase_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.info_app ADD CONSTRAINT info_app_unrecognized_approval_fk FOREIGN KEY (unrecognized_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.info_app ADD CONSTRAINT info_app_shipping_order_approval_fk FOREIGN KEY (shipping_order_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.info_app ADD CONSTRAINT info_app_complaint_approval_fk FOREIGN KEY (complaint_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.info_app ADD CONSTRAINT info_app_disposal_approval_fk FOREIGN KEY (disposal_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.info_app ADD CONSTRAINT info_app_recurrence_prevention_approval_fk FOREIGN KEY (recurrence_prevention_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
 
 ALTER TABLE tests.info_access_path ADD CONSTRAINT info_access_path_fk1 FOREIGN KEY (names) REFERENCES tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 
@@ -25397,20 +25378,22 @@ CREATE TRIGGER trg_04_symbol_trans_order BEFORE INSERT ON tests.trans_order FOR 
 
 CREATE OR REPLACE FUNCTION tests.trg_05_approval_request() RETURNS trigger AS
 $BODY$
--- 引数: TG_ARGV[0] = 承認実行パターンの列。承認パターンは、このテーブル(TG_TABLE_NAME)の info_table_approval の行から引く(行が無い・削除済みは承認不要)
+-- 引数: TG_ARGV[0] = このテーブルの承認実行パターンの列、TG_ARGV[1] = 承認パターンを持つ info_app の列(対象ごとの標準の承認パターン)
+-- info_app の列が NULL・承認パターンが削除済みのときは、承認不要
 DECLARE
     v_col text := TG_ARGV[0];
+    v_src text := TG_ARGV[1];
     v_pattern uuid;
     v_tp uuid;
 BEGIN
     IF (to_jsonb(NEW) ->> v_col) IS NOT NULL THEN
         RETURN NEW;
     END IF;
-    SELECT t.mstr_approval_pattern_id INTO v_pattern
-    FROM tests.info_table_approval AS t
-    INNER JOIN tests.mstr_approval_pattern AS p ON p.mstr_approval_pattern_id = t.mstr_approval_pattern_id AND p.remove IS FALSE
-    WHERE t.table_name = TG_TABLE_NAME AND t.remove IS FALSE
-    ORDER BY t.update_at LIMIT 1;
+    EXECUTE format(
+        'SELECT p.mstr_approval_pattern_id FROM tests.info_app AS a '
+        || 'INNER JOIN tests.mstr_approval_pattern AS p ON p.mstr_approval_pattern_id = a.%I AND p.remove IS FALSE '
+        || 'WHERE a.remove IS FALSE ORDER BY a.update_at LIMIT 1', v_src)
+    INTO v_pattern;
     IF v_pattern IS NULL THEN
         RETURN NEW;
     END IF;
@@ -25424,7 +25407,7 @@ LANGUAGE plpgsql VOLATILE;
 COMMENT ON FUNCTION tests.trg_05_approval_request() IS '@omit
 対象の登録のトリガー関数(登録が申請)';
 
-CREATE TRIGGER trg_01_approval_request_trans_order BEFORE INSERT ON tests.trans_order FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('trans_approval_pattern_id');
+CREATE TRIGGER trg_01_approval_request_trans_order BEFORE INSERT ON tests.trans_order FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('trans_approval_pattern_id', 'order_approval_pattern_id');
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_order_detail() RETURNS trigger AS
 $BODY$
@@ -25495,7 +25478,7 @@ CREATE TRIGGER trg_01_updatetimes_trans_unrecognized BEFORE INSERT OR UPDATE OR 
 
 CREATE TRIGGER trg_04_symbol_trans_unrecognized BEFORE INSERT ON tests.trans_unrecognized FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
 
-CREATE TRIGGER trg_01_approval_request_trans_unrecognized BEFORE INSERT ON tests.trans_unrecognized FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('trans_approval_pattern_id');
+CREATE TRIGGER trg_01_approval_request_trans_unrecognized BEFORE INSERT ON tests.trans_unrecognized FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('trans_approval_pattern_id', 'unrecognized_approval_pattern_id');
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_unrecognized_detail() RETURNS trigger AS
 $BODY$
@@ -25566,7 +25549,7 @@ CREATE TRIGGER trg_01_updatetimes_trans_purchase BEFORE INSERT OR UPDATE OR DELE
 
 CREATE TRIGGER trg_04_symbol_trans_purchase BEFORE INSERT ON tests.trans_purchase FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
 
-CREATE TRIGGER trg_01_approval_request_trans_purchase BEFORE INSERT ON tests.trans_purchase FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('trans_approval_pattern_id');
+CREATE TRIGGER trg_01_approval_request_trans_purchase BEFORE INSERT ON tests.trans_purchase FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('trans_approval_pattern_id', 'purchase_approval_pattern_id');
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_purchase_detail() RETURNS trigger AS
 $BODY$
@@ -25660,7 +25643,7 @@ CREATE TRIGGER trg_01_updatetimes_trans_complaint BEFORE INSERT OR UPDATE OR DEL
 
 CREATE TRIGGER trg_04_symbol_trans_complaint BEFORE INSERT ON tests.trans_complaint FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
 
-CREATE TRIGGER trg_01_approval_request_trans_complaint BEFORE INSERT ON tests.trans_complaint FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('approvals');
+CREATE TRIGGER trg_01_approval_request_trans_complaint BEFORE INSERT ON tests.trans_complaint FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('approvals', 'complaint_approval_pattern_id');
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_change_reason() RETURNS trigger AS
 $BODY$
@@ -26269,7 +26252,7 @@ CREATE TRIGGER trg_01_updatetimes_trans_shipping_order BEFORE INSERT OR UPDATE O
 
 CREATE TRIGGER trg_04_symbol_trans_shipping_order BEFORE INSERT ON tests.trans_shipping_order FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
 
-CREATE TRIGGER trg_01_approval_request_trans_shipping_order BEFORE INSERT ON tests.trans_shipping_order FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('trans_approval_pattern_id');
+CREATE TRIGGER trg_01_approval_request_trans_shipping_order BEFORE INSERT ON tests.trans_shipping_order FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('trans_approval_pattern_id', 'shipping_order_approval_pattern_id');
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_shipping_order_detail() RETURNS trigger AS
 $BODY$
@@ -27748,6 +27731,14 @@ BEGIN
                 NEW.info_company_id,
                 NEW.name,
                 NEW.settings,
+                NEW.document_approval_pattern_id,
+                NEW.order_approval_pattern_id,
+                NEW.purchase_approval_pattern_id,
+                NEW.unrecognized_approval_pattern_id,
+                NEW.shipping_order_approval_pattern_id,
+                NEW.complaint_approval_pattern_id,
+                NEW.disposal_approval_pattern_id,
+                NEW.recurrence_prevention_approval_pattern_id,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
@@ -27756,6 +27747,14 @@ BEGIN
                 OLD.info_company_id,
                 OLD.name,
                 OLD.settings,
+                OLD.document_approval_pattern_id,
+                OLD.order_approval_pattern_id,
+                OLD.purchase_approval_pattern_id,
+                OLD.unrecognized_approval_pattern_id,
+                OLD.shipping_order_approval_pattern_id,
+                OLD.complaint_approval_pattern_id,
+                OLD.disposal_approval_pattern_id,
+                OLD.recurrence_prevention_approval_pattern_id,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -27773,6 +27772,14 @@ BEGIN
             name,
             revision,
             settings,
+            document_approval_pattern_id,
+            order_approval_pattern_id,
+            purchase_approval_pattern_id,
+            unrecognized_approval_pattern_id,
+            shipping_order_approval_pattern_id,
+            complaint_approval_pattern_id,
+            disposal_approval_pattern_id,
+            recurrence_prevention_approval_pattern_id,
             symbol,
             remarks,
             update_at,
@@ -27787,6 +27794,14 @@ BEGIN
             NEW.name,
             NEW.revision,
             NEW.settings,
+            NEW.document_approval_pattern_id,
+            NEW.order_approval_pattern_id,
+            NEW.purchase_approval_pattern_id,
+            NEW.unrecognized_approval_pattern_id,
+            NEW.shipping_order_approval_pattern_id,
+            NEW.complaint_approval_pattern_id,
+            NEW.disposal_approval_pattern_id,
+            NEW.recurrence_prevention_approval_pattern_id,
             NEW.symbol,
             NEW.remarks,
             NEW.update_at,
@@ -30569,7 +30584,7 @@ LANGUAGE plpgsql VOLATILE;
 
 CREATE TRIGGER trg_02_history_mstr_document BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_document FOR EACH ROW EXECUTE FUNCTION tests.trg_02_history_mstr_document();
 
-CREATE TRIGGER trg_01_approval_request_mstr_document BEFORE INSERT ON tests.mstr_document FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('trans_approval_pattern_id');
+CREATE TRIGGER trg_01_approval_request_mstr_document BEFORE INSERT ON tests.mstr_document FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('trans_approval_pattern_id', 'document_approval_pattern_id');
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_document_content() RETURNS trigger AS
 $BODY$
@@ -31260,134 +31275,6 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_history_mstr_document_tree BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_document_tree FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_history_mstr_document_tree();
 
 CREATE TRIGGER trg_04_symbol_history_mstr_document_tree BEFORE INSERT ON tests.history_mstr_document_tree FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_seq();
-
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_info_table_approval() RETURNS trigger AS
-$BODY$
-DECLARE
-    latest_row record;
-BEGIN
-    IF (TG_OP = 'UPDATE') THEN
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP='INSERT') THEN
-        NEW.info_table_approval_id := gen_random_uuid();
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP = 'DELETE') THEN
-        RETURN OLD;
-    END IF;
-END
-$BODY$
-LANGUAGE plpgsql VOLATILE;
-
-CREATE TRIGGER trg_01_updatetimes_info_table_approval BEFORE INSERT OR UPDATE OR DELETE ON tests.info_table_approval FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_info_table_approval();
-
-CREATE TRIGGER trg_04_symbol_info_table_approval BEFORE INSERT ON tests.info_table_approval FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_seq();
-
-CREATE OR REPLACE FUNCTION tests.trg_02_history_info_table_approval() RETURNS trigger AS
-$BODY$
-DECLARE
-    revisions int;
-BEGIN
-    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN
-        SELECT Max(revision) INTO revisions FROM tests.history_info_table_approval WHERE info_table_approval_id=NEW.info_table_approval_id;
-        IF (revisions >= 0) THEN
-            IF (
-                NEW.info_table_approval_id,
-                NEW.table_name,
-                NEW.mstr_approval_pattern_id,
-                NEW.symbol,
-                NEW.remarks,
-                NEW.remove
-            ) IS NOT DISTINCT FROM (
-                OLD.info_table_approval_id,
-                OLD.table_name,
-                OLD.mstr_approval_pattern_id,
-                OLD.symbol,
-                OLD.remarks,
-                OLD.remove
-            )
-            THEN
-                RETURN NULL;
-            END IF;
-            NEW.revision := revisions + 1;
-        ELSE
-            NEW.revision := 1;
-        END IF;
-        INSERT INTO tests.history_info_table_approval (
-            info_table_approval_id,
-            table_name,
-            mstr_approval_pattern_id,
-            revision,
-            symbol,
-            remarks,
-            update_at,
-            update_user_id,
-            update_user_history_id,
-            remove
-        )
-        VALUES
-        (
-            NEW.info_table_approval_id,
-            NEW.table_name,
-            NEW.mstr_approval_pattern_id,
-            NEW.revision,
-            NEW.symbol,
-            NEW.remarks,
-            NEW.update_at,
-            NEW.update_user_id,
-            NEW.update_user_history_id,
-            NEW.remove
-        );
-        RETURN NEW;
-    ELSEIF (TG_OP = 'DELETE') THEN
-        RETURN OLD;
-    END IF;
-END
-$BODY$
-LANGUAGE plpgsql VOLATILE;
-
-CREATE TRIGGER trg_02_history_info_table_approval BEFORE INSERT OR UPDATE OR DELETE ON tests.info_table_approval FOR EACH ROW EXECUTE FUNCTION tests.trg_02_history_info_table_approval();
-
-CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_table_approval() RETURNS trigger AS
-$BODY$
-DECLARE
-    latest_row record;
-BEGIN
-    IF (TG_OP = 'UPDATE') THEN
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP='INSERT') THEN
-        NEW.history_id := gen_random_uuid();
-        NEW.update_at:=now();
-        RETURN NEW;
-    ELSEIF (TG_OP = 'DELETE') THEN
-        RETURN OLD;
-    END IF;
-END
-$BODY$
-LANGUAGE plpgsql VOLATILE;
-
-CREATE TRIGGER trg_01_updatetimes_history_info_table_approval BEFORE INSERT OR UPDATE OR DELETE ON tests.history_info_table_approval FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_history_info_table_approval();
-
-CREATE TRIGGER trg_04_symbol_history_info_table_approval BEFORE INSERT ON tests.history_info_table_approval FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_seq();
-
-CREATE OR REPLACE FUNCTION tests.trg_00_table_approval_check() RETURNS trigger AS
-$BODY$
--- 承認パターンを割り当てるテーブル(table_name)が、このスキーマに実在することを確かめる(打ち間違いの割り当てを防ぐ)
-BEGIN
-    IF NEW.remove IS FALSE AND to_regclass(format('%I.%I', TG_TABLE_SCHEMA, NEW.table_name)) IS NULL THEN
-        RAISE EXCEPTION 'テーブルがありません (%)', NEW.table_name USING ERRCODE = 'TAP01';
-    END IF;
-    RETURN NEW;
-END
-$BODY$
-LANGUAGE plpgsql VOLATILE;
-
-COMMENT ON FUNCTION tests.trg_00_table_approval_check() IS '@omit
-承認パターンを割り当てるテーブルの存在検査(トリガー関数)';
-
-CREATE TRIGGER trg_00_table_approval_check_info_table_approval BEFORE INSERT OR UPDATE ON tests.info_table_approval FOR EACH ROW EXECUTE FUNCTION tests.trg_00_table_approval_check();
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_hrchy_mstr_document() RETURNS trigger AS
 $BODY$
@@ -36886,7 +36773,7 @@ CREATE TRIGGER trg_01_updatetimes_trans_disposal BEFORE INSERT OR UPDATE OR DELE
 
 CREATE TRIGGER trg_04_symbol_trans_disposal BEFORE INSERT ON tests.trans_disposal FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
 
-CREATE TRIGGER trg_01_approval_request_trans_disposal BEFORE INSERT ON tests.trans_disposal FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('approvals');
+CREATE TRIGGER trg_01_approval_request_trans_disposal BEFORE INSERT ON tests.trans_disposal FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('approvals', 'disposal_approval_pattern_id');
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_recurrence_prevention() RETURNS trigger AS
 $BODY$
@@ -36911,7 +36798,7 @@ CREATE TRIGGER trg_01_updatetimes_trans_recurrence_prevention BEFORE INSERT OR U
 
 CREATE TRIGGER trg_04_symbol_trans_recurrence_prevention BEFORE INSERT ON tests.trans_recurrence_prevention FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
 
-CREATE TRIGGER trg_01_approval_request_trans_recurrence_prevention BEFORE INSERT ON tests.trans_recurrence_prevention FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('approvals');
+CREATE TRIGGER trg_01_approval_request_trans_recurrence_prevention BEFORE INSERT ON tests.trans_recurrence_prevention FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('approvals', 'recurrence_prevention_approval_pattern_id');
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_observer_disposal() RETURNS trigger AS
 $BODY$
@@ -37309,4 +37196,3 @@ CREATE UNIQUE INDEX IF NOT EXISTS info_department_ix_code_active ON tests.info_d
 ALTER TABLE tests.shared_language_code DROP CONSTRAINT IF EXISTS shared_language_code_ix1;
 DROP INDEX IF EXISTS tests.shared_language_code_ix1;
 CREATE UNIQUE INDEX shared_language_code_ix1 ON tests.shared_language_code (lower(code));
-CREATE UNIQUE INDEX IF NOT EXISTS info_table_approval_ix_table_active ON tests.info_table_approval (table_name) WHERE remove = false;

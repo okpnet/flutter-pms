@@ -216,40 +216,6 @@ void main() {
     });
   });
 
-  group('承認の設定(種類ごとの承認パターン)', () {
-    test('標準は、すべての種類が承認不要(null)', () {
-      final a = AppSettings.standard.approval;
-      expect(ApprovalSettings.kinds, hasLength(8));
-      for (final k in ApprovalSettings.kinds) {
-        expect(a.patternOf(k), isNull, reason: k);
-      }
-    });
-    test('パターンの ID を読み、書き戻しても残る。空文字は承認不要', () {
-      final s = AppSettings.parse({
-        'approval': {
-          'patterns': {'order': 'p-1', 'purchase': '', 'shipping_order': 'p-2'},
-        },
-      });
-      expect(s.approval.patternOf('order'), 'p-1');
-      expect(s.approval.patternOf('purchase'), isNull);
-      expect(s.approval.patternOf('shipping_order'), 'p-2');
-      final back = AppSettings.parse(s.toJson());
-      expect(back.approval.patternOf('order'), 'p-1');
-      expect(s.approval.withPattern('disposal', 'p-3').patternOf('disposal'), 'p-3');
-    });
-    test('型の違う値は承認不要にして知らせる。approval は extra に入らない', () {
-      final p = Problems();
-      final s = AppSettings.parse({
-        'approval': {
-          'patterns': {'order': 5},
-        },
-      }, problems: p);
-      expect(s.approval.patternOf('order'), isNull);
-      expect(p.messages.single, contains('approval.patterns.order'));
-      expect(s.extra.containsKey('approval'), isFalse);
-    });
-  });
-
   group('StampContentBuilder', () {
     const b = StampContentBuilder();
     final approved = ApprovalStepInfo(
