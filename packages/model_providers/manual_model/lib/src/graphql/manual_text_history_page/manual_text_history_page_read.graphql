@@ -1,0 +1,82 @@
+# manual_text_history_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ManualTextHistoryPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ManualTextHistoryPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: HistorySharedTextValueFilter = {and: []}
+  $orderBy: [HistorySharedTextValuesOrderBy!]
+  $languageCodeId: UUID!
+) {
+  allHistorySharedTextValues(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      historyId
+      sharedTextValueId
+      sharedTextId
+      sharedLanguageCodeId
+      textValue
+      revision
+      updateAt
+
+      update_user: historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId {
+        historyId
+        infoStaffId
+        infoCompanyId
+        code
+
+        name: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryPronunciationId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+
+          sharedDictionaryBySharedDictionaryNicknameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+
+        sex
+        phone
+        symbol
+        privatePhone
+      }
+    }
+  }
+}

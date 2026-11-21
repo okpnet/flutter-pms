@@ -157,6 +157,12 @@ class ManualStrings$create$ja {
 	/// ja: '新しいページの名前'
 	String get nameHint => '新しいページの名前';
 
+	/// ja: '管理番号'
+	String get controlNumberLabel => '管理番号';
+
+	/// ja: '文書の管理番号(利用者が決めます)'
+	String get controlNumberHint => '文書の管理番号(利用者が決めます)';
+
 	/// ja: '作成'
 	String get create => '作成';
 
@@ -174,6 +180,9 @@ class ManualStrings$edit$ja {
 
 	/// ja: 'ページの編集'
 	String get heading => 'ページの編集';
+
+	/// ja: 'ルート(文書)は本文を持ちません。本文は子のページに書きます。'
+	String get rootNoBody => 'ルート(文書)は本文を持ちません。本文は子のページに書きます。';
 
 	/// ja: 'ページ名'
 	String get nameLabel => 'ページ名';
@@ -395,6 +404,9 @@ class ManualStrings$errors$ja {
 
 	/// ja: '管理者だけが編集できます。'
 	String get notAdmin => '管理者だけが編集できます。';
+
+	/// ja: '管理番号を入力してください。'
+	String get controlNumberRequired => '管理番号を入力してください。';
 }
 
 // Path: edit.toolbar
@@ -478,9 +490,12 @@ extension on ManualStrings {
 			'create.titleMissing' => 'ページを作成',
 			'create.nameLabel' => 'ページ名',
 			'create.nameHint' => '新しいページの名前',
+			'create.controlNumberLabel' => '管理番号',
+			'create.controlNumberHint' => '文書の管理番号(利用者が決めます)',
 			'create.create' => '作成',
 			'create.cancel' => 'キャンセル',
 			'edit.heading' => 'ページの編集',
+			'edit.rootNoBody' => 'ルート(文書)は本文を持ちません。本文は子のページに書きます。',
 			'edit.nameLabel' => 'ページ名',
 			'edit.required' => '必須',
 			'edit.bodyLabel' => '本文',
@@ -547,6 +562,7 @@ extension on ManualStrings {
 			'errors.titleDuplicate' => '同じ名前のページがあります。',
 			'errors.notFound' => 'ページが見つかりません。',
 			'errors.notAdmin' => '管理者だけが編集できます。',
+			'errors.controlNumberRequired' => '管理番号を入力してください。',
 			_ => null,
 		};
 	}

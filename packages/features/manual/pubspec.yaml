@@ -30,12 +30,20 @@ dependencies:
     path: ../../foundation/approval_stamp
   approval_stamp_view:
     path: ../../ui/approval_stamp_view
+  manual_model:
+    path: ../../model_providers/manual_model
+  pms_graphql:
+    path: ../../infra/pms_graphql
+  graphql: ^5.2.3
+  gql: ^1.0.1
   file_picker: ^13.3.2
   flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   go_router: ^18.1.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   slang: ^4.19.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
 
 dev_dependencies:
+  data_test_harness:
+    path: ../../infra/data_test_harness
   theme_lib:
     path: ../../ui/theme_lib
   flutter_test:

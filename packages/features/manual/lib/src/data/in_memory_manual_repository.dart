@@ -16,6 +16,12 @@ class InMemoryManualRepository implements IManualRepository {
   int _nextId = 1000;
 
   @override
+  bool get rootHasBody => true;
+
+  @override
+  bool get requiresControlNumber => false;
+
+  @override
   Future<List<ManualPageRecord>> list() async => List.unmodifiable(_pages);
 
   void _guard(bool isAdmin) {
@@ -43,6 +49,7 @@ class InMemoryManualRepository implements IManualRepository {
     required String md,
     required String updatedBy,
     required bool isAdmin,
+    String? controlNumber,
   }) async {
     _guard(isAdmin);
     if (parentId != null) _indexOf(parentId);

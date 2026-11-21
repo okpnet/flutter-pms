@@ -1,0 +1,30 @@
+# manual_document_tree_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ManualDocumentTreePageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ManualDocumentTreePageCreate(
+  $mstrDocumentId: UUID
+  $parentMstrDocumentId: UUID
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  createMstrDocumentTree(
+    input: {
+      mstrDocumentTree: {
+        mstrDocumentId: $mstrDocumentId
+        parentMstrDocumentId: $parentMstrDocumentId
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    mstrDocumentTree {
+      mstrDocumentTreeId
+      mstrDocumentId
+      parentMstrDocumentId
+      updateUserId
+      updateUserHistoryId
+    }
+  }
+}

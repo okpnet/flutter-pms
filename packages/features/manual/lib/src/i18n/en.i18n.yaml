@@ -32,10 +32,13 @@ create:
   titleMissing: Create page
   nameLabel: Page name
   nameHint: Name of the new page
+  controlNumberLabel: Control number
+  controlNumberHint: Document control number (decided by the user)
   create: Create
   cancel: Cancel
 edit:
   heading: Edit page
+  rootNoBody: A root (document) has no body. Write the body in a child page.
   nameLabel: Page name
   required: Required
   bodyLabel: Text
@@ -109,3 +112,4 @@ errors:
   titleDuplicate: A page with the same name exists.
   notFound: Page not found.
   notAdmin: Only administrators can edit.
+  controlNumberRequired: Enter a control number.

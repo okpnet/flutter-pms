@@ -1,0 +1,84 @@
+# manual_approval_stamp_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ManualApprovalStampPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ManualApprovalStampPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VDocumentApprovalStampFilter = {and: []}
+  $orderBy: [VDocumentApprovalStampsOrderBy!]
+  $languageCodeId: UUID!
+) {
+  allVDocumentApprovalStamps(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transPreapprovalId
+      mstrDocumentId
+      transApprovalPatternId
+      mstrApprovalId
+
+      approval: mstrApprovalByMstrApprovalId {
+        mstrApprovalId
+        priority
+
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+      }
+
+      approvalPriority
+      period
+      decided
+      approved
+      rejected
+      pending
+      approvedAt
+      approvedStaffId
+
+      approved_staff: infoStaffByApprovedStaffId {
+        infoStaffId
+        code
+
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+      }
+
+      stampLabelJa
+      stampLabelEn
+      versionCode
+      controlNumber
+      documentRevision
+    }
+  }
+}

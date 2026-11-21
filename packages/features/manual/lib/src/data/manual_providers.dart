@@ -53,6 +53,7 @@ class ManualNotifier extends Notifier<ManualState> {
     required String? parentId,
     required String title,
     String md = '',
+    String? controlNumber,
   }) async {
     final page = await ref
         .read(manualRepositoryProvider)
@@ -62,6 +63,7 @@ class ManualNotifier extends Notifier<ManualState> {
           md: md,
           updatedBy: _by,
           isAdmin: _admin,
+          controlNumber: controlNumber,
         );
     await reload();
     return page;

@@ -1,0 +1,42 @@
+# manual_content_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ManualContentPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ManualContentPageCreate(
+  $mstrDocumentId: UUID
+  $code: String!
+  $titles: UUID
+  $contents: UUID
+  $sequence: Int
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  createMstrDocumentContent(
+    input: {
+      mstrDocumentContent: {
+        mstrDocumentId: $mstrDocumentId
+        code: $code
+        titles: $titles
+        contents: $contents
+        sequence: $sequence
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    mstrDocumentContent {
+      mstrDocumentContentId
+      mstrDocumentId
+      code
+      titles
+      contents
+      sequence
+      remarks
+      updateUserId
+      updateUserHistoryId
+    }
+  }
+}

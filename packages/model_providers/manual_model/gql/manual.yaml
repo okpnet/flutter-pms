@@ -1,0 +1,318 @@
+# yaml-language-server: $schema=../../schema.json
+
+# マニュアル(Wiki)の DB 版のモデル。
+# ルート = 文書(mstr_document)で、文書ツリー(mstr_document_tree)の親が NULL のもの。ページ = 文書コンテンツ(mstr_document_content。
+# 文書コンテンツのツリー(mstr_document_content_tree)の親が NULL のものは、ルートの文書の直下)。ページ名 = 呼称(titles)の言語 ja の名称、
+# 本文 = 共有テキスト(contents)の言語 ja の値(Markdown)。履歴は DB の履歴の表(history_shared_text_value)。
+# 呼称・文章の書き込みは共通関数(shared_appellation_save・shared_text_save)。公開・承認の状態は DB のビュー(v_document_publication・v_document_approval_stamp)。
+
+# 文書階層(ルートの文書の階層 = tier_number が最小のもの)
+ManualTierPage:
+  lightRead: true
+  kind: read
+  from: mstr_document_tier
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - mstr_document_tier_id
+    - code
+    - identifier
+    - tier_number
+
+# ルートの文書(親は文書ツリーの親。親が無い、または親が NULL のものがルート)
+ManualDocumentPage:
+  lightRead: true
+  kind: read
+  from: mstr_document
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - mstr_document_id
+    - name: parent
+      arrayType: toFirstOne
+      using: mstr_document_id
+      from: mstr_document_tree
+      requiredWhere:
+        - parent_mstr_document_id
+      columns:
+        - mstr_document_tree_id
+        - parent_mstr_document_id
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+    - code
+    - titles
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: titles
+      pick:
+        - name
+      <<: *AppellationLabelsReadFields
+    - control_number
+    - version_code
+    - mstr_document_tier_id
+    - revision
+    - symbol
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id, update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# ページ(文書コンテンツ)
+ManualContentPage:
+  lightRead: true
+  kind: read
+  from: mstr_document_content
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - mstr_document_content_id
+    - name: parent
+      arrayType: toFirstOne
+      using: mstr_document_content_id
+      from: mstr_document_content_tree
+      requiredWhere:
+        - parent_mstr_document_content_id
+      columns:
+        - mstr_document_content_tree_id
+        - parent_mstr_document_content_id
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+    - mstr_document_id
+    - code
+    - titles
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: titles
+      pick:
+        - name
+      <<: *AppellationLabelsReadFields
+    - contents
+    - sequence
+    - revision
+    - symbol
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id, update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 本文(共有テキストの値。言語ごと)。filter で共有テキストの ID の集まりと言語を絞る
+ManualTextValuePage:
+  lightRead: true
+  kind: read
+  from: shared_text_value
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - shared_text_value_id
+    - shared_text_id
+    - shared_language_code_id
+    - text_value
+    - revision
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id, update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 本文の履歴(DB の履歴の表。新しい版が先)
+ManualTextHistoryPage:
+  lightRead: true
+  kind: read
+  from: history_shared_text_value
+  filter: true
+  columns:
+    - history_id
+    - shared_text_value_id
+    - shared_text_id
+    - shared_language_code_id
+    - text_value
+    - revision
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id, update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 言語コード(ja の ID を引く)
+ManualLanguagePage:
+  lightRead: true
+  kind: read
+  from: shared_language_code
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - shared_language_code_id
+    - code
+
+# ---- 書き込み ----
+# 呼称(ページ名)・文章(本文)は共通関数。渡した言語の値だけが入れ替わる(他の言語は残る)。担当者は引数、省略時は JWT の staff_id
+ManualAppellationSavePageCall:
+  kind: function
+  mutation: sharedAppellationSave
+  returns: sharedAppellation
+  columns:
+    - shared_appellations_id
+
+ManualTextSavePageCall:
+  kind: function
+  mutation: sharedTextSave
+  returns: sharedText
+  columns:
+    - shared_text_id
+
+# ルートの文書の登録。承認パターンは、DB のトリガーが info_app.settings の approval.patterns.document から入れる(登録が申請)。管理番号は利用者が決める
+ManualDocumentPageCreate:
+  kind: create
+  from: mstr_document
+  columns:
+    - code
+    - titles
+    - control_number
+    - mstr_document_tier_id
+    - version_code
+    - remarks
+    - update_user_id
+    - update_user_history_id
+
+ManualDocumentTreePageCreate:
+  kind: create
+  from: mstr_document_tree
+  columns:
+    - mstr_document_id
+    - parent_mstr_document_id
+    - update_user_id
+    - update_user_history_id
+
+ManualContentPageCreate:
+  kind: create
+  from: mstr_document_content
+  columns:
+    - mstr_document_id
+    - code
+    - titles
+    - contents
+    - sequence
+    - remarks
+    - update_user_id
+    - update_user_history_id
+
+ManualContentTreePageCreate:
+  kind: create
+  from: mstr_document_content_tree
+  columns:
+    - mstr_document_content_id
+    - parent_mstr_document_content_id
+    - update_user_id
+    - update_user_history_id
+
+# ---- 公開・承認(ルートの文書の状態。判定・文字は DB のビューが 1 か所で持つ) ----
+ManualPublicationPage:
+  lightRead: true
+  kind: read
+  from: v_document_publication
+  filter: true
+  columns:
+    - mstr_document_id
+    - control_number
+    - version_code
+    - trans_approval_pattern_id
+    - total_count
+    - approved_count
+    - published
+    - pending
+    - rejected
+    - stamp_visible
+    - readable
+    - approved_at
+    - stamp_label_ja
+    - stamp_label_en
+
+ManualApprovalStampPage:
+  kind: read
+  from: v_document_approval_stamp
+  filter: true
+  requiredWhere:
+    - languageCode
+  columns:
+    - trans_preapproval_id
+    - mstr_document_id
+    - trans_approval_pattern_id
+    - mstr_approval_id
+    - name: approval
+      as: approval
+      arrayType: toFirstOne
+      using: mstr_approval_id
+      from: mstr_approval
+      requiredWhere:
+        - languageCode
+      columns:
+        - mstr_approval_id
+        - priority
+        - name: labels
+          as: labels
+          arrayType: toFirstOne
+          using: names
+          pick:
+            - name
+          <<: *AppellationLabelsReadFields
+    - approval_priority
+    - period
+    - decided
+    - approved
+    - rejected
+    - pending
+    - approved_at
+    - approved_staff_id
+    - name: approved_staff
+      as: approved_staff
+      arrayType: toFirstOne
+      using: approved_staff_id
+      from: info_staff
+      requiredWhere:
+        - languageCode
+      columns:
+        - info_staff_id
+        - code
+        - name: labels
+          as: labels
+          arrayType: toFirstOne
+          using: names
+          pick:
+            - name
+          <<: *AppellationLabelsReadFields
+    - stamp_label_ja
+    - stamp_label_en
+    - version_code
+    - control_number
+    - document_revision

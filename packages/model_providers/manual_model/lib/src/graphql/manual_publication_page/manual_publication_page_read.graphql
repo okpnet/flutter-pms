@@ -1,0 +1,40 @@
+# manual_publication_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ManualPublicationPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ManualPublicationPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VDocumentPublicationFilter = {and: []}
+  $orderBy: [VDocumentPublicationsOrderBy!]
+) {
+  allVDocumentPublications(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      mstrDocumentId
+      controlNumber
+      versionCode
+      transApprovalPatternId
+      totalCount
+      approvedCount
+      published
+      pending
+      rejected
+      stampVisible
+      readable
+      approvedAt
+      stampLabelJa
+      stampLabelEn
+    }
+  }
+}

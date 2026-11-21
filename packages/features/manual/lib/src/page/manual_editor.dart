@@ -132,6 +132,8 @@ class _ManualEditorState extends ConsumerState<ManualEditor> {
   Widget build(BuildContext context) {
     final s = ref.watch(manualStringsProvider);
     final wiki = ref.watch(manualProvider).wiki;
+    // 本文を持たないルート(DB の文書)は、ページ名だけを編集する(本文は子のページが持つ)
+    final hasBody = !widget.page.isRoot || ref.watch(manualRepositoryProvider).rootHasBody;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -148,18 +150,22 @@ class _ManualEditorState extends ConsumerState<ManualEditor> {
               ManualError.titleDuplicate => s.errors.titleDuplicate,
               ManualError.notFound => s.errors.notFound,
               ManualError.notAdmin => s.errors.notAdmin,
+              ManualError.controlNumberRequired => s.errors.controlNumberRequired,
               null => null,
             },
           ),
         ),
         const SizedBox(height: 12),
-        WysiwygEditor(
-          controller: _body,
-          keyPrefix: 'manual',
-          labels: _labels(s),
-          wikiLinkResolver: ManualContent.resolverOf(wiki),
-          pickLink: _pickLink,
-        ),
+        if (hasBody)
+          WysiwygEditor(
+            controller: _body,
+            keyPrefix: 'manual',
+            labels: _labels(s),
+            wikiLinkResolver: ManualContent.resolverOf(wiki),
+            pickLink: _pickLink,
+          )
+        else
+          Text(s.edit.rootNoBody, key: const Key('manual-edit-root-no-body')),
         const SizedBox(height: 16),
         ActionButtons(
           primaryLabel: s.edit.save,

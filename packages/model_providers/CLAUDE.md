@@ -32,6 +32,7 @@
 | `plan_change_model` | 計画変更の履歴・MRP に未反映の計画変更。読み取りだけ |
 | `return_model` | 返品(返品・返品明細・返品とロットのつなぎ)。読み取りだけ |
 | `document_approval_model` | 文書の承認・公開(`v_document_publication`・`v_document_approval_stamp`・`v_document_content`・`document_approve`)、アプリの設定(`info_app.settings`)・承認パターンのスタンプの様式(`stamp_style`) |
+| `manual_model` | マニュアル(Wiki)の DB 版(ルートの文書・文書コンテンツ・本文(共有テキスト)・履歴・呼称と文章の保存・文書の登録・公開と承認のビュー) |
 
 ## ダッシュボード用のビュー
 

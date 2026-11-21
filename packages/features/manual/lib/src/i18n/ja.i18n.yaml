@@ -32,10 +32,13 @@ create:
   titleMissing: ページを作成
   nameLabel: ページ名
   nameHint: 新しいページの名前
+  controlNumberLabel: 管理番号
+  controlNumberHint: 文書の管理番号(利用者が決めます)
   create: 作成
   cancel: キャンセル
 edit:
   heading: 'ページの編集'
+  rootNoBody: ルート(文書)は本文を持ちません。本文は子のページに書きます。
   nameLabel: ページ名
   required: 必須
   bodyLabel: 本文
@@ -109,3 +112,4 @@ errors:
   titleDuplicate: 同じ名前のページがあります。
   notFound: ページが見つかりません。
   notAdmin: 管理者だけが編集できます。
+  controlNumberRequired: 管理番号を入力してください。

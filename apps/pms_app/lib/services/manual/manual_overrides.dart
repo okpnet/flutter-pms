@@ -12,7 +12,14 @@ import 'package:quality_document/quality_document.dart'
 import 'package:manual/manual.dart'
     show
         AppSettings,
+        GraphqlManualApprovalSource,
+        GraphqlManualRepository,
+        InMemoryManualRepository,
+        ManualGraphqlClient,
+        NoManualApprovalSource,
         manualAppSettingsProvider,
+        manualApprovalSourceProvider,
+        manualRepositoryProvider,
         manualIsAdminProvider,
         manualPrinterNameProvider;
 
@@ -28,6 +35,17 @@ import '../session/pocketbase_user_identity.dart';
 /// - 更新者の名前は、既定のまま(ログインユーザーの表示名)。PDF の「出力した人」も、ログインユーザーの表示名。
 /// - 承認の状態・アプリの設定(スタンプ・PDF)の取得元は、DB の文書とつなぐまで既定(承認なし・標準の設定)。
 List<Override> manualOverrides() => [
+  // マニュアルの取得元・承認の状態: GraphQL に接続するときは DB(文書・文書コンテンツ・共有テキスト。ビュー v_document_publication)、しないときはメモリ上のサンプル
+  manualRepositoryProvider.overrideWith((ref) {
+    final client = ref.watch(graphqlClientProvider);
+    if (client == null) return InMemoryManualRepository();
+    return GraphqlManualRepository(ManualGraphqlClient(client, auditUser: ref.watch(auditUserProvider)));
+  }),
+  manualApprovalSourceProvider.overrideWith((ref) {
+    final client = ref.watch(graphqlClientProvider);
+    if (client == null) return const NoManualApprovalSource();
+    return GraphqlManualApprovalSource(ManualGraphqlClient(client));
+  }),
   // 文書コンテンツの本文(品質管理文書)。GraphQL に接続するときは DB(共有テキスト)、しないときはメモリ上。編集は管理者だけ
   documentBodyGatewayProvider.overrideWith((ref) {
     final client = ref.watch(graphqlClientProvider);

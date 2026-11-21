@@ -13,6 +13,7 @@ String manualErrorText(ManualStrings s, ManualError e) => switch (e) {
   ManualError.titleDuplicate => s.errors.titleDuplicate,
   ManualError.notFound => s.errors.notFound,
   ManualError.notAdmin => s.errors.notAdmin,
+  ManualError.controlNumberRequired => s.errors.controlNumberRequired,
 };
 
 /// 新しいページ名を入れて作成する。作成したページを返す(取り消しは null)。
@@ -48,19 +49,28 @@ class _CreateDialog extends ConsumerStatefulWidget {
 
 class _CreateDialogState extends ConsumerState<_CreateDialog> {
   late final _name = TextEditingController(text: widget.initialName);
+  final _controlNumber = TextEditingController();
   ManualError? _error;
 
   @override
   void dispose() {
     _name.dispose();
+    _controlNumber.dispose();
     super.dispose();
   }
+
+  /// ルートを作るとき、管理番号の入力が要るか(取得元が要求するとき)。
+  bool get _needsControlNumber => widget.parentId == null && ref.read(manualRepositoryProvider).requiresControlNumber;
 
   Future<void> _create() async {
     try {
       final page = await ref
           .read(manualProvider.notifier)
-          .create(parentId: widget.parentId, title: _name.text);
+          .create(
+            parentId: widget.parentId,
+            title: _name.text,
+            controlNumber: _needsControlNumber ? _controlNumber.text.trim() : null,
+          );
       if (mounted) Navigator.of(context).pop(page);
     } on ManualException catch (e) {
       if (mounted) setState(() => _error = e.error);
@@ -74,17 +84,36 @@ class _CreateDialogState extends ConsumerState<_CreateDialog> {
       title: Text(widget.dialogTitle),
       content: SizedBox(
         width: 420,
-        child: TextField(
-          key: const Key('manual-create-name'),
-          controller: _name,
-          autofocus: true,
-          onChanged: (_) => setState(() => _error = null),
-          onSubmitted: (_) => _create(),
-          decoration: InputDecoration(
-            labelText: s.create.nameLabel,
-            hintText: s.create.nameHint,
-            errorText: _error == null ? null : manualErrorText(s, _error!),
-          ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              key: const Key('manual-create-name'),
+              controller: _name,
+              autofocus: true,
+              onChanged: (_) => setState(() => _error = null),
+              onSubmitted: (_) => _create(),
+              decoration: InputDecoration(
+                labelText: s.create.nameLabel,
+                hintText: s.create.nameHint,
+                errorText: _error == null || _error == ManualError.controlNumberRequired
+                    ? null
+                    : manualErrorText(s, _error!),
+              ),
+            ),
+            if (_needsControlNumber)
+              TextField(
+                key: const Key('manual-create-control-number'),
+                controller: _controlNumber,
+                onChanged: (_) => setState(() => _error = null),
+                onSubmitted: (_) => _create(),
+                decoration: InputDecoration(
+                  labelText: s.create.controlNumberLabel,
+                  hintText: s.create.controlNumberHint,
+                  errorText: _error == ManualError.controlNumberRequired ? manualErrorText(s, _error!) : null,
+                ),
+              ),
+          ],
         ),
       ),
       actions: [

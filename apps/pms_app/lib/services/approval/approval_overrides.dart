@@ -36,7 +36,7 @@ class _SessionPasswordVerifier implements IPasswordVerifier {
   Future<bool> verify(String password) => _verify(password);
 }
 
-/// 区分と対象の ID から、台帳の画面のパス。対応する台帳が無い区分(文書は DB の文書とつなぐまで)は null。
+/// 区分と対象の ID から、画面のパス。文書は、マニュアルのルートのページ。対応する画面が無い区分は null。
 String? _targetLocation(String kind, String targetId) {
   const entityKeys = {
     'order': 'order',
@@ -45,6 +45,7 @@ String? _targetLocation(String kind, String targetId) {
     'unrecognized': 'unrec',
     'complaint': 'complaint',
   };
+  if (kind == 'document') return '/manual?id=${Uri.encodeQueryComponent(targetId)}';
   final key = entityKeys[kind];
   if (key == null) return null;
   return '/e/$key?id=${Uri.encodeQueryComponent(targetId)}';

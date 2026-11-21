@@ -20,6 +20,9 @@ export 'src/data/manual_providers.dart'
         manualRepositoryProvider,
         ManualState;
 export 'src/data/manual_repository.dart';
+export 'src/graphql/graphql_manual_approval_source.dart' show GraphqlManualApprovalSource;
+export 'src/graphql/graphql_manual_client.dart' show ManualGraphqlClient;
+export 'src/graphql/graphql_manual_repository.dart' show GraphqlManualRepository;
 export 'src/i18n/strings_provider.dart' show ManualStrings, manualStringsProvider;
 export 'src/model/manual_page_record.dart';
 export 'src/model/manual_wiki.dart';

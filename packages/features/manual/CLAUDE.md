@@ -21,7 +21,7 @@
 1.  **メニュー**: グループ ID `quality_document`(品質管理文書)に、ルートごとに 1 項目(`ManualModule.menuEntries`。取得元の状態から作るため、ルートを足すと項目も増える)。ルートが無いときは「マニュアル」の 1 項目。
 1.  **PDF の出力**(「PDF」ボタン。`showManualPdfDialog`): 範囲(このページ / 文書全体)を選び、「名前を付けて保存」で保存する。`markdown_pdf` で生成し、設定(`manualAppSettingsProvider`。`info_app.settings` の標準。用紙・テーマ・ヘッダ/フッタ・スタンプ)と承認の状態を使う。保存先は `manualFileSaverProvider`(既定は OS のダイアログ。テストは差し替え)、フォントは `manualPdfFontsProvider`(既定は同梱の BIZ UDP 明朝)。ヘッダ・フッタの `{printedBy}` は `manualPrinterNameProvider`。
 1.  **承認と公開**(`ManualApprovalGate`): 文書(ルートのページ)の承認の状態は `manualApprovalSourceProvider`(`IManualApprovalSource`。既定は承認なし = 公開・スタンプなし。アプリが DB のビュー `v_document_publication`・`v_document_approval_stamp` の値に差し替える)。承認待ち(`pending`)の文書は、読める人にも「承認待ち」の帯を出す。読めない(`readable = false`)ときは本文の代わりに案内を出す。承認スタンプはルートの文書にだけ出す(子ページには注記)。判定は DB のビューの値で、画面・PDF では判定しない。承認の操作(承認待ち一覧・承認)の画面は別。
-1.  制約: 画像の取り込みなし・目次にページ番号なし。取得元はメモリ上のサンプル(再読み込みで初期データに戻る)。決定の経緯は `issue/20261120_0002.md`。
+1.  制約: 画像の取り込みなし・目次にページ番号なし。取得元の既定はメモリ上のサンプル(再読み込みで初期データに戻る)。決定の経緯は `issue/20261120_0002.md`。
 
 ## 構成
 Markdown の読み取り・閲覧・編集・PDF は `packages/foundation` の Markdown 系のパッケージ(`markdown_ast`・`markdown_view`・`wysiwyg_editor`・`markdown_pdf` ほか)。この機能は組み合わせるだけ(本文の表示 `ManualContent` = `MarkdownView` + ページへのリンクの行き先、編集 `ManualEditor` = ページ名・保存・取り消し + `WysiwygEditor`)。
@@ -39,6 +39,16 @@ Markdown の読み取り・閲覧・編集・PDF は `packages/foundation` の M
 1.  色・サイズは `Theme` の `ColorScheme` から取る(色の値を直接書かない)。見出しは `app_shell` の `ScreenScaffold`、保存・キャンセルは `ActionButtons`、確認は `showConfirmDialog`。
 1.  ラベルは slang(`lib/src/i18n`。`dart run slang`)。クラスは `ManualStrings`、言語の選択は `manualStringsProvider`(`feature_shared` の `localeProvider`)。
 1.  アクセスパスは `/manual`(`apps/pms_app/doc/contents/access_paths.csv`)。機能コードは `N`・画面コード `M`(`packages/features/doc/page_code_list.yml`)。
+
+## 取得元(DB 版。`GraphqlManualRepository`・`GraphqlManualApprovalSource`)
+`GRAPHQL_URL` を指定したときだけ、アプリ(`pms_app` の `manualOverrides`)が DB 版に差し替える(未指定はメモリ上のサンプル)。モデルは `packages/model_providers/manual_model`。
+1.  ルート = 文書(`mstr_document`)で、文書ツリーの親が NULL のもの(親のある文書は出さない)。ページ = 文書コンテンツ(`mstr_document_content`。文書コンテンツのツリーの親が NULL のものは、ルートの文書の直下)。ページ名 = 呼称(`titles`)の言語 ja の名称、本文 = 共有テキスト(`contents`)の言語 ja の値(Markdown)。
+1.  書き込みは共通関数(`shared_appellation_save`・`shared_text_save`)で、渡した言語の値だけが入れ替わる(他の言語は残る)。ページの作成は、呼称 → 本文 → 本体 → ツリーの順に呼ぶ(マスタは同時実行の影響が小さいため。失敗したときの孤児の呼称・文章は許容する)。ページ名の変更は、ほかのページの `[[旧名]]` も書き換える。
+1.  改訂・履歴・更新者は DB の履歴の表(`history_shared_text_value`。改訂 = 本文の版、履歴 = 現在より前の版を新しい順に最大 10 件)。ページ名の版は DB に無いため、履歴の各版のページ名は現在のページ名。履歴の復元は、その版の本文を新しい版として保存する。
+1.  ルートの文書は本文の列を持たない(`IManualRepository.rootHasBody` = false)。ルートの編集はページ名だけ(本文のエディタを出さない)。本文は子のページに書く。
+1.  ルートの作成は、**管理番号(`control_number`)を利用者が決める**(作成のダイアログに欄が出る。空は `ManualError.controlNumberRequired`。`requiresControlNumber`)。文書階層は、階層番号が最小のもの(ルートの階層)。承認パターンは、DB のトリガー(登録が申請)が `info_app.settings` の `approval.patterns.document` から入れる。内部のコード(`code`)は自動で付ける。
+1.  公開・承認の状態(`ManualApproval`)は、DB のビュー `v_document_publication`・`v_document_approval_stamp` の値を詰めるだけ(判定は持たない)。承認パターンごとのスタンプの様式(`stamp_style`)は読まない(標準の設定)。承認一覧の「参照」は、文書をマニュアルのルート(`/manual?id=<文書の ID>`)へ向ける。
+1.  テスト: `test/graphql_manual_test.dart`・`test/graphql_manual_approval_test.dart`(仮の通路。サーバーには接続しない)。検証用サーバーでの書き込みの通信テストは書いていない(読み取りのクエリは `manual_model` の通信テストで確認)。
 
 ## example とテスト
 1.  `example`(Windows 向け。`flutter run -d windows`)。メニューの項目: 最初のルート・品質マニュアル・2 つ目のルート(安全衛生マニュアル)・編集の状態。`ExampleApp(isAdmin: false)` で閲覧のみを確認できる。

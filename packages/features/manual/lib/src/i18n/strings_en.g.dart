@@ -96,6 +96,8 @@ class _ManualStrings$create$en extends ManualStrings$create$ja {
 	@override String get titleMissing => 'Create page';
 	@override String get nameLabel => 'Page name';
 	@override String get nameHint => 'Name of the new page';
+	@override String get controlNumberLabel => 'Control number';
+	@override String get controlNumberHint => 'Document control number (decided by the user)';
 	@override String get create => 'Create';
 	@override String get cancel => 'Cancel';
 }
@@ -108,6 +110,7 @@ class _ManualStrings$edit$en extends ManualStrings$edit$ja {
 
 	// Translations
 	@override String get heading => 'Edit page';
+	@override String get rootNoBody => 'A root (document) has no body. Write the body in a child page.';
 	@override String get nameLabel => 'Page name';
 	@override String get required => 'Required';
 	@override String get bodyLabel => 'Text';
@@ -218,6 +221,7 @@ class _ManualStrings$errors$en extends ManualStrings$errors$ja {
 	@override String get titleDuplicate => 'A page with the same name exists.';
 	@override String get notFound => 'Page not found.';
 	@override String get notAdmin => 'Only administrators can edit.';
+	@override String get controlNumberRequired => 'Enter a control number.';
 }
 
 // Path: edit.toolbar
@@ -279,9 +283,12 @@ extension on ManualStringsEn {
 			'create.titleMissing' => 'Create page',
 			'create.nameLabel' => 'Page name',
 			'create.nameHint' => 'Name of the new page',
+			'create.controlNumberLabel' => 'Control number',
+			'create.controlNumberHint' => 'Document control number (decided by the user)',
 			'create.create' => 'Create',
 			'create.cancel' => 'Cancel',
 			'edit.heading' => 'Edit page',
+			'edit.rootNoBody' => 'A root (document) has no body. Write the body in a child page.',
 			'edit.nameLabel' => 'Page name',
 			'edit.required' => 'Required',
 			'edit.bodyLabel' => 'Text',
@@ -348,6 +355,7 @@ extension on ManualStringsEn {
 			'errors.titleDuplicate' => 'A page with the same name exists.',
 			'errors.notFound' => 'Page not found.',
 			'errors.notAdmin' => 'Only administrators can edit.',
+			'errors.controlNumberRequired' => 'Enter a control number.',
 			_ => null,
 		};
 	}

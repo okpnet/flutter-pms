@@ -13,6 +13,9 @@ enum ManualError {
 
   /// 管理者でないため、編集できない。
   notAdmin,
+
+  /// ルートの文書の管理番号が空(管理番号は利用者が決める)。
+  controlNumberRequired,
 }
 
 class ManualException implements Exception {
@@ -29,15 +32,24 @@ class ManualException implements Exception {
 ///
 /// パターン: Strategy(保存先の差し替え)
 abstract interface class IManualRepository {
+  /// ルートのページ(文書)が本文を持つか。持たない取得元(DB の文書は本文の列が無く、本文は子のページ = 文書コンテンツが持つ)では、
+  /// ルートの編集はページ名だけにする。
+  bool get rootHasBody;
+
+  /// ルートを作るとき、管理番号(利用者が決める)が要るか。
+  bool get requiresControlNumber;
+
   Future<List<ManualPageRecord>> list();
 
   /// [parentId] の下(null ならルート)に、末尾のページを作る。ルートは複数作れる。
+  /// ルートの [controlNumber](文書の管理番号)は、[requiresControlNumber] のとき必須(空は `controlNumberRequired`)。
   Future<ManualPageRecord> create({
     required String? parentId,
     required String title,
     required String md,
     required String updatedBy,
     required bool isAdmin,
+    String? controlNumber,
   });
 
   /// ページ名・本文を保存する。変更があれば、直前の版を履歴に残して改訂を 1 つ上げる。

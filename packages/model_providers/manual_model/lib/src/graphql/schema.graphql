@@ -1,0 +1,1528 @@
+# このファイルは gql_schema_pruner が生成した画面用スキーマです。直接編集しないでください。
+# 再生成: melos run gql:prune(本家スキーマ .schema/schema.graphql が必要)
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+scalar Cursor
+
+scalar Datetime
+
+scalar JSON
+
+scalar UUID
+
+enum HistorySharedTextValuesOrderBy {
+  NATURAL
+  HISTORY_ID_ASC
+  HISTORY_ID_DESC
+  SHARED_TEXT_VALUE_ID_ASC
+  SHARED_TEXT_VALUE_ID_DESC
+  SHARED_LANGUAGE_CODE_ID_ASC
+  SHARED_LANGUAGE_CODE_ID_DESC
+  SHARED_TEXT_ID_ASC
+  SHARED_TEXT_ID_DESC
+  CHAR_COUNT_ASC
+  CHAR_COUNT_DESC
+  LEAD_TEXT_ASC
+  LEAD_TEXT_DESC
+  TEXT_VALUE_ASC
+  TEXT_VALUE_DESC
+  REVISION_ASC
+  REVISION_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum MstrDocumentContentsOrderBy {
+  NATURAL
+  MSTR_DOCUMENT_CONTENT_ID_ASC
+  MSTR_DOCUMENT_CONTENT_ID_DESC
+  MSTR_DOCUMENT_ID_ASC
+  MSTR_DOCUMENT_ID_DESC
+  CODE_ASC
+  CODE_DESC
+  TITLES_ASC
+  TITLES_DESC
+  CONTENTS_ASC
+  CONTENTS_DESC
+  SEQUENCE_ASC
+  SEQUENCE_DESC
+  IMAGE_CONTENT_ASC
+  IMAGE_CONTENT_DESC
+  TRANS_FILE_ID_ASC
+  TRANS_FILE_ID_DESC
+  REVISION_ASC
+  REVISION_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum MstrDocumentTiersOrderBy {
+  NATURAL
+  MSTR_DOCUMENT_TIER_ID_ASC
+  MSTR_DOCUMENT_TIER_ID_DESC
+  CODE_ASC
+  CODE_DESC
+  NAMES_ASC
+  NAMES_DESC
+  TRANS_FILE_ID_ASC
+  TRANS_FILE_ID_DESC
+  ATTRIBUTIVE_NOUN_ASC
+  ATTRIBUTIVE_NOUN_DESC
+  IDENTIFIER_ASC
+  IDENTIFIER_DESC
+  TIER_NUMBER_ASC
+  TIER_NUMBER_DESC
+  REVISION_ASC
+  REVISION_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum MstrDocumentsOrderBy {
+  NATURAL
+  MSTR_DOCUMENT_ID_ASC
+  MSTR_DOCUMENT_ID_DESC
+  CODE_ASC
+  CODE_DESC
+  TITLES_ASC
+  TITLES_DESC
+  CONTROL_NUMBER_ASC
+  CONTROL_NUMBER_DESC
+  MSTR_DOCUMENT_TIER_ID_ASC
+  MSTR_DOCUMENT_TIER_ID_DESC
+  TRANS_FILE_ID_ASC
+  TRANS_FILE_ID_DESC
+  VERSION_CODE_ASC
+  VERSION_CODE_DESC
+  TRANS_APPROVAL_PATTERN_ID_ASC
+  TRANS_APPROVAL_PATTERN_ID_DESC
+  REVISION_ASC
+  REVISION_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum SharedLanguageCodesOrderBy {
+  NATURAL
+  SHARED_LANGUAGE_CODE_ID_ASC
+  SHARED_LANGUAGE_CODE_ID_DESC
+  CODE_ASC
+  CODE_DESC
+  LABEL_ASC
+  LABEL_DESC
+  PRIORITY_ASC
+  PRIORITY_DESC
+  IS_DEFAULT_ASC
+  IS_DEFAULT_DESC
+  REVISION_ASC
+  REVISION_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum SharedTextValuesOrderBy {
+  NATURAL
+  SHARED_TEXT_VALUE_ID_ASC
+  SHARED_TEXT_VALUE_ID_DESC
+  SHARED_LANGUAGE_CODE_ID_ASC
+  SHARED_LANGUAGE_CODE_ID_DESC
+  SHARED_TEXT_ID_ASC
+  SHARED_TEXT_ID_DESC
+  CHAR_COUNT_ASC
+  CHAR_COUNT_DESC
+  LEAD_TEXT_ASC
+  LEAD_TEXT_DESC
+  TEXT_VALUE_ASC
+  TEXT_VALUE_DESC
+  REVISION_ASC
+  REVISION_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum VDocumentApprovalStampsOrderBy {
+  NATURAL
+  TRANS_PREAPPROVAL_ID_ASC
+  TRANS_PREAPPROVAL_ID_DESC
+  MSTR_DOCUMENT_ID_ASC
+  MSTR_DOCUMENT_ID_DESC
+  TRANS_APPROVAL_PATTERN_ID_ASC
+  TRANS_APPROVAL_PATTERN_ID_DESC
+  MSTR_APPROVAL_ID_ASC
+  MSTR_APPROVAL_ID_DESC
+  APPROVAL_PRIORITY_ASC
+  APPROVAL_PRIORITY_DESC
+  APPROVAL_NAMES_ASC
+  APPROVAL_NAMES_DESC
+  INFO_POSITION_ID_ASC
+  INFO_POSITION_ID_DESC
+  INFO_DEPARTMENT_ID_ASC
+  INFO_DEPARTMENT_ID_DESC
+  PERIOD_ASC
+  PERIOD_DESC
+  DECIDED_ASC
+  DECIDED_DESC
+  APPROVED_ASC
+  APPROVED_DESC
+  REJECTED_ASC
+  REJECTED_DESC
+  PENDING_ASC
+  PENDING_DESC
+  APPROVED_AT_ASC
+  APPROVED_AT_DESC
+  APPROVED_STAFF_ID_ASC
+  APPROVED_STAFF_ID_DESC
+  APPROVED_STAFF_HISTORY_ID_ASC
+  APPROVED_STAFF_HISTORY_ID_DESC
+  APPROVED_REMARKS_ASC
+  APPROVED_REMARKS_DESC
+  STAMP_LABEL_JA_ASC
+  STAMP_LABEL_JA_DESC
+  STAMP_LABEL_EN_ASC
+  STAMP_LABEL_EN_DESC
+  VERSION_CODE_ASC
+  VERSION_CODE_DESC
+  CONTROL_NUMBER_ASC
+  CONTROL_NUMBER_DESC
+  DOCUMENT_REVISION_ASC
+  DOCUMENT_REVISION_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum VDocumentPublicationsOrderBy {
+  NATURAL
+  MSTR_DOCUMENT_ID_ASC
+  MSTR_DOCUMENT_ID_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  CODE_ASC
+  CODE_DESC
+  CONTROL_NUMBER_ASC
+  CONTROL_NUMBER_DESC
+  VERSION_CODE_ASC
+  VERSION_CODE_DESC
+  TRANS_APPROVAL_PATTERN_ID_ASC
+  TRANS_APPROVAL_PATTERN_ID_DESC
+  TOTAL_COUNT_ASC
+  TOTAL_COUNT_DESC
+  APPROVED_COUNT_ASC
+  APPROVED_COUNT_DESC
+  PUBLISHED_ASC
+  PUBLISHED_DESC
+  PENDING_ASC
+  PENDING_DESC
+  REJECTED_ASC
+  REJECTED_DESC
+  STAMP_VISIBLE_ASC
+  STAMP_VISIBLE_DESC
+  APPROVED_AT_ASC
+  APPROVED_AT_DESC
+  APPROVED_STAFF_ID_ASC
+  APPROVED_STAFF_ID_DESC
+  APPROVED_STAFF_HISTORY_ID_ASC
+  APPROVED_STAFF_HISTORY_ID_DESC
+  READABLE_ASC
+  READABLE_DESC
+  APPROVER_ASC
+  APPROVER_DESC
+  STAMP_LABEL_JA_ASC
+  STAMP_LABEL_JA_DESC
+  STAMP_LABEL_EN_ASC
+  STAMP_LABEL_EN_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+type CreateMstrDocumentContentPayload {
+  mstrDocumentContent: MstrDocumentContent
+}
+
+type CreateMstrDocumentContentTreePayload {
+  mstrDocumentContentTree: MstrDocumentContentTree
+}
+
+type CreateMstrDocumentPayload {
+  mstrDocument: MstrDocument
+}
+
+type CreateMstrDocumentTreePayload {
+  mstrDocumentTree: MstrDocumentTree
+}
+
+type HistoryInfoStaff {
+  historyId: UUID!
+  infoStaffId: UUID!
+  infoCompanyId: UUID!
+  code: String
+  sex: String
+  phone: String
+  privatePhone: String
+  symbol: String
+  sharedAppellationByNames: SharedAppellation
+}
+
+type HistorySharedTextValue {
+  historyId: UUID!
+  sharedTextValueId: UUID!
+  sharedLanguageCodeId: UUID!
+  sharedTextId: UUID!
+  textValue: String
+  revision: Int
+  updateAt: Datetime
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
+}
+
+type HistorySharedTextValuesConnection {
+  nodes: [HistorySharedTextValue]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type InfoStaff {
+  infoStaffId: UUID!
+  code: String
+  sharedAppellationByNames: SharedAppellation
+}
+
+type MstrApproval {
+  mstrApprovalId: UUID!
+  priority: Int
+  sharedAppellationByNames: SharedAppellation
+}
+
+type MstrDocument {
+  mstrDocumentId: UUID!
+  code: String!
+  titles: UUID!
+  controlNumber: String!
+  mstrDocumentTierId: UUID!
+  versionCode: String
+  revision: Int
+  symbol: String
+  remarks: String
+  updateAt: Datetime
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+  remove: Boolean
+  sharedAppellationByTitles: SharedAppellation
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
+  mstrDocumentTreesByMstrDocumentId(first: Int): MstrDocumentTreesConnection!
+}
+
+type MstrDocumentContent {
+  mstrDocumentContentId: UUID!
+  mstrDocumentId: UUID!
+  code: String!
+  titles: UUID!
+  contents: UUID!
+  sequence: Int
+  revision: Int
+  symbol: String
+  remarks: String
+  updateAt: Datetime
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+  remove: Boolean
+  sharedAppellationByTitles: SharedAppellation
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
+  mstrDocumentContentTreesByMstrDocumentContentId(first: Int): MstrDocumentContentTreesConnection!
+}
+
+type MstrDocumentContentTree {
+  mstrDocumentContentTreeId: UUID!
+  mstrDocumentContentId: UUID!
+  parentMstrDocumentContentId: UUID
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
+type MstrDocumentContentTreesConnection {
+  nodes: [MstrDocumentContentTree]!
+}
+
+type MstrDocumentContentsConnection {
+  nodes: [MstrDocumentContent]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type MstrDocumentTier {
+  mstrDocumentTierId: UUID!
+  code: String!
+  identifier: String!
+  tierNumber: Int
+}
+
+type MstrDocumentTiersConnection {
+  nodes: [MstrDocumentTier]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type MstrDocumentTree {
+  mstrDocumentTreeId: UUID!
+  mstrDocumentId: UUID!
+  parentMstrDocumentId: UUID
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
+type MstrDocumentTreesConnection {
+  nodes: [MstrDocumentTree]!
+}
+
+type MstrDocumentsConnection {
+  nodes: [MstrDocument]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type Mutation {
+  createMstrDocument(input: CreateMstrDocumentInput!): CreateMstrDocumentPayload
+  createMstrDocumentContent(input: CreateMstrDocumentContentInput!): CreateMstrDocumentContentPayload
+  createMstrDocumentContentTree(input: CreateMstrDocumentContentTreeInput!): CreateMstrDocumentContentTreePayload
+  createMstrDocumentTree(input: CreateMstrDocumentTreeInput!): CreateMstrDocumentTreePayload
+  sharedAppellationSave(input: SharedAppellationSaveInput!): SharedAppellationSavePayload
+  sharedTextSave(input: SharedTextSaveInput!): SharedTextSavePayload
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  endCursor: Cursor
+}
+
+type Query {
+  allHistorySharedTextValues(first: Int, offset: Int, orderBy: [HistorySharedTextValuesOrderBy!] = [PRIMARY_KEY_ASC], filter: HistorySharedTextValueFilter): HistorySharedTextValuesConnection
+  allMstrDocuments(first: Int, offset: Int, orderBy: [MstrDocumentsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrDocumentFilter): MstrDocumentsConnection
+  allMstrDocumentContents(first: Int, offset: Int, orderBy: [MstrDocumentContentsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrDocumentContentFilter): MstrDocumentContentsConnection
+  allMstrDocumentTiers(first: Int, offset: Int, orderBy: [MstrDocumentTiersOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrDocumentTierFilter): MstrDocumentTiersConnection
+  allSharedLanguageCodes(first: Int, offset: Int, orderBy: [SharedLanguageCodesOrderBy!] = [PRIMARY_KEY_ASC], filter: SharedLanguageCodeFilter): SharedLanguageCodesConnection
+  allSharedTextValues(first: Int, offset: Int, orderBy: [SharedTextValuesOrderBy!] = [PRIMARY_KEY_ASC], filter: SharedTextValueFilter): SharedTextValuesConnection
+  allVDocumentApprovalStamps(first: Int, offset: Int, orderBy: [VDocumentApprovalStampsOrderBy!] = [PRIMARY_KEY_ASC], filter: VDocumentApprovalStampFilter): VDocumentApprovalStampsConnection
+  allVDocumentPublications(first: Int, offset: Int, orderBy: [VDocumentPublicationsOrderBy!] = [PRIMARY_KEY_ASC], filter: VDocumentPublicationFilter): VDocumentPublicationsConnection
+}
+
+type SharedAppellation {
+  sharedAppellationsId: UUID!
+  sharedDictionaryBySharedDictionaryNameId: SharedDictionary
+  sharedDictionaryBySharedDictionaryPronunciationId: SharedDictionary
+  sharedDictionaryBySharedDictionaryNicknameId: SharedDictionary
+}
+
+type SharedAppellationSavePayload {
+  sharedAppellation: SharedAppellation
+}
+
+type SharedDictionary {
+  sharedDictionaryId: UUID!
+  sharedDictionaryValuesBySharedDictionaryId(condition: SharedDictionaryValueCondition): SharedDictionaryValuesConnection!
+}
+
+type SharedDictionaryValue {
+  dictionaryValue: String!
+}
+
+type SharedDictionaryValuesConnection {
+  nodes: [SharedDictionaryValue]!
+}
+
+type SharedLanguageCode {
+  sharedLanguageCodeId: UUID!
+  code: String!
+}
+
+type SharedLanguageCodesConnection {
+  nodes: [SharedLanguageCode]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type SharedText {
+  sharedTextId: UUID!
+}
+
+type SharedTextSavePayload {
+  sharedText: SharedText
+}
+
+type SharedTextValue {
+  sharedTextValueId: UUID!
+  sharedLanguageCodeId: UUID!
+  sharedTextId: UUID!
+  textValue: String
+  revision: Int
+  updateAt: Datetime
+  remove: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
+}
+
+type SharedTextValuesConnection {
+  nodes: [SharedTextValue]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type VDocumentApprovalStamp {
+  transPreapprovalId: UUID!
+  mstrDocumentId: UUID
+  transApprovalPatternId: UUID
+  mstrApprovalId: UUID
+  approvalPriority: Int
+  period: Datetime
+  decided: Boolean
+  approved: Boolean
+  rejected: Boolean
+  pending: Boolean
+  approvedAt: Datetime
+  approvedStaffId: UUID
+  stampLabelJa: String
+  stampLabelEn: String
+  versionCode: String
+  controlNumber: String
+  documentRevision: Int
+  mstrApprovalByMstrApprovalId: MstrApproval
+  infoStaffByApprovedStaffId: InfoStaff
+}
+
+type VDocumentApprovalStampsConnection {
+  nodes: [VDocumentApprovalStamp]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type VDocumentPublication {
+  mstrDocumentId: UUID!
+  controlNumber: String
+  versionCode: String
+  transApprovalPatternId: UUID
+  totalCount: Int
+  approvedCount: Int
+  published: Boolean
+  pending: Boolean
+  rejected: Boolean
+  stampVisible: Boolean
+  approvedAt: Datetime
+  readable: Boolean
+  stampLabelJa: String
+  stampLabelEn: String
+}
+
+type VDocumentPublicationsConnection {
+  nodes: [VDocumentPublication]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input BooleanFilter {
+  isNull: Boolean
+  equalTo: Boolean
+  notEqualTo: Boolean
+  distinctFrom: Boolean
+  notDistinctFrom: Boolean
+  in: [Boolean!]
+  notIn: [Boolean!]
+  lessThan: Boolean
+  lessThanOrEqualTo: Boolean
+  greaterThan: Boolean
+  greaterThanOrEqualTo: Boolean
+}
+
+input CreateMstrDocumentContentInput {
+  mstrDocumentContent: MstrDocumentContentInput!
+}
+
+input CreateMstrDocumentContentTreeInput {
+  mstrDocumentContentTree: MstrDocumentContentTreeInput!
+}
+
+input CreateMstrDocumentInput {
+  mstrDocument: MstrDocumentInput!
+}
+
+input CreateMstrDocumentTreeInput {
+  mstrDocumentTree: MstrDocumentTreeInput!
+}
+
+input DatetimeFilter {
+  isNull: Boolean
+  equalTo: Datetime
+  notEqualTo: Datetime
+  distinctFrom: Datetime
+  notDistinctFrom: Datetime
+  in: [Datetime!]
+  notIn: [Datetime!]
+  lessThan: Datetime
+  lessThanOrEqualTo: Datetime
+  greaterThan: Datetime
+  greaterThanOrEqualTo: Datetime
+}
+
+input HistoryInfoStaffFilter {
+  historyId: UUIDFilter
+  infoStaffId: UUIDFilter
+  infoCompanyId: UUIDFilter
+  code: StringFilter
+  names: UUIDFilter
+  sex: StringFilter
+  phone: StringFilter
+  privatePhone: StringFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  sharedDictionariesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  sharedAppellationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  infoAddressesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  infoCompaniesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  infoStaffsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyInfoStaffsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  sharedTextsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  sharedUnitsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrSpecMeasurementsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrPackingSpecsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemLotsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrManufacturersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrItemsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrShippingKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrStakeholdersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrStakeholderContactsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrStakeholderContactsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrStakeholdersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrApprovalPatternsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transApprovalPatternsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transOrdersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transOrderDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transOperationsPlansByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transUnrecognizedsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transUnrecognizedDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transResourcePlansByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transPurchasesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transPurchaseDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transTextsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transLabelsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transComplaintsByReporterStaffHistoryIdAndReporterStaffIdExist: Boolean
+  transComplaintsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrChangeReasonsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrChangeReasonsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrSettlementKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrSettlementKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transOrderDetailSettlementsByStaffHistoryIdAndStaffIdExist: Boolean
+  transOrderDetailSettlementsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  infoOfficesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  infoDepartmentsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrLocationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transContainersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transShippingOrdersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transShippingOrderDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrTaskGroupsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrTasksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrTaskLocationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrOutsourceAvailablesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrOutsourceAvailablesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrEquipmentKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrEquipmentsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrEquipmentAvailablesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrEquipmentAvailablesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transWorkPlansByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transProductRezsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transPurchaseRezsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transInventoryRequestsByStaffHistoryIdAndStaffIdExist: Boolean
+  transInventoryRequestsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpRunsByStaffHistoryIdAndStaffIdExist: Boolean
+  transMrpRunsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpSuggestionTasksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transPlanChangesByStaffHistoryIdAndStaffIdExist: Boolean
+  transPlanChangesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transSuppliesByStaffHistoryIdAndStaffIdExist: Boolean
+  transSuppliesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transSupplyDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transVisiterOwnersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transComplaintSuppliesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transSupplyVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transPurchaseRecsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transShippingOrderDetailRecordsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrReturnKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrReturnKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transReturnsByStaffHistoryIdAndStaffIdExist: Boolean
+  transReturnsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transReturnDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transReturnVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  infoAppsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  infoAccessPathsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  infoDepartmentAccessPathsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyInfoDepartmentAccessPathsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transComplaintVisitersByReleaseStaffHistoryIdAndReleaseStaffIdExist: Boolean
+  transComplaintVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transComplaintPurchaseRecsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrEquipmentsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transWorkRecordsByStaffHistoryIdAndStaffIdExist: Boolean
+  transWorkRecordsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transComplaintWorksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrItemSuppliersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemTaskCostsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrItemTaskCostsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrWorkCalendarsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrWorkCalendarsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrOperationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemOperationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrItemOperationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  sharedLanguageCodesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transTextValuesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transLabelValuesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  sharedTextValuesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historySharedTextValuesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transComplaintReceivesByReceiveStaffHistoryIdAndReceiveStaffIdExist: Boolean
+  transComplaintReceivesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transFilesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transComplaintFilesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historySharedTextsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrItemLotsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  infoDepartmentKindValuesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  infoDepartmentKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyInfoDepartmentKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyInfoDepartmentKindValuesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  sharedDictionaryValuesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historySharedDictionaryValuesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historySharedLanguageCodesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  sharedSymbolCountersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrInspectionKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrInspectionKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrPackingSpecsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrSpecMeasurementsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrEnvelopeMeasurementsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrEnvelopeMeasurementsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrEquipmentEnvelopesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrEquipmentEnvelopesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrShippingKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemSizeKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrItemSizeKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrItemKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historySharedAppellationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historySharedDictionariesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrEquipmentKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  infoStaffIconsByStaffHistoryIdAndStaffIdExist: Boolean
+  infoStaffIconsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyInfoStaffIconsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemHcdcsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrItemHcdcsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrDocumentTiersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrDocumentsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrDocumentContentsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrDocumentContentTreesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrDocumentContentTreesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrDocumentContentsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrDocumentTiersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrDocumentTreesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrDocumentTreesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrDocumentsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transContainerTreesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrLocationTreesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrLocationTreesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  infoDepartmentTreesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyInfoDepartmentTreesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrInspectionOperationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrInspectionOperationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrInspectionFormulasByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrInspectionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrInspectionOperationTasksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrInspectionOperationTasksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  infoPositionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  infoAssignsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyInfoAssignsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  infoProvisionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemProvisionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrItemProvisionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrEquipmentProvisionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrEquipmentProvisionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  infoAppStatusesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyInfoAppStatusesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrApprovalsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transPreapprovalsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transAnnouncementsByToStaffHistoryIdAndToStaffIdExist: Boolean
+  transAnnouncementsByForStaffHistoryIdAndForStaffIdExist: Boolean
+  transAnnouncementsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrOperationTasksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrOperationTasksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrReportsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrReportsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemOperationTasksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrItemOperationTasksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrTaskTreesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrTaskTreesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrTasksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrTaskLocationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrTaskGroupsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrOperationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrManufacturersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrInspectionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrInspectionFormulasByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemActualSizesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrItemActualSizesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrItemTreesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrItemTreesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrAuditStdsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrAuditStdCheckitemsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrAuditStdCheckitemsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrAuditStdsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrLocationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrEquipmentTagsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrEquipmentTagsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrStakeholderProvisionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrStakeholderProvisionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrLicensesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrStaffLicensesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrStaffLicensesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrLicensesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  infoStaffAccessPermissionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyInfoStaffAccessPermissionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  infoAccessPathApprovalsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrApprovalScopePatternsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrApprovalScopePatternsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrApprovalPatternsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrCapabilitiesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrCapabilitiesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrApprovalPatternDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrApprovalPatternDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrApprovalsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyInfoPositionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrStaffCapabilitiesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrStaffCapabilitiesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrSignsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrSignsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyInfoProvisionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyInfoAddressesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historySharedUnitsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyInfoOfficesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyInfoDepartmentsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyInfoAccessPathApprovalsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyInfoAccessPathsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyInfoCompaniesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyInfoAppsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transAnonymiceByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transFileRemindersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transInspectSchesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transInspectSchDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transInspectRecordsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transInspectionReportsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transApprovedsByApprovedStaffHistoryIdAndApprovedStaffIdExist: Boolean
+  transApprovedsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transAuditsByStaffHistoryIdAndStaffIdExist: Boolean
+  transAuditsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transAuditMembersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transAuditTeamsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transAuditorsByStaffHistoryIdAndStaffIdExist: Boolean
+  transAuditorsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transRisksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transTaskRisksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transOrderDetailRisksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transPreventionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transPreventionDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transOrderRisksByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transEquipmentLentsByStaffHistoryIdAndStaffIdExist: Boolean
+  transEquipmentLentsByReturnStaffHistoryIdAndReturnStaffIdExist: Boolean
+  transEquipmentLentsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transDisposalsByOperationStaffHistoryIdAndOperationStaffIdExist: Boolean
+  transDisposalsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transRecurrencePreventionsByOperationStaffHistoryIdAndOperationStaffIdExist: Boolean
+  transRecurrencePreventionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transObserverDisposalsByObserverStaffHistoryIdAndObserverStaffIdExist: Boolean
+  transObserverDisposalsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transObserverPreventivesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transComplaintStakeholdersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transComplaintEquipmentsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transComplaintProcessesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transComplaintOrdersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transInspectImpFilesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transWorkRecordVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transPurchaseRecVisitersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transConveysByStaffHistoryIdAndStaffIdExist: Boolean
+  transConveysByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transCertificatesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transWorkRecordCertificatesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transPurchaseCertificationsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transInventoryAppliesByStaffHistoryIdAndStaffIdExist: Boolean
+  transInventoryAppliesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpPeggingsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transMrpLoadsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  vMrpPendingSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  vMrpRunsByStaffHistoryIdAndStaffIdExist: Boolean
+  vMrpSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  vPlanChangesByStaffHistoryIdAndStaffIdExist: Boolean
+  sharedAppellationByNames: SharedAppellationFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [HistoryInfoStaffFilter!]
+  or: [HistoryInfoStaffFilter!]
+  not: HistoryInfoStaffFilter
+}
+
+input HistorySharedTextValueFilter {
+  historyId: UUIDFilter
+  sharedTextValueId: UUIDFilter
+  sharedLanguageCodeId: UUIDFilter
+  sharedTextId: UUIDFilter
+  charCount: IntFilter
+  leadText: StringFilter
+  textValue: StringFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [HistorySharedTextValueFilter!]
+  or: [HistorySharedTextValueFilter!]
+  not: HistorySharedTextValueFilter
+}
+
+input InfoStaffFilter {
+  infoStaffId: UUIDFilter
+  infoCompanyId: UUIDFilter
+  code: StringFilter
+  names: UUIDFilter
+  sex: StringFilter
+  phone: StringFilter
+  privatePhone: StringFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historyInfoStaffsByInfoStaffIdExist: Boolean
+  infoAssignsByInfoStaffIdExist: Boolean
+  mstrStaffLicensesByInfoStaffIdExist: Boolean
+  infoStaffAccessPermissionsByInfoStaffIdExist: Boolean
+  mstrStaffCapabilitiesByInfoStaffIdExist: Boolean
+  mstrSignsByInfoStaffIdExist: Boolean
+  vApprovalPendingsByApplicantStaffIdExist: Boolean
+  vDocumentApprovalStampsByApprovedStaffIdExist: Boolean
+  vDocumentPublicationsByApprovedStaffIdExist: Boolean
+  vStaffAssignCountByInfoStaffIdExists: Boolean
+  vStaffEffectiveAccessPathsByInfoStaffIdExist: Boolean
+  vStaffSignCountByInfoStaffIdExists: Boolean
+  vStaffStaffAccessPermissionCountByInfoStaffIdExists: Boolean
+  vStaffStaffCapabilityCountByInfoStaffIdExists: Boolean
+  vStaffStaffLicenseCountByInfoStaffIdExists: Boolean
+  sharedAppellationByNames: SharedAppellationFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [InfoStaffFilter!]
+  or: [InfoStaffFilter!]
+  not: InfoStaffFilter
+}
+
+input IntFilter {
+  isNull: Boolean
+  equalTo: Int
+  notEqualTo: Int
+  distinctFrom: Int
+  notDistinctFrom: Int
+  in: [Int!]
+  notIn: [Int!]
+  lessThan: Int
+  lessThanOrEqualTo: Int
+  greaterThan: Int
+  greaterThanOrEqualTo: Int
+}
+
+input MstrApprovalFilter {
+  mstrApprovalId: UUIDFilter
+  infoDepartmentId: UUIDFilter
+  infoPositionId: UUIDFilter
+  priority: IntFilter
+  names: UUIDFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transPreapprovalsByMstrApprovalIdExist: Boolean
+  mstrApprovalPatternDetailsByMstrApprovalIdExist: Boolean
+  historyMstrApprovalsByMstrApprovalIdExist: Boolean
+  vApprovalApprovalPatternDetailCountByMstrApprovalIdExists: Boolean
+  vApprovalPendingsByMstrApprovalIdExist: Boolean
+  vApprovalPreapprovalCountByMstrApprovalIdExists: Boolean
+  vDocumentApprovalStampsByMstrApprovalIdExist: Boolean
+  infoDepartmentByInfoDepartmentIdExists: Boolean
+  sharedAppellationByNames: SharedAppellationFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrApprovalFilter!]
+  or: [MstrApprovalFilter!]
+  not: MstrApprovalFilter
+}
+
+input MstrDocumentContentFilter {
+  mstrDocumentContentId: UUIDFilter
+  mstrDocumentId: UUIDFilter
+  code: StringFilter
+  titles: UUIDFilter
+  contents: UUIDFilter
+  sequence: IntFilter
+  imageContent: BooleanFilter
+  transFileId: UUIDFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  mstrDocumentContentTreesByMstrDocumentContentId: MstrDocumentContentToManyMstrDocumentContentTreeFilter
+  mstrDocumentContentTreesByMstrDocumentContentIdExist: Boolean
+  mstrDocumentContentTreesByParentMstrDocumentContentIdExist: Boolean
+  historyMstrDocumentContentsByMstrDocumentContentIdExist: Boolean
+  vDocumentContentDescendantByAncestorMstrDocumentContentIdExists: Boolean
+  sharedAppellationByTitles: SharedAppellationFilter
+  transFileByTransFileIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrDocumentContentFilter!]
+  or: [MstrDocumentContentFilter!]
+  not: MstrDocumentContentFilter
+}
+
+input MstrDocumentContentInput {
+  mstrDocumentId: UUID
+  code: String!
+  titles: UUID
+  contents: UUID
+  sequence: Int
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
+input MstrDocumentContentToManyMstrDocumentContentTreeFilter {
+  every: MstrDocumentContentTreeFilter
+  some: MstrDocumentContentTreeFilter
+  none: MstrDocumentContentTreeFilter
+}
+
+input MstrDocumentContentTreeFilter {
+  mstrDocumentContentTreeId: UUIDFilter
+  mstrDocumentContentId: UUIDFilter
+  parentMstrDocumentContentId: UUIDFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historyMstrDocumentContentTreesByMstrDocumentContentTreeIdExist: Boolean
+  mstrDocumentContentByParentMstrDocumentContentIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrDocumentContentTreeFilter!]
+  or: [MstrDocumentContentTreeFilter!]
+  not: MstrDocumentContentTreeFilter
+}
+
+input MstrDocumentContentTreeInput {
+  mstrDocumentContentId: UUID
+  parentMstrDocumentContentId: UUID
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
+input MstrDocumentFilter {
+  mstrDocumentId: UUIDFilter
+  code: StringFilter
+  titles: UUIDFilter
+  controlNumber: StringFilter
+  mstrDocumentTierId: UUIDFilter
+  transFileId: UUIDFilter
+  versionCode: StringFilter
+  transApprovalPatternId: UUIDFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  mstrDocumentContentsByMstrDocumentIdExist: Boolean
+  mstrDocumentTreesByMstrDocumentId: MstrDocumentToManyMstrDocumentTreeFilter
+  mstrDocumentTreesByMstrDocumentIdExist: Boolean
+  mstrDocumentTreesByParentMstrDocumentIdExist: Boolean
+  historyMstrDocumentsByMstrDocumentIdExist: Boolean
+  vApprovalPendingsByMstrDocumentIdExist: Boolean
+  vDocumentApprovalStampsByMstrDocumentIdExist: Boolean
+  vDocumentContentsByMstrDocumentIdExist: Boolean
+  vDocumentDescendantByAncestorMstrDocumentIdExists: Boolean
+  vDocumentDocumentContentCountByMstrDocumentIdExists: Boolean
+  vDocumentPublicationByMstrDocumentIdExists: Boolean
+  sharedAppellationByTitles: SharedAppellationFilter
+  transFileByTransFileIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrDocumentFilter!]
+  or: [MstrDocumentFilter!]
+  not: MstrDocumentFilter
+}
+
+input MstrDocumentInput {
+  code: String!
+  titles: UUID
+  controlNumber: String!
+  mstrDocumentTierId: UUID
+  versionCode: String
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
+input MstrDocumentTierFilter {
+  mstrDocumentTierId: UUIDFilter
+  code: StringFilter
+  names: UUIDFilter
+  transFileId: UUIDFilter
+  attributiveNoun: StringFilter
+  identifier: StringFilter
+  tierNumber: IntFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  mstrDocumentsByMstrDocumentTierIdExist: Boolean
+  historyMstrDocumentTiersByMstrDocumentTierIdExist: Boolean
+  vDocumentTierDocumentCountByMstrDocumentTierIdExists: Boolean
+  transFileByTransFileIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrDocumentTierFilter!]
+  or: [MstrDocumentTierFilter!]
+  not: MstrDocumentTierFilter
+}
+
+input MstrDocumentToManyMstrDocumentTreeFilter {
+  every: MstrDocumentTreeFilter
+  some: MstrDocumentTreeFilter
+  none: MstrDocumentTreeFilter
+}
+
+input MstrDocumentTreeFilter {
+  mstrDocumentTreeId: UUIDFilter
+  mstrDocumentId: UUIDFilter
+  parentMstrDocumentId: UUIDFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historyMstrDocumentTreesByMstrDocumentTreeIdExist: Boolean
+  mstrDocumentByParentMstrDocumentIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrDocumentTreeFilter!]
+  or: [MstrDocumentTreeFilter!]
+  not: MstrDocumentTreeFilter
+}
+
+input MstrDocumentTreeInput {
+  mstrDocumentId: UUID
+  parentMstrDocumentId: UUID
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
+input SharedAppellationFilter {
+  sharedAppellationsId: UUIDFilter
+  sharedDictionaryNameId: UUIDFilter
+  sharedDictionaryPronunciationId: UUIDFilter
+  sharedDictionaryNicknameId: UUIDFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  infoAddressesByAddress1Exist: Boolean
+  infoAddressesByAddress2Exist: Boolean
+  infoAddressesByBuildingExist: Boolean
+  infoCompaniesByNamesExist: Boolean
+  infoCompaniesByCeoNamesExist: Boolean
+  infoStaffsByNamesExist: Boolean
+  historyInfoStaffsByNamesExist: Boolean
+  sharedUnitsByNamesExist: Boolean
+  mstrItemKindsByNamesExist: Boolean
+  mstrManufacturersByNamesExist: Boolean
+  mstrItemsByNamesExist: Boolean
+  mstrShippingKindsByNamesExist: Boolean
+  mstrStakeholdersByNamesExist: Boolean
+  mstrStakeholderContactsByOfficeNamesExist: Boolean
+  mstrStakeholderContactsByDepartmentNamesExist: Boolean
+  mstrStakeholderContactsByContactPersonNamesExist: Boolean
+  mstrApprovalPatternsByNamesExist: Boolean
+  mstrChangeReasonsByNamesExist: Boolean
+  mstrSettlementKindsByNamesExist: Boolean
+  infoOfficesByNamesExist: Boolean
+  infoDepartmentsByNamesExist: Boolean
+  mstrLocationsByNamesExist: Boolean
+  mstrTaskGroupsByNamesExist: Boolean
+  mstrTasksByNamesExist: Boolean
+  mstrEquipmentKindsByNamesExist: Boolean
+  mstrReturnKindsByNamesExist: Boolean
+  infoAccessPathsByNamesExist: Boolean
+  mstrOperationsByNamesExist: Boolean
+  mstrItemOperationsByNamesExist: Boolean
+  infoDepartmentKindValuesByNamesExist: Boolean
+  mstrInspectionKindsByNamesExist: Boolean
+  mstrItemSizeKindsByNamesExist: Boolean
+  historyMstrItemKindsByNamesExist: Boolean
+  historySharedAppellationsBySharedAppellationsIdExist: Boolean
+  infoStaffIconsByNamesExist: Boolean
+  mstrDocumentTiersByNamesExist: Boolean
+  mstrDocumentsByTitlesExist: Boolean
+  mstrDocumentContentsByTitlesExist: Boolean
+  mstrInspectionOperationsByNamesExist: Boolean
+  mstrInspectionsByNamesExist: Boolean
+  infoPositionsByNamesExist: Boolean
+  infoProvisionsByNamesExist: Boolean
+  mstrApprovalsByNamesExist: Boolean
+  mstrOperationTasksByNamesExist: Boolean
+  mstrReportsByNamesExist: Boolean
+  mstrTaskTreesByNamesExist: Boolean
+  mstrItemTreesByNamesExist: Boolean
+  mstrAuditStdsByNamesExist: Boolean
+  mstrAuditStdCheckitemsByNamesExist: Boolean
+  mstrEquipmentTagsByNamesExist: Boolean
+  mstrLicensesByNamesExist: Boolean
+  infoAccessPathApprovalsByNamesExist: Boolean
+  mstrCapabilitiesByNamesExist: Boolean
+  sharedDictionaryBySharedDictionaryNameId: SharedDictionaryFilter
+  sharedDictionaryBySharedDictionaryPronunciationId: SharedDictionaryFilter
+  sharedDictionaryBySharedDictionaryPronunciationIdExists: Boolean
+  sharedDictionaryBySharedDictionaryNicknameId: SharedDictionaryFilter
+  sharedDictionaryBySharedDictionaryNicknameIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [SharedAppellationFilter!]
+  or: [SharedAppellationFilter!]
+  not: SharedAppellationFilter
+}
+
+input SharedAppellationSaveInput {
+  pAppellationId: UUID
+  pName: JSON
+  pPronunciation: JSON
+  pNickname: JSON
+  pStaffId: UUID
+  pStaffHistoryId: UUID
+}
+
+input SharedDictionaryFilter {
+  sharedDictionaryId: UUIDFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  sharedAppellationsBySharedDictionaryNameIdExist: Boolean
+  sharedAppellationsBySharedDictionaryPronunciationIdExist: Boolean
+  sharedAppellationsBySharedDictionaryNicknameIdExist: Boolean
+  sharedDictionaryValuesBySharedDictionaryId: SharedDictionaryToManySharedDictionaryValueFilter
+  sharedDictionaryValuesBySharedDictionaryIdExist: Boolean
+  historySharedDictionariesBySharedDictionaryIdExist: Boolean
+  vDictionaryDictionaryValueCountBySharedDictionaryIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [SharedDictionaryFilter!]
+  or: [SharedDictionaryFilter!]
+  not: SharedDictionaryFilter
+}
+
+input SharedDictionaryToManySharedDictionaryValueFilter {
+  every: SharedDictionaryValueFilter
+  some: SharedDictionaryValueFilter
+  none: SharedDictionaryValueFilter
+}
+
+input SharedDictionaryValueCondition {
+  sharedLanguageCodeId: UUID
+}
+
+input SharedDictionaryValueFilter {
+  sharedDictionaryValueId: UUIDFilter
+  sharedLanguageCodeId: UUIDFilter
+  sharedDictionaryId: UUIDFilter
+  dictionaryValue: StringFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historySharedDictionaryValuesBySharedDictionaryValueIdExist: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [SharedDictionaryValueFilter!]
+  or: [SharedDictionaryValueFilter!]
+  not: SharedDictionaryValueFilter
+}
+
+input SharedLanguageCodeFilter {
+  sharedLanguageCodeId: UUIDFilter
+  code: StringFilter
+  label: StringFilter
+  priority: IntFilter
+  isDefault: BooleanFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transTextValuesBySharedLanguageCodeIdExist: Boolean
+  transLabelValuesBySharedLanguageCodeIdExist: Boolean
+  sharedTextValuesBySharedLanguageCodeIdExist: Boolean
+  sharedDictionaryValuesBySharedLanguageCodeIdExist: Boolean
+  historySharedLanguageCodesBySharedLanguageCodeIdExist: Boolean
+  vLanguageCodeDictionaryValueCountBySharedLanguageCodeIdExists: Boolean
+  vLanguageCodeLabelValueCountBySharedLanguageCodeIdExists: Boolean
+  vLanguageCodeSharedTextValueCountBySharedLanguageCodeIdExists: Boolean
+  vLanguageCodeTransTextValueCountBySharedLanguageCodeIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [SharedLanguageCodeFilter!]
+  or: [SharedLanguageCodeFilter!]
+  not: SharedLanguageCodeFilter
+}
+
+input SharedTextSaveInput {
+  pTextId: UUID
+  pValues: JSON
+  pStaffId: UUID
+  pStaffHistoryId: UUID
+}
+
+input SharedTextValueFilter {
+  sharedTextValueId: UUIDFilter
+  sharedLanguageCodeId: UUIDFilter
+  sharedTextId: UUIDFilter
+  charCount: IntFilter
+  leadText: StringFilter
+  textValue: StringFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historySharedTextValuesBySharedTextValueIdExist: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [SharedTextValueFilter!]
+  or: [SharedTextValueFilter!]
+  not: SharedTextValueFilter
+}
+
+input StringFilter {
+  isNull: Boolean
+  equalTo: String
+  notEqualTo: String
+  distinctFrom: String
+  notDistinctFrom: String
+  in: [String!]
+  notIn: [String!]
+  lessThan: String
+  lessThanOrEqualTo: String
+  greaterThan: String
+  greaterThanOrEqualTo: String
+  includes: String
+  notIncludes: String
+  includesInsensitive: String
+  notIncludesInsensitive: String
+  startsWith: String
+  notStartsWith: String
+  startsWithInsensitive: String
+  notStartsWithInsensitive: String
+  endsWith: String
+  notEndsWith: String
+  endsWithInsensitive: String
+  notEndsWithInsensitive: String
+  like: String
+  notLike: String
+  likeInsensitive: String
+  notLikeInsensitive: String
+  equalToInsensitive: String
+  notEqualToInsensitive: String
+  distinctFromInsensitive: String
+  notDistinctFromInsensitive: String
+  inInsensitive: [String!]
+  notInInsensitive: [String!]
+  lessThanInsensitive: String
+  lessThanOrEqualToInsensitive: String
+  greaterThanInsensitive: String
+  greaterThanOrEqualToInsensitive: String
+}
+
+input UUIDFilter {
+  isNull: Boolean
+  equalTo: UUID
+  notEqualTo: UUID
+  distinctFrom: UUID
+  notDistinctFrom: UUID
+  in: [UUID!]
+  notIn: [UUID!]
+  lessThan: UUID
+  lessThanOrEqualTo: UUID
+  greaterThan: UUID
+  greaterThanOrEqualTo: UUID
+}
+
+input VDocumentApprovalStampFilter {
+  transPreapprovalId: UUIDFilter
+  mstrDocumentId: UUIDFilter
+  transApprovalPatternId: UUIDFilter
+  mstrApprovalId: UUIDFilter
+  approvalPriority: IntFilter
+  approvalNames: UUIDFilter
+  infoPositionId: UUIDFilter
+  infoDepartmentId: UUIDFilter
+  period: DatetimeFilter
+  decided: BooleanFilter
+  approved: BooleanFilter
+  rejected: BooleanFilter
+  pending: BooleanFilter
+  approvedAt: DatetimeFilter
+  approvedStaffId: UUIDFilter
+  approvedStaffHistoryId: UUIDFilter
+  approvedRemarks: StringFilter
+  stampLabelJa: StringFilter
+  stampLabelEn: StringFilter
+  versionCode: StringFilter
+  controlNumber: StringFilter
+  documentRevision: IntFilter
+  mstrDocumentByMstrDocumentIdExists: Boolean
+  transApprovalPatternByTransApprovalPatternIdExists: Boolean
+  mstrApprovalByMstrApprovalId: MstrApprovalFilter
+  mstrApprovalByMstrApprovalIdExists: Boolean
+  infoStaffByApprovedStaffId: InfoStaffFilter
+  infoStaffByApprovedStaffIdExists: Boolean
+  and: [VDocumentApprovalStampFilter!]
+  or: [VDocumentApprovalStampFilter!]
+  not: VDocumentApprovalStampFilter
+}
+
+input VDocumentPublicationFilter {
+  mstrDocumentId: UUIDFilter
+  symbol: StringFilter
+  code: StringFilter
+  controlNumber: StringFilter
+  versionCode: StringFilter
+  transApprovalPatternId: UUIDFilter
+  totalCount: IntFilter
+  approvedCount: IntFilter
+  published: BooleanFilter
+  pending: BooleanFilter
+  rejected: BooleanFilter
+  stampVisible: BooleanFilter
+  approvedAt: DatetimeFilter
+  approvedStaffId: UUIDFilter
+  approvedStaffHistoryId: UUIDFilter
+  readable: BooleanFilter
+  approver: BooleanFilter
+  stampLabelJa: StringFilter
+  stampLabelEn: StringFilter
+  mstrDocumentByMstrDocumentIdExists: Boolean
+  transApprovalPatternByTransApprovalPatternIdExists: Boolean
+  infoStaffByApprovedStaffIdExists: Boolean
+  and: [VDocumentPublicationFilter!]
+  or: [VDocumentPublicationFilter!]
+  not: VDocumentPublicationFilter
+}
