@@ -38,8 +38,37 @@ class QualityDocumentStringsEn extends QualityDocumentStrings with BaseTranslati
 	QualityDocumentStringsEn $copyWith({TranslationMetadata<QualityDocumentLocale, QualityDocumentStrings>? meta}) => QualityDocumentStringsEn(meta: meta ?? this.$meta);
 
 	// Translations
+	@override late final _QualityDocumentStrings$body$en body = _QualityDocumentStrings$body$en._(_root);
 	@override late final _QualityDocumentStrings$menu$en menu = _QualityDocumentStrings$menu$en._(_root);
 	@override late final _QualityDocumentStrings$entity$en entity = _QualityDocumentStrings$entity$en._(_root);
+}
+
+// Path: body
+class _QualityDocumentStrings$body$en extends QualityDocumentStrings$body$ja {
+	_QualityDocumentStrings$body$en._(QualityDocumentStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityDocumentStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Body';
+	@override String get action => 'Edit body';
+	@override String get loading => 'Loading…';
+	@override String get notFound => 'The document content was not found.';
+	@override String get noBody => 'No body yet.';
+	@override String get readOnly => 'Read only';
+	@override String get edit => 'Edit';
+	@override String get save => 'Save';
+	@override String get cancel => 'Cancel';
+	@override String get saved => 'Saved.';
+	@override String get nothingChanged => 'No changes.';
+	@override String get discardTitle => 'Discard changes?';
+	@override String get discardMessage => 'You have unsaved changes.';
+	@override String get discard => 'Discard';
+	@override String get keepEditing => 'Keep editing';
+	@override String get saveFailed => 'Could not save.';
+	@override String get modeVisual => 'Visual';
+	@override String get modeMarkdown => 'Markdown';
+	@override String get preview => 'Preview';
 }
 
 // Path: menu
@@ -188,6 +217,25 @@ class _QualityDocumentStrings$entity$report$fields$en extends QualityDocumentStr
 extension on QualityDocumentStringsEn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'body.title' => 'Body',
+			'body.action' => 'Edit body',
+			'body.loading' => 'Loading…',
+			'body.notFound' => 'The document content was not found.',
+			'body.noBody' => 'No body yet.',
+			'body.readOnly' => 'Read only',
+			'body.edit' => 'Edit',
+			'body.save' => 'Save',
+			'body.cancel' => 'Cancel',
+			'body.saved' => 'Saved.',
+			'body.nothingChanged' => 'No changes.',
+			'body.discardTitle' => 'Discard changes?',
+			'body.discardMessage' => 'You have unsaved changes.',
+			'body.discard' => 'Discard',
+			'body.keepEditing' => 'Keep editing',
+			'body.saveFailed' => 'Could not save.',
+			'body.modeVisual' => 'Visual',
+			'body.modeMarkdown' => 'Markdown',
+			'body.preview' => 'Preview',
 			'menu.group' => 'Quality documents',
 			'entity.doctier.title' => 'Document tiers',
 			'entity.doctier.fields.f_code' => 'Code',

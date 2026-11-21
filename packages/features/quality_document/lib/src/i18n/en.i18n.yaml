@@ -1,3 +1,24 @@
+# Body editor screen (hand-written; gen.js keeps the part above the marker)
+body:
+  title: Body
+  action: Edit body
+  loading: Loading…
+  notFound: The document content was not found.
+  noBody: No body yet.
+  readOnly: Read only
+  edit: Edit
+  save: Save
+  cancel: Cancel
+  saved: Saved.
+  nothingChanged: No changes.
+  discardTitle: Discard changes?
+  discardMessage: You have unsaved changes.
+  discard: Discard
+  keepEditing: Keep editing
+  saveFailed: Could not save.
+  modeVisual: Visual
+  modeMarkdown: Markdown
+  preview: Preview
 # Quality documents strings (English). Keys missing here fall back to the base language (ja).
 menu:
   group: "Quality documents"

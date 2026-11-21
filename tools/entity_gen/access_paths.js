@@ -30,6 +30,7 @@ const CUSTOM = [
   ['barcode_entry', 'top', '/barcode', 'リーディングトップ', 'Barcode entry top', false],
   ['production_plan', 'mrp', '/mrp', '資材所要計算(MRP)', 'Material requirements planning (MRP)', false],
   ['manual', 'manual', '/manual', 'マニュアル', 'Manual', false],
+  ['quality_document', 'body', '/quality-document/body', '文書コンテンツの本文', 'Document content body', false],
   ['approval', 'approval_quality_document', '/approval/quality_document', '品質管理文書の承認一覧', 'Quality documents approvals', false],
   ['approval', 'approval_sales', '/approval/sales', '営業の承認一覧', 'Sales approvals', false],
   ['approval', 'approval_purchasing', '/approval/purchasing', '購買の承認一覧', 'Purchasing approvals', false],

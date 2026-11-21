@@ -35,8 +35,75 @@ class QualityDocumentStrings with BaseTranslations<QualityDocumentLocale, Qualit
 	QualityDocumentStrings $copyWith({TranslationMetadata<QualityDocumentLocale, QualityDocumentStrings>? meta}) => QualityDocumentStrings(meta: meta ?? this.$meta);
 
 	// Translations
+	late final QualityDocumentStrings$body$ja body = QualityDocumentStrings$body$ja.internal(_root);
 	late final QualityDocumentStrings$menu$ja menu = QualityDocumentStrings$menu$ja.internal(_root);
 	late final QualityDocumentStrings$entity$ja entity = QualityDocumentStrings$entity$ja.internal(_root);
+}
+
+// Path: body
+class QualityDocumentStrings$body$ja {
+	QualityDocumentStrings$body$ja.internal(this._root);
+
+	final QualityDocumentStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '本文'
+	String get title => '本文';
+
+	/// ja: '本文を編集'
+	String get action => '本文を編集';
+
+	/// ja: '読み込み中…'
+	String get loading => '読み込み中…';
+
+	/// ja: '文書コンテンツが見つかりません。'
+	String get notFound => '文書コンテンツが見つかりません。';
+
+	/// ja: 'まだ本文がありません。'
+	String get noBody => 'まだ本文がありません。';
+
+	/// ja: '閲覧のみ'
+	String get readOnly => '閲覧のみ';
+
+	/// ja: '編集'
+	String get edit => '編集';
+
+	/// ja: '保存'
+	String get save => '保存';
+
+	/// ja: 'キャンセル'
+	String get cancel => 'キャンセル';
+
+	/// ja: '保存しました。'
+	String get saved => '保存しました。';
+
+	/// ja: '変更はありません。'
+	String get nothingChanged => '変更はありません。';
+
+	/// ja: '変更を破棄しますか'
+	String get discardTitle => '変更を破棄しますか';
+
+	/// ja: '保存していない変更があります。'
+	String get discardMessage => '保存していない変更があります。';
+
+	/// ja: '破棄する'
+	String get discard => '破棄する';
+
+	/// ja: '編集を続ける'
+	String get keepEditing => '編集を続ける';
+
+	/// ja: '保存できませんでした。'
+	String get saveFailed => '保存できませんでした。';
+
+	/// ja: 'ビジュアル'
+	String get modeVisual => 'ビジュアル';
+
+	/// ja: 'Markdown'
+	String get modeMarkdown => 'Markdown';
+
+	/// ja: 'プレビュー'
+	String get preview => 'プレビュー';
 }
 
 // Path: menu
@@ -269,6 +336,25 @@ class QualityDocumentStrings$entity$report$fields$ja {
 extension on QualityDocumentStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'body.title' => '本文',
+			'body.action' => '本文を編集',
+			'body.loading' => '読み込み中…',
+			'body.notFound' => '文書コンテンツが見つかりません。',
+			'body.noBody' => 'まだ本文がありません。',
+			'body.readOnly' => '閲覧のみ',
+			'body.edit' => '編集',
+			'body.save' => '保存',
+			'body.cancel' => 'キャンセル',
+			'body.saved' => '保存しました。',
+			'body.nothingChanged' => '変更はありません。',
+			'body.discardTitle' => '変更を破棄しますか',
+			'body.discardMessage' => '保存していない変更があります。',
+			'body.discard' => '破棄する',
+			'body.keepEditing' => '編集を続ける',
+			'body.saveFailed' => '保存できませんでした。',
+			'body.modeVisual' => 'ビジュアル',
+			'body.modeMarkdown' => 'Markdown',
+			'body.preview' => 'プレビュー',
 			'menu.group' => '品質管理文書',
 			'entity.doctier.title' => '文書階層',
 			'entity.doctier.fields.f_code' => 'コード',

@@ -34,11 +34,13 @@
 | レポート | `report` | テーブル構造 | 7 |  |
 <!-- entity_gen:end -->
 
-
-
-
-
-
+## 本文の画面(文書コンテンツ)
+文書コンテンツの本文(Markdown)の閲覧・編集。パスは `/quality-document/body?id=<文書コンテンツの ID>`(編集の状態で開くときは `edit=1`)。遷移先は契約 `quality_document_api.dart` の `DocumentBodyDestination`。機能コード `G`・画面コード `B`。
+1.  入口: 文書コンテンツの台帳で行を選び、「操作」メニューの「本文を編集」(`QualityDocumentModule` が生成された定義に操作 `edit_body` を足す。生成物は直接編集しない)。
+1.  画面(`DocumentBodyPage`)は組み合わせるだけ。閲覧 = `markdown_view`(`MarkdownView`)、編集 = `wysiwyg_editor`(`WysiwygEditor`。ビジュアル / Markdown)。Markdown の読み取り・変換・表示・編集は `packages/foundation` の Markdown 系のパッケージが持ち、この機能には持たない。保存・取り消し(変更があれば確認)・読み込み・権限だけを持つ。
+1.  編集は管理者だけ(`documentBodyIsAdminProvider`。既定は閲覧のみ。アプリが認証の結果で差し込む)。変更が無いまま保存しても、保存しない。
+1.  取得元は `IDocumentBodyGateway`(`documentBodyGatewayProvider`。既定はメモリ上)。GraphQL 版(`GraphqlDocumentBodyGateway`)は、文書コンテンツの `contents`(共有テキストの ID)から本文を読み(`DocumentContentBodyPage`。言語 `ja` の値)、保存は共通関数 `shared_text_save`(`DocumentContentTextSavePageCall`)で `ja` の値だけを入れ替える(他の言語は残る。担当者は関数が JWT から決める)。履歴は DB の履歴の表(`history_shared_text_value`)が持つ。
+1.  テスト: `test/document_body_test.dart`(画面・取得元。サーバーには接続しない)。通信テストは読み取りだけで、本文の保存はサーバーでは試していない。
 
 ## example と多言語
 1.  ビジュアルテスト用に`example`(Windows 向け)を持つ。`flutter run -d windows`で起動し、`lib/main.dart`の`entries`に遷移先を足す(`packages/features/CLAUDE.md`の「機能プロジェクト共通」)。

@@ -1,3 +1,24 @@
+# 本文の編集の画面(手書き。この上は gen.js が残す)
+body:
+  title: 本文
+  action: 本文を編集
+  loading: 読み込み中…
+  notFound: 文書コンテンツが見つかりません。
+  noBody: まだ本文がありません。
+  readOnly: 閲覧のみ
+  edit: 編集
+  save: 保存
+  cancel: キャンセル
+  saved: 保存しました。
+  nothingChanged: 変更はありません。
+  discardTitle: 変更を破棄しますか
+  discardMessage: 保存していない変更があります。
+  discard: 破棄する
+  keepEditing: 編集を続ける
+  saveFailed: 保存できませんでした。
+  modeVisual: ビジュアル
+  modeMarkdown: Markdown
+  preview: プレビュー
 # --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
 # 品質管理文書の実体と項目の表示名(日本語。基準言語)。
 # 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。

@@ -7,6 +7,7 @@
 /backstage,裏設定,Backstage settings,backstage,true
 /barcode,リーディングトップ,Barcode entry top,barcode_entry,false
 /manual,マニュアル,Manual,manual,false
+/quality-document/body,文書コンテンツの本文,Document content body,quality_document,false
 /mrp,資材所要計算(MRP),Material requirements planning (MRP),production_plan,false
 /shipping-kinds,配送区分,Shipping kind,shared_master,false
 /auth/login,ログイン,Log in,auth_files,true

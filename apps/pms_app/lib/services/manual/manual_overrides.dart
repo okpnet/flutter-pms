@@ -7,6 +7,8 @@ import 'package:document_settings/document_settings.dart'
         savedAppSettingsProvider;
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
+import 'package:quality_document/quality_document.dart'
+    show GraphqlDocumentBodyGateway, InMemoryDocumentBodyGateway, documentBodyGatewayProvider, documentBodyIsAdminProvider;
 import 'package:manual/manual.dart'
     show
         AppSettings,
@@ -26,6 +28,17 @@ import '../session/pocketbase_user_identity.dart';
 /// - 更新者の名前は、既定のまま(ログインユーザーの表示名)。PDF の「出力した人」も、ログインユーザーの表示名。
 /// - 承認の状態・アプリの設定(スタンプ・PDF)の取得元は、DB の文書とつなぐまで既定(承認なし・標準の設定)。
 List<Override> manualOverrides() => [
+  // 文書コンテンツの本文(品質管理文書)。GraphQL に接続するときは DB(共有テキスト)、しないときはメモリ上。編集は管理者だけ
+  documentBodyGatewayProvider.overrideWith((ref) {
+    final client = ref.watch(graphqlClientProvider);
+    if (client == null) return InMemoryDocumentBodyGateway();
+    return GraphqlDocumentBodyGateway(client);
+  }),
+  documentBodyIsAdminProvider.overrideWith((ref) {
+    ref.watch(userSummaryProvider);
+    if (!ref.read(pocketbaseEnabledProvider)) return true;
+    return ref.read(userIdentitySourceProvider).current?.isAdmin ?? false;
+  }),
   // 承認スタンプ・PDF の設定(info_app.settings)。GraphQL に接続するときは DB の値、しないときはメモリ上(標準)
   documentSettingsGatewayProvider.overrideWith((ref) {
     final client = ref.watch(graphqlClientProvider);
