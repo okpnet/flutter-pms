@@ -46,6 +46,7 @@ class DocumentSettingsStringsEn extends DocumentSettingsStrings with BaseTransla
 	@override String get loadFailed => 'Could not load the settings. Showing the defaults.';
 	@override late final _DocumentSettingsStrings$tabs$en tabs = _DocumentSettingsStrings$tabs$en._(_root);
 	@override late final _DocumentSettingsStrings$approval$en approval = _DocumentSettingsStrings$approval$en._(_root);
+	@override late final _DocumentSettingsStrings$patternStyle$en patternStyle = _DocumentSettingsStrings$patternStyle$en._(_root);
 	@override late final _DocumentSettingsStrings$actions$en actions = _DocumentSettingsStrings$actions$en._(_root);
 	@override String get saved => 'Saved.';
 	@override String get saveFailed => 'Could not save.';
@@ -68,6 +69,7 @@ class _DocumentSettingsStrings$tabs$en extends DocumentSettingsStrings$tabs$ja {
 	@override String get pdf => 'PDF';
 	@override String get json => 'JSON';
 	@override String get approval => 'Approval patterns';
+	@override String get patternStyle => 'Stamp per pattern';
 }
 
 // Path: approval
@@ -92,6 +94,30 @@ class _DocumentSettingsStrings$approval$en extends DocumentSettingsStrings$appro
 	@override String get kindComplaint => 'Complaint';
 	@override String get kindDisposal => 'Disposal';
 	@override String get kindRecurrencePrevention => 'Recurrence prevention';
+}
+
+// Path: patternStyle
+class _DocumentSettingsStrings$patternStyle$en extends DocumentSettingsStrings$patternStyle$ja {
+	_DocumentSettingsStrings$patternStyle$en._(DocumentSettingsStringsEn root) : this._root = root, super.internal(root);
+
+	final DocumentSettingsStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get hint => 'Per approval pattern, the stamp style can differ from the standard. The values are laid over the standard (the "Approval stamp" tab); only the items you write override it (items replaces the whole list when written). Changes are saved to the pattern with Save in this tab (separate from the settings Save).';
+	@override String get pattern => 'Approval pattern';
+	@override String get useStandard => 'Use the standard style (this pattern has no style of its own)';
+	@override String get json => 'Style of this pattern (JSON)';
+	@override String get jsonHint => 'Example: {"position":{"anchor":"bottomLeft"},"layer":"foreground"}. To keep the standard, turn the switch above on.';
+	@override String get invalid => 'Not valid JSON.';
+	@override String get notObject => 'The style must be a JSON object.';
+	@override String schemaErrors({required Object count}) => 'The stamp style has ${count} schema error(s). Fix them before saving.';
+	@override String get save => 'Save to this pattern';
+	@override String get revert => 'Revert to saved';
+	@override String get saved => 'Saved.';
+	@override String get saveFailed => 'Could not save. Only administrators can change it.';
+	@override String get none => 'There are no approval patterns.';
+	@override String get preview => 'Preview for this pattern (laid over the standard)';
+	@override String get usingStandard => 'This pattern uses the standard style.';
 }
 
 // Path: actions
@@ -332,6 +358,7 @@ extension on DocumentSettingsStringsEn {
 			'tabs.pdf' => 'PDF',
 			'tabs.json' => 'JSON',
 			'tabs.approval' => 'Approval patterns',
+			'tabs.patternStyle' => 'Stamp per pattern',
 			'approval.hint' => 'Choose, for each kind, the approval pattern that makes a registration an approval request. "No approval" does not ask for approval. Press Save to apply.',
 			'approval.none' => 'No approval (not set)',
 			'approval.unknown' => ({required Object id}) => '(pattern not in the list) ${id}',
@@ -347,6 +374,21 @@ extension on DocumentSettingsStringsEn {
 			'approval.kindComplaint' => 'Complaint',
 			'approval.kindDisposal' => 'Disposal',
 			'approval.kindRecurrencePrevention' => 'Recurrence prevention',
+			'patternStyle.hint' => 'Per approval pattern, the stamp style can differ from the standard. The values are laid over the standard (the "Approval stamp" tab); only the items you write override it (items replaces the whole list when written). Changes are saved to the pattern with Save in this tab (separate from the settings Save).',
+			'patternStyle.pattern' => 'Approval pattern',
+			'patternStyle.useStandard' => 'Use the standard style (this pattern has no style of its own)',
+			'patternStyle.json' => 'Style of this pattern (JSON)',
+			'patternStyle.jsonHint' => 'Example: {"position":{"anchor":"bottomLeft"},"layer":"foreground"}. To keep the standard, turn the switch above on.',
+			'patternStyle.invalid' => 'Not valid JSON.',
+			'patternStyle.notObject' => 'The style must be a JSON object.',
+			'patternStyle.schemaErrors' => ({required Object count}) => 'The stamp style has ${count} schema error(s). Fix them before saving.',
+			'patternStyle.save' => 'Save to this pattern',
+			'patternStyle.revert' => 'Revert to saved',
+			'patternStyle.saved' => 'Saved.',
+			'patternStyle.saveFailed' => 'Could not save. Only administrators can change it.',
+			'patternStyle.none' => 'There are no approval patterns.',
+			'patternStyle.preview' => 'Preview for this pattern (laid over the standard)',
+			'patternStyle.usingStandard' => 'This pattern uses the standard style.',
 			'actions.save' => 'Save',
 			'actions.revert' => 'Revert',
 			'actions.resetDefaults' => 'Reset to defaults',

@@ -87,6 +87,30 @@ void main() {
     expect(validateAppSettings(jsonDecode(file.readAsStringSync())), isEmpty);
   });
 
+  test('承認パターンごとのスタンプの様式: 書いた項目だけでよい。誤りは様式の中の場所で返す', () {
+    expect(validateStampStyle(<String, dynamic>{}), isEmpty); // 標準のまま
+    expect(
+      validateStampStyle({
+        'position': {'anchor': 'bottomLeft'},
+        'layer': 'foreground',
+      }),
+      isEmpty,
+    );
+    final issues = validateStampStyle({
+      'position': {'anchor': 'middle'},
+      'opacty': 1,
+      'items': [
+        {'size': 10},
+      ],
+    });
+    expect(issues.map((i) => i.path), containsAll(['/position/anchor', '', '/items/0']));
+    expect(validateStampStyle([1]).single.path, '');
+  });
+
+  test('標準の様式・DB の標準の様式は、様式のスキーマに通る', () {
+    expect(validateStampStyle(AppSettings.standard.stamp.toJson()), isEmpty);
+  });
+
   test('schema/app_settings.schema.json は Dart の定義と一致する(違ったら dart run tool/gen_schema.dart)', () {
     final file = File('schema/app_settings.schema.json');
     expect(file.existsSync(), isTrue);

@@ -9,7 +9,7 @@
 1.  読むときは寛容: 欠けた・型の違う値は既定に戻し、`Problems` に残す(呼び出し側がログに出す)。設定の不備でアプリ・PDF の出力を止めない。知らないキーは `AppSettings.extra` に保ち、書き戻しても消さない。新しい版は問題として知らせる。
 1.  コードの標準値(`AppSettings.standard`)は、DB の既定値と同じ(`test/db_default_settings.dart` と照合するテストがある)。DB の既定値を変えたら、コードの標準値と `test/db_default_settings.dart` も直す。
 
-1.  設定の JSON の形は、JSON スキーマ(JSON Schema draft-07)で検査する(`validateAppSettings`。`json_schema` パッケージ)。誤りは場所(`/pdf/page/size`)と理由で返す。読み取り(`AppSettings.parse`)とは別の検査で、読み取りでは黙って標準に戻る誤り(キー名の打ち間違い・型・範囲・選択肢・色の形・承認パターンの ID の形)を見つける。ルートは知らないキーを許し、`stamp`・`pdf`・`approval` の中は許さない(`pdf.theme.vars`・`colors`・`custom` は名前が自由)。スキーマの定義は Dart(`lib/src/settings/app_settings_schema.dart`)が正で、`schema/app_settings.schema.json` は書き出し(`dart run tool/gen_schema.dart`。違うとテストが失敗する)。エディタの補完には、JSON の先頭に `"$schema": "<このファイルへの相対パス>"` を書く。標準の設定・DB の既定値・取り込み用のサンプルがスキーマに通ることは、テストで確かめる。
+1.  設定の JSON の形は、JSON スキーマ(JSON Schema draft-07)で検査する(`validateAppSettings`。`json_schema` パッケージ)。誤りは場所(`/pdf/page/size`)と理由で返す。読み取り(`AppSettings.parse`)とは別の検査で、読み取りでは黙って標準に戻る誤り(キー名の打ち間違い・型・範囲・選択肢・色の形・承認パターンの ID の形)を見つける。ルートは知らないキーを許し、`stamp`・`pdf`・`approval` の中は許さない(`pdf.theme.vars`・`colors`・`custom` は名前が自由)。スキーマの定義は Dart(`lib/src/settings/app_settings_schema.dart`)が正で、`schema/app_settings.schema.json` は書き出し(`dart run tool/gen_schema.dart`。違うとテストが失敗する)。エディタの補完には、JSON の先頭に `"$schema": "<このファイルへの相対パス>"` を書く。承認パターンごとの様式(`mstr_approval_pattern.stamp_style`)は、同じスキーマの `stamp` を使う `validateStampStyle` で検査する(標準に重ねる値のため、書いた項目だけでよい。誤りの場所は様式の中の場所)。標準の設定・DB の既定値・取り込み用のサンプルがスキーマに通ることは、テストで確かめる。
 
 ## 構成
 | 場所 | 内容 |

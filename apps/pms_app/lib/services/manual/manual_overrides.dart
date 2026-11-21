@@ -70,7 +70,7 @@ List<Override> manualOverrides() => [
   documentSettingsPatternSourceProvider.overrideWith((ref) {
     final client = ref.watch(graphqlClientProvider);
     if (client == null) return InMemoryApprovalPatternSource();
-    return GraphqlApprovalPatternSource(client);
+    return GraphqlApprovalPatternSource(client, auditUser: ref.watch(auditUserProvider));
   }),
   // 変更できるのは管理者だけ(マニュアルの編集と同じ判定)
   documentSettingsIsAdminProvider.overrideWith((ref) {

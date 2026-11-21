@@ -56,6 +56,7 @@ class DocumentSettingsStrings with BaseTranslations<DocumentSettingsLocale, Docu
 
 	late final DocumentSettingsStrings$tabs$ja tabs = DocumentSettingsStrings$tabs$ja.internal(_root);
 	late final DocumentSettingsStrings$approval$ja approval = DocumentSettingsStrings$approval$ja.internal(_root);
+	late final DocumentSettingsStrings$patternStyle$ja patternStyle = DocumentSettingsStrings$patternStyle$ja.internal(_root);
 	late final DocumentSettingsStrings$actions$ja actions = DocumentSettingsStrings$actions$ja.internal(_root);
 
 	/// ja: '保存しました。'
@@ -95,6 +96,9 @@ class DocumentSettingsStrings$tabs$ja {
 
 	/// ja: '承認パターン'
 	String get approval => '承認パターン';
+
+	/// ja: 'パターン別のスタンプ'
+	String get patternStyle => 'パターン別のスタンプ';
 }
 
 // Path: approval
@@ -149,6 +153,60 @@ class DocumentSettingsStrings$approval$ja {
 
 	/// ja: '再発防止'
 	String get kindRecurrencePrevention => '再発防止';
+}
+
+// Path: patternStyle
+class DocumentSettingsStrings$patternStyle$ja {
+	DocumentSettingsStrings$patternStyle$ja.internal(this._root);
+
+	final DocumentSettingsStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '承認パターンごとに、スタンプの様式を標準から変えられます。標準(「承認スタンプ」のタブ)に重ねる値で、書いた項目だけが標準を上書きします(items は、書いたときに全体を置き換えます)。変更は、このタブの「保存」でパターンへ保存されます(設定の「保存」とは別です)。'
+	String get hint => '承認パターンごとに、スタンプの様式を標準から変えられます。標準(「承認スタンプ」のタブ)に重ねる値で、書いた項目だけが標準を上書きします(items は、書いたときに全体を置き換えます)。変更は、このタブの「保存」でパターンへ保存されます(設定の「保存」とは別です)。';
+
+	/// ja: '承認パターン'
+	String get pattern => '承認パターン';
+
+	/// ja: '標準の様式を使う(このパターン専用の様式を持たない)'
+	String get useStandard => '標準の様式を使う(このパターン専用の様式を持たない)';
+
+	/// ja: 'このパターンの様式(JSON)'
+	String get json => 'このパターンの様式(JSON)';
+
+	/// ja: '例: {"position":{"anchor":"bottomLeft"},"layer":"foreground"}。標準のままにするときは、上のスイッチをオンにします。'
+	String get jsonHint => '例: {"position":{"anchor":"bottomLeft"},"layer":"foreground"}。標準のままにするときは、上のスイッチをオンにします。';
+
+	/// ja: 'JSON として読めません。'
+	String get invalid => 'JSON として読めません。';
+
+	/// ja: '様式は JSON のオブジェクトで書きます。'
+	String get notObject => '様式は JSON のオブジェクトで書きます。';
+
+	/// ja: 'スタンプの様式にスキーマの誤りが ${count} 件あります。直してから保存してください。'
+	String schemaErrors({required Object count}) => 'スタンプの様式にスキーマの誤りが ${count} 件あります。直してから保存してください。';
+
+	/// ja: 'このパターンに保存'
+	String get save => 'このパターンに保存';
+
+	/// ja: '保存済みに戻す'
+	String get revert => '保存済みに戻す';
+
+	/// ja: '保存しました。'
+	String get saved => '保存しました。';
+
+	/// ja: '保存できませんでした。管理者だけが変更できます。'
+	String get saveFailed => '保存できませんでした。管理者だけが変更できます。';
+
+	/// ja: '承認パターンがありません。'
+	String get none => '承認パターンがありません。';
+
+	/// ja: 'このパターンのプレビュー(標準に重ねた結果)'
+	String get preview => 'このパターンのプレビュー(標準に重ねた結果)';
+
+	/// ja: 'このパターンは標準の様式を使っています。'
+	String get usingStandard => 'このパターンは標準の様式を使っています。';
 }
 
 // Path: actions
@@ -620,6 +678,7 @@ extension on DocumentSettingsStrings {
 			'tabs.pdf' => 'PDF',
 			'tabs.json' => 'JSON',
 			'tabs.approval' => '承認パターン',
+			'tabs.patternStyle' => 'パターン別のスタンプ',
 			'approval.hint' => '種類ごとに、登録が申請になる承認パターンを選びます。「承認不要」は、その種類の登録で承認を求めません。設定は「保存」で反映されます。',
 			'approval.none' => '承認不要(設定しない)',
 			'approval.unknown' => ({required Object id}) => '(一覧に無いパターン) ${id}',
@@ -635,6 +694,21 @@ extension on DocumentSettingsStrings {
 			'approval.kindComplaint' => '異常',
 			'approval.kindDisposal' => '処置',
 			'approval.kindRecurrencePrevention' => '再発防止',
+			'patternStyle.hint' => '承認パターンごとに、スタンプの様式を標準から変えられます。標準(「承認スタンプ」のタブ)に重ねる値で、書いた項目だけが標準を上書きします(items は、書いたときに全体を置き換えます)。変更は、このタブの「保存」でパターンへ保存されます(設定の「保存」とは別です)。',
+			'patternStyle.pattern' => '承認パターン',
+			'patternStyle.useStandard' => '標準の様式を使う(このパターン専用の様式を持たない)',
+			'patternStyle.json' => 'このパターンの様式(JSON)',
+			'patternStyle.jsonHint' => '例: {"position":{"anchor":"bottomLeft"},"layer":"foreground"}。標準のままにするときは、上のスイッチをオンにします。',
+			'patternStyle.invalid' => 'JSON として読めません。',
+			'patternStyle.notObject' => '様式は JSON のオブジェクトで書きます。',
+			'patternStyle.schemaErrors' => ({required Object count}) => 'スタンプの様式にスキーマの誤りが ${count} 件あります。直してから保存してください。',
+			'patternStyle.save' => 'このパターンに保存',
+			'patternStyle.revert' => '保存済みに戻す',
+			'patternStyle.saved' => '保存しました。',
+			'patternStyle.saveFailed' => '保存できませんでした。管理者だけが変更できます。',
+			'patternStyle.none' => '承認パターンがありません。',
+			'patternStyle.preview' => 'このパターンのプレビュー(標準に重ねた結果)',
+			'patternStyle.usingStandard' => 'このパターンは標準の様式を使っています。',
 			'actions.save' => '保存',
 			'actions.revert' => '元に戻す',
 			'actions.resetDefaults' => '標準に戻す',

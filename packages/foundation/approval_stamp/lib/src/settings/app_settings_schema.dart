@@ -207,6 +207,21 @@ List<SettingsSchemaIssue> validateAppSettings(Object? json) {
   ];
 }
 
+/// 承認パターンごとのスタンプの様式(`mstr_approval_pattern.stamp_style`)を、スキーマ(設定の `stamp` と同じ形)で検査する。誤りが無ければ空。
+/// 様式は標準に重ねる値のため、書いた項目だけでよい(すべて省略できる。`{}` は標準のまま)。誤りの場所は、様式の中の場所(`/position/anchor`)。
+List<SettingsSchemaIssue> validateStampStyle(Object? json) {
+  final results = _compiledStampStyle.validate(json);
+  if (results.isValid) return const [];
+  return [
+    for (final e in results.errors) SettingsSchemaIssue(e.instancePath, e.message),
+  ];
+}
+
+final JsonSchema _compiledStampStyle = JsonSchema.create({
+  ...(appSettingsSchema['properties']! as Map<String, Object?>)['stamp']! as Map<String, Object?>,
+  r'$schema': _draft,
+}, schemaVersion: SchemaVersion.draft7);
+
 /// スキーマの JSON(整形済み)。`schema/app_settings.schema.json` と同じ内容。
 String get appSettingsSchemaJson => const JsonEncoder.withIndent('  ').convert(appSettingsSchema);
 

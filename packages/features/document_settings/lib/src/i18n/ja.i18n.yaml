@@ -10,6 +10,7 @@ tabs:
   pdf: PDF
   json: JSON
   approval: 承認パターン
+  patternStyle: パターン別のスタンプ
 approval:
   hint: 種類ごとに、登録が申請になる承認パターンを選びます。「承認不要」は、その種類の登録で承認を求めません。設定は「保存」で反映されます。
   none: 承認不要(設定しない)
@@ -26,6 +27,22 @@ approval:
   kindComplaint: 異常
   kindDisposal: 処置
   kindRecurrencePrevention: 再発防止
+patternStyle:
+  hint: 承認パターンごとに、スタンプの様式を標準から変えられます。標準(「承認スタンプ」のタブ)に重ねる値で、書いた項目だけが標準を上書きします(items は、書いたときに全体を置き換えます)。変更は、このタブの「保存」でパターンへ保存されます(設定の「保存」とは別です)。
+  pattern: 承認パターン
+  useStandard: 標準の様式を使う(このパターン専用の様式を持たない)
+  json: このパターンの様式(JSON)
+  jsonHint: '例: {"position":{"anchor":"bottomLeft"},"layer":"foreground"}。標準のままにするときは、上のスイッチをオンにします。'
+  invalid: JSON として読めません。
+  notObject: 様式は JSON のオブジェクトで書きます。
+  schemaErrors: 'スタンプの様式にスキーマの誤りが ${count} 件あります。直してから保存してください。'
+  save: このパターンに保存
+  revert: 保存済みに戻す
+  saved: 保存しました。
+  saveFailed: 保存できませんでした。管理者だけが変更できます。
+  none: 承認パターンがありません。
+  preview: このパターンのプレビュー(標準に重ねた結果)
+  usingStandard: このパターンは標準の様式を使っています。
 actions:
   save: 保存
   revert: 元に戻す
