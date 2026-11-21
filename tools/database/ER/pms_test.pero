@@ -27572,7 +27572,7 @@
             "sqlite": ""
           },
           "nameMode": "manual",
-          "name": "trg_05_approval_request_mstr_document",
+          "name": "trg_01_approval_request_mstr_document",
           "timing": "BEFORE",
           "events": [
             "INSERT"
@@ -41889,7 +41889,7 @@
             "sqlite": ""
           },
           "nameMode": "manual",
-          "name": "trg_05_approval_request_trans_unrecognized",
+          "name": "trg_01_approval_request_trans_unrecognized",
           "timing": "BEFORE",
           "events": [
             "INSERT"
@@ -48154,7 +48154,7 @@
             "sqlite": ""
           },
           "nameMode": "manual",
-          "name": "trg_05_approval_request_trans_disposal",
+          "name": "trg_01_approval_request_trans_disposal",
           "timing": "BEFORE",
           "events": [
             "INSERT"
@@ -48374,7 +48374,7 @@
             "sqlite": ""
           },
           "nameMode": "manual",
-          "name": "trg_05_approval_request_trans_recurrence_prevention",
+          "name": "trg_01_approval_request_trans_recurrence_prevention",
           "timing": "BEFORE",
           "events": [
             "INSERT"
@@ -48578,7 +48578,7 @@
             "sqlite": ""
           },
           "nameMode": "manual",
-          "name": "trg_05_approval_request_trans_complaint",
+          "name": "trg_01_approval_request_trans_complaint",
           "timing": "BEFORE",
           "events": [
             "INSERT"
@@ -53943,7 +53943,7 @@
             "sqlite": ""
           },
           "nameMode": "manual",
-          "name": "trg_05_approval_request_trans_shipping_order",
+          "name": "trg_01_approval_request_trans_shipping_order",
           "timing": "BEFORE",
           "events": [
             "INSERT"
@@ -55286,7 +55286,7 @@
             "sqlite": ""
           },
           "nameMode": "manual",
-          "name": "trg_05_approval_request_trans_purchase",
+          "name": "trg_01_approval_request_trans_purchase",
           "timing": "BEFORE",
           "events": [
             "INSERT"
@@ -55602,7 +55602,7 @@
             "sqlite": ""
           },
           "nameMode": "manual",
-          "name": "trg_05_approval_request_trans_order",
+          "name": "trg_01_approval_request_trans_order",
           "timing": "BEFORE",
           "events": [
             "INSERT"

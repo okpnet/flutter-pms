@@ -956,3 +956,47 @@ END $$;
 -- 既にある棚ビジター(1・2 のダミーデータ)の所有者を決め直す
 SELECT tests.visiter_owner_rebuild() AS lots_checked;
 
+
+-- #####################################################################
+-- 7. 標準の承認パターン(段が 0 件 = 承認不要)と、文書の承認パターンの設定
+-- #####################################################################
+\c test_avocado
+-- 文書(mstr_document)は承認パターン(trans_approval_pattern_id。NOT NULL)が要る。登録が申請のトリガー(trg_05_approval_request)は、
+-- info_app.settings の approval.patterns.document に承認パターンがあるときだけ、承認の実行を作って入れる。
+-- 設定が無いと、文書(マニュアルのルートなど)を登録できないため、標準として「段が 0 件の承認パターン(= 承認不要)」を作り、
+-- 文書の承認パターンに設定する。ほかの種類(受注・発注など)は、設定しない(null = 承認不要)。
+-- 承認の段のあるパターンへの変更は、アプリの設定画面(承認スタンプ・PDF の設定の JSON。JSON ファイルの取り込みも可)で行う。
+-- 何度流しても同じ(備考で見つけ、あれば作らない)。
+DO $$
+DECLARE
+    v_pattern uuid;
+    d uuid;
+    a uuid;
+BEGIN
+    SELECT p.mstr_approval_pattern_id INTO v_pattern
+    FROM tests.mstr_approval_pattern AS p
+    WHERE p.remarks = 'STANDARD-NO-APPROVAL' AND p.remove IS FALSE
+    ORDER BY p.update_at LIMIT 1;
+    IF v_pattern IS NULL THEN
+        INSERT INTO tests.shared_dictionary (remarks) VALUES (NULL) RETURNING shared_dictionary_id INTO d;
+        INSERT INTO tests.shared_dictionary_value (shared_dictionary_id, shared_language_code_id, dictionary_value)
+        SELECT d, l.shared_language_code_id, v.val
+        FROM (VALUES ('ja', '標準(承認不要)'), ('en', 'Standard (no approval)')) AS v(code, val)
+        INNER JOIN tests.shared_language_code AS l ON l.code = v.code AND l.remove IS FALSE;
+        INSERT INTO tests.shared_appellations (shared_dictionary_name_id) VALUES (d) RETURNING shared_appellations_id INTO a;
+        INSERT INTO tests.mstr_approval_pattern (names, remarks) VALUES (a, 'STANDARD-NO-APPROVAL')
+        RETURNING mstr_approval_pattern_id INTO v_pattern;
+    END IF;
+    -- 文書の承認パターンが未設定のときだけ設定する(管理者が別のパターンを設定していたら、上書きしない)
+    UPDATE tests.info_app AS app
+    SET settings = jsonb_set(
+        COALESCE(app.settings, '{}'::jsonb),
+        '{approval}',
+        COALESCE(app.settings -> 'approval', '{}'::jsonb)
+            || jsonb_build_object('patterns',
+                COALESCE(app.settings #> '{approval,patterns}', '{}'::jsonb)
+                || jsonb_build_object('document', v_pattern::text)),
+        true)
+    WHERE app.remove IS FALSE
+      AND COALESCE(NULLIF(app.settings #>> '{approval,patterns,document}', ''), '') = '';
+END $$;

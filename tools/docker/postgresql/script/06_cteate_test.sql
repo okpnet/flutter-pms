@@ -25335,7 +25335,7 @@ LANGUAGE plpgsql VOLATILE;
 COMMENT ON FUNCTION tests.trg_05_approval_request() IS '@omit
 対象の登録のトリガー関数(登録が申請)';
 
-CREATE TRIGGER trg_05_approval_request_trans_order BEFORE INSERT ON tests.trans_order FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('order', 'trans_approval_pattern_id');
+CREATE TRIGGER trg_01_approval_request_trans_order BEFORE INSERT ON tests.trans_order FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('order', 'trans_approval_pattern_id');
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_order_detail() RETURNS trigger AS
 $BODY$
@@ -25406,7 +25406,7 @@ CREATE TRIGGER trg_01_updatetimes_trans_unrecognized BEFORE INSERT OR UPDATE OR 
 
 CREATE TRIGGER trg_04_symbol_trans_unrecognized BEFORE INSERT ON tests.trans_unrecognized FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
 
-CREATE TRIGGER trg_05_approval_request_trans_unrecognized BEFORE INSERT ON tests.trans_unrecognized FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('unrecognized', 'trans_approval_pattern_id');
+CREATE TRIGGER trg_01_approval_request_trans_unrecognized BEFORE INSERT ON tests.trans_unrecognized FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('unrecognized', 'trans_approval_pattern_id');
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_unrecognized_detail() RETURNS trigger AS
 $BODY$
@@ -25477,7 +25477,7 @@ CREATE TRIGGER trg_01_updatetimes_trans_purchase BEFORE INSERT OR UPDATE OR DELE
 
 CREATE TRIGGER trg_04_symbol_trans_purchase BEFORE INSERT ON tests.trans_purchase FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
 
-CREATE TRIGGER trg_05_approval_request_trans_purchase BEFORE INSERT ON tests.trans_purchase FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('purchase', 'trans_approval_pattern_id');
+CREATE TRIGGER trg_01_approval_request_trans_purchase BEFORE INSERT ON tests.trans_purchase FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('purchase', 'trans_approval_pattern_id');
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_purchase_detail() RETURNS trigger AS
 $BODY$
@@ -25571,7 +25571,7 @@ CREATE TRIGGER trg_01_updatetimes_trans_complaint BEFORE INSERT OR UPDATE OR DEL
 
 CREATE TRIGGER trg_04_symbol_trans_complaint BEFORE INSERT ON tests.trans_complaint FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
 
-CREATE TRIGGER trg_05_approval_request_trans_complaint BEFORE INSERT ON tests.trans_complaint FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('complaint', 'approvals');
+CREATE TRIGGER trg_01_approval_request_trans_complaint BEFORE INSERT ON tests.trans_complaint FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('complaint', 'approvals');
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_change_reason() RETURNS trigger AS
 $BODY$
@@ -26180,7 +26180,7 @@ CREATE TRIGGER trg_01_updatetimes_trans_shipping_order BEFORE INSERT OR UPDATE O
 
 CREATE TRIGGER trg_04_symbol_trans_shipping_order BEFORE INSERT ON tests.trans_shipping_order FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
 
-CREATE TRIGGER trg_05_approval_request_trans_shipping_order BEFORE INSERT ON tests.trans_shipping_order FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('shipping_order', 'trans_approval_pattern_id');
+CREATE TRIGGER trg_01_approval_request_trans_shipping_order BEFORE INSERT ON tests.trans_shipping_order FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('shipping_order', 'trans_approval_pattern_id');
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_shipping_order_detail() RETURNS trigger AS
 $BODY$
@@ -30480,7 +30480,7 @@ LANGUAGE plpgsql VOLATILE;
 
 CREATE TRIGGER trg_02_history_mstr_document BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_document FOR EACH ROW EXECUTE FUNCTION tests.trg_02_history_mstr_document();
 
-CREATE TRIGGER trg_05_approval_request_mstr_document BEFORE INSERT ON tests.mstr_document FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('document', 'trans_approval_pattern_id');
+CREATE TRIGGER trg_01_approval_request_mstr_document BEFORE INSERT ON tests.mstr_document FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('document', 'trans_approval_pattern_id');
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_document_content() RETURNS trigger AS
 $BODY$
@@ -36669,7 +36669,7 @@ CREATE TRIGGER trg_01_updatetimes_trans_disposal BEFORE INSERT OR UPDATE OR DELE
 
 CREATE TRIGGER trg_04_symbol_trans_disposal BEFORE INSERT ON tests.trans_disposal FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
 
-CREATE TRIGGER trg_05_approval_request_trans_disposal BEFORE INSERT ON tests.trans_disposal FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('disposal', 'approvals');
+CREATE TRIGGER trg_01_approval_request_trans_disposal BEFORE INSERT ON tests.trans_disposal FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('disposal', 'approvals');
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_recurrence_prevention() RETURNS trigger AS
 $BODY$
@@ -36694,7 +36694,7 @@ CREATE TRIGGER trg_01_updatetimes_trans_recurrence_prevention BEFORE INSERT OR U
 
 CREATE TRIGGER trg_04_symbol_trans_recurrence_prevention BEFORE INSERT ON tests.trans_recurrence_prevention FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
 
-CREATE TRIGGER trg_05_approval_request_trans_recurrence_prevention BEFORE INSERT ON tests.trans_recurrence_prevention FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('recurrence_prevention', 'approvals');
+CREATE TRIGGER trg_01_approval_request_trans_recurrence_prevention BEFORE INSERT ON tests.trans_recurrence_prevention FOR EACH ROW EXECUTE FUNCTION tests.trg_05_approval_request('recurrence_prevention', 'approvals');
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_observer_disposal() RETURNS trigger AS
 $BODY$
