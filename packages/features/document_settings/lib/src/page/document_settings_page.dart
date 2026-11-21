@@ -6,6 +6,7 @@ import 'package:approval_stamp_view/approval_stamp_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../data/approval_pattern_source.dart';
 import '../data/settings_draft.dart';
 import '../data/settings_file_picker.dart';
 import '../i18n/strings_provider.dart';
@@ -62,13 +63,13 @@ class _DocumentSettingsPageState extends ConsumerState<DocumentSettingsPage> {
     final settings = draft.settings(problems);
 
     final form = DefaultTabController(
-      length: 3,
+      length: 4,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TabBar(
             key: const Key('ds-tabs'),
-            tabs: [Tab(text: s.tabs.stamp), Tab(text: s.tabs.pdf), Tab(text: s.tabs.json)],
+            tabs: [Tab(text: s.tabs.stamp), Tab(text: s.tabs.pdf), Tab(text: s.tabs.approval), Tab(text: s.tabs.json)],
           ),
           const SizedBox(height: 12),
           Expanded(
@@ -78,6 +79,7 @@ class _DocumentSettingsPageState extends ConsumerState<DocumentSettingsPage> {
                 children: [
                   _scroll(_StampForm(draft: draft, set: notifier.set, s: s)),
                   _scroll(_PdfForm(draft: draft, set: notifier.set, s: s, onFocus: _onFocus, onInsert: _insertVariable, customNames: settings.pdf.custom.keys.toList())),
+                  _scroll(_ApprovalForm(draft: draft, set: notifier.set, s: s)),
                   _scroll(_JsonForm(draft: draft, s: s, onApply: notifier.applyJson)),
                 ],
               ),
@@ -585,6 +587,96 @@ class _PdfFormState extends State<_PdfForm> {
             ),
           ],
         ),
+      ],
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------------------------
+// 承認パターン
+// ---------------------------------------------------------------------------------------------
+
+/// 種類ごとの承認パターン(`approval.patterns.<種類>`)。選ぶと、その種類の登録が申請になる(承認不要は設定しない = null)。
+/// 選択肢は、承認パターンの取得元(`documentSettingsPatternSourceProvider`)。一覧に無い ID が設定されていても、消さずに選択肢に残す。
+class _ApprovalForm extends ConsumerWidget {
+  const _ApprovalForm({required this.draft, required this.set, required this.s});
+
+  final SettingsDraft draft;
+  final JsonSetter set;
+  final DocumentSettingsStrings s;
+
+  String _kind(String kind) => switch (kind) {
+    'document' => s.approval.kindDocument,
+    'order' => s.approval.kindOrder,
+    'purchase' => s.approval.kindPurchase,
+    'unrecognized' => s.approval.kindUnrecognized,
+    'shipping_order' => s.approval.kindShippingOrder,
+    'complaint' => s.approval.kindComplaint,
+    'disposal' => s.approval.kindDisposal,
+    'recurrence_prevention' => s.approval.kindRecurrencePrevention,
+    _ => kind,
+  };
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final scheme = Theme.of(context).colorScheme;
+    final options = ref.watch(approvalPatternOptionsProvider);
+    final theme = Theme.of(context).textTheme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(s.approval.hint, style: theme.bodySmall),
+        const SizedBox(height: 12),
+        options.when(
+          loading: () => Text(s.approval.loading, key: const Key('ds-approval-loading')),
+          error: (_, _) => Text(s.approval.loadFailed, key: const Key('ds-approval-error'), style: TextStyle(color: scheme.error)),
+          data: (patterns) => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (patterns.isEmpty)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Text(s.approval.empty, key: const Key('ds-approval-empty'), style: TextStyle(color: scheme.error)),
+                ),
+              for (final kind in ApprovalSettings.kinds) ...[
+                _row(kind, patterns),
+                const SizedBox(height: 14),
+              ],
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _row(String kind, List<ApprovalPatternOption> patterns) {
+    final path = ['approval', 'patterns', kind];
+    final current = valueAt(draft.json, path);
+    final currentId = current is String && current.isNotEmpty ? current : null;
+    final known = {for (final p in patterns) p.id: p.name.isEmpty ? p.id : p.name};
+    final choices = <String, String>{
+      '': s.approval.none,
+      ...known,
+      // 一覧に無い ID(削除済み・別の DB の値)は、消さずに残して見えるようにする
+      if (currentId != null && !known.containsKey(currentId)) currentId: s.approval.unknown(id: currentId),
+    };
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        DropField(
+          key: Key('ds-approval-$kind'),
+          json: draft.json,
+          path: path,
+          label: _kind(kind),
+          width: 420,
+          options: choices,
+          onSet: (p, v) => set(p, (v is String && v.isNotEmpty) ? v : null),
+        ),
+        if (kind == 'document' && currentId == null)
+          Padding(
+            padding: const EdgeInsets.only(top: 4),
+            child: Text(s.approval.documentNote, key: const Key('ds-approval-document-note'), style: const TextStyle(fontSize: 12.5)),
+          ),
       ],
     );
   }

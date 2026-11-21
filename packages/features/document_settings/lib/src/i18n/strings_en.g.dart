@@ -45,6 +45,7 @@ class DocumentSettingsStringsEn extends DocumentSettingsStrings with BaseTransla
 	@override String get adminOnly => 'Only administrators can change these settings.';
 	@override String get loadFailed => 'Could not load the settings. Showing the defaults.';
 	@override late final _DocumentSettingsStrings$tabs$en tabs = _DocumentSettingsStrings$tabs$en._(_root);
+	@override late final _DocumentSettingsStrings$approval$en approval = _DocumentSettingsStrings$approval$en._(_root);
 	@override late final _DocumentSettingsStrings$actions$en actions = _DocumentSettingsStrings$actions$en._(_root);
 	@override String get saved => 'Saved.';
 	@override String get saveFailed => 'Could not save.';
@@ -66,6 +67,31 @@ class _DocumentSettingsStrings$tabs$en extends DocumentSettingsStrings$tabs$ja {
 	@override String get stamp => 'Approval stamp';
 	@override String get pdf => 'PDF';
 	@override String get json => 'JSON';
+	@override String get approval => 'Approval patterns';
+}
+
+// Path: approval
+class _DocumentSettingsStrings$approval$en extends DocumentSettingsStrings$approval$ja {
+	_DocumentSettingsStrings$approval$en._(DocumentSettingsStringsEn root) : this._root = root, super.internal(root);
+
+	final DocumentSettingsStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get hint => 'Choose, for each kind, the approval pattern that makes a registration an approval request. "No approval" does not ask for approval. Press Save to apply.';
+	@override String get none => 'No approval (not set)';
+	@override String unknown({required Object id}) => '(pattern not in the list) ${id}';
+	@override String get documentNote => 'A document (such as the manual) cannot be registered without an approval pattern. When no approval is needed, choose a pattern without approval steps.';
+	@override String get empty => 'No approval patterns are registered. Register them under Company > Approval.';
+	@override String get loadFailed => 'Could not load the approval patterns.';
+	@override String get loading => 'Loading approval patterns…';
+	@override String get kindDocument => 'Document';
+	@override String get kindOrder => 'Order';
+	@override String get kindPurchase => 'Purchase';
+	@override String get kindUnrecognized => 'Unrecognized purchase';
+	@override String get kindShippingOrder => 'Shipping order';
+	@override String get kindComplaint => 'Complaint';
+	@override String get kindDisposal => 'Disposal';
+	@override String get kindRecurrencePrevention => 'Recurrence prevention';
 }
 
 // Path: actions
@@ -305,6 +331,22 @@ extension on DocumentSettingsStringsEn {
 			'tabs.stamp' => 'Approval stamp',
 			'tabs.pdf' => 'PDF',
 			'tabs.json' => 'JSON',
+			'tabs.approval' => 'Approval patterns',
+			'approval.hint' => 'Choose, for each kind, the approval pattern that makes a registration an approval request. "No approval" does not ask for approval. Press Save to apply.',
+			'approval.none' => 'No approval (not set)',
+			'approval.unknown' => ({required Object id}) => '(pattern not in the list) ${id}',
+			'approval.documentNote' => 'A document (such as the manual) cannot be registered without an approval pattern. When no approval is needed, choose a pattern without approval steps.',
+			'approval.empty' => 'No approval patterns are registered. Register them under Company > Approval.',
+			'approval.loadFailed' => 'Could not load the approval patterns.',
+			'approval.loading' => 'Loading approval patterns…',
+			'approval.kindDocument' => 'Document',
+			'approval.kindOrder' => 'Order',
+			'approval.kindPurchase' => 'Purchase',
+			'approval.kindUnrecognized' => 'Unrecognized purchase',
+			'approval.kindShippingOrder' => 'Shipping order',
+			'approval.kindComplaint' => 'Complaint',
+			'approval.kindDisposal' => 'Disposal',
+			'approval.kindRecurrencePrevention' => 'Recurrence prevention',
 			'actions.save' => 'Save',
 			'actions.revert' => 'Revert',
 			'actions.resetDefaults' => 'Reset to defaults',

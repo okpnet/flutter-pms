@@ -1,7 +1,10 @@
 import 'package:document_settings/document_settings.dart'
     show
+        GraphqlApprovalPatternSource,
         GraphqlAppSettingsGateway,
         InMemoryAppSettingsGateway,
+        InMemoryApprovalPatternSource,
+        documentSettingsPatternSourceProvider,
         documentSettingsGatewayProvider,
         documentSettingsIsAdminProvider,
         savedAppSettingsProvider;
@@ -62,6 +65,12 @@ List<Override> manualOverrides() => [
     final client = ref.watch(graphqlClientProvider);
     if (client == null) return InMemoryAppSettingsGateway();
     return GraphqlAppSettingsGateway(client, auditUser: ref.watch(auditUserProvider));
+  }),
+  // 承認パターンの選択肢(設定画面の「承認パターン」)。GraphQL に接続するときは DB(mstr_approval_pattern)、しないときは空
+  documentSettingsPatternSourceProvider.overrideWith((ref) {
+    final client = ref.watch(graphqlClientProvider);
+    if (client == null) return InMemoryApprovalPatternSource();
+    return GraphqlApprovalPatternSource(client);
   }),
   // 変更できるのは管理者だけ(マニュアルの編集と同じ判定)
   documentSettingsIsAdminProvider.overrideWith((ref) {

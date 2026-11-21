@@ -55,6 +55,7 @@ class DocumentSettingsStrings with BaseTranslations<DocumentSettingsLocale, Docu
 	String get loadFailed => '設定を読み込めませんでした。標準の設定を表示します。';
 
 	late final DocumentSettingsStrings$tabs$ja tabs = DocumentSettingsStrings$tabs$ja.internal(_root);
+	late final DocumentSettingsStrings$approval$ja approval = DocumentSettingsStrings$approval$ja.internal(_root);
 	late final DocumentSettingsStrings$actions$ja actions = DocumentSettingsStrings$actions$ja.internal(_root);
 
 	/// ja: '保存しました。'
@@ -91,6 +92,63 @@ class DocumentSettingsStrings$tabs$ja {
 
 	/// ja: 'JSON'
 	String get json => 'JSON';
+
+	/// ja: '承認パターン'
+	String get approval => '承認パターン';
+}
+
+// Path: approval
+class DocumentSettingsStrings$approval$ja {
+	DocumentSettingsStrings$approval$ja.internal(this._root);
+
+	final DocumentSettingsStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '種類ごとに、登録が申請になる承認パターンを選びます。「承認不要」は、その種類の登録で承認を求めません。設定は「保存」で反映されます。'
+	String get hint => '種類ごとに、登録が申請になる承認パターンを選びます。「承認不要」は、その種類の登録で承認を求めません。設定は「保存」で反映されます。';
+
+	/// ja: '承認不要(設定しない)'
+	String get none => '承認不要(設定しない)';
+
+	/// ja: '(一覧に無いパターン) ${id}'
+	String unknown({required Object id}) => '(一覧に無いパターン) ${id}';
+
+	/// ja: '文書(マニュアルなど)は、承認パターンが無いと登録できません。承認が要らないときは、承認の段が無いパターンを選びます。'
+	String get documentNote => '文書(マニュアルなど)は、承認パターンが無いと登録できません。承認が要らないときは、承認の段が無いパターンを選びます。';
+
+	/// ja: '承認パターンが登録されていません。会社情報の「承認」で登録してください。'
+	String get empty => '承認パターンが登録されていません。会社情報の「承認」で登録してください。';
+
+	/// ja: '承認パターンの一覧を読み込めませんでした。'
+	String get loadFailed => '承認パターンの一覧を読み込めませんでした。';
+
+	/// ja: '承認パターンを読み込んでいます…'
+	String get loading => '承認パターンを読み込んでいます…';
+
+	/// ja: '文書'
+	String get kindDocument => '文書';
+
+	/// ja: '受注'
+	String get kindOrder => '受注';
+
+	/// ja: '発注'
+	String get kindPurchase => '発注';
+
+	/// ja: '非計上発注'
+	String get kindUnrecognized => '非計上発注';
+
+	/// ja: '出荷オーダー'
+	String get kindShippingOrder => '出荷オーダー';
+
+	/// ja: '異常'
+	String get kindComplaint => '異常';
+
+	/// ja: '処置'
+	String get kindDisposal => '処置';
+
+	/// ja: '再発防止'
+	String get kindRecurrencePrevention => '再発防止';
 }
 
 // Path: actions
@@ -561,6 +619,22 @@ extension on DocumentSettingsStrings {
 			'tabs.stamp' => '承認スタンプ',
 			'tabs.pdf' => 'PDF',
 			'tabs.json' => 'JSON',
+			'tabs.approval' => '承認パターン',
+			'approval.hint' => '種類ごとに、登録が申請になる承認パターンを選びます。「承認不要」は、その種類の登録で承認を求めません。設定は「保存」で反映されます。',
+			'approval.none' => '承認不要(設定しない)',
+			'approval.unknown' => ({required Object id}) => '(一覧に無いパターン) ${id}',
+			'approval.documentNote' => '文書(マニュアルなど)は、承認パターンが無いと登録できません。承認が要らないときは、承認の段が無いパターンを選びます。',
+			'approval.empty' => '承認パターンが登録されていません。会社情報の「承認」で登録してください。',
+			'approval.loadFailed' => '承認パターンの一覧を読み込めませんでした。',
+			'approval.loading' => '承認パターンを読み込んでいます…',
+			'approval.kindDocument' => '文書',
+			'approval.kindOrder' => '受注',
+			'approval.kindPurchase' => '発注',
+			'approval.kindUnrecognized' => '非計上発注',
+			'approval.kindShippingOrder' => '出荷オーダー',
+			'approval.kindComplaint' => '異常',
+			'approval.kindDisposal' => '処置',
+			'approval.kindRecurrencePrevention' => '再発防止',
 			'actions.save' => '保存',
 			'actions.revert' => '元に戻す',
 			'actions.resetDefaults' => '標準に戻す',

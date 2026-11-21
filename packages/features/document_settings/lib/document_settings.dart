@@ -15,9 +15,12 @@ export 'src/data/settings_draft.dart'
         documentSettingsGatewayProvider,
         documentSettingsIsAdminProvider,
         savedAppSettingsProvider;
+export 'src/data/approval_pattern_source.dart'
+    show ApprovalPatternOption, IApprovalPatternSource, InMemoryApprovalPatternSource, documentSettingsPatternSourceProvider;
 export 'src/data/settings_file_picker.dart'
     show ISettingsFilePicker, PickedSettingsFile, PlatformSettingsFilePicker, documentSettingsFilePickerProvider;
 export 'src/graphql/graphql_app_settings_gateway.dart';
+export 'src/graphql/graphql_approval_pattern_source.dart' show GraphqlApprovalPatternSource;
 export 'src/i18n/strings_provider.dart' show DocumentSettingsStrings, documentSettingsStringsProvider;
 export 'src/page/document_settings_module.dart' show DocumentSettingsModule;
 export 'src/page/document_settings_page.dart' show DocumentSettingsPage;

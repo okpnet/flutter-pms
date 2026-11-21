@@ -34,6 +34,8 @@ dependencies:
   slang: ^4.19.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
 
 dev_dependencies:
+  data_test_harness:
+    path: ../../infra/data_test_harness
   theme_lib:
     path: ../../ui/theme_lib
   flutter_test:

@@ -9,6 +9,23 @@ tabs:
   stamp: 承認スタンプ
   pdf: PDF
   json: JSON
+  approval: 承認パターン
+approval:
+  hint: 種類ごとに、登録が申請になる承認パターンを選びます。「承認不要」は、その種類の登録で承認を求めません。設定は「保存」で反映されます。
+  none: 承認不要(設定しない)
+  unknown: '(一覧に無いパターン) ${id}'
+  documentNote: 文書(マニュアルなど)は、承認パターンが無いと登録できません。承認が要らないときは、承認の段が無いパターンを選びます。
+  empty: 承認パターンが登録されていません。会社情報の「承認」で登録してください。
+  loadFailed: 承認パターンの一覧を読み込めませんでした。
+  loading: 承認パターンを読み込んでいます…
+  kindDocument: 文書
+  kindOrder: 受注
+  kindPurchase: 発注
+  kindUnrecognized: 非計上発注
+  kindShippingOrder: 出荷オーダー
+  kindComplaint: 異常
+  kindDisposal: 処置
+  kindRecurrencePrevention: 再発防止
 actions:
   save: 保存
   revert: 元に戻す
