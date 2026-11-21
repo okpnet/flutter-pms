@@ -958,15 +958,15 @@ SELECT tests.visiter_owner_rebuild() AS lots_checked;
 
 
 -- #####################################################################
--- 7. 標準の承認パターン(段が 0 件 = 承認不要)と、文書の承認パターンの設定
+-- 7. 標準の承認パターン(段が 0 件 = 承認不要)と、文書の承認パターンの割り当て
 -- #####################################################################
 \c test_avocado
 -- 文書(mstr_document)は承認パターン(trans_approval_pattern_id。NOT NULL)が要る。登録が申請のトリガー(trg_05_approval_request)は、
--- info_app.settings の approval.patterns.document に承認パターンがあるときだけ、承認の実行を作って入れる。
--- 設定が無いと、文書(マニュアルのルートなど)を登録できないため、標準として「段が 0 件の承認パターン(= 承認不要)」を作り、
--- 文書の承認パターンに設定する。ほかの種類(受注・発注など)は、設定しない(null = 承認不要)。
--- 承認の段のあるパターンへの変更は、アプリの設定画面(承認スタンプ・PDF の設定の JSON。JSON ファイルの取り込みも可)で行う。
--- 何度流しても同じ(備考で見つけ、あれば作らない)。
+-- テーブル別承認パターン(info_table_approval)に、そのテーブルの行があるときだけ、承認の実行を作って入れる。
+-- 割り当てが無いと、文書(マニュアルのルートなど)を登録できないため、標準として「段が 0 件の承認パターン(= 承認不要)」を作り、
+-- 文書(mstr_document)に割り当てる。ほかのテーブル(受注・発注など)は、割り当てない(承認不要)。
+-- 割り当ての変更・追加は、アプリの会社情報の「承認」(承認パターンの「使うテーブル」)で行う。承認パターンを使うテーブルが増えたら、行を足す。
+-- 何度流しても同じ(備考で標準の承認パターンを見つけ、あれば作らない。割り当て済みなら足さない)。
 DO $$
 DECLARE
     v_pattern uuid;
@@ -987,16 +987,8 @@ BEGIN
         INSERT INTO tests.mstr_approval_pattern (names, remarks) VALUES (a, 'STANDARD-NO-APPROVAL')
         RETURNING mstr_approval_pattern_id INTO v_pattern;
     END IF;
-    -- 文書の承認パターンが未設定のときだけ設定する(管理者が別のパターンを設定していたら、上書きしない)
-    UPDATE tests.info_app AS app
-    SET settings = jsonb_set(
-        COALESCE(app.settings, '{}'::jsonb),
-        '{approval}',
-        COALESCE(app.settings -> 'approval', '{}'::jsonb)
-            || jsonb_build_object('patterns',
-                COALESCE(app.settings #> '{approval,patterns}', '{}'::jsonb)
-                || jsonb_build_object('document', v_pattern::text)),
-        true)
-    WHERE app.remove IS FALSE
-      AND COALESCE(NULLIF(app.settings #>> '{approval,patterns,document}', ''), '') = '';
+    -- 文書の割り当てが未設定のときだけ割り当てる(管理者が別のパターンを割り当てていたら、上書きしない)
+    INSERT INTO tests.info_table_approval (table_name, mstr_approval_pattern_id)
+    SELECT 'mstr_document', v_pattern
+    WHERE NOT EXISTS (SELECT 1 FROM tests.info_table_approval AS t WHERE t.table_name = 'mstr_document' AND t.remove IS FALSE);
 END $$;

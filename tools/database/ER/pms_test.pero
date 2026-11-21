@@ -2,14 +2,14 @@
   "formatVersion": 3,
   "appVersion": "0.1.0",
   "id": 538067658,
-  "nextId": 6073,
+  "nextId": 6100,
   "properties": {
     "outputFileName": "pms_test",
     "outputFolder": "",
     "targetDb": "postgresql",
     "postPath": "C:\\Users\\隼人さん\\AppData\\Local\\Programs\\PERO\\post\\postgresql.post",
     "startQuery": "\\c test_avocado\nSET search_path TO tests, public;",
-    "endQuery": "-- [PERO 取り込みログ] 取り込めなかった要素\n-- 取り込まない文: DROP VIEW IF × 163\n-- 取り込まない文: DROP TRIGGER IF × 3\n-- 取り込まない文: 主キーと重複するユニークインデックス(取り込まない) × 263\n\n-- [追加] コードの部分一意索引(doc/query/20261115_0002_code_unique_indexes.sql)。削除済み(remove = true)のコードは再利用できる\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_stakeholder_ix_code_active ON tests.mstr_stakeholder (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_capability_ix_code_active ON tests.mstr_capability (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_license_ix_code_active ON tests.mstr_license (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_location_ix_code_active ON tests.mstr_location (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS info_staff_ix_code_active ON tests.info_staff (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS info_office_ix_code_active ON tests.info_office (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS info_department_ix_code_active ON tests.info_department (code) WHERE remove = false;\n-- [追加] 言語コードの一意制約を、大文字小文字を区別しない一意索引にする(doc/query/20261116_0003_language_code_unique_lower.sql)\nALTER TABLE tests.shared_language_code DROP CONSTRAINT IF EXISTS shared_language_code_ix1;\nDROP INDEX IF EXISTS tests.shared_language_code_ix1;\nCREATE UNIQUE INDEX shared_language_code_ix1 ON tests.shared_language_code (lower(code));",
+    "endQuery": "-- [PERO 取り込みログ] 取り込めなかった要素\n-- 取り込まない文: DROP VIEW IF × 163\n-- 取り込まない文: DROP TRIGGER IF × 3\n-- 取り込まない文: 主キーと重複するユニークインデックス(取り込まない) × 263\n\n-- [追加] コードの部分一意索引(doc/query/20261115_0002_code_unique_indexes.sql)。削除済み(remove = true)のコードは再利用できる\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_stakeholder_ix_code_active ON tests.mstr_stakeholder (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_capability_ix_code_active ON tests.mstr_capability (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_license_ix_code_active ON tests.mstr_license (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_location_ix_code_active ON tests.mstr_location (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS info_staff_ix_code_active ON tests.info_staff (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS info_office_ix_code_active ON tests.info_office (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS info_department_ix_code_active ON tests.info_department (code) WHERE remove = false;\n-- [追加] 言語コードの一意制約を、大文字小文字を区別しない一意索引にする(doc/query/20261116_0003_language_code_unique_lower.sql)\nALTER TABLE tests.shared_language_code DROP CONSTRAINT IF EXISTS shared_language_code_ix1;\nDROP INDEX IF EXISTS tests.shared_language_code_ix1;\nCREATE UNIQUE INDEX shared_language_code_ix1 ON tests.shared_language_code (lower(code));\nCREATE UNIQUE INDEX IF NOT EXISTS info_table_approval_ix_table_active ON tests.info_table_approval (table_name) WHERE remove = false;\n",
     "schema": "tests",
     "includeSchema": true
   },
@@ -10793,15 +10793,106 @@
         "sqlite": ""
       },
       "bodies": {
-        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_05_approval_request() RETURNS trigger AS\n$BODY$\n-- 引数: TG_ARGV[0] = 種類(info_app.settings の approval.patterns のキー)、TG_ARGV[1] = 承認実行パターンの列\nDECLARE\n    v_kind text := TG_ARGV[0];\n    v_col text := TG_ARGV[1];\n    v_pattern uuid;\n    v_tp uuid;\nBEGIN\n    IF (to_jsonb(NEW) ->> v_col) IS NOT NULL THEN\n        RETURN NEW;\n    END IF;\n    SELECT NULLIF(a.settings #>> ARRAY['approval', 'patterns', v_kind], '')::uuid INTO v_pattern\n    FROM tests.info_app AS a WHERE a.remove IS FALSE ORDER BY a.update_at LIMIT 1;\n    IF v_pattern IS NULL THEN\n        RETURN NEW;\n    END IF;\n    v_tp := tests.approval_start(v_pattern, NEW.update_user_id, NEW.update_user_history_id);\n    NEW := jsonb_populate_record(NEW, jsonb_build_object(v_col, v_tp));\n    RETURN NEW;\nEND\n$BODY$\nLANGUAGE plpgsql VOLATILE;",
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_05_approval_request() RETURNS trigger AS\r\n$BODY$\r\n-- 引数: TG_ARGV[0] = 承認実行パターンの列。承認パターンは、このテーブル(TG_TABLE_NAME)の info_table_approval の行から引く(行が無い・削除済みは承認不要)\r\nDECLARE\r\n    v_col text := TG_ARGV[0];\r\n    v_pattern uuid;\r\n    v_tp uuid;\r\nBEGIN\r\n    IF (to_jsonb(NEW) ->> v_col) IS NOT NULL THEN\r\n        RETURN NEW;\r\n    END IF;\r\n    SELECT t.mstr_approval_pattern_id INTO v_pattern\r\n    FROM tests.info_table_approval AS t\r\n    INNER JOIN tests.mstr_approval_pattern AS p ON p.mstr_approval_pattern_id = t.mstr_approval_pattern_id AND p.remove IS FALSE\r\n    WHERE t.table_name = TG_TABLE_NAME AND t.remove IS FALSE\r\n    ORDER BY t.update_at LIMIT 1;\r\n    IF v_pattern IS NULL THEN\r\n        RETURN NEW;\r\n    END IF;\r\n    v_tp := tests.approval_start(v_pattern, NEW.update_user_id, NEW.update_user_history_id);\r\n    NEW := jsonb_populate_record(NEW, jsonb_build_object(v_col, v_tp));\r\n    RETURN NEW;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
         "mysql": "",
         "sqlserver": "",
         "sqlite": ""
       },
       "comment": "@omit\n対象の登録のトリガー関数(登録が申請)",
       "args": "",
-      "dependsOnTableIds": [],
+      "dependsOnTableIds": [
+        6077,
+        2417
+      ],
       "schema": "tests"
+    },
+    {
+      "id": 6073,
+      "kind": "trigger",
+      "name": "trg_01_updatetimes_info_table_approval",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_info_table_approval() RETURNS trigger AS\r\n$BODY$\r\nDECLARE\r\n    latest_row record;\r\nBEGIN\r\n    IF (TG_OP = 'UPDATE') THEN\r\n        NEW.update_at:=now();\r\n        RETURN NEW;\r\n    ELSEIF (TG_OP='INSERT') THEN\r\n        NEW.info_table_approval_id := gen_random_uuid();\r\n        NEW.update_at:=now();\r\n        RETURN NEW;\r\n    ELSEIF (TG_OP = 'DELETE') THEN\r\n        RETURN OLD;\r\n    END IF;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "",
+      "args": "",
+      "dependsOnTableIds": [],
+      "schema": ""
+    },
+    {
+      "id": 6074,
+      "kind": "trigger",
+      "name": "trg_02_history_info_table_approval",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_02_history_info_table_approval() RETURNS trigger AS\r\n$BODY$\r\nDECLARE\r\n    revisions int;\r\nBEGIN\r\n    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN\r\n        SELECT Max(revision) INTO revisions FROM tests.history_info_table_approval WHERE info_table_approval_id=NEW.info_table_approval_id;\r\n        IF (revisions >= 0) THEN\r\n            IF (\r\n                NEW.info_table_approval_id,\r\n                NEW.table_name,\r\n                NEW.mstr_approval_pattern_id,\r\n                NEW.symbol,\r\n                NEW.remarks,\r\n                NEW.remove\r\n            ) IS NOT DISTINCT FROM (\r\n                OLD.info_table_approval_id,\r\n                OLD.table_name,\r\n                OLD.mstr_approval_pattern_id,\r\n                OLD.symbol,\r\n                OLD.remarks,\r\n                OLD.remove\r\n            )\r\n            THEN\r\n                RETURN NULL;\r\n            END IF;\r\n            NEW.revision := revisions + 1;\r\n        ELSE\r\n            NEW.revision := 1;\r\n        END IF;\r\n        INSERT INTO tests.history_info_table_approval (\r\n            info_table_approval_id,\r\n            table_name,\r\n            mstr_approval_pattern_id,\r\n            revision,\r\n            symbol,\r\n            remarks,\r\n            update_at,\r\n            update_user_id,\r\n            update_user_history_id,\r\n            remove\r\n        )\r\n        VALUES\r\n        (\r\n            NEW.info_table_approval_id,\r\n            NEW.table_name,\r\n            NEW.mstr_approval_pattern_id,\r\n            NEW.revision,\r\n            NEW.symbol,\r\n            NEW.remarks,\r\n            NEW.update_at,\r\n            NEW.update_user_id,\r\n            NEW.update_user_history_id,\r\n            NEW.remove\r\n        );\r\n        RETURN NEW;\r\n    ELSEIF (TG_OP = 'DELETE') THEN\r\n        RETURN OLD;\r\n    END IF;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "",
+      "args": "",
+      "dependsOnTableIds": [],
+      "schema": ""
+    },
+    {
+      "id": 6075,
+      "kind": "trigger",
+      "name": "trg_01_updatetimes_history_info_table_approval",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_info_table_approval() RETURNS trigger AS\r\n$BODY$\r\nDECLARE\r\n    latest_row record;\r\nBEGIN\r\n    IF (TG_OP = 'UPDATE') THEN\r\n        NEW.update_at:=now();\r\n        RETURN NEW;\r\n    ELSEIF (TG_OP='INSERT') THEN\r\n        NEW.history_id := gen_random_uuid();\r\n        NEW.update_at:=now();\r\n        RETURN NEW;\r\n    ELSEIF (TG_OP = 'DELETE') THEN\r\n        RETURN OLD;\r\n    END IF;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "",
+      "args": "",
+      "dependsOnTableIds": [],
+      "schema": ""
+    },
+    {
+      "id": 6076,
+      "kind": "trigger",
+      "name": "trg_00_table_approval_check",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_00_table_approval_check() RETURNS trigger AS\r\n$BODY$\r\n-- 承認パターンを割り当てるテーブル(table_name)が、このスキーマに実在することを確かめる(打ち間違いの割り当てを防ぐ)\r\nBEGIN\r\n    IF NEW.remove IS FALSE AND to_regclass(format('%I.%I', TG_TABLE_SCHEMA, NEW.table_name)) IS NULL THEN\r\n        RAISE EXCEPTION 'テーブルがありません (%)', NEW.table_name USING ERRCODE = 'TAP01';\r\n    END IF;\r\n    RETURN NEW;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "@omit\n承認パターンを割り当てるテーブルの存在検査(トリガー関数)",
+      "args": "",
+      "dependsOnTableIds": [],
+      "schema": ""
     }
   ],
   "commonColumnPatterns": [
@@ -27579,7 +27670,7 @@
           ],
           "forEach": "ROW",
           "when": "",
-          "args": "'document', 'trans_approval_pattern_id'",
+          "args": "'trans_approval_pattern_id'",
           "updateColumnIds": []
         }
       ]
@@ -41896,7 +41987,7 @@
           ],
           "forEach": "ROW",
           "when": "",
-          "args": "'unrecognized', 'trans_approval_pattern_id'",
+          "args": "'trans_approval_pattern_id'",
           "updateColumnIds": []
         }
       ]
@@ -48161,7 +48252,7 @@
           ],
           "forEach": "ROW",
           "when": "",
-          "args": "'disposal', 'approvals'",
+          "args": "'approvals'",
           "updateColumnIds": []
         }
       ]
@@ -48381,7 +48472,7 @@
           ],
           "forEach": "ROW",
           "when": "",
-          "args": "'recurrence_prevention', 'approvals'",
+          "args": "'approvals'",
           "updateColumnIds": []
         }
       ]
@@ -48585,7 +48676,7 @@
           ],
           "forEach": "ROW",
           "when": "",
-          "args": "'complaint', 'approvals'",
+          "args": "'approvals'",
           "updateColumnIds": []
         }
       ]
@@ -53950,7 +54041,7 @@
           ],
           "forEach": "ROW",
           "when": "",
-          "args": "'shipping_order', 'trans_approval_pattern_id'",
+          "args": "'trans_approval_pattern_id'",
           "updateColumnIds": []
         }
       ]
@@ -55293,7 +55384,7 @@
           ],
           "forEach": "ROW",
           "when": "",
-          "args": "'purchase', 'trans_approval_pattern_id'",
+          "args": "'trans_approval_pattern_id'",
           "updateColumnIds": []
         }
       ]
@@ -55609,7 +55700,7 @@
           ],
           "forEach": "ROW",
           "when": "",
-          "args": "'order', 'trans_approval_pattern_id'",
+          "args": "'trans_approval_pattern_id'",
           "updateColumnIds": []
         }
       ]
@@ -66059,6 +66150,338 @@
       },
       "preQuery": "",
       "postQuery": "COMMENT ON COLUMN tests.v_approval_pending.trans_preapproval_id IS '承認前ID(承認の段 1 つ)';\nCOMMENT ON COLUMN tests.v_approval_pending.trans_approval_pattern_id IS '承認実行パターンID';\nCOMMENT ON COLUMN tests.v_approval_pending.mstr_approval_id IS '承認ID(承認の段)';\nCOMMENT ON COLUMN tests.v_approval_pending.approval_priority IS '承認の順位(小さい順に承認する。同じ順位は並行)';\nCOMMENT ON COLUMN tests.v_approval_pending.approval_names IS '承認の名称(呼称ID)';\nCOMMENT ON COLUMN tests.v_approval_pending.info_position_id IS '承認する役職ID';\nCOMMENT ON COLUMN tests.v_approval_pending.info_department_id IS '承認する部署ID(NULL は部署を問わない)';\nCOMMENT ON COLUMN tests.v_approval_pending.period IS '承認の期限';\nCOMMENT ON COLUMN tests.v_approval_pending.is_document IS '対象が文書';\nCOMMENT ON COLUMN tests.v_approval_pending.is_complaint IS '対象が異常';\nCOMMENT ON COLUMN tests.v_approval_pending.is_disposal IS '対象が異常の処置';\nCOMMENT ON COLUMN tests.v_approval_pending.is_recurrence_prevention IS '対象が再発防止';\nCOMMENT ON COLUMN tests.v_approval_pending.is_order IS '対象が受注';\nCOMMENT ON COLUMN tests.v_approval_pending.is_purchase IS '対象が発注';\nCOMMENT ON COLUMN tests.v_approval_pending.is_unrecognized IS '対象が非計上発注';\nCOMMENT ON COLUMN tests.v_approval_pending.is_shipping_order IS '対象が出荷オーダー(出荷予定)';\nCOMMENT ON COLUMN tests.v_approval_pending.mstr_document_id IS '対象の文書ID';\nCOMMENT ON COLUMN tests.v_approval_pending.trans_complaint_id IS '対象の異常ID';\nCOMMENT ON COLUMN tests.v_approval_pending.trans_disposal_id IS '対象の処置ID';\nCOMMENT ON COLUMN tests.v_approval_pending.trans_recurrence_prevention_id IS '対象の再発防止ID';\nCOMMENT ON COLUMN tests.v_approval_pending.trans_order_id IS '対象の受注ID';\nCOMMENT ON COLUMN tests.v_approval_pending.trans_purchase_id IS '対象の発注ID';\nCOMMENT ON COLUMN tests.v_approval_pending.trans_unrecognized_id IS '対象の非計上ID';\nCOMMENT ON COLUMN tests.v_approval_pending.trans_shipping_order_id IS '対象の出荷オーダーID';\nCOMMENT ON COLUMN tests.v_approval_pending.target_symbol IS '対象のリニアシンボル';\nCOMMENT ON COLUMN tests.v_approval_pending.applicant_staff_id IS '申請者(対象の登録者)の担当者ID';\nCOMMENT ON COLUMN tests.v_approval_pending.applicant_staff_history_id IS '申請者の担当者履歴ID';\nCOMMENT ON COLUMN tests.v_approval_pending.applied_at IS '申請日時(対象の登録の日時)';\nCOMMENT ON COLUMN tests.v_approval_pending.approver IS 'ログイン中の担当者がこの段の承認の該当者';\nCOMMENT ON COLUMN tests.v_approval_pending.actionable IS '承認できる状態(順位が小さい段がすべて承認済み)';"
+    },
+    {
+      "id": 6077,
+      "kind": "table",
+      "logicalName": "テーブル別承認パターン",
+      "physicalName": "info_table_approval",
+      "comment": "テーブル別承認パターン(登録が申請。テーブルの登録のトリガーが、この表から承認パターンを引く。行が無い・削除済みのテーブルは承認不要。承認パターンを使うテーブルが増えたら、行を足す)",
+      "locked": false,
+      "columns": [
+        {
+          "id": 6079,
+          "logicalName": "テーブル別承認パターンID",
+          "physicalName": "info_table_approval_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": true,
+          "notNull": true,
+          "defaultKind": "method",
+          "defaultValue": "",
+          "defaultMethodId": 10,
+          "defaultExpression": "",
+          "comment": "テーブル別承認パターンID"
+        },
+        {
+          "id": 6080,
+          "logicalName": "テーブル名",
+          "physicalName": "table_name",
+          "typeId": "varchar",
+          "length": 255,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "テーブル名(承認パターンを使うテーブルの物理名。そのテーブルの登録のトリガーが、この名前でこの表を引く)"
+        },
+        {
+          "id": 6081,
+          "logicalName": "承認パターンID",
+          "physicalName": "mstr_approval_pattern_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "承認パターンID(このテーブルの登録で使う承認パターン。登録が申請になる)"
+        },
+        {
+          "id": 6082,
+          "logicalName": "レビジョン",
+          "physicalName": "revision",
+          "typeId": "integer",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "value",
+          "defaultValue": "1",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "レビジョン"
+        }
+      ],
+      "indexes": [],
+      "uniques": [
+        {
+          "id": 6088,
+          "nameMode": "manual",
+          "name": "info_table_approval_ix1",
+          "columnIds": [
+            5896
+          ],
+          "nullsNotDistinct": false
+        }
+      ],
+      "checks": [],
+      "preQuery": "",
+      "postQuery": "",
+      "triggers": [
+        {
+          "id": 6090,
+          "source": "public",
+          "methodId": 6073,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_01_updatetimes_info_table_approval",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT",
+            "UPDATE",
+            "DELETE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        },
+        {
+          "id": 6091,
+          "source": "public",
+          "methodId": 6,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_04_symbol_info_table_approval",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        },
+        {
+          "id": 6092,
+          "source": "public",
+          "methodId": 6074,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_02_history_info_table_approval",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT",
+            "UPDATE",
+            "DELETE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        },
+        {
+          "id": 6093,
+          "source": "public",
+          "methodId": 6076,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_00_table_approval_check_info_table_approval",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT",
+            "UPDATE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        }
+      ]
+    },
+    {
+      "id": 6078,
+      "kind": "table",
+      "logicalName": "テーブル別承認パターン履歴",
+      "physicalName": "history_info_table_approval",
+      "comment": "テーブル別承認パターン履歴",
+      "locked": false,
+      "columns": [
+        {
+          "id": 6083,
+          "logicalName": "履歴ID",
+          "physicalName": "history_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": true,
+          "notNull": true,
+          "defaultKind": "method",
+          "defaultValue": "",
+          "defaultMethodId": 10,
+          "defaultExpression": "",
+          "comment": "履歴ID"
+        },
+        {
+          "id": 6084,
+          "logicalName": "テーブル別承認パターンID",
+          "physicalName": "info_table_approval_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": true,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "テーブル別承認パターンID"
+        },
+        {
+          "id": 6085,
+          "logicalName": "テーブル名",
+          "physicalName": "table_name",
+          "typeId": "varchar",
+          "length": 255,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "テーブル名(承認パターンを使うテーブルの物理名。そのテーブルの登録のトリガーが、この名前でこの表を引く)"
+        },
+        {
+          "id": 6086,
+          "logicalName": "承認パターンID",
+          "physicalName": "mstr_approval_pattern_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "承認パターンID(このテーブルの登録で使う承認パターン。登録が申請になる)"
+        },
+        {
+          "id": 6087,
+          "logicalName": "レビジョン",
+          "physicalName": "revision",
+          "typeId": "integer",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "value",
+          "defaultValue": "1",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "レビジョン"
+        }
+      ],
+      "indexes": [],
+      "uniques": [
+        {
+          "id": 6089,
+          "nameMode": "manual",
+          "name": "history_info_table_approval_ix1",
+          "columnIds": [
+            6084,
+            6087
+          ],
+          "nullsNotDistinct": false
+        }
+      ],
+      "checks": [],
+      "preQuery": "",
+      "postQuery": "",
+      "triggers": [
+        {
+          "id": 6094,
+          "source": "public",
+          "methodId": 6075,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_01_updatetimes_history_info_table_approval",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT",
+            "UPDATE",
+            "DELETE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        },
+        {
+          "id": 6095,
+          "source": "public",
+          "methodId": 6,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_04_symbol_history_info_table_approval",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        }
+      ]
     }
   ],
   "relationships": [
@@ -83265,6 +83688,94 @@
       "onDelete": "none",
       "onUpdate": "none",
       "deferrable": "deferred"
+    },
+    {
+      "id": 6096,
+      "kind": "relationship",
+      "locked": false,
+      "dependency": true,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred",
+      "parentId": 6077,
+      "childId": 6078,
+      "columnPairs": [
+        {
+          "parentColumnId": 6079,
+          "childColumnId": 6084
+        }
+      ],
+      "name": "history_info_table_approval_fk1"
+    },
+    {
+      "id": 6097,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 1995,
+      "childId": 6078,
+      "columnPairs": [
+        {
+          "parentColumnId": 1996,
+          "childColumnId": 5900
+        },
+        {
+          "parentColumnId": 1997,
+          "childColumnId": 5899
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "history_info_table_approval_fk2",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6098,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 1995,
+      "childId": 6077,
+      "columnPairs": [
+        {
+          "parentColumnId": 1996,
+          "childColumnId": 5900
+        },
+        {
+          "parentColumnId": 1997,
+          "childColumnId": 5899
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "info_table_approval_fk2",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6099,
+      "kind": "relationship",
+      "locked": false,
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred",
+      "parentId": 2417,
+      "childId": 6077,
+      "columnPairs": [
+        {
+          "parentColumnId": 2418,
+          "childColumnId": 6081
+        }
+      ],
+      "name": "info_table_approval_fk1"
     }
   ],
   "diagrams": [
@@ -83484,6 +83995,18 @@
           "entityId": 5963,
           "x": 40.0,
           "y": 4678.0,
+          "collapsed": false
+        },
+        {
+          "entityId": 6077,
+          "x": 1417.0,
+          "y": 40.0,
+          "collapsed": false
+        },
+        {
+          "entityId": 6078,
+          "x": 1417.0,
+          "y": 300.0,
           "collapsed": false
         }
       ],
