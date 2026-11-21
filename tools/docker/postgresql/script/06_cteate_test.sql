@@ -14438,10 +14438,6 @@ ALTER TABLE tests.mstr_document_tree ADD CONSTRAINT mstr_document_tree_fk2 FOREI
 
 ALTER TABLE tests.mstr_document_tree ADD CONSTRAINT mstr_document_tree_fk3 FOREIGN KEY (update_user_history_id, update_user_id) REFERENCES tests.history_info_staff (history_id, info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 
-
-
-
-
 ALTER TABLE tests.history_mstr_document ADD CONSTRAINT history_mstr_document_fk1 FOREIGN KEY (mstr_document_id) REFERENCES tests.mstr_document (mstr_document_id) DEFERRABLE INITIALLY DEFERRED;
 
 ALTER TABLE tests.history_mstr_document ADD CONSTRAINT history_mstr_document_fk2 FOREIGN KEY (update_user_history_id, update_user_id) REFERENCES tests.history_info_staff (history_id, info_staff_id) DEFERRABLE INITIALLY DEFERRED;
@@ -15144,22 +15140,6 @@ ALTER TABLE tests.info_app ADD CONSTRAINT info_app_fk1 FOREIGN KEY (info_company
 
 ALTER TABLE tests.info_app ADD CONSTRAINT info_app_fk2 FOREIGN KEY (update_user_history_id, update_user_id) REFERENCES tests.history_info_staff (history_id, info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 
-ALTER TABLE tests.info_app ADD CONSTRAINT info_app_document_approval_fk FOREIGN KEY (document_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
-
-ALTER TABLE tests.info_app ADD CONSTRAINT info_app_order_approval_fk FOREIGN KEY (order_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
-
-ALTER TABLE tests.info_app ADD CONSTRAINT info_app_purchase_approval_fk FOREIGN KEY (purchase_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
-
-ALTER TABLE tests.info_app ADD CONSTRAINT info_app_unrecognized_approval_fk FOREIGN KEY (unrecognized_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
-
-ALTER TABLE tests.info_app ADD CONSTRAINT info_app_shipping_order_approval_fk FOREIGN KEY (shipping_order_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
-
-ALTER TABLE tests.info_app ADD CONSTRAINT info_app_complaint_approval_fk FOREIGN KEY (complaint_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
-
-ALTER TABLE tests.info_app ADD CONSTRAINT info_app_disposal_approval_fk FOREIGN KEY (disposal_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
-
-ALTER TABLE tests.info_app ADD CONSTRAINT info_app_recurrence_prevention_approval_fk FOREIGN KEY (recurrence_prevention_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
-
 ALTER TABLE tests.info_access_path ADD CONSTRAINT info_access_path_fk1 FOREIGN KEY (names) REFERENCES tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
 
 ALTER TABLE tests.info_access_path ADD CONSTRAINT info_access_path_fk2 FOREIGN KEY (info_app_id) REFERENCES tests.info_app (info_app_id) DEFERRABLE INITIALLY DEFERRED;
@@ -15563,6 +15543,22 @@ ALTER TABLE tests.trans_unrecognized ADD CONSTRAINT trans_unrecognized_approval_
 ALTER TABLE tests.trans_shipping_order ADD CONSTRAINT trans_shipping_order_approval_fk FOREIGN KEY (trans_approval_pattern_id) REFERENCES tests.trans_approval_pattern (trans_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
 
 ALTER TABLE tests.trans_announcement ADD CONSTRAINT trans_announcement_preapproval_fk FOREIGN KEY (trans_preapproval_id) REFERENCES tests.trans_preapproval (trans_preapproval_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.info_app ADD CONSTRAINT info_app_document_approval_fk FOREIGN KEY (document_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.info_app ADD CONSTRAINT info_app_order_approval_fk FOREIGN KEY (order_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.info_app ADD CONSTRAINT info_app_purchase_approval_fk FOREIGN KEY (purchase_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.info_app ADD CONSTRAINT info_app_unrecognized_approval_fk FOREIGN KEY (unrecognized_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.info_app ADD CONSTRAINT info_app_shipping_order_approval_fk FOREIGN KEY (shipping_order_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.info_app ADD CONSTRAINT info_app_complaint_approval_fk FOREIGN KEY (complaint_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.info_app ADD CONSTRAINT info_app_disposal_approval_fk FOREIGN KEY (disposal_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.info_app ADD CONSTRAINT info_app_recurrence_prevention_approval_fk FOREIGN KEY (recurrence_prevention_approval_pattern_id) REFERENCES tests.mstr_approval_pattern (mstr_approval_pattern_id) DEFERRABLE INITIALLY DEFERRED;
 
 CREATE VIEW tests.v_plan_change_unreflected AS
 -- MRP 未反映の計画変更  claude/131
