@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loadux_lib/loadux_lib.dart';
 
 import '../i18n/strings_provider.dart';
+import 'approval_defaults_destination.dart';
 
 /// 会社情報の概要の画面(画面案 `tools/open-design` の「会社情報」)。
 ///
@@ -359,11 +360,22 @@ class _CompanyHomePageState extends ConsumerState<CompanyHomePage> {
         // --- 承認 ---
         _Section(
           title: t.approval as String,
-          action: _EditButton(
-            key: const ValueKey('homeApprovalEdit'),
-            label: t.open as String,
-            onPressed: () =>
-                _open(const EntityListDestination('approvalpattern')),
+          action: Row(
+            mainAxisSize: MainAxisSize.min,
+            spacing: 8,
+            children: [
+              _EditButton(
+                key: const ValueKey('homeApprovalDefaults'),
+                label: ref.watch(organizationStringsProvider).approvalDefaults.open,
+                onPressed: () => _open(const ApprovalDefaultsDestination()),
+              ),
+              _EditButton(
+                key: const ValueKey('homeApprovalEdit'),
+                label: t.open as String,
+                onPressed: () =>
+                    _open(const EntityListDestination('approvalpattern')),
+              ),
+            ],
           ),
         ),
       ],

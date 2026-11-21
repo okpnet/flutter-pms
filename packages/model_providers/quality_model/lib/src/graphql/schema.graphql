@@ -2651,6 +2651,14 @@ input MstrApprovalPatternFilter {
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
   transApprovalPatternsByMstrApprovalPatternIdExist: Boolean
+  infoAppsByDocumentApprovalPatternIdExist: Boolean
+  infoAppsByOrderApprovalPatternIdExist: Boolean
+  infoAppsByPurchaseApprovalPatternIdExist: Boolean
+  infoAppsByUnrecognizedApprovalPatternIdExist: Boolean
+  infoAppsByShippingOrderApprovalPatternIdExist: Boolean
+  infoAppsByComplaintApprovalPatternIdExist: Boolean
+  infoAppsByDisposalApprovalPatternIdExist: Boolean
+  infoAppsByRecurrencePreventionApprovalPatternIdExist: Boolean
   mstrApprovalScopePatternsByMstrApprovalPatternIdExist: Boolean
   historyMstrApprovalPatternsByMstrApprovalPatternIdExist: Boolean
   mstrApprovalPatternDetailsByMstrApprovalPatternIdExist: Boolean

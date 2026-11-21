@@ -1,8 +1,11 @@
 // このファイルは gen_barrel が生成したバレルファイルです。直接編集しないでください。
 library;
 
+export 'src/contents/approval_defaults_language_page_filter_spec.dart';
+export 'src/contents/approval_defaults_page_filter_spec.dart';
 export 'src/contents/approval_operation_page_filter_spec.dart';
 export 'src/contents/approval_operation_page_keyname.dart';
+export 'src/contents/approval_pattern_option_page_filter_spec.dart';
 export 'src/contents/approval_scope_page_filter_spec.dart';
 export 'src/contents/assign_page_filter_spec.dart';
 export 'src/contents/assign_page_keyname.dart';
@@ -26,10 +29,15 @@ export 'src/contents/staff_history_latest_page_filter_spec.dart';
 export 'src/contents/staff_icon_page_filter_spec.dart';
 export 'src/contents/staff_page_filter_spec.dart';
 export 'src/contents/staff_page_keyname.dart';
+export 'src/graphql/approval_defaults_language_page/approval_defaults_language_page_read.graphql.dart';
+export 'src/graphql/approval_defaults_page/approval_defaults_page_edit.graphql.dart';
+export 'src/graphql/approval_defaults_page/approval_defaults_page_read.graphql.dart';
+export 'src/graphql/approval_defaults_page/approval_defaults_page_remove.graphql.dart';
 export 'src/graphql/approval_operation_page/approval_operation_page_edit.graphql.dart';
 export 'src/graphql/approval_operation_page/approval_operation_page_read.graphql.dart';
 export 'src/graphql/approval_operation_page/approval_operation_page_remove.graphql.dart';
 export 'src/graphql/approval_operation_page/approval_operation_page_rfe.graphql.dart';
+export 'src/graphql/approval_pattern_option_page/approval_pattern_option_page_read.graphql.dart';
 export 'src/graphql/approval_scope_page/approval_scope_page_edit.graphql.dart';
 export 'src/graphql/approval_scope_page/approval_scope_page_read.graphql.dart';
 export 'src/graphql/approval_scope_page/approval_scope_page_remove.graphql.dart';

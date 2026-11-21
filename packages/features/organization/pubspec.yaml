@@ -21,6 +21,8 @@ dependencies:
     path: ../../ui/view_responsiveness
   feature_shared:
     path: ../../core/feature_shared
+  baton_lib:
+    path: ../../core/baton_lib
   flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   go_router: ^18.1.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   slang: ^4.19.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
@@ -28,6 +30,7 @@ dependencies:
     path: ../dashboard_container
   data_strategist:
     path: ../../foundation/data_strategist
+  gql: ^1.0.1
   graphql: ^5.2.3
   organization_model:
     path: ../../model_providers/organization_model

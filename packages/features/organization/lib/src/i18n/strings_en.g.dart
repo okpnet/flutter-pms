@@ -39,6 +39,7 @@ class OrganizationStringsEn extends OrganizationStrings with BaseTranslations<Or
 
 	// Translations
 	@override late final _OrganizationStrings$home$en home = _OrganizationStrings$home$en._(_root);
+	@override late final _OrganizationStrings$approvalDefaults$en approvalDefaults = _OrganizationStrings$approvalDefaults$en._(_root);
 	@override late final _OrganizationStrings$menu$en menu = _OrganizationStrings$menu$en._(_root);
 	@override late final _OrganizationStrings$entity$en entity = _OrganizationStrings$entity$en._(_root);
 }
@@ -73,6 +74,37 @@ class _OrganizationStrings$home$en extends OrganizationStrings$home$ja {
 	@override String get approval => 'Approval';
 	@override String get approvalPathApproval => 'Access path approvals';
 	@override String below({required Object count}) => '${count} below';
+}
+
+// Path: approvalDefaults
+class _OrganizationStrings$approvalDefaults$en extends OrganizationStrings$approvalDefaults$ja {
+	_OrganizationStrings$approvalDefaults$en._(OrganizationStringsEn root) : this._root = root, super.internal(root);
+
+	final OrganizationStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Standard approval patterns';
+	@override String get back => 'Back';
+	@override String get hint => 'Choose, for each kind of registration, the approval pattern that makes it an approval request. "No approval" does not ask for approval. Press Save to apply. Approval patterns themselves (steps and approvers) are registered in the approval pattern ledger.';
+	@override String get none => 'No approval (not set)';
+	@override String unknown({required Object id}) => '(pattern not in the list) ${id}';
+	@override String get documentNote => 'A document (such as the manual) cannot be registered without an approval pattern. When no approval is needed, choose a pattern without approval steps.';
+	@override String get empty => 'No approval patterns are registered. Register them in the approval pattern ledger.';
+	@override String get loadFailed => 'Could not load the standard approval patterns.';
+	@override String get unsaved => 'There are unsaved changes.';
+	@override String get save => 'Save';
+	@override String get revert => 'Revert to saved';
+	@override String get saved => 'Saved.';
+	@override String get saveFailed => 'Could not save.';
+	@override String get open => 'Standard approval patterns';
+	@override String get kindDocument => 'Document';
+	@override String get kindOrder => 'Order';
+	@override String get kindPurchase => 'Purchase';
+	@override String get kindUnrecognized => 'Unrecognized purchase';
+	@override String get kindShippingOrder => 'Shipping order';
+	@override String get kindComplaint => 'Complaint';
+	@override String get kindDisposal => 'Disposal';
+	@override String get kindRecurrencePrevention => 'Recurrence prevention';
 }
 
 // Path: menu
@@ -534,6 +566,28 @@ extension on OrganizationStringsEn {
 			'home.approval' => 'Approval',
 			'home.approvalPathApproval' => 'Access path approvals',
 			'home.below' => ({required Object count}) => '${count} below',
+			'approvalDefaults.title' => 'Standard approval patterns',
+			'approvalDefaults.back' => 'Back',
+			'approvalDefaults.hint' => 'Choose, for each kind of registration, the approval pattern that makes it an approval request. "No approval" does not ask for approval. Press Save to apply. Approval patterns themselves (steps and approvers) are registered in the approval pattern ledger.',
+			'approvalDefaults.none' => 'No approval (not set)',
+			'approvalDefaults.unknown' => ({required Object id}) => '(pattern not in the list) ${id}',
+			'approvalDefaults.documentNote' => 'A document (such as the manual) cannot be registered without an approval pattern. When no approval is needed, choose a pattern without approval steps.',
+			'approvalDefaults.empty' => 'No approval patterns are registered. Register them in the approval pattern ledger.',
+			'approvalDefaults.loadFailed' => 'Could not load the standard approval patterns.',
+			'approvalDefaults.unsaved' => 'There are unsaved changes.',
+			'approvalDefaults.save' => 'Save',
+			'approvalDefaults.revert' => 'Revert to saved',
+			'approvalDefaults.saved' => 'Saved.',
+			'approvalDefaults.saveFailed' => 'Could not save.',
+			'approvalDefaults.open' => 'Standard approval patterns',
+			'approvalDefaults.kindDocument' => 'Document',
+			'approvalDefaults.kindOrder' => 'Order',
+			'approvalDefaults.kindPurchase' => 'Purchase',
+			'approvalDefaults.kindUnrecognized' => 'Unrecognized purchase',
+			'approvalDefaults.kindShippingOrder' => 'Shipping order',
+			'approvalDefaults.kindComplaint' => 'Complaint',
+			'approvalDefaults.kindDisposal' => 'Disposal',
+			'approvalDefaults.kindRecurrencePrevention' => 'Recurrence prevention',
 			'menu.group' => 'Company',
 			'entity.company.title' => 'Company information',
 			'entity.company.fields.f_name' => 'Company name',

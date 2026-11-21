@@ -42,6 +42,14 @@
 ## 承認の範囲
 承認の範囲(`approvalscope`。承認パターンの子の台帳。DB の `mstr_approval_scope_pattern`)は、**承認パターンを、どのアクセスパスの承認に使うか**の対応(アクセスパスの承認 + 備考)。画面案の段階・承認する役職・対象の組織・配下を含むか、は DB に列が無いため持たない(DB を優先)。参照先の「アクセスパスの承認」(`accesspathapproval`。DB の `info_access_path_approval`。名称・アクセスパス・備考)も実体として持ち、会社情報の概要の「承認」の下から開く。どちらも、いまはサンプルの取得元(GraphQL 版は未作成。モデルは `approval.yaml` の `ApprovalScopePage`・`ApprovalScopePageEdit` のみで、`info_access_path_approval` のモデルは無い)。
 
+## 標準の承認パターン
+`/organization/approval-defaults`(`ApprovalDefaultsPage`。契約 `organization_api.dart` の `ApprovalDefaultsDestination`。会社情報の概要の「承認」の「標準の承認パターン」から開く)。登録が申請になる対象(文書・受注・発注・非計上発注・出荷オーダー・異常・処置・再発防止)ごとに、使う承認パターンを選ぶ。DB の `info_app` の対象ごとの列(`document_approval_pattern_id` など。`mstr_approval_pattern` への外部キー、NULL = 承認不要)を読み書きする。DB のトリガー(`trg_05_approval_request`)が、その対象のテーブルの登録で、この列から承認パターンを引く。
+1.  「承認不要(設定しない)」を選ぶと NULL。文書(マニュアルなど)は承認パターンが必須(NOT NULL)のため、未設定のときは案内を出す(承認が要らないときは、段が無いパターンを選ぶ。標準は `07_dummy.sql` の 7)。選択肢に無い ID が設定されていても、消さずに「(一覧に無いパターン) ID」として残す。変更は「保存」で反映(未保存の帯・「保存済みに戻す」)。
+1.  取得元は `IApprovalDefaultsGateway`(`approvalDefaultsGatewayProvider`。既定はメモリ上)。GraphQL 版(`GraphqlApprovalDefaultsGateway`。`organization_model` の `ApprovalDefaultsPage`・`ApprovalDefaultsPageEdit`・`ApprovalPatternOptionPage`)は、保存で 8 列をすべて送る(NULL にするには、キーを残したまま null を送る。省略すると変わらない)。更新者つき。アプリ(`pms_app` の `graphql_overrides.dart`)が差し込む。
+1.  変えられる人は、画面のアクセス権(アクセスパス `/organization/approval-defaults`)で決まる。DB のトリガーでは管理者に限らない(`info_app.settings` とは別)。
+1.  対象が増えたら、`info_app` に列を足し(`history_info_app` と履歴のトリガーも)、`approvalDefaultKinds` と文字列(`approvalDefaults:`)に足す。
+1.  テスト: `test/approval_defaults_test.dart`(画面・取得元。サーバー不要)、`test/approval_defaults_server_test.dart`(検証用サーバー。「変更する」テストは、保存して読み直したあと元の値に戻す。管理者の資格情報で実行する。画面のテストとは別のファイル = Flutter のテスト環境は通信を拒否するため)。
+
 ## example と多言語
 1.  ビジュアルテスト用に`example`(Windows 向け)を持つ。`flutter run -d windows`で起動し、`lib/main.dart`の`entries`に遷移先を足す(`packages/features/CLAUDE.md`の「機能プロジェクト共通」)。
 2.  表示する文字列は`lib/src/i18n`の言語ファイル(Yaml)に置く。画面を作るときに`slang.yaml`と言語ファイルを追加する(`sales`・`shared_master`を参考にする)。idは`String`(UUID)で扱う。

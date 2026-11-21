@@ -1,0 +1,48 @@
+# approval_defaults_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #ApprovalDefaultsPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ApprovalDefaultsPageEdit(
+  $infoAppId: UUID!
+  $documentApprovalPatternId: UUID
+  $orderApprovalPatternId: UUID
+  $purchaseApprovalPatternId: UUID
+  $unrecognizedApprovalPatternId: UUID
+  $shippingOrderApprovalPatternId: UUID
+  $complaintApprovalPatternId: UUID
+  $disposalApprovalPatternId: UUID
+  $recurrencePreventionApprovalPatternId: UUID
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  updateInfoAppByInfoAppId(
+    input: {
+      infoAppId: $infoAppId
+      infoAppPatch: {
+        documentApprovalPatternId: $documentApprovalPatternId
+        orderApprovalPatternId: $orderApprovalPatternId
+        purchaseApprovalPatternId: $purchaseApprovalPatternId
+        unrecognizedApprovalPatternId: $unrecognizedApprovalPatternId
+        shippingOrderApprovalPatternId: $shippingOrderApprovalPatternId
+        complaintApprovalPatternId: $complaintApprovalPatternId
+        disposalApprovalPatternId: $disposalApprovalPatternId
+        recurrencePreventionApprovalPatternId: $recurrencePreventionApprovalPatternId
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    infoApp {
+      infoAppId
+      documentApprovalPatternId
+      orderApprovalPatternId
+      purchaseApprovalPatternId
+      unrecognizedApprovalPatternId
+      shippingOrderApprovalPatternId
+      complaintApprovalPatternId
+      disposalApprovalPatternId
+      recurrencePreventionApprovalPatternId
+    }
+  }
+}

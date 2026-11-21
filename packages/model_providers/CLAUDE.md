@@ -16,7 +16,7 @@
 | パッケージ | 対応する機能 |
 | --- | --- |
 | `item_model` | 品目・工程・作業・製造 |
-| `organization_model` | 組織(会社・事業所・部署・役割・担当者・承認)、従業員数 |
+| `organization_model` | 組織(会社・事業所・部署・役割・担当者・承認)、従業員数、標準の承認パターン(`info_app` の対象ごとの列) |
 | `production_plan_model` | 生産計画・遅延、生産計画納期遵守状況 |
 | `purchasing_model` | 発注・仕入先・未承認、発注金額合計、発注納期遵守状況 |
 | `quality_document_model` | 品質文書 |

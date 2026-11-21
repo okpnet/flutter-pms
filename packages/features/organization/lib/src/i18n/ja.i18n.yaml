@@ -23,6 +23,29 @@ home:
   approval: 承認
   approvalPathApproval: アクセスパスの承認
   below: 配下 ${count}
+approvalDefaults:
+  title: 標準の承認パターン
+  back: 戻る
+  hint: 登録が申請になる対象ごとに、使う承認パターンを選びます。「承認不要」は、その対象の登録で承認を求めません。変更は「保存」で反映されます。承認パターンの登録(承認の段・承認できる人)は、承認パターンの台帳で行います。
+  none: 承認不要(設定しない)
+  unknown: '(一覧に無いパターン) ${id}'
+  documentNote: 文書(マニュアルなど)は、承認パターンが無いと登録できません。承認が要らないときは、承認の段が無いパターンを選びます。
+  empty: 承認パターンが登録されていません。承認パターンの台帳で登録してください。
+  loadFailed: 標準の承認パターンを読み込めませんでした。
+  unsaved: 未保存の変更があります。
+  save: 保存
+  revert: 保存済みに戻す
+  saved: 保存しました。
+  saveFailed: 保存できませんでした。
+  open: 標準の承認パターン
+  kindDocument: 文書
+  kindOrder: 受注
+  kindPurchase: 発注
+  kindUnrecognized: 非計上発注
+  kindShippingOrder: 出荷オーダー
+  kindComplaint: 異常
+  kindDisposal: 処置
+  kindRecurrencePrevention: 再発防止
 # --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
 # 会社情報の実体と項目の表示名(日本語。基準言語)。
 # 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。

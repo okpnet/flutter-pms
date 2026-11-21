@@ -1,0 +1,83 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 承認パターンの標準(info_app の対象ごとの承認パターンの列)。
+# 登録が申請になる対象(文書・受注・発注・非計上発注・出荷オーダー・異常・処置・再発防止)ごとに、使う承認パターン(mstr_approval_pattern。外部キー)を持つ。
+# NULL は承認不要。DB のトリガー(trg_05_approval_request)が、対象のテーブルの登録で、この列から承認パターンを引く。
+
+ApprovalDefaultsPage:
+  lightRead: true
+  kind: read
+  from: info_app
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - info_app_id
+    - document_approval_pattern_id
+    - order_approval_pattern_id
+    - purchase_approval_pattern_id
+    - unrecognized_approval_pattern_id
+    - shipping_order_approval_pattern_id
+    - complaint_approval_pattern_id
+    - disposal_approval_pattern_id
+    - recurrence_prevention_approval_pattern_id
+    - update_at
+
+# 更新(渡した列だけが変わる。NULL にするには、キーを残したまま null を送る)。更新者つき
+ApprovalDefaultsPageEdit:
+  kind: edit
+  from: info_app
+  requiredWhere:
+    - info_app_id
+  withUpdater: true
+  columns:
+    - info_app_id
+    - document_approval_pattern_id
+    - order_approval_pattern_id
+    - purchase_approval_pattern_id
+    - unrecognized_approval_pattern_id
+    - shipping_order_approval_pattern_id
+    - complaint_approval_pattern_id
+    - disposal_approval_pattern_id
+    - recurrence_prevention_approval_pattern_id
+    - update_user_id
+    - update_user_history_id
+
+# 選択肢にする承認パターン(名称は言語 ja)
+ApprovalPatternOptionPage:
+  lightRead: true
+  kind: read
+  from: mstr_approval_pattern
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - mstr_approval_pattern_id
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+      <<: *AppellationLabelsReadFields
+    - symbol
+
+# 言語コード(ja の ID を引く)
+ApprovalDefaultsLanguagePage:
+  lightRead: true
+  kind: read
+  from: shared_language_code
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - shared_language_code_id
+    - code

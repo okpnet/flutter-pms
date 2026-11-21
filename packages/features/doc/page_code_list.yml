@@ -93,6 +93,11 @@ features:
         code: B
         page: OB
         label: 承認できる人
+      - screen: approvaldefaults
+        code: Z
+        page: OZ
+        label: 標準の承認パターン
+
   - feature: resource
     code: R
     label: 資源

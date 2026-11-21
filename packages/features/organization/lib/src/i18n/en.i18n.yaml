@@ -23,6 +23,29 @@ home:
   approval: Approval
   approvalPathApproval: Access path approvals
   below: ${count} below
+approvalDefaults:
+  title: Standard approval patterns
+  back: Back
+  hint: Choose, for each kind of registration, the approval pattern that makes it an approval request. "No approval" does not ask for approval. Press Save to apply. Approval patterns themselves (steps and approvers) are registered in the approval pattern ledger.
+  none: No approval (not set)
+  unknown: '(pattern not in the list) ${id}'
+  documentNote: A document (such as the manual) cannot be registered without an approval pattern. When no approval is needed, choose a pattern without approval steps.
+  empty: No approval patterns are registered. Register them in the approval pattern ledger.
+  loadFailed: Could not load the standard approval patterns.
+  unsaved: There are unsaved changes.
+  save: Save
+  revert: Revert to saved
+  saved: Saved.
+  saveFailed: Could not save.
+  open: Standard approval patterns
+  kindDocument: Document
+  kindOrder: Order
+  kindPurchase: Purchase
+  kindUnrecognized: Unrecognized purchase
+  kindShippingOrder: Shipping order
+  kindComplaint: Complaint
+  kindDisposal: Disposal
+  kindRecurrencePrevention: Recurrence prevention
 # Company information strings (English). Keys missing here fall back to the base language (ja).
 menu:
   group: "Company"

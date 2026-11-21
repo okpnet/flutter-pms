@@ -17,7 +17,12 @@ import 'package:production_plan/production_plan.dart'
 import 'package:purchasing/purchasing.dart' show purchasingRepositories;
 import 'package:item/item.dart' show itemRepositories;
 import 'package:organization/organization.dart'
-    show organizationRepositories, staffHistoryLookup;
+    show
+        GraphqlApprovalDefaultsGateway,
+        InMemoryApprovalDefaultsGateway,
+        approvalDefaultsGatewayProvider,
+        organizationRepositories,
+        staffHistoryLookup;
 import 'package:resource/resource.dart' show resourceRepositories;
 import 'package:production_process/production_process.dart'
     show productionProcessRepositories;
@@ -154,6 +159,12 @@ final auditUserProvider = Provider<AuditUserSource?>((ref) {
 
 /// 画面の取得元を GraphQL 版に差し替える。[graphqlUrl] が未指定なら空(サンプルのまま)。
 List<Override> graphqlOverrides() => [
+  // 標準の承認パターン(会社情報の「承認」。info_app の対象ごとの列)。接続先が無いときはメモリ上
+  approvalDefaultsGatewayProvider.overrideWith((ref) {
+    final client = ref.watch(graphqlClientProvider);
+    if (client == null) return InMemoryApprovalDefaultsGateway();
+    return GraphqlApprovalDefaultsGateway(client, auditUser: ref.watch(auditUserProvider));
+  }),
   // 実績登録: GraphQL 版(開始・終了は DB 関数)。接続先が無いときはサンプル
   workRegisterGatewayProvider.overrideWith((ref) {
     final client = ref.watch(graphqlClientProvider);

@@ -2,11 +2,15 @@ import 'package:entity_screens/entity_screens.dart';
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import 'entities/organization_definitions.dart';
 import 'entities/organization_labels.dart';
 import 'entities/organization_seeds.dart';
 import 'i18n/strings_provider.dart';
+import 'page/approval_defaults_destination.dart';
+import 'page/approval_defaults_page.dart';
+import 'page/approval_defaults_paths.dart';
 import 'page/company_home_page.dart';
 
 /// 会社情報をアプリへ組み込むための口。
@@ -47,6 +51,19 @@ class OrganizationModule extends EntityFeatureModule {
       ),
     ];
   }
+
+  /// 標準の承認パターンの画面(会社情報の「承認」から開く)。
+  @override
+  List<RouteBase> get routes => [
+    ...super.routes,
+    GoRoute(path: ApprovalDefaultsPaths.home, builder: (context, state) => const ApprovalDefaultsPage()),
+  ];
+
+  @override
+  String? locationOf(PageDestination<Object?> destination) => switch (destination) {
+    ApprovalDefaultsDestination() => ApprovalDefaultsPaths.home,
+    _ => super.locationOf(destination),
+  };
 
   @override
   String menuGroupLabel(WidgetRef ref) =>

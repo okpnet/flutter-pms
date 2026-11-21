@@ -36,6 +36,7 @@ class OrganizationStrings with BaseTranslations<OrganizationLocale, Organization
 
 	// Translations
 	late final OrganizationStrings$home$ja home = OrganizationStrings$home$ja.internal(_root);
+	late final OrganizationStrings$approvalDefaults$ja approvalDefaults = OrganizationStrings$approvalDefaults$ja.internal(_root);
 	late final OrganizationStrings$menu$ja menu = OrganizationStrings$menu$ja.internal(_root);
 	late final OrganizationStrings$entity$ja entity = OrganizationStrings$entity$ja.internal(_root);
 }
@@ -116,6 +117,81 @@ class OrganizationStrings$home$ja {
 
 	/// ja: '配下 ${count}'
 	String below({required Object count}) => '配下 ${count}';
+}
+
+// Path: approvalDefaults
+class OrganizationStrings$approvalDefaults$ja {
+	OrganizationStrings$approvalDefaults$ja.internal(this._root);
+
+	final OrganizationStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '標準の承認パターン'
+	String get title => '標準の承認パターン';
+
+	/// ja: '戻る'
+	String get back => '戻る';
+
+	/// ja: '登録が申請になる対象ごとに、使う承認パターンを選びます。「承認不要」は、その対象の登録で承認を求めません。変更は「保存」で反映されます。承認パターンの登録(承認の段・承認できる人)は、承認パターンの台帳で行います。'
+	String get hint => '登録が申請になる対象ごとに、使う承認パターンを選びます。「承認不要」は、その対象の登録で承認を求めません。変更は「保存」で反映されます。承認パターンの登録(承認の段・承認できる人)は、承認パターンの台帳で行います。';
+
+	/// ja: '承認不要(設定しない)'
+	String get none => '承認不要(設定しない)';
+
+	/// ja: '(一覧に無いパターン) ${id}'
+	String unknown({required Object id}) => '(一覧に無いパターン) ${id}';
+
+	/// ja: '文書(マニュアルなど)は、承認パターンが無いと登録できません。承認が要らないときは、承認の段が無いパターンを選びます。'
+	String get documentNote => '文書(マニュアルなど)は、承認パターンが無いと登録できません。承認が要らないときは、承認の段が無いパターンを選びます。';
+
+	/// ja: '承認パターンが登録されていません。承認パターンの台帳で登録してください。'
+	String get empty => '承認パターンが登録されていません。承認パターンの台帳で登録してください。';
+
+	/// ja: '標準の承認パターンを読み込めませんでした。'
+	String get loadFailed => '標準の承認パターンを読み込めませんでした。';
+
+	/// ja: '未保存の変更があります。'
+	String get unsaved => '未保存の変更があります。';
+
+	/// ja: '保存'
+	String get save => '保存';
+
+	/// ja: '保存済みに戻す'
+	String get revert => '保存済みに戻す';
+
+	/// ja: '保存しました。'
+	String get saved => '保存しました。';
+
+	/// ja: '保存できませんでした。'
+	String get saveFailed => '保存できませんでした。';
+
+	/// ja: '標準の承認パターン'
+	String get open => '標準の承認パターン';
+
+	/// ja: '文書'
+	String get kindDocument => '文書';
+
+	/// ja: '受注'
+	String get kindOrder => '受注';
+
+	/// ja: '発注'
+	String get kindPurchase => '発注';
+
+	/// ja: '非計上発注'
+	String get kindUnrecognized => '非計上発注';
+
+	/// ja: '出荷オーダー'
+	String get kindShippingOrder => '出荷オーダー';
+
+	/// ja: '異常'
+	String get kindComplaint => '異常';
+
+	/// ja: '処置'
+	String get kindDisposal => '処置';
+
+	/// ja: '再発防止'
+	String get kindRecurrencePrevention => '再発防止';
 }
 
 // Path: menu
@@ -825,6 +901,28 @@ extension on OrganizationStrings {
 			'home.approval' => '承認',
 			'home.approvalPathApproval' => 'アクセスパスの承認',
 			'home.below' => ({required Object count}) => '配下 ${count}',
+			'approvalDefaults.title' => '標準の承認パターン',
+			'approvalDefaults.back' => '戻る',
+			'approvalDefaults.hint' => '登録が申請になる対象ごとに、使う承認パターンを選びます。「承認不要」は、その対象の登録で承認を求めません。変更は「保存」で反映されます。承認パターンの登録(承認の段・承認できる人)は、承認パターンの台帳で行います。',
+			'approvalDefaults.none' => '承認不要(設定しない)',
+			'approvalDefaults.unknown' => ({required Object id}) => '(一覧に無いパターン) ${id}',
+			'approvalDefaults.documentNote' => '文書(マニュアルなど)は、承認パターンが無いと登録できません。承認が要らないときは、承認の段が無いパターンを選びます。',
+			'approvalDefaults.empty' => '承認パターンが登録されていません。承認パターンの台帳で登録してください。',
+			'approvalDefaults.loadFailed' => '標準の承認パターンを読み込めませんでした。',
+			'approvalDefaults.unsaved' => '未保存の変更があります。',
+			'approvalDefaults.save' => '保存',
+			'approvalDefaults.revert' => '保存済みに戻す',
+			'approvalDefaults.saved' => '保存しました。',
+			'approvalDefaults.saveFailed' => '保存できませんでした。',
+			'approvalDefaults.open' => '標準の承認パターン',
+			'approvalDefaults.kindDocument' => '文書',
+			'approvalDefaults.kindOrder' => '受注',
+			'approvalDefaults.kindPurchase' => '発注',
+			'approvalDefaults.kindUnrecognized' => '非計上発注',
+			'approvalDefaults.kindShippingOrder' => '出荷オーダー',
+			'approvalDefaults.kindComplaint' => '異常',
+			'approvalDefaults.kindDisposal' => '処置',
+			'approvalDefaults.kindRecurrencePrevention' => '再発防止',
 			'menu.group' => '会社情報',
 			'entity.company.title' => '会社情報',
 			'entity.company.fields.f_name' => '会社名',

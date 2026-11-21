@@ -14,6 +14,30 @@ const _zeroId = '00000000-0000-0000-0000-000000000000';
 
 void main() {
   group('検証用サーバー: 全readクエリ', () {
+    serverTest('ApprovalDefaultsLanguagePageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryApprovalDefaultsLanguagePageRead,
+          variables: Variables$Query$ApprovalDefaultsLanguagePageRead(first: 1).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$ApprovalDefaultsLanguagePageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
+    serverTest('ApprovalDefaultsPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryApprovalDefaultsPageRead,
+          variables: Variables$Query$ApprovalDefaultsPageRead(first: 1).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$ApprovalDefaultsPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
     serverTest('ApprovalOperationPageRead', (server) async {
       final result = await server.provider.query(
         QueryOptions(
@@ -23,6 +47,18 @@ void main() {
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
       Query$ApprovalOperationPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
+    serverTest('ApprovalPatternOptionPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryApprovalPatternOptionPageRead,
+          variables: Variables$Query$ApprovalPatternOptionPageRead(first: 1, languageCodeId: _zeroId).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$ApprovalPatternOptionPageRead.fromJson(
         Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
       );
     });
@@ -202,8 +238,8 @@ void main() {
     tearDown(() => server.close());
 
     QueryOptions options() => QueryOptions(
-      document: documentNodeQueryApprovalOperationPageRead,
-      variables: Variables$Query$ApprovalOperationPageRead(first: 1, languageCodeId: _zeroId).toJson(),
+      document: documentNodeQueryApprovalDefaultsLanguagePageRead,
+      variables: Variables$Query$ApprovalDefaultsLanguagePageRead(first: 1).toJson(),
     );
 
     // 代役サーバーの既定の応答に合う、中身の無い問い合わせ(応答の読み取りを確認しないテスト用)。

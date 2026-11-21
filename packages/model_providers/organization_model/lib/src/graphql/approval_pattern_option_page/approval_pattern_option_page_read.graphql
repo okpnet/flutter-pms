@@ -1,0 +1,45 @@
+# approval_pattern_option_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ApprovalPatternOptionPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ApprovalPatternOptionPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: MstrApprovalPatternFilter = {and: []}
+  $orderBy: [MstrApprovalPatternsOrderBy!]
+  $languageCodeId: UUID!
+  $removed: Boolean = false
+) {
+  allMstrApprovalPatterns(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      mstrApprovalPatternId
+
+      labels: sharedAppellationByNames {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+      }
+
+      symbol
+    }
+  }
+}

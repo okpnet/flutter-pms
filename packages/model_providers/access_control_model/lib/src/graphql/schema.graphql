@@ -54,6 +54,22 @@ enum InfoAppsOrderBy {
   NAME_DESC
   SETTINGS_ASC
   SETTINGS_DESC
+  DOCUMENT_APPROVAL_PATTERN_ID_ASC
+  DOCUMENT_APPROVAL_PATTERN_ID_DESC
+  ORDER_APPROVAL_PATTERN_ID_ASC
+  ORDER_APPROVAL_PATTERN_ID_DESC
+  PURCHASE_APPROVAL_PATTERN_ID_ASC
+  PURCHASE_APPROVAL_PATTERN_ID_DESC
+  UNRECOGNIZED_APPROVAL_PATTERN_ID_ASC
+  UNRECOGNIZED_APPROVAL_PATTERN_ID_DESC
+  SHIPPING_ORDER_APPROVAL_PATTERN_ID_ASC
+  SHIPPING_ORDER_APPROVAL_PATTERN_ID_DESC
+  COMPLAINT_APPROVAL_PATTERN_ID_ASC
+  COMPLAINT_APPROVAL_PATTERN_ID_DESC
+  DISPOSAL_APPROVAL_PATTERN_ID_ASC
+  DISPOSAL_APPROVAL_PATTERN_ID_DESC
+  RECURRENCE_PREVENTION_APPROVAL_PATTERN_ID_ASC
+  RECURRENCE_PREVENTION_APPROVAL_PATTERN_ID_DESC
   REVISION_ASC
   REVISION_DESC
   SYMBOL_ASC
@@ -838,6 +854,14 @@ input InfoAppFilter {
   infoCompanyId: UUIDFilter
   name: StringFilter
   settings: JSONFilter
+  documentApprovalPatternId: UUIDFilter
+  orderApprovalPatternId: UUIDFilter
+  purchaseApprovalPatternId: UUIDFilter
+  unrecognizedApprovalPatternId: UUIDFilter
+  shippingOrderApprovalPatternId: UUIDFilter
+  complaintApprovalPatternId: UUIDFilter
+  disposalApprovalPatternId: UUIDFilter
+  recurrencePreventionApprovalPatternId: UUIDFilter
   revision: IntFilter
   symbol: StringFilter
   remarks: StringFilter
@@ -852,6 +876,14 @@ input InfoAppFilter {
   vAppAppStatusCountByInfoAppIdExists: Boolean
   vStaffEffectiveAccessPathsByInfoAppIdExist: Boolean
   infoCompanyByInfoCompanyIdExists: Boolean
+  mstrApprovalPatternByDocumentApprovalPatternIdExists: Boolean
+  mstrApprovalPatternByOrderApprovalPatternIdExists: Boolean
+  mstrApprovalPatternByPurchaseApprovalPatternIdExists: Boolean
+  mstrApprovalPatternByUnrecognizedApprovalPatternIdExists: Boolean
+  mstrApprovalPatternByShippingOrderApprovalPatternIdExists: Boolean
+  mstrApprovalPatternByComplaintApprovalPatternIdExists: Boolean
+  mstrApprovalPatternByDisposalApprovalPatternIdExists: Boolean
+  mstrApprovalPatternByRecurrencePreventionApprovalPatternIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [InfoAppFilter!]
   or: [InfoAppFilter!]
