@@ -1,0 +1,95 @@
+# approval_pending_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ApprovalPendingPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ApprovalPendingPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VApprovalPendingFilter = {and: []}
+  $orderBy: [VApprovalPendingsOrderBy!]
+  $languageCodeId: UUID!
+) {
+  allVApprovalPendings(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transPreapprovalId
+      transApprovalPatternId
+      mstrApprovalId
+
+      approval: mstrApprovalByMstrApprovalId {
+        mstrApprovalId
+        priority
+        symbol
+
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+      }
+
+      approvalPriority
+      period
+      isDocument
+      isComplaint
+      isDisposal
+      isRecurrencePrevention
+      isOrder
+      isPurchase
+      isUnrecognized
+      isShippingOrder
+      mstrDocumentId
+      transComplaintId
+      transDisposalId
+      transRecurrencePreventionId
+      transOrderId
+      transPurchaseId
+      transUnrecognizedId
+      transShippingOrderId
+      targetSymbol
+      applicantStaffId
+
+      applicant: infoStaffByApplicantStaffId {
+        infoStaffId
+        code
+        symbol
+
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
+              }
+            }
+          }
+        }
+      }
+
+      appliedAt
+      approver
+      actionable
+    }
+  }
+}

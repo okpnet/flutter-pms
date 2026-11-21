@@ -37,7 +37,7 @@ Widget _app({
     initialLocation: initial,
     routes: [
       ...const ApprovalModule().routes,
-      GoRoute(path: '/dash', builder: (_, __) => Scaffold(body: home ?? const ApprovalAlertBanner())),
+      GoRoute(path: '/dash', builder: (_, _) => Scaffold(body: home ?? const ApprovalAlertBanner())),
       GoRoute(path: '/target/:id', builder: (_, s) => Scaffold(body: Text('対象 ${s.pathParameters['id']}'))),
     ],
   );

@@ -68,6 +68,72 @@ enum MstrApprovalPatternsOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum VApprovalPendingsOrderBy {
+  NATURAL
+  TRANS_PREAPPROVAL_ID_ASC
+  TRANS_PREAPPROVAL_ID_DESC
+  TRANS_APPROVAL_PATTERN_ID_ASC
+  TRANS_APPROVAL_PATTERN_ID_DESC
+  MSTR_APPROVAL_ID_ASC
+  MSTR_APPROVAL_ID_DESC
+  APPROVAL_PRIORITY_ASC
+  APPROVAL_PRIORITY_DESC
+  APPROVAL_NAMES_ASC
+  APPROVAL_NAMES_DESC
+  INFO_POSITION_ID_ASC
+  INFO_POSITION_ID_DESC
+  INFO_DEPARTMENT_ID_ASC
+  INFO_DEPARTMENT_ID_DESC
+  PERIOD_ASC
+  PERIOD_DESC
+  IS_DOCUMENT_ASC
+  IS_DOCUMENT_DESC
+  IS_COMPLAINT_ASC
+  IS_COMPLAINT_DESC
+  IS_DISPOSAL_ASC
+  IS_DISPOSAL_DESC
+  IS_RECURRENCE_PREVENTION_ASC
+  IS_RECURRENCE_PREVENTION_DESC
+  IS_ORDER_ASC
+  IS_ORDER_DESC
+  IS_PURCHASE_ASC
+  IS_PURCHASE_DESC
+  IS_UNRECOGNIZED_ASC
+  IS_UNRECOGNIZED_DESC
+  IS_SHIPPING_ORDER_ASC
+  IS_SHIPPING_ORDER_DESC
+  MSTR_DOCUMENT_ID_ASC
+  MSTR_DOCUMENT_ID_DESC
+  TRANS_COMPLAINT_ID_ASC
+  TRANS_COMPLAINT_ID_DESC
+  TRANS_DISPOSAL_ID_ASC
+  TRANS_DISPOSAL_ID_DESC
+  TRANS_RECURRENCE_PREVENTION_ID_ASC
+  TRANS_RECURRENCE_PREVENTION_ID_DESC
+  TRANS_ORDER_ID_ASC
+  TRANS_ORDER_ID_DESC
+  TRANS_PURCHASE_ID_ASC
+  TRANS_PURCHASE_ID_DESC
+  TRANS_UNRECOGNIZED_ID_ASC
+  TRANS_UNRECOGNIZED_ID_DESC
+  TRANS_SHIPPING_ORDER_ID_ASC
+  TRANS_SHIPPING_ORDER_ID_DESC
+  TARGET_SYMBOL_ASC
+  TARGET_SYMBOL_DESC
+  APPLICANT_STAFF_ID_ASC
+  APPLICANT_STAFF_ID_DESC
+  APPLICANT_STAFF_HISTORY_ID_ASC
+  APPLICANT_STAFF_HISTORY_ID_DESC
+  APPLIED_AT_ASC
+  APPLIED_AT_DESC
+  APPROVER_ASC
+  APPROVER_DESC
+  ACTIONABLE_ASC
+  ACTIONABLE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 enum VDocumentApprovalStampsOrderBy {
   NATURAL
   TRANS_PREAPPROVAL_ID_ASC
@@ -196,6 +262,18 @@ enum VDocumentPublicationsOrderBy {
   PRIMARY_KEY_DESC
 }
 
+type ApprovalApproveManyPayload {
+  results: [ApprovalApproveManyRecord]
+}
+
+type ApprovalApproveManyRecord {
+  preapprovalId: UUID
+  ok: Boolean
+  errorCode: String
+  errorMessage: String
+  approvedId: UUID
+}
+
 type DocumentApprovePayload {
   transApproved: TransApproved
 }
@@ -247,6 +325,7 @@ type MstrApprovalPatternsConnection {
 type Mutation {
   updateInfoAppByInfoAppId(input: UpdateInfoAppByInfoAppIdInput!): UpdateInfoAppPayload
   updateMstrApprovalPatternByMstrApprovalPatternId(input: UpdateMstrApprovalPatternByMstrApprovalPatternIdInput!): UpdateMstrApprovalPatternPayload
+  approvalApproveMany(input: ApprovalApproveManyInput!): ApprovalApproveManyPayload
   documentApprove(input: DocumentApproveInput!): DocumentApprovePayload
 }
 
@@ -258,6 +337,7 @@ type PageInfo {
 type Query {
   allInfoApps(first: Int, offset: Int, orderBy: [InfoAppsOrderBy!] = [PRIMARY_KEY_ASC], filter: InfoAppFilter): InfoAppsConnection
   allMstrApprovalPatterns(first: Int, offset: Int, orderBy: [MstrApprovalPatternsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrApprovalPatternFilter): MstrApprovalPatternsConnection
+  allVApprovalPendings(first: Int, offset: Int, orderBy: [VApprovalPendingsOrderBy!] = [PRIMARY_KEY_ASC], filter: VApprovalPendingFilter): VApprovalPendingsConnection
   allVDocumentApprovalStamps(first: Int, offset: Int, orderBy: [VDocumentApprovalStampsOrderBy!] = [PRIMARY_KEY_ASC], filter: VDocumentApprovalStampFilter): VDocumentApprovalStampsConnection
   allVDocumentContents(first: Int, offset: Int, orderBy: [VDocumentContentsOrderBy!] = [PRIMARY_KEY_ASC], filter: VDocumentContentFilter): VDocumentContentsConnection
   allVDocumentPublications(first: Int, offset: Int, orderBy: [VDocumentPublicationsOrderBy!] = [PRIMARY_KEY_ASC], filter: VDocumentPublicationFilter): VDocumentPublicationsConnection
@@ -298,6 +378,43 @@ type UpdateInfoAppPayload {
 
 type UpdateMstrApprovalPatternPayload {
   mstrApprovalPattern: MstrApprovalPattern
+}
+
+type VApprovalPending {
+  transPreapprovalId: UUID!
+  transApprovalPatternId: UUID
+  mstrApprovalId: UUID
+  approvalPriority: Int
+  period: Datetime
+  isDocument: Boolean
+  isComplaint: Boolean
+  isDisposal: Boolean
+  isRecurrencePrevention: Boolean
+  isOrder: Boolean
+  isPurchase: Boolean
+  isUnrecognized: Boolean
+  isShippingOrder: Boolean
+  mstrDocumentId: UUID
+  transComplaintId: UUID
+  transDisposalId: UUID
+  transRecurrencePreventionId: UUID
+  transOrderId: UUID
+  transPurchaseId: UUID
+  transUnrecognizedId: UUID
+  transShippingOrderId: UUID
+  targetSymbol: String
+  applicantStaffId: UUID
+  appliedAt: Datetime
+  approver: Boolean
+  actionable: Boolean
+  mstrApprovalByMstrApprovalId: MstrApproval
+  infoStaffByApplicantStaffId: InfoStaff
+}
+
+type VApprovalPendingsConnection {
+  nodes: [VApprovalPending]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type VDocumentApprovalStamp {
@@ -378,6 +495,13 @@ type VDocumentPublicationsConnection {
   nodes: [VDocumentPublication]!
   pageInfo: PageInfo!
   totalCount: Int!
+}
+
+input ApprovalApproveManyInput {
+  pPreapprovalIds: [UUID]
+  pApproved: Boolean
+  pRemarks: String
+  pStaffId: UUID
 }
 
 input BooleanFilter {
@@ -468,6 +592,7 @@ input InfoStaffFilter {
   infoStaffAccessPermissionsByInfoStaffIdExist: Boolean
   mstrStaffCapabilitiesByInfoStaffIdExist: Boolean
   mstrSignsByInfoStaffIdExist: Boolean
+  vApprovalPendingsByApplicantStaffIdExist: Boolean
   vDocumentApprovalStampsByApprovedStaffIdExist: Boolean
   vDocumentPublicationsByApprovedStaffIdExist: Boolean
   vStaffAssignCountByInfoStaffIdExists: Boolean
@@ -529,10 +654,11 @@ input MstrApprovalFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transPreapprovalsByMstrApprovalIdExist: Boolean
   mstrApprovalPatternDetailsByMstrApprovalIdExist: Boolean
   historyMstrApprovalsByMstrApprovalIdExist: Boolean
-  transPreapprovalsByMstrApprovalIdExist: Boolean
   vApprovalApprovalPatternDetailCountByMstrApprovalIdExists: Boolean
+  vApprovalPendingsByMstrApprovalIdExist: Boolean
   vApprovalPreapprovalCountByMstrApprovalIdExists: Boolean
   vDocumentApprovalStampsByMstrApprovalIdExist: Boolean
   infoDepartmentByInfoDepartmentIdExists: Boolean
@@ -628,6 +754,7 @@ input SharedAppellationFilter {
   mstrInspectionsByNamesExist: Boolean
   infoPositionsByNamesExist: Boolean
   infoProvisionsByNamesExist: Boolean
+  mstrApprovalsByNamesExist: Boolean
   mstrOperationTasksByNamesExist: Boolean
   mstrReportsByNamesExist: Boolean
   mstrTaskTreesByNamesExist: Boolean
@@ -638,7 +765,6 @@ input SharedAppellationFilter {
   mstrLicensesByNamesExist: Boolean
   infoAccessPathApprovalsByNamesExist: Boolean
   mstrCapabilitiesByNamesExist: Boolean
-  mstrApprovalsByNamesExist: Boolean
   sharedDictionaryBySharedDictionaryNameId: SharedDictionaryFilter
   sharedDictionaryBySharedDictionaryPronunciationIdExists: Boolean
   sharedDictionaryBySharedDictionaryNicknameIdExists: Boolean
@@ -761,6 +887,56 @@ input UpdateInfoAppByInfoAppIdInput {
 input UpdateMstrApprovalPatternByMstrApprovalPatternIdInput {
   mstrApprovalPatternPatch: MstrApprovalPatternPatch!
   mstrApprovalPatternId: UUID!
+}
+
+input VApprovalPendingFilter {
+  transPreapprovalId: UUIDFilter
+  transApprovalPatternId: UUIDFilter
+  mstrApprovalId: UUIDFilter
+  approvalPriority: IntFilter
+  approvalNames: UUIDFilter
+  infoPositionId: UUIDFilter
+  infoDepartmentId: UUIDFilter
+  period: DatetimeFilter
+  isDocument: BooleanFilter
+  isComplaint: BooleanFilter
+  isDisposal: BooleanFilter
+  isRecurrencePrevention: BooleanFilter
+  isOrder: BooleanFilter
+  isPurchase: BooleanFilter
+  isUnrecognized: BooleanFilter
+  isShippingOrder: BooleanFilter
+  mstrDocumentId: UUIDFilter
+  transComplaintId: UUIDFilter
+  transDisposalId: UUIDFilter
+  transRecurrencePreventionId: UUIDFilter
+  transOrderId: UUIDFilter
+  transPurchaseId: UUIDFilter
+  transUnrecognizedId: UUIDFilter
+  transShippingOrderId: UUIDFilter
+  targetSymbol: StringFilter
+  applicantStaffId: UUIDFilter
+  applicantStaffHistoryId: UUIDFilter
+  appliedAt: DatetimeFilter
+  approver: BooleanFilter
+  actionable: BooleanFilter
+  transPreapprovalByTransPreapprovalIdExists: Boolean
+  transApprovalPatternByTransApprovalPatternIdExists: Boolean
+  mstrApprovalByMstrApprovalId: MstrApprovalFilter
+  mstrApprovalByMstrApprovalIdExists: Boolean
+  mstrDocumentByMstrDocumentIdExists: Boolean
+  transComplaintByTransComplaintIdExists: Boolean
+  transDisposalByTransDisposalIdExists: Boolean
+  transRecurrencePreventionByTransRecurrencePreventionIdExists: Boolean
+  transOrderByTransOrderIdExists: Boolean
+  transPurchaseByTransPurchaseIdExists: Boolean
+  transUnrecognizedByTransUnrecognizedIdExists: Boolean
+  transShippingOrderByTransShippingOrderIdExists: Boolean
+  infoStaffByApplicantStaffId: InfoStaffFilter
+  infoStaffByApplicantStaffIdExists: Boolean
+  and: [VApprovalPendingFilter!]
+  or: [VApprovalPendingFilter!]
+  not: VApprovalPendingFilter
 }
 
 input VDocumentApprovalStampFilter {

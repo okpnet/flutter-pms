@@ -359,3 +359,34 @@ DocumentReportPage: &DocumentReportPage
       using: [update_user_history_id,update_user_id]
       arrayType: toFirstOne
       <<: *UpdateStaffReadFields
+
+# 文書コンテンツの本文(言語ごとの値の全文。言語 ja の値 = Markdown)。本文の編集の画面が読む
+DocumentContentBodyPage:
+  lightRead: true
+  kind: read
+  from: shared_text_value
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: =
+      value: false
+  columns:
+    - shared_text_value_id
+    - shared_text_id
+    - text_value
+    - name: language
+      as: language
+      arrayType: toFirstOne
+      using: shared_language_code_id
+      from: shared_language_code
+      columns:
+        - shared_language_code_id
+        - code
+
+# 文書コンテンツの本文の保存(共通関数 shared_text_save。渡した言語の値だけを入れ替える)
+DocumentContentTextSavePageCall:
+  kind: function
+  mutation: sharedTextSave
+  returns: sharedText
+  columns:
+    - shared_text_id

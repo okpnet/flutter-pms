@@ -212,3 +212,61 @@ ApprovalPatternStylePageEdit:
     - stamp_style
     - update_user_id
     - update_user_history_id
+
+# ---- 承認一覧(v_approval_pending。1 行 = 判断されていない承認の段)。区分は boolean の is_*、対象の ID は区分ごとの列 ----
+# 承認一覧は approver(ログイン中の担当者が該当者)かつ actionable(前の段がすべて承認済み)の行を読む(filter で絞る)。
+ApprovalPendingPage:
+  kind: read
+  from: v_approval_pending
+  filter: true
+  requiredWhere:
+    - languageCode
+  columns:
+    - trans_preapproval_id
+    - trans_approval_pattern_id
+    - mstr_approval_id
+    - name: approval
+      as: approval
+      arrayType: toFirstOne
+      using: mstr_approval_id
+      <<: *DocumentApprovalStepFields
+    - approval_priority
+    - period
+    - is_document
+    - is_complaint
+    - is_disposal
+    - is_recurrence_prevention
+    - is_order
+    - is_purchase
+    - is_unrecognized
+    - is_shipping_order
+    - mstr_document_id
+    - trans_complaint_id
+    - trans_disposal_id
+    - trans_recurrence_prevention_id
+    - trans_order_id
+    - trans_purchase_id
+    - trans_unrecognized_id
+    - trans_shipping_order_id
+    - target_symbol
+    - applicant_staff_id
+    - name: applicant
+      as: applicant
+      arrayType: toFirstOne
+      using: applicant_staff_id
+      <<: *DocumentApprovalStaffFields
+    - applied_at
+    - approver
+    - actionable
+
+# 一括承認(DB 関数 approval_approve_many。1 回の呼び出し。行ごとの成否)
+ApprovalApproveManyPageCall:
+  kind: function
+  mutation: approvalApproveMany
+  returns: results
+  columns:
+    - preapproval_id
+    - ok
+    - error_code
+    - error_message
+    - approved_id

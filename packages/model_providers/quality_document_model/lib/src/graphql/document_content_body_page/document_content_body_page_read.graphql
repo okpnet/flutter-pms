@@ -1,0 +1,35 @@
+# document_content_body_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #DocumentContentBodyPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query DocumentContentBodyPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: SharedTextValueFilter = {and: []}
+  $orderBy: [SharedTextValuesOrderBy!]
+  $removed: Boolean = false
+) {
+  allSharedTextValues(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      sharedTextValueId
+      sharedTextId
+      textValue
+
+      language: sharedLanguageCodeBySharedLanguageCodeId {
+        sharedLanguageCodeId
+        code
+      }
+    }
+  }
+}

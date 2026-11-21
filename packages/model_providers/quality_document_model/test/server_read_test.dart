@@ -14,6 +14,18 @@ const _zeroId = '00000000-0000-0000-0000-000000000000';
 
 void main() {
   group('検証用サーバー: 全readクエリ', () {
+    serverTest('DocumentContentBodyPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryDocumentContentBodyPageRead,
+          variables: Variables$Query$DocumentContentBodyPageRead(first: 1).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$DocumentContentBodyPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
     serverTest('DocumentContentPageRead', (server) async {
       final result = await server.provider.query(
         QueryOptions(
@@ -70,8 +82,8 @@ void main() {
     tearDown(() => server.close());
 
     QueryOptions options() => QueryOptions(
-      document: documentNodeQueryDocumentContentPageRead,
-      variables: Variables$Query$DocumentContentPageRead(first: 1, languageCodeId: _zeroId, mstrDocumentId: _zeroId).toJson(),
+      document: documentNodeQueryDocumentContentBodyPageRead,
+      variables: Variables$Query$DocumentContentBodyPageRead(first: 1).toJson(),
     );
 
     // 代役サーバーの既定の応答に合う、中身の無い問い合わせ(応答の読み取りを確認しないテスト用)。

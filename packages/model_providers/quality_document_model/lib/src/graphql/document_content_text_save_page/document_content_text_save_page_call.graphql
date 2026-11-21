@@ -1,0 +1,24 @@
+# document_content_text_save_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #DocumentContentTextSavePageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation DocumentContentTextSavePageCall(
+  $pTextId: UUID
+  $pValues: JSON
+  $pStaffId: UUID
+  $pStaffHistoryId: UUID
+) {
+  sharedTextSave(
+    input: {
+      pTextId: $pTextId
+      pValues: $pValues
+      pStaffId: $pStaffId
+      pStaffHistoryId: $pStaffHistoryId
+    }
+  ) {
+    sharedText {
+      sharedTextId
+    }
+  }
+}

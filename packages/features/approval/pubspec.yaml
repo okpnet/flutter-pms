@@ -18,6 +18,10 @@ dependencies:
     path: ../../core/baton_lib
   app_shell:
     path: ../../ui/app_shell
+  document_approval_model:
+    path: ../../model_providers/document_approval_model
+  graphql: ^5.2.3
+  gql: ^1.0.1
   flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   go_router: ^18.1.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   slang: ^4.19.2 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml

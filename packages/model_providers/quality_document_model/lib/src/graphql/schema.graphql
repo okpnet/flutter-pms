@@ -154,6 +154,38 @@ enum MstrReportsOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum SharedTextValuesOrderBy {
+  NATURAL
+  SHARED_TEXT_VALUE_ID_ASC
+  SHARED_TEXT_VALUE_ID_DESC
+  SHARED_LANGUAGE_CODE_ID_ASC
+  SHARED_LANGUAGE_CODE_ID_DESC
+  SHARED_TEXT_ID_ASC
+  SHARED_TEXT_ID_DESC
+  CHAR_COUNT_ASC
+  CHAR_COUNT_DESC
+  LEAD_TEXT_ASC
+  LEAD_TEXT_DESC
+  TEXT_VALUE_ASC
+  TEXT_VALUE_DESC
+  REVISION_ASC
+  REVISION_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 type HistoryInfoStaff {
   historyId: UUID!
   infoStaffId: UUID!
@@ -312,6 +344,7 @@ type Mutation {
   updateMstrDocumentContentTreeByMstrDocumentContentTreeId(input: UpdateMstrDocumentContentTreeByMstrDocumentContentTreeIdInput!): UpdateMstrDocumentContentTreePayload
   updateMstrDocumentTierByMstrDocumentTierId(input: UpdateMstrDocumentTierByMstrDocumentTierIdInput!): UpdateMstrDocumentTierPayload
   updateMstrDocumentTreeByMstrDocumentTreeId(input: UpdateMstrDocumentTreeByMstrDocumentTreeIdInput!): UpdateMstrDocumentTreePayload
+  sharedTextSave(input: SharedTextSaveInput!): SharedTextSavePayload
 }
 
 type PageInfo {
@@ -324,6 +357,7 @@ type Query {
   allMstrDocumentContents(first: Int, offset: Int, orderBy: [MstrDocumentContentsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrDocumentContentFilter): MstrDocumentContentsConnection
   allMstrDocumentTiers(first: Int, offset: Int, orderBy: [MstrDocumentTiersOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrDocumentTierFilter): MstrDocumentTiersConnection
   allMstrReports(first: Int, offset: Int, orderBy: [MstrReportsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrReportFilter): MstrReportsConnection
+  allSharedTextValues(first: Int, offset: Int, orderBy: [SharedTextValuesOrderBy!] = [PRIMARY_KEY_ASC], filter: SharedTextValueFilter): SharedTextValuesConnection
   mstrDocumentByMstrDocumentId(mstrDocumentId: UUID!): MstrDocument
   mstrDocumentContentByMstrDocumentContentId(mstrDocumentContentId: UUID!): MstrDocumentContent
   mstrDocumentContentTreeByMstrDocumentContentTreeId(mstrDocumentContentTreeId: UUID!): MstrDocumentContentTree
@@ -351,19 +385,33 @@ type SharedDictionaryValuesConnection {
   nodes: [SharedDictionaryValue]!
 }
 
+type SharedLanguageCode {
+  sharedLanguageCodeId: UUID!
+  code: String!
+}
+
 type SharedText {
   sharedTextId: UUID!
   sharedTextValuesBySharedTextId(condition: SharedTextValueCondition): SharedTextValuesConnection!
 }
 
+type SharedTextSavePayload {
+  sharedText: SharedText
+}
+
 type SharedTextValue {
+  sharedTextValueId: UUID!
+  sharedTextId: UUID!
   charCount: Int
   leadText: String
   textValue: String
+  sharedLanguageCodeBySharedLanguageCodeId: SharedLanguageCode
 }
 
 type SharedTextValuesConnection {
   nodes: [SharedTextValue]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type TransApprovalPattern {
@@ -494,6 +542,8 @@ input HistoryInfoStaffFilter {
   mstrStakeholderContactsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrStakeholderContactsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrStakeholdersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrApprovalPatternsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transApprovalPatternsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transOrdersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transOrderDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transOperationsPlansByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -502,8 +552,6 @@ input HistoryInfoStaffFilter {
   transResourcePlansByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transPurchasesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transPurchaseDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
-  mstrApprovalPatternsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
-  transApprovalPatternsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transTextsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transLabelsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transComplaintsByReporterStaffHistoryIdAndReporterStaffIdExist: Boolean
@@ -645,6 +693,8 @@ input HistoryInfoStaffFilter {
   historyMstrEquipmentProvisionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   infoAppStatusesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyInfoAppStatusesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrApprovalsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transPreapprovalsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transAnnouncementsByToStaffHistoryIdAndToStaffIdExist: Boolean
   transAnnouncementsByForStaffHistoryIdAndForStaffIdExist: Boolean
   transAnnouncementsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -688,7 +738,6 @@ input HistoryInfoStaffFilter {
   historyMstrApprovalPatternsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrCapabilitiesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrCapabilitiesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
-  mstrApprovalsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrApprovalPatternDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrApprovalPatternDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrApprovalsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -712,7 +761,6 @@ input HistoryInfoStaffFilter {
   transInspectSchDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transInspectRecordsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transInspectionReportsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
-  transPreapprovalsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transApprovedsByApprovedStaffHistoryIdAndApprovedStaffIdExist: Boolean
   transApprovedsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transAuditsByStaffHistoryIdAndStaffIdExist: Boolean
@@ -926,6 +974,7 @@ input MstrDocumentFilter {
   mstrDocumentTreesByMstrDocumentIdExist: Boolean
   mstrDocumentTreesByParentMstrDocumentIdExist: Boolean
   historyMstrDocumentsByMstrDocumentIdExist: Boolean
+  vApprovalPendingsByMstrDocumentIdExist: Boolean
   vDocumentApprovalStampsByMstrDocumentIdExist: Boolean
   vDocumentContentsByMstrDocumentIdExist: Boolean
   vDocumentDescendantByAncestorMstrDocumentId: VDocumentDescendantFilter
@@ -1116,6 +1165,7 @@ input SharedAppellationFilter {
   mstrInspectionsByNamesExist: Boolean
   infoPositionsByNamesExist: Boolean
   infoProvisionsByNamesExist: Boolean
+  mstrApprovalsByNamesExist: Boolean
   mstrOperationTasksByNamesExist: Boolean
   mstrReportsByNamesExist: Boolean
   mstrTaskTreesByNamesExist: Boolean
@@ -1126,7 +1176,6 @@ input SharedAppellationFilter {
   mstrLicensesByNamesExist: Boolean
   infoAccessPathApprovalsByNamesExist: Boolean
   mstrCapabilitiesByNamesExist: Boolean
-  mstrApprovalsByNamesExist: Boolean
   sharedDictionaryBySharedDictionaryNameId: SharedDictionaryFilter
   sharedDictionaryBySharedDictionaryPronunciationId: SharedDictionaryFilter
   sharedDictionaryBySharedDictionaryPronunciationIdExists: Boolean
@@ -1241,6 +1290,34 @@ input SharedDictionaryValueFk1SharedDictionaryValueCreateInput {
   dictionaryValue: String!
 }
 
+input SharedLanguageCodeFilter {
+  sharedLanguageCodeId: UUIDFilter
+  code: StringFilter
+  label: StringFilter
+  priority: IntFilter
+  isDefault: BooleanFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transTextValuesBySharedLanguageCodeIdExist: Boolean
+  transLabelValuesBySharedLanguageCodeIdExist: Boolean
+  sharedTextValuesBySharedLanguageCodeIdExist: Boolean
+  sharedDictionaryValuesBySharedLanguageCodeIdExist: Boolean
+  historySharedLanguageCodesBySharedLanguageCodeIdExist: Boolean
+  vLanguageCodeDictionaryValueCountBySharedLanguageCodeIdExists: Boolean
+  vLanguageCodeLabelValueCountBySharedLanguageCodeIdExists: Boolean
+  vLanguageCodeSharedTextValueCountBySharedLanguageCodeIdExists: Boolean
+  vLanguageCodeTransTextValueCountBySharedLanguageCodeIdExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [SharedLanguageCodeFilter!]
+  or: [SharedLanguageCodeFilter!]
+  not: SharedLanguageCodeFilter
+}
+
 input SharedTextFilter {
   sharedTextId: UUIDFilter
   revision: IntFilter
@@ -1282,6 +1359,13 @@ input SharedTextOnMstrDocumentContentForMstrDocumentContentFk1UsingSharedTextPkU
   sharedTextId: UUID!
 }
 
+input SharedTextSaveInput {
+  pTextId: UUID
+  pValues: JSON
+  pStaffId: UUID
+  pStaffHistoryId: UUID
+}
+
 input SharedTextToManySharedTextValueFilter {
   every: SharedTextValueFilter
   some: SharedTextValueFilter
@@ -1307,6 +1391,7 @@ input SharedTextValueFilter {
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
   historySharedTextValuesBySharedTextValueIdExist: Boolean
+  sharedLanguageCodeBySharedLanguageCodeId: SharedLanguageCodeFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [SharedTextValueFilter!]
   or: [SharedTextValueFilter!]
@@ -1373,13 +1458,18 @@ input TransApprovalPatternFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transOrdersByTransApprovalPatternIdExist: Boolean
+  transUnrecognizedsByTransApprovalPatternIdExist: Boolean
+  transPurchasesByTransApprovalPatternIdExist: Boolean
   transComplaintsByApprovalsExist: Boolean
+  transShippingOrdersByTransApprovalPatternIdExist: Boolean
   mstrDocumentsByTransApprovalPatternIdExist: Boolean
   transPreapprovalsByTransApprovalPatternIdExist: Boolean
   transDisposalsByApprovalsExist: Boolean
   transRecurrencePreventionsByApprovalsExist: Boolean
   vApprovalPatternDocumentCountByTransApprovalPatternIdExists: Boolean
   vApprovalPatternPreapprovalCountByTransApprovalPatternIdExists: Boolean
+  vApprovalPendingsByTransApprovalPatternIdExist: Boolean
   vDocumentApprovalStampsByTransApprovalPatternIdExist: Boolean
   vDocumentPublicationsByTransApprovalPatternIdExist: Boolean
   mstrApprovalPatternByMstrApprovalPatternId: MstrApprovalPatternFilter

@@ -38,6 +38,18 @@ void main() {
         Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
       );
     });
+    serverTest('ApprovalPendingPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryApprovalPendingPageRead,
+          variables: Variables$Query$ApprovalPendingPageRead(first: 1, languageCodeId: _zeroId).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$ApprovalPendingPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
     serverTest('DocumentApprovalContentPageRead', (server) async {
       final result = await server.provider.query(
         QueryOptions(

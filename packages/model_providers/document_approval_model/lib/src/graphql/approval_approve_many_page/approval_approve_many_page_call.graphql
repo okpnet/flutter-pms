@@ -1,0 +1,28 @@
+# approval_approve_many_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #ApprovalApproveManyPageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ApprovalApproveManyPageCall(
+  $pPreapprovalIds: [UUID]
+  $pApproved: Boolean
+  $pRemarks: String
+  $pStaffId: UUID
+) {
+  approvalApproveMany(
+    input: {
+      pPreapprovalIds: $pPreapprovalIds
+      pApproved: $pApproved
+      pRemarks: $pRemarks
+      pStaffId: $pStaffId
+    }
+  ) {
+    results {
+      preapprovalId
+      ok
+      errorCode
+      errorMessage
+      approvedId
+    }
+  }
+}

@@ -513,6 +513,8 @@ input HistoryInfoStaffFilter {
   mstrStakeholderContactsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrStakeholderContactsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrStakeholdersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrApprovalPatternsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transApprovalPatternsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transOrdersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transOrderDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transOperationsPlansByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -521,8 +523,6 @@ input HistoryInfoStaffFilter {
   transResourcePlansByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transPurchasesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transPurchaseDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
-  mstrApprovalPatternsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
-  transApprovalPatternsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transTextsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transLabelsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transComplaintsByReporterStaffHistoryIdAndReporterStaffIdExist: Boolean
@@ -664,6 +664,8 @@ input HistoryInfoStaffFilter {
   historyMstrEquipmentProvisionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   infoAppStatusesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyInfoAppStatusesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrApprovalsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transPreapprovalsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transAnnouncementsByToStaffHistoryIdAndToStaffIdExist: Boolean
   transAnnouncementsByForStaffHistoryIdAndForStaffIdExist: Boolean
   transAnnouncementsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -707,7 +709,6 @@ input HistoryInfoStaffFilter {
   historyMstrApprovalPatternsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrCapabilitiesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrCapabilitiesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
-  mstrApprovalsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrApprovalPatternDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrApprovalPatternDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrApprovalsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -731,7 +732,6 @@ input HistoryInfoStaffFilter {
   transInspectSchDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transInspectRecordsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transInspectionReportsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
-  transPreapprovalsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transApprovedsByApprovedStaffHistoryIdAndApprovedStaffIdExist: Boolean
   transApprovedsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transAuditsByStaffHistoryIdAndStaffIdExist: Boolean
@@ -1017,6 +1017,7 @@ input SharedAppellationFilter {
   mstrInspectionsByNamesExist: Boolean
   infoPositionsByNamesExist: Boolean
   infoProvisionsByNamesExist: Boolean
+  mstrApprovalsByNamesExist: Boolean
   mstrOperationTasksByNamesExist: Boolean
   mstrReportsByNamesExist: Boolean
   mstrTaskTreesByNamesExist: Boolean
@@ -1027,7 +1028,6 @@ input SharedAppellationFilter {
   mstrLicensesByNamesExist: Boolean
   infoAccessPathApprovalsByNamesExist: Boolean
   mstrCapabilitiesByNamesExist: Boolean
-  mstrApprovalsByNamesExist: Boolean
   sharedDictionaryBySharedDictionaryNameId: SharedDictionaryFilter
   sharedDictionaryBySharedDictionaryPronunciationId: SharedDictionaryFilter
   sharedDictionaryBySharedDictionaryPronunciationIdExists: Boolean
