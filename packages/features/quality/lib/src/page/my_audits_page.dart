@@ -132,13 +132,15 @@ class _MyAuditsPageState extends ConsumerState<MyAuditsPage> {
     final now = _now;
     final overdue = a.isOverdue(now);
     final soon = a.isPlanned && !overdue && a.scheduledAt != null && a.scheduledAt!.difference(now) <= widget.dueSoon;
-    final (label, color) = a.isDone
+    final (baseLabel, color) = a.isDone
         ? (s.statusDone, scheme.outline)
         : a.isInProgress
         ? (s.statusInProgress, scheme.primary)
         : overdue
         ? (s.statusOverdue, scheme.error)
         : (s.statusPlanned, scheme.secondary);
+    // 状態の文字は、ビュー(v_audit_assignment)の文字を使う。無い取得元(メモリ上)は画面の文字
+    final label = a.statusLabel.isEmpty ? baseLabel : a.statusLabel;
     return Card(
       key: Key('ma-card-${a.id}'),
       margin: const EdgeInsets.only(bottom: 8),
@@ -155,6 +157,7 @@ class _MyAuditsPageState extends ConsumerState<MyAuditsPage> {
               if (a.teamName.isNotEmpty) Text(s.team(name: a.teamName)),
               if (a.scheduledAt != null) Text(s.scheduled(date: formatAuditDate(a.scheduledAt!))),
               if (a.performedDate != null) Text(s.performed(date: formatAuditDate(a.performedDate!, time: false))),
+              if (a.itemCount > 0) Text(s.progress(done: a.answeredCount, total: a.itemCount), key: Key('ma-progress-${a.id}')),
             ],
           ),
         ),

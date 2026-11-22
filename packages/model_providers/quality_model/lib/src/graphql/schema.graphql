@@ -880,6 +880,52 @@ enum TransTaskRisksOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum VAuditAssignmentsOrderBy {
+  NATURAL
+  TRANS_AUDITOR_ID_ASC
+  TRANS_AUDITOR_ID_DESC
+  STAFF_ID_ASC
+  STAFF_ID_DESC
+  TRANS_AUDIT_DETAILS_ID_ASC
+  TRANS_AUDIT_DETAILS_ID_DESC
+  TRANS_AUDIT_ID_ASC
+  TRANS_AUDIT_ID_DESC
+  TRANS_AUDIT_TEAM_ID_ASC
+  TRANS_AUDIT_TEAM_ID_DESC
+  AUDIT_STD_ID_ASC
+  AUDIT_STD_ID_DESC
+  SCHEDULED_AT_ASC
+  SCHEDULED_AT_DESC
+  EXPECTED_END_AT_ASC
+  EXPECTED_END_AT_DESC
+  PERFORMED_DATE_ASC
+  PERFORMED_DATE_DESC
+  ENDED_AT_ASC
+  ENDED_AT_DESC
+  IS_PLANNED_ASC
+  IS_PLANNED_DESC
+  IS_IN_PROGRESS_ASC
+  IS_IN_PROGRESS_DESC
+  IS_DONE_ASC
+  IS_DONE_DESC
+  IS_OVERDUE_ASC
+  IS_OVERDUE_DESC
+  ITEM_COUNT_ASC
+  ITEM_COUNT_DESC
+  ANSWERED_COUNT_ASC
+  ANSWERED_COUNT_DESC
+  COMPLAINT_COUNT_ASC
+  COMPLAINT_COUNT_DESC
+  STATUS_LABEL_JA_ASC
+  STATUS_LABEL_JA_DESC
+  STATUS_LABEL_EN_ASC
+  STATUS_LABEL_EN_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 enum VComplaintKindsOrderBy {
   NATURAL
   COMPLAINT_KIND_ID_ASC
@@ -998,6 +1044,18 @@ enum VComplaintTargetsOrderBy {
   MISSING_EMPTY_COUNT_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
+}
+
+type AuditComplaintRegisterPayload {
+  transAuditComplaint: TransAuditComplaint
+}
+
+type AuditDetailFinishPayload {
+  transAuditDetail: TransAuditDetail
+}
+
+type AuditDetailStartPayload {
+  transAuditDetail: TransAuditDetail
 }
 
 type CreateTransAuditComplaintPayload {
@@ -1285,6 +1343,9 @@ type Mutation {
   updateTransRecurrencePreventionByTransRecurrencePreventionId(input: UpdateTransRecurrencePreventionByTransRecurrencePreventionIdInput!): UpdateTransRecurrencePreventionPayload
   updateTransRiskByTransRiskId(input: UpdateTransRiskByTransRiskIdInput!): UpdateTransRiskPayload
   updateTransTaskRiskByTransTaskRiskId(input: UpdateTransTaskRiskByTransTaskRiskIdInput!): UpdateTransTaskRiskPayload
+  auditComplaintRegister(input: AuditComplaintRegisterInput!): AuditComplaintRegisterPayload
+  auditDetailFinish(input: AuditDetailFinishInput!): AuditDetailFinishPayload
+  auditDetailStart(input: AuditDetailStartInput!): AuditDetailStartPayload
   transLabelSave(input: TransLabelSaveInput!): TransLabelSavePayload
   transTextSave(input: TransTextSaveInput!): TransTextSavePayload
 }
@@ -1323,6 +1384,7 @@ type Query {
   allTransRecurrencePreventions(first: Int, offset: Int, orderBy: [TransRecurrencePreventionsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransRecurrencePreventionFilter): TransRecurrencePreventionsConnection
   allTransRisks(first: Int, offset: Int, orderBy: [TransRisksOrderBy!] = [PRIMARY_KEY_ASC], filter: TransRiskFilter): TransRisksConnection
   allTransTaskRisks(first: Int, offset: Int, orderBy: [TransTaskRisksOrderBy!] = [PRIMARY_KEY_ASC], filter: TransTaskRiskFilter): TransTaskRisksConnection
+  allVAuditAssignments(first: Int, offset: Int, orderBy: [VAuditAssignmentsOrderBy!] = [PRIMARY_KEY_ASC], filter: VAuditAssignmentFilter): VAuditAssignmentsConnection
   allVComplaintKinds(first: Int, offset: Int, orderBy: [VComplaintKindsOrderBy!] = [PRIMARY_KEY_ASC], filter: VComplaintKindFilter): VComplaintKindsConnection
   allVComplaintTargets(first: Int, offset: Int, orderBy: [VComplaintTargetsOrderBy!] = [PRIMARY_KEY_ASC], filter: VComplaintTargetFilter): VComplaintTargetsConnection
   allVComplaintTargetVisiters(first: Int, offset: Int, orderBy: [VComplaintTargetVisitersOrderBy!] = [PRIMARY_KEY_ASC], filter: VComplaintTargetVisiterFilter): VComplaintTargetVisitersConnection
@@ -1437,6 +1499,7 @@ type TransAuditComplaint {
   updateUserId: UUID
   updateUserHistoryId: UUID
   remove: Boolean
+  transComplaintByTransComplaintId: TransComplaint
 }
 
 type TransAuditComplaintsConnection {
@@ -2163,6 +2226,35 @@ type UpdateTransTaskRiskPayload {
   transTaskRisk: TransTaskRisk
 }
 
+type VAuditAssignment {
+  transAuditorId: UUID!
+  staffId: UUID
+  transAuditDetailsId: UUID!
+  transAuditId: UUID
+  transAuditTeamId: UUID
+  auditStdId: UUID
+  scheduledAt: Datetime
+  expectedEndAt: Datetime
+  performedDate: Date
+  endedAt: Datetime
+  isPlanned: Boolean
+  isInProgress: Boolean
+  isDone: Boolean
+  isOverdue: Boolean
+  itemCount: Int
+  answeredCount: Int
+  complaintCount: Int
+  statusLabelJa: String
+  statusLabelEn: String
+  symbol: String
+}
+
+type VAuditAssignmentsConnection {
+  nodes: [VAuditAssignment]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type VAuditAuditMemberCount {
   transAuditId: UUID
 }
@@ -2328,6 +2420,26 @@ type VStakeholderStakeholderContactCount {
 
 type VStakeholderStakeholderProvisionCount {
   mstrStakeholderId: UUID
+}
+
+input AuditComplaintRegisterInput {
+  pItemId: UUID
+  pTitles: JSON
+  pDetails: JSON
+  pOccurredAt: Datetime
+  pStaffId: UUID
+}
+
+input AuditDetailFinishInput {
+  pAuditDetailsId: UUID
+  pConclusion: JSON
+  pForce: Boolean
+  pStaffId: UUID
+}
+
+input AuditDetailStartInput {
+  pAuditDetailsId: UUID
+  pStaffId: UUID
 }
 
 input BigFloatFilter {
@@ -3576,6 +3688,7 @@ input TransAuditComplaintFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  transComplaintByTransComplaintId: TransComplaintFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransAuditComplaintFilter!]
   or: [TransAuditComplaintFilter!]
@@ -3612,6 +3725,7 @@ input TransAuditDetailCheckItemFilter {
   remove: BooleanFilter
   transAuditComplaintsByTransAuditDetailCheckItemsId: TransAuditDetailCheckItemToManyTransAuditComplaintFilter
   transAuditComplaintsByTransAuditDetailCheckItemsIdExist: Boolean
+  vAuditItemByTransAuditDetailCheckItemsIdExists: Boolean
   historyMstrAuditStdCheckitemByAuditStdCheckitemHistoryIdAndAuditStdCheckitemId: HistoryMstrAuditStdCheckitemFilter
   transTextByFindings: TransTextFilter
   transTextByFindingsExists: Boolean
@@ -3666,6 +3780,8 @@ input TransAuditDetailFilter {
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
   transAuditDetailCheckItemsByTransAuditDetailsIdExist: Boolean
+  vAuditAssignmentsByTransAuditDetailsIdExist: Boolean
+  vAuditItemsByTransAuditDetailsIdExist: Boolean
   transAuditByTransAuditId: TransAuditFilter
   transLabelByNames: TransLabelFilter
   transAuditTeamByTransAuditTeamIdAndTransAuditId: TransAuditTeamFilter
@@ -3723,6 +3839,7 @@ input TransAuditFilter {
   transAuditMembersByTransAuditIdExist: Boolean
   transAuditTeamsByTransAuditIdExist: Boolean
   transAuditDetailsByTransAuditIdExist: Boolean
+  vAuditAssignmentsByTransAuditIdExist: Boolean
   vAuditAuditMemberCountByTransAuditId: VAuditAuditMemberCountFilter
   vAuditAuditMemberCountByTransAuditIdExists: Boolean
   vAuditAuditTeamCountByTransAuditId: VAuditAuditTeamCountFilter
@@ -3848,6 +3965,7 @@ input TransAuditorFilter {
   updateUserId: UUIDFilter
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
+  vAuditAssignmentsByTransAuditorIdExist: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransAuditorFilter!]
@@ -5044,6 +5162,35 @@ input UpdateTransRiskByTransRiskIdInput {
 input UpdateTransTaskRiskByTransTaskRiskIdInput {
   transTaskRiskPatch: TransTaskRiskPatch!
   transTaskRiskId: UUID!
+}
+
+input VAuditAssignmentFilter {
+  transAuditorId: UUIDFilter
+  staffId: UUIDFilter
+  transAuditDetailsId: UUIDFilter
+  transAuditId: UUIDFilter
+  transAuditTeamId: UUIDFilter
+  auditStdId: UUIDFilter
+  scheduledAt: DatetimeFilter
+  expectedEndAt: DatetimeFilter
+  performedDate: DateFilter
+  endedAt: DatetimeFilter
+  isPlanned: BooleanFilter
+  isInProgress: BooleanFilter
+  isDone: BooleanFilter
+  isOverdue: BooleanFilter
+  itemCount: IntFilter
+  answeredCount: IntFilter
+  complaintCount: IntFilter
+  statusLabelJa: StringFilter
+  statusLabelEn: StringFilter
+  symbol: StringFilter
+  transAuditDetailByTransAuditDetailsIdExists: Boolean
+  transAuditByTransAuditIdExists: Boolean
+  transAuditorByTransAuditorIdExists: Boolean
+  and: [VAuditAssignmentFilter!]
+  or: [VAuditAssignmentFilter!]
+  not: VAuditAssignmentFilter
 }
 
 input VAuditAuditMemberCountFilter {

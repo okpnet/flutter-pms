@@ -15,6 +15,7 @@ auditRun:
   team: 'チーム: ${name}'
   scheduled: '予定: ${date}'
   performed: '実施: ${date}'
+  progress: '入力済み ${done} / ${total} 項目'
   runTitle: 監査の実施
   back: 戻る
   tabItems: 項目

@@ -192,6 +192,18 @@ AuditItemPage:
       columns:
         - trans_audit_complaint_id
         - trans_complaint_id
+        - name: complaint
+          as: complaint
+          arrayType: toFirstOne
+          using: trans_complaint_id
+          from: trans_complaint
+          columns:
+            - trans_complaint_id
+            - name: labels
+              as: labels
+              arrayType: toFirstOne
+              using: titles
+              <<: *FlexibleLabelReadFields
     - symbol
     - remarks
     - update_at
@@ -266,3 +278,61 @@ AuditLabelSavePageCall:
   returns: transLabel
   columns:
     - trans_label_id
+
+# ---- DB のビュー・関数(Issue 20261122_0001。PERO の v_audit_assignment・audit_detail_*・audit_complaint_register)----
+
+# 監査の割り当て(1 行 = 監査実施詳細 × チームの監査員)。状態は boolean と文字をビューで 1 か所だけ定義する。画面は staff_id = 自分 で絞る
+AuditAssignmentPage:
+  lightRead: true
+  kind: read
+  from: v_audit_assignment
+  filter: true
+  columns:
+    - trans_auditor_id
+    - staff_id
+    - trans_audit_details_id
+    - trans_audit_id
+    - trans_audit_team_id
+    - audit_std_id
+    - scheduled_at
+    - expected_end_at
+    - performed_date
+    - ended_at
+    - is_planned
+    - is_in_progress
+    - is_done
+    - is_overdue
+    - item_count
+    - answered_count
+    - complaint_count
+    - status_label_ja
+    - status_label_en
+    - symbol
+
+# 実施の開始(実施日を今日にし、項目を用意する)
+AuditDetailStartPageCall:
+  kind: function
+  mutation: auditDetailStart
+  returns: transAuditDetail
+  columns:
+    - trans_audit_details_id
+    - performed_date
+
+# 実施の終了(結論は言語別の値の JSON。未入力の項目があれば止まる。pForce で押し切れる)
+AuditDetailFinishPageCall:
+  kind: function
+  mutation: auditDetailFinish
+  returns: transAuditDetail
+  columns:
+    - trans_audit_details_id
+    - ended_at
+
+# 異常の登録(題名・内容は言語別の値の JSON。異常とつなぎを 1 回で作る)
+AuditComplaintRegisterPageCall:
+  kind: function
+  mutation: auditComplaintRegister
+  returns: transAuditComplaint
+  columns:
+    - trans_audit_complaint_id
+    - trans_complaint_id
+    - trans_audit_detail_check_items_id

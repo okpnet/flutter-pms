@@ -14030,29 +14030,6 @@ $$ LANGUAGE sql STABLE;
 COMMENT ON FUNCTION tests.audit_is_member(uuid, uuid) IS '@omit
 担当者が、監査実施詳細のチームの監査員か(管理者は常に可)';
 
-CREATE OR REPLACE FUNCTION tests.audit_notice(p_days_before integer DEFAULT 3)
-RETURNS TABLE (
-    trans_audit_details_id uuid,
-    trans_audit_id uuid,
-    trans_audit_team_id uuid,
-    scheduled_at timestamp,
-    days_until integer,
-    is_overdue boolean,
-    is_in_progress boolean
-) AS $$
-    SELECT
-        a.trans_audit_details_id, a.trans_audit_id, a.trans_audit_team_id, a.scheduled_at,
-        (a.scheduled_at::date - current_date), a.is_overdue, a.is_in_progress
-    FROM tests.v_audit_assignment AS a
-    WHERE a.staff_id = NULLIF(current_setting('jwt.claims.staff_id', true), '')::uuid
-      AND NOT a.is_done
-      AND a.scheduled_at IS NOT NULL
-      AND a.scheduled_at < now() + make_interval(days => p_days_before)
-    ORDER BY a.scheduled_at, a.trans_audit_details_id
-$$ LANGUAGE sql STABLE;
-
-COMMENT ON FUNCTION tests.audit_notice(integer) IS '監査の通知(予定日をもとに導く。行は作らない)。呼び出した人(JWT の staff_id)がチームの監査員で、未終了で、予定日時が p_days_before 日以内(または過ぎた)の監査実施詳細を返す。days_until は予定日までの日数(過ぎたものは負)。予定日を変えると結果も変わる';
-
 CREATE TABLE tests.trans_audit_detail_check_items (
   trans_audit_detail_check_items_id uuid DEFAULT gen_random_uuid() NOT NULL,
   trans_audit_details_id uuid NOT NULL,
@@ -24014,6 +23991,29 @@ COMMENT ON COLUMN tests.v_audit_assignment.complaint_count IS '異常の件数';
 COMMENT ON COLUMN tests.v_audit_assignment.status_label_ja IS '状態の文字(日本語)';
 COMMENT ON COLUMN tests.v_audit_assignment.status_label_en IS '状態の文字(English)';
 COMMENT ON COLUMN tests.v_audit_assignment.symbol IS 'リニアシンボル';
+
+CREATE OR REPLACE FUNCTION tests.audit_notice(p_days_before integer DEFAULT 3)
+RETURNS TABLE (
+    trans_audit_details_id uuid,
+    trans_audit_id uuid,
+    trans_audit_team_id uuid,
+    scheduled_at timestamp,
+    days_until integer,
+    is_overdue boolean,
+    is_in_progress boolean
+) AS $$
+    SELECT
+        a.trans_audit_details_id, a.trans_audit_id, a.trans_audit_team_id, a.scheduled_at,
+        (a.scheduled_at::date - current_date), a.is_overdue, a.is_in_progress
+    FROM tests.v_audit_assignment AS a
+    WHERE a.staff_id = NULLIF(current_setting('jwt.claims.staff_id', true), '')::uuid
+      AND NOT a.is_done
+      AND a.scheduled_at IS NOT NULL
+      AND a.scheduled_at < now() + make_interval(days => p_days_before)
+    ORDER BY a.scheduled_at, a.trans_audit_details_id
+$$ LANGUAGE sql STABLE;
+
+COMMENT ON FUNCTION tests.audit_notice(integer) IS '監査の通知(予定日をもとに導く。行は作らない)。呼び出した人(JWT の staff_id)がチームの監査員で、未終了で、予定日時が p_days_before 日以内(または過ぎた)の監査実施詳細を返す。days_until は予定日までの日数(過ぎたものは負)。予定日を変えると結果も変わる';
 
 CREATE VIEW tests.v_audit_item AS
 SELECT

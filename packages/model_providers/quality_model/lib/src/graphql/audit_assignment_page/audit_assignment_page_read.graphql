@@ -1,0 +1,46 @@
+# audit_assignment_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #AuditAssignmentPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query AuditAssignmentPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VAuditAssignmentFilter = {and: []}
+  $orderBy: [VAuditAssignmentsOrderBy!]
+) {
+  allVAuditAssignments(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transAuditorId
+      staffId
+      transAuditDetailsId
+      transAuditId
+      transAuditTeamId
+      auditStdId
+      scheduledAt
+      expectedEndAt
+      performedDate
+      endedAt
+      isPlanned
+      isInProgress
+      isDone
+      isOverdue
+      itemCount
+      answeredCount
+      complaintCount
+      statusLabelJa
+      statusLabelEn
+      symbol
+    }
+  }
+}

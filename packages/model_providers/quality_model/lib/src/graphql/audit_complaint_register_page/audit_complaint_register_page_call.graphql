@@ -1,0 +1,28 @@
+# audit_complaint_register_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #AuditComplaintRegisterPageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AuditComplaintRegisterPageCall(
+  $pItemId: UUID
+  $pTitles: JSON
+  $pDetails: JSON
+  $pOccurredAt: Datetime
+  $pStaffId: UUID
+) {
+  auditComplaintRegister(
+    input: {
+      pItemId: $pItemId
+      pTitles: $pTitles
+      pDetails: $pDetails
+      pOccurredAt: $pOccurredAt
+      pStaffId: $pStaffId
+    }
+  ) {
+    transAuditComplaint {
+      transAuditComplaintId
+      transComplaintId
+      transAuditDetailCheckItemsId
+    }
+  }
+}

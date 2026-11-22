@@ -93,6 +93,9 @@ class QualityStrings$auditRun$ja {
 	/// ja: '実施: ${date}'
 	String performed({required Object date}) => '実施: ${date}';
 
+	/// ja: '入力済み ${done} / ${total} 項目'
+	String progress({required Object done, required Object total}) => '入力済み ${done} / ${total} 項目';
+
 	/// ja: '監査の実施'
 	String get runTitle => '監査の実施';
 
@@ -969,6 +972,7 @@ extension on QualityStrings {
 			'auditRun.team' => ({required Object name}) => 'チーム: ${name}',
 			'auditRun.scheduled' => ({required Object date}) => '予定: ${date}',
 			'auditRun.performed' => ({required Object date}) => '実施: ${date}',
+			'auditRun.progress' => ({required Object done, required Object total}) => '入力済み ${done} / ${total} 項目',
 			'auditRun.runTitle' => '監査の実施',
 			'auditRun.back' => '戻る',
 			'auditRun.tabItems' => '項目',

@@ -65,6 +65,7 @@ class _QualityStrings$auditRun$en extends QualityStrings$auditRun$ja {
 	@override String team({required Object name}) => 'Team: ${name}';
 	@override String scheduled({required Object date}) => 'Scheduled: ${date}';
 	@override String performed({required Object date}) => 'Performed: ${date}';
+	@override String progress({required Object done, required Object total}) => 'Answered ${done} / ${total} items';
 	@override String get runTitle => 'Conduct audit';
 	@override String get back => 'Back';
 	@override String get tabItems => 'Items';
@@ -672,6 +673,7 @@ extension on QualityStringsEn {
 			'auditRun.team' => ({required Object name}) => 'Team: ${name}',
 			'auditRun.scheduled' => ({required Object date}) => 'Scheduled: ${date}',
 			'auditRun.performed' => ({required Object date}) => 'Performed: ${date}',
+			'auditRun.progress' => ({required Object done, required Object total}) => 'Answered ${done} / ${total} items',
 			'auditRun.runTitle' => 'Conduct audit',
 			'auditRun.back' => 'Back',
 			'auditRun.tabItems' => 'Items',

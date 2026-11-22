@@ -81,6 +81,22 @@ query AuditItemPageRead(
         nodes {
           transAuditComplaintId
           transComplaintId
+
+          complaint: transComplaintByTransComplaintId {
+            transComplaintId
+
+            labels: transLabelByTitles {
+              transLabelId
+
+              value: transLabelValuesByTransLabelId(
+                condition: { sharedLanguageCodeId: $languageCodeId }
+              ) {
+                nodes {
+                  labelValue
+                }
+              }
+            }
+          }
         }
       }
 

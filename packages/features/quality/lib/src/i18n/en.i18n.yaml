@@ -15,6 +15,7 @@ auditRun:
   team: 'Team: ${name}'
   scheduled: 'Scheduled: ${date}'
   performed: 'Performed: ${date}'
+  progress: 'Answered ${done} / ${total} items'
   runTitle: Conduct audit
   back: Back
   tabItems: Items

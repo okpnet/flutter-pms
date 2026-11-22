@@ -1,0 +1,21 @@
+# audit_detail_start_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #AuditDetailStartPageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AuditDetailStartPageCall(
+  $pAuditDetailsId: UUID
+  $pStaffId: UUID
+) {
+  auditDetailStart(
+    input: {
+      pAuditDetailsId: $pAuditDetailsId
+      pStaffId: $pStaffId
+    }
+  ) {
+    transAuditDetail {
+      transAuditDetailsId
+      performedDate
+    }
+  }
+}

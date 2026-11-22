@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// 自分に割り当てられた監査実施詳細 1 件(監査の計画の 1 行。チーム・予定・実績)。
 ///
-/// 状態の判定は、DB のビュー `v_audit_assignment`(提案。Issue 20261122_0001)ができるまで、日付の有無(boolean)で行う。
+/// 状態の判定は、DB のビュー `v_audit_assignment` の列(boolean・文字・件数)を使う(Issue 20261122_0001)。ビューの列が無い取得元(メモリ上)は、日付の有無で導く。
 class AuditAssignment {
   const AuditAssignment({
     required this.id,
@@ -14,6 +14,14 @@ class AuditAssignment {
     this.performedDate,
     this.endedAt,
     this.conclusion = '',
+    this.planned,
+    this.inProgress,
+    this.done,
+    this.overdue,
+    this.statusLabel = '',
+    this.itemCount = 0,
+    this.answeredCount = 0,
+    this.complaintCount = 0,
   });
 
   /// 監査実施詳細の ID。
@@ -31,17 +39,37 @@ class AuditAssignment {
   final DateTime? endedAt;
   final String conclusion;
 
-  bool get isDone => endedAt != null;
-  bool get isInProgress => performedDate != null && endedAt == null;
-  bool get isPlanned => performedDate == null && endedAt == null;
+  /// ビューの列(あれば、こちらを使う)。
+  final bool? planned;
+  final bool? inProgress;
+  final bool? done;
+  final bool? overdue;
 
-  /// 予定日時を過ぎて未着手([now] 時点)。
-  bool isOverdue(DateTime now) => isPlanned && scheduledAt != null && scheduledAt!.isBefore(now);
+  /// 状態の文字(ビューの `status_label_ja/en`。無いときは画面の文字)。
+  final String statusLabel;
+  final int itemCount;
+  final int answeredCount;
+  final int complaintCount;
+
+  bool get isDone => done ?? endedAt != null;
+  bool get isInProgress => inProgress ?? (performedDate != null && endedAt == null);
+  bool get isPlanned => planned ?? (performedDate == null && endedAt == null);
+
+  /// 予定日時を過ぎて未着手([now] 時点)。ビューの列があるときは、その値。
+  bool isOverdue(DateTime now) => overdue ?? (isPlanned && scheduledAt != null && scheduledAt!.isBefore(now));
 
   /// 表示する名称(監査実施詳細の名称。無いときは監査の名称)。
   String get title => name.isEmpty ? auditName : name;
 
   AuditAssignment copyWith({DateTime? performedDate, DateTime? endedAt, String? conclusion}) => AuditAssignment(
+    planned: performedDate != null || endedAt != null ? null : planned,
+    inProgress: performedDate != null || endedAt != null ? null : inProgress,
+    done: performedDate != null || endedAt != null ? null : done,
+    overdue: performedDate != null || endedAt != null ? null : overdue,
+    statusLabel: performedDate != null || endedAt != null ? '' : statusLabel,
+    itemCount: itemCount,
+    answeredCount: answeredCount,
+    complaintCount: complaintCount,
     id: id,
     auditName: auditName,
     name: name,
@@ -113,8 +141,8 @@ class AuditItem {
 
 /// 監査を実施する側の取得元。アプリが GraphQL 版に差し替える(Strategy)。
 ///
-/// 開始・終了・異常の登録は、DB の関数(`audit_detail_start`・`audit_detail_finish`・`audit_complaint_register`。提案)の導入後に
-/// GraphQL 版を実装する。それまで、GraphQL 版はこれらで [UnsupportedError] を投げる。
+/// 開始・終了・異常の登録は、DB の関数(`audit_detail_start`・`audit_detail_finish`・`audit_complaint_register`)で行う(1 回の呼び出し = 1 トランザクション)。
+/// 失敗(チームの監査員でない・未入力の項目がある・終了した監査など)は、例外で返る。
 abstract interface class IAuditRunGateway {
   /// 自分(ログイン中の担当者)がチームの監査員になっている監査実施詳細(検索なし)。
   Future<List<AuditAssignment>> myAssignments();

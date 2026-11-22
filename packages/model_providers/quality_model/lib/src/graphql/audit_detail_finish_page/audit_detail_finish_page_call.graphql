@@ -1,0 +1,25 @@
+# audit_detail_finish_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #AuditDetailFinishPageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AuditDetailFinishPageCall(
+  $pAuditDetailsId: UUID
+  $pConclusion: JSON
+  $pForce: Boolean
+  $pStaffId: UUID
+) {
+  auditDetailFinish(
+    input: {
+      pAuditDetailsId: $pAuditDetailsId
+      pConclusion: $pConclusion
+      pForce: $pForce
+      pStaffId: $pStaffId
+    }
+  ) {
+    transAuditDetail {
+      transAuditDetailsId
+      endedAt
+    }
+  }
+}

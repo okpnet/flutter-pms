@@ -77,7 +77,11 @@ class _FakeLink extends Link {
               },
               'complaints': {
                 'nodes': [
-                  {'transAuditComplaintId': 'l1', 'transComplaintId': 'c1'},
+                  {
+                    'transAuditComplaintId': 'l1',
+                    'transComplaintId': 'c1',
+                    'complaint': {'labels': _label('教育訓練の記録なし')},
+                  },
                 ],
               },
             },
@@ -89,6 +93,39 @@ class _FakeLink extends Link {
               'complaints': {'nodes': []},
             },
           ],
+        },
+      },
+      'AuditAssignmentPageRead' => {
+        'allVAuditAssignments': {
+          'nodes': [
+            {
+              'transAuditDetailsId': 'd1',
+              'isPlanned': false,
+              'isInProgress': true,
+              'isDone': false,
+              'isOverdue': false,
+              'itemCount': 5,
+              'answeredCount': 2,
+              'complaintCount': 1,
+              'statusLabelJa': '実施中',
+              'statusLabelEn': 'In progress',
+            },
+          ],
+        },
+      },
+      'AuditDetailStartPageCall' => {
+        'auditDetailStart': {
+          'transAuditDetail': {'transAuditDetailsId': 'd1', 'performedDate': '2026-12-03'},
+        },
+      },
+      'AuditDetailFinishPageCall' => {
+        'auditDetailFinish': {
+          'transAuditDetail': {'transAuditDetailsId': 'd1', 'endedAt': '2026-12-03T17:00:00'},
+        },
+      },
+      'AuditComplaintRegisterPageCall' => {
+        'auditComplaintRegister': {
+          'transAuditComplaint': {'transAuditComplaintId': 'l9', 'transComplaintId': 'c9', 'transAuditDetailCheckItemsId': 'i1'},
         },
       },
       'AuditTextSavePageCall' => {
@@ -120,17 +157,14 @@ void main() {
     gw = GraphqlAuditRunGateway(GraphQLClient(link: link, cache: GraphQLCache()), auditUser: () async => _au);
   });
 
-  test('自分の監査は、チームの監査員が自分のものに絞って読む(検索なし)', () async {
+  test('自分の監査は、ビュー(staff_id = 自分)の割り当てを読み、名称は監査実施詳細から引く(検索なし)', () async {
     final rows = await gw.myAssignments();
-    final filter = link.varsOf('AuditDetailPageRead').single['filter'] as Map;
-    expect(filter, {
-      'transAuditTeamByTransAuditTeamIdAndTransAuditId': {
-        'transAuditorsByTransAuditTeamId': {
-          'some': {
-            'staffId': {'equalTo': 'st1'},
-            'remove': {'equalTo': false},
-          },
-        },
+    expect(link.varsOf('AuditAssignmentPageRead').single['filter'], {
+      'staffId': {'equalTo': 'st1'},
+    });
+    expect(link.varsOf('AuditDetailPageRead').single['filter'], {
+      'transAuditDetailsId': {
+        'in': ['d1'],
       },
     });
     final a = rows.single;
@@ -138,8 +172,22 @@ void main() {
     expect(a.auditName, '内部監査');
     expect(a.teamName, 'チームA');
     expect(a.scheduledAt, DateTime(2026, 12, 3, 9));
-    expect(a.isInProgress, isTrue);
     expect(a.conclusion, '指摘なし');
+    // 状態は、ビューの boolean・文字・件数
+    expect(a.isInProgress, isTrue);
+    expect(a.isPlanned, isFalse);
+    expect(a.isOverdue(DateTime(2030)), isFalse); // ビューの値が優先(日付から導かない)
+    expect(a.statusLabel, '実施中');
+    expect((a.itemCount, a.answeredCount, a.complaintCount), (5, 2, 1));
+  });
+
+  test('割り当てが無い(ビューが空)ときは、名称を読まない', () async {
+    final empty = GraphqlAuditRunGateway(
+      GraphQLClient(link: _EmptyViewLink(link), cache: GraphQLCache()),
+      auditUser: () async => _au,
+    );
+    expect(await empty.myAssignments(), isEmpty);
+    expect(link.varsOf('AuditDetailPageRead'), isEmpty);
   });
 
   test('ログインしていないとき(担当者が無い)は、空', () async {
@@ -155,6 +203,7 @@ void main() {
     expect(items.first.value, '3');
     expect(items.first.findings, '一部未実施');
     expect(items.first.complaints.single.complaintId, 'c1');
+    expect(items.first.complaints.single.title, '教育訓練の記録なし');
     expect(items.first.answered, isTrue);
     expect(items.last.answered, isFalse);
     expect(link.varsOf('AuditItemPageRead').single['filter'], {
@@ -180,9 +229,39 @@ void main() {
     expect(edit['updateUserId'], 'st1');
   });
 
-  test('開始・終了・異常の登録は、DB の関数の導入前は未対応', () async {
-    await expectLater(gw.start('d1'), throwsUnsupportedError);
-    await expectLater(gw.finish('d1', conclusion: ''), throwsUnsupportedError);
-    await expectLater(gw.registerComplaint('i1', title: 't', details: 'd'), throwsUnsupportedError);
+  test('開始・終了・異常の登録は、DB の関数(1 トランザクション)を呼ぶ', () async {
+    await gw.start('d1');
+    expect(link.varsOf('AuditDetailStartPageCall').single, {'pAuditDetailsId': 'd1', 'pStaffId': 'st1'});
+
+    await gw.finish('d1', conclusion: ' 指摘なし ');
+    final f = link.varsOf('AuditDetailFinishPageCall').single;
+    expect(f['pAuditDetailsId'], 'd1');
+    expect(f['pConclusion'], '{"ja":"指摘なし"}');
+    expect(f['pForce'], isTrue);
+    await gw.finish('d1', conclusion: '');
+    expect(link.varsOf('AuditDetailFinishPageCall').last.containsKey('pConclusion'), isFalse);
+
+    final ref = await gw.registerComplaint('i1', title: '記録なし', details: '3 名分');
+    final r = link.varsOf('AuditComplaintRegisterPageCall').single;
+    expect(r['pItemId'], 'i1');
+    expect(r['pTitles'], '{"ja":"記録なし"}');
+    expect(r['pDetails'], '{"ja":"3 名分"}');
+    expect(ref.complaintId, 'c9');
+    expect(ref.title, '記録なし');
   });
+}
+
+/// ビューの読み込みだけ、空を返す代役(ほかは元の代役へ渡す)。
+class _EmptyViewLink extends Link {
+  _EmptyViewLink(this.inner);
+
+  final _FakeLink inner;
+
+  @override
+  Stream<Response> request(Request request, [NextLink? forward]) {
+    if (_op(request) == 'AuditAssignmentPageRead') {
+      return Stream.value(Response(data: {'__typename': 'Query', 'allVAuditAssignments': {'nodes': []}}, response: const {}));
+    }
+    return inner.request(request, forward);
+  }
 }
