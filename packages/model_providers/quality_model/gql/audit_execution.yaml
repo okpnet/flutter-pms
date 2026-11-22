@@ -1,0 +1,268 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 監査の実施(監査実施詳細・監査実施詳細項目・監査の異常。Issue 20261122_0001)。
+# 階層: 監査(trans_audit。計画の文書)→ 監査実施詳細(trans_audit_details。チーム・予定・実績)→ 監査実施詳細項目(trans_audit_detail_check_items。基準 = 監査標準項目、事実 = 値・所見)
+#       → 監査の異常(trans_audit_complaint。不適合のとき、是正処置を求める異常 trans_complaint とのつなぎ)。
+# 「自分の監査」は、監査実施詳細を、チームの監査員(trans_auditor)が自分のものに絞って読む($filter の関係の条件)。
+
+# 文章(全文)。所見・結論は、先頭の文(lead_text)だけでなく、全文(text_value)を読む
+AuditFullTextReadFields: &AuditFullTextReadFields
+  kind: read
+  from: trans_text
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - trans_text_id
+    - name: value
+      arrayType: toFirstOne
+      using: trans_text_id
+      from: trans_text_value
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+      columns:
+        - text_value
+        - name: language
+          arrayType: toFirstOne
+          from: shared_language_code
+          output: false
+          requiredWhere:
+            - column: code
+              as: languageCode
+          defaultWhere:
+            - column: remove
+              operator: "="
+              value: false
+
+# 監査実施詳細(予定日時・チーム・実績。名称は言語 languageCode)
+AuditDetailPage:
+  kind: read
+  from: trans_audit_details
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - trans_audit_details_id
+    - trans_audit_id
+    - audit_std_history_id
+    - audit_std_id
+    - trans_audit_team_id
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      <<: *FlexibleLabelReadFields
+    - name: conclusionText
+      as: conclusionText
+      arrayType: toFirstOne
+      using: conclusion
+      <<: *AuditFullTextReadFields
+    - name: audit
+      as: audit
+      arrayType: toFirstOne
+      using: trans_audit_id
+      from: trans_audit
+      columns:
+        - trans_audit_id
+        - name: labels
+          as: labels
+          arrayType: toFirstOne
+          using: titles
+          <<: *FlexibleLabelReadFields
+    - name: team
+      as: team
+      arrayType: toFirstOne
+      using: [trans_audit_team_id, trans_audit_id]
+      from: trans_audit_team
+      columns:
+        - trans_audit_team_id
+        - name: labels
+          as: labels
+          arrayType: toFirstOne
+          using: names
+          <<: *FlexibleLabelReadFields
+    - scheduled_at
+    - expected_end_at
+    - performed_date
+    - ended_at
+    - symbol
+    - remarks
+    - update_at
+
+# 監査実施詳細の更新(実施日・終了日時・結論。渡した列だけが変わる)。論理削除は AuditDetailPageRemove
+AuditDetailPageEdit:
+  kind: edit
+  from: trans_audit_details
+  requiredWhere:
+    - trans_audit_details_id
+  generateRfe: true
+  withUpdater: true
+  columns:
+    - trans_audit_details_id
+    - scheduled_at
+    - expected_end_at
+    - performed_date
+    - ended_at
+    - conclusion
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+AuditDetailPageCreate:
+  kind: create
+  from: trans_audit_details
+  columns:
+    - trans_audit_id
+    - audit_std_history_id
+    - audit_std_id
+    - names
+    - trans_audit_team_id
+    - scheduled_at
+    - expected_end_at
+    - remarks
+    - update_user_id
+    - update_user_history_id
+
+# 監査実施詳細項目(基準 = 監査標準項目の履歴、事実 = 式に対する値・所見、つないだ異常)
+AuditItemPage:
+  kind: read
+  from: trans_audit_detail_check_items
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - trans_audit_detail_check_items_id
+    - trans_audit_details_id
+    - audit_std_checkitem_history_id
+    - audit_std_checkitem_id
+    - formula_value
+    - name: findingsText
+      as: findingsText
+      arrayType: toFirstOne
+      using: findings
+      <<: *AuditFullTextReadFields
+    - name: standard
+      as: standard
+      arrayType: toFirstOne
+      using: [audit_std_checkitem_history_id, audit_std_checkitem_id]
+      from: history_mstr_audit_std_checkitem
+      columns:
+        - history_id
+        - mstr_audit_std_checkitem_id
+        - code
+        - type_class
+        - formula_class
+        - arg_class
+        # 名称は、履歴の表に呼称への外部キーが無いため、現行のマスタ(mstr_audit_std_checkitem)から読む
+        - name: master
+          as: master
+          arrayType: toFirstOne
+          using: mstr_audit_std_checkitem_id
+          from: mstr_audit_std_checkitem
+          columns:
+            - mstr_audit_std_checkitem_id
+            - name: labels
+              as: labels
+              arrayType: toFirstOne
+              using: names
+              pick:
+                - name
+              <<: *AppellationLabelsReadFields
+    - name: complaints
+      as: complaints
+      arrayType: toMany
+      using: trans_audit_detail_check_items_id
+      from: trans_audit_complaint
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+      columns:
+        - trans_audit_complaint_id
+        - trans_complaint_id
+    - symbol
+    - remarks
+    - update_at
+
+# 監査実施詳細項目の更新(値・所見。渡した列だけが変わる)
+AuditItemPageEdit:
+  kind: edit
+  from: trans_audit_detail_check_items
+  requiredWhere:
+    - trans_audit_detail_check_items_id
+  generateRfe: true
+  withUpdater: true
+  columns:
+    - trans_audit_detail_check_items_id
+    - formula_value
+    - findings
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+AuditItemPageCreate:
+  kind: create
+  from: trans_audit_detail_check_items
+  columns:
+    - trans_audit_details_id
+    - audit_std_checkitem_history_id
+    - audit_std_checkitem_id
+    - formula_value
+    - findings
+    - remarks
+    - update_user_id
+    - update_user_history_id
+
+# 監査の異常(項目と異常のつなぎ。取り消しは AuditComplaintLinkPageRemove)
+AuditComplaintLinkPageCreate:
+  kind: create
+  from: trans_audit_complaint
+  columns:
+    - trans_complaint_id
+    - trans_audit_detail_check_items_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+
+AuditComplaintLinkPageEdit:
+  kind: edit
+  from: trans_audit_complaint
+  requiredWhere:
+    - trans_audit_complaint_id
+  generateRfe: true
+  withUpdater: true
+  columns:
+    - trans_audit_complaint_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 共通関数(kind: function)。文章(所見・結論)を、言語別の値で作る・変える
+AuditTextSavePageCall:
+  kind: function
+  mutation: transTextSave
+  returns: transText
+  columns:
+    - trans_text_id
+
+# ラベル(監査名)
+AuditLabelSavePageCall:
+  kind: function
+  mutation: transLabelSave
+  returns: transLabel
+  columns:
+    - trans_label_id

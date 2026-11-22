@@ -575,6 +575,15 @@ features:
         code: V
         page: QV
         label: 監査参加者
+      - screen: myaudits
+        code: Y
+        page: QY
+        label: 自分の監査
+      - screen: auditrun
+        code: X
+        page: QX
+        label: 監査の実施
+
   - feature: maintenance
     code: M
     label: メンテナンス

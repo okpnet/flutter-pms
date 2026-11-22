@@ -1,0 +1,93 @@
+# audit_item_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #AuditItemPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query AuditItemPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransAuditDetailCheckItemFilter = {and: []}
+  $orderBy: [TransAuditDetailCheckItemsOrderBy!]
+  $languageCodeId: UUID!
+  $complaintsOrderBy: [TransAuditComplaintsOrderBy!]
+  $removed: Boolean = false
+) {
+  allTransAuditDetailCheckItems(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transAuditDetailCheckItemsId
+      transAuditDetailsId
+      auditStdCheckitemHistoryId
+      auditStdCheckitemId
+      formulaValue
+
+      findingsText: transTextByFindings {
+        transTextId
+
+        value: transTextValuesByTransTextId(
+          condition: { sharedLanguageCodeId: $languageCodeId }
+        ) {
+          nodes {
+            textValue
+          }
+        }
+      }
+
+      standard: historyMstrAuditStdCheckitemByAuditStdCheckitemHistoryIdAndAuditStdCheckitemId {
+        historyId
+        mstrAuditStdCheckitemId
+        code
+        typeClass
+        formulaClass
+        argClass
+
+        master: mstrAuditStdCheckitemByMstrAuditStdCheckitemId {
+          mstrAuditStdCheckitemId
+
+          labels: sharedAppellationByNames {
+            sharedAppellationsId
+            sharedDictionaryBySharedDictionaryNameId {
+              sharedDictionaryId
+              value: sharedDictionaryValuesBySharedDictionaryId(
+                condition: { sharedLanguageCodeId: $languageCodeId }
+              ) {
+                nodes {
+                  dictionaryValue
+                }
+              }
+            }
+          }
+        }
+      }
+
+      complaints: transAuditComplaintsByTransAuditDetailCheckItemsId(
+        orderBy: $complaintsOrderBy
+        filter: { remove: { equalTo: false } }
+      ) {
+        totalCount
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        nodes {
+          transAuditComplaintId
+          transComplaintId
+        }
+      }
+
+      symbol
+      remarks
+      updateAt
+      remove
+    }
+  }
+}

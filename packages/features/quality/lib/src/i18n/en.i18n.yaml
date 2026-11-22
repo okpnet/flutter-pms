@@ -1,3 +1,52 @@
+# Screens for the auditor side (hand-written. Above this line is not rewritten by generation)
+auditRun:
+  myTitle: My audits
+  myHint: Audits assigned to your team. In-progress audits come first, then by scheduled date.
+  sectionInProgress: In progress
+  sectionPlanned: Planned
+  sectionDone: Done
+  empty: No audits are assigned to you.
+  loadFailed: Could not load the audits.
+  refresh: Reload
+  statusInProgress: In progress
+  statusPlanned: Planned
+  statusDone: Done
+  statusOverdue: Overdue
+  team: 'Team: ${name}'
+  scheduled: 'Scheduled: ${date}'
+  performed: 'Performed: ${date}'
+  runTitle: Conduct audit
+  back: Back
+  tabItems: Items
+  tabComplaints: Nonconformities
+  start: Start audit
+  finish: Finish audit
+  conclusion: Conclusion
+  finishTitle: Finish the audit
+  cancel: Cancel
+  ok: Finish
+  noItems: There are no items. Starting the audit prepares the items of the audit standard.
+  itemValue: Value
+  itemFindings: Findings (comment)
+  save: Save
+  saved: Saved.
+  saveFailed: Could not save.
+  answered: Answered
+  unanswered: Not answered
+  complaintCount: '${n} nonconformities'
+  enterComplaint: Enter nonconformity
+  backToItem: Back to items
+  complaintItem: Item
+  complaintTitle: Title
+  complaintDetails: Details
+  register: Register nonconformity
+  registered: Registered.
+  registerFailed: Could not register.
+  titleRequired: Enter a title.
+  itemRequired: Choose an item.
+  complaintsOfItem: Nonconformities of this item
+  noComplaints: No nonconformities for this item.
+  actionFailed: The operation failed.
 # Quality control strings (English). Keys missing here fall back to the base language (ja).
 menu:
   group: "Quality control"

@@ -1,0 +1,33 @@
+# audit_item_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #AuditItemPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AuditItemPageEdit(
+  $transAuditDetailCheckItemsId: UUID!
+  $formulaValue: JSON
+  $findings: UUID
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  updateTransAuditDetailCheckItemByTransAuditDetailCheckItemsId(
+    input: {
+      transAuditDetailCheckItemsId: $transAuditDetailCheckItemsId
+      transAuditDetailCheckItemPatch: {
+        formulaValue: $formulaValue
+        findings: $findings
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    transAuditDetailCheckItem {
+      transAuditDetailCheckItemsId
+      formulaValue
+      findings
+      remarks
+    }
+  }
+}

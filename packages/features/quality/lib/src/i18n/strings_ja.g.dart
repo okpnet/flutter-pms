@@ -35,8 +35,159 @@ class QualityStrings with BaseTranslations<QualityLocale, QualityStrings> {
 	QualityStrings $copyWith({TranslationMetadata<QualityLocale, QualityStrings>? meta}) => QualityStrings(meta: meta ?? this.$meta);
 
 	// Translations
+	late final QualityStrings$auditRun$ja auditRun = QualityStrings$auditRun$ja.internal(_root);
 	late final QualityStrings$menu$ja menu = QualityStrings$menu$ja.internal(_root);
 	late final QualityStrings$entity$ja entity = QualityStrings$entity$ja.internal(_root);
+}
+
+// Path: auditRun
+class QualityStrings$auditRun$ja {
+	QualityStrings$auditRun$ja.internal(this._root);
+
+	final QualityStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '自分の監査'
+	String get myTitle => '自分の監査';
+
+	/// ja: '自分のチームに割り当てられた監査です。実施中のものを上に、予定日の近い順に並びます。'
+	String get myHint => '自分のチームに割り当てられた監査です。実施中のものを上に、予定日の近い順に並びます。';
+
+	/// ja: '実施中'
+	String get sectionInProgress => '実施中';
+
+	/// ja: '予定'
+	String get sectionPlanned => '予定';
+
+	/// ja: '完了'
+	String get sectionDone => '完了';
+
+	/// ja: '割り当てられた監査はありません。'
+	String get empty => '割り当てられた監査はありません。';
+
+	/// ja: '監査を読み込めませんでした。'
+	String get loadFailed => '監査を読み込めませんでした。';
+
+	/// ja: '再読み込み'
+	String get refresh => '再読み込み';
+
+	/// ja: '実施中'
+	String get statusInProgress => '実施中';
+
+	/// ja: '予定'
+	String get statusPlanned => '予定';
+
+	/// ja: '完了'
+	String get statusDone => '完了';
+
+	/// ja: '予定超過'
+	String get statusOverdue => '予定超過';
+
+	/// ja: 'チーム: ${name}'
+	String team({required Object name}) => 'チーム: ${name}';
+
+	/// ja: '予定: ${date}'
+	String scheduled({required Object date}) => '予定: ${date}';
+
+	/// ja: '実施: ${date}'
+	String performed({required Object date}) => '実施: ${date}';
+
+	/// ja: '監査の実施'
+	String get runTitle => '監査の実施';
+
+	/// ja: '戻る'
+	String get back => '戻る';
+
+	/// ja: '項目'
+	String get tabItems => '項目';
+
+	/// ja: '異常'
+	String get tabComplaints => '異常';
+
+	/// ja: '実施を開始'
+	String get start => '実施を開始';
+
+	/// ja: '実施を終了'
+	String get finish => '実施を終了';
+
+	/// ja: '結論'
+	String get conclusion => '結論';
+
+	/// ja: '監査の実施を終了'
+	String get finishTitle => '監査の実施を終了';
+
+	/// ja: 'キャンセル'
+	String get cancel => 'キャンセル';
+
+	/// ja: '終了する'
+	String get ok => '終了する';
+
+	/// ja: '項目がありません。実施を開始すると、監査標準の項目が用意されます。'
+	String get noItems => '項目がありません。実施を開始すると、監査標準の項目が用意されます。';
+
+	/// ja: '値'
+	String get itemValue => '値';
+
+	/// ja: '所見(コメント)'
+	String get itemFindings => '所見(コメント)';
+
+	/// ja: '保存'
+	String get save => '保存';
+
+	/// ja: '保存しました。'
+	String get saved => '保存しました。';
+
+	/// ja: '保存できませんでした。'
+	String get saveFailed => '保存できませんでした。';
+
+	/// ja: '入力済み'
+	String get answered => '入力済み';
+
+	/// ja: '未入力'
+	String get unanswered => '未入力';
+
+	/// ja: '異常 ${n} 件'
+	String complaintCount({required Object n}) => '異常 ${n} 件';
+
+	/// ja: '異常を入力'
+	String get enterComplaint => '異常を入力';
+
+	/// ja: '項目へ戻る'
+	String get backToItem => '項目へ戻る';
+
+	/// ja: '対象の項目'
+	String get complaintItem => '対象の項目';
+
+	/// ja: '異常の題名'
+	String get complaintTitle => '異常の題名';
+
+	/// ja: '内容'
+	String get complaintDetails => '内容';
+
+	/// ja: '異常を登録'
+	String get register => '異常を登録';
+
+	/// ja: '登録しました。'
+	String get registered => '登録しました。';
+
+	/// ja: '登録できませんでした。'
+	String get registerFailed => '登録できませんでした。';
+
+	/// ja: '題名を入れてください。'
+	String get titleRequired => '題名を入れてください。';
+
+	/// ja: '対象の項目を選んでください。'
+	String get itemRequired => '対象の項目を選んでください。';
+
+	/// ja: 'この項目の異常'
+	String get complaintsOfItem => 'この項目の異常';
+
+	/// ja: 'この項目に異常はありません。'
+	String get noComplaints => 'この項目に異常はありません。';
+
+	/// ja: '操作できませんでした。'
+	String get actionFailed => '操作できませんでした。';
 }
 
 // Path: menu
@@ -803,6 +954,53 @@ class QualityStrings$entity$auditmember$fields$ja {
 extension on QualityStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'auditRun.myTitle' => '自分の監査',
+			'auditRun.myHint' => '自分のチームに割り当てられた監査です。実施中のものを上に、予定日の近い順に並びます。',
+			'auditRun.sectionInProgress' => '実施中',
+			'auditRun.sectionPlanned' => '予定',
+			'auditRun.sectionDone' => '完了',
+			'auditRun.empty' => '割り当てられた監査はありません。',
+			'auditRun.loadFailed' => '監査を読み込めませんでした。',
+			'auditRun.refresh' => '再読み込み',
+			'auditRun.statusInProgress' => '実施中',
+			'auditRun.statusPlanned' => '予定',
+			'auditRun.statusDone' => '完了',
+			'auditRun.statusOverdue' => '予定超過',
+			'auditRun.team' => ({required Object name}) => 'チーム: ${name}',
+			'auditRun.scheduled' => ({required Object date}) => '予定: ${date}',
+			'auditRun.performed' => ({required Object date}) => '実施: ${date}',
+			'auditRun.runTitle' => '監査の実施',
+			'auditRun.back' => '戻る',
+			'auditRun.tabItems' => '項目',
+			'auditRun.tabComplaints' => '異常',
+			'auditRun.start' => '実施を開始',
+			'auditRun.finish' => '実施を終了',
+			'auditRun.conclusion' => '結論',
+			'auditRun.finishTitle' => '監査の実施を終了',
+			'auditRun.cancel' => 'キャンセル',
+			'auditRun.ok' => '終了する',
+			'auditRun.noItems' => '項目がありません。実施を開始すると、監査標準の項目が用意されます。',
+			'auditRun.itemValue' => '値',
+			'auditRun.itemFindings' => '所見(コメント)',
+			'auditRun.save' => '保存',
+			'auditRun.saved' => '保存しました。',
+			'auditRun.saveFailed' => '保存できませんでした。',
+			'auditRun.answered' => '入力済み',
+			'auditRun.unanswered' => '未入力',
+			'auditRun.complaintCount' => ({required Object n}) => '異常 ${n} 件',
+			'auditRun.enterComplaint' => '異常を入力',
+			'auditRun.backToItem' => '項目へ戻る',
+			'auditRun.complaintItem' => '対象の項目',
+			'auditRun.complaintTitle' => '異常の題名',
+			'auditRun.complaintDetails' => '内容',
+			'auditRun.register' => '異常を登録',
+			'auditRun.registered' => '登録しました。',
+			'auditRun.registerFailed' => '登録できませんでした。',
+			'auditRun.titleRequired' => '題名を入れてください。',
+			'auditRun.itemRequired' => '対象の項目を選んでください。',
+			'auditRun.complaintsOfItem' => 'この項目の異常',
+			'auditRun.noComplaints' => 'この項目に異常はありません。',
+			'auditRun.actionFailed' => '操作できませんでした。',
 			'menu.group' => '品質管理',
 			'entity.complaint.title' => '異常',
 			'entity.complaint.fields.f_occurent_at' => '発生年月日',

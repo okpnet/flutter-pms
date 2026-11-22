@@ -27,6 +27,7 @@ import 'package:organization/organization.dart'
         organizationRepositories,
         staffHistoryLookup;
 import 'package:resource/resource.dart' show resourceRepositories;
+import 'package:quality/quality.dart' show GraphqlAuditRunGateway, InMemoryAuditRunGateway, auditRunGatewayProvider;
 import 'package:production_process/production_process.dart'
     show productionProcessRepositories;
 import 'package:work_record/work_record.dart'
@@ -167,6 +168,12 @@ List<Override> graphqlOverrides() => [
     final client = ref.watch(graphqlClientProvider);
     if (client == null) return InMemoryApprovalDefaultsGateway();
     return GraphqlApprovalDefaultsGateway(client, auditUser: ref.watch(auditUserProvider));
+  }),
+  // 監査の実施(自分の監査・項目・異常)。接続先が無いときはメモリ上
+  auditRunGatewayProvider.overrideWith((ref) {
+    final client = ref.watch(graphqlClientProvider);
+    if (client == null) return InMemoryAuditRunGateway();
+    return GraphqlAuditRunGateway(client, auditUser: ref.watch(auditUserProvider));
   }),
   // 承認の段(承認パターンの編集の表。ドラッグで並べ替え)。接続先が無いときはメモリ上
   approvalStepsGatewayProvider.overrideWith((ref) {

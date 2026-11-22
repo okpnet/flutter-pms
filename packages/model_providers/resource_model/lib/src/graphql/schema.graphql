@@ -2101,6 +2101,9 @@ input HistoryInfoStaffFilter {
   transInventoryAppliesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transMrpPeggingsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transMrpLoadsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transAuditDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transAuditDetailCheckItemsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transAuditComplaintsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   vMrpPendingSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   vMrpRunsByStaffHistoryIdAndStaffIdExist: Boolean
   vMrpSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -3886,6 +3889,7 @@ input TransLabelFilter {
   transRecurrencePreventionsByTitlesExist: Boolean
   transInspectImpFilesByTitlesExist: Boolean
   transCertificatesByTitlesExist: Boolean
+  transAuditDetailsByNamesExist: Boolean
   vLabelLabelValueCountByTransLabelIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransLabelFilter!]
@@ -3971,6 +3975,8 @@ input TransTextFilter {
   transPreventionDetailsByDetailsExist: Boolean
   transDisposalsByDetailsExist: Boolean
   transRecurrencePreventionsByDetailsExist: Boolean
+  transAuditDetailsByConclusionExist: Boolean
+  transAuditDetailCheckItemsByFindingsExist: Boolean
   vTextTransTextValueCountByTransTextIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransTextFilter!]

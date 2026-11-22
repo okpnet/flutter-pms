@@ -38,8 +38,65 @@ class QualityStringsEn extends QualityStrings with BaseTranslations<QualityLocal
 	QualityStringsEn $copyWith({TranslationMetadata<QualityLocale, QualityStrings>? meta}) => QualityStringsEn(meta: meta ?? this.$meta);
 
 	// Translations
+	@override late final _QualityStrings$auditRun$en auditRun = _QualityStrings$auditRun$en._(_root);
 	@override late final _QualityStrings$menu$en menu = _QualityStrings$menu$en._(_root);
 	@override late final _QualityStrings$entity$en entity = _QualityStrings$entity$en._(_root);
+}
+
+// Path: auditRun
+class _QualityStrings$auditRun$en extends QualityStrings$auditRun$ja {
+	_QualityStrings$auditRun$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get myTitle => 'My audits';
+	@override String get myHint => 'Audits assigned to your team. In-progress audits come first, then by scheduled date.';
+	@override String get sectionInProgress => 'In progress';
+	@override String get sectionPlanned => 'Planned';
+	@override String get sectionDone => 'Done';
+	@override String get empty => 'No audits are assigned to you.';
+	@override String get loadFailed => 'Could not load the audits.';
+	@override String get refresh => 'Reload';
+	@override String get statusInProgress => 'In progress';
+	@override String get statusPlanned => 'Planned';
+	@override String get statusDone => 'Done';
+	@override String get statusOverdue => 'Overdue';
+	@override String team({required Object name}) => 'Team: ${name}';
+	@override String scheduled({required Object date}) => 'Scheduled: ${date}';
+	@override String performed({required Object date}) => 'Performed: ${date}';
+	@override String get runTitle => 'Conduct audit';
+	@override String get back => 'Back';
+	@override String get tabItems => 'Items';
+	@override String get tabComplaints => 'Nonconformities';
+	@override String get start => 'Start audit';
+	@override String get finish => 'Finish audit';
+	@override String get conclusion => 'Conclusion';
+	@override String get finishTitle => 'Finish the audit';
+	@override String get cancel => 'Cancel';
+	@override String get ok => 'Finish';
+	@override String get noItems => 'There are no items. Starting the audit prepares the items of the audit standard.';
+	@override String get itemValue => 'Value';
+	@override String get itemFindings => 'Findings (comment)';
+	@override String get save => 'Save';
+	@override String get saved => 'Saved.';
+	@override String get saveFailed => 'Could not save.';
+	@override String get answered => 'Answered';
+	@override String get unanswered => 'Not answered';
+	@override String complaintCount({required Object n}) => '${n} nonconformities';
+	@override String get enterComplaint => 'Enter nonconformity';
+	@override String get backToItem => 'Back to items';
+	@override String get complaintItem => 'Item';
+	@override String get complaintTitle => 'Title';
+	@override String get complaintDetails => 'Details';
+	@override String get register => 'Register nonconformity';
+	@override String get registered => 'Registered.';
+	@override String get registerFailed => 'Could not register.';
+	@override String get titleRequired => 'Enter a title.';
+	@override String get itemRequired => 'Choose an item.';
+	@override String get complaintsOfItem => 'Nonconformities of this item';
+	@override String get noComplaints => 'No nonconformities for this item.';
+	@override String get actionFailed => 'The operation failed.';
 }
 
 // Path: menu
@@ -600,6 +657,53 @@ class _QualityStrings$entity$auditmember$fields$en extends QualityStrings$entity
 extension on QualityStringsEn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'auditRun.myTitle' => 'My audits',
+			'auditRun.myHint' => 'Audits assigned to your team. In-progress audits come first, then by scheduled date.',
+			'auditRun.sectionInProgress' => 'In progress',
+			'auditRun.sectionPlanned' => 'Planned',
+			'auditRun.sectionDone' => 'Done',
+			'auditRun.empty' => 'No audits are assigned to you.',
+			'auditRun.loadFailed' => 'Could not load the audits.',
+			'auditRun.refresh' => 'Reload',
+			'auditRun.statusInProgress' => 'In progress',
+			'auditRun.statusPlanned' => 'Planned',
+			'auditRun.statusDone' => 'Done',
+			'auditRun.statusOverdue' => 'Overdue',
+			'auditRun.team' => ({required Object name}) => 'Team: ${name}',
+			'auditRun.scheduled' => ({required Object date}) => 'Scheduled: ${date}',
+			'auditRun.performed' => ({required Object date}) => 'Performed: ${date}',
+			'auditRun.runTitle' => 'Conduct audit',
+			'auditRun.back' => 'Back',
+			'auditRun.tabItems' => 'Items',
+			'auditRun.tabComplaints' => 'Nonconformities',
+			'auditRun.start' => 'Start audit',
+			'auditRun.finish' => 'Finish audit',
+			'auditRun.conclusion' => 'Conclusion',
+			'auditRun.finishTitle' => 'Finish the audit',
+			'auditRun.cancel' => 'Cancel',
+			'auditRun.ok' => 'Finish',
+			'auditRun.noItems' => 'There are no items. Starting the audit prepares the items of the audit standard.',
+			'auditRun.itemValue' => 'Value',
+			'auditRun.itemFindings' => 'Findings (comment)',
+			'auditRun.save' => 'Save',
+			'auditRun.saved' => 'Saved.',
+			'auditRun.saveFailed' => 'Could not save.',
+			'auditRun.answered' => 'Answered',
+			'auditRun.unanswered' => 'Not answered',
+			'auditRun.complaintCount' => ({required Object n}) => '${n} nonconformities',
+			'auditRun.enterComplaint' => 'Enter nonconformity',
+			'auditRun.backToItem' => 'Back to items',
+			'auditRun.complaintItem' => 'Item',
+			'auditRun.complaintTitle' => 'Title',
+			'auditRun.complaintDetails' => 'Details',
+			'auditRun.register' => 'Register nonconformity',
+			'auditRun.registered' => 'Registered.',
+			'auditRun.registerFailed' => 'Could not register.',
+			'auditRun.titleRequired' => 'Enter a title.',
+			'auditRun.itemRequired' => 'Choose an item.',
+			'auditRun.complaintsOfItem' => 'Nonconformities of this item',
+			'auditRun.noComplaints' => 'No nonconformities for this item.',
+			'auditRun.actionFailed' => 'The operation failed.',
 			'menu.group' => 'Quality control',
 			'entity.complaint.title' => 'Nonconformities',
 			'entity.complaint.fields.f_occurent_at' => 'Occurred on',

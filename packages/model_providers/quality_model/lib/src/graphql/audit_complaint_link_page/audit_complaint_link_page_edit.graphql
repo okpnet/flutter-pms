@@ -1,0 +1,27 @@
+# audit_complaint_link_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #AuditComplaintLinkPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AuditComplaintLinkPageEdit(
+  $transAuditComplaintId: UUID!
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  updateTransAuditComplaintByTransAuditComplaintId(
+    input: {
+      transAuditComplaintId: $transAuditComplaintId
+      transAuditComplaintPatch: {
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    transAuditComplaint {
+      transAuditComplaintId
+      remarks
+    }
+  }
+}

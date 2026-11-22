@@ -1,0 +1,48 @@
+# audit_detail_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #AuditDetailPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AuditDetailPageCreate(
+  $transAuditId: UUID
+  $auditStdHistoryId: UUID
+  $auditStdId: UUID
+  $names: UUID
+  $transAuditTeamId: UUID
+  $scheduledAt: Datetime
+  $expectedEndAt: Datetime
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  createTransAuditDetail(
+    input: {
+      transAuditDetail: {
+        transAuditId: $transAuditId
+        auditStdHistoryId: $auditStdHistoryId
+        auditStdId: $auditStdId
+        names: $names
+        transAuditTeamId: $transAuditTeamId
+        scheduledAt: $scheduledAt
+        expectedEndAt: $expectedEndAt
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    transAuditDetail {
+      transAuditDetailsId
+      transAuditId
+      auditStdHistoryId
+      auditStdId
+      names
+      transAuditTeamId
+      scheduledAt
+      expectedEndAt
+      remarks
+      updateUserId
+      updateUserHistoryId
+    }
+  }
+}

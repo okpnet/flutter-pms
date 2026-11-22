@@ -1,11 +1,17 @@
 import 'package:entity_screens/entity_screens.dart';
 import 'package:feature_shared/feature_shared.dart';
+import 'package:flutter/widgets.dart' show ValueKey;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import 'entities/quality_definitions.dart';
 import 'entities/quality_labels.dart';
 import 'entities/quality_seeds.dart';
 import 'i18n/strings_provider.dart';
+import 'page/audit_run_destination.dart';
+import 'page/audit_run_page.dart';
+import 'page/audit_run_paths.dart';
+import 'page/my_audits_page.dart';
 
 /// 品質管理をアプリへ組み込むための口。
 ///
@@ -26,6 +32,39 @@ class QualityModule extends EntityFeatureModule {
 
   @override
   String get menuGroupId => 'quality';
+
+  /// 監査を実施する側の画面(自分の監査・監査の実施)。台帳(監査標準・計画)は、項目を作る側の画面のまま。
+  @override
+  List<RouteBase> get routes => [
+    ...super.routes,
+    GoRoute(path: AuditRunPaths.myAudits, builder: (context, state) => const MyAuditsPage()),
+    GoRoute(
+      path: AuditRunPaths.run,
+      builder: (context, state) => AuditRunPage(
+        key: ValueKey(state.uri.queryParameters['id']),
+        detailId: state.uri.queryParameters['id'] ?? '',
+      ),
+    ),
+  ];
+
+  @override
+  String? locationOf(PageDestination<Object?> destination) => switch (destination) {
+    MyAuditsDestination() => AuditRunPaths.myAudits,
+    AuditRunDestination(:final detailId) => AuditRunPaths.runOf(detailId),
+    _ => super.locationOf(destination),
+  };
+
+  /// メニューの先頭に「自分の監査」を足す(割り当てられた監査だけを見る入口)。
+  @override
+  List<MenuEntry> menuEntries(WidgetRef ref) => [
+    MenuEntry(
+      groupId: menuGroupId,
+      groupLabel: menuGroupLabel(ref),
+      label: ref.watch(qualityStringsProvider).auditRun.myTitle,
+      destination: const MyAuditsDestination(),
+    ),
+    ...super.menuEntries(ref),
+  ];
 
   @override
   String menuGroupLabel(WidgetRef ref) =>

@@ -1,3 +1,52 @@
+# 監査を実施する側の画面(手書き。この行より上は、生成で書き換えない)
+auditRun:
+  myTitle: 自分の監査
+  myHint: 自分のチームに割り当てられた監査です。実施中のものを上に、予定日の近い順に並びます。
+  sectionInProgress: 実施中
+  sectionPlanned: 予定
+  sectionDone: 完了
+  empty: 割り当てられた監査はありません。
+  loadFailed: 監査を読み込めませんでした。
+  refresh: 再読み込み
+  statusInProgress: 実施中
+  statusPlanned: 予定
+  statusDone: 完了
+  statusOverdue: 予定超過
+  team: 'チーム: ${name}'
+  scheduled: '予定: ${date}'
+  performed: '実施: ${date}'
+  runTitle: 監査の実施
+  back: 戻る
+  tabItems: 項目
+  tabComplaints: 異常
+  start: 実施を開始
+  finish: 実施を終了
+  conclusion: 結論
+  finishTitle: 監査の実施を終了
+  cancel: キャンセル
+  ok: 終了する
+  noItems: 項目がありません。実施を開始すると、監査標準の項目が用意されます。
+  itemValue: 値
+  itemFindings: 所見(コメント)
+  save: 保存
+  saved: 保存しました。
+  saveFailed: 保存できませんでした。
+  answered: 入力済み
+  unanswered: 未入力
+  complaintCount: '異常 ${n} 件'
+  enterComplaint: 異常を入力
+  backToItem: 項目へ戻る
+  complaintItem: 対象の項目
+  complaintTitle: 異常の題名
+  complaintDetails: 内容
+  register: 異常を登録
+  registered: 登録しました。
+  registerFailed: 登録できませんでした。
+  titleRequired: 題名を入れてください。
+  itemRequired: 対象の項目を選んでください。
+  complaintsOfItem: この項目の異常
+  noComplaints: この項目に異常はありません。
+  actionFailed: 操作できませんでした。
 # --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
 # 品質管理の実体と項目の表示名(日本語。基準言語)。
 # 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。

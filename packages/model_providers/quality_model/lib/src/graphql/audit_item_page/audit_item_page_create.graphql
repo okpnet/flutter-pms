@@ -1,0 +1,42 @@
+# audit_item_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #AuditItemPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AuditItemPageCreate(
+  $transAuditDetailsId: UUID
+  $auditStdCheckitemHistoryId: UUID
+  $auditStdCheckitemId: UUID
+  $formulaValue: JSON
+  $findings: UUID
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  createTransAuditDetailCheckItem(
+    input: {
+      transAuditDetailCheckItem: {
+        transAuditDetailsId: $transAuditDetailsId
+        auditStdCheckitemHistoryId: $auditStdCheckitemHistoryId
+        auditStdCheckitemId: $auditStdCheckitemId
+        formulaValue: $formulaValue
+        findings: $findings
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    transAuditDetailCheckItem {
+      transAuditDetailCheckItemsId
+      transAuditDetailsId
+      auditStdCheckitemHistoryId
+      auditStdCheckitemId
+      formulaValue
+      findings
+      remarks
+      updateUserId
+      updateUserHistoryId
+    }
+  }
+}

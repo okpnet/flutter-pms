@@ -1,0 +1,24 @@
+# audit_text_save_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #AuditTextSavePageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AuditTextSavePageCall(
+  $pTextId: UUID
+  $pValues: JSON
+  $pStaffId: UUID
+  $pStaffHistoryId: UUID
+) {
+  transTextSave(
+    input: {
+      pTextId: $pTextId
+      pValues: $pValues
+      pStaffId: $pStaffId
+      pStaffHistoryId: $pStaffHistoryId
+    }
+  ) {
+    transText {
+      transTextId
+    }
+  }
+}

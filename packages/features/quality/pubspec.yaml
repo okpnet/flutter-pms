@@ -28,6 +28,13 @@ dependencies:
     path: ../../infra/pms_graphql
   quality_model:
     path: ../../model_providers/quality_model
+  baton_lib:
+    path: ../../core/baton_lib
+  app_shell:
+    path: ../../ui/app_shell
+  loadux_lib:
+    path: ../../ui/loadux_lib
+  gql: ^1.0.1
 
 dev_dependencies:
   data_test_harness:

@@ -57,6 +57,14 @@
 
 
 
+## 監査を実施する側の画面(Issue 20261122_0001)
+監査標準・計画の台帳(項目を作る側)とは別に、実際に監査する側の画面を持つ。階層は 監査(`trans_audit`。計画の文書)→ 監査実施詳細(`trans_audit_details`)→ 項目(`trans_audit_detail_check_items`)→ 異常(`trans_audit_complaint`)。
+1.  **自分の監査**(`/quality/my-audits`。`MyAuditsPage`。メニューの先頭): 自分のチームの監査員になっている監査実施詳細だけを、検索なしで、実施中 → 予定の近い順 → 完了に並べる。予定日が 3 日以内・過ぎたものは印を付ける(チームの担当者への、予定日をもとにした通知。DB の `audit_notice` の導入後は、その結果を使う)。
+1.  **監査の実施**(`/quality/audit-run?id=…`。`AuditRunPage`): 下のナビで「項目」と「異常」の 2 画面を行き来する(`IndexedStack` で状態を保つ)。項目: 基準ごとに値・所見(コメント)を入力して保存し、「異常を入力」でその項目を選んだまま異常の画面へ。異常: 対象の項目を選んで題名・内容を登録し、その項目の異常の一覧を見る。「項目へ戻る」で戻る。終了した監査は入力できない。
+1.  取得元は `IAuditRunGateway`(`auditRunGatewayProvider`。既定はメモリ上。`pms_app` が `GraphqlAuditRunGateway` に差し替える)。GraphQL 版は、自分の監査(`$filter` の関係の条件)・項目の読み込み・値と所見の保存(`AuditItemPageEdit` + `trans_text_save`)までを実装した。**開始・終了・異常の登録は、DB の関数(`audit_detail_start`・`audit_detail_finish`・`audit_complaint_register`。提案は `issue/20261122_0001.md`)の導入後に実装する**(それまで `UnsupportedError`。画面は「操作できませんでした」を出す)。状態の判定は、ビュー `v_audit_assignment`(提案)ができるまで、日付の有無で行う。
+1.  値は JSON `{"value": "…"}`(式 `formula_class` ごとの入力は、式の種類を決めてから)。異常の題名は、つなぎの読み込みに異常のラベルが無いため、一覧では ID を出す(ビュー・関数の導入後に直す)。
+1.  監査の計画(監査・チーム・監査員・監査実施詳細)の登録は、まだアプリから行えない(台帳は読み取り専用)。
+
 ## example と多言語
 1.  ビジュアルテスト用に`example`(Windows 向け)を持つ。`flutter run -d windows`で起動し、`lib/main.dart`の`entries`に遷移先を足す(`packages/features/CLAUDE.md`の「機能プロジェクト共通」)。
 2.  表示する文字列は`lib/src/i18n`の言語ファイル(Yaml)に置く。画面を作るときに`slang.yaml`と言語ファイルを追加する(`sales`・`shared_master`を参考にする)。idは`String`(UUID)で扱う。

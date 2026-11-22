@@ -788,6 +788,9 @@ input HistoryInfoStaffFilter {
   transInventoryAppliesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transMrpPeggingsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transMrpLoadsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transAuditDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transAuditDetailCheckItemsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transAuditComplaintsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   vMrpPendingSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   vMrpRunsByStaffHistoryIdAndStaffIdExist: Boolean
   vMrpSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean

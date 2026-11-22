@@ -12,6 +12,8 @@ scalar BigInt
 
 scalar Cursor
 
+scalar Date
+
 scalar Datetime
 
 scalar JSON
@@ -104,6 +106,100 @@ enum MstrReportsOrderBy {
   INFO_ACCESS_PATH_ID_DESC
   REVISION_ASC
   REVISION_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum TransAuditComplaintsOrderBy {
+  NATURAL
+  TRANS_AUDIT_COMPLAINT_ID_ASC
+  TRANS_AUDIT_COMPLAINT_ID_DESC
+  TRANS_COMPLAINT_ID_ASC
+  TRANS_COMPLAINT_ID_DESC
+  TRANS_AUDIT_DETAIL_CHECK_ITEMS_ID_ASC
+  TRANS_AUDIT_DETAIL_CHECK_ITEMS_ID_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum TransAuditDetailCheckItemsOrderBy {
+  NATURAL
+  TRANS_AUDIT_DETAIL_CHECK_ITEMS_ID_ASC
+  TRANS_AUDIT_DETAIL_CHECK_ITEMS_ID_DESC
+  TRANS_AUDIT_DETAILS_ID_ASC
+  TRANS_AUDIT_DETAILS_ID_DESC
+  AUDIT_STD_CHECKITEM_HISTORY_ID_ASC
+  AUDIT_STD_CHECKITEM_HISTORY_ID_DESC
+  AUDIT_STD_CHECKITEM_ID_ASC
+  AUDIT_STD_CHECKITEM_ID_DESC
+  FORMULA_VALUE_ASC
+  FORMULA_VALUE_DESC
+  FINDINGS_ASC
+  FINDINGS_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum TransAuditDetailsOrderBy {
+  NATURAL
+  TRANS_AUDIT_DETAILS_ID_ASC
+  TRANS_AUDIT_DETAILS_ID_DESC
+  TRANS_AUDIT_ID_ASC
+  TRANS_AUDIT_ID_DESC
+  AUDIT_STD_HISTORY_ID_ASC
+  AUDIT_STD_HISTORY_ID_DESC
+  AUDIT_STD_ID_ASC
+  AUDIT_STD_ID_DESC
+  NAMES_ASC
+  NAMES_DESC
+  TRANS_AUDIT_TEAM_ID_ASC
+  TRANS_AUDIT_TEAM_ID_DESC
+  SCHEDULED_AT_ASC
+  SCHEDULED_AT_DESC
+  EXPECTED_END_AT_ASC
+  EXPECTED_END_AT_DESC
+  PERFORMED_DATE_ASC
+  PERFORMED_DATE_DESC
+  ENDED_AT_ASC
+  ENDED_AT_DESC
+  CONCLUSION_ASC
+  CONCLUSION_DESC
   SYMBOL_ASC
   SYMBOL_DESC
   REMARKS_ASC
@@ -904,6 +1000,18 @@ enum VComplaintTargetsOrderBy {
   PRIMARY_KEY_DESC
 }
 
+type CreateTransAuditComplaintPayload {
+  transAuditComplaint: TransAuditComplaint
+}
+
+type CreateTransAuditDetailCheckItemPayload {
+  transAuditDetailCheckItem: TransAuditDetailCheckItem
+}
+
+type CreateTransAuditDetailPayload {
+  transAuditDetail: TransAuditDetail
+}
+
 type CreateTransComplaintFilePayload {
   transComplaintFile: TransComplaintFile
 }
@@ -950,6 +1058,16 @@ type HistoryInfoStaff {
   privatePhone: String
   symbol: String
   sharedAppellationByNames: SharedAppellation
+}
+
+type HistoryMstrAuditStdCheckitem {
+  historyId: UUID!
+  mstrAuditStdCheckitemId: UUID!
+  code: String
+  typeClass: Int!
+  formulaClass: Int!
+  argClass: JSON
+  mstrAuditStdCheckitemByMstrAuditStdCheckitemId: MstrAuditStdCheckitem
 }
 
 type InfoAddress {
@@ -1126,6 +1244,9 @@ type MstrTaskGroup {
 }
 
 type Mutation {
+  createTransAuditComplaint(input: CreateTransAuditComplaintInput!): CreateTransAuditComplaintPayload
+  createTransAuditDetailCheckItem(input: CreateTransAuditDetailCheckItemInput!): CreateTransAuditDetailCheckItemPayload
+  createTransAuditDetail(input: CreateTransAuditDetailInput!): CreateTransAuditDetailPayload
   createTransComplaint(input: CreateTransComplaintInput!): CreateTransComplaintPayload
   createTransComplaintFile(input: CreateTransComplaintFileInput!): CreateTransComplaintFilePayload
   createTransComplaintSupply(input: CreateTransComplaintSupplyInput!): CreateTransComplaintSupplyPayload
@@ -1139,6 +1260,9 @@ type Mutation {
   updateMstrAuditStdCheckitemByMstrAuditStdCheckitemId(input: UpdateMstrAuditStdCheckitemByMstrAuditStdCheckitemIdInput!): UpdateMstrAuditStdCheckitemPayload
   updateMstrReportByMstrReportId(input: UpdateMstrReportByMstrReportIdInput!): UpdateMstrReportPayload
   updateTransAuditByTransAuditId(input: UpdateTransAuditByTransAuditIdInput!): UpdateTransAuditPayload
+  updateTransAuditComplaintByTransAuditComplaintId(input: UpdateTransAuditComplaintByTransAuditComplaintIdInput!): UpdateTransAuditComplaintPayload
+  updateTransAuditDetailCheckItemByTransAuditDetailCheckItemsId(input: UpdateTransAuditDetailCheckItemByTransAuditDetailCheckItemsIdInput!): UpdateTransAuditDetailCheckItemPayload
+  updateTransAuditDetailByTransAuditDetailsId(input: UpdateTransAuditDetailByTransAuditDetailsIdInput!): UpdateTransAuditDetailPayload
   updateTransAuditMemberByTransAuditMemberIdAndTransAuditId(input: UpdateTransAuditMemberByTransAuditMemberIdAndTransAuditIdInput!): UpdateTransAuditMemberPayload
   updateTransAuditTeamByTransAuditTeamId(input: UpdateTransAuditTeamByTransAuditTeamIdInput!): UpdateTransAuditTeamPayload
   updateTransAuditorByTransAuditorId(input: UpdateTransAuditorByTransAuditorIdInput!): UpdateTransAuditorPayload
@@ -1161,6 +1285,8 @@ type Mutation {
   updateTransRecurrencePreventionByTransRecurrencePreventionId(input: UpdateTransRecurrencePreventionByTransRecurrencePreventionIdInput!): UpdateTransRecurrencePreventionPayload
   updateTransRiskByTransRiskId(input: UpdateTransRiskByTransRiskIdInput!): UpdateTransRiskPayload
   updateTransTaskRiskByTransTaskRiskId(input: UpdateTransTaskRiskByTransTaskRiskIdInput!): UpdateTransTaskRiskPayload
+  transLabelSave(input: TransLabelSaveInput!): TransLabelSavePayload
+  transTextSave(input: TransTextSaveInput!): TransTextSavePayload
 }
 
 type PageInfo {
@@ -1173,6 +1299,8 @@ type Query {
   allMstrAuditStdCheckitems(first: Int, offset: Int, orderBy: [MstrAuditStdCheckitemsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrAuditStdCheckitemFilter): MstrAuditStdCheckitemsConnection
   allMstrReports(first: Int, offset: Int, orderBy: [MstrReportsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrReportFilter): MstrReportsConnection
   allTransAudits(first: Int, offset: Int, orderBy: [TransAuditsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransAuditFilter): TransAuditsConnection
+  allTransAuditDetailCheckItems(first: Int, offset: Int, orderBy: [TransAuditDetailCheckItemsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransAuditDetailCheckItemFilter): TransAuditDetailCheckItemsConnection
+  allTransAuditDetails(first: Int, offset: Int, orderBy: [TransAuditDetailsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransAuditDetailFilter): TransAuditDetailsConnection
   allTransAuditMembers(first: Int, offset: Int, orderBy: [TransAuditMembersOrderBy!] = [PRIMARY_KEY_ASC], filter: TransAuditMemberFilter): TransAuditMembersConnection
   allTransAuditTeams(first: Int, offset: Int, orderBy: [TransAuditTeamsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransAuditTeamFilter): TransAuditTeamsConnection
   allTransAuditors(first: Int, offset: Int, orderBy: [TransAuditorsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransAuditorFilter): TransAuditorsConnection
@@ -1202,6 +1330,9 @@ type Query {
   mstrAuditStdCheckitemByMstrAuditStdCheckitemId(mstrAuditStdCheckitemId: UUID!): MstrAuditStdCheckitem
   mstrReportByMstrReportId(mstrReportId: UUID!): MstrReport
   transAuditByTransAuditId(transAuditId: UUID!): TransAudit
+  transAuditComplaintByTransAuditComplaintId(transAuditComplaintId: UUID!): TransAuditComplaint
+  transAuditDetailCheckItemByTransAuditDetailCheckItemsId(transAuditDetailCheckItemsId: UUID!): TransAuditDetailCheckItem
+  transAuditDetailByTransAuditDetailsId(transAuditDetailsId: UUID!): TransAuditDetail
   transAuditMemberByTransAuditMemberIdAndTransAuditId(transAuditMemberId: UUID!, transAuditId: UUID!): TransAuditMember
   transAuditTeamByTransAuditTeamId(transAuditTeamId: UUID!): TransAuditTeam
   transAuditorByTransAuditorId(transAuditorId: UUID!): TransAuditor
@@ -1295,6 +1426,77 @@ type TransAudit {
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
   vAuditAuditMemberCountByTransAuditId: VAuditAuditMemberCount
   vAuditAuditTeamCountByTransAuditId: VAuditAuditTeamCount
+}
+
+type TransAuditComplaint {
+  transAuditComplaintId: UUID!
+  transComplaintId: UUID!
+  transAuditDetailCheckItemsId: UUID!
+  remarks: String
+  updateAt: Datetime
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+  remove: Boolean
+}
+
+type TransAuditComplaintsConnection {
+  nodes: [TransAuditComplaint]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type TransAuditDetail {
+  transAuditDetailsId: UUID!
+  transAuditId: UUID!
+  auditStdHistoryId: UUID!
+  auditStdId: UUID!
+  names: UUID!
+  transAuditTeamId: UUID!
+  scheduledAt: Datetime
+  expectedEndAt: Datetime
+  performedDate: Date
+  endedAt: Datetime
+  conclusion: UUID
+  symbol: String
+  remarks: String
+  updateAt: Datetime
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+  remove: Boolean
+  transAuditByTransAuditId: TransAudit
+  transLabelByNames: TransLabel
+  transAuditTeamByTransAuditTeamIdAndTransAuditId: TransAuditTeam
+  transTextByConclusion: TransText
+}
+
+type TransAuditDetailCheckItem {
+  transAuditDetailCheckItemsId: UUID!
+  transAuditDetailsId: UUID!
+  auditStdCheckitemHistoryId: UUID!
+  auditStdCheckitemId: UUID!
+  formulaValue: JSON
+  findings: UUID
+  symbol: String
+  remarks: String
+  updateAt: Datetime
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+  remove: Boolean
+  historyMstrAuditStdCheckitemByAuditStdCheckitemHistoryIdAndAuditStdCheckitemId: HistoryMstrAuditStdCheckitem
+  transTextByFindings: TransText
+  transAuditComplaintsByTransAuditDetailCheckItemsId(orderBy: [TransAuditComplaintsOrderBy!] = [PRIMARY_KEY_ASC], filter: TransAuditComplaintFilter): TransAuditComplaintsConnection!
+}
+
+type TransAuditDetailCheckItemsConnection {
+  nodes: [TransAuditDetailCheckItem]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type TransAuditDetailsConnection {
+  nodes: [TransAuditDetail]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type TransAuditMember {
@@ -1607,6 +1809,10 @@ type TransLabel {
   transLabelValuesByTransLabelId(condition: TransLabelValueCondition): TransLabelValuesConnection!
 }
 
+type TransLabelSavePayload {
+  transLabel: TransLabel
+}
+
 type TransLabelValue {
   transLabelValueId: UUID!
   transLabelId: UUID!
@@ -1824,6 +2030,10 @@ type TransText {
   transTextValuesByTransTextId(condition: TransTextValueCondition): TransTextValuesConnection!
 }
 
+type TransTextSavePayload {
+  transText: TransText
+}
+
 type TransTextValue {
   transTextValueId: UUID!
   transTextId: UUID!
@@ -1847,6 +2057,18 @@ type UpdateMstrAuditStdPayload {
 
 type UpdateMstrReportPayload {
   mstrReport: MstrReport
+}
+
+type UpdateTransAuditComplaintPayload {
+  transAuditComplaint: TransAuditComplaint
+}
+
+type UpdateTransAuditDetailCheckItemPayload {
+  transAuditDetailCheckItem: TransAuditDetailCheckItem
+}
+
+type UpdateTransAuditDetailPayload {
+  transAuditDetail: TransAuditDetail
 }
 
 type UpdateTransAuditMemberPayload {
@@ -2150,6 +2372,18 @@ input BooleanFilter {
   greaterThanOrEqualTo: Boolean
 }
 
+input CreateTransAuditComplaintInput {
+  transAuditComplaint: TransAuditComplaintInput!
+}
+
+input CreateTransAuditDetailCheckItemInput {
+  transAuditDetailCheckItem: TransAuditDetailCheckItemInput!
+}
+
+input CreateTransAuditDetailInput {
+  transAuditDetail: TransAuditDetailInput!
+}
+
 input CreateTransComplaintFileInput {
   transComplaintFile: TransComplaintFileInput!
 }
@@ -2184,6 +2418,20 @@ input CreateTransTextInput {
 
 input CreateTransTextValueInput {
   transTextValue: TransTextValueInput!
+}
+
+input DateFilter {
+  isNull: Boolean
+  equalTo: Date
+  notEqualTo: Date
+  distinctFrom: Date
+  notDistinctFrom: Date
+  in: [Date!]
+  notIn: [Date!]
+  lessThan: Date
+  lessThanOrEqualTo: Date
+  greaterThan: Date
+  greaterThanOrEqualTo: Date
 }
 
 input DatetimeFilter {
@@ -2495,6 +2743,9 @@ input HistoryInfoStaffFilter {
   transInventoryAppliesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transMrpPeggingsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transMrpLoadsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transAuditDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transAuditDetailCheckItemsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transAuditComplaintsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   vMrpPendingSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   vMrpRunsByStaffHistoryIdAndStaffIdExist: Boolean
   vMrpSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -2504,6 +2755,32 @@ input HistoryInfoStaffFilter {
   and: [HistoryInfoStaffFilter!]
   or: [HistoryInfoStaffFilter!]
   not: HistoryInfoStaffFilter
+}
+
+input HistoryMstrAuditStdCheckitemFilter {
+  historyId: UUIDFilter
+  mstrAuditStdCheckitemId: UUIDFilter
+  mstrAuditStdId: UUIDFilter
+  code: StringFilter
+  controlCode: StringFilter
+  names: UUIDFilter
+  details: UUIDFilter
+  typeClass: IntFilter
+  formulaClass: IntFilter
+  argClass: JSONFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transAuditDetailCheckItemsByAuditStdCheckitemHistoryIdAndAuditStdCheckitemIdExist: Boolean
+  mstrAuditStdCheckitemByMstrAuditStdCheckitemId: MstrAuditStdCheckitemFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [HistoryMstrAuditStdCheckitemFilter!]
+  or: [HistoryMstrAuditStdCheckitemFilter!]
+  not: HistoryMstrAuditStdCheckitemFilter
 }
 
 input InfoAddressFilter {
@@ -3289,6 +3566,142 @@ input TransApprovalPatternFilter {
   not: TransApprovalPatternFilter
 }
 
+input TransAuditComplaintFilter {
+  transAuditComplaintId: UUIDFilter
+  transComplaintId: UUIDFilter
+  transAuditDetailCheckItemsId: UUIDFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransAuditComplaintFilter!]
+  or: [TransAuditComplaintFilter!]
+  not: TransAuditComplaintFilter
+}
+
+input TransAuditComplaintInput {
+  transComplaintId: UUID
+  transAuditDetailCheckItemsId: UUID
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
+input TransAuditComplaintPatch {
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+  remove: Boolean
+}
+
+input TransAuditDetailCheckItemFilter {
+  transAuditDetailCheckItemsId: UUIDFilter
+  transAuditDetailsId: UUIDFilter
+  auditStdCheckitemHistoryId: UUIDFilter
+  auditStdCheckitemId: UUIDFilter
+  formulaValue: JSONFilter
+  findings: UUIDFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transAuditComplaintsByTransAuditDetailCheckItemsId: TransAuditDetailCheckItemToManyTransAuditComplaintFilter
+  transAuditComplaintsByTransAuditDetailCheckItemsIdExist: Boolean
+  historyMstrAuditStdCheckitemByAuditStdCheckitemHistoryIdAndAuditStdCheckitemId: HistoryMstrAuditStdCheckitemFilter
+  transTextByFindings: TransTextFilter
+  transTextByFindingsExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransAuditDetailCheckItemFilter!]
+  or: [TransAuditDetailCheckItemFilter!]
+  not: TransAuditDetailCheckItemFilter
+}
+
+input TransAuditDetailCheckItemInput {
+  transAuditDetailsId: UUID
+  auditStdCheckitemHistoryId: UUID
+  auditStdCheckitemId: UUID
+  formulaValue: JSON
+  findings: UUID
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
+input TransAuditDetailCheckItemPatch {
+  formulaValue: JSON
+  findings: UUID
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+  remove: Boolean
+}
+
+input TransAuditDetailCheckItemToManyTransAuditComplaintFilter {
+  every: TransAuditComplaintFilter
+  some: TransAuditComplaintFilter
+  none: TransAuditComplaintFilter
+}
+
+input TransAuditDetailFilter {
+  transAuditDetailsId: UUIDFilter
+  transAuditId: UUIDFilter
+  auditStdHistoryId: UUIDFilter
+  auditStdId: UUIDFilter
+  names: UUIDFilter
+  transAuditTeamId: UUIDFilter
+  scheduledAt: DatetimeFilter
+  expectedEndAt: DatetimeFilter
+  performedDate: DateFilter
+  endedAt: DatetimeFilter
+  conclusion: UUIDFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  transAuditDetailCheckItemsByTransAuditDetailsIdExist: Boolean
+  transAuditByTransAuditId: TransAuditFilter
+  transLabelByNames: TransLabelFilter
+  transAuditTeamByTransAuditTeamIdAndTransAuditId: TransAuditTeamFilter
+  transTextByConclusion: TransTextFilter
+  transTextByConclusionExists: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransAuditDetailFilter!]
+  or: [TransAuditDetailFilter!]
+  not: TransAuditDetailFilter
+}
+
+input TransAuditDetailInput {
+  transAuditId: UUID
+  auditStdHistoryId: UUID
+  auditStdId: UUID
+  names: UUID
+  transAuditTeamId: UUID
+  scheduledAt: Datetime
+  expectedEndAt: Datetime
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
+input TransAuditDetailPatch {
+  scheduledAt: Datetime
+  expectedEndAt: Datetime
+  performedDate: Date
+  endedAt: Datetime
+  conclusion: UUID
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+  remove: Boolean
+}
+
 input TransAuditFilter {
   transAuditId: UUIDFilter
   auditStdHistoryId: UUIDFilter
@@ -3309,6 +3722,7 @@ input TransAuditFilter {
   remove: BooleanFilter
   transAuditMembersByTransAuditIdExist: Boolean
   transAuditTeamsByTransAuditIdExist: Boolean
+  transAuditDetailsByTransAuditIdExist: Boolean
   vAuditAuditMemberCountByTransAuditId: VAuditAuditMemberCountFilter
   vAuditAuditMemberCountByTransAuditIdExists: Boolean
   vAuditAuditTeamCountByTransAuditId: VAuditAuditTeamCountFilter
@@ -3398,6 +3812,7 @@ input TransAuditTeamFilter {
   updateUserHistoryId: UUIDFilter
   remove: BooleanFilter
   transAuditorsByTransAuditTeamIdExist: Boolean
+  transAuditDetailsByTransAuditTeamIdAndTransAuditIdExist: Boolean
   vAuditTeamAuditorCountByTransAuditTeamId: VAuditTeamAuditorCountFilter
   vAuditTeamAuditorCountByTransAuditTeamIdExists: Boolean
   transLabelByNames: TransLabelFilter
@@ -3539,6 +3954,7 @@ input TransComplaintFilter {
   transComplaintEquipmentsByTransComplaintIdExist: Boolean
   transComplaintProcessesByTransComplaintIdExist: Boolean
   transComplaintOrdersByTransComplaintIdExist: Boolean
+  transAuditComplaintsByTransComplaintIdExist: Boolean
   vApprovalPendingsByTransComplaintIdExist: Boolean
   vComplaintComplaintEquipmentCountByTransComplaintId: VComplaintComplaintEquipmentCountFilter
   vComplaintComplaintEquipmentCountByTransComplaintIdExists: Boolean
@@ -3901,6 +4317,7 @@ input TransLabelFilter {
   transRecurrencePreventionsByTitlesExist: Boolean
   transInspectImpFilesByTitlesExist: Boolean
   transCertificatesByTitlesExist: Boolean
+  transAuditDetailsByNamesExist: Boolean
   vLabelLabelValueCountByTransLabelIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransLabelFilter!]
@@ -3960,6 +4377,13 @@ input TransLabelOnTransRecurrencePreventionForTransRecurrencePreventionFk4UsingT
 input TransLabelOnTransRiskForTransRiskFk3UsingTransLabelPkUpdate {
   transLabelPatch: updateTransLabelOnTransRiskForTransRiskFk3Patch!
   transLabelId: UUID!
+}
+
+input TransLabelSaveInput {
+  pLabelId: UUID
+  pValues: JSON
+  pStaffId: UUID
+  pStaffHistoryId: UUID
 }
 
 input TransLabelToManyTransLabelValueFilter {
@@ -4355,6 +4779,8 @@ input TransTextFilter {
   transPreventionDetailsByDetailsExist: Boolean
   transDisposalsByDetailsExist: Boolean
   transRecurrencePreventionsByDetailsExist: Boolean
+  transAuditDetailsByConclusionExist: Boolean
+  transAuditDetailCheckItemsByFindingsExist: Boolean
   vTextTransTextValueCountByTransTextIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransTextFilter!]
@@ -4404,6 +4830,13 @@ input TransTextOnTransRecurrencePreventionForTransRecurrencePreventionFk3UsingTr
 input TransTextOnTransRiskForTransRiskFk2UsingTransTextPkUpdate {
   transTextPatch: updateTransTextOnTransRiskForTransRiskFk2Patch!
   transTextId: UUID!
+}
+
+input TransTextSaveInput {
+  pTextId: UUID
+  pValues: JSON
+  pStaffId: UUID
+  pStaffHistoryId: UUID
 }
 
 input TransTextToManyTransTextValueFilter {
@@ -4485,6 +4918,21 @@ input UpdateMstrReportByMstrReportIdInput {
 input UpdateTransAuditByTransAuditIdInput {
   transAuditPatch: TransAuditPatch!
   transAuditId: UUID!
+}
+
+input UpdateTransAuditComplaintByTransAuditComplaintIdInput {
+  transAuditComplaintPatch: TransAuditComplaintPatch!
+  transAuditComplaintId: UUID!
+}
+
+input UpdateTransAuditDetailByTransAuditDetailsIdInput {
+  transAuditDetailPatch: TransAuditDetailPatch!
+  transAuditDetailsId: UUID!
+}
+
+input UpdateTransAuditDetailCheckItemByTransAuditDetailCheckItemsIdInput {
+  transAuditDetailCheckItemPatch: TransAuditDetailCheckItemPatch!
+  transAuditDetailCheckItemsId: UUID!
 }
 
 input UpdateTransAuditMemberByTransAuditMemberIdAndTransAuditIdInput {

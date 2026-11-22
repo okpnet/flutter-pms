@@ -1,0 +1,98 @@
+# audit_detail_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #AuditDetailPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query AuditDetailPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransAuditDetailFilter = {and: []}
+  $orderBy: [TransAuditDetailsOrderBy!]
+  $languageCodeId: UUID!
+  $removed: Boolean = false
+) {
+  allTransAuditDetails(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transAuditDetailsId
+      transAuditId
+      auditStdHistoryId
+      auditStdId
+      transAuditTeamId
+
+      labels: transLabelByNames {
+        transLabelId
+
+        value: transLabelValuesByTransLabelId(
+          condition: { sharedLanguageCodeId: $languageCodeId }
+        ) {
+          nodes {
+            labelValue
+          }
+        }
+      }
+
+      conclusionText: transTextByConclusion {
+        transTextId
+
+        value: transTextValuesByTransTextId(
+          condition: { sharedLanguageCodeId: $languageCodeId }
+        ) {
+          nodes {
+            textValue
+          }
+        }
+      }
+
+      audit: transAuditByTransAuditId {
+        transAuditId
+
+        labels: transLabelByTitles {
+          transLabelId
+
+          value: transLabelValuesByTransLabelId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              labelValue
+            }
+          }
+        }
+      }
+
+      team: transAuditTeamByTransAuditTeamIdAndTransAuditId {
+        transAuditTeamId
+
+        labels: transLabelByNames {
+          transLabelId
+
+          value: transLabelValuesByTransLabelId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              labelValue
+            }
+          }
+        }
+      }
+
+      scheduledAt
+      expectedEndAt
+      performedDate
+      endedAt
+      symbol
+      remarks
+      updateAt
+      remove
+    }
+  }
+}
