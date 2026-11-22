@@ -1,7 +1,9 @@
 import 'package:approval/approval.dart';
 import 'package:feature_shared/feature_shared.dart' show dashboardAlertSlotProvider;
+import 'package:flutter/widgets.dart' show Column, CrossAxisAlignment;
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:pbapi/pbapi.dart' show sessionServiceProvider;
+import 'package:quality/quality.dart' show AuditNoticeBanner;
 
 import '../graphql/graphql_overrides.dart' show graphqlClientProvider, pocketbaseEnabledProvider;
 
@@ -9,7 +11,8 @@ import '../graphql/graphql_overrides.dart' show graphqlClientProvider, pocketbas
 ///
 /// - パスワードの確認: PocketBase に接続するとき、ログイン中のユーザーのパスワードを `pbapi` で照合する(今のセッションは変えない)。
 ///   接続しない環境(サンプル)は、確認できない(承認の操作はできない)。
-/// - ダッシュボードの「承認待ちが N 件あります」: `ApprovalAlertBanner` を差し込む。
+/// - ダッシュボードの通知(差し込み口は 1 つ): 「承認待ちが N 件あります」(`ApprovalAlertBanner`)と、
+///   「監査の予定が N 件あります」(`quality` の `AuditNoticeBanner`。DB の `audit_notice`)を縦に並べて差し込む。
 /// - 「参照」の移り先: 台帳の画面(`/e/<キー>?id=<行>`)へ。区分に対応する台帳のキーは、機能(`sales`・`purchasing`・`quality`)の定義に従う。
 /// - 承認待ちの取得・承認の登録の取得元(`approvalGatewayProvider`): GraphQL に接続するときは `GraphqlApprovalGateway`(DB の
 ///   ビュー `v_approval_pending`・関数 `approval_approve_many`)、接続しないときはメモリ上の空の取得元。
@@ -24,7 +27,12 @@ List<Override> approvalOverrides() => [
     if (!ref.read(pocketbaseEnabledProvider)) return const UnsupportedPasswordVerifier();
     return _SessionPasswordVerifier(ref.read(sessionServiceProvider).verifyPassword);
   }),
-  dashboardAlertSlotProvider.overrideWithValue((context) => const ApprovalAlertBanner()),
+  dashboardAlertSlotProvider.overrideWithValue(
+    (context) => const Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [ApprovalAlertBanner(), AuditNoticeBanner()],
+    ),
+  ),
   approvalTargetLocatorProvider.overrideWithValue(_targetLocation),
 ];
 

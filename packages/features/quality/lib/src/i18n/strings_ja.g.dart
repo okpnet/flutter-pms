@@ -36,6 +36,7 @@ class QualityStrings with BaseTranslations<QualityLocale, QualityStrings> {
 
 	// Translations
 	late final QualityStrings$auditRun$ja auditRun = QualityStrings$auditRun$ja.internal(_root);
+	late final QualityStrings$auditNotice$ja auditNotice = QualityStrings$auditNotice$ja.internal(_root);
 	late final QualityStrings$menu$ja menu = QualityStrings$menu$ja.internal(_root);
 	late final QualityStrings$entity$ja entity = QualityStrings$entity$ja.internal(_root);
 }
@@ -191,6 +192,33 @@ class QualityStrings$auditRun$ja {
 
 	/// ja: '操作できませんでした。'
 	String get actionFailed => '操作できませんでした。';
+}
+
+// Path: auditNotice
+class QualityStrings$auditNotice$ja {
+	QualityStrings$auditNotice$ja.internal(this._root);
+
+	final QualityStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '監査の予定が ${n} 件あります'
+	String summary({required Object n}) => '監査の予定が ${n} 件あります';
+
+	/// ja: '自分の監査'
+	String get all => '自分の監査';
+
+	/// ja: '予定超過'
+	String get overdue => '予定超過';
+
+	/// ja: '実施中'
+	String get inProgress => '実施中';
+
+	/// ja: '今日'
+	String get today => '今日';
+
+	/// ja: 'あと ${n} 日'
+	String inDays({required Object n}) => 'あと ${n} 日';
 }
 
 // Path: menu
@@ -1005,6 +1033,12 @@ extension on QualityStrings {
 			'auditRun.complaintsOfItem' => 'この項目の異常',
 			'auditRun.noComplaints' => 'この項目に異常はありません。',
 			'auditRun.actionFailed' => '操作できませんでした。',
+			'auditNotice.summary' => ({required Object n}) => '監査の予定が ${n} 件あります',
+			'auditNotice.all' => '自分の監査',
+			'auditNotice.overdue' => '予定超過',
+			'auditNotice.inProgress' => '実施中',
+			'auditNotice.today' => '今日',
+			'auditNotice.inDays' => ({required Object n}) => 'あと ${n} 日',
 			'menu.group' => '品質管理',
 			'entity.complaint.title' => '異常',
 			'entity.complaint.fields.f_occurent_at' => '発生年月日',

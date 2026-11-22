@@ -39,6 +39,7 @@ class QualityStringsEn extends QualityStrings with BaseTranslations<QualityLocal
 
 	// Translations
 	@override late final _QualityStrings$auditRun$en auditRun = _QualityStrings$auditRun$en._(_root);
+	@override late final _QualityStrings$auditNotice$en auditNotice = _QualityStrings$auditNotice$en._(_root);
 	@override late final _QualityStrings$menu$en menu = _QualityStrings$menu$en._(_root);
 	@override late final _QualityStrings$entity$en entity = _QualityStrings$entity$en._(_root);
 }
@@ -98,6 +99,21 @@ class _QualityStrings$auditRun$en extends QualityStrings$auditRun$ja {
 	@override String get complaintsOfItem => 'Nonconformities of this item';
 	@override String get noComplaints => 'No nonconformities for this item.';
 	@override String get actionFailed => 'The operation failed.';
+}
+
+// Path: auditNotice
+class _QualityStrings$auditNotice$en extends QualityStrings$auditNotice$ja {
+	_QualityStrings$auditNotice$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String summary({required Object n}) => '${n} audits are coming up';
+	@override String get all => 'My audits';
+	@override String get overdue => 'Overdue';
+	@override String get inProgress => 'In progress';
+	@override String get today => 'Today';
+	@override String inDays({required Object n}) => 'In ${n} days';
 }
 
 // Path: menu
@@ -706,6 +722,12 @@ extension on QualityStringsEn {
 			'auditRun.complaintsOfItem' => 'Nonconformities of this item',
 			'auditRun.noComplaints' => 'No nonconformities for this item.',
 			'auditRun.actionFailed' => 'The operation failed.',
+			'auditNotice.summary' => ({required Object n}) => '${n} audits are coming up',
+			'auditNotice.all' => 'My audits',
+			'auditNotice.overdue' => 'Overdue',
+			'auditNotice.inProgress' => 'In progress',
+			'auditNotice.today' => 'Today',
+			'auditNotice.inDays' => ({required Object n}) => 'In ${n} days',
 			'menu.group' => 'Quality control',
 			'entity.complaint.title' => 'Nonconformities',
 			'entity.complaint.fields.f_occurent_at' => 'Occurred on',

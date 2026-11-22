@@ -49,6 +49,15 @@ auditRun:
   noComplaints: No nonconformities for this item.
   actionFailed: The operation failed.
 # Quality control strings (English). Keys missing here fall back to the base language (ja).
+# Audit notices on the dashboard
+auditNotice:
+  summary: '${n} audits are coming up'
+  all: My audits
+  overdue: Overdue
+  inProgress: In progress
+  today: Today
+  inDays: 'In ${n} days'
+
 menu:
   group: "Quality control"
 entity:

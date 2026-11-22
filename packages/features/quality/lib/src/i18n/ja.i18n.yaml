@@ -48,6 +48,15 @@ auditRun:
   complaintsOfItem: この項目の異常
   noComplaints: この項目に異常はありません。
   actionFailed: 操作できませんでした。
+
+# ダッシュボードの監査の通知
+auditNotice:
+  summary: '監査の予定が ${n} 件あります'
+  all: 自分の監査
+  overdue: 予定超過
+  inProgress: 実施中
+  today: 今日
+  inDays: 'あと ${n} 日'
 # --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
 # 品質管理の実体と項目の表示名(日本語。基準言語)。
 # 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。

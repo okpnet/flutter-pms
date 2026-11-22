@@ -27,7 +27,14 @@ import 'package:organization/organization.dart'
         organizationRepositories,
         staffHistoryLookup;
 import 'package:resource/resource.dart' show resourceRepositories;
-import 'package:quality/quality.dart' show GraphqlAuditRunGateway, InMemoryAuditRunGateway, auditRunGatewayProvider;
+import 'package:quality/quality.dart'
+    show
+        GraphqlAuditNoticeSource,
+        GraphqlAuditRunGateway,
+        InMemoryAuditNoticeSource,
+        InMemoryAuditRunGateway,
+        auditNoticeSourceProvider,
+        auditRunGatewayProvider;
 import 'package:production_process/production_process.dart'
     show productionProcessRepositories;
 import 'package:work_record/work_record.dart'
@@ -168,6 +175,12 @@ List<Override> graphqlOverrides() => [
     final client = ref.watch(graphqlClientProvider);
     if (client == null) return InMemoryApprovalDefaultsGateway();
     return GraphqlApprovalDefaultsGateway(client, auditUser: ref.watch(auditUserProvider));
+  }),
+  // 監査の通知(ダッシュボード。DB の audit_notice)。接続先が無いときはメモリ上(空)
+  auditNoticeSourceProvider.overrideWith((ref) {
+    final client = ref.watch(graphqlClientProvider);
+    if (client == null) return InMemoryAuditNoticeSource();
+    return GraphqlAuditNoticeSource(client, auditUser: ref.watch(auditUserProvider));
   }),
   // 監査の実施(自分の監査・項目・異常)。接続先が無いときはメモリ上
   auditRunGatewayProvider.overrideWith((ref) {
