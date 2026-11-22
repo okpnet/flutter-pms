@@ -2,14 +2,14 @@
   "formatVersion": 3,
   "appVersion": "0.1.0",
   "id": 538067658,
-  "nextId": 6124,
+  "nextId": 6180,
   "properties": {
     "outputFileName": "pms_test",
     "outputFolder": "",
     "targetDb": "postgresql",
     "postPath": "C:\\Users\\隼人さん\\AppData\\Local\\Programs\\PERO\\post\\postgresql.post",
     "startQuery": "\\c test_avocado\nSET search_path TO tests, public;",
-    "endQuery": "-- [PERO 取り込みログ] 取り込めなかった要素\n-- 取り込まない文: DROP VIEW IF × 163\n-- 取り込まない文: DROP TRIGGER IF × 3\n-- 取り込まない文: 主キーと重複するユニークインデックス(取り込まない) × 263\n\n-- [追加] コードの部分一意索引(doc/query/20261115_0002_code_unique_indexes.sql)。削除済み(remove = true)のコードは再利用できる\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_stakeholder_ix_code_active ON tests.mstr_stakeholder (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_capability_ix_code_active ON tests.mstr_capability (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_license_ix_code_active ON tests.mstr_license (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_location_ix_code_active ON tests.mstr_location (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS info_staff_ix_code_active ON tests.info_staff (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS info_office_ix_code_active ON tests.info_office (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS info_department_ix_code_active ON tests.info_department (code) WHERE remove = false;\n-- [追加] 言語コードの一意制約を、大文字小文字を区別しない一意索引にする(doc/query/20261116_0003_language_code_unique_lower.sql)\nALTER TABLE tests.shared_language_code DROP CONSTRAINT IF EXISTS shared_language_code_ix1;\nDROP INDEX IF EXISTS tests.shared_language_code_ix1;\nCREATE UNIQUE INDEX shared_language_code_ix1 ON tests.shared_language_code (lower(code));\n",
+    "endQuery": "-- [PERO 取り込みログ] 取り込めなかった要素\n-- 取り込まない文: DROP VIEW IF × 163\n-- 取り込まない文: DROP TRIGGER IF × 3\n-- 取り込まない文: 主キーと重複するユニークインデックス(取り込まない) × 263\n\n-- [追加] コードの部分一意索引(doc/query/20261115_0002_code_unique_indexes.sql)。削除済み(remove = true)のコードは再利用できる\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_stakeholder_ix_code_active ON tests.mstr_stakeholder (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_capability_ix_code_active ON tests.mstr_capability (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_license_ix_code_active ON tests.mstr_license (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_location_ix_code_active ON tests.mstr_location (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS info_staff_ix_code_active ON tests.info_staff (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS info_office_ix_code_active ON tests.info_office (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS info_department_ix_code_active ON tests.info_department (code) WHERE remove = false;\n-- [追加] 言語コードの一意制約を、大文字小文字を区別しない一意索引にする(doc/query/20261116_0003_language_code_unique_lower.sql)\nALTER TABLE tests.shared_language_code DROP CONSTRAINT IF EXISTS shared_language_code_ix1;\nDROP INDEX IF EXISTS tests.shared_language_code_ix1;\nCREATE UNIQUE INDEX shared_language_code_ix1 ON tests.shared_language_code (lower(code));\n\n-- [追加] 監査の実施記録の重複(削除済み remove = true は再登録できる)\nCREATE UNIQUE INDEX IF NOT EXISTS trans_audit_detail_check_items_ix_active ON tests.trans_audit_detail_check_items (trans_audit_details_id, audit_std_checkitem_id) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS trans_audit_complaint_ix_active ON tests.trans_audit_complaint (trans_complaint_id, trans_audit_detail_check_items_id) WHERE remove = false;",
     "schema": "tests",
     "includeSchema": true
   },
@@ -10804,6 +10804,94 @@
         2855,
         2417
       ],
+      "schema": "tests"
+    },
+    {
+      "id": 6155,
+      "kind": "trigger",
+      "name": "trg_01_updatetimes_trans_audit_details",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_audit_details() RETURNS trigger AS\n$BODY$\nDECLARE\n    latest_row record;\nBEGIN\n    IF (TG_OP = 'UPDATE') THEN\n        NEW.update_at:=now();\n        RETURN NEW;\n    ELSEIF (TG_OP='INSERT') THEN\n        NEW.trans_audit_details_id := gen_random_uuid();\n        NEW.update_at:=now();\n        RETURN NEW;\n    ELSEIF (TG_OP = 'DELETE') THEN\n        RETURN OLD;\n    END IF;\nEND\n$BODY$\nLANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "",
+      "args": "",
+      "dependsOnTableIds": [],
+      "schema": "tests"
+    },
+    {
+      "id": 6158,
+      "kind": "trigger",
+      "name": "trg_01_updatetimes_trans_audit_detail_check_items",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_audit_detail_check_items() RETURNS trigger AS\n$BODY$\nDECLARE\n    latest_row record;\nBEGIN\n    IF (TG_OP = 'UPDATE') THEN\n        NEW.update_at:=now();\n        RETURN NEW;\n    ELSEIF (TG_OP='INSERT') THEN\n        NEW.trans_audit_detail_check_items_id := gen_random_uuid();\n        NEW.update_at:=now();\n        RETURN NEW;\n    ELSEIF (TG_OP = 'DELETE') THEN\n        RETURN OLD;\n    END IF;\nEND\n$BODY$\nLANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "",
+      "args": "",
+      "dependsOnTableIds": [],
+      "schema": "tests"
+    },
+    {
+      "id": 6161,
+      "kind": "trigger",
+      "name": "trg_01_updatetimes_trans_audit_complaint",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_audit_complaint() RETURNS trigger AS\n$BODY$\nDECLARE\n    latest_row record;\nBEGIN\n    IF (TG_OP = 'UPDATE') THEN\n        NEW.update_at:=now();\n        RETURN NEW;\n    ELSEIF (TG_OP='INSERT') THEN\n        NEW.trans_audit_complaint_id := gen_random_uuid();\n        NEW.update_at:=now();\n        RETURN NEW;\n    ELSEIF (TG_OP = 'DELETE') THEN\n        RETURN OLD;\n    END IF;\nEND\n$BODY$\nLANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "",
+      "args": "",
+      "dependsOnTableIds": [],
+      "schema": "tests"
+    },
+    {
+      "id": 6164,
+      "kind": "trigger",
+      "name": "trg_03_audit_check_item_std",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_03_audit_check_item_std() RETURNS trigger AS\n$BODY$\nBEGIN\n    -- 監査標準項目は、監査実施詳細の監査標準に属すものだけ(別の監査標準の項目は登録できない)\n    IF NOT EXISTS (\n        SELECT 1\n        FROM tests.trans_audit_details AS d\n        JOIN tests.history_mstr_audit_std_checkitem AS h\n            ON h.history_id = NEW.audit_std_checkitem_history_id\n            AND h.mstr_audit_std_checkitem_id = NEW.audit_std_checkitem_id\n        WHERE d.trans_audit_details_id = NEW.trans_audit_details_id\n            AND h.mstr_audit_std_id = d.audit_std_id\n    ) THEN\n        RAISE EXCEPTION '監査標準項目が、監査実施詳細の監査標準に属していません' USING ERRCODE = 'AUD01';\n    END IF;\n    RETURN NEW;\nEND\n$BODY$\nLANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "@omit\n監査標準項目が、監査実施詳細の監査標準に属すことを検査するトリガー関数",
+      "args": "",
+      "dependsOnTableIds": [],
       "schema": "tests"
     }
   ],
@@ -45267,6 +45355,16 @@
             5896
           ],
           "nullsNotDistinct": false
+        },
+        {
+          "id": 6166,
+          "nameMode": "manual",
+          "name": "trans_audit_team_ix2",
+          "columnIds": [
+            2475,
+            2476
+          ],
+          "nullsNotDistinct": false
         }
       ],
       "checks": [],
@@ -66318,6 +66416,604 @@
       },
       "preQuery": "",
       "postQuery": "COMMENT ON COLUMN tests.v_approval_pending.trans_preapproval_id IS '承認前ID(承認の段 1 つ)';\nCOMMENT ON COLUMN tests.v_approval_pending.trans_approval_pattern_id IS '承認実行パターンID';\nCOMMENT ON COLUMN tests.v_approval_pending.mstr_approval_id IS '承認ID(承認の段)';\nCOMMENT ON COLUMN tests.v_approval_pending.approval_priority IS '承認の順位(小さい順に承認する。同じ順位は並行)';\nCOMMENT ON COLUMN tests.v_approval_pending.approval_names IS '承認の名称(呼称ID)';\nCOMMENT ON COLUMN tests.v_approval_pending.info_position_id IS '承認する役職ID';\nCOMMENT ON COLUMN tests.v_approval_pending.info_department_id IS '承認する部署ID(NULL は部署を問わない)';\nCOMMENT ON COLUMN tests.v_approval_pending.period IS '承認の期限';\nCOMMENT ON COLUMN tests.v_approval_pending.is_document IS '対象が文書';\nCOMMENT ON COLUMN tests.v_approval_pending.is_complaint IS '対象が異常';\nCOMMENT ON COLUMN tests.v_approval_pending.is_disposal IS '対象が異常の処置';\nCOMMENT ON COLUMN tests.v_approval_pending.is_recurrence_prevention IS '対象が再発防止';\nCOMMENT ON COLUMN tests.v_approval_pending.is_order IS '対象が受注';\nCOMMENT ON COLUMN tests.v_approval_pending.is_purchase IS '対象が発注';\nCOMMENT ON COLUMN tests.v_approval_pending.is_unrecognized IS '対象が非計上発注';\nCOMMENT ON COLUMN tests.v_approval_pending.is_shipping_order IS '対象が出荷オーダー(出荷予定)';\nCOMMENT ON COLUMN tests.v_approval_pending.mstr_document_id IS '対象の文書ID';\nCOMMENT ON COLUMN tests.v_approval_pending.trans_complaint_id IS '対象の異常ID';\nCOMMENT ON COLUMN tests.v_approval_pending.trans_disposal_id IS '対象の処置ID';\nCOMMENT ON COLUMN tests.v_approval_pending.trans_recurrence_prevention_id IS '対象の再発防止ID';\nCOMMENT ON COLUMN tests.v_approval_pending.trans_order_id IS '対象の受注ID';\nCOMMENT ON COLUMN tests.v_approval_pending.trans_purchase_id IS '対象の発注ID';\nCOMMENT ON COLUMN tests.v_approval_pending.trans_unrecognized_id IS '対象の非計上ID';\nCOMMENT ON COLUMN tests.v_approval_pending.trans_shipping_order_id IS '対象の出荷オーダーID';\nCOMMENT ON COLUMN tests.v_approval_pending.target_symbol IS '対象のリニアシンボル';\nCOMMENT ON COLUMN tests.v_approval_pending.applicant_staff_id IS '申請者(対象の登録者)の担当者ID';\nCOMMENT ON COLUMN tests.v_approval_pending.applicant_staff_history_id IS '申請者の担当者履歴ID';\nCOMMENT ON COLUMN tests.v_approval_pending.applied_at IS '申請日時(対象の登録の日時)';\nCOMMENT ON COLUMN tests.v_approval_pending.approver IS 'ログイン中の担当者がこの段の承認の該当者';\nCOMMENT ON COLUMN tests.v_approval_pending.actionable IS '承認できる状態(順位が小さい段がすべて承認済み)';"
+    },
+    {
+      "id": 6135,
+      "kind": "table",
+      "logicalName": "監査実施詳細",
+      "physicalName": "trans_audit_details",
+      "comment": "監査実施詳細(監査の計画と実施の記録。1 つの監査に複数。監査標準・監査名・チーム・予定と実績)",
+      "locked": false,
+      "columns": [
+        {
+          "id": 6124,
+          "logicalName": "監査実施詳細ID",
+          "physicalName": "trans_audit_details_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": true,
+          "notNull": true,
+          "defaultKind": "method",
+          "defaultValue": "",
+          "defaultMethodId": 10,
+          "defaultExpression": "",
+          "comment": "監査実施詳細ID"
+        },
+        {
+          "id": 6125,
+          "logicalName": "監査ID",
+          "physicalName": "trans_audit_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "監査ID"
+        },
+        {
+          "id": 6126,
+          "logicalName": "監査標準履歴ID",
+          "physicalName": "audit_std_history_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "監査標準履歴ID"
+        },
+        {
+          "id": 6127,
+          "logicalName": "監査標準ID",
+          "physicalName": "audit_std_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "監査標準ID"
+        },
+        {
+          "id": 6128,
+          "logicalName": "監査名",
+          "physicalName": "names",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "監査名(ラベル)"
+        },
+        {
+          "id": 6129,
+          "logicalName": "チームID",
+          "physicalName": "trans_audit_team_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "チームID"
+        },
+        {
+          "id": 6130,
+          "logicalName": "予定日時",
+          "physicalName": "scheduled_at",
+          "typeId": "timestamp",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "予定日時"
+        },
+        {
+          "id": 6131,
+          "logicalName": "終了予定日時",
+          "physicalName": "expected_end_at",
+          "typeId": "timestamp",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "終了予定日時"
+        },
+        {
+          "id": 6132,
+          "logicalName": "実施日",
+          "physicalName": "performed_date",
+          "typeId": "date",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "実施日"
+        },
+        {
+          "id": 6133,
+          "logicalName": "終了日時",
+          "physicalName": "ended_at",
+          "typeId": "timestamp",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "終了日時"
+        },
+        {
+          "id": 6134,
+          "logicalName": "監査結論",
+          "physicalName": "conclusion",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "監査結論(文章)"
+        }
+      ],
+      "indexes": [
+        {
+          "id": 6136,
+          "nameMode": "manual",
+          "name": "trans_audit_details_ix91",
+          "columnIds": [
+            6125
+          ],
+          "nullsNotDistinct": false
+        }
+      ],
+      "uniques": [
+        {
+          "id": 6137,
+          "nameMode": "manual",
+          "name": "trans_audit_details_ix1",
+          "columnIds": [
+            5896
+          ],
+          "nullsNotDistinct": false
+        }
+      ],
+      "checks": [
+        {
+          "id": 6138,
+          "nameMode": "manual",
+          "name": "trans_audit_details_ck1",
+          "expression": "expected_end_at IS NULL OR scheduled_at IS NULL OR expected_end_at >= scheduled_at"
+        },
+        {
+          "id": 6139,
+          "nameMode": "manual",
+          "name": "trans_audit_details_ck2",
+          "expression": "ended_at IS NULL OR performed_date IS NULL OR ended_at >= performed_date"
+        }
+      ],
+      "preQuery": "",
+      "postQuery": "",
+      "triggers": [
+        {
+          "id": 6156,
+          "source": "public",
+          "methodId": 6155,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_01_updatetimes_trans_audit_details",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT",
+            "UPDATE",
+            "DELETE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        },
+        {
+          "id": 6157,
+          "source": "public",
+          "methodId": 5,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_04_symbol_trans_audit_details",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        }
+      ]
+    },
+    {
+      "id": 6146,
+      "kind": "table",
+      "logicalName": "監査実施詳細項目",
+      "physicalName": "trans_audit_detail_check_items",
+      "comment": "監査実施詳細項目(計画と実施に紐付く基準(監査標準項目)と事実(式に対する値・所見))",
+      "locked": false,
+      "columns": [
+        {
+          "id": 6140,
+          "logicalName": "監査実施詳細項目ID",
+          "physicalName": "trans_audit_detail_check_items_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": true,
+          "notNull": true,
+          "defaultKind": "method",
+          "defaultValue": "",
+          "defaultMethodId": 10,
+          "defaultExpression": "",
+          "comment": "監査実施詳細項目ID"
+        },
+        {
+          "id": 6141,
+          "logicalName": "監査実施詳細ID",
+          "physicalName": "trans_audit_details_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "監査実施詳細ID"
+        },
+        {
+          "id": 6142,
+          "logicalName": "監査標準項目履歴ID",
+          "physicalName": "audit_std_checkitem_history_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "監査標準項目履歴ID"
+        },
+        {
+          "id": 6143,
+          "logicalName": "監査標準項目ID",
+          "physicalName": "audit_std_checkitem_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "監査標準項目ID"
+        },
+        {
+          "id": 6144,
+          "logicalName": "式に対する値",
+          "physicalName": "formula_value",
+          "typeId": "jsonb",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "式に対する値(JSON。監査標準項目の式 formula_class に対する実測・判定の値)"
+        },
+        {
+          "id": 6145,
+          "logicalName": "所見",
+          "physicalName": "findings",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "所見(文章)"
+        }
+      ],
+      "indexes": [
+        {
+          "id": 6147,
+          "nameMode": "manual",
+          "name": "trans_audit_detail_check_items_ix91",
+          "columnIds": [
+            6141
+          ],
+          "nullsNotDistinct": false
+        }
+      ],
+      "uniques": [
+        {
+          "id": 6148,
+          "nameMode": "manual",
+          "name": "trans_audit_detail_check_items_ix1",
+          "columnIds": [
+            5896
+          ],
+          "nullsNotDistinct": false
+        }
+      ],
+      "checks": [],
+      "preQuery": "",
+      "postQuery": "",
+      "triggers": [
+        {
+          "id": 6159,
+          "source": "public",
+          "methodId": 6158,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_01_updatetimes_trans_audit_detail_check_items",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT",
+            "UPDATE",
+            "DELETE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        },
+        {
+          "id": 6160,
+          "source": "public",
+          "methodId": 5,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_04_symbol_trans_audit_detail_check_items",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        },
+        {
+          "id": 6165,
+          "source": "public",
+          "methodId": 6164,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_03_audit_check_item_std",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT",
+            "UPDATE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        }
+      ]
+    },
+    {
+      "id": 6152,
+      "kind": "table",
+      "logicalName": "監査の異常",
+      "physicalName": "trans_audit_complaint",
+      "comment": "監査の異常(事実が異常・不適合のとき、是正処置を求めるための異常 trans_complaint と、監査実施詳細項目のつなぎ)",
+      "locked": false,
+      "columns": [
+        {
+          "id": 6149,
+          "logicalName": "監査の異常ID",
+          "physicalName": "trans_audit_complaint_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": true,
+          "notNull": true,
+          "defaultKind": "method",
+          "defaultValue": "",
+          "defaultMethodId": 10,
+          "defaultExpression": "",
+          "comment": "監査の異常ID"
+        },
+        {
+          "id": 6150,
+          "logicalName": "異常ID",
+          "physicalName": "trans_complaint_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "異常ID"
+        },
+        {
+          "id": 6151,
+          "logicalName": "監査実施詳細項目ID",
+          "physicalName": "trans_audit_detail_check_items_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "監査実施詳細項目ID"
+        }
+      ],
+      "indexes": [
+        {
+          "id": 6153,
+          "nameMode": "manual",
+          "name": "trans_audit_complaint_ix91",
+          "columnIds": [
+            6150
+          ],
+          "nullsNotDistinct": false
+        }
+      ],
+      "uniques": [
+        {
+          "id": 6154,
+          "nameMode": "manual",
+          "name": "trans_audit_complaint_ix1",
+          "columnIds": [
+            5896
+          ],
+          "nullsNotDistinct": false
+        }
+      ],
+      "checks": [],
+      "preQuery": "",
+      "postQuery": "",
+      "triggers": [
+        {
+          "id": 6162,
+          "source": "public",
+          "methodId": 6161,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_01_updatetimes_trans_audit_complaint",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT",
+            "UPDATE",
+            "DELETE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        },
+        {
+          "id": 6163,
+          "source": "public",
+          "methodId": 5,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_04_symbol_trans_audit_complaint",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        }
+      ]
     }
   ],
   "relationships": [
@@ -83684,6 +84380,290 @@
       "onDelete": "none",
       "onUpdate": "none",
       "deferrable": "deferred"
+    },
+    {
+      "id": 6167,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 2484,
+      "childId": 6135,
+      "columnPairs": [
+        {
+          "parentColumnId": 2485,
+          "childColumnId": 6125
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "trans_audit_details_fk1",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6168,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 1748,
+      "childId": 6135,
+      "columnPairs": [
+        {
+          "parentColumnId": 1749,
+          "childColumnId": 6126
+        },
+        {
+          "parentColumnId": 1750,
+          "childColumnId": 6127
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "trans_audit_details_fk2",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6169,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 485,
+      "childId": 6135,
+      "columnPairs": [
+        {
+          "parentColumnId": 486,
+          "childColumnId": 6128
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "trans_audit_details_fk3",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6170,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 2474,
+      "childId": 6135,
+      "columnPairs": [
+        {
+          "parentColumnId": 2475,
+          "childColumnId": 6129
+        },
+        {
+          "parentColumnId": 2476,
+          "childColumnId": 6125
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "trans_audit_details_fk4",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6171,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 438,
+      "childId": 6135,
+      "columnPairs": [
+        {
+          "parentColumnId": 439,
+          "childColumnId": 6134
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "trans_audit_details_fk5",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6172,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 1995,
+      "childId": 6135,
+      "columnPairs": [
+        {
+          "parentColumnId": 1996,
+          "childColumnId": 5900
+        },
+        {
+          "parentColumnId": 1997,
+          "childColumnId": 5899
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "trans_audit_details_fk6",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6173,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 6135,
+      "childId": 6146,
+      "columnPairs": [
+        {
+          "parentColumnId": 6124,
+          "childColumnId": 6141
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "trans_audit_detail_check_items_fk1",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6174,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 1730,
+      "childId": 6146,
+      "columnPairs": [
+        {
+          "parentColumnId": 1731,
+          "childColumnId": 6142
+        },
+        {
+          "parentColumnId": 1732,
+          "childColumnId": 6143
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "trans_audit_detail_check_items_fk2",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6175,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 438,
+      "childId": 6146,
+      "columnPairs": [
+        {
+          "parentColumnId": 439,
+          "childColumnId": 6145
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "trans_audit_detail_check_items_fk3",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6176,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 1995,
+      "childId": 6146,
+      "columnPairs": [
+        {
+          "parentColumnId": 1996,
+          "childColumnId": 5900
+        },
+        {
+          "parentColumnId": 1997,
+          "childColumnId": 5899
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "trans_audit_detail_check_items_fk4",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6177,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 2728,
+      "childId": 6152,
+      "columnPairs": [
+        {
+          "parentColumnId": 2729,
+          "childColumnId": 6150
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "trans_audit_complaint_fk1",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6178,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 6146,
+      "childId": 6152,
+      "columnPairs": [
+        {
+          "parentColumnId": 6140,
+          "childColumnId": 6151
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "trans_audit_complaint_fk2",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6179,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 1995,
+      "childId": 6152,
+      "columnPairs": [
+        {
+          "parentColumnId": 1996,
+          "childColumnId": 5900
+        },
+        {
+          "parentColumnId": 1997,
+          "childColumnId": 5899
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "trans_audit_complaint_fk3",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
     }
   ],
   "diagrams": [
@@ -86429,6 +87409,24 @@
           "entityId": 2728,
           "x": 40.0,
           "y": 1061.0,
+          "collapsed": false
+        },
+        {
+          "entityId": 6135,
+          "x": 40.0,
+          "y": 4100.0,
+          "collapsed": false
+        },
+        {
+          "entityId": 6146,
+          "x": 520.0,
+          "y": 4100.0,
+          "collapsed": false
+        },
+        {
+          "entityId": 6152,
+          "x": 1000.0,
+          "y": 4100.0,
           "collapsed": false
         }
       ],
