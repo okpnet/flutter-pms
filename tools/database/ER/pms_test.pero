@@ -2,7 +2,7 @@
   "formatVersion": 3,
   "appVersion": "0.1.0",
   "id": 538067658,
-  "nextId": 6180,
+  "nextId": 6188,
   "properties": {
     "outputFileName": "pms_test",
     "outputFolder": "",
@@ -10892,6 +10892,162 @@
       "comment": "@omit\n監査標準項目が、監査実施詳細の監査標準に属すことを検査するトリガー関数",
       "args": "",
       "dependsOnTableIds": [],
+      "schema": "tests"
+    },
+    {
+      "id": 6180,
+      "kind": "function",
+      "name": "audit_is_member",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.audit_is_member(p_details_id uuid, p_staff_id uuid) RETURNS boolean AS $$\n    SELECT EXISTS (\n        SELECT 1\n        FROM tests.trans_audit_details AS d\n        INNER JOIN tests.trans_auditor AS a\n            ON a.trans_audit_team_id = d.trans_audit_team_id AND a.remove IS FALSE\n        WHERE d.trans_audit_details_id = p_details_id AND d.remove IS FALSE AND a.staff_id = p_staff_id\n    ) OR pg_has_role(current_user, 'pms_admin', 'member')\n$$ LANGUAGE sql STABLE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "@omit\n担当者が、監査実施詳細のチームの監査員か(管理者は常に可)",
+      "args": "uuid, uuid",
+      "dependsOnTableIds": [
+        6135,
+        2460
+      ],
+      "schema": "tests"
+    },
+    {
+      "id": 6181,
+      "kind": "function",
+      "name": "audit_detail_prepare",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.audit_detail_prepare(\n    p_audit_details_id uuid,\n    p_staff_id uuid DEFAULT NULL\n) RETURNS integer AS $$\nDECLARE\n    v_st record; v_d tests.trans_audit_details; v_count integer;\nBEGIN\n    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);\n    SELECT * INTO v_d FROM tests.trans_audit_details WHERE trans_audit_details_id = p_audit_details_id AND remove IS FALSE FOR UPDATE;\n    IF NOT FOUND THEN\n        RAISE EXCEPTION '監査実施詳細が見つかりません (%)', p_audit_details_id USING ERRCODE = 'AUD02';\n    END IF;\n    IF NOT tests.audit_is_member(v_d.trans_audit_details_id, v_st.staff_id) THEN\n        RAISE EXCEPTION 'この監査のチームの監査員ではありません (%)', v_st.staff_id USING ERRCODE = 'AUD03';\n    END IF;\n    IF v_d.ended_at IS NOT NULL THEN\n        RAISE EXCEPTION '終了した監査は変更できません' USING ERRCODE = 'AUD05';\n    END IF;\n    INSERT INTO tests.trans_audit_detail_check_items (\n        trans_audit_details_id, audit_std_checkitem_history_id, audit_std_checkitem_id, update_user_id, update_user_history_id\n    )\n    SELECT p_audit_details_id, h.history_id, c.mstr_audit_std_checkitem_id, v_st.staff_id, v_st.staff_history_id\n    FROM tests.mstr_audit_std_checkitem AS c\n    INNER JOIN LATERAL (\n        SELECT hh.history_id FROM tests.history_mstr_audit_std_checkitem AS hh\n        WHERE hh.mstr_audit_std_checkitem_id = c.mstr_audit_std_checkitem_id\n        ORDER BY hh.revision DESC, hh.update_at DESC LIMIT 1\n    ) AS h ON TRUE\n    WHERE c.mstr_audit_std_id = v_d.audit_std_id AND c.remove IS FALSE\n      AND NOT EXISTS (\n        SELECT 1 FROM tests.trans_audit_detail_check_items AS i\n        WHERE i.trans_audit_details_id = p_audit_details_id AND i.audit_std_checkitem_id = c.mstr_audit_std_checkitem_id AND i.remove IS FALSE\n      )\n    ORDER BY c.code;\n    GET DIAGNOSTICS v_count = ROW_COUNT;\n    RETURN v_count;\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "監査標準の項目(その時点の履歴)を、まだ無いものだけ、監査実施詳細の項目として作る(冪等)。チームの監査員だけ。戻り値は作った件数。担当者は引数、省略時は JWT の staff_id。errcode: OPR00 担当者が無い / AUD02 対象が無い / AUD03 チームの監査員ではない / AUD05 終了した監査",
+      "args": "uuid, uuid",
+      "dependsOnTableIds": [
+        6135,
+        6146,
+        2585,
+        1730
+      ],
+      "schema": "tests"
+    },
+    {
+      "id": 6182,
+      "kind": "function",
+      "name": "audit_detail_start",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.audit_detail_start(\n    p_audit_details_id uuid,\n    p_staff_id uuid DEFAULT NULL\n) RETURNS tests.trans_audit_details AS $$\nDECLARE\n    v_st record; v_d tests.trans_audit_details;\nBEGIN\n    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);\n    SELECT * INTO v_d FROM tests.trans_audit_details WHERE trans_audit_details_id = p_audit_details_id AND remove IS FALSE FOR UPDATE;\n    IF NOT FOUND THEN\n        RAISE EXCEPTION '監査実施詳細が見つかりません (%)', p_audit_details_id USING ERRCODE = 'AUD02';\n    END IF;\n    IF NOT tests.audit_is_member(v_d.trans_audit_details_id, v_st.staff_id) THEN\n        RAISE EXCEPTION 'この監査のチームの監査員ではありません (%)', v_st.staff_id USING ERRCODE = 'AUD03';\n    END IF;\n    IF v_d.ended_at IS NOT NULL THEN\n        RAISE EXCEPTION '終了した監査は変更できません' USING ERRCODE = 'AUD05';\n    END IF;\n    UPDATE tests.trans_audit_details\n    SET performed_date = COALESCE(performed_date, current_date), update_user_id = v_st.staff_id, update_user_history_id = v_st.staff_history_id\n    WHERE trans_audit_details_id = p_audit_details_id\n    RETURNING * INTO v_d;\n    PERFORM tests.audit_detail_prepare(p_audit_details_id, v_st.staff_id);\n    RETURN v_d;\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "監査の実施を開始する(実施日を今日にする。すでにあれば変えない)。項目を用意する(audit_detail_prepare)。チームの監査員だけ。担当者は引数、省略時は JWT の staff_id。errcode: OPR00 / AUD02 対象が無い / AUD03 チームの監査員ではない / AUD05 終了した監査。戻り値は監査実施詳細",
+      "args": "uuid, uuid",
+      "dependsOnTableIds": [
+        6135
+      ],
+      "schema": "tests"
+    },
+    {
+      "id": 6183,
+      "kind": "function",
+      "name": "audit_detail_finish",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.audit_detail_finish(\n    p_audit_details_id uuid,\n    p_conclusion jsonb DEFAULT NULL,\n    p_force boolean DEFAULT FALSE,\n    p_staff_id uuid DEFAULT NULL\n) RETURNS tests.trans_audit_details AS $$\nDECLARE\n    v_st record; v_d tests.trans_audit_details; v_text uuid;\nBEGIN\n    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);\n    SELECT * INTO v_d FROM tests.trans_audit_details WHERE trans_audit_details_id = p_audit_details_id AND remove IS FALSE FOR UPDATE;\n    IF NOT FOUND THEN\n        RAISE EXCEPTION '監査実施詳細が見つかりません (%)', p_audit_details_id USING ERRCODE = 'AUD02';\n    END IF;\n    IF NOT tests.audit_is_member(v_d.trans_audit_details_id, v_st.staff_id) THEN\n        RAISE EXCEPTION 'この監査のチームの監査員ではありません (%)', v_st.staff_id USING ERRCODE = 'AUD03';\n    END IF;\n    IF v_d.ended_at IS NOT NULL THEN\n        RAISE EXCEPTION '終了した監査は変更できません' USING ERRCODE = 'AUD05';\n    END IF;\n    IF v_d.performed_date IS NULL THEN\n        RAISE EXCEPTION '実施を開始していません' USING ERRCODE = 'AUD06';\n    END IF;\n    IF NOT COALESCE(p_force, FALSE) AND EXISTS (\n        SELECT 1 FROM tests.trans_audit_detail_check_items AS i\n        WHERE i.trans_audit_details_id = p_audit_details_id AND i.remove IS FALSE AND i.formula_value IS NULL AND i.findings IS NULL\n    ) THEN\n        RAISE EXCEPTION '未入力の項目があります' USING ERRCODE = 'AUD04';\n    END IF;\n    IF p_conclusion IS NOT NULL AND p_conclusion <> '{}'::jsonb THEN\n        SELECT t.trans_text_id INTO v_text FROM tests.trans_text_save(v_d.conclusion, p_conclusion, v_st.staff_id, v_st.staff_history_id) AS t;\n    END IF;\n    UPDATE tests.trans_audit_details\n    SET ended_at = now(), conclusion = COALESCE(v_text, conclusion), update_user_id = v_st.staff_id, update_user_history_id = v_st.staff_history_id\n    WHERE trans_audit_details_id = p_audit_details_id\n    RETURNING * INTO v_d;\n    RETURN v_d;\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "監査の実施を終了する(終了日時 = 今、結論 = 言語別の値の JSON)。未入力の項目(値も所見も無い)があれば止める(p_force で押し切れる)。チームの監査員だけ。担当者は引数、省略時は JWT の staff_id。errcode: OPR00 / AUD02 対象が無い / AUD03 チームの監査員ではない / AUD04 未入力の項目がある / AUD05 終了した監査 / AUD06 実施を開始していない。戻り値は監査実施詳細",
+      "args": "uuid, jsonb, boolean, uuid",
+      "dependsOnTableIds": [
+        6135,
+        6146,
+        438
+      ],
+      "schema": "tests"
+    },
+    {
+      "id": 6184,
+      "kind": "function",
+      "name": "audit_complaint_register",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.audit_complaint_register(\n    p_item_id uuid,\n    p_titles jsonb,\n    p_details jsonb DEFAULT NULL,\n    p_occurred_at timestamp DEFAULT NULL,\n    p_staff_id uuid DEFAULT NULL\n) RETURNS tests.trans_audit_complaint AS $$\nDECLARE\n    v_st record; v_d tests.trans_audit_details; v_item tests.trans_audit_detail_check_items;\n    v_label uuid; v_text uuid; v_complaint uuid; v_row tests.trans_audit_complaint;\nBEGIN\n    SELECT * INTO v_item FROM tests.trans_audit_detail_check_items WHERE trans_audit_detail_check_items_id = p_item_id AND remove IS FALSE;\n    IF NOT FOUND THEN\n        RAISE EXCEPTION '監査実施詳細項目が見つかりません (%)', p_item_id USING ERRCODE = 'AUD02';\n    END IF;\n    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);\n    SELECT * INTO v_d FROM tests.trans_audit_details WHERE trans_audit_details_id = v_item.trans_audit_details_id AND remove IS FALSE FOR UPDATE;\n    IF NOT FOUND THEN\n        RAISE EXCEPTION '監査実施詳細が見つかりません (%)', v_item.trans_audit_details_id USING ERRCODE = 'AUD02';\n    END IF;\n    IF NOT tests.audit_is_member(v_d.trans_audit_details_id, v_st.staff_id) THEN\n        RAISE EXCEPTION 'この監査のチームの監査員ではありません (%)', v_st.staff_id USING ERRCODE = 'AUD03';\n    END IF;\n    IF v_d.ended_at IS NOT NULL THEN\n        RAISE EXCEPTION '終了した監査は変更できません' USING ERRCODE = 'AUD05';\n    END IF;\n    IF p_titles IS NULL OR p_titles = '{}'::jsonb THEN\n        RAISE EXCEPTION '異常の題名を指定してください' USING ERRCODE = 'AUD07';\n    END IF;\n    SELECT t.trans_label_id INTO v_label FROM tests.trans_label_save(NULL, p_titles, v_st.staff_id, v_st.staff_history_id) AS t;\n    SELECT t.trans_text_id INTO v_text FROM tests.trans_text_save(NULL, COALESCE(NULLIF(p_details, '{}'::jsonb), p_titles), v_st.staff_id, v_st.staff_history_id) AS t;\n    INSERT INTO tests.trans_complaint (\n        occurent_at, titles, details, reporter_staff_history_id, reporter_staff_id, update_user_id, update_user_history_id\n    )\n    VALUES (COALESCE(p_occurred_at, now()), v_label, v_text, v_st.staff_history_id, v_st.staff_id, v_st.staff_id, v_st.staff_history_id)\n    RETURNING trans_complaint_id INTO v_complaint;\n    INSERT INTO tests.trans_audit_complaint (trans_complaint_id, trans_audit_detail_check_items_id, update_user_id, update_user_history_id)\n    VALUES (v_complaint, p_item_id, v_st.staff_id, v_st.staff_history_id)\n    RETURNING * INTO v_row;\n    RETURN v_row;\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "不適合の項目から、異常(題名・内容 = 言語別の値の JSON。報告者 = 担当者。承認パターンがあれば申請になる)を作り、項目につなぐ(1 トランザクション)。チームの監査員だけ。担当者は引数、省略時は JWT の staff_id。errcode: OPR00 / AUD02 項目が無い / AUD03 チームの監査員ではない / AUD05 終了した監査 / AUD07 題名が無い。戻り値は監査の異常(つなぎ)",
+      "args": "uuid, jsonb, jsonb, timestamp, uuid",
+      "dependsOnTableIds": [
+        6152,
+        6146,
+        2728,
+        485,
+        438
+      ],
+      "schema": "tests"
+    },
+    {
+      "id": 6185,
+      "kind": "function",
+      "name": "audit_notice",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.audit_notice(p_days_before integer DEFAULT 3)\nRETURNS TABLE (\n    trans_audit_details_id uuid,\n    trans_audit_id uuid,\n    trans_audit_team_id uuid,\n    scheduled_at timestamp,\n    days_until integer,\n    is_overdue boolean,\n    is_in_progress boolean\n) AS $$\n    SELECT\n        a.trans_audit_details_id, a.trans_audit_id, a.trans_audit_team_id, a.scheduled_at,\n        (a.scheduled_at::date - current_date), a.is_overdue, a.is_in_progress\n    FROM tests.v_audit_assignment AS a\n    WHERE a.staff_id = NULLIF(current_setting('jwt.claims.staff_id', true), '')::uuid\n      AND NOT a.is_done\n      AND a.scheduled_at IS NOT NULL\n      AND a.scheduled_at < now() + make_interval(days => p_days_before)\n    ORDER BY a.scheduled_at, a.trans_audit_details_id\n$$ LANGUAGE sql STABLE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "監査の通知(予定日をもとに導く。行は作らない)。呼び出した人(JWT の staff_id)がチームの監査員で、未終了で、予定日時が p_days_before 日以内(または過ぎた)の監査実施詳細を返す。days_until は予定日までの日数(過ぎたものは負)。予定日を変えると結果も変わる",
+      "args": "integer",
+      "dependsOnTableIds": [
+        6135,
+        2460,
+        2474
+      ],
       "schema": "tests"
     }
   ],
@@ -67014,6 +67170,54 @@
           "updateColumnIds": []
         }
       ]
+    },
+    {
+      "id": 6186,
+      "kind": "view",
+      "logicalName": "",
+      "physicalName": "v_audit_assignment",
+      "comment": "@primaryKey trans_auditor_id,trans_audit_details_id\n@foreignKey (trans_audit_details_id) references trans_audit_details (trans_audit_details_id)\n@foreignKey (trans_audit_id) references trans_audit (trans_audit_id)\n@foreignKey (trans_auditor_id) references trans_auditor (trans_auditor_id)\n監査の割り当て(1 行 = 監査実施詳細 × チームの監査員)。画面は staff_id = 自分 で絞るだけ。状態は boolean と文字をこのビューで 1 か所だけ定義する",
+      "locked": false,
+      "viewType": "sql",
+      "join": {
+        "sources": [],
+        "columns": [],
+        "where": ""
+      },
+      "function": {
+        "methodId": null,
+        "args": [],
+        "columns": []
+      },
+      "sql": {
+        "sql": "SELECT\n    a.trans_auditor_id\n    , a.staff_id\n    , d.trans_audit_details_id\n    , d.trans_audit_id\n    , d.trans_audit_team_id\n    , d.audit_std_id\n    , d.scheduled_at\n    , d.expected_end_at\n    , d.performed_date\n    , d.ended_at\n    , (d.performed_date IS NULL AND d.ended_at IS NULL) AS is_planned\n    , (d.performed_date IS NOT NULL AND d.ended_at IS NULL) AS is_in_progress\n    , (d.ended_at IS NOT NULL) AS is_done\n    , (d.performed_date IS NULL AND d.ended_at IS NULL AND d.scheduled_at < now()) AS is_overdue\n    , COALESCE(ic.item_count, 0)::integer AS item_count\n    , COALESCE(ic.answered_count, 0)::integer AS answered_count\n    , COALESCE(cc.complaint_count, 0)::integer AS complaint_count\n    , CASE\n        WHEN d.ended_at IS NOT NULL THEN '完了'\n        WHEN d.performed_date IS NOT NULL THEN '実施中'\n        WHEN d.scheduled_at < now() THEN '予定超過'\n        ELSE '予定'\n      END AS status_label_ja\n    , CASE\n        WHEN d.ended_at IS NOT NULL THEN 'Done'\n        WHEN d.performed_date IS NOT NULL THEN 'In progress'\n        WHEN d.scheduled_at < now() THEN 'Overdue'\n        ELSE 'Planned'\n      END AS status_label_en\n    , d.symbol\nFROM\n    tests.trans_audit_details AS d\n    INNER JOIN tests.trans_audit_team AS t\n        ON t.trans_audit_team_id = d.trans_audit_team_id\n        AND t.trans_audit_id = d.trans_audit_id\n        AND t.remove IS FALSE\n    INNER JOIN tests.trans_auditor AS a\n        ON a.trans_audit_team_id = t.trans_audit_team_id\n        AND a.remove IS FALSE\n    LEFT JOIN LATERAL (\n        SELECT\n            count(*) AS item_count\n            , count(*) FILTER (WHERE i.formula_value IS NOT NULL OR i.findings IS NOT NULL) AS answered_count\n        FROM tests.trans_audit_detail_check_items AS i\n        WHERE i.trans_audit_details_id = d.trans_audit_details_id AND i.remove IS FALSE\n    ) AS ic ON TRUE\n    LEFT JOIN LATERAL (\n        SELECT count(*) AS complaint_count\n        FROM tests.trans_audit_complaint AS ac\n        INNER JOIN tests.trans_audit_detail_check_items AS i2\n            ON i2.trans_audit_detail_check_items_id = ac.trans_audit_detail_check_items_id AND i2.remove IS FALSE\n        WHERE i2.trans_audit_details_id = d.trans_audit_details_id AND ac.remove IS FALSE\n    ) AS cc ON TRUE\nWHERE\n    d.remove IS FALSE"
+      },
+      "preQuery": "",
+      "postQuery": "COMMENT ON COLUMN tests.v_audit_assignment.trans_auditor_id IS '監査員ID';\nCOMMENT ON COLUMN tests.v_audit_assignment.staff_id IS '監査員(担当者)ID';\nCOMMENT ON COLUMN tests.v_audit_assignment.trans_audit_details_id IS '監査実施詳細ID';\nCOMMENT ON COLUMN tests.v_audit_assignment.trans_audit_id IS '監査ID';\nCOMMENT ON COLUMN tests.v_audit_assignment.trans_audit_team_id IS 'チームID';\nCOMMENT ON COLUMN tests.v_audit_assignment.audit_std_id IS '監査標準ID';\nCOMMENT ON COLUMN tests.v_audit_assignment.scheduled_at IS '予定日時';\nCOMMENT ON COLUMN tests.v_audit_assignment.expected_end_at IS '終了予定日時';\nCOMMENT ON COLUMN tests.v_audit_assignment.performed_date IS '実施日';\nCOMMENT ON COLUMN tests.v_audit_assignment.ended_at IS '終了日時';\nCOMMENT ON COLUMN tests.v_audit_assignment.is_planned IS '未着手(実施日も終了日時も無い)';\nCOMMENT ON COLUMN tests.v_audit_assignment.is_in_progress IS '実施中(実施日があり、終了日時が無い)';\nCOMMENT ON COLUMN tests.v_audit_assignment.is_done IS '完了(終了日時がある)';\nCOMMENT ON COLUMN tests.v_audit_assignment.is_overdue IS '予定超過(未着手で、予定日時を過ぎている)';\nCOMMENT ON COLUMN tests.v_audit_assignment.item_count IS '項目数';\nCOMMENT ON COLUMN tests.v_audit_assignment.answered_count IS '入力済みの項目数(値または所見がある)';\nCOMMENT ON COLUMN tests.v_audit_assignment.complaint_count IS '異常の件数';\nCOMMENT ON COLUMN tests.v_audit_assignment.status_label_ja IS '状態の文字(日本語)';\nCOMMENT ON COLUMN tests.v_audit_assignment.status_label_en IS '状態の文字(English)';\nCOMMENT ON COLUMN tests.v_audit_assignment.symbol IS 'リニアシンボル';"
+    },
+    {
+      "id": 6187,
+      "kind": "view",
+      "logicalName": "",
+      "physicalName": "v_audit_item",
+      "comment": "@primaryKey trans_audit_detail_check_items_id\n@foreignKey (trans_audit_detail_check_items_id) references trans_audit_detail_check_items (trans_audit_detail_check_items_id)\n@foreignKey (trans_audit_details_id) references trans_audit_details (trans_audit_details_id)\n監査実施詳細項目(基準 = 監査標準項目の履歴、事実 = 値・所見、入力済み、つないだ異常の件数)",
+      "locked": false,
+      "viewType": "sql",
+      "join": {
+        "sources": [],
+        "columns": [],
+        "where": ""
+      },
+      "function": {
+        "methodId": null,
+        "args": [],
+        "columns": []
+      },
+      "sql": {
+        "sql": "SELECT\n    i.trans_audit_detail_check_items_id\n    , i.trans_audit_details_id\n    , i.audit_std_checkitem_history_id\n    , i.audit_std_checkitem_id\n    , h.code\n    , h.names AS checkitem_names\n    , h.type_class\n    , h.formula_class\n    , h.arg_class\n    , i.formula_value\n    , i.findings\n    , (i.formula_value IS NOT NULL OR i.findings IS NOT NULL) AS answered\n    , COALESCE(cc.complaint_count, 0)::integer AS complaint_count\n    , i.symbol\nFROM\n    tests.trans_audit_detail_check_items AS i\n    INNER JOIN tests.history_mstr_audit_std_checkitem AS h\n        ON h.history_id = i.audit_std_checkitem_history_id\n        AND h.mstr_audit_std_checkitem_id = i.audit_std_checkitem_id\n    LEFT JOIN LATERAL (\n        SELECT count(*) AS complaint_count\n        FROM tests.trans_audit_complaint AS ac\n        WHERE ac.trans_audit_detail_check_items_id = i.trans_audit_detail_check_items_id AND ac.remove IS FALSE\n    ) AS cc ON TRUE\nWHERE\n    i.remove IS FALSE"
+      },
+      "preQuery": "",
+      "postQuery": "COMMENT ON COLUMN tests.v_audit_item.trans_audit_detail_check_items_id IS '監査実施詳細項目ID';\nCOMMENT ON COLUMN tests.v_audit_item.trans_audit_details_id IS '監査実施詳細ID';\nCOMMENT ON COLUMN tests.v_audit_item.audit_std_checkitem_history_id IS '監査標準項目履歴ID';\nCOMMENT ON COLUMN tests.v_audit_item.audit_std_checkitem_id IS '監査標準項目ID';\nCOMMENT ON COLUMN tests.v_audit_item.code IS '監査標準項目コード';\nCOMMENT ON COLUMN tests.v_audit_item.checkitem_names IS '標準項目名称(呼称 ID。履歴に外部キーが無い)';\nCOMMENT ON COLUMN tests.v_audit_item.type_class IS '型';\nCOMMENT ON COLUMN tests.v_audit_item.formula_class IS '式';\nCOMMENT ON COLUMN tests.v_audit_item.arg_class IS '引数';\nCOMMENT ON COLUMN tests.v_audit_item.formula_value IS '式に対する値(JSON)';\nCOMMENT ON COLUMN tests.v_audit_item.findings IS '所見(文章)';\nCOMMENT ON COLUMN tests.v_audit_item.answered IS '入力済み(値または所見がある)';\nCOMMENT ON COLUMN tests.v_audit_item.complaint_count IS '異常の件数';\nCOMMENT ON COLUMN tests.v_audit_item.symbol IS 'リニアシンボル';"
     }
   ],
   "relationships": [
@@ -87593,6 +87797,18 @@
           "entityId": 3997,
           "x": 1069.0,
           "y": 40.0,
+          "collapsed": false
+        },
+        {
+          "entityId": 6186,
+          "x": 40.0,
+          "y": 3000.0,
+          "collapsed": false
+        },
+        {
+          "entityId": 6187,
+          "x": 520.0,
+          "y": 3000.0,
           "collapsed": false
         }
       ],
