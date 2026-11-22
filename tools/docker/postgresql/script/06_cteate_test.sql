@@ -14017,6 +14017,42 @@ COMMENT ON COLUMN tests.trans_audit_details.update_user_history_id IS '更新者
 
 COMMENT ON COLUMN tests.trans_audit_details.remove IS '削除';
 
+CREATE OR REPLACE FUNCTION tests.audit_is_member(p_details_id uuid, p_staff_id uuid) RETURNS boolean AS $$
+    SELECT EXISTS (
+        SELECT 1
+        FROM tests.trans_audit_details AS d
+        INNER JOIN tests.trans_auditor AS a
+            ON a.trans_audit_team_id = d.trans_audit_team_id AND a.remove IS FALSE
+        WHERE d.trans_audit_details_id = p_details_id AND d.remove IS FALSE AND a.staff_id = p_staff_id
+    ) OR pg_has_role(current_user, 'pms_admin', 'member')
+$$ LANGUAGE sql STABLE;
+
+COMMENT ON FUNCTION tests.audit_is_member(uuid, uuid) IS '@omit
+担当者が、監査実施詳細のチームの監査員か(管理者は常に可)';
+
+CREATE OR REPLACE FUNCTION tests.audit_notice(p_days_before integer DEFAULT 3)
+RETURNS TABLE (
+    trans_audit_details_id uuid,
+    trans_audit_id uuid,
+    trans_audit_team_id uuid,
+    scheduled_at timestamp,
+    days_until integer,
+    is_overdue boolean,
+    is_in_progress boolean
+) AS $$
+    SELECT
+        a.trans_audit_details_id, a.trans_audit_id, a.trans_audit_team_id, a.scheduled_at,
+        (a.scheduled_at::date - current_date), a.is_overdue, a.is_in_progress
+    FROM tests.v_audit_assignment AS a
+    WHERE a.staff_id = NULLIF(current_setting('jwt.claims.staff_id', true), '')::uuid
+      AND NOT a.is_done
+      AND a.scheduled_at IS NOT NULL
+      AND a.scheduled_at < now() + make_interval(days => p_days_before)
+    ORDER BY a.scheduled_at, a.trans_audit_details_id
+$$ LANGUAGE sql STABLE;
+
+COMMENT ON FUNCTION tests.audit_notice(integer) IS '監査の通知(予定日をもとに導く。行は作らない)。呼び出した人(JWT の staff_id)がチームの監査員で、未終了で、予定日時が p_days_before 日以内(または過ぎた)の監査実施詳細を返す。days_until は予定日までの日数(過ぎたものは負)。予定日を変えると結果も変わる';
+
 CREATE TABLE tests.trans_audit_detail_check_items (
   trans_audit_detail_check_items_id uuid DEFAULT gen_random_uuid() NOT NULL,
   trans_audit_details_id uuid NOT NULL,
@@ -14063,6 +14099,118 @@ COMMENT ON COLUMN tests.trans_audit_detail_check_items.update_user_history_id IS
 
 COMMENT ON COLUMN tests.trans_audit_detail_check_items.remove IS '削除';
 
+CREATE OR REPLACE FUNCTION tests.audit_detail_prepare(
+    p_audit_details_id uuid,
+    p_staff_id uuid DEFAULT NULL
+) RETURNS integer AS $$
+DECLARE
+    v_st record; v_d tests.trans_audit_details; v_count integer;
+BEGIN
+    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
+    SELECT * INTO v_d FROM tests.trans_audit_details WHERE trans_audit_details_id = p_audit_details_id AND remove IS FALSE FOR UPDATE;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION '監査実施詳細が見つかりません (%)', p_audit_details_id USING ERRCODE = 'AUD02';
+    END IF;
+    IF NOT tests.audit_is_member(v_d.trans_audit_details_id, v_st.staff_id) THEN
+        RAISE EXCEPTION 'この監査のチームの監査員ではありません (%)', v_st.staff_id USING ERRCODE = 'AUD03';
+    END IF;
+    IF v_d.ended_at IS NOT NULL THEN
+        RAISE EXCEPTION '終了した監査は変更できません' USING ERRCODE = 'AUD05';
+    END IF;
+    INSERT INTO tests.trans_audit_detail_check_items (
+        trans_audit_details_id, audit_std_checkitem_history_id, audit_std_checkitem_id, update_user_id, update_user_history_id
+    )
+    SELECT p_audit_details_id, h.history_id, c.mstr_audit_std_checkitem_id, v_st.staff_id, v_st.staff_history_id
+    FROM tests.mstr_audit_std_checkitem AS c
+    INNER JOIN LATERAL (
+        SELECT hh.history_id FROM tests.history_mstr_audit_std_checkitem AS hh
+        WHERE hh.mstr_audit_std_checkitem_id = c.mstr_audit_std_checkitem_id
+        ORDER BY hh.revision DESC, hh.update_at DESC LIMIT 1
+    ) AS h ON TRUE
+    WHERE c.mstr_audit_std_id = v_d.audit_std_id AND c.remove IS FALSE
+      AND NOT EXISTS (
+        SELECT 1 FROM tests.trans_audit_detail_check_items AS i
+        WHERE i.trans_audit_details_id = p_audit_details_id AND i.audit_std_checkitem_id = c.mstr_audit_std_checkitem_id AND i.remove IS FALSE
+      )
+    ORDER BY c.code;
+    GET DIAGNOSTICS v_count = ROW_COUNT;
+    RETURN v_count;
+END
+$$ LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION tests.audit_detail_prepare(uuid, uuid) IS '監査標準の項目(その時点の履歴)を、まだ無いものだけ、監査実施詳細の項目として作る(冪等)。チームの監査員だけ。戻り値は作った件数。担当者は引数、省略時は JWT の staff_id。errcode: OPR00 担当者が無い / AUD02 対象が無い / AUD03 チームの監査員ではない / AUD05 終了した監査';
+
+CREATE OR REPLACE FUNCTION tests.audit_detail_start(
+    p_audit_details_id uuid,
+    p_staff_id uuid DEFAULT NULL
+) RETURNS tests.trans_audit_details AS $$
+DECLARE
+    v_st record; v_d tests.trans_audit_details;
+BEGIN
+    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
+    SELECT * INTO v_d FROM tests.trans_audit_details WHERE trans_audit_details_id = p_audit_details_id AND remove IS FALSE FOR UPDATE;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION '監査実施詳細が見つかりません (%)', p_audit_details_id USING ERRCODE = 'AUD02';
+    END IF;
+    IF NOT tests.audit_is_member(v_d.trans_audit_details_id, v_st.staff_id) THEN
+        RAISE EXCEPTION 'この監査のチームの監査員ではありません (%)', v_st.staff_id USING ERRCODE = 'AUD03';
+    END IF;
+    IF v_d.ended_at IS NOT NULL THEN
+        RAISE EXCEPTION '終了した監査は変更できません' USING ERRCODE = 'AUD05';
+    END IF;
+    UPDATE tests.trans_audit_details
+    SET performed_date = COALESCE(performed_date, current_date), update_user_id = v_st.staff_id, update_user_history_id = v_st.staff_history_id
+    WHERE trans_audit_details_id = p_audit_details_id
+    RETURNING * INTO v_d;
+    PERFORM tests.audit_detail_prepare(p_audit_details_id, v_st.staff_id);
+    RETURN v_d;
+END
+$$ LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION tests.audit_detail_start(uuid, uuid) IS '監査の実施を開始する(実施日を今日にする。すでにあれば変えない)。項目を用意する(audit_detail_prepare)。チームの監査員だけ。担当者は引数、省略時は JWT の staff_id。errcode: OPR00 / AUD02 対象が無い / AUD03 チームの監査員ではない / AUD05 終了した監査。戻り値は監査実施詳細';
+
+CREATE OR REPLACE FUNCTION tests.audit_detail_finish(
+    p_audit_details_id uuid,
+    p_conclusion jsonb DEFAULT NULL,
+    p_force boolean DEFAULT FALSE,
+    p_staff_id uuid DEFAULT NULL
+) RETURNS tests.trans_audit_details AS $$
+DECLARE
+    v_st record; v_d tests.trans_audit_details; v_text uuid;
+BEGIN
+    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
+    SELECT * INTO v_d FROM tests.trans_audit_details WHERE trans_audit_details_id = p_audit_details_id AND remove IS FALSE FOR UPDATE;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION '監査実施詳細が見つかりません (%)', p_audit_details_id USING ERRCODE = 'AUD02';
+    END IF;
+    IF NOT tests.audit_is_member(v_d.trans_audit_details_id, v_st.staff_id) THEN
+        RAISE EXCEPTION 'この監査のチームの監査員ではありません (%)', v_st.staff_id USING ERRCODE = 'AUD03';
+    END IF;
+    IF v_d.ended_at IS NOT NULL THEN
+        RAISE EXCEPTION '終了した監査は変更できません' USING ERRCODE = 'AUD05';
+    END IF;
+    IF v_d.performed_date IS NULL THEN
+        RAISE EXCEPTION '実施を開始していません' USING ERRCODE = 'AUD06';
+    END IF;
+    IF NOT COALESCE(p_force, FALSE) AND EXISTS (
+        SELECT 1 FROM tests.trans_audit_detail_check_items AS i
+        WHERE i.trans_audit_details_id = p_audit_details_id AND i.remove IS FALSE AND i.formula_value IS NULL AND i.findings IS NULL
+    ) THEN
+        RAISE EXCEPTION '未入力の項目があります' USING ERRCODE = 'AUD04';
+    END IF;
+    IF p_conclusion IS NOT NULL AND p_conclusion <> '{}'::jsonb THEN
+        SELECT t.trans_text_id INTO v_text FROM tests.trans_text_save(v_d.conclusion, p_conclusion, v_st.staff_id, v_st.staff_history_id) AS t;
+    END IF;
+    UPDATE tests.trans_audit_details
+    SET ended_at = now(), conclusion = COALESCE(v_text, conclusion), update_user_id = v_st.staff_id, update_user_history_id = v_st.staff_history_id
+    WHERE trans_audit_details_id = p_audit_details_id
+    RETURNING * INTO v_d;
+    RETURN v_d;
+END
+$$ LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION tests.audit_detail_finish(uuid, jsonb, boolean, uuid) IS '監査の実施を終了する(終了日時 = 今、結論 = 言語別の値の JSON)。未入力の項目(値も所見も無い)があれば止める(p_force で押し切れる)。チームの監査員だけ。担当者は引数、省略時は JWT の staff_id。errcode: OPR00 / AUD02 対象が無い / AUD03 チームの監査員ではない / AUD04 未入力の項目がある / AUD05 終了した監査 / AUD06 実施を開始していない。戻り値は監査実施詳細';
+
 CREATE TABLE tests.trans_audit_complaint (
   trans_audit_complaint_id uuid DEFAULT gen_random_uuid() NOT NULL,
   trans_complaint_id uuid NOT NULL,
@@ -14099,6 +14247,51 @@ COMMENT ON COLUMN tests.trans_audit_complaint.update_user_id IS '更新者ID';
 COMMENT ON COLUMN tests.trans_audit_complaint.update_user_history_id IS '更新者履歴ID';
 
 COMMENT ON COLUMN tests.trans_audit_complaint.remove IS '削除';
+
+CREATE OR REPLACE FUNCTION tests.audit_complaint_register(
+    p_item_id uuid,
+    p_titles jsonb,
+    p_details jsonb DEFAULT NULL,
+    p_occurred_at timestamp DEFAULT NULL,
+    p_staff_id uuid DEFAULT NULL
+) RETURNS tests.trans_audit_complaint AS $$
+DECLARE
+    v_st record; v_d tests.trans_audit_details; v_item tests.trans_audit_detail_check_items;
+    v_label uuid; v_text uuid; v_complaint uuid; v_row tests.trans_audit_complaint;
+BEGIN
+    SELECT * INTO v_item FROM tests.trans_audit_detail_check_items WHERE trans_audit_detail_check_items_id = p_item_id AND remove IS FALSE;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION '監査実施詳細項目が見つかりません (%)', p_item_id USING ERRCODE = 'AUD02';
+    END IF;
+    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
+    SELECT * INTO v_d FROM tests.trans_audit_details WHERE trans_audit_details_id = v_item.trans_audit_details_id AND remove IS FALSE FOR UPDATE;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION '監査実施詳細が見つかりません (%)', v_item.trans_audit_details_id USING ERRCODE = 'AUD02';
+    END IF;
+    IF NOT tests.audit_is_member(v_d.trans_audit_details_id, v_st.staff_id) THEN
+        RAISE EXCEPTION 'この監査のチームの監査員ではありません (%)', v_st.staff_id USING ERRCODE = 'AUD03';
+    END IF;
+    IF v_d.ended_at IS NOT NULL THEN
+        RAISE EXCEPTION '終了した監査は変更できません' USING ERRCODE = 'AUD05';
+    END IF;
+    IF p_titles IS NULL OR p_titles = '{}'::jsonb THEN
+        RAISE EXCEPTION '異常の題名を指定してください' USING ERRCODE = 'AUD07';
+    END IF;
+    SELECT t.trans_label_id INTO v_label FROM tests.trans_label_save(NULL, p_titles, v_st.staff_id, v_st.staff_history_id) AS t;
+    SELECT t.trans_text_id INTO v_text FROM tests.trans_text_save(NULL, COALESCE(NULLIF(p_details, '{}'::jsonb), p_titles), v_st.staff_id, v_st.staff_history_id) AS t;
+    INSERT INTO tests.trans_complaint (
+        occurent_at, titles, details, reporter_staff_history_id, reporter_staff_id, update_user_id, update_user_history_id
+    )
+    VALUES (COALESCE(p_occurred_at, now()), v_label, v_text, v_st.staff_history_id, v_st.staff_id, v_st.staff_id, v_st.staff_history_id)
+    RETURNING trans_complaint_id INTO v_complaint;
+    INSERT INTO tests.trans_audit_complaint (trans_complaint_id, trans_audit_detail_check_items_id, update_user_id, update_user_history_id)
+    VALUES (v_complaint, p_item_id, v_st.staff_id, v_st.staff_history_id)
+    RETURNING * INTO v_row;
+    RETURN v_row;
+END
+$$ LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION tests.audit_complaint_register(uuid, jsonb, jsonb, timestamp, uuid) IS '不適合の項目から、異常(題名・内容 = 言語別の値の JSON。報告者 = 担当者。承認パターンがあれば申請になる)を作り、項目につなぐ(1 トランザクション)。チームの監査員だけ。担当者は引数、省略時は JWT の staff_id。errcode: OPR00 / AUD02 項目が無い / AUD03 チームの監査員ではない / AUD05 終了した監査 / AUD07 題名が無い。戻り値は監査の異常(つなぎ)';
 
 ALTER TABLE tests.trans_visiter_owner ADD CONSTRAINT trans_visiter_owner_fk1 FOREIGN KEY (trans_order_detail_id) REFERENCES tests.trans_order_detail (trans_order_detail_id) DEFERRABLE INITIALLY DEFERRED;
 
@@ -23613,6 +23806,130 @@ COMMENT ON COLUMN tests.v_document_content.readable IS 'ログイン中の担当
 COMMENT ON COLUMN tests.v_document_content.contents IS 'コンテンツ(読めないときは NULL)';
 COMMENT ON COLUMN tests.v_document_content.trans_file_id IS 'ファイルID(読めないときは NULL)';
 
+CREATE VIEW tests.v_approval_pending AS
+SELECT
+    pre.trans_preapproval_id
+    , src.trans_approval_pattern_id
+    , pre.mstr_approval_id
+    , a.priority AS approval_priority
+    , a.names AS approval_names
+    , a.info_position_id
+    , a.info_department_id
+    , pre.period
+    , src.is_document
+    , src.is_complaint
+    , src.is_disposal
+    , src.is_recurrence_prevention
+    , src.is_order
+    , src.is_purchase
+    , src.is_unrecognized
+    , src.is_shipping_order
+    , src.mstr_document_id
+    , src.trans_complaint_id
+    , src.trans_disposal_id
+    , src.trans_recurrence_prevention_id
+    , src.trans_order_id
+    , src.trans_purchase_id
+    , src.trans_unrecognized_id
+    , src.trans_shipping_order_id
+    , src.target_symbol
+    , src.applicant_staff_id
+    , src.applicant_staff_history_id
+    , src.applied_at
+    , EXISTS (SELECT 1 FROM tests.info_assign AS ia
+        WHERE ia.info_staff_id = NULLIF(current_setting('jwt.claims.staff_id', true), '')::uuid AND ia.remove IS FALSE AND ia.enable IS TRUE
+          AND ia.info_position_id = a.info_position_id
+          AND (a.info_department_id IS NULL OR ia.info_department_id = a.info_department_id)) AS approver
+    , NOT EXISTS (
+        SELECT 1 FROM tests.trans_preapproval AS q
+        INNER JOIN tests.mstr_approval AS a2 ON a2.mstr_approval_id = q.mstr_approval_id
+        WHERE q.trans_approval_pattern_id = pre.trans_approval_pattern_id AND q.remove IS FALSE AND a2.priority < a.priority
+          AND NOT COALESCE((SELECT r.approved FROM tests.trans_approved AS r WHERE r.trans_preapproval_id = q.trans_preapproval_id AND r.remove IS FALSE
+                            ORDER BY r.update_at DESC LIMIT 1), false)
+      ) AS actionable
+FROM (
+    SELECT t.trans_approval_pattern_id AS trans_approval_pattern_id, true AS is_document, false AS is_complaint, false AS is_disposal, false AS is_recurrence_prevention, false AS is_order, false AS is_purchase, false AS is_unrecognized, false AS is_shipping_order, t.mstr_document_id AS mstr_document_id, NULL::uuid AS trans_complaint_id, NULL::uuid AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, NULL::uuid AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,
+           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at
+    FROM tests.mstr_document AS t WHERE t.remove IS FALSE AND t.trans_approval_pattern_id IS NOT NULL
+    UNION ALL
+    SELECT t.approvals AS trans_approval_pattern_id, false AS is_document, true AS is_complaint, false AS is_disposal, false AS is_recurrence_prevention, false AS is_order, false AS is_purchase, false AS is_unrecognized, false AS is_shipping_order, NULL::uuid AS mstr_document_id, t.trans_complaint_id AS trans_complaint_id, NULL::uuid AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, NULL::uuid AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,
+           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at
+    FROM tests.trans_complaint AS t WHERE t.remove IS FALSE AND t.approvals IS NOT NULL
+    UNION ALL
+    SELECT t.approvals AS trans_approval_pattern_id, false AS is_document, false AS is_complaint, true AS is_disposal, false AS is_recurrence_prevention, false AS is_order, false AS is_purchase, false AS is_unrecognized, false AS is_shipping_order, NULL::uuid AS mstr_document_id, NULL::uuid AS trans_complaint_id, t.trans_disposal_id AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, NULL::uuid AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,
+           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at
+    FROM tests.trans_disposal AS t WHERE t.remove IS FALSE AND t.approvals IS NOT NULL
+    UNION ALL
+    SELECT t.approvals AS trans_approval_pattern_id, false AS is_document, false AS is_complaint, false AS is_disposal, true AS is_recurrence_prevention, false AS is_order, false AS is_purchase, false AS is_unrecognized, false AS is_shipping_order, NULL::uuid AS mstr_document_id, NULL::uuid AS trans_complaint_id, NULL::uuid AS trans_disposal_id, t.trans_recurrence_prevention_id AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, NULL::uuid AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,
+           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at
+    FROM tests.trans_recurrence_prevention AS t WHERE t.remove IS FALSE AND t.approvals IS NOT NULL
+    UNION ALL
+    SELECT t.trans_approval_pattern_id AS trans_approval_pattern_id, false AS is_document, false AS is_complaint, false AS is_disposal, false AS is_recurrence_prevention, true AS is_order, false AS is_purchase, false AS is_unrecognized, false AS is_shipping_order, NULL::uuid AS mstr_document_id, NULL::uuid AS trans_complaint_id, NULL::uuid AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, t.trans_order_id AS trans_order_id, NULL::uuid AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,
+           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at
+    FROM tests.trans_order AS t WHERE t.remove IS FALSE AND t.trans_approval_pattern_id IS NOT NULL
+    UNION ALL
+    SELECT t.trans_approval_pattern_id AS trans_approval_pattern_id, false AS is_document, false AS is_complaint, false AS is_disposal, false AS is_recurrence_prevention, false AS is_order, true AS is_purchase, false AS is_unrecognized, false AS is_shipping_order, NULL::uuid AS mstr_document_id, NULL::uuid AS trans_complaint_id, NULL::uuid AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, t.trans_purchase_id AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,
+           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, COALESCE(t.register_at, t.update_at) AS applied_at
+    FROM tests.trans_purchase AS t WHERE t.remove IS FALSE AND t.trans_approval_pattern_id IS NOT NULL
+    UNION ALL
+    SELECT t.trans_approval_pattern_id AS trans_approval_pattern_id, false AS is_document, false AS is_complaint, false AS is_disposal, false AS is_recurrence_prevention, false AS is_order, false AS is_purchase, true AS is_unrecognized, false AS is_shipping_order, NULL::uuid AS mstr_document_id, NULL::uuid AS trans_complaint_id, NULL::uuid AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, NULL::uuid AS trans_purchase_id, t.trans_unrecognized_id AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,
+           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at
+    FROM tests.trans_unrecognized AS t WHERE t.remove IS FALSE AND t.trans_approval_pattern_id IS NOT NULL
+    UNION ALL
+    SELECT t.trans_approval_pattern_id AS trans_approval_pattern_id, false AS is_document, false AS is_complaint, false AS is_disposal, false AS is_recurrence_prevention, false AS is_order, false AS is_purchase, false AS is_unrecognized, true AS is_shipping_order, NULL::uuid AS mstr_document_id, NULL::uuid AS trans_complaint_id, NULL::uuid AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, NULL::uuid AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, t.trans_shipping_order_id AS trans_shipping_order_id, t.symbol AS target_symbol,
+           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at
+    FROM tests.trans_shipping_order AS t WHERE t.remove IS FALSE AND t.trans_approval_pattern_id IS NOT NULL
+) AS src
+INNER JOIN tests.trans_preapproval AS pre ON pre.trans_approval_pattern_id = src.trans_approval_pattern_id AND pre.remove IS FALSE
+INNER JOIN tests.mstr_approval AS a ON a.mstr_approval_id = pre.mstr_approval_id
+WHERE NOT EXISTS (SELECT 1 FROM tests.trans_approved AS r WHERE r.trans_preapproval_id = pre.trans_preapproval_id AND r.remove IS FALSE);
+
+COMMENT ON VIEW tests.v_approval_pending IS '@primaryKey trans_preapproval_id
+@foreignKey (trans_preapproval_id) references trans_preapproval (trans_preapproval_id)
+@foreignKey (trans_approval_pattern_id) references trans_approval_pattern (trans_approval_pattern_id)
+@foreignKey (mstr_approval_id) references mstr_approval (mstr_approval_id)
+@foreignKey (mstr_document_id) references mstr_document (mstr_document_id)
+@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)
+@foreignKey (trans_disposal_id) references trans_disposal (trans_disposal_id)
+@foreignKey (trans_recurrence_prevention_id) references trans_recurrence_prevention (trans_recurrence_prevention_id)
+@foreignKey (trans_order_id) references trans_order (trans_order_id)
+@foreignKey (trans_purchase_id) references trans_purchase (trans_purchase_id)
+@foreignKey (trans_unrecognized_id) references trans_unrecognized (trans_unrecognized_id)
+@foreignKey (trans_shipping_order_id) references trans_shipping_order (trans_shipping_order_id)
+@foreignKey (applicant_staff_id) references info_staff (info_staff_id)
+承認待ちの一覧(1 行 = 判断されていない承認の段 1 つ)。対象の区分は boolean の列(is_document・is_order…。ちょうど 1 つ true)で、対象の ID は区分ごとの列。申請者(applicant_staff_id)は対象の登録者(更新者)、申請日(applied_at)は対象の登録の日時。approver はログイン中の担当者(JWT の staff_id)がこの段の該当者か、actionable は順位が小さい段がすべて承認済みか。承認一覧は approver かつ actionable の行を出す。区分・順序の判定は、このビューだけで定義する';
+
+COMMENT ON COLUMN tests.v_approval_pending.trans_preapproval_id IS '承認前ID(承認の段 1 つ)';
+COMMENT ON COLUMN tests.v_approval_pending.trans_approval_pattern_id IS '承認実行パターンID';
+COMMENT ON COLUMN tests.v_approval_pending.mstr_approval_id IS '承認ID(承認の段)';
+COMMENT ON COLUMN tests.v_approval_pending.approval_priority IS '承認の順位(小さい順に承認する。同じ順位は並行)';
+COMMENT ON COLUMN tests.v_approval_pending.approval_names IS '承認の名称(呼称ID)';
+COMMENT ON COLUMN tests.v_approval_pending.info_position_id IS '承認する役職ID';
+COMMENT ON COLUMN tests.v_approval_pending.info_department_id IS '承認する部署ID(NULL は部署を問わない)';
+COMMENT ON COLUMN tests.v_approval_pending.period IS '承認の期限';
+COMMENT ON COLUMN tests.v_approval_pending.is_document IS '対象が文書';
+COMMENT ON COLUMN tests.v_approval_pending.is_complaint IS '対象が異常';
+COMMENT ON COLUMN tests.v_approval_pending.is_disposal IS '対象が異常の処置';
+COMMENT ON COLUMN tests.v_approval_pending.is_recurrence_prevention IS '対象が再発防止';
+COMMENT ON COLUMN tests.v_approval_pending.is_order IS '対象が受注';
+COMMENT ON COLUMN tests.v_approval_pending.is_purchase IS '対象が発注';
+COMMENT ON COLUMN tests.v_approval_pending.is_unrecognized IS '対象が非計上発注';
+COMMENT ON COLUMN tests.v_approval_pending.is_shipping_order IS '対象が出荷オーダー(出荷予定)';
+COMMENT ON COLUMN tests.v_approval_pending.mstr_document_id IS '対象の文書ID';
+COMMENT ON COLUMN tests.v_approval_pending.trans_complaint_id IS '対象の異常ID';
+COMMENT ON COLUMN tests.v_approval_pending.trans_disposal_id IS '対象の処置ID';
+COMMENT ON COLUMN tests.v_approval_pending.trans_recurrence_prevention_id IS '対象の再発防止ID';
+COMMENT ON COLUMN tests.v_approval_pending.trans_order_id IS '対象の受注ID';
+COMMENT ON COLUMN tests.v_approval_pending.trans_purchase_id IS '対象の発注ID';
+COMMENT ON COLUMN tests.v_approval_pending.trans_unrecognized_id IS '対象の非計上ID';
+COMMENT ON COLUMN tests.v_approval_pending.trans_shipping_order_id IS '対象の出荷オーダーID';
+COMMENT ON COLUMN tests.v_approval_pending.target_symbol IS '対象のリニアシンボル';
+COMMENT ON COLUMN tests.v_approval_pending.applicant_staff_id IS '申請者(対象の登録者)の担当者ID';
+COMMENT ON COLUMN tests.v_approval_pending.applicant_staff_history_id IS '申請者の担当者履歴ID';
+COMMENT ON COLUMN tests.v_approval_pending.applied_at IS '申請日時(対象の登録の日時)';
+COMMENT ON COLUMN tests.v_approval_pending.approver IS 'ログイン中の担当者がこの段の承認の該当者';
+COMMENT ON COLUMN tests.v_approval_pending.actionable IS '承認できる状態(順位が小さい段がすべて承認済み)';
+
 CREATE VIEW tests.v_audit_assignment AS
 SELECT
     a.trans_auditor_id
@@ -23746,323 +24063,6 @@ COMMENT ON COLUMN tests.v_audit_item.findings IS '所見(文章)';
 COMMENT ON COLUMN tests.v_audit_item.answered IS '入力済み(値または所見がある)';
 COMMENT ON COLUMN tests.v_audit_item.complaint_count IS '異常の件数';
 COMMENT ON COLUMN tests.v_audit_item.symbol IS 'リニアシンボル';
-
-CREATE OR REPLACE FUNCTION tests.audit_is_member(p_details_id uuid, p_staff_id uuid) RETURNS boolean AS $$
-    SELECT EXISTS (
-        SELECT 1
-        FROM tests.trans_audit_details AS d
-        INNER JOIN tests.trans_auditor AS a
-            ON a.trans_audit_team_id = d.trans_audit_team_id AND a.remove IS FALSE
-        WHERE d.trans_audit_details_id = p_details_id AND d.remove IS FALSE AND a.staff_id = p_staff_id
-    ) OR pg_has_role(current_user, 'pms_admin', 'member')
-$$ LANGUAGE sql STABLE;
-
-COMMENT ON FUNCTION tests.audit_is_member(uuid, uuid) IS '@omit
-担当者が、監査実施詳細のチームの監査員か(管理者は常に可)';
-
-CREATE OR REPLACE FUNCTION tests.audit_detail_prepare(
-    p_audit_details_id uuid,
-    p_staff_id uuid DEFAULT NULL
-) RETURNS integer AS $$
-DECLARE
-    v_st record; v_d tests.trans_audit_details; v_count integer;
-BEGIN
-    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
-    SELECT * INTO v_d FROM tests.trans_audit_details WHERE trans_audit_details_id = p_audit_details_id AND remove IS FALSE FOR UPDATE;
-    IF NOT FOUND THEN
-        RAISE EXCEPTION '監査実施詳細が見つかりません (%)', p_audit_details_id USING ERRCODE = 'AUD02';
-    END IF;
-    IF NOT tests.audit_is_member(v_d.trans_audit_details_id, v_st.staff_id) THEN
-        RAISE EXCEPTION 'この監査のチームの監査員ではありません (%)', v_st.staff_id USING ERRCODE = 'AUD03';
-    END IF;
-    IF v_d.ended_at IS NOT NULL THEN
-        RAISE EXCEPTION '終了した監査は変更できません' USING ERRCODE = 'AUD05';
-    END IF;
-    INSERT INTO tests.trans_audit_detail_check_items (
-        trans_audit_details_id, audit_std_checkitem_history_id, audit_std_checkitem_id, update_user_id, update_user_history_id
-    )
-    SELECT p_audit_details_id, h.history_id, c.mstr_audit_std_checkitem_id, v_st.staff_id, v_st.staff_history_id
-    FROM tests.mstr_audit_std_checkitem AS c
-    INNER JOIN LATERAL (
-        SELECT hh.history_id FROM tests.history_mstr_audit_std_checkitem AS hh
-        WHERE hh.mstr_audit_std_checkitem_id = c.mstr_audit_std_checkitem_id
-        ORDER BY hh.revision DESC, hh.update_at DESC LIMIT 1
-    ) AS h ON TRUE
-    WHERE c.mstr_audit_std_id = v_d.audit_std_id AND c.remove IS FALSE
-      AND NOT EXISTS (
-        SELECT 1 FROM tests.trans_audit_detail_check_items AS i
-        WHERE i.trans_audit_details_id = p_audit_details_id AND i.audit_std_checkitem_id = c.mstr_audit_std_checkitem_id AND i.remove IS FALSE
-      )
-    ORDER BY c.code;
-    GET DIAGNOSTICS v_count = ROW_COUNT;
-    RETURN v_count;
-END
-$$ LANGUAGE plpgsql VOLATILE;
-
-COMMENT ON FUNCTION tests.audit_detail_prepare(uuid, uuid) IS '監査標準の項目(その時点の履歴)を、まだ無いものだけ、監査実施詳細の項目として作る(冪等)。チームの監査員だけ。戻り値は作った件数。担当者は引数、省略時は JWT の staff_id。errcode: OPR00 担当者が無い / AUD02 対象が無い / AUD03 チームの監査員ではない / AUD05 終了した監査';
-
-CREATE OR REPLACE FUNCTION tests.audit_detail_start(
-    p_audit_details_id uuid,
-    p_staff_id uuid DEFAULT NULL
-) RETURNS tests.trans_audit_details AS $$
-DECLARE
-    v_st record; v_d tests.trans_audit_details;
-BEGIN
-    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
-    SELECT * INTO v_d FROM tests.trans_audit_details WHERE trans_audit_details_id = p_audit_details_id AND remove IS FALSE FOR UPDATE;
-    IF NOT FOUND THEN
-        RAISE EXCEPTION '監査実施詳細が見つかりません (%)', p_audit_details_id USING ERRCODE = 'AUD02';
-    END IF;
-    IF NOT tests.audit_is_member(v_d.trans_audit_details_id, v_st.staff_id) THEN
-        RAISE EXCEPTION 'この監査のチームの監査員ではありません (%)', v_st.staff_id USING ERRCODE = 'AUD03';
-    END IF;
-    IF v_d.ended_at IS NOT NULL THEN
-        RAISE EXCEPTION '終了した監査は変更できません' USING ERRCODE = 'AUD05';
-    END IF;
-    UPDATE tests.trans_audit_details
-    SET performed_date = COALESCE(performed_date, current_date), update_user_id = v_st.staff_id, update_user_history_id = v_st.staff_history_id
-    WHERE trans_audit_details_id = p_audit_details_id
-    RETURNING * INTO v_d;
-    PERFORM tests.audit_detail_prepare(p_audit_details_id, v_st.staff_id);
-    RETURN v_d;
-END
-$$ LANGUAGE plpgsql VOLATILE;
-
-COMMENT ON FUNCTION tests.audit_detail_start(uuid, uuid) IS '監査の実施を開始する(実施日を今日にする。すでにあれば変えない)。項目を用意する(audit_detail_prepare)。チームの監査員だけ。担当者は引数、省略時は JWT の staff_id。errcode: OPR00 / AUD02 対象が無い / AUD03 チームの監査員ではない / AUD05 終了した監査。戻り値は監査実施詳細';
-
-CREATE OR REPLACE FUNCTION tests.audit_detail_finish(
-    p_audit_details_id uuid,
-    p_conclusion jsonb DEFAULT NULL,
-    p_force boolean DEFAULT FALSE,
-    p_staff_id uuid DEFAULT NULL
-) RETURNS tests.trans_audit_details AS $$
-DECLARE
-    v_st record; v_d tests.trans_audit_details; v_text uuid;
-BEGIN
-    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
-    SELECT * INTO v_d FROM tests.trans_audit_details WHERE trans_audit_details_id = p_audit_details_id AND remove IS FALSE FOR UPDATE;
-    IF NOT FOUND THEN
-        RAISE EXCEPTION '監査実施詳細が見つかりません (%)', p_audit_details_id USING ERRCODE = 'AUD02';
-    END IF;
-    IF NOT tests.audit_is_member(v_d.trans_audit_details_id, v_st.staff_id) THEN
-        RAISE EXCEPTION 'この監査のチームの監査員ではありません (%)', v_st.staff_id USING ERRCODE = 'AUD03';
-    END IF;
-    IF v_d.ended_at IS NOT NULL THEN
-        RAISE EXCEPTION '終了した監査は変更できません' USING ERRCODE = 'AUD05';
-    END IF;
-    IF v_d.performed_date IS NULL THEN
-        RAISE EXCEPTION '実施を開始していません' USING ERRCODE = 'AUD06';
-    END IF;
-    IF NOT COALESCE(p_force, FALSE) AND EXISTS (
-        SELECT 1 FROM tests.trans_audit_detail_check_items AS i
-        WHERE i.trans_audit_details_id = p_audit_details_id AND i.remove IS FALSE AND i.formula_value IS NULL AND i.findings IS NULL
-    ) THEN
-        RAISE EXCEPTION '未入力の項目があります' USING ERRCODE = 'AUD04';
-    END IF;
-    IF p_conclusion IS NOT NULL AND p_conclusion <> '{}'::jsonb THEN
-        SELECT t.trans_text_id INTO v_text FROM tests.trans_text_save(v_d.conclusion, p_conclusion, v_st.staff_id, v_st.staff_history_id) AS t;
-    END IF;
-    UPDATE tests.trans_audit_details
-    SET ended_at = now(), conclusion = COALESCE(v_text, conclusion), update_user_id = v_st.staff_id, update_user_history_id = v_st.staff_history_id
-    WHERE trans_audit_details_id = p_audit_details_id
-    RETURNING * INTO v_d;
-    RETURN v_d;
-END
-$$ LANGUAGE plpgsql VOLATILE;
-
-COMMENT ON FUNCTION tests.audit_detail_finish(uuid, jsonb, boolean, uuid) IS '監査の実施を終了する(終了日時 = 今、結論 = 言語別の値の JSON)。未入力の項目(値も所見も無い)があれば止める(p_force で押し切れる)。チームの監査員だけ。担当者は引数、省略時は JWT の staff_id。errcode: OPR00 / AUD02 対象が無い / AUD03 チームの監査員ではない / AUD04 未入力の項目がある / AUD05 終了した監査 / AUD06 実施を開始していない。戻り値は監査実施詳細';
-
-CREATE OR REPLACE FUNCTION tests.audit_complaint_register(
-    p_item_id uuid,
-    p_titles jsonb,
-    p_details jsonb DEFAULT NULL,
-    p_occurred_at timestamp DEFAULT NULL,
-    p_staff_id uuid DEFAULT NULL
-) RETURNS tests.trans_audit_complaint AS $$
-DECLARE
-    v_st record; v_d tests.trans_audit_details; v_item tests.trans_audit_detail_check_items;
-    v_label uuid; v_text uuid; v_complaint uuid; v_row tests.trans_audit_complaint;
-BEGIN
-    SELECT * INTO v_item FROM tests.trans_audit_detail_check_items WHERE trans_audit_detail_check_items_id = p_item_id AND remove IS FALSE;
-    IF NOT FOUND THEN
-        RAISE EXCEPTION '監査実施詳細項目が見つかりません (%)', p_item_id USING ERRCODE = 'AUD02';
-    END IF;
-    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
-    SELECT * INTO v_d FROM tests.trans_audit_details WHERE trans_audit_details_id = v_item.trans_audit_details_id AND remove IS FALSE FOR UPDATE;
-    IF NOT FOUND THEN
-        RAISE EXCEPTION '監査実施詳細が見つかりません (%)', v_item.trans_audit_details_id USING ERRCODE = 'AUD02';
-    END IF;
-    IF NOT tests.audit_is_member(v_d.trans_audit_details_id, v_st.staff_id) THEN
-        RAISE EXCEPTION 'この監査のチームの監査員ではありません (%)', v_st.staff_id USING ERRCODE = 'AUD03';
-    END IF;
-    IF v_d.ended_at IS NOT NULL THEN
-        RAISE EXCEPTION '終了した監査は変更できません' USING ERRCODE = 'AUD05';
-    END IF;
-    IF p_titles IS NULL OR p_titles = '{}'::jsonb THEN
-        RAISE EXCEPTION '異常の題名を指定してください' USING ERRCODE = 'AUD07';
-    END IF;
-    SELECT t.trans_label_id INTO v_label FROM tests.trans_label_save(NULL, p_titles, v_st.staff_id, v_st.staff_history_id) AS t;
-    SELECT t.trans_text_id INTO v_text FROM tests.trans_text_save(NULL, COALESCE(NULLIF(p_details, '{}'::jsonb), p_titles), v_st.staff_id, v_st.staff_history_id) AS t;
-    INSERT INTO tests.trans_complaint (
-        occurent_at, titles, details, reporter_staff_history_id, reporter_staff_id, update_user_id, update_user_history_id
-    )
-    VALUES (COALESCE(p_occurred_at, now()), v_label, v_text, v_st.staff_history_id, v_st.staff_id, v_st.staff_id, v_st.staff_history_id)
-    RETURNING trans_complaint_id INTO v_complaint;
-    INSERT INTO tests.trans_audit_complaint (trans_complaint_id, trans_audit_detail_check_items_id, update_user_id, update_user_history_id)
-    VALUES (v_complaint, p_item_id, v_st.staff_id, v_st.staff_history_id)
-    RETURNING * INTO v_row;
-    RETURN v_row;
-END
-$$ LANGUAGE plpgsql VOLATILE;
-
-COMMENT ON FUNCTION tests.audit_complaint_register(uuid, jsonb, jsonb, timestamp, uuid) IS '不適合の項目から、異常(題名・内容 = 言語別の値の JSON。報告者 = 担当者。承認パターンがあれば申請になる)を作り、項目につなぐ(1 トランザクション)。チームの監査員だけ。担当者は引数、省略時は JWT の staff_id。errcode: OPR00 / AUD02 項目が無い / AUD03 チームの監査員ではない / AUD05 終了した監査 / AUD07 題名が無い。戻り値は監査の異常(つなぎ)';
-
-CREATE OR REPLACE FUNCTION tests.audit_notice(p_days_before integer DEFAULT 3)
-RETURNS TABLE (
-    trans_audit_details_id uuid,
-    trans_audit_id uuid,
-    trans_audit_team_id uuid,
-    scheduled_at timestamp,
-    days_until integer,
-    is_overdue boolean,
-    is_in_progress boolean
-) AS $$
-    SELECT
-        a.trans_audit_details_id, a.trans_audit_id, a.trans_audit_team_id, a.scheduled_at,
-        (a.scheduled_at::date - current_date), a.is_overdue, a.is_in_progress
-    FROM tests.v_audit_assignment AS a
-    WHERE a.staff_id = NULLIF(current_setting('jwt.claims.staff_id', true), '')::uuid
-      AND NOT a.is_done
-      AND a.scheduled_at IS NOT NULL
-      AND a.scheduled_at < now() + make_interval(days => p_days_before)
-    ORDER BY a.scheduled_at, a.trans_audit_details_id
-$$ LANGUAGE sql STABLE;
-
-COMMENT ON FUNCTION tests.audit_notice(integer) IS '監査の通知(予定日をもとに導く。行は作らない)。呼び出した人(JWT の staff_id)がチームの監査員で、未終了で、予定日時が p_days_before 日以内(または過ぎた)の監査実施詳細を返す。days_until は予定日までの日数(過ぎたものは負)。予定日を変えると結果も変わる';
-
-CREATE VIEW tests.v_approval_pending AS
-SELECT
-    pre.trans_preapproval_id
-    , src.trans_approval_pattern_id
-    , pre.mstr_approval_id
-    , a.priority AS approval_priority
-    , a.names AS approval_names
-    , a.info_position_id
-    , a.info_department_id
-    , pre.period
-    , src.is_document
-    , src.is_complaint
-    , src.is_disposal
-    , src.is_recurrence_prevention
-    , src.is_order
-    , src.is_purchase
-    , src.is_unrecognized
-    , src.is_shipping_order
-    , src.mstr_document_id
-    , src.trans_complaint_id
-    , src.trans_disposal_id
-    , src.trans_recurrence_prevention_id
-    , src.trans_order_id
-    , src.trans_purchase_id
-    , src.trans_unrecognized_id
-    , src.trans_shipping_order_id
-    , src.target_symbol
-    , src.applicant_staff_id
-    , src.applicant_staff_history_id
-    , src.applied_at
-    , EXISTS (SELECT 1 FROM tests.info_assign AS ia
-        WHERE ia.info_staff_id = NULLIF(current_setting('jwt.claims.staff_id', true), '')::uuid AND ia.remove IS FALSE AND ia.enable IS TRUE
-          AND ia.info_position_id = a.info_position_id
-          AND (a.info_department_id IS NULL OR ia.info_department_id = a.info_department_id)) AS approver
-    , NOT EXISTS (
-        SELECT 1 FROM tests.trans_preapproval AS q
-        INNER JOIN tests.mstr_approval AS a2 ON a2.mstr_approval_id = q.mstr_approval_id
-        WHERE q.trans_approval_pattern_id = pre.trans_approval_pattern_id AND q.remove IS FALSE AND a2.priority < a.priority
-          AND NOT COALESCE((SELECT r.approved FROM tests.trans_approved AS r WHERE r.trans_preapproval_id = q.trans_preapproval_id AND r.remove IS FALSE
-                            ORDER BY r.update_at DESC LIMIT 1), false)
-      ) AS actionable
-FROM (
-    SELECT t.trans_approval_pattern_id AS trans_approval_pattern_id, true AS is_document, false AS is_complaint, false AS is_disposal, false AS is_recurrence_prevention, false AS is_order, false AS is_purchase, false AS is_unrecognized, false AS is_shipping_order, t.mstr_document_id AS mstr_document_id, NULL::uuid AS trans_complaint_id, NULL::uuid AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, NULL::uuid AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,
-           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at
-    FROM tests.mstr_document AS t WHERE t.remove IS FALSE AND t.trans_approval_pattern_id IS NOT NULL
-    UNION ALL
-    SELECT t.approvals AS trans_approval_pattern_id, false AS is_document, true AS is_complaint, false AS is_disposal, false AS is_recurrence_prevention, false AS is_order, false AS is_purchase, false AS is_unrecognized, false AS is_shipping_order, NULL::uuid AS mstr_document_id, t.trans_complaint_id AS trans_complaint_id, NULL::uuid AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, NULL::uuid AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,
-           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at
-    FROM tests.trans_complaint AS t WHERE t.remove IS FALSE AND t.approvals IS NOT NULL
-    UNION ALL
-    SELECT t.approvals AS trans_approval_pattern_id, false AS is_document, false AS is_complaint, true AS is_disposal, false AS is_recurrence_prevention, false AS is_order, false AS is_purchase, false AS is_unrecognized, false AS is_shipping_order, NULL::uuid AS mstr_document_id, NULL::uuid AS trans_complaint_id, t.trans_disposal_id AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, NULL::uuid AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,
-           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at
-    FROM tests.trans_disposal AS t WHERE t.remove IS FALSE AND t.approvals IS NOT NULL
-    UNION ALL
-    SELECT t.approvals AS trans_approval_pattern_id, false AS is_document, false AS is_complaint, false AS is_disposal, true AS is_recurrence_prevention, false AS is_order, false AS is_purchase, false AS is_unrecognized, false AS is_shipping_order, NULL::uuid AS mstr_document_id, NULL::uuid AS trans_complaint_id, NULL::uuid AS trans_disposal_id, t.trans_recurrence_prevention_id AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, NULL::uuid AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,
-           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at
-    FROM tests.trans_recurrence_prevention AS t WHERE t.remove IS FALSE AND t.approvals IS NOT NULL
-    UNION ALL
-    SELECT t.trans_approval_pattern_id AS trans_approval_pattern_id, false AS is_document, false AS is_complaint, false AS is_disposal, false AS is_recurrence_prevention, true AS is_order, false AS is_purchase, false AS is_unrecognized, false AS is_shipping_order, NULL::uuid AS mstr_document_id, NULL::uuid AS trans_complaint_id, NULL::uuid AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, t.trans_order_id AS trans_order_id, NULL::uuid AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,
-           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at
-    FROM tests.trans_order AS t WHERE t.remove IS FALSE AND t.trans_approval_pattern_id IS NOT NULL
-    UNION ALL
-    SELECT t.trans_approval_pattern_id AS trans_approval_pattern_id, false AS is_document, false AS is_complaint, false AS is_disposal, false AS is_recurrence_prevention, false AS is_order, true AS is_purchase, false AS is_unrecognized, false AS is_shipping_order, NULL::uuid AS mstr_document_id, NULL::uuid AS trans_complaint_id, NULL::uuid AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, t.trans_purchase_id AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,
-           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, COALESCE(t.register_at, t.update_at) AS applied_at
-    FROM tests.trans_purchase AS t WHERE t.remove IS FALSE AND t.trans_approval_pattern_id IS NOT NULL
-    UNION ALL
-    SELECT t.trans_approval_pattern_id AS trans_approval_pattern_id, false AS is_document, false AS is_complaint, false AS is_disposal, false AS is_recurrence_prevention, false AS is_order, false AS is_purchase, true AS is_unrecognized, false AS is_shipping_order, NULL::uuid AS mstr_document_id, NULL::uuid AS trans_complaint_id, NULL::uuid AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, NULL::uuid AS trans_purchase_id, t.trans_unrecognized_id AS trans_unrecognized_id, NULL::uuid AS trans_shipping_order_id, t.symbol AS target_symbol,
-           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at
-    FROM tests.trans_unrecognized AS t WHERE t.remove IS FALSE AND t.trans_approval_pattern_id IS NOT NULL
-    UNION ALL
-    SELECT t.trans_approval_pattern_id AS trans_approval_pattern_id, false AS is_document, false AS is_complaint, false AS is_disposal, false AS is_recurrence_prevention, false AS is_order, false AS is_purchase, false AS is_unrecognized, true AS is_shipping_order, NULL::uuid AS mstr_document_id, NULL::uuid AS trans_complaint_id, NULL::uuid AS trans_disposal_id, NULL::uuid AS trans_recurrence_prevention_id, NULL::uuid AS trans_order_id, NULL::uuid AS trans_purchase_id, NULL::uuid AS trans_unrecognized_id, t.trans_shipping_order_id AS trans_shipping_order_id, t.symbol AS target_symbol,
-           t.update_user_id AS applicant_staff_id, t.update_user_history_id AS applicant_staff_history_id, t.update_at AS applied_at
-    FROM tests.trans_shipping_order AS t WHERE t.remove IS FALSE AND t.trans_approval_pattern_id IS NOT NULL
-) AS src
-INNER JOIN tests.trans_preapproval AS pre ON pre.trans_approval_pattern_id = src.trans_approval_pattern_id AND pre.remove IS FALSE
-INNER JOIN tests.mstr_approval AS a ON a.mstr_approval_id = pre.mstr_approval_id
-WHERE NOT EXISTS (SELECT 1 FROM tests.trans_approved AS r WHERE r.trans_preapproval_id = pre.trans_preapproval_id AND r.remove IS FALSE);
-
-COMMENT ON VIEW tests.v_approval_pending IS '@primaryKey trans_preapproval_id
-@foreignKey (trans_preapproval_id) references trans_preapproval (trans_preapproval_id)
-@foreignKey (trans_approval_pattern_id) references trans_approval_pattern (trans_approval_pattern_id)
-@foreignKey (mstr_approval_id) references mstr_approval (mstr_approval_id)
-@foreignKey (mstr_document_id) references mstr_document (mstr_document_id)
-@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)
-@foreignKey (trans_disposal_id) references trans_disposal (trans_disposal_id)
-@foreignKey (trans_recurrence_prevention_id) references trans_recurrence_prevention (trans_recurrence_prevention_id)
-@foreignKey (trans_order_id) references trans_order (trans_order_id)
-@foreignKey (trans_purchase_id) references trans_purchase (trans_purchase_id)
-@foreignKey (trans_unrecognized_id) references trans_unrecognized (trans_unrecognized_id)
-@foreignKey (trans_shipping_order_id) references trans_shipping_order (trans_shipping_order_id)
-@foreignKey (applicant_staff_id) references info_staff (info_staff_id)
-承認待ちの一覧(1 行 = 判断されていない承認の段 1 つ)。対象の区分は boolean の列(is_document・is_order…。ちょうど 1 つ true)で、対象の ID は区分ごとの列。申請者(applicant_staff_id)は対象の登録者(更新者)、申請日(applied_at)は対象の登録の日時。approver はログイン中の担当者(JWT の staff_id)がこの段の該当者か、actionable は順位が小さい段がすべて承認済みか。承認一覧は approver かつ actionable の行を出す。区分・順序の判定は、このビューだけで定義する';
-
-COMMENT ON COLUMN tests.v_approval_pending.trans_preapproval_id IS '承認前ID(承認の段 1 つ)';
-COMMENT ON COLUMN tests.v_approval_pending.trans_approval_pattern_id IS '承認実行パターンID';
-COMMENT ON COLUMN tests.v_approval_pending.mstr_approval_id IS '承認ID(承認の段)';
-COMMENT ON COLUMN tests.v_approval_pending.approval_priority IS '承認の順位(小さい順に承認する。同じ順位は並行)';
-COMMENT ON COLUMN tests.v_approval_pending.approval_names IS '承認の名称(呼称ID)';
-COMMENT ON COLUMN tests.v_approval_pending.info_position_id IS '承認する役職ID';
-COMMENT ON COLUMN tests.v_approval_pending.info_department_id IS '承認する部署ID(NULL は部署を問わない)';
-COMMENT ON COLUMN tests.v_approval_pending.period IS '承認の期限';
-COMMENT ON COLUMN tests.v_approval_pending.is_document IS '対象が文書';
-COMMENT ON COLUMN tests.v_approval_pending.is_complaint IS '対象が異常';
-COMMENT ON COLUMN tests.v_approval_pending.is_disposal IS '対象が異常の処置';
-COMMENT ON COLUMN tests.v_approval_pending.is_recurrence_prevention IS '対象が再発防止';
-COMMENT ON COLUMN tests.v_approval_pending.is_order IS '対象が受注';
-COMMENT ON COLUMN tests.v_approval_pending.is_purchase IS '対象が発注';
-COMMENT ON COLUMN tests.v_approval_pending.is_unrecognized IS '対象が非計上発注';
-COMMENT ON COLUMN tests.v_approval_pending.is_shipping_order IS '対象が出荷オーダー(出荷予定)';
-COMMENT ON COLUMN tests.v_approval_pending.mstr_document_id IS '対象の文書ID';
-COMMENT ON COLUMN tests.v_approval_pending.trans_complaint_id IS '対象の異常ID';
-COMMENT ON COLUMN tests.v_approval_pending.trans_disposal_id IS '対象の処置ID';
-COMMENT ON COLUMN tests.v_approval_pending.trans_recurrence_prevention_id IS '対象の再発防止ID';
-COMMENT ON COLUMN tests.v_approval_pending.trans_order_id IS '対象の受注ID';
-COMMENT ON COLUMN tests.v_approval_pending.trans_purchase_id IS '対象の発注ID';
-COMMENT ON COLUMN tests.v_approval_pending.trans_unrecognized_id IS '対象の非計上ID';
-COMMENT ON COLUMN tests.v_approval_pending.trans_shipping_order_id IS '対象の出荷オーダーID';
-COMMENT ON COLUMN tests.v_approval_pending.target_symbol IS '対象のリニアシンボル';
-COMMENT ON COLUMN tests.v_approval_pending.applicant_staff_id IS '申請者(対象の登録者)の担当者ID';
-COMMENT ON COLUMN tests.v_approval_pending.applicant_staff_history_id IS '申請者の担当者履歴ID';
-COMMENT ON COLUMN tests.v_approval_pending.applied_at IS '申請日時(対象の登録の日時)';
-COMMENT ON COLUMN tests.v_approval_pending.approver IS 'ログイン中の担当者がこの段の承認の該当者';
-COMMENT ON COLUMN tests.v_approval_pending.actionable IS '承認できる状態(順位が小さい段がすべて承認済み)';
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_shared_dictionary() RETURNS trigger AS
 $BODY$

@@ -11046,7 +11046,8 @@
       "dependsOnTableIds": [
         6135,
         2460,
-        2474
+        2474,
+        6186
       ],
       "schema": "tests"
     }
