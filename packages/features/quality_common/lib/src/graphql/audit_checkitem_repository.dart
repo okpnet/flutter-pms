@@ -15,7 +15,7 @@ import 'graphql_access.dart';
 /// 式は `arg_class` に条件の JSON を書き、`formula_class`・`type_class`(NOT NULL の列)は [AuditCheckExpr] で導く。判定は `arg_class` だけで行う。
 ///
 /// 書き込みは、共通関数 + ミューテーション(CLAUDE.md「登録・更新の方式」):
-/// 1. 名称・読み・略称は `shared_appellation_save`、詳細は `shared_text_save`(言語 `ja`。変わった項目だけ送る)。返った ID を本体の `names`・`details` に渡す。
+/// 1. 名称・読み・略称は `shared_appellation_save`(変えたときは**新しい呼称**を作り、過去の監査の名称を残す)、詳細は `shared_text_save`(言語 `ja`。変わった項目だけ送る)。返った ID を本体の `names`・`details` に渡す。
 /// 2. 登録(`AuditCheckitemLedgerPageCreate`)・更新(`...Edit`。変えた列だけ)・論理削除。更新者つき。保存のあと読み直して返す。
 /// 詳細は、読み込みが先頭の文だけのため、**変えたときだけ**保存する。監査標準(`mstr_audit_std_id`)は ID で参照する(`quality` の `auditstd`)。
 /// 項目を変えても、すでに実施した監査の項目(履歴 ID + ID で参照)は、そのときの履歴のまま。
@@ -103,10 +103,12 @@ class AuditCheckitemRepository with GraphqlAccess implements IEntityRepository {
       final saved = await run(
         documentNodeMutationAuditStdAppellationSavePageCall,
         {
-          'pAppellationId': existingNames,
-          if (isNew || changed('name')) 'pName': jsonEncode({'ja': t('name')}),
-          if (changed('pronunciation')) 'pPronunciation': jsonEncode({'ja': t('pronunciation')}),
-          if (changed('nickname')) 'pNickname': jsonEncode({'ja': t('nickname')}),
+          // 名称を変えるときは、呼称を作り直す(新しい ID)。履歴(history_mstr_audit_std_checkitem.names。外部キーあり)に、過去の名称が残る。
+          // 共通関数は同じ行の値を入れ替えるため、既存の呼称へ書くと、過去の監査の名称も変わってしまう。
+          'pAppellationId': null,
+          'pName': jsonEncode({'ja': t('name')}),
+          'pPronunciation': jsonEncode({'ja': t('pronunciation')}),
+          'pNickname': jsonEncode({'ja': t('nickname')}),
           'pStaffId': au?.staffId,
           'pStaffHistoryId': au?.staffHistoryId,
         },

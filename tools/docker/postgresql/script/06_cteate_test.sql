@@ -15049,6 +15049,10 @@ ALTER TABLE tests.history_mstr_audit_std_checkitem ADD CONSTRAINT history_mstr_a
 
 ALTER TABLE tests.history_mstr_audit_std_checkitem ADD CONSTRAINT history_mstr_audit_std_checkitem_fk2 FOREIGN KEY (update_user_history_id, update_user_id) REFERENCES tests.history_info_staff (history_id, info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 
+ALTER TABLE tests.history_mstr_audit_std_checkitem ADD CONSTRAINT history_mstr_audit_std_checkitem_fk3 FOREIGN KEY (names) REFERENCES tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.history_mstr_audit_std_checkitem ADD CONSTRAINT history_mstr_audit_std_checkitem_fk4 FOREIGN KEY (details) REFERENCES tests.shared_text (shared_text_id) DEFERRABLE INITIALLY DEFERRED;
+
 ALTER TABLE tests.history_mstr_audit_std ADD CONSTRAINT history_mstr_audit_std_fk1 FOREIGN KEY (mstr_audit_std_id) REFERENCES tests.mstr_audit_std (mstr_audit_std_id) DEFERRABLE INITIALLY DEFERRED;
 
 ALTER TABLE tests.history_mstr_audit_std ADD CONSTRAINT history_mstr_audit_std_fk2 FOREIGN KEY (update_user_history_id, update_user_id) REFERENCES tests.history_info_staff (history_id, info_staff_id) DEFERRABLE INITIALLY DEFERRED;
@@ -24155,7 +24159,7 @@ COMMENT ON COLUMN tests.v_audit_item.trans_audit_details_id IS '監査実施詳�
 COMMENT ON COLUMN tests.v_audit_item.audit_std_checkitem_history_id IS '監査標準項目履歴ID';
 COMMENT ON COLUMN tests.v_audit_item.audit_std_checkitem_id IS '監査標準項目ID';
 COMMENT ON COLUMN tests.v_audit_item.code IS '監査標準項目コード';
-COMMENT ON COLUMN tests.v_audit_item.checkitem_names IS '標準項目名称(呼称 ID。履歴に外部キーが無い)';
+COMMENT ON COLUMN tests.v_audit_item.checkitem_names IS '標準項目名称(呼称 ID。履歴の外部キー)';
 COMMENT ON COLUMN tests.v_audit_item.type_class IS '型';
 COMMENT ON COLUMN tests.v_audit_item.formula_class IS '式';
 COMMENT ON COLUMN tests.v_audit_item.arg_class IS '引数';

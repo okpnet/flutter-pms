@@ -135,6 +135,15 @@ void main() {
       expect(created['updateUserId'], 'st1');
     });
 
+    test('名称を変えるときは、新しい呼称を作る(既存の呼称へ書かない。履歴に過去の名称が残る)', () async {
+      final link = _FakeLink();
+      await _repo(link).save(const EntityRecord(id: 'ci1', values: {'code': 'A1', 'control_code': '', 'name': '記録の管理(改)', 'mstr_audit_std_id': 'std1', 'detail': '', 'expr': '{"operator":"<=","value":"0.5"}', 'remarks': ''}));
+      final saved = link.varsOf('AuditStdAppellationSavePageCall').single;
+      expect(saved['pAppellationId'], isNull);
+      expect(saved['pName'], '{"ja":"記録の管理(改)"}');
+      expect(link.varsOf('AuditCheckitemLedgerPageEdit').single['names'], 'ap-new');
+    });
+
     test('式を変えなければ、式の列は送らない。式を空にすると、式なし(0・null)にする。削除は論理削除', () async {
       final link = _FakeLink();
       final r = _repo(link);

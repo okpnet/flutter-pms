@@ -2,7 +2,7 @@
   "formatVersion": 3,
   "appVersion": "0.1.0",
   "id": 538067658,
-  "nextId": 6189,
+  "nextId": 6191,
   "properties": {
     "outputFileName": "pms_test",
     "outputFolder": "",
@@ -67251,7 +67251,7 @@
         "sql": "SELECT\n    i.trans_audit_detail_check_items_id\n    , i.trans_audit_details_id\n    , i.audit_std_checkitem_history_id\n    , i.audit_std_checkitem_id\n    , h.code\n    , h.names AS checkitem_names\n    , h.type_class\n    , h.formula_class\n    , h.arg_class\n    , i.formula_value\n    , i.findings\n    , (i.formula_value IS NOT NULL OR i.findings IS NOT NULL) AS answered\n    , COALESCE(cc.complaint_count, 0)::integer AS complaint_count\n    , i.symbol\nFROM\n    tests.trans_audit_detail_check_items AS i\n    INNER JOIN tests.history_mstr_audit_std_checkitem AS h\n        ON h.history_id = i.audit_std_checkitem_history_id\n        AND h.mstr_audit_std_checkitem_id = i.audit_std_checkitem_id\n    LEFT JOIN LATERAL (\n        SELECT count(*) AS complaint_count\n        FROM tests.trans_audit_complaint AS ac\n        WHERE ac.trans_audit_detail_check_items_id = i.trans_audit_detail_check_items_id AND ac.remove IS FALSE\n    ) AS cc ON TRUE\nWHERE\n    i.remove IS FALSE"
       },
       "preQuery": "",
-      "postQuery": "COMMENT ON COLUMN tests.v_audit_item.trans_audit_detail_check_items_id IS '監査実施詳細項目ID';\nCOMMENT ON COLUMN tests.v_audit_item.trans_audit_details_id IS '監査実施詳細ID';\nCOMMENT ON COLUMN tests.v_audit_item.audit_std_checkitem_history_id IS '監査標準項目履歴ID';\nCOMMENT ON COLUMN tests.v_audit_item.audit_std_checkitem_id IS '監査標準項目ID';\nCOMMENT ON COLUMN tests.v_audit_item.code IS '監査標準項目コード';\nCOMMENT ON COLUMN tests.v_audit_item.checkitem_names IS '標準項目名称(呼称 ID。履歴に外部キーが無い)';\nCOMMENT ON COLUMN tests.v_audit_item.type_class IS '型';\nCOMMENT ON COLUMN tests.v_audit_item.formula_class IS '式';\nCOMMENT ON COLUMN tests.v_audit_item.arg_class IS '引数';\nCOMMENT ON COLUMN tests.v_audit_item.formula_value IS '式に対する値(JSON)';\nCOMMENT ON COLUMN tests.v_audit_item.findings IS '所見(文章)';\nCOMMENT ON COLUMN tests.v_audit_item.answered IS '入力済み(値または所見がある)';\nCOMMENT ON COLUMN tests.v_audit_item.complaint_count IS '異常の件数';\nCOMMENT ON COLUMN tests.v_audit_item.symbol IS 'リニアシンボル';"
+      "postQuery": "COMMENT ON COLUMN tests.v_audit_item.trans_audit_detail_check_items_id IS '監査実施詳細項目ID';\nCOMMENT ON COLUMN tests.v_audit_item.trans_audit_details_id IS '監査実施詳細ID';\nCOMMENT ON COLUMN tests.v_audit_item.audit_std_checkitem_history_id IS '監査標準項目履歴ID';\nCOMMENT ON COLUMN tests.v_audit_item.audit_std_checkitem_id IS '監査標準項目ID';\nCOMMENT ON COLUMN tests.v_audit_item.code IS '監査標準項目コード';\nCOMMENT ON COLUMN tests.v_audit_item.checkitem_names IS '標準項目名称(呼称 ID。履歴の外部キー)';\nCOMMENT ON COLUMN tests.v_audit_item.type_class IS '型';\nCOMMENT ON COLUMN tests.v_audit_item.formula_class IS '式';\nCOMMENT ON COLUMN tests.v_audit_item.arg_class IS '引数';\nCOMMENT ON COLUMN tests.v_audit_item.formula_value IS '式に対する値(JSON)';\nCOMMENT ON COLUMN tests.v_audit_item.findings IS '所見(文章)';\nCOMMENT ON COLUMN tests.v_audit_item.answered IS '入力済み(値または所見がある)';\nCOMMENT ON COLUMN tests.v_audit_item.complaint_count IS '異常の件数';\nCOMMENT ON COLUMN tests.v_audit_item.symbol IS 'リニアシンボル';"
     }
   ],
   "relationships": [
@@ -74599,6 +74599,46 @@
       "childMultiplicity": "many",
       "nameMode": "manual",
       "name": "history_mstr_audit_std_checkitem_fk2",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6189,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 906,
+      "childId": 1730,
+      "columnPairs": [
+        {
+          "parentColumnId": 907,
+          "childColumnId": 1736
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "history_mstr_audit_std_checkitem_fk3",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6190,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 526,
+      "childId": 1730,
+      "columnPairs": [
+        {
+          "parentColumnId": 527,
+          "childColumnId": 1737
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "history_mstr_audit_std_checkitem_fk4",
       "onDelete": "none",
       "onUpdate": "none",
       "deferrable": "deferred"
