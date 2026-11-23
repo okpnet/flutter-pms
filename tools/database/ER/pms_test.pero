@@ -2,7 +2,7 @@
   "formatVersion": 3,
   "appVersion": "0.1.0",
   "id": 538067658,
-  "nextId": 6188,
+  "nextId": 6189,
   "properties": {
     "outputFileName": "pms_test",
     "outputFolder": "",
@@ -11050,6 +11050,39 @@
         6186
       ],
       "schema": "tests"
+    },
+    {
+      "id": 6188,
+      "kind": "function",
+      "name": "audit_plan_register",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.audit_plan_register(\n    p_titles jsonb,\n    p_details jsonb,\n    p_audit_std_id uuid,\n    p_lines jsonb,\n    p_department_id uuid DEFAULT NULL,\n    p_stakeholder_id uuid DEFAULT NULL,\n    p_staff_id uuid DEFAULT NULL\n) RETURNS tests.trans_audit AS $$\nDECLARE\n    v_st record; v_std_h uuid; v_label uuid; v_text uuid; v_audit tests.trans_audit;\n    v_line jsonb; v_team uuid; v_team_label uuid; v_detail_label uuid; v_aud uuid; v_aud_h uuid; v_names jsonb;\n    v_s timestamp; v_e timestamp; v_start timestamp; v_end timestamp;\nBEGIN\n    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);\n    IF p_titles IS NULL OR p_titles = '{}'::jsonb THEN\n        RAISE EXCEPTION '監査の題名を指定してください' USING ERRCODE = 'AUD07';\n    END IF;\n    SELECT h.history_id INTO v_std_h\n    FROM tests.history_mstr_audit_std AS h\n    INNER JOIN tests.mstr_audit_std AS s ON s.mstr_audit_std_id = h.mstr_audit_std_id AND s.remove IS FALSE\n    WHERE h.mstr_audit_std_id = p_audit_std_id\n    ORDER BY h.revision DESC, h.update_at DESC LIMIT 1;\n    IF v_std_h IS NULL THEN\n        RAISE EXCEPTION '監査標準が見つかりません (%)', p_audit_std_id USING ERRCODE = 'AUD02';\n    END IF;\n    IF p_lines IS NULL OR jsonb_typeof(p_lines) <> 'array' OR jsonb_array_length(p_lines) = 0 THEN\n        RAISE EXCEPTION 'チームと予定の行を指定してください' USING ERRCODE = 'AUD08';\n    END IF;\n    -- 登録の前に、すべての行を検査する(途中で止まると、呼称だけが残るため)\n    FOR v_line IN SELECT value FROM jsonb_array_elements(p_lines) LOOP\n        IF jsonb_typeof(v_line->'team_names') IS DISTINCT FROM 'object'\n           OR NOT EXISTS (SELECT 1 FROM jsonb_each_text(v_line->'team_names') AS t WHERE t.value <> '') THEN\n            RAISE EXCEPTION 'チーム名を指定してください' USING ERRCODE = 'AUD08';\n        END IF;\n        IF jsonb_typeof(v_line->'auditor_ids') IS DISTINCT FROM 'array' OR jsonb_array_length(v_line->'auditor_ids') = 0 THEN\n            RAISE EXCEPTION '監査員を指定してください' USING ERRCODE = 'AUD08';\n        END IF;\n        FOR v_aud IN SELECT DISTINCT x::uuid FROM jsonb_array_elements_text(v_line->'auditor_ids') AS x LOOP\n            IF NOT EXISTS (SELECT 1 FROM tests.info_staff AS f WHERE f.info_staff_id = v_aud AND f.remove IS FALSE) THEN\n                RAISE EXCEPTION '監査員が見つかりません (%)', v_aud USING ERRCODE = 'AUD08';\n            END IF;\n        END LOOP;\n        v_s := NULLIF(v_line->>'scheduled_at', '')::timestamp;\n        v_e := NULLIF(v_line->>'expected_end_at', '')::timestamp;\n        IF v_s IS NOT NULL AND v_e IS NOT NULL AND v_e < v_s THEN\n            RAISE EXCEPTION '終了予定日時が予定日時より前です' USING ERRCODE = 'AUD09';\n        END IF;\n        v_start := LEAST(v_start, v_s);\n        v_end := GREATEST(v_end, v_e);\n    END LOOP;\n\n    SELECT t.trans_label_id INTO v_label FROM tests.trans_label_save(NULL, p_titles, v_st.staff_id, v_st.staff_history_id) AS t;\n    SELECT t.trans_text_id INTO v_text\n    FROM tests.trans_text_save(NULL, COALESCE(NULLIF(p_details, '{}'::jsonb), p_titles), v_st.staff_id, v_st.staff_history_id) AS t;\n    INSERT INTO tests.trans_audit (\n        audit_std_history_id, audit_std_id, staff_history_id, staff_id, scheduled_start_date, expected_end_date,\n        titles, details, info_department_id, mstr_stakeholder_id, update_user_id, update_user_history_id\n    )\n    VALUES (\n        v_std_h, p_audit_std_id, v_st.staff_history_id, v_st.staff_id, v_start, v_end,\n        v_label, v_text, p_department_id, p_stakeholder_id, v_st.staff_id, v_st.staff_history_id\n    )\n    RETURNING * INTO v_audit;\n\n    FOR v_line IN SELECT value FROM jsonb_array_elements(p_lines) LOOP\n        SELECT t.trans_label_id INTO v_team_label\n        FROM tests.trans_label_save(NULL, v_line->'team_names', v_st.staff_id, v_st.staff_history_id) AS t;\n        INSERT INTO tests.trans_audit_team (trans_audit_id, names, update_user_id, update_user_history_id)\n        VALUES (v_audit.trans_audit_id, v_team_label, v_st.staff_id, v_st.staff_history_id)\n        RETURNING trans_audit_team_id INTO v_team;\n        FOR v_aud IN SELECT DISTINCT x::uuid FROM jsonb_array_elements_text(v_line->'auditor_ids') AS x LOOP\n            SELECT h.history_id INTO v_aud_h FROM tests.history_info_staff AS h\n            WHERE h.info_staff_id = v_aud ORDER BY h.revision DESC, h.update_at DESC LIMIT 1;\n            INSERT INTO tests.trans_auditor (\n                trans_audit_team_id, audit_std_history_id, audit_std_id, staff_history_id, staff_id, update_user_id, update_user_history_id\n            )\n            VALUES (v_team, v_std_h, p_audit_std_id, v_aud_h, v_aud, v_st.staff_id, v_st.staff_history_id);\n        END LOOP;\n        -- 監査実施詳細の名称 = 題名 + チーム名(言語ごと)\n        SELECT COALESCE(jsonb_object_agg(\n            k, CASE WHEN p_titles ? k THEN (p_titles->>k) || ' ' || (v_line->'team_names'->>k) ELSE v_line->'team_names'->>k END\n        ), '{}'::jsonb) INTO v_names\n        FROM jsonb_object_keys(v_line->'team_names') AS k;\n        SELECT t.trans_label_id INTO v_detail_label FROM tests.trans_label_save(NULL, v_names, v_st.staff_id, v_st.staff_history_id) AS t;\n        INSERT INTO tests.trans_audit_details (\n            trans_audit_id, audit_std_history_id, audit_std_id, names, trans_audit_team_id, scheduled_at, expected_end_at,\n            update_user_id, update_user_history_id\n        )\n        VALUES (\n            v_audit.trans_audit_id, v_std_h, p_audit_std_id, v_detail_label, v_team,\n            NULLIF(v_line->>'scheduled_at', '')::timestamp, NULLIF(v_line->>'expected_end_at', '')::timestamp,\n            v_st.staff_id, v_st.staff_history_id\n        );\n    END LOOP;\n    RETURN v_audit;\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "監査計画を登録する(1 トランザクション): 監査(題名・詳細・監査標準・責任者 = 担当者)・チーム・監査員・監査実施詳細(予定日時・終了予定日時)。p_lines は jsonb の配列で、1 行 = チーム 1 つ + 監査員 + 監査実施詳細 1 件({\"team_names\": {\"ja\": \"…\"}, \"auditor_ids\": [\"…\"], \"scheduled_at\": \"…\", \"expected_end_at\": \"…\"})。題名・詳細・チーム名は言語別の値の JSON。監査実施詳細の名称は「題名 + チーム名」。担当者は引数、省略時は JWT の staff_id。errcode: OPR00 担当者が無い / AUD02 監査標準が無い / AUD07 題名が無い / AUD08 行・チーム名・監査員が無い(監査員が見つからない)/ AUD09 終了予定日時が予定日時より前。戻り値は監査",
+      "args": "jsonb, jsonb, uuid, jsonb, uuid, uuid, uuid",
+      "schema": "tests",
+      "dependsOnTableIds": [
+        2484,
+        2474,
+        2460,
+        6135,
+        485,
+        438,
+        1748,
+        2602,
+        1995,
+        3472
+      ]
     }
   ],
   "commonColumnPatterns": [
