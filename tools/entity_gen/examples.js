@@ -109,6 +109,6 @@ module.exports = function writeExamples({ PROJECTS, rootsOf, dependsOn, features
         pub = pub.replace(/^dev_dependencies:/m, `  ${m}:${nl}    path: ../../${m}${nl}${nl}dev_dependencies:`);
       }
     }
-    fs.writeFileSync(pubFile, pub);
+    if (!process.argv.includes('--check')) fs.writeFileSync(pubFile, pub); // --check は書き出さない
   }
 };
