@@ -39,6 +39,7 @@ class OrganizationStrings with BaseTranslations<OrganizationLocale, Organization
 	late final OrganizationStrings$approvalDefaults$ja approvalDefaults = OrganizationStrings$approvalDefaults$ja.internal(_root);
 	late final OrganizationStrings$approvalSteps$ja approvalSteps = OrganizationStrings$approvalSteps$ja.internal(_root);
 	late final OrganizationStrings$staffUser$ja staffUser = OrganizationStrings$staffUser$ja.internal(_root);
+	late final OrganizationStrings$accessRights$ja accessRights = OrganizationStrings$accessRights$ja.internal(_root);
 	late final OrganizationStrings$menu$ja menu = OrganizationStrings$menu$ja.internal(_root);
 	late final OrganizationStrings$entity$ja entity = OrganizationStrings$entity$ja.internal(_root);
 }
@@ -281,6 +282,27 @@ class OrganizationStrings$staffUser$ja {
 
 	/// ja: 'ユーザーを作成'
 	String get createUser => 'ユーザーを作成';
+}
+
+// Path: accessRights
+class OrganizationStrings$accessRights$ja {
+	OrganizationStrings$accessRights$ja.internal(this._root);
+
+	final OrganizationStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'アクセス権'
+	String get title => 'アクセス権';
+
+	/// ja: '担当者のアクセス権'
+	String get staff => '担当者のアクセス権';
+
+	/// ja: '部署のアクセス権'
+	String get department => '部署のアクセス権';
+
+	/// ja: '実効アクセス権'
+	String get effective => '実効アクセス権';
 }
 
 // Path: menu
@@ -990,6 +1012,10 @@ extension on OrganizationStrings {
 			'approvalSteps.delete' => '削除',
 			'approvalSteps.deleteConfirm' => 'この承認の段を削除しますか。',
 			'staffUser.createUser' => 'ユーザーを作成',
+			'accessRights.title' => 'アクセス権',
+			'accessRights.staff' => '担当者のアクセス権',
+			'accessRights.department' => '部署のアクセス権',
+			'accessRights.effective' => '実効アクセス権',
 			'menu.group' => '会社情報',
 			'entity.company.title' => '会社情報',
 			'entity.company.fields.f_name' => '会社名',

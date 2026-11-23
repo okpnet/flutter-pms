@@ -1,0 +1,45 @@
+# staff_ledger_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #StaffLedgerPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation StaffLedgerPageCreate(
+  $infoCompanyId: UUID
+  $code: String
+  $names: UUID
+  $sex: String
+  $phone: String
+  $privatePhone: String
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  createInfoStaff(
+    input: {
+      infoStaff: {
+        infoCompanyId: $infoCompanyId
+        code: $code
+        names: $names
+        sex: $sex
+        phone: $phone
+        privatePhone: $privatePhone
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    infoStaff {
+      infoStaffId
+      infoCompanyId
+      code
+      names
+      sex
+      phone
+      privatePhone
+      remarks
+      updateUserId
+      updateUserHistoryId
+    }
+  }
+}

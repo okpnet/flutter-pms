@@ -412,3 +412,39 @@ StaffHistoryLatestPage:
     - history_id
     - info_staff_id
     - revision
+
+# ---- 作業者(担当者)の登録・更新(Issue 20261123_0001。名称・読みは共通関数で作り、返った ID を names に渡す)----
+
+# 作業者の更新(渡した列だけが変わる。論理削除は StaffLedgerPageRemove)
+StaffLedgerPageEdit:
+  kind: edit
+  from: info_staff
+  requiredWhere:
+    - info_staff_id
+  generateRfe: true
+  withUpdater: true
+  columns:
+    - info_staff_id
+    - code
+    - names
+    - sex
+    - phone
+    - private_phone
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+StaffLedgerPageCreate:
+  kind: create
+  from: info_staff
+  columns:
+    - info_company_id
+    - code
+    - names
+    - sex
+    - phone
+    - private_phone
+    - remarks
+    - update_user_id
+    - update_user_history_id

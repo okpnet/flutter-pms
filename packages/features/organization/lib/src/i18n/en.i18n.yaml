@@ -74,6 +74,13 @@ approvalSteps:
 staffUser:
   createUser: Create user
 
+# Access rights on the company overview (hand-written)
+accessRights:
+  title: Access rights
+  staff: Staff access
+  department: Department access
+  effective: Effective access
+
 menu:
   group: "Company"
 entity:

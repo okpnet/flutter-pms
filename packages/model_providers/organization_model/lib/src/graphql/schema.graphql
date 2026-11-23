@@ -626,6 +626,10 @@ type CreateInfoOfficePayload {
   infoOffice: InfoOffice
 }
 
+type CreateInfoStaffPayload {
+  infoStaff: InfoStaff
+}
+
 type CreateMstrApprovalPatternDetailPayload {
   mstrApprovalPatternDetail: MstrApprovalPatternDetail
 }
@@ -923,6 +927,7 @@ type InfoStaff {
   infoStaffId: UUID!
   infoCompanyId: UUID!
   code: String
+  names: UUID!
   sex: String
   phone: String
   privatePhone: String
@@ -1143,6 +1148,7 @@ type Mutation {
   createInfoAccessPathApproval(input: CreateInfoAccessPathApprovalInput!): CreateInfoAccessPathApprovalPayload
   createInfoAddress(input: CreateInfoAddressInput!): CreateInfoAddressPayload
   createInfoOffice(input: CreateInfoOfficeInput!): CreateInfoOfficePayload
+  createInfoStaff(input: CreateInfoStaffInput!): CreateInfoStaffPayload
   createMstrApproval(input: CreateMstrApprovalInput!): CreateMstrApprovalPayload
   createMstrApprovalPattern(input: CreateMstrApprovalPatternInput!): CreateMstrApprovalPatternPayload
   createMstrApprovalPatternDetail(input: CreateMstrApprovalPatternDetailInput!): CreateMstrApprovalPatternDetailPayload
@@ -1506,6 +1512,10 @@ input CreateInfoAddressInput {
 
 input CreateInfoOfficeInput {
   infoOffice: InfoOfficeInput!
+}
+
+input CreateInfoStaffInput {
+  infoStaff: InfoStaffInput!
 }
 
 input CreateMstrApprovalInput {
@@ -2620,13 +2630,28 @@ input InfoStaffIconPatch {
   remove: Boolean
 }
 
-input InfoStaffPatch {
+input InfoStaffInput {
   infoCompanyId: UUID
   code: String
+  names: UUID
   sex: String
   phone: String
   privatePhone: String
   remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
+input InfoStaffPatch {
+  infoCompanyId: UUID
+  code: String
+  names: UUID
+  sex: String
+  phone: String
+  privatePhone: String
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
   remove: Boolean
   sharedAppellationToNames: InfoStaffFk1Input
 }

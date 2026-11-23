@@ -1,0 +1,42 @@
+# staff_ledger_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #StaffLedgerPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation StaffLedgerPageEdit(
+  $infoStaffId: UUID!
+  $code: String
+  $names: UUID
+  $sex: String
+  $phone: String
+  $privatePhone: String
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  updateInfoStaffByInfoStaffId(
+    input: {
+      infoStaffId: $infoStaffId
+      infoStaffPatch: {
+        code: $code
+        names: $names
+        sex: $sex
+        phone: $phone
+        privatePhone: $privatePhone
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    infoStaff {
+      infoStaffId
+      code
+      names
+      sex
+      phone
+      privatePhone
+      remarks
+    }
+  }
+}

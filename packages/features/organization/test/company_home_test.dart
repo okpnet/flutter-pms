@@ -46,6 +46,10 @@ void main() {
     expect(find.byKey(const ValueKey('homeCompanyEdit')), findsOneWidget);
     expect(find.byKey(const ValueKey('homeSitesEdit')), findsOneWidget);
     expect(find.byKey(const ValueKey('homeApprovalEdit')), findsOneWidget);
+    // アクセス権(担当者・部署・実効)は、会社情報のグループから開く
+    for (final k in ['homeStaffAccess', 'homeDeptAccess', 'homeEffectiveAccess']) {
+      expect(find.byKey(ValueKey(k)), findsOneWidget, reason: k);
+    }
   });
 
   testWidgets('事業所のタイルを押すと、その事業所の編集の画面へ進み、戻るボタンで概要に戻る', (tester) async {

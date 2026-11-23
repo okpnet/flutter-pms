@@ -2,40 +2,11 @@ import 'dart:convert';
 
 import 'package:data_strategist/lib.dart';
 import 'package:entity_screens/entity_screens.dart';
-import 'package:gql/ast.dart' show DocumentNode;
 import 'package:graphql/client.dart';
 import 'package:organization_model/organization_model.dart';
-import 'package:pms_graphql/pms_graphql.dart' show AuditUser, AuditUserSource;
+import 'package:pms_graphql/pms_graphql.dart' show AuditUserSource;
 
-/// 共通の通信(読み込み・書き込み・更新者)。
-mixin _GraphqlAccess {
-  GraphQLClient get client;
-  AuditUserSource? get auditUser;
-
-  Future<AuditUser?> updater() async => auditUser == null ? null : auditUser!();
-
-  Future<Map<String, dynamic>> run(DocumentNode document, Map<String, dynamic> variables, {bool mutation = false}) async {
-    final result = mutation
-        ? await client.mutate(MutationOptions(document: document, variables: variables, fetchPolicy: FetchPolicy.noCache))
-        : await client.query(QueryOptions(document: document, variables: variables, fetchPolicy: FetchPolicy.noCache));
-    final e = result.exception;
-    if (e != null) _throwMapped(e);
-    return result.data ?? const {};
-  }
-
-  Never _throwMapped(OperationException e) {
-    final message = e.graphqlErrors.map((x) => x.message).join(' ');
-    if (message.contains('名称には、いずれかの言語に値が必要')) {
-      throw const EntityValidationException({'name': EntityFieldError.required});
-    }
-    throw e;
-  }
-
-  static String text(Object? v) => v == null ? '' : '$v';
-
-  /// 空の文字は null(列を空にする)。
-  static String? nullable(String v) => v.trim().isEmpty ? null : v.trim();
-}
+import 'graphql_access.dart';
 
 /// アクセスパスの承認(`accesspathapproval`。DB の `info_access_path_approval`)の取得元(GraphQL 版。書き込みできる)。
 ///
@@ -43,7 +14,7 @@ mixin _GraphqlAccess {
 /// (アクセスパスの画面は別の機能)。削除は論理削除。承認の範囲から参照されているものは、削除できない(使用中)。
 ///
 /// パターン: Adapter(生成された読み込みの結果と、画面の [EntityRecord] を変換する)
-class AccessPathApprovalRepository with _GraphqlAccess implements IEntityRepository {
+class AccessPathApprovalRepository with GraphqlAccess implements IEntityRepository {
   AccessPathApprovalRepository(this.definition, this.client, this._language, this.auditUser);
 
   @override
@@ -68,8 +39,8 @@ class AccessPathApprovalRepository with _GraphqlAccess implements IEntityReposit
     id: '${n['infoAccessPathApprovalId']}',
     values: {
       'name': _dict(n['labels']),
-      'access_path': _GraphqlAccess.text(n['infoAccessPathId']),
-      'remarks': _GraphqlAccess.text(n['remarks']),
+      'access_path': GraphqlAccess.text(n['infoAccessPathId']),
+      'remarks': GraphqlAccess.text(n['remarks']),
     },
   );
 
@@ -121,7 +92,7 @@ class AccessPathApprovalRepository with _GraphqlAccess implements IEntityReposit
         {
           'infoAccessPathId': t('access_path'),
           'names': namesId,
-          'remarks': _GraphqlAccess.nullable(t('remarks')),
+          'remarks': GraphqlAccess.nullable(t('remarks')),
           'updateUserId': ?au?.staffId,
           'updateUserHistoryId': ?au?.staffHistoryId,
         },
@@ -139,7 +110,7 @@ class AccessPathApprovalRepository with _GraphqlAccess implements IEntityReposit
             'infoAccessPathApprovalId': id,
             if (changed('access_path')) 'infoAccessPathId': t('access_path'),
             if (namesId != existingNames) 'names': namesId,
-            if (changed('remarks')) 'remarks': _GraphqlAccess.nullable(t('remarks')),
+            if (changed('remarks')) 'remarks': GraphqlAccess.nullable(t('remarks')),
             'updateUserId': ?au?.staffId,
             'updateUserHistoryId': ?au?.staffHistoryId,
           },
@@ -196,7 +167,7 @@ class AccessPathApprovalRepository with _GraphqlAccess implements IEntityReposit
 /// 同じ承認パターンに同じアクセスパスの承認を重ねて登録しない(画面の検査。`uniqueKeys` と同じ)。削除は論理削除。
 ///
 /// パターン: Adapter(生成された読み込みの結果と、画面の [EntityRecord] を変換する)
-class ApprovalScopeRepository with _GraphqlAccess implements IEntityRepository {
+class ApprovalScopeRepository with GraphqlAccess implements IEntityRepository {
   ApprovalScopeRepository(this.definition, this.client, this.auditUser);
 
   @override
@@ -210,8 +181,8 @@ class ApprovalScopeRepository with _GraphqlAccess implements IEntityRepository {
     id: '${n['mstrApprovalScopePatternId']}',
     parentId: '${n['mstrApprovalPatternId']}',
     values: {
-      'access_path_approval': _GraphqlAccess.text(n['infoAccessPathApprovalId']),
-      'remarks': _GraphqlAccess.text(n['remarks']),
+      'access_path_approval': GraphqlAccess.text(n['infoAccessPathApprovalId']),
+      'remarks': GraphqlAccess.text(n['remarks']),
     },
   );
 
@@ -250,7 +221,7 @@ class ApprovalScopeRepository with _GraphqlAccess implements IEntityRepository {
         {
           'mstrApprovalPatternId': parent,
           'infoAccessPathApprovalId': t('access_path_approval'),
-          'remarks': _GraphqlAccess.nullable(t('remarks')),
+          'remarks': GraphqlAccess.nullable(t('remarks')),
           'updateUserId': ?au?.staffId,
           'updateUserHistoryId': ?au?.staffHistoryId,
         },
@@ -266,7 +237,7 @@ class ApprovalScopeRepository with _GraphqlAccess implements IEntityRepository {
         {
           'mstrApprovalScopePatternId': id,
           'infoAccessPathApprovalId': t('access_path_approval'),
-          'remarks': _GraphqlAccess.nullable(t('remarks')),
+          'remarks': GraphqlAccess.nullable(t('remarks')),
           'updateUserId': ?au?.staffId,
           'updateUserHistoryId': ?au?.staffHistoryId,
         },

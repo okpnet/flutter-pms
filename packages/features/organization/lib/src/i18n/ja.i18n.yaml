@@ -72,6 +72,12 @@ approvalSteps:
 # 作業者の行の操作(手書き)
 staffUser:
   createUser: ユーザーを作成
+# 会社情報の概要のアクセス権(手書き)
+accessRights:
+  title: アクセス権
+  staff: 担当者のアクセス権
+  department: 部署のアクセス権
+  effective: 実効アクセス権
 # --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
 # 会社情報の実体と項目の表示名(日本語。基準言語)。
 # 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。

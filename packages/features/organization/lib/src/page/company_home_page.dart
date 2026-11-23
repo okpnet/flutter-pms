@@ -378,6 +378,32 @@ class _CompanyHomePageState extends ConsumerState<CompanyHomePage> {
             ],
           ),
         ),
+        const SizedBox(height: 24),
+        // --- アクセス権(担当者・部署のアクセス権は、会社情報のグループの画面。実体は `access_control` の台帳へ遷移する) ---
+        _Section(
+          title: ref.watch(organizationStringsProvider).accessRights.title,
+          action: Row(
+            mainAxisSize: MainAxisSize.min,
+            spacing: 8,
+            children: [
+              _EditButton(
+                key: const ValueKey('homeStaffAccess'),
+                label: ref.watch(organizationStringsProvider).accessRights.staff,
+                onPressed: () => _open(const EntityListDestination('staffaccesspermission')),
+              ),
+              _EditButton(
+                key: const ValueKey('homeDeptAccess'),
+                label: ref.watch(organizationStringsProvider).accessRights.department,
+                onPressed: () => _open(const EntityListDestination('deptaccesspath')),
+              ),
+              _EditButton(
+                key: const ValueKey('homeEffectiveAccess'),
+                label: ref.watch(organizationStringsProvider).accessRights.effective,
+                onPressed: () => _open(const EntityListDestination('effectiveaccesspath')),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }
