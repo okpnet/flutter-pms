@@ -859,12 +859,12 @@ ORDER BY code;
 -- 4-2. 役職(組長・係長・課長・部長)・部署・担当者・割り当て(承認パターン・監査のテスト用)
 -- #####################################################################
 -- 役職は順位(priority)の小さい順に 組長 → 係長 → 課長 → 部長。部署「製造部」に、役職ごとの担当者を 1 人ずつ割り当てる。
--- 担当者のコードは KUMICHO・KAKARICHO・KACHO・BUCHO(PocketBase のユーザーは、toolsinit	est_user_init.bat が、このコードの小文字で作る)。
+-- 担当者のコードは KUMICHO・KAKARICHO・KACHO・BUCHO(PocketBase のユーザーは、tools\init\test_user_init.bat が、このコードの小文字で作る)。
 -- 承認パターンの書き込みの通信テスト(organization/test/approval_pattern_server_test.dart)が、役職 2 件以上・部署 1 件以上を要る。
 -- 何度流しても同じ(既にあるものは作らない)。
-c test_avocado
+\c test_avocado
 
-CREATE OR REPLACE FUNCTION pg_temp.nm2(p_ja varchar, p_en varchar DEFAULT NULL) RETURNS uuid AS $
+CREATE OR REPLACE FUNCTION pg_temp.nm2(p_ja varchar, p_en varchar DEFAULT NULL) RETURNS uuid AS $$
 DECLARE d uuid; a uuid;
 BEGIN
     INSERT INTO tests.shared_dictionary (remarks) VALUES (NULL) RETURNING shared_dictionary_id INTO d;
@@ -875,9 +875,9 @@ BEGIN
     WHERE v.val IS NOT NULL;
     INSERT INTO tests.shared_appellations (shared_dictionary_name_id) VALUES (d) RETURNING shared_appellations_id INTO a;
     RETURN a;
-END $ LANGUAGE plpgsql;
+END $$ LANGUAGE plpgsql;
 
-DO $
+DO $$
 DECLARE
     c uuid; dep uuid; pos uuid; st uuid; r record;
 BEGIN
@@ -919,7 +919,7 @@ BEGIN
             RAISE NOTICE '% を 製造部の % に割り当てました', r.code, r.pos_ja;
         END IF;
     END LOOP;
-END $;
+END $$;
 
 SELECT s.code AS "担当者のコード", s.info_staff_id AS "担当者のID(PocketBase の app_user_id)"
 FROM tests.info_staff AS s
