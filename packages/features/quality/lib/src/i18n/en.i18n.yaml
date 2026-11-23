@@ -63,6 +63,35 @@ auditNotice:
   today: Today
   inDays: 'In ${n} days'
 
+# Register a nonconformity (hand-written)
+complaintRegister:
+  title: Register a nonconformity
+  hint: Choose the target, then enter a title and details. The target decides the kind (equipment, process, work record, receipt, lot, order, stakeholder).
+  kind: Target kind
+  kindEquipment: Equipment (found in an equipment inspection)
+  kindProcess: Process (found in a process)
+  kindWork: Work record (found in a work record)
+  kindPurchaseRec: Receipt (found at receiving)
+  kindVisiter: Lot (found in a shelf move)
+  kindOrder: Order (customer claim)
+  kindStakeholder: Stakeholder (stakeholder complaint)
+  target: Target
+  targetNone: Please choose
+  targetBySymbol: Target symbol or ID
+  pick: Choose
+  titleLabel: Title
+  details: Details
+  occurredAt: Occurred on
+  now: Time of registration
+  pickDate: Pick a date
+  quantity: Quantity (default 1)
+  quantityRequired: Quantity (required)
+  register: Register
+  registered: Registered.
+  failed: Could not register.
+  errorTitle: Enter a title.
+  errorTarget: Choose a target.
+  errorQuantity: Enter a number greater than 0.
 # Audit plan registration
 auditPlan:
   title: Register audit plan

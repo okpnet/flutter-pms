@@ -40,6 +40,7 @@ class QualityStringsEn extends QualityStrings with BaseTranslations<QualityLocal
 	// Translations
 	@override late final _QualityStrings$auditRun$en auditRun = _QualityStrings$auditRun$en._(_root);
 	@override late final _QualityStrings$auditNotice$en auditNotice = _QualityStrings$auditNotice$en._(_root);
+	@override late final _QualityStrings$complaintRegister$en complaintRegister = _QualityStrings$complaintRegister$en._(_root);
 	@override late final _QualityStrings$auditPlan$en auditPlan = _QualityStrings$auditPlan$en._(_root);
 	@override late final _QualityStrings$menu$en menu = _QualityStrings$menu$en._(_root);
 	@override late final _QualityStrings$entity$en entity = _QualityStrings$entity$en._(_root);
@@ -120,6 +121,42 @@ class _QualityStrings$auditNotice$en extends QualityStrings$auditNotice$ja {
 	@override String get inProgress => 'In progress';
 	@override String get today => 'Today';
 	@override String inDays({required Object n}) => 'In ${n} days';
+}
+
+// Path: complaintRegister
+class _QualityStrings$complaintRegister$en extends QualityStrings$complaintRegister$ja {
+	_QualityStrings$complaintRegister$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Register a nonconformity';
+	@override String get hint => 'Choose the target, then enter a title and details. The target decides the kind (equipment, process, work record, receipt, lot, order, stakeholder).';
+	@override String get kind => 'Target kind';
+	@override String get kindEquipment => 'Equipment (found in an equipment inspection)';
+	@override String get kindProcess => 'Process (found in a process)';
+	@override String get kindWork => 'Work record (found in a work record)';
+	@override String get kindPurchaseRec => 'Receipt (found at receiving)';
+	@override String get kindVisiter => 'Lot (found in a shelf move)';
+	@override String get kindOrder => 'Order (customer claim)';
+	@override String get kindStakeholder => 'Stakeholder (stakeholder complaint)';
+	@override String get target => 'Target';
+	@override String get targetNone => 'Please choose';
+	@override String get targetBySymbol => 'Target symbol or ID';
+	@override String get pick => 'Choose';
+	@override String get titleLabel => 'Title';
+	@override String get details => 'Details';
+	@override String get occurredAt => 'Occurred on';
+	@override String get now => 'Time of registration';
+	@override String get pickDate => 'Pick a date';
+	@override String get quantity => 'Quantity (default 1)';
+	@override String get quantityRequired => 'Quantity (required)';
+	@override String get register => 'Register';
+	@override String get registered => 'Registered.';
+	@override String get failed => 'Could not register.';
+	@override String get errorTitle => 'Enter a title.';
+	@override String get errorTarget => 'Choose a target.';
+	@override String get errorQuantity => 'Enter a number greater than 0.';
 }
 
 // Path: auditPlan
@@ -638,6 +675,33 @@ extension on QualityStringsEn {
 			'auditNotice.inProgress' => 'In progress',
 			'auditNotice.today' => 'Today',
 			'auditNotice.inDays' => ({required Object n}) => 'In ${n} days',
+			'complaintRegister.title' => 'Register a nonconformity',
+			'complaintRegister.hint' => 'Choose the target, then enter a title and details. The target decides the kind (equipment, process, work record, receipt, lot, order, stakeholder).',
+			'complaintRegister.kind' => 'Target kind',
+			'complaintRegister.kindEquipment' => 'Equipment (found in an equipment inspection)',
+			'complaintRegister.kindProcess' => 'Process (found in a process)',
+			'complaintRegister.kindWork' => 'Work record (found in a work record)',
+			'complaintRegister.kindPurchaseRec' => 'Receipt (found at receiving)',
+			'complaintRegister.kindVisiter' => 'Lot (found in a shelf move)',
+			'complaintRegister.kindOrder' => 'Order (customer claim)',
+			'complaintRegister.kindStakeholder' => 'Stakeholder (stakeholder complaint)',
+			'complaintRegister.target' => 'Target',
+			'complaintRegister.targetNone' => 'Please choose',
+			'complaintRegister.targetBySymbol' => 'Target symbol or ID',
+			'complaintRegister.pick' => 'Choose',
+			'complaintRegister.titleLabel' => 'Title',
+			'complaintRegister.details' => 'Details',
+			'complaintRegister.occurredAt' => 'Occurred on',
+			'complaintRegister.now' => 'Time of registration',
+			'complaintRegister.pickDate' => 'Pick a date',
+			'complaintRegister.quantity' => 'Quantity (default 1)',
+			'complaintRegister.quantityRequired' => 'Quantity (required)',
+			'complaintRegister.register' => 'Register',
+			'complaintRegister.registered' => 'Registered.',
+			'complaintRegister.failed' => 'Could not register.',
+			'complaintRegister.errorTitle' => 'Enter a title.',
+			'complaintRegister.errorTarget' => 'Choose a target.',
+			'complaintRegister.errorQuantity' => 'Enter a number greater than 0.',
 			'auditPlan.title' => 'Register audit plan',
 			'auditPlan.back' => 'Back',
 			'auditPlan.hint' => 'Enter the audit title, standard, and teams with schedules. Each row becomes one team (with auditors) and one scheduled audit.',

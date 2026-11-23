@@ -105,13 +105,11 @@ features:
       - screen: approvaldefaults
         code: Z
         page: OZ
-        label: (削除済み。再利用の前にレビューする)
-        removed: true
+        label: 標準の承認パターン
       - screen: approvalsteps
         code: Y
         page: OY
-        label: (削除済み。再利用の前にレビューする)
-        removed: true
+        label: 承認の段
   - feature: resource
     code: R
     label: 資源
@@ -593,18 +591,19 @@ features:
       - screen: myaudits
         code: Y
         page: QY
-        label: (削除済み。再利用の前にレビューする)
-        removed: true
+        label: 自分の監査
       - screen: auditrun
         code: X
         page: QX
-        label: (削除済み。再利用の前にレビューする)
-        removed: true
+        label: 監査の実施
       - screen: auditplan
         code: W
         page: QW
-        label: (削除済み。再利用の前にレビューする)
-        removed: true
+        label: 監査計画の登録
+      - screen: complaintregister
+        code: Z
+        page: QZ
+        label: 異常の登録
   - feature: maintenance
     code: M
     label: メンテナンス
@@ -668,8 +667,7 @@ features:
       - screen: admincreateuser
         code: U
         page: UU
-        label: (削除済み。再利用の前にレビューする)
-        removed: true
+        label: ユーザーの作成
   - feature: access_control
     code: X
     label: アクセス管理

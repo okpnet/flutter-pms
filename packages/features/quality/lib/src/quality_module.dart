@@ -14,6 +14,8 @@ import 'page/audit_plan_page.dart';
 import 'page/audit_run_destination.dart';
 import 'page/audit_run_page.dart';
 import 'page/audit_run_paths.dart';
+import 'page/complaint_register_destination.dart';
+import 'page/complaint_register_page.dart';
 import 'page/my_audits_page.dart';
 
 /// 品質管理をアプリへ組み込むための口。
@@ -43,6 +45,15 @@ class QualityModule extends EntityFeatureModule {
     GoRoute(path: AuditRunPaths.myAudits, builder: (context, state) => const MyAuditsPage()),
     GoRoute(path: AuditRunPaths.plan, builder: (context, state) => const AuditPlanPage()),
     GoRoute(
+      path: ComplaintRegisterPaths.register,
+      builder: (context, state) => ComplaintRegisterPage(
+        key: ValueKey(state.uri.toString()),
+        target: state.uri.queryParameters['target'],
+        targetId: state.uri.queryParameters['id'],
+        targetLabel: state.uri.queryParameters['label'],
+      ),
+    ),
+    GoRoute(
       path: AuditRunPaths.run,
       builder: (context, state) => AuditRunPage(
         key: ValueKey(state.uri.queryParameters['id']),
@@ -55,6 +66,7 @@ class QualityModule extends EntityFeatureModule {
   String? locationOf(PageDestination<Object?> destination) => switch (destination) {
     MyAuditsDestination() => AuditRunPaths.myAudits,
     AuditPlanDestination() => AuditRunPaths.plan,
+    ComplaintRegisterDestination(:final target, :final targetId, :final targetLabel) => ComplaintRegisterPaths.of(target: target, targetId: targetId, targetLabel: targetLabel),
     AuditRunDestination(:final detailId) => AuditRunPaths.runOf(detailId),
     _ => super.locationOf(destination),
   };
@@ -73,6 +85,12 @@ class QualityModule extends EntityFeatureModule {
       groupLabel: menuGroupLabel(ref),
       label: ref.watch(qualityStringsProvider).auditPlan.title,
       destination: const AuditPlanDestination(),
+    ),
+    MenuEntry(
+      groupId: menuGroupId,
+      groupLabel: menuGroupLabel(ref),
+      label: ref.watch(qualityStringsProvider).complaintRegister.title,
+      destination: const ComplaintRegisterDestination(),
     ),
     ...super.menuEntries(ref),
   ];

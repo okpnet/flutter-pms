@@ -104,3 +104,12 @@
 /e/workrec,作業実績,Work record,work_record,false
 /e/mrpvisiter,ビジター品目,Visiter item,work_record,false
 /e/stockstatus,在庫状況,Stock status,work_record,false
+/organization/approval-defaults,標準の承認パターン,Standard approval patterns,organization,false
+/organization/approval-steps,承認の段,Approval steps,organization,false
+/quality/my-audits,自分の監査,My audits,quality,false
+/quality/audit-run,監査の実施,Conduct audit,quality,false
+/quality/audit-plan,監査計画の登録,Register audit plan,quality,false
+/quality/complaint-register,異常の登録,Register nonconformity,quality,false
+/auth/admin/users/new,ユーザーの作成,Create user,auth_files,false
+/e/provision,提供,Provision,organization,false
+/e/position,役割(役職),Position,organization,false

@@ -6,3 +6,13 @@ abstract final class AuditRunPaths {
 
   static String runOf(String detailId) => Uri(path: run, queryParameters: {'id': detailId}).toString();
 }
+
+/// 異常の登録の画面のパス。
+abstract final class ComplaintRegisterPaths {
+  static const register = '/quality/complaint-register';
+
+  static String of({String? target, String? targetId, String? targetLabel}) {
+    final query = {'target': ?target, 'id': ?targetId, 'label': ?targetLabel};
+    return query.isEmpty ? register : Uri(path: register, queryParameters: query).toString();
+  }
+}

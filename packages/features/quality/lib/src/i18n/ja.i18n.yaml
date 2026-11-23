@@ -62,6 +62,35 @@ auditNotice:
   inProgress: 実施中
   today: 今日
   inDays: 'あと ${n} 日'
+# 異常の登録(手書き)
+complaintRegister:
+  title: 異常の登録
+  hint: 異常の対象を選んで、題名・内容を入れて登録します。対象で、異常の種類(設備・工程・作業実績・受入・ロット・受注・利害関係者)が決まります。
+  kind: 対象の種類
+  kindEquipment: 設備(設備の点検で発見された異常)
+  kindProcess: 工程(工程で発見された異常)
+  kindWork: 作業実績(作業実績で発見された異常)
+  kindPurchaseRec: 受入(購買・委託品の受入で発見された異常)
+  kindVisiter: ロット(棚移動で発見された異常)
+  kindOrder: 受注(顧客クレーム)
+  kindStakeholder: 利害関係者(利害関係者の苦情)
+  target: 対象
+  targetNone: 選択してください
+  targetBySymbol: 対象のシンボルまたは ID
+  pick: 選ぶ
+  titleLabel: 題名
+  details: 内容
+  occurredAt: 発生日
+  now: 登録の日時
+  pickDate: 日付を選ぶ
+  quantity: 数量(省略は 1)
+  quantityRequired: 数量(必須)
+  register: 登録
+  registered: 登録しました。
+  failed: 登録できませんでした。
+  errorTitle: 題名を入れてください。
+  errorTarget: 対象を選んでください。
+  errorQuantity: 数量は 0 より大きい数を入れてください。
 # 監査計画の登録
 auditPlan:
   title: 監査計画の登録

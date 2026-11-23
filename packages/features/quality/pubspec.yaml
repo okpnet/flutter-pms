@@ -37,6 +37,8 @@ dependencies:
   gql: ^1.0.1
 
 dev_dependencies:
+  selection_result:
+    path: ../../core/selection_result
   data_test_harness:
     path: ../../infra/data_test_harness
   flutter_test:

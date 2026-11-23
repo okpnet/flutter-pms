@@ -37,6 +37,7 @@ class QualityStrings with BaseTranslations<QualityLocale, QualityStrings> {
 	// Translations
 	late final QualityStrings$auditRun$ja auditRun = QualityStrings$auditRun$ja.internal(_root);
 	late final QualityStrings$auditNotice$ja auditNotice = QualityStrings$auditNotice$ja.internal(_root);
+	late final QualityStrings$complaintRegister$ja complaintRegister = QualityStrings$complaintRegister$ja.internal(_root);
 	late final QualityStrings$auditPlan$ja auditPlan = QualityStrings$auditPlan$ja.internal(_root);
 	late final QualityStrings$menu$ja menu = QualityStrings$menu$ja.internal(_root);
 	late final QualityStrings$entity$ja entity = QualityStrings$entity$ja.internal(_root);
@@ -235,6 +236,96 @@ class QualityStrings$auditNotice$ja {
 
 	/// ja: 'あと ${n} 日'
 	String inDays({required Object n}) => 'あと ${n} 日';
+}
+
+// Path: complaintRegister
+class QualityStrings$complaintRegister$ja {
+	QualityStrings$complaintRegister$ja.internal(this._root);
+
+	final QualityStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '異常の登録'
+	String get title => '異常の登録';
+
+	/// ja: '異常の対象を選んで、題名・内容を入れて登録します。対象で、異常の種類(設備・工程・作業実績・受入・ロット・受注・利害関係者)が決まります。'
+	String get hint => '異常の対象を選んで、題名・内容を入れて登録します。対象で、異常の種類(設備・工程・作業実績・受入・ロット・受注・利害関係者)が決まります。';
+
+	/// ja: '対象の種類'
+	String get kind => '対象の種類';
+
+	/// ja: '設備(設備の点検で発見された異常)'
+	String get kindEquipment => '設備(設備の点検で発見された異常)';
+
+	/// ja: '工程(工程で発見された異常)'
+	String get kindProcess => '工程(工程で発見された異常)';
+
+	/// ja: '作業実績(作業実績で発見された異常)'
+	String get kindWork => '作業実績(作業実績で発見された異常)';
+
+	/// ja: '受入(購買・委託品の受入で発見された異常)'
+	String get kindPurchaseRec => '受入(購買・委託品の受入で発見された異常)';
+
+	/// ja: 'ロット(棚移動で発見された異常)'
+	String get kindVisiter => 'ロット(棚移動で発見された異常)';
+
+	/// ja: '受注(顧客クレーム)'
+	String get kindOrder => '受注(顧客クレーム)';
+
+	/// ja: '利害関係者(利害関係者の苦情)'
+	String get kindStakeholder => '利害関係者(利害関係者の苦情)';
+
+	/// ja: '対象'
+	String get target => '対象';
+
+	/// ja: '選択してください'
+	String get targetNone => '選択してください';
+
+	/// ja: '対象のシンボルまたは ID'
+	String get targetBySymbol => '対象のシンボルまたは ID';
+
+	/// ja: '選ぶ'
+	String get pick => '選ぶ';
+
+	/// ja: '題名'
+	String get titleLabel => '題名';
+
+	/// ja: '内容'
+	String get details => '内容';
+
+	/// ja: '発生日'
+	String get occurredAt => '発生日';
+
+	/// ja: '登録の日時'
+	String get now => '登録の日時';
+
+	/// ja: '日付を選ぶ'
+	String get pickDate => '日付を選ぶ';
+
+	/// ja: '数量(省略は 1)'
+	String get quantity => '数量(省略は 1)';
+
+	/// ja: '数量(必須)'
+	String get quantityRequired => '数量(必須)';
+
+	/// ja: '登録'
+	String get register => '登録';
+
+	/// ja: '登録しました。'
+	String get registered => '登録しました。';
+
+	/// ja: '登録できませんでした。'
+	String get failed => '登録できませんでした。';
+
+	/// ja: '題名を入れてください。'
+	String get errorTitle => '題名を入れてください。';
+
+	/// ja: '対象を選んでください。'
+	String get errorTarget => '対象を選んでください。';
+
+	/// ja: '数量は 0 より大きい数を入れてください。'
+	String get errorQuantity => '数量は 0 より大きい数を入れてください。';
 }
 
 // Path: auditPlan
@@ -988,6 +1079,33 @@ extension on QualityStrings {
 			'auditNotice.inProgress' => '実施中',
 			'auditNotice.today' => '今日',
 			'auditNotice.inDays' => ({required Object n}) => 'あと ${n} 日',
+			'complaintRegister.title' => '異常の登録',
+			'complaintRegister.hint' => '異常の対象を選んで、題名・内容を入れて登録します。対象で、異常の種類(設備・工程・作業実績・受入・ロット・受注・利害関係者)が決まります。',
+			'complaintRegister.kind' => '対象の種類',
+			'complaintRegister.kindEquipment' => '設備(設備の点検で発見された異常)',
+			'complaintRegister.kindProcess' => '工程(工程で発見された異常)',
+			'complaintRegister.kindWork' => '作業実績(作業実績で発見された異常)',
+			'complaintRegister.kindPurchaseRec' => '受入(購買・委託品の受入で発見された異常)',
+			'complaintRegister.kindVisiter' => 'ロット(棚移動で発見された異常)',
+			'complaintRegister.kindOrder' => '受注(顧客クレーム)',
+			'complaintRegister.kindStakeholder' => '利害関係者(利害関係者の苦情)',
+			'complaintRegister.target' => '対象',
+			'complaintRegister.targetNone' => '選択してください',
+			'complaintRegister.targetBySymbol' => '対象のシンボルまたは ID',
+			'complaintRegister.pick' => '選ぶ',
+			'complaintRegister.titleLabel' => '題名',
+			'complaintRegister.details' => '内容',
+			'complaintRegister.occurredAt' => '発生日',
+			'complaintRegister.now' => '登録の日時',
+			'complaintRegister.pickDate' => '日付を選ぶ',
+			'complaintRegister.quantity' => '数量(省略は 1)',
+			'complaintRegister.quantityRequired' => '数量(必須)',
+			'complaintRegister.register' => '登録',
+			'complaintRegister.registered' => '登録しました。',
+			'complaintRegister.failed' => '登録できませんでした。',
+			'complaintRegister.errorTitle' => '題名を入れてください。',
+			'complaintRegister.errorTarget' => '対象を選んでください。',
+			'complaintRegister.errorQuantity' => '数量は 0 より大きい数を入れてください。',
 			'auditPlan.title' => '監査計画の登録',
 			'auditPlan.back' => '戻る',
 			'auditPlan.hint' => '監査の題名・監査標準・チームと予定を入れて登録します。1 行が、チーム 1 つ(監査員つき)と、その予定の監査実施 1 件になります。',
