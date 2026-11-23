@@ -454,9 +454,13 @@ const { ONLY, skips } = require('./only');
 const write = (file, text) => {
   if (skips(file)) return;
   if (CHECK) {
-    const norm = (t) => t.split(String.fromCharCode(13)).join("");
-    const old = fs.existsSync(file) ? norm(fs.readFileSync(file, "utf8")) : null;
-    if (old !== norm(text) && !(old && old.slice(0, 400).includes(HAND_MARK))) drift.push(file);
+    // 整形(改行・空白・末尾のカンマ)の違いは、差に数えない(コミット済みは整形済み、生成直後は未整形のため)
+    const norm = (t) => t.replace(/\s+/g, "").replace(/,(?=[)\]}])/g, "");
+    if (file.split(path.sep).join("/").includes("/entity_gen/out/")) return; // 集計の出力(summary.json など)は、差に数えない
+    const raw = fs.existsSync(file) ? fs.readFileSync(file, "utf8") : null;
+    // 手書きの印(空白を含む)は、正規化する前の内容で見る
+    if (raw !== null && raw.slice(0, 400).includes(HAND_MARK)) return;
+    if (raw === null || norm(raw) !== norm(text)) drift.push(file);
     return;
   }
   if (fs.existsSync(file) && fs.readFileSync(file, 'utf8').slice(0, 400).includes(HAND_MARK)) {
@@ -733,7 +737,7 @@ const labelStats = require('./labels_report.js')({
 console.log('labels:', JSON.stringify(labelStats));
 
 if (CHECK) {
-  console.log('生成元とコミット済みの内容が違うファイル(整形・改行の差を含む):', drift.length);
+  console.log('生成元とコミット済みの内容が違うファイル(整形・改行・末尾のカンマの差は除く):', drift.length);
   for (const f of drift) console.log('  ' + path.relative(process.cwd(), f));
   process.exit(drift.length ? 1 : 0);
 }
