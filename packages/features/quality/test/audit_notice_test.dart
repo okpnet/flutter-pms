@@ -38,7 +38,7 @@ class _FakeLink extends Link {
   Stream<Response> request(Request request, [NextLink? forward]) {
     requests.add(request);
     final data = switch (_op(request)) {
-      'AuditNotice' => {
+      'AuditNoticePageCall' => {
         'auditNotice': {
           'nodes': [
             {'transAuditDetailsId': 'd2', 'scheduledAt': '2026-11-20T09:00:00', 'daysUntil': -3, 'isOverdue': true, 'isInProgress': false},
@@ -123,7 +123,7 @@ void main() {
         auditUser: () async => const AuditUser(staffId: 's', staffHistoryId: 'h'),
       );
       final list = await src.notices(daysBefore: 5);
-      expect(link.requests.firstWhere((r) => _op(r) == 'AuditNotice').variables, {'days': 5});
+      expect(link.requests.firstWhere((r) => _op(r) == 'AuditNoticePageCall').variables, {'pDaysBefore': 5});
       expect(link.requests.firstWhere((r) => _op(r) == 'AuditDetailPageRead').variables['filter'], {
         'transAuditDetailsId': {
           'in': ['d2', 'd1'],

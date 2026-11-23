@@ -1092,6 +1092,20 @@ type AuditDetailStartPayload {
   transAuditDetail: TransAuditDetail
 }
 
+type AuditNoticeConnection {
+  nodes: [AuditNoticeRecord]!
+}
+
+type AuditNoticeRecord {
+  transAuditDetailsId: UUID
+  transAuditId: UUID
+  transAuditTeamId: UUID
+  scheduledAt: Datetime
+  daysUntil: Int
+  isOverdue: Boolean
+  isInProgress: Boolean
+}
+
 type CreateTransAuditComplaintPayload {
   transAuditComplaint: TransAuditComplaint
 }
@@ -1463,6 +1477,7 @@ type Query {
   transRecurrencePreventionByTransRecurrencePreventionId(transRecurrencePreventionId: UUID!): TransRecurrencePrevention
   transRiskByTransRiskId(transRiskId: UUID!): TransRisk
   transTaskRiskByTransTaskRiskId(transTaskRiskId: UUID!): TransTaskRisk
+  auditNotice(pDaysBefore: Int): AuditNoticeConnection
 }
 
 type SharedAppellation {

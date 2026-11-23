@@ -8,7 +8,7 @@ import '../audit_notice/audit_notice_source.dart';
 /// 監査の通知の GraphQL 版の取得元。DB の関数 `audit_notice(p_days_before)`(STABLE。PostGraphile では query。JWT の担当者がチームの監査員で、
 /// 未終了で、予定日時が近い・過ぎた監査実施詳細。通知の行は作らない)を呼び、名称は監査実施詳細の読み込み(`AuditDetailPage`)から引く。
 ///
-/// モデル生成器が STABLE の関数(query)に未対応のため、`audit_notice` の問い合わせはここに手書きする(返る列は関数の `RETURNS TABLE`)。
+/// 問い合わせは生成モデル(`AuditNoticePageCall`。`audit_notice` は STABLE の関数で Query。生成器の `query:` 指定)。
 /// 担当者の絞り込みは DB が JWT で行う。[auditUser] が無い(ログインしていない)ときは、通信せず空にする。
 ///
 /// パターン: Adapter(関数の結果と、画面の [AuditNotice] を変換する)
@@ -18,20 +18,6 @@ class GraphqlAuditNoticeSource implements IAuditNoticeSource {
   final GraphQLClient client;
   final AuditUserSource? auditUser;
   final String languageCode;
-
-  static final DocumentNode _noticeQuery = gql('''
-query AuditNotice(\$days: Int) {
-  auditNotice(pDaysBefore: \$days) {
-    nodes {
-      transAuditDetailsId
-      scheduledAt
-      daysUntil
-      isOverdue
-      isInProgress
-    }
-  }
-}
-''');
 
   Future<String>? _languageId;
 
@@ -66,7 +52,7 @@ query AuditNotice(\$days: Int) {
   @override
   Future<List<AuditNotice>> notices({int daysBefore = 3}) async {
     if (auditUser == null || await auditUser!() == null) return const [];
-    final data = await _query(_noticeQuery, {'days': daysBefore});
+    final data = await _query(documentNodeQueryAuditNoticePageCall, {'pDaysBefore': daysBefore});
     final nodes = [...((data['auditNotice'] as Map?)?['nodes'] as List? ?? const []).whereType<Map>()];
     if (nodes.isEmpty) return const [];
     final details = await _query(documentNodeQueryAuditDetailPageRead, {

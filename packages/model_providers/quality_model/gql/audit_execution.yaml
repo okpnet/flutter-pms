@@ -384,3 +384,16 @@ AuditPlanStaffOptionPage:
       pick:
         - name
       <<: *AppellationLabelsReadFields
+
+# 監査の通知(DB の STABLE の関数 audit_notice。Query。予定日から導く。行は作らない。ダッシュボード)
+AuditNoticePageCall:
+  kind: function
+  query: auditNotice
+  columns:
+    - trans_audit_details_id
+    - trans_audit_id
+    - trans_audit_team_id
+    - scheduled_at
+    - days_until
+    - is_overdue
+    - is_in_progress

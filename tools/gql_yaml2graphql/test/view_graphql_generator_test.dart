@@ -278,6 +278,46 @@ VisiterIssuePageCall:
     );
     expect(r.log.errors, isNotEmpty);
   });
+  test('STABLE の関数(Query のフィールド)は、query: で、ページングを除く引数を変数にして nodes の中を選ぶ', () {
+    final r = generateAll(
+      viewYaml: '''
+AuditNoticePageCall:
+  kind: function
+  query: auditNotice
+  columns: [trans_audit_details_id, days_until, is_overdue]
+''',
+      schemaText: '''
+type Query { auditNotice(pDaysBefore: Int, first: Int, offset: Int, filter: AuditNoticeRecordFilter): AuditNoticeConnection }
+type AuditNoticeConnection { nodes: [AuditNoticeRecord]! }
+type AuditNoticeRecord { transAuditDetailsId: UUID daysUntil: Int isOverdue: Boolean }
+input AuditNoticeRecordFilter { isOverdue: Boolean }
+scalar UUID
+''',
+    );
+    expect(r.log.errors, isEmpty);
+    final text = r.files['audit_notice_page/audit_notice_page_call.graphql']!;
+    expect(text, contains('query AuditNoticePageCall('));
+    expect(text, contains(r'$pDaysBefore: Int'));
+    expect(text, contains(r'auditNotice(pDaysBefore: $pDaysBefore)'));
+    expect(text, contains('nodes {'));
+    expect(text, contains('daysUntil'));
+    expect(text, isNot(contains('first')));
+    expect(text, isNot(contains('mutation')));
+  });
+
+  test('Query のフィールドが無いときはエラー', () {
+    final r = generateAll(
+      viewYaml: '''
+XPageCall:
+  kind: function
+  query: nothing
+  columns: [a]
+''',
+      schemaText: 'type Query { nodeId: ID }',
+    );
+    expect(r.log.errors, isNotEmpty);
+  });
+
   test('戻り値がスカラー(Int など)の関数は、columns なしで、フィールドをそのまま選ぶ', () {
     final r = generateAll(
       viewYaml: '''

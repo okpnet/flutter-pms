@@ -1,0 +1,20 @@
+# audit_notice_page画面 - Call(DBの関数(STABLE)の呼び出し。Query)
+#
+# 画面仕様: gql/*.yaml #AuditNoticePageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query AuditNoticePageCall(
+  $pDaysBefore: Int
+) {
+  auditNotice(pDaysBefore: $pDaysBefore) {
+    nodes {
+      transAuditDetailsId
+      transAuditId
+      transAuditTeamId
+      scheduledAt
+      daysUntil
+      isOverdue
+      isInProgress
+    }
+  }
+}

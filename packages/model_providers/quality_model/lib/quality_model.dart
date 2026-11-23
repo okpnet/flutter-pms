@@ -58,6 +58,7 @@ export 'src/graphql/audit_member_page/audit_member_page_edit.graphql.dart';
 export 'src/graphql/audit_member_page/audit_member_page_read.graphql.dart';
 export 'src/graphql/audit_member_page/audit_member_page_remove.graphql.dart';
 export 'src/graphql/audit_member_page/audit_member_page_rfe.graphql.dart';
+export 'src/graphql/audit_notice_page/audit_notice_page_call.graphql.dart';
 export 'src/graphql/audit_page/audit_page_edit.graphql.dart';
 export 'src/graphql/audit_page/audit_page_read.graphql.dart';
 export 'src/graphql/audit_page/audit_page_remove.graphql.dart';
