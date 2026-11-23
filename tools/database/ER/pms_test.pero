@@ -2,7 +2,7 @@
   "formatVersion": 3,
   "appVersion": "0.1.0",
   "id": 538067658,
-  "nextId": 6194,
+  "nextId": 6198,
   "properties": {
     "outputFileName": "pms_test",
     "outputFolder": "",
@@ -11083,6 +11083,82 @@
         1995,
         3472
       ]
+    },
+    {
+      "id": 6195,
+      "kind": "function",
+      "name": "announcement_register",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.announcement_register(\n    p_to_staff_ids uuid[],\n    p_category varchar,\n    p_titles jsonb,\n    p_messages jsonb DEFAULT NULL,\n    p_target_symbol varchar DEFAULT NULL,\n    p_expiration_date timestamp DEFAULT NULL,\n    p_staff_id uuid DEFAULT NULL,\n    p_staff_history_id uuid DEFAULT NULL\n) RETURNS integer AS $$\nDECLARE\n    v_staff record;\n    v_label uuid;\n    v_text uuid;\n    v_to uuid;\n    v_hist uuid;\n    v_n integer := 0;\nBEGIN\n    SELECT * INTO v_staff FROM tests.apl_staff(p_staff_id, p_staff_history_id);\n    IF NULLIF(btrim(p_category), '') IS NULL THEN\n        RAISE EXCEPTION '通知区分がありません' USING ERRCODE = 'ANN02';\n    END IF;\n    IF p_titles IS NULL OR p_titles = '{}'::jsonb THEN\n        RAISE EXCEPTION '通知の題名がありません' USING ERRCODE = 'ANN02';\n    END IF;\n    FOREACH v_to IN ARRAY COALESCE(p_to_staff_ids, ARRAY[]::uuid[]) LOOP\n        -- 対象(target_symbol)があるとき、同じ宛先・同じ区分・同じ対象の通知は、1 件だけ(冪等)\n        CONTINUE WHEN p_target_symbol IS NOT NULL AND EXISTS (\n            SELECT 1 FROM tests.trans_announcement AS n\n            WHERE n.to_staff_id = v_to AND n.category = p_category AND n.target_symbol = p_target_symbol AND n.remove IS FALSE\n        );\n        SELECT h.history_id INTO v_hist FROM tests.history_info_staff AS h\n         WHERE h.info_staff_id = v_to ORDER BY h.revision DESC LIMIT 1;\n        CONTINUE WHEN v_hist IS NULL; -- 履歴の無い担当者には作らない\n        IF v_label IS NULL THEN\n            -- 題名・本文は、宛先に共通の 1 組(言語別の値)。作る必要が出たときに作る(重複だけのときは作らない)\n            v_label := (tests.trans_label_save(NULL, p_titles, v_staff.staff_id, v_staff.staff_history_id)).trans_label_id;\n            IF p_messages IS NOT NULL AND p_messages <> '{}'::jsonb THEN\n                v_text := (tests.trans_text_save(NULL, p_messages, v_staff.staff_id, v_staff.staff_history_id)).trans_text_id;\n            END IF;\n        END IF;\n        INSERT INTO tests.trans_announcement (to_staff_history_id, to_staff_id, category, titles, messages, expiration_date, target_symbol, update_user_id, update_user_history_id)\n        VALUES (v_hist, v_to, p_category, v_label, v_text, COALESCE(p_expiration_date, CURRENT_DATE + 30), p_target_symbol, v_staff.staff_id, v_staff.staff_history_id);\n        v_n := v_n + 1;\n    END LOOP;\n    RETURN v_n;\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "通知を、宛先(担当者の配列)ごとに 1 件ずつ作る(1 トランザクション)。通知の文は、言語別の値(JSON。例 {\"ja\":\"…\",\"en\":\"…\"})を直接登録する(題名 p_titles は必須、本文 p_messages は任意)。対象は汎用の p_target_symbol(対象の表の symbol。外部キーではない。アプリは symbol のショートカットで画面へ進む)。対象があるとき、同じ宛先・区分・対象の通知は 1 件だけ(冪等)。履歴の無い担当者には作らない。戻り値は作った件数。担当者は引数、省略時は JWT の staff_id。errcode: APL00 担当者・言語が無い / ANN02 区分・題名が無い",
+      "args": "uuid[], varchar, jsonb, jsonb, varchar, timestamp, uuid, uuid",
+      "dependsOnTableIds": [
+        1459,
+        485,
+        438,
+        1995
+      ],
+      "schema": "tests"
+    },
+    {
+      "id": 6196,
+      "kind": "function",
+      "name": "announcement_mark_read",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.announcement_mark_read(\n    p_announcement_id uuid,\n    p_staff_id uuid DEFAULT NULL\n) RETURNS tests.trans_announcement AS $$\nDECLARE\n    v_me uuid := COALESCE(p_staff_id, NULLIF(current_setting('jwt.claims.staff_id', true), '')::uuid);\n    v_row tests.trans_announcement;\nBEGIN\n    -- 自分宛ての通知だけを既読にする\n    UPDATE tests.trans_announcement SET is_read = TRUE\n     WHERE trans_announcement_id = p_announcement_id AND to_staff_id = v_me AND remove IS FALSE\n    RETURNING * INTO v_row;\n    IF v_row.trans_announcement_id IS NULL THEN\n        RAISE EXCEPTION '通知が見つかりません (%)', p_announcement_id USING ERRCODE = 'ANN01';\n    END IF;\n    RETURN v_row;\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "自分宛て(担当者は引数、省略時は JWT の staff_id)の通知を既読にする。他の人の通知・削除済みは ANN01。戻り値は更新後の通知",
+      "args": "uuid, uuid",
+      "dependsOnTableIds": [
+        1459
+      ],
+      "schema": "tests"
+    },
+    {
+      "id": 6197,
+      "kind": "function",
+      "name": "audit_notify_due",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.audit_notify_due(\n    p_days_before integer DEFAULT 3,\n    p_staff_id uuid DEFAULT NULL,\n    p_staff_history_id uuid DEFAULT NULL\n) RETURNS integer AS $$\nDECLARE\n    r record;\n    v_n integer := 0;\nBEGIN\n    -- 予定日が p_days_before 日以内(または過ぎた)で、未終了の監査実施詳細の監査員へ、通知(区分 audit。対象 = 監査実施詳細の symbol)を 1 件ずつ作る\n    FOR r IN\n        SELECT a.staff_id, a.symbol, a.scheduled_at, a.is_overdue\n        FROM tests.v_audit_assignment AS a\n        WHERE NOT a.is_done AND a.scheduled_at IS NOT NULL\n          AND a.scheduled_at < now() + make_interval(days => p_days_before)\n    LOOP\n        v_n := v_n + tests.announcement_register(\n            ARRAY[r.staff_id], 'audit',\n            jsonb_build_object(\n                'ja', CASE WHEN r.is_overdue THEN '監査の予定日を過ぎています' ELSE '監査の予定があります' END,\n                'en', CASE WHEN r.is_overdue THEN 'An audit is overdue' ELSE 'An audit is scheduled' END),\n            jsonb_build_object(\n                'ja', '予定日時: ' || to_char(r.scheduled_at, 'YYYY-MM-DD HH24:MI'),\n                'en', 'Scheduled at: ' || to_char(r.scheduled_at, 'YYYY-MM-DD HH24:MI')),\n            r.symbol, NULL, p_staff_id, p_staff_history_id);\n    END LOOP;\n    RETURN v_n;\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "監査の予定の通知を作る(冪等。アプリのログイン時、または外部のスケジューラから呼ぶ)。予定日時が p_days_before 日以内(または過ぎた)で未終了の監査実施詳細の監査員へ、区分 audit の通知を、監査実施詳細ごとに 1 人 1 件だけ作る(対象 target_symbol = 監査実施詳細の symbol)。戻り値は作った件数。いまの audit_notice(通知の行を作らない)は、通知の行が使えるようになるまで残す",
+      "args": "integer, uuid, uuid",
+      "dependsOnTableIds": [
+        1459,
+        6186
+      ],
+      "schema": "tests"
     }
   ],
   "commonColumnPatterns": [
@@ -31700,6 +31776,22 @@
           "defaultMethodId": null,
           "defaultExpression": "",
           "comment": "承認前ID(承認待ちの通知の対象。通知区分 approval のとき)"
+        },
+        {
+          "id": 6194,
+          "logicalName": "対象",
+          "physicalName": "target_symbol",
+          "typeId": "varchar",
+          "length": 16,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "通知の対象(対象の表の symbol。外部キーではない。アプリは symbol のショートカットで画面へ進む)"
         }
       ],
       "indexes": [],
