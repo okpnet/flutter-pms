@@ -51,7 +51,7 @@ module.exports = function writeLabelsReport({ entities, PROJECTS, schemaKeys, ha
     ...bespokeNotes,
     '',
   ];
-  if (!process.argv.includes('--check')) { // --check は書き出さない
+  if (!process.argv.includes('--check') && !require('./only').ONLY) { // --check は書き出さない
     fs.mkdirSync(out, { recursive: true });
     fs.writeFileSync(path.join(out, 'labels_inferred.md'), lines.join('\n'), 'utf8');
   }

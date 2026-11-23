@@ -111,7 +111,6 @@ const REVERSE = {
   task: [
     { entity: 'optask', field: 'task', label: '工程の選択' },
     { entity: 'workplan', field: 'mstr_task_id', label: '生産計画明細' },
-    { entity: 'cproc', field: 'mstr_task_id', label: '工程苦情' },
     { entity: 'taskrisk', field: 'mstr_task_id', label: '工程リスク' },
   ],
 };
@@ -451,7 +450,9 @@ const skipped = [];
 const written = [];
 const CHECK = process.argv.includes('--check'); // 書き出さず、コミット済みの内容と違うファイルだけ数える(ずれの検出)
 const drift = [];
+const { ONLY, skips } = require('./only');
 const write = (file, text) => {
+  if (skips(file)) return;
   if (CHECK) {
     const norm = (t) => t.split(String.fromCharCode(13)).join("");
     const old = fs.existsSync(file) ? norm(fs.readFileSync(file, "utf8")) : null;
@@ -756,6 +757,7 @@ if (skipped.length) {
 
 if (process.argv.includes('--no-slang')) process.exit(0);
 for (const pkg of Object.keys(rootsOf)) {
+  if (ONLY && pkg !== ONLY) continue;
   const dir = path.join(features, pkg);
   // 古い生成物を消してから生成する
   for (const f of fs.readdirSync(path.join(dir, 'lib', 'src', 'i18n'))) {

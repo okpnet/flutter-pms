@@ -49,6 +49,6 @@ module.exports = function writeClaude({ PROJECTS, entities, features }) {
       const anchor = text.includes('\n## example と多言語') ? '\n## example と多言語' : '\n## 規則/仕様';
       text = text.replace(anchor, `\n${block}${anchor}`);
     }
-    if (!process.argv.includes('--check')) fs.writeFileSync(file, text, 'utf8'); // --check は書き出さない
+    if (!process.argv.includes('--check') && !require('./only').skips(file)) fs.writeFileSync(file, text, 'utf8'); // --check は書き出さない
   }
 };
