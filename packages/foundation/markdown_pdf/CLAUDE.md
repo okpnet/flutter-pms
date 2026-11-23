@@ -41,3 +41,6 @@ Markdown → PDF の出力(テーマ・ヘッダ/フッタ・承認スタンプ�
 `packages/foundation` の他のパッケージと同じ(ディレクトリ/ファイル・命名・バレルファイル・JSON 化・ログ・GoF)。
 生成結果のレポートは `doc/log`、使い方は `doc/contents`、追加・変更の指示は `issue`。
 ログは持たない(失敗は例外の種類・戻り値で返し、呼び出し側がログに残す)。
+
+## PDF のメタデータ
+出力した PDF の Keywords に、使った PDF の設定(`pdf`)を `pms-pdf-settings:v1:` + JSON で残す(`PdfSettingsMetadata.encode`)。後から `PdfSettingsMetadata.read(bytes)` で読み戻し、どの設定で作られたか確認・再現できる(承認の記録は追記のみで、設定の変更は見た目だけを変えるため)。

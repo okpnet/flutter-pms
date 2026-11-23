@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'pdf_metadata.dart';
 
 import 'package:approval_stamp/approval_stamp.dart';
 import 'package:markdown_ast/markdown_ast.dart';
@@ -72,7 +73,7 @@ class MarkdownPdfRenderer {
     required Map<int, String>? starts,
     void Function(int page, String bandText)? onBandForTest,
   }) async {
-    final doc = pw.Document(title: info.title, creator: 'PMS', compress: true);
+    final doc = pw.Document(title: info.title, creator: 'PMS', keywords: PdfSettingsMetadata.encode(settings), compress: true);
     final regular = pw.Font.ttf(ByteData.sublistView(fonts.regular));
     final bold = pw.Font.ttf(ByteData.sublistView(fonts.bold));
     final theme = settings.theme;

@@ -197,4 +197,13 @@ void main() {
       File('${dir.path}/sample_$shape.pdf').writeAsBytesSync(bytes);
     }
   });
+
+  test('PDF のメタデータに、出力に使った設定が残り、読み戻せる(日本語を含む)', () async {
+    final settings = PdfSettings.fromJson(PdfSettings.standard.toJson());
+    final bytes = await renderer.render(markdown: _sample, settings: settings, info: info, fonts: _fonts());
+    final read = PdfSettingsMetadata.read(bytes);
+    expect(read, isNotNull);
+    expect(jsonEncode(read!.toJson()), jsonEncode(settings.toJson()));
+    expect(PdfSettingsMetadata.read(Uint8List.fromList(utf8.encode('%PDF-1.4 no keywords'))), isNull);
+  });
 }

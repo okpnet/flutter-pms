@@ -5,4 +5,5 @@ library;
 
 export 'src/fonts/pdf_fonts.dart';
 export 'src/render/markdown_pdf_renderer.dart';
+export 'src/render/pdf_metadata.dart';
 export 'src/render/stamp_widget.dart' show buildStampWidget;
