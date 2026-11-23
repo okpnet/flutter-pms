@@ -97,7 +97,6 @@ auditPlan:
   pickerTitle: 監査員の選択
   ok: 決定
   cancel: キャンセル
-
 # --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
 # 品質管理の実体と項目の表示名(日本語。基準言語)。
 # 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。
@@ -112,6 +111,11 @@ entity:
       f_detail: "詳細"
       f_reporter_staff_id: "報告者"
       f_remarks: "備考"
+      f_kind: "種類"
+      f_external: "外部の異常"
+      f_party: "利害関係者"
+      f_claim: "クレームか苦情か"
+      f_target: "対象"
   compreceive:
     title: "異常報告受領"
     fields:
@@ -129,41 +133,6 @@ entity:
     fields:
       f_file: "ファイル"
       f_date: "登録日"
-  corder:
-    title: "注文苦情"
-    fields:
-      f_trans_complaint_id: "異常"
-      f_trans_order_id: "注文"
-      f_remarks: "備考"
-  corderimp:
-    title: "取込"
-    fields:
-      f_kind: "取込種別"
-      f_title: "取込内容"
-      f_date: "取込日"
-  cproc:
-    title: "工程苦情"
-    fields:
-      f_trans_complaint_id: "異常"
-      f_mstr_task_id: "工程"
-      f_remarks: "備考"
-  cprocimp:
-    title: "取込"
-    fields:
-      f_kind: "取込種別"
-      f_title: "取込内容"
-      f_date: "取込日"
-  cequip:
-    title: "設備苦情"
-    fields:
-      f_trans_complaint_id: "異常"
-      f_remarks: "備考"
-  cequipimp:
-    title: "取込"
-    fields:
-      f_kind: "取込種別"
-      f_title: "取込内容"
-      f_date: "取込日"
   orderrisk:
     title: "注文リスク"
     fields:

@@ -89,20 +89,29 @@ features:
         code: V
         page: OV
         label: 承認パターン
+      - screen: accesspathapproval
+        code: H
+        page: OH
+        label: アクセスパスの承認
+      - screen: approvalscope
+        code: G
+        page: OG
+        label: 承認の範囲
       - screen: approver
         code: B
         page: OB
-        label: 承認できる人
+        label: (削除済み。再利用の前にレビューする)
         removed: true
       - screen: approvaldefaults
         code: Z
         page: OZ
-        label: 標準の承認パターン
+        label: (削除済み。再利用の前にレビューする)
+        removed: true
       - screen: approvalsteps
         code: Y
         page: OY
-        label: 承認の段
-
+        label: (削除済み。再利用の前にレビューする)
+        removed: true
   - feature: resource
     code: R
     label: 資源
@@ -463,6 +472,10 @@ features:
     code: G
     label: 品質管理文書
     screens:
+      - screen: body
+        code: B
+        page: GB
+        label: 文書コンテンツの本文
       - screen: doctier
         code: D
         page: GD
@@ -475,10 +488,6 @@ features:
         code: C
         page: GC
         label: 文書コンテンツ
-      - screen: body
-        code: B
-        page: GB
-        label: 文書コンテンツの本文
       - screen: report
         code: R
         page: GR
@@ -503,30 +512,6 @@ features:
         code: P
         page: QP
         label: 異常報告ファイル
-      - screen: corder
-        code: R
-        page: QR
-        label: 注文苦情
-      - screen: corderimp
-        code: D
-        page: QD
-        label: 取込
-      - screen: cproc
-        code: A
-        page: QA
-        label: 工程苦情
-      - screen: cprocimp
-        code: I
-        page: QI
-        label: 取込
-      - screen: cequip
-        code: E
-        page: QE
-        label: 設備苦情
-      - screen: cequipimp
-        code: Q
-        page: QQ
-        label: 取込
       - screen: orderrisk
         code: S
         page: QS
@@ -575,19 +560,51 @@ features:
         code: V
         page: QV
         label: 監査参加者
+      - screen: corder
+        code: R
+        page: QR
+        label: (削除済み。再利用の前にレビューする)
+        removed: true
+      - screen: corderimp
+        code: D
+        page: QD
+        label: (削除済み。再利用の前にレビューする)
+        removed: true
+      - screen: cproc
+        code: A
+        page: QA
+        label: (削除済み。再利用の前にレビューする)
+        removed: true
+      - screen: cprocimp
+        code: I
+        page: QI
+        label: (削除済み。再利用の前にレビューする)
+        removed: true
+      - screen: cequip
+        code: E
+        page: QE
+        label: (削除済み。再利用の前にレビューする)
+        removed: true
+      - screen: cequipimp
+        code: Q
+        page: QQ
+        label: (削除済み。再利用の前にレビューする)
+        removed: true
       - screen: myaudits
         code: Y
         page: QY
-        label: 自分の監査
+        label: (削除済み。再利用の前にレビューする)
+        removed: true
       - screen: auditrun
         code: X
         page: QX
-        label: 監査の実施
+        label: (削除済み。再利用の前にレビューする)
+        removed: true
       - screen: auditplan
         code: W
         page: QW
-        label: 監査計画の登録
-
+        label: (削除済み。再利用の前にレビューする)
+        removed: true
   - feature: maintenance
     code: M
     label: メンテナンス
@@ -651,7 +668,8 @@ features:
       - screen: admincreateuser
         code: U
         page: UU
-        label: ユーザーの作成
+        label: (削除済み。再利用の前にレビューする)
+        removed: true
   - feature: access_control
     code: X
     label: アクセス管理
@@ -696,14 +714,6 @@ features:
         code: M
         page: NM
         label: マニュアル
-  - feature: document_settings
-    code: D
-    label: 承認スタンプ・PDF の設定
-    screens:
-      - screen: document_settings
-        code: S
-        page: DS
-        label: 承認スタンプ・PDF の設定
   - feature: approval
     code: K
     label: 承認一覧
@@ -724,3 +734,11 @@ features:
         code: D
         page: KD
         label: 品質共通の承認一覧
+  - feature: document_settings
+    code: D
+    label: 承認スタンプ・PDF の設定
+    screens:
+      - screen: document_settings
+        code: S
+        page: DS
+        label: 承認スタンプ・PDF の設定

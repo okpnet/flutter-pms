@@ -6,14 +6,14 @@
 /maintenance,メンテナンス中,Under maintenance,maintenance,true
 /backstage,裏設定,Backstage settings,backstage,true
 /barcode,リーディングトップ,Barcode entry top,barcode_entry,false
+/mrp,資材所要計算(MRP),Material requirements planning (MRP),production_plan,false
 /manual,マニュアル,Manual,manual,false
 /quality-document/body,文書コンテンツの本文,Document content body,quality_document,false
-/organization/approval-defaults,標準の承認パターン,Standard approval patterns,organization,false
-/organization/approval-steps,承認の段,Approval steps,organization,false
-/quality/my-audits,自分の監査,My audits,quality,false
-/quality/audit-run,監査の実施,Conduct audit,quality,false
-/quality/audit-plan,監査計画の登録,Register audit plan,quality,false
-/mrp,資材所要計算(MRP),Material requirements planning (MRP),production_plan,false
+/approval/quality_document,品質管理文書の承認一覧,Quality documents approvals,approval,false
+/approval/sales,営業の承認一覧,Sales approvals,approval,false
+/approval/purchasing,購買の承認一覧,Purchasing approvals,approval,false
+/approval/quality_common,品質共通の承認一覧,Quality (common) approvals,approval,false
+/auth/admin/document-settings,承認スタンプ・PDFの設定,Approval stamp & PDF settings,document_settings,false
 /shipping-kinds,配送区分,Shipping kind,shared_master,false
 /auth/login,ログイン,Log in,auth_files,true
 /auth/logout,ログアウト,Log out,auth_files,true
@@ -24,7 +24,6 @@
 /auth/files,共有ファイル,Shared files,auth_files,false
 /auth/admin/signups,新規登録の管理,Manage sign-ups,auth_files,false
 /auth/admin/resets,再設定依頼の管理,Manage reset requests,auth_files,false
-/auth/admin/users/new,ユーザーの作成,Create user,auth_files,false
 /profile/image,自分のイメージ,My image,user_profile,false
 /e/accesspath,アクセスパス,Access path,access_control,false
 /e/deptaccesspath,部署のアクセスパス,Department access path,access_control,false
@@ -37,12 +36,11 @@
 /e/itemonhand,品目の在庫,Item on hand,item,false
 /e/company,会社情報,Company,organization,false
 /e/site,事業所,Site,organization,false
-/e/provision,提供,Provision,organization,false
-/e/position,役割(役職),Position,organization,false
 /e/deptkind,部署区分,Department kind,organization,false
 /e/department,部署,Department,organization,false
 /e/staff,作業者,Staff,organization,false
 /e/approvalpattern,承認パターン,Approval pattern,organization,false
+/e/accesspathapproval,アクセスパスの承認,Access path approval,organization,false
 /e/planchange,計画変更の履歴,Plan change history,plan_change,false
 /e/cancelopen,未処置一覧,Open items after cancel,plan_change,false
 /e/actreqrelease,引当予約の解除,Release inventory request,plan_change,false
@@ -68,9 +66,6 @@
 /e/purchase,発注,Purchase order,purchasing,false
 /e/purchaserec,受入実績,Receiving record,purchasing,false
 /e/complaint,異常,Complaint,quality,false
-/e/corder,注文苦情,Order complaint,quality,false
-/e/cproc,工程苦情,Process complaint,quality,false
-/e/cequip,設備苦情,Equipment complaint,quality,false
 /e/orderrisk,注文リスク,Order risk,quality,false
 /e/orderdetailrisk,受注明細リスク,Order line risk,quality,false
 /e/taskrisk,工程リスク,Task risk,quality,false
@@ -109,8 +104,3 @@
 /e/workrec,作業実績,Work record,work_record,false
 /e/mrpvisiter,ビジター品目,Visiter item,work_record,false
 /e/stockstatus,在庫状況,Stock status,work_record,false
-/auth/admin/document-settings,承認スタンプ・PDFの設定,Approval stamp & PDF settings,document_settings,false
-/approval/quality_document,品質管理文書の承認一覧,Quality documents approvals,approval,false
-/approval/sales,営業の承認一覧,Sales approvals,approval,false
-/approval/purchasing,購買の承認一覧,Purchasing approvals,approval,false
-/approval/quality_common,品質共通の承認一覧,Quality (common) approvals,approval,false

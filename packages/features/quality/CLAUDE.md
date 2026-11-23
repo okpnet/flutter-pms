@@ -28,16 +28,10 @@
 
 | 実体 | キー | 構造 | 項目数 | 参照先 |
 |---|---|---|---|---|
-| 異常 | `complaint` | テーブル構造 | 5 | `staff` |
+| 異常 | `complaint` | テーブル構造 | 10 | `staff` |
 | 異常報告受領 | `compreceive` | 子の台帳(親: 異常) | 4 | `staff` |
 | 利害関係者苦情 | `compstake` | 子の台帳(親: 異常) | 2 | `customer` |
 | 異常報告ファイル | `compfile` | 子の台帳(親: 異常) | 2 |  |
-| 注文苦情 | `corder` | テーブル構造 | 3 | `complaint`, `order` |
-| 取込 | `corderimp` | 子の台帳(親: 注文苦情) | 3 |  |
-| 工程苦情 | `cproc` | テーブル構造 | 3 | `complaint`, `task` |
-| 取込 | `cprocimp` | 子の台帳(親: 工程苦情) | 3 |  |
-| 設備苦情 | `cequip` | テーブル構造 | 2 | `complaint` |
-| 取込 | `cequipimp` | 子の台帳(親: 設備苦情) | 3 |  |
 | 注文リスク | `orderrisk` | テーブル構造 | 3 | `order`, `risk` |
 | 受注明細リスク | `orderdetailrisk` | テーブル構造 | 3 | `orderdetail`, `risk` |
 | 取込：リスク | `odrimp` | 子の台帳(親: 受注明細リスク) | 1 | `risk` |

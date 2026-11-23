@@ -127,41 +127,6 @@ entity:
     fields:
       f_file: "File"
       f_date: "Registered on"
-  corder:
-    title: "Order complaints"
-    fields:
-      f_trans_complaint_id: "Nonconformity"
-      f_trans_order_id: "Order"
-      f_remarks: "Remarks"
-  corderimp:
-    title: "Imports"
-    fields:
-      f_kind: "Import kind"
-      f_title: "Import content"
-      f_date: "Imported on"
-  cproc:
-    title: "Process complaints"
-    fields:
-      f_trans_complaint_id: "Nonconformity"
-      f_mstr_task_id: "Task"
-      f_remarks: "Remarks"
-  cprocimp:
-    title: "Imports"
-    fields:
-      f_kind: "Import kind"
-      f_title: "Import content"
-      f_date: "Imported on"
-  cequip:
-    title: "Equipment complaints"
-    fields:
-      f_trans_complaint_id: "Nonconformity"
-      f_remarks: "Remarks"
-  cequipimp:
-    title: "Imports"
-    fields:
-      f_kind: "Import kind"
-      f_title: "Import content"
-      f_date: "Imported on"
   orderrisk:
     title: "Order risks"
     fields:

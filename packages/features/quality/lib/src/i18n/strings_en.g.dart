@@ -185,12 +185,6 @@ class _QualityStrings$entity$en extends QualityStrings$entity$ja {
 	@override late final _QualityStrings$entity$compreceive$en compreceive = _QualityStrings$entity$compreceive$en._(_root);
 	@override late final _QualityStrings$entity$compstake$en compstake = _QualityStrings$entity$compstake$en._(_root);
 	@override late final _QualityStrings$entity$compfile$en compfile = _QualityStrings$entity$compfile$en._(_root);
-	@override late final _QualityStrings$entity$corder$en corder = _QualityStrings$entity$corder$en._(_root);
-	@override late final _QualityStrings$entity$corderimp$en corderimp = _QualityStrings$entity$corderimp$en._(_root);
-	@override late final _QualityStrings$entity$cproc$en cproc = _QualityStrings$entity$cproc$en._(_root);
-	@override late final _QualityStrings$entity$cprocimp$en cprocimp = _QualityStrings$entity$cprocimp$en._(_root);
-	@override late final _QualityStrings$entity$cequip$en cequip = _QualityStrings$entity$cequip$en._(_root);
-	@override late final _QualityStrings$entity$cequipimp$en cequipimp = _QualityStrings$entity$cequipimp$en._(_root);
 	@override late final _QualityStrings$entity$orderrisk$en orderrisk = _QualityStrings$entity$orderrisk$en._(_root);
 	@override late final _QualityStrings$entity$orderdetailrisk$en orderdetailrisk = _QualityStrings$entity$orderdetailrisk$en._(_root);
 	@override late final _QualityStrings$entity$odrimp$en odrimp = _QualityStrings$entity$odrimp$en._(_root);
@@ -247,72 +241,6 @@ class _QualityStrings$entity$compfile$en extends QualityStrings$entity$compfile$
 	// Translations
 	@override String get title => 'Nonconformity report files';
 	@override late final _QualityStrings$entity$compfile$fields$en fields = _QualityStrings$entity$compfile$fields$en._(_root);
-}
-
-// Path: entity.corder
-class _QualityStrings$entity$corder$en extends QualityStrings$entity$corder$ja {
-	_QualityStrings$entity$corder$en._(QualityStringsEn root) : this._root = root, super.internal(root);
-
-	final QualityStringsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Order complaints';
-	@override late final _QualityStrings$entity$corder$fields$en fields = _QualityStrings$entity$corder$fields$en._(_root);
-}
-
-// Path: entity.corderimp
-class _QualityStrings$entity$corderimp$en extends QualityStrings$entity$corderimp$ja {
-	_QualityStrings$entity$corderimp$en._(QualityStringsEn root) : this._root = root, super.internal(root);
-
-	final QualityStringsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Imports';
-	@override late final _QualityStrings$entity$corderimp$fields$en fields = _QualityStrings$entity$corderimp$fields$en._(_root);
-}
-
-// Path: entity.cproc
-class _QualityStrings$entity$cproc$en extends QualityStrings$entity$cproc$ja {
-	_QualityStrings$entity$cproc$en._(QualityStringsEn root) : this._root = root, super.internal(root);
-
-	final QualityStringsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Process complaints';
-	@override late final _QualityStrings$entity$cproc$fields$en fields = _QualityStrings$entity$cproc$fields$en._(_root);
-}
-
-// Path: entity.cprocimp
-class _QualityStrings$entity$cprocimp$en extends QualityStrings$entity$cprocimp$ja {
-	_QualityStrings$entity$cprocimp$en._(QualityStringsEn root) : this._root = root, super.internal(root);
-
-	final QualityStringsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Imports';
-	@override late final _QualityStrings$entity$cprocimp$fields$en fields = _QualityStrings$entity$cprocimp$fields$en._(_root);
-}
-
-// Path: entity.cequip
-class _QualityStrings$entity$cequip$en extends QualityStrings$entity$cequip$ja {
-	_QualityStrings$entity$cequip$en._(QualityStringsEn root) : this._root = root, super.internal(root);
-
-	final QualityStringsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Equipment complaints';
-	@override late final _QualityStrings$entity$cequip$fields$en fields = _QualityStrings$entity$cequip$fields$en._(_root);
-}
-
-// Path: entity.cequipimp
-class _QualityStrings$entity$cequipimp$en extends QualityStrings$entity$cequipimp$ja {
-	_QualityStrings$entity$cequipimp$en._(QualityStringsEn root) : this._root = root, super.internal(root);
-
-	final QualityStringsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Imports';
-	@override late final _QualityStrings$entity$cequipimp$fields$en fields = _QualityStrings$entity$cequipimp$fields$en._(_root);
 }
 
 // Path: entity.orderrisk
@@ -494,77 +422,6 @@ class _QualityStrings$entity$compfile$fields$en extends QualityStrings$entity$co
 	// Translations
 	@override String get f_file => 'File';
 	@override String get f_date => 'Registered on';
-}
-
-// Path: entity.corder.fields
-class _QualityStrings$entity$corder$fields$en extends QualityStrings$entity$corder$fields$ja {
-	_QualityStrings$entity$corder$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
-
-	final QualityStringsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get f_trans_complaint_id => 'Nonconformity';
-	@override String get f_trans_order_id => 'Order';
-	@override String get f_remarks => 'Remarks';
-}
-
-// Path: entity.corderimp.fields
-class _QualityStrings$entity$corderimp$fields$en extends QualityStrings$entity$corderimp$fields$ja {
-	_QualityStrings$entity$corderimp$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
-
-	final QualityStringsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get f_kind => 'Import kind';
-	@override String get f_title => 'Import content';
-	@override String get f_date => 'Imported on';
-}
-
-// Path: entity.cproc.fields
-class _QualityStrings$entity$cproc$fields$en extends QualityStrings$entity$cproc$fields$ja {
-	_QualityStrings$entity$cproc$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
-
-	final QualityStringsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get f_trans_complaint_id => 'Nonconformity';
-	@override String get f_mstr_task_id => 'Task';
-	@override String get f_remarks => 'Remarks';
-}
-
-// Path: entity.cprocimp.fields
-class _QualityStrings$entity$cprocimp$fields$en extends QualityStrings$entity$cprocimp$fields$ja {
-	_QualityStrings$entity$cprocimp$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
-
-	final QualityStringsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get f_kind => 'Import kind';
-	@override String get f_title => 'Import content';
-	@override String get f_date => 'Imported on';
-}
-
-// Path: entity.cequip.fields
-class _QualityStrings$entity$cequip$fields$en extends QualityStrings$entity$cequip$fields$ja {
-	_QualityStrings$entity$cequip$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
-
-	final QualityStringsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get f_trans_complaint_id => 'Nonconformity';
-	@override String get f_remarks => 'Remarks';
-}
-
-// Path: entity.cequipimp.fields
-class _QualityStrings$entity$cequipimp$fields$en extends QualityStrings$entity$cequipimp$fields$ja {
-	_QualityStrings$entity$cequipimp$fields$en._(QualityStringsEn root) : this._root = root, super.internal(root);
-
-	final QualityStringsEn _root; // ignore: unused_field
-
-	// Translations
-	@override String get f_kind => 'Import kind';
-	@override String get f_title => 'Import content';
-	@override String get f_date => 'Imported on';
 }
 
 // Path: entity.orderrisk.fields
@@ -832,29 +689,6 @@ extension on QualityStringsEn {
 			'entity.compfile.title' => 'Nonconformity report files',
 			'entity.compfile.fields.f_file' => 'File',
 			'entity.compfile.fields.f_date' => 'Registered on',
-			'entity.corder.title' => 'Order complaints',
-			'entity.corder.fields.f_trans_complaint_id' => 'Nonconformity',
-			'entity.corder.fields.f_trans_order_id' => 'Order',
-			'entity.corder.fields.f_remarks' => 'Remarks',
-			'entity.corderimp.title' => 'Imports',
-			'entity.corderimp.fields.f_kind' => 'Import kind',
-			'entity.corderimp.fields.f_title' => 'Import content',
-			'entity.corderimp.fields.f_date' => 'Imported on',
-			'entity.cproc.title' => 'Process complaints',
-			'entity.cproc.fields.f_trans_complaint_id' => 'Nonconformity',
-			'entity.cproc.fields.f_mstr_task_id' => 'Task',
-			'entity.cproc.fields.f_remarks' => 'Remarks',
-			'entity.cprocimp.title' => 'Imports',
-			'entity.cprocimp.fields.f_kind' => 'Import kind',
-			'entity.cprocimp.fields.f_title' => 'Import content',
-			'entity.cprocimp.fields.f_date' => 'Imported on',
-			'entity.cequip.title' => 'Equipment complaints',
-			'entity.cequip.fields.f_trans_complaint_id' => 'Nonconformity',
-			'entity.cequip.fields.f_remarks' => 'Remarks',
-			'entity.cequipimp.title' => 'Imports',
-			'entity.cequipimp.fields.f_kind' => 'Import kind',
-			'entity.cequipimp.fields.f_title' => 'Import content',
-			'entity.cequipimp.fields.f_date' => 'Imported on',
 			'entity.orderrisk.title' => 'Order risks',
 			'entity.orderrisk.fields.f_trans_order_id' => 'Order',
 			'entity.orderrisk.fields.f_trans_risk_id' => 'Risk',

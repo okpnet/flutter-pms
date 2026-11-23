@@ -368,12 +368,6 @@ class QualityStrings$entity$ja {
 	late final QualityStrings$entity$compreceive$ja compreceive = QualityStrings$entity$compreceive$ja.internal(_root);
 	late final QualityStrings$entity$compstake$ja compstake = QualityStrings$entity$compstake$ja.internal(_root);
 	late final QualityStrings$entity$compfile$ja compfile = QualityStrings$entity$compfile$ja.internal(_root);
-	late final QualityStrings$entity$corder$ja corder = QualityStrings$entity$corder$ja.internal(_root);
-	late final QualityStrings$entity$corderimp$ja corderimp = QualityStrings$entity$corderimp$ja.internal(_root);
-	late final QualityStrings$entity$cproc$ja cproc = QualityStrings$entity$cproc$ja.internal(_root);
-	late final QualityStrings$entity$cprocimp$ja cprocimp = QualityStrings$entity$cprocimp$ja.internal(_root);
-	late final QualityStrings$entity$cequip$ja cequip = QualityStrings$entity$cequip$ja.internal(_root);
-	late final QualityStrings$entity$cequipimp$ja cequipimp = QualityStrings$entity$cequipimp$ja.internal(_root);
 	late final QualityStrings$entity$orderrisk$ja orderrisk = QualityStrings$entity$orderrisk$ja.internal(_root);
 	late final QualityStrings$entity$orderdetailrisk$ja orderdetailrisk = QualityStrings$entity$orderdetailrisk$ja.internal(_root);
 	late final QualityStrings$entity$odrimp$ja odrimp = QualityStrings$entity$odrimp$ja.internal(_root);
@@ -442,90 +436,6 @@ class QualityStrings$entity$compfile$ja {
 	String get title => '異常報告ファイル';
 
 	late final QualityStrings$entity$compfile$fields$ja fields = QualityStrings$entity$compfile$fields$ja.internal(_root);
-}
-
-// Path: entity.corder
-class QualityStrings$entity$corder$ja {
-	QualityStrings$entity$corder$ja.internal(this._root);
-
-	final QualityStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '注文苦情'
-	String get title => '注文苦情';
-
-	late final QualityStrings$entity$corder$fields$ja fields = QualityStrings$entity$corder$fields$ja.internal(_root);
-}
-
-// Path: entity.corderimp
-class QualityStrings$entity$corderimp$ja {
-	QualityStrings$entity$corderimp$ja.internal(this._root);
-
-	final QualityStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '取込'
-	String get title => '取込';
-
-	late final QualityStrings$entity$corderimp$fields$ja fields = QualityStrings$entity$corderimp$fields$ja.internal(_root);
-}
-
-// Path: entity.cproc
-class QualityStrings$entity$cproc$ja {
-	QualityStrings$entity$cproc$ja.internal(this._root);
-
-	final QualityStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '工程苦情'
-	String get title => '工程苦情';
-
-	late final QualityStrings$entity$cproc$fields$ja fields = QualityStrings$entity$cproc$fields$ja.internal(_root);
-}
-
-// Path: entity.cprocimp
-class QualityStrings$entity$cprocimp$ja {
-	QualityStrings$entity$cprocimp$ja.internal(this._root);
-
-	final QualityStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '取込'
-	String get title => '取込';
-
-	late final QualityStrings$entity$cprocimp$fields$ja fields = QualityStrings$entity$cprocimp$fields$ja.internal(_root);
-}
-
-// Path: entity.cequip
-class QualityStrings$entity$cequip$ja {
-	QualityStrings$entity$cequip$ja.internal(this._root);
-
-	final QualityStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '設備苦情'
-	String get title => '設備苦情';
-
-	late final QualityStrings$entity$cequip$fields$ja fields = QualityStrings$entity$cequip$fields$ja.internal(_root);
-}
-
-// Path: entity.cequipimp
-class QualityStrings$entity$cequipimp$ja {
-	QualityStrings$entity$cequipimp$ja.internal(this._root);
-
-	final QualityStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '取込'
-	String get title => '取込';
-
-	late final QualityStrings$entity$cequipimp$fields$ja fields = QualityStrings$entity$cequipimp$fields$ja.internal(_root);
 }
 
 // Path: entity.orderrisk
@@ -718,6 +628,21 @@ class QualityStrings$entity$complaint$fields$ja {
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
+
+	/// ja: '種類'
+	String get f_kind => '種類';
+
+	/// ja: '外部の異常'
+	String get f_external => '外部の異常';
+
+	/// ja: '利害関係者'
+	String get f_party => '利害関係者';
+
+	/// ja: 'クレームか苦情か'
+	String get f_claim => 'クレームか苦情か';
+
+	/// ja: '対象'
+	String get f_target => '対象';
 }
 
 // Path: entity.compreceive.fields
@@ -769,111 +694,6 @@ class QualityStrings$entity$compfile$fields$ja {
 
 	/// ja: '登録日'
 	String get f_date => '登録日';
-}
-
-// Path: entity.corder.fields
-class QualityStrings$entity$corder$fields$ja {
-	QualityStrings$entity$corder$fields$ja.internal(this._root);
-
-	final QualityStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '異常'
-	String get f_trans_complaint_id => '異常';
-
-	/// ja: '注文'
-	String get f_trans_order_id => '注文';
-
-	/// ja: '備考'
-	String get f_remarks => '備考';
-}
-
-// Path: entity.corderimp.fields
-class QualityStrings$entity$corderimp$fields$ja {
-	QualityStrings$entity$corderimp$fields$ja.internal(this._root);
-
-	final QualityStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '取込種別'
-	String get f_kind => '取込種別';
-
-	/// ja: '取込内容'
-	String get f_title => '取込内容';
-
-	/// ja: '取込日'
-	String get f_date => '取込日';
-}
-
-// Path: entity.cproc.fields
-class QualityStrings$entity$cproc$fields$ja {
-	QualityStrings$entity$cproc$fields$ja.internal(this._root);
-
-	final QualityStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '異常'
-	String get f_trans_complaint_id => '異常';
-
-	/// ja: '工程'
-	String get f_mstr_task_id => '工程';
-
-	/// ja: '備考'
-	String get f_remarks => '備考';
-}
-
-// Path: entity.cprocimp.fields
-class QualityStrings$entity$cprocimp$fields$ja {
-	QualityStrings$entity$cprocimp$fields$ja.internal(this._root);
-
-	final QualityStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '取込種別'
-	String get f_kind => '取込種別';
-
-	/// ja: '取込内容'
-	String get f_title => '取込内容';
-
-	/// ja: '取込日'
-	String get f_date => '取込日';
-}
-
-// Path: entity.cequip.fields
-class QualityStrings$entity$cequip$fields$ja {
-	QualityStrings$entity$cequip$fields$ja.internal(this._root);
-
-	final QualityStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '異常'
-	String get f_trans_complaint_id => '異常';
-
-	/// ja: '備考'
-	String get f_remarks => '備考';
-}
-
-// Path: entity.cequipimp.fields
-class QualityStrings$entity$cequipimp$fields$ja {
-	QualityStrings$entity$cequipimp$fields$ja.internal(this._root);
-
-	final QualityStrings _root; // ignore: unused_field
-
-	// Translations
-
-	/// ja: '取込種別'
-	String get f_kind => '取込種別';
-
-	/// ja: '取込内容'
-	String get f_title => '取込内容';
-
-	/// ja: '取込日'
-	String get f_date => '取込日';
 }
 
 // Path: entity.orderrisk.fields
@@ -1208,6 +1028,11 @@ extension on QualityStrings {
 			'entity.complaint.fields.f_detail' => '詳細',
 			'entity.complaint.fields.f_reporter_staff_id' => '報告者',
 			'entity.complaint.fields.f_remarks' => '備考',
+			'entity.complaint.fields.f_kind' => '種類',
+			'entity.complaint.fields.f_external' => '外部の異常',
+			'entity.complaint.fields.f_party' => '利害関係者',
+			'entity.complaint.fields.f_claim' => 'クレームか苦情か',
+			'entity.complaint.fields.f_target' => '対象',
 			'entity.compreceive.title' => '異常報告受領',
 			'entity.compreceive.fields.f_receive_at' => '受領日',
 			'entity.compreceive.fields.f_receive_staff_id' => '受領者',
@@ -1219,29 +1044,6 @@ extension on QualityStrings {
 			'entity.compfile.title' => '異常報告ファイル',
 			'entity.compfile.fields.f_file' => 'ファイル',
 			'entity.compfile.fields.f_date' => '登録日',
-			'entity.corder.title' => '注文苦情',
-			'entity.corder.fields.f_trans_complaint_id' => '異常',
-			'entity.corder.fields.f_trans_order_id' => '注文',
-			'entity.corder.fields.f_remarks' => '備考',
-			'entity.corderimp.title' => '取込',
-			'entity.corderimp.fields.f_kind' => '取込種別',
-			'entity.corderimp.fields.f_title' => '取込内容',
-			'entity.corderimp.fields.f_date' => '取込日',
-			'entity.cproc.title' => '工程苦情',
-			'entity.cproc.fields.f_trans_complaint_id' => '異常',
-			'entity.cproc.fields.f_mstr_task_id' => '工程',
-			'entity.cproc.fields.f_remarks' => '備考',
-			'entity.cprocimp.title' => '取込',
-			'entity.cprocimp.fields.f_kind' => '取込種別',
-			'entity.cprocimp.fields.f_title' => '取込内容',
-			'entity.cprocimp.fields.f_date' => '取込日',
-			'entity.cequip.title' => '設備苦情',
-			'entity.cequip.fields.f_trans_complaint_id' => '異常',
-			'entity.cequip.fields.f_remarks' => '備考',
-			'entity.cequipimp.title' => '取込',
-			'entity.cequipimp.fields.f_kind' => '取込種別',
-			'entity.cequipimp.fields.f_title' => '取込内容',
-			'entity.cequipimp.fields.f_date' => '取込日',
 			'entity.orderrisk.title' => '注文リスク',
 			'entity.orderrisk.fields.f_trans_order_id' => '注文',
 			'entity.orderrisk.fields.f_trans_risk_id' => 'リスク',
