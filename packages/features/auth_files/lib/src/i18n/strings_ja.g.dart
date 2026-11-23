@@ -408,6 +408,7 @@ class AuthFilesStrings$admin$ja {
 	// Translations
 	late final AuthFilesStrings$admin$signups$ja signups = AuthFilesStrings$admin$signups$ja.internal(_root);
 	late final AuthFilesStrings$admin$resets$ja resets = AuthFilesStrings$admin$resets$ja.internal(_root);
+	late final AuthFilesStrings$admin$createUser$ja createUser = AuthFilesStrings$admin$createUser$ja.internal(_root);
 	late final AuthFilesStrings$admin$issuedCode$ja issuedCode = AuthFilesStrings$admin$issuedCode$ja.internal(_root);
 }
 
@@ -475,6 +476,42 @@ class AuthFilesStrings$admin$resets$ja {
 
 	/// ja: '依頼日時'
 	String get created => '依頼日時';
+}
+
+// Path: admin.createUser
+class AuthFilesStrings$admin$createUser$ja {
+	AuthFilesStrings$admin$createUser$ja.internal(this._root);
+
+	final AuthFilesStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'アカウント管理: ユーザーの作成'
+	String get title => 'アカウント管理: ユーザーの作成';
+
+	/// ja: '担当者(DB に登録済み)に、ログインできるユーザーを作り、有効化コードを発行します。コードは本人へ渡してください(メールを登録し、メールで送る場合を除く)。'
+	String get hint => '担当者(DB に登録済み)に、ログインできるユーザーを作り、有効化コードを発行します。コードは本人へ渡してください(メールを登録し、メールで送る場合を除く)。';
+
+	/// ja: 'ユーザーID(ログインに使う)'
+	String get userId => 'ユーザーID(ログインに使う)';
+
+	/// ja: '担当者のID'
+	String get appUserId => '担当者のID';
+
+	/// ja: '氏名'
+	String get name => '氏名';
+
+	/// ja: 'Eメール(任意)'
+	String get email => 'Eメール(任意)';
+
+	/// ja: 'メールで送る(Eメールがあり、サーバーでメールが有効なとき)'
+	String get mail => 'メールで送る(Eメールがあり、サーバーでメールが有効なとき)';
+
+	/// ja: 'ユーザーを作成'
+	String get create => 'ユーザーを作成';
+
+	/// ja: 'ユーザーを作成しました。コードを本人へ渡してください。'
+	String get created => 'ユーザーを作成しました。コードを本人へ渡してください。';
 }
 
 // Path: admin.issuedCode
@@ -612,6 +649,15 @@ extension on AuthFilesStrings {
 			'admin.resets.issue' => 'コードを発行',
 			'admin.resets.issued' => 'コードを発行しました。本人確認のうえ、手渡してください。',
 			'admin.resets.created' => '依頼日時',
+			'admin.createUser.title' => 'アカウント管理: ユーザーの作成',
+			'admin.createUser.hint' => '担当者(DB に登録済み)に、ログインできるユーザーを作り、有効化コードを発行します。コードは本人へ渡してください(メールを登録し、メールで送る場合を除く)。',
+			'admin.createUser.userId' => 'ユーザーID(ログインに使う)',
+			'admin.createUser.appUserId' => '担当者のID',
+			'admin.createUser.name' => '氏名',
+			'admin.createUser.email' => 'Eメール(任意)',
+			'admin.createUser.mail' => 'メールで送る(Eメールがあり、サーバーでメールが有効なとき)',
+			'admin.createUser.create' => 'ユーザーを作成',
+			'admin.createUser.created' => 'ユーザーを作成しました。コードを本人へ渡してください。',
 			'admin.issuedCode.title' => '発行したコード',
 			'admin.issuedCode.code' => 'コード',
 			'admin.issuedCode.expires' => '有効期限',

@@ -28,6 +28,7 @@
 | 共有ファイル | `SharedFilesDestination` | `/auth/files` | 中 | ファイルIDで版の履歴、アップロード(同じIDなら新しい版。上書きしない)、ダウンロード。更新・削除はできない |
 | 新規登録の管理 | `AdminSignupsDestination` | `/auth/admin/signups` | 中 | 管理者。申請の一覧、承認(App DB で登録済みの担当者のIDを指定 → 認証コードを一度だけ表示)、却下 |
 | 再設定依頼の管理 | `AdminResetsDestination` | `/auth/admin/resets` | 中 | 管理者。メールなしユーザーの依頼の一覧、本人確認のうえ再設定コードを発行(一度だけ表示) |
+| ユーザーの作成 | `AdminCreateUserDestination(appUserId, name)` | `/auth/admin/users/new`(`?staff=<担当者の ID>&name=<氏名>`) | 中 | 管理者(`/auth/admin/…` は管理者だけ)。担当者(DB の `info_staff`)に、PocketBase のユーザーを作り(`AdminService.createUser`)、有効化コードを一度だけ表示する。入力: ユーザーID・担当者の ID(担当者の画面から渡すときは固定)・氏名・Eメール(任意)・メールで送る(メールがあるときだけ)。役割は `user` だけ。入口は、`organization` の作業者の台帳の行の操作「ユーザーを作成」(`handleRowAction`)。担当者の登録(DB)が先で、PocketBase のユーザーを作るのは別の操作(`organization` の CLAUDE.md・ルートの CLAUDE.md「作業者の新規登録とログインの開始」) |
 
 ログイン・ログアウトの画面は、この機能にだけある(`app_core` や `pms_app` には持たない)。ログイン前後の画面・文字列・セッションの処理を1か所にまとめる。
 

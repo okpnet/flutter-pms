@@ -41,6 +41,7 @@ class OrganizationStringsEn extends OrganizationStrings with BaseTranslations<Or
 	@override late final _OrganizationStrings$home$en home = _OrganizationStrings$home$en._(_root);
 	@override late final _OrganizationStrings$approvalDefaults$en approvalDefaults = _OrganizationStrings$approvalDefaults$en._(_root);
 	@override late final _OrganizationStrings$approvalSteps$en approvalSteps = _OrganizationStrings$approvalSteps$en._(_root);
+	@override late final _OrganizationStrings$staffUser$en staffUser = _OrganizationStrings$staffUser$en._(_root);
 	@override late final _OrganizationStrings$menu$en menu = _OrganizationStrings$menu$en._(_root);
 	@override late final _OrganizationStrings$entity$en entity = _OrganizationStrings$entity$en._(_root);
 }
@@ -137,6 +138,16 @@ class _OrganizationStrings$approvalSteps$en extends OrganizationStrings$approval
 	@override String get cancel => 'Cancel';
 	@override String get delete => 'Delete';
 	@override String get deleteConfirm => 'Delete this approval step?';
+}
+
+// Path: staffUser
+class _OrganizationStrings$staffUser$en extends OrganizationStrings$staffUser$ja {
+	_OrganizationStrings$staffUser$en._(OrganizationStringsEn root) : this._root = root, super.internal(root);
+
+	final OrganizationStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get createUser => 'Create user';
 }
 
 // Path: menu
@@ -614,6 +625,7 @@ extension on OrganizationStringsEn {
 			'approvalSteps.cancel' => 'Cancel',
 			'approvalSteps.delete' => 'Delete',
 			'approvalSteps.deleteConfirm' => 'Delete this approval step?',
+			'staffUser.createUser' => 'Create user',
 			'menu.group' => 'Company',
 			'entity.company.title' => 'Company information',
 			'entity.company.fields.f_name' => 'Company name',

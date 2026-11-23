@@ -12,6 +12,13 @@ abstract final class AuthFilesPaths {
   static const files = '/auth/files';
   static const adminSignups = '/auth/admin/signups';
   static const adminResets = '/auth/admin/resets';
+  static const adminCreateUser = '/auth/admin/users/new';
+
+  /// ユーザーの作成(担当者の ID と氏名を初期値に渡す)。
+  static String adminCreateUserOf({String appUserId = '', String name = ''}) => Uri(
+    path: adminCreateUser,
+    queryParameters: {if (appUserId.isNotEmpty) 'staff': appUserId, if (name.isNotEmpty) 'name': name},
+  ).toString();
 
   /// ログアウト。セッションが切れて開くときは `?expired=1`(確認を出さず、切れたことを案内する)。
   static String logoutWith({bool sessionExpired = false}) =>

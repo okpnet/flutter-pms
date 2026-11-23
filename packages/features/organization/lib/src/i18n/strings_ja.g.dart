@@ -38,6 +38,7 @@ class OrganizationStrings with BaseTranslations<OrganizationLocale, Organization
 	late final OrganizationStrings$home$ja home = OrganizationStrings$home$ja.internal(_root);
 	late final OrganizationStrings$approvalDefaults$ja approvalDefaults = OrganizationStrings$approvalDefaults$ja.internal(_root);
 	late final OrganizationStrings$approvalSteps$ja approvalSteps = OrganizationStrings$approvalSteps$ja.internal(_root);
+	late final OrganizationStrings$staffUser$ja staffUser = OrganizationStrings$staffUser$ja.internal(_root);
 	late final OrganizationStrings$menu$ja menu = OrganizationStrings$menu$ja.internal(_root);
 	late final OrganizationStrings$entity$ja entity = OrganizationStrings$entity$ja.internal(_root);
 }
@@ -268,6 +269,18 @@ class OrganizationStrings$approvalSteps$ja {
 
 	/// ja: 'この承認の段を削除しますか。'
 	String get deleteConfirm => 'この承認の段を削除しますか。';
+}
+
+// Path: staffUser
+class OrganizationStrings$staffUser$ja {
+	OrganizationStrings$staffUser$ja.internal(this._root);
+
+	final OrganizationStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'ユーザーを作成'
+	String get createUser => 'ユーザーを作成';
 }
 
 // Path: menu
@@ -976,6 +989,7 @@ extension on OrganizationStrings {
 			'approvalSteps.cancel' => 'キャンセル',
 			'approvalSteps.delete' => '削除',
 			'approvalSteps.deleteConfirm' => 'この承認の段を削除しますか。',
+			'staffUser.createUser' => 'ユーザーを作成',
 			'menu.group' => '会社情報',
 			'entity.company.title' => '会社情報',
 			'entity.company.fields.f_name' => '会社名',

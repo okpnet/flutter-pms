@@ -115,6 +115,16 @@ admin:
     issue: Issue code
     issued: Code issued. Verify the person and hand it over.
     created: Requested at
+  createUser:
+    title: "Account management: Create user"
+    hint: Creates a user who can sign in for a staff member (already registered in the database) and issues an activation code. Hand the code to the person (unless it is sent by e-mail).
+    userId: User ID (used to sign in)
+    appUserId: Staff ID
+    name: Name
+    email: E-mail (optional)
+    mail: Send by e-mail (when an e-mail is set and the server can send mail)
+    create: Create user
+    created: The user was created. Hand the code to the person.
   issuedCode:
     title: Issued code
     code: Code

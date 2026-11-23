@@ -1,4 +1,5 @@
 import 'package:feature_shared/feature_shared.dart';
+import 'package:flutter/widgets.dart' show ValueKey;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -72,6 +73,14 @@ class AuthFilesModule implements FeatureModule {
         path: AuthFilesPaths.adminResets,
         builder: (context, state) => const AdminResetsPage(),
       ),
+      GoRoute(
+        path: AuthFilesPaths.adminCreateUser,
+        builder: (context, state) => AdminCreateUserPage(
+          key: ValueKey(state.uri.queryParameters['staff']),
+          appUserId: state.uri.queryParameters['staff'] ?? '',
+          initialName: state.uri.queryParameters['name'] ?? '',
+        ),
+      ),
     ],
   ];
 
@@ -90,6 +99,7 @@ class AuthFilesModule implements FeatureModule {
     SharedFilesDestination() when includeFramed => AuthFilesPaths.files,
     AdminSignupsDestination() when includeFramed => AuthFilesPaths.adminSignups,
     AdminResetsDestination() when includeFramed => AuthFilesPaths.adminResets,
+    AdminCreateUserDestination(:final appUserId, :final name) when includeFramed => AuthFilesPaths.adminCreateUserOf(appUserId: appUserId, name: name),
     _ => null,
   };
 

@@ -648,6 +648,10 @@ features:
         code: Q
         page: UQ
         label: 再設定依頼の管理
+      - screen: admincreateuser
+        code: U
+        page: UU
+        label: ユーザーの作成
   - feature: access_control
     code: X
     label: アクセス管理

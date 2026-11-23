@@ -237,6 +237,7 @@ class _AuthFilesStrings$admin$en extends AuthFilesStrings$admin$ja {
 	// Translations
 	@override late final _AuthFilesStrings$admin$signups$en signups = _AuthFilesStrings$admin$signups$en._(_root);
 	@override late final _AuthFilesStrings$admin$resets$en resets = _AuthFilesStrings$admin$resets$en._(_root);
+	@override late final _AuthFilesStrings$admin$createUser$en createUser = _AuthFilesStrings$admin$createUser$en._(_root);
 	@override late final _AuthFilesStrings$admin$issuedCode$en issuedCode = _AuthFilesStrings$admin$issuedCode$en._(_root);
 }
 
@@ -272,6 +273,24 @@ class _AuthFilesStrings$admin$resets$en extends AuthFilesStrings$admin$resets$ja
 	@override String get issue => 'Issue code';
 	@override String get issued => 'Code issued. Verify the person and hand it over.';
 	@override String get created => 'Requested at';
+}
+
+// Path: admin.createUser
+class _AuthFilesStrings$admin$createUser$en extends AuthFilesStrings$admin$createUser$ja {
+	_AuthFilesStrings$admin$createUser$en._(AuthFilesStringsEn root) : this._root = root, super.internal(root);
+
+	final AuthFilesStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Account management: Create user';
+	@override String get hint => 'Creates a user who can sign in for a staff member (already registered in the database) and issues an activation code. Hand the code to the person (unless it is sent by e-mail).';
+	@override String get userId => 'User ID (used to sign in)';
+	@override String get appUserId => 'Staff ID';
+	@override String get name => 'Name';
+	@override String get email => 'E-mail (optional)';
+	@override String get mail => 'Send by e-mail (when an e-mail is set and the server can send mail)';
+	@override String get create => 'Create user';
+	@override String get created => 'The user was created. Hand the code to the person.';
 }
 
 // Path: admin.issuedCode
@@ -399,6 +418,15 @@ extension on AuthFilesStringsEn {
 			'admin.resets.issue' => 'Issue code',
 			'admin.resets.issued' => 'Code issued. Verify the person and hand it over.',
 			'admin.resets.created' => 'Requested at',
+			'admin.createUser.title' => 'Account management: Create user',
+			'admin.createUser.hint' => 'Creates a user who can sign in for a staff member (already registered in the database) and issues an activation code. Hand the code to the person (unless it is sent by e-mail).',
+			'admin.createUser.userId' => 'User ID (used to sign in)',
+			'admin.createUser.appUserId' => 'Staff ID',
+			'admin.createUser.name' => 'Name',
+			'admin.createUser.email' => 'E-mail (optional)',
+			'admin.createUser.mail' => 'Send by e-mail (when an e-mail is set and the server can send mail)',
+			'admin.createUser.create' => 'Create user',
+			'admin.createUser.created' => 'The user was created. Hand the code to the person.',
 			'admin.issuedCode.title' => 'Issued code',
 			'admin.issuedCode.code' => 'Code',
 			'admin.issuedCode.expires' => 'Expires',

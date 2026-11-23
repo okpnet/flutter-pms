@@ -55,6 +55,18 @@ final class AdminResetsDestination extends PageDestination<void> {
   const AdminResetsDestination();
 }
 
+/// 管理者: ユーザーの作成(PocketBase のユーザー + 有効化コードの発行)へ。
+/// [appUserId] は DB の担当者(`info_staff`)の ID、[name] は担当者の氏名(画面の初期値。どちらも担当者の画面から渡す)。
+final class AdminCreateUserDestination extends PageDestination<void> {
+  const AdminCreateUserDestination({this.appUserId = '', this.name = ''});
+
+  final String appUserId;
+  final String name;
+
+  @override
+  Map<String, Object?> toJson() => {...super.toJson(), 'appUserId': appUserId, 'name': name};
+}
+
 /// 登録漏れ検出用の見本。遷移先を追加したら、ここにも1件足す。
 const List<PageDestination<Object?>> authFilesDestinationSamples = [
   LoginDestination(),
@@ -67,4 +79,5 @@ const List<PageDestination<Object?>> authFilesDestinationSamples = [
   SharedFilesDestination(),
   AdminSignupsDestination(),
   AdminResetsDestination(),
+  AdminCreateUserDestination(appUserId: 's1', name: '佐藤 健一'),
 ];

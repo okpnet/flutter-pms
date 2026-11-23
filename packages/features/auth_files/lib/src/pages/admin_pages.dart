@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pbapi/pbapi.dart';
 
 import '../i18n/strings_provider.dart';
+import '../form_rules.dart';
 import 'form_support.dart';
 
 String _format(DateTime? t) => t == null
@@ -271,6 +272,123 @@ class _AdminResetsPageState extends ConsumerState<AdminResetsPage>
                 ),
               ),
             ),
+        ],
+      ),
+    );
+  }
+}
+
+/// 管理者: ユーザーの作成。担当者(DB の `info_staff`。担当者の画面から [appUserId]・[initialName] を渡す)に、PocketBase のユーザーを作り、
+/// 有効化コードを発行して、一度だけ見せる(`AdminService.createUser`)。作業者が自分でユーザーを作ることはできない。
+///
+/// 入力の検査は形式だけ(ユーザーIDの重複・担当者の存在はサーバーが判定する)。メールを入れ、「メールで送る」のときは、サーバーが
+/// コードを送る(メールが無い・送れないときは、手渡し)。役割(`role`)は、画面からは `user` だけ(`admin` を付けられるのは superuser だけ)。
+class AdminCreateUserPage extends ConsumerStatefulWidget {
+  const AdminCreateUserPage({super.key, this.appUserId = '', this.initialName = ''});
+
+  final String appUserId;
+  final String initialName;
+
+  @override
+  ConsumerState<AdminCreateUserPage> createState() => _AdminCreateUserPageState();
+}
+
+class _AdminCreateUserPageState extends ConsumerState<AdminCreateUserPage> with BusyAction {
+  final _username = TextEditingController();
+  late final _appUserId = TextEditingController(text: widget.appUserId);
+  late final _name = TextEditingController(text: widget.initialName);
+  final _email = TextEditingController();
+  bool _mail = true;
+  bool _submitted = false;
+  String? _notice;
+
+  @override
+  void dispose() {
+    _username.dispose();
+    _appUserId.dispose();
+    _name.dispose();
+    _email.dispose();
+    super.dispose();
+  }
+
+  String? _emailError(AuthFilesStrings t) => _email.text.trim().isEmpty ? null : FormRules.email(t, _email.text);
+
+  Future<void> _create() async {
+    final t = ref.read(authFilesStringsProvider);
+    setState(() {
+      _submitted = true;
+      _notice = null;
+    });
+    if (FormRules.userId(t, _username.text) != null || FormRules.required(t, _appUserId.text) != null || _emailError(t) != null) return;
+    IssuedCode? issued;
+    final ok = await run(() async {
+      issued = await ref.read(adminServiceProvider).createUser(
+        username: _username.text,
+        appUserId: _appUserId.text,
+        name: _name.text.trim().isEmpty ? null : _name.text,
+        email: _email.text.trim().isEmpty ? null : _email.text,
+        mail: _mail && _email.text.trim().isNotEmpty,
+      );
+    }, operation: 'createUser');
+    if (!ok || !mounted) return;
+    setState(() => _notice = t.admin.createUser.created);
+    await _showIssuedCode(context, t, issued!);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final t = ref.watch(authFilesStringsProvider);
+    final c = t.admin.createUser;
+    String? err(String? Function() f) => _submitted ? f() : null;
+    return ScreenScaffold(
+      title: c.title,
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          if (busy) const LoadingBar(),
+          if (errorText != null) MessageLine(errorText!),
+          if (_notice != null) MessageLine(_notice!, isError: false),
+          Text(c.hint, style: Theme.of(context).textTheme.bodySmall),
+          const SizedBox(height: 12),
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 520),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              spacing: 12,
+              children: [
+                TextField(
+                  key: const Key('cu-username'),
+                  controller: _username,
+                  decoration: InputDecoration(labelText: c.userId, border: const OutlineInputBorder(), errorText: err(() => FormRules.userId(t, _username.text))),
+                ),
+                TextField(
+                  key: const Key('cu-staff'),
+                  controller: _appUserId,
+                  readOnly: widget.appUserId.isNotEmpty,
+                  decoration: InputDecoration(labelText: c.appUserId, border: const OutlineInputBorder(), errorText: err(() => FormRules.required(t, _appUserId.text))),
+                ),
+                TextField(key: const Key('cu-name'), controller: _name, decoration: InputDecoration(labelText: c.name, border: const OutlineInputBorder())),
+                TextField(
+                  key: const Key('cu-email'),
+                  controller: _email,
+                  onChanged: (_) => setState(() {}),
+                  decoration: InputDecoration(labelText: c.email, border: const OutlineInputBorder(), errorText: err(() => _emailError(t))),
+                ),
+                CheckboxListTile(
+                  key: const Key('cu-mail'),
+                  contentPadding: EdgeInsets.zero,
+                  controlAffinity: ListTileControlAffinity.leading,
+                  value: _mail && _email.text.trim().isNotEmpty,
+                  onChanged: _email.text.trim().isEmpty ? null : (v) => setState(() => _mail = v ?? false),
+                  title: Text(c.mail),
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: FilledButton(key: const Key('cu-create'), onPressed: busy ? null : _create, child: Text(c.create)),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

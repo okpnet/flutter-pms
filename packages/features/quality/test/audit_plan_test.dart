@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gql/ast.dart' show OperationDefinitionNode;
 import 'package:go_router/go_router.dart';
 import 'package:graphql/client.dart';
+import 'package:pms_graphql/pms_graphql.dart' show AuditUser;
 import 'package:quality/quality.dart';
 import 'package:quality/src/page/audit_plan_page.dart';
 
@@ -156,7 +159,7 @@ void main() {
   });
 
   group('GraphQL 版', () {
-    test('選択肢(監査標準・担当者)を読める。登録は、DB の関数の導入前は未対応(入力の検査は通信の前)', () async {
+    test('選択肢(監査標準・担当者)を読める。入力の検査は通信の前', () async {
       final link = _FakeLink();
       final gw = GraphqlAuditPlanGateway(GraphQLClient(link: link, cache: GraphQLCache()));
       final standards = await gw.standards();
@@ -164,13 +167,43 @@ void main() {
       final staff = await gw.staff();
       expect(staff.single.name, '田中');
       await expectLater(gw.register(const AuditPlanInput()), throwsA(isA<AuditPlanException>()));
-      await expectLater(
-        gw.register(AuditPlanInput(title: 'x', standardId: 's1', lines: [const AuditPlanLine(teamName: 't', auditorIds: ['u1'])])),
-        throwsUnsupportedError,
+      expect(link.requests.map(_op), isNot(contains('AuditPlanRegister')));
+    });
+
+    test('登録は、DB の関数 audit_plan_register を呼ぶ(題名・詳細・チーム名は言語別の JSON、行は JSON の配列)', () async {
+      final link = _FakeLink();
+      final gw = GraphqlAuditPlanGateway(
+        GraphQLClient(link: link, cache: GraphQLCache()),
+        auditUser: () async => const AuditUser(staffId: 'st1', staffHistoryId: 'h1'),
       );
-      expect(link.requests.map(_op).whereType<String>().where((o) => o.startsWith('AuditPlan')).toList(), [
-        'AuditPlanStdOptionPageRead',
-        'AuditPlanStaffOptionPageRead',
+      final id = await gw.register(
+        AuditPlanInput(
+          title: ' 年度監査 ',
+          details: '計画',
+          standardId: 's1',
+          lines: [
+            AuditPlanLine(teamName: 'チームA', auditorIds: const ['u1', 'u2'], scheduledAt: DateTime(2026, 12, 1, 9), expectedEndAt: DateTime(2026, 12, 1, 17)),
+            const AuditPlanLine(teamName: 'チームB', auditorIds: ['u3']),
+          ],
+        ),
+      );
+      expect(id, 'audit-1');
+      final v = link.requests.firstWhere((r) => _op(r) == 'AuditPlanRegister').variables;
+      expect(v['pTitles'], '{"ja":"年度監査"}');
+      expect(v['pDetails'], '{"ja":"計画"}');
+      expect(v['pAuditStdId'], 's1');
+      expect(v['pStaffId'], 'st1');
+      expect(jsonDecode(v['pLines'] as String), [
+        {
+          'team_names': {'ja': 'チームA'},
+          'auditor_ids': ['u1', 'u2'],
+          'scheduled_at': '2026-12-01T09:00:00.000',
+          'expected_end_at': '2026-12-01T17:00:00.000',
+        },
+        {
+          'team_names': {'ja': 'チームB'},
+          'auditor_ids': ['u3'],
+        },
       ]);
     });
   });
@@ -198,6 +231,11 @@ class _FakeLink extends Link {
           'nodes': [
             {'mstrAuditStdId': 's1', 'code': 'STD-01', 'labels': _names('内部監査標準')},
           ],
+        },
+      },
+      'AuditPlanRegister' => {
+        'auditPlanRegister': {
+          'transAudit': {'transAuditId': 'audit-1'},
         },
       },
       'AuditPlanStaffOptionPageRead' => {

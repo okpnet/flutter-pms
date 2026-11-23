@@ -71,7 +71,7 @@ PocketBase のクライアントは `packages/infra/pbapi`(公式 SDK の `pocke
 ### 作業者(担当者)の新規登録とログインの開始
 作業者(`info_staff`)の新規登録は、アプリで管理者が行う。作業者が自分でユーザーを作ることはできない(本人が申請する方式は、管理者の承認のために別に残してある)。
 1.  管理者が、アプリで作業者を登録する(DB の `info_staff`。GraphQL の登録。会社は必須)。返った担当者の ID が、PocketBase の `app_user_id` になる。
-1.  管理者が、その担当者の ID を `app_user_id` にして、PocketBase のユーザーを作り、有効化コードを発行する(`pbapi` の `AdminService.createUser`。ユーザーID・氏名・任意のメール。`role=admin` を付けられるのは superuser だけ)。画面は未作成(`createUser` は無い)。応答のコード(12文字・1回限り・72時間)を、作業者へ渡す(メールあり・SMTP 有効ならサーバーが送る。`mailed=false` は手渡し)。
+1.  管理者が、その担当者の ID を `app_user_id` にして、PocketBase のユーザーを作り、有効化コードを発行する(`pbapi` の `AdminService.createUser`。ユーザーID・氏名・任意のメール。`role=admin` を付けられるのは superuser だけ)。画面は `auth_files` の「ユーザーの作成」(`/auth/admin/users/new`。管理者だけ。作業者の台帳の行の操作「ユーザーを作成」から、担当者の ID と氏名を渡して開く)。応答のコード(12文字・1回限り・72時間)を、作業者へ渡す(メールあり・SMTP 有効ならサーバーが送る。`mailed=false` は手渡し)。
 1.  作業者が、ログイン前の「コードを入力」の画面で、ユーザーID・コード・新しいパスワードを入れて有効化する(`AccountService.acceptCode`)。以後は、ユーザーIDとパスワードでログインする。コードを無くしたときは、管理者が同じ `app_user_id` でコードを発行し直す(前のコードは無効になる)。
 1.  順番は「DB に作業者を登録 → PocketBase のユーザーを作る」で固定。DB の登録が失敗したら PocketBase は作らない。PocketBase の作成が失敗しても、DB の作業者は残る(同じ `app_user_id` で何度でも作り直せる)。
 1.  つなぎは PocketBase 側の `app_user_id`(= DB の担当者の ID)だけ。DB の `info_staff` に PocketBase のユーザーの ID は持たない(列が無い)。

@@ -44,6 +44,8 @@ dependencies:
     path: ../../ui/loadux_lib
   flgtable_lib:
     path: ../../ui/flgtable_lib
+  auth_files:
+    path: ../auth_files
 
 dev_dependencies:
   flutter_test:

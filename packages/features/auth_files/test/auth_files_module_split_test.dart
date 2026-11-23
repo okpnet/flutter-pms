@@ -20,6 +20,7 @@ void main() {
     AuthFilesPaths.files,
     AuthFilesPaths.adminSignups,
     AuthFilesPaths.adminResets,
+    AuthFilesPaths.adminCreateUser,
   ];
 
   test('既定は、ログイン前の画面と枠の中の画面の両方', () {
@@ -65,6 +66,7 @@ void main() {
       SharedFilesDestination(),
       AdminSignupsDestination(),
       AdminResetsDestination(),
+      AdminCreateUserDestination(appUserId: 's1'),
     ];
     for (final d in destinations) {
       final found = modules.map((m) => m.locationOf(d)).whereType<String>();

@@ -70,6 +70,10 @@ approvalSteps:
   cancel: Cancel
   delete: Delete
   deleteConfirm: Delete this approval step?
+# Row action on the staff ledger (hand-written)
+staffUser:
+  createUser: Create user
+
 menu:
   group: "Company"
 entity:

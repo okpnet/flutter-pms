@@ -69,6 +69,9 @@ approvalSteps:
   cancel: キャンセル
   delete: 削除
   deleteConfirm: この承認の段を削除しますか。
+# 作業者の行の操作(手書き)
+staffUser:
+  createUser: ユーザーを作成
 # --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
 # 会社情報の実体と項目の表示名(日本語。基準言語)。
 # 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。

@@ -183,7 +183,7 @@ List<Override> graphqlOverrides() => [
   auditPlanGatewayProvider.overrideWith((ref) {
     final client = ref.watch(graphqlClientProvider);
     if (client == null) return InMemoryAuditPlanGateway();
-    return GraphqlAuditPlanGateway(client);
+    return GraphqlAuditPlanGateway(client, auditUser: ref.watch(auditUserProvider));
   }),
   // 監査の通知(ダッシュボード。DB の audit_notice)。接続先が無いときはメモリ上(空)
   auditNoticeSourceProvider.overrideWith((ref) {

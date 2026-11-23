@@ -1,4 +1,5 @@
 // 手書き(tools/entity_gen/gen.js は上書きしない): 生成の雛形から、手で書き足している
+import 'package:auth_files/auth_files_api.dart' show AdminCreateUserDestination;
 import 'package:entity_screens/entity_screens.dart';
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter/widgets.dart';
@@ -24,15 +25,37 @@ import 'page/company_home_page.dart';
 class OrganizationModule extends EntityFeatureModule {
   const OrganizationModule();
 
+  static const _createUserAction = RowAction(key: 'create_user', target: '');
+
+  /// 作業者の台帳に、行の操作「ユーザーを作成」(管理者のユーザー作成の画面へ。担当者の ID と氏名を渡す)を足す。
   @override
-  List<EntityDefinition> get definitions => organizationDefinitions;
+  List<EntityDefinition> get definitions => [
+    for (final d in organizationDefinitions) d.key == 'staff' ? _withAction(d, _createUserAction) : d,
+  ];
+
+  static EntityDefinition _withAction(EntityDefinition d, RowAction action) => EntityDefinition(
+    key: d.key,
+    fields: d.fields,
+    owner: d.owner,
+    isTree: d.isTree,
+    treeTitle: d.treeTitle,
+    treeTags: d.treeTags,
+    inlineInOwner: d.inlineInOwner,
+    uniqueKeys: d.uniqueKeys,
+    reverseLists: d.reverseLists,
+    nest: d.nest,
+    viewOnly: d.viewOnly,
+    rowActions: [...d.rowActions, action],
+    inMenu: d.inMenu,
+    compactFlags: d.compactFlags,
+    confirmSave: d.confirmSave,
+  );
 
   @override
   Map<String, List<EntityRecord>> get seeds => organizationSeeds;
 
   @override
-  EntityLabels labelsOf(WidgetRef ref) =>
-      OrganizationLabels(ref.watch(organizationStringsProvider));
+  EntityLabels labelsOf(WidgetRef ref) => _Labels(ref.watch(organizationStringsProvider));
 
   @override
   String get menuGroupId => 'organization';
@@ -81,6 +104,10 @@ class OrganizationModule extends EntityFeatureModule {
   /// 承認パターンの台帳の行の操作「承認の段」で、承認の段の画面(ドラッグで並べ替え)へ進む。
   @override
   Future<bool> handleRowAction(WidgetRef ref, RowAction action, EntityRecord record) async {
+    if (action.key == 'create_user') {
+      await ref.read(commandBusProvider).execute(AdminCreateUserDestination(appUserId: record.id, name: record.valueOf('name')));
+      return true;
+    }
     if (action.key != 'steps') return false;
     await ref.read(commandBusProvider).execute(ApprovalStepsDestination(record.id, patternName: record.valueOf('name')));
     return true;
@@ -89,4 +116,16 @@ class OrganizationModule extends EntityFeatureModule {
   @override
   String menuGroupLabel(WidgetRef ref) =>
       OrganizationLabels(ref.watch(organizationStringsProvider)).menuGroup;
+}
+
+/// 生成された表示名に、手書きの操作の名前(ユーザーを作成)を足す。
+class _Labels extends OrganizationLabels {
+  // ignore: use_super_parameters
+  const _Labels(OrganizationStrings t) : _strings = t, super(t);
+
+  final OrganizationStrings _strings;
+
+  @override
+  String field(String entityKey, String fieldKey) =>
+      entityKey == 'staff' && fieldKey == 'create_user' ? _strings.staffUser.createUser : super.field(entityKey, fieldKey);
 }

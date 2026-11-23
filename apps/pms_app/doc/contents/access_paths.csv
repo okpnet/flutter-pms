@@ -24,6 +24,7 @@
 /auth/files,共有ファイル,Shared files,auth_files,false
 /auth/admin/signups,新規登録の管理,Manage sign-ups,auth_files,false
 /auth/admin/resets,再設定依頼の管理,Manage reset requests,auth_files,false
+/auth/admin/users/new,ユーザーの作成,Create user,auth_files,false
 /profile/image,自分のイメージ,My image,user_profile,false
 /e/accesspath,アクセスパス,Access path,access_control,false
 /e/deptaccesspath,部署のアクセスパス,Department access path,access_control,false
