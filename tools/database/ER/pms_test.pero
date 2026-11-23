@@ -2,7 +2,7 @@
   "formatVersion": 3,
   "appVersion": "0.1.0",
   "id": 538067658,
-  "nextId": 6191,
+  "nextId": 6194,
   "properties": {
     "outputFileName": "pms_test",
     "outputFolder": "",
@@ -67252,6 +67252,78 @@
       },
       "preQuery": "",
       "postQuery": "COMMENT ON COLUMN tests.v_audit_item.trans_audit_detail_check_items_id IS '監査実施詳細項目ID';\nCOMMENT ON COLUMN tests.v_audit_item.trans_audit_details_id IS '監査実施詳細ID';\nCOMMENT ON COLUMN tests.v_audit_item.audit_std_checkitem_history_id IS '監査標準項目履歴ID';\nCOMMENT ON COLUMN tests.v_audit_item.audit_std_checkitem_id IS '監査標準項目ID';\nCOMMENT ON COLUMN tests.v_audit_item.code IS '監査標準項目コード';\nCOMMENT ON COLUMN tests.v_audit_item.checkitem_names IS '標準項目名称(呼称 ID。履歴の外部キー)';\nCOMMENT ON COLUMN tests.v_audit_item.type_class IS '型';\nCOMMENT ON COLUMN tests.v_audit_item.formula_class IS '式';\nCOMMENT ON COLUMN tests.v_audit_item.arg_class IS '引数';\nCOMMENT ON COLUMN tests.v_audit_item.formula_value IS '式に対する値(JSON)';\nCOMMENT ON COLUMN tests.v_audit_item.findings IS '所見(文章)';\nCOMMENT ON COLUMN tests.v_audit_item.answered IS '入力済み(値または所見がある)';\nCOMMENT ON COLUMN tests.v_audit_item.complaint_count IS '異常の件数';\nCOMMENT ON COLUMN tests.v_audit_item.symbol IS 'リニアシンボル';"
+    },
+    {
+      "id": 6191,
+      "kind": "view",
+      "logicalName": "",
+      "physicalName": "v_item_unit_cost",
+      "comment": "@primaryKey item_id\n@unique item_symbol\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n品目別の標準原価(購入品 = 優先順位が最も小さい仕入先の単価 + 生産コスト + 部品表の下位の部品の原価 × 数量)",
+      "locked": false,
+      "viewType": "sql",
+      "join": {
+        "sources": [],
+        "columns": [],
+        "where": ""
+      },
+      "function": {
+        "methodId": null,
+        "args": [],
+        "columns": []
+      },
+      "sql": {
+        "sql": "WITH RECURSIVE direct AS (\n    -- 品目ごとの直接の原価: 購入品 = 優先順位が最も小さい仕入先の単価、生産コスト = 工程ごとの原価の合計\n    SELECT\n        i.mstr_item_id\n        , COALESCE((\n            SELECT s.cost FROM tests.mstr_item_supplier AS s\n            WHERE s.mstr_item_id = i.mstr_item_id AND s.remove IS FALSE\n            ORDER BY s.priority, s.cost LIMIT 1\n        ), 0) AS purchase_cost\n        , COALESCE((\n            SELECT SUM(c.cost) FROM tests.mstr_item_task_cost AS c\n            WHERE c.mstr_item_id = i.mstr_item_id AND c.remove IS FALSE\n        ), 0) AS production_cost\n        , EXISTS (SELECT 1 FROM tests.mstr_item_supplier AS s WHERE s.mstr_item_id = i.mstr_item_id AND s.remove IS FALSE) AS has_supplier\n    FROM tests.mstr_item AS i\n    WHERE i.remove IS FALSE\n),\nbom (root_id, item_id, qty, path) AS (\n    -- 部品表(品目体系)を、品目ごとに下へ展開する(循環は止める)\n    SELECT d.mstr_item_id, d.mstr_item_id, 1::numeric, ARRAY[d.mstr_item_id] FROM direct AS d\n    UNION ALL\n    SELECT b.root_id, tr.mstr_item_id, b.qty * tr.quantity, b.path || tr.mstr_item_id\n    FROM bom AS b\n    INNER JOIN tests.mstr_item_tree AS tr ON tr.parent_mstr_item_id = b.item_id AND tr.remove IS FALSE\n    WHERE NOT (tr.mstr_item_id = ANY (b.path)) AND array_length(b.path, 1) < 30\n)\nSELECT\n    i.mstr_item_id AS item_id\n    , i.symbol AS item_symbol\n    , i.code AS item_code\n    , d.purchase_cost\n    , d.production_cost\n    , COALESCE(SUM(b.qty * (cd.purchase_cost + cd.production_cost)) FILTER (WHERE b.item_id <> b.root_id), 0)::numeric(14,2) AS component_cost\n    , (d.purchase_cost + d.production_cost\n        + COALESCE(SUM(b.qty * (cd.purchase_cost + cd.production_cost)) FILTER (WHERE b.item_id <> b.root_id), 0))::numeric(14,2) AS unit_cost\n    , d.has_supplier\n    , (COUNT(*) FILTER (WHERE b.item_id <> b.root_id) > 0) AS has_components\nFROM tests.mstr_item AS i\nINNER JOIN direct AS d ON d.mstr_item_id = i.mstr_item_id\nINNER JOIN bom AS b ON b.root_id = i.mstr_item_id\nINNER JOIN direct AS cd ON cd.mstr_item_id = b.item_id\nWHERE i.remove IS FALSE\nGROUP BY i.mstr_item_id, i.symbol, i.code, d.purchase_cost, d.production_cost, d.has_supplier"
+      },
+      "preQuery": "",
+      "postQuery": "COMMENT ON COLUMN tests.v_item_unit_cost.item_id IS '品目ID';\nCOMMENT ON COLUMN tests.v_item_unit_cost.item_symbol IS '品目のシンボル';\nCOMMENT ON COLUMN tests.v_item_unit_cost.item_code IS '品目コード';\nCOMMENT ON COLUMN tests.v_item_unit_cost.purchase_cost IS '購入品の単価(優先順位が最も小さい仕入先。仕入先が無いときは 0)';\nCOMMENT ON COLUMN tests.v_item_unit_cost.production_cost IS '生産コスト(品目の工程ごとの原価の合計)';\nCOMMENT ON COLUMN tests.v_item_unit_cost.component_cost IS '下位の部品の原価(部品表を展開した 数量 × (購入品 + 生産コスト) の合計)';\nCOMMENT ON COLUMN tests.v_item_unit_cost.unit_cost IS '標準原価(購入品 + 生産コスト + 下位の部品)';\nCOMMENT ON COLUMN tests.v_item_unit_cost.has_supplier IS '仕入先がある';\nCOMMENT ON COLUMN tests.v_item_unit_cost.has_components IS '部品表に下位の部品がある';"
+    },
+    {
+      "id": 6192,
+      "kind": "view",
+      "logicalName": "",
+      "physicalName": "v_visiter_valuation",
+      "comment": "@primaryKey trans_visiter_id\n@foreignKey (trans_visiter_id) references trans_visiter (trans_visiter_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\nロット(棚ビジター)の評価額(社外の所有物は評価しない・譲渡で自社の物になった材料は 0 円・発注先へ無償で渡している材料は元の評価額)",
+      "locked": false,
+      "viewType": "sql",
+      "join": {
+        "sources": [],
+        "columns": [],
+        "where": ""
+      },
+      "function": {
+        "methodId": null,
+        "args": [],
+        "columns": []
+      },
+      "sql": {
+        "sql": "SELECT\n    vi.trans_visiter_id\n    , vi.symbol\n    , vi.item_id\n    , uc.item_code\n    , vi.quantity\n    , vi.held\n    , (ow.owner_stakeholder_id IS NOT NULL) AS external_owned\n    , (ow.owner_stakeholder_id IS NULL AND COALESCE(sp.company_owns, FALSE)) AS transferred\n    , (ow.owner_stakeholder_id IS NULL) AS evaluated\n    , uc.unit_cost\n    , CASE\n        WHEN ow.owner_stakeholder_id IS NOT NULL THEN NULL\n        WHEN COALESCE(sp.company_owns, FALSE) THEN 0\n        ELSE uc.unit_cost\n      END::numeric(14,2) AS unit_value\n    , (vi.quantity * CASE\n        WHEN ow.owner_stakeholder_id IS NOT NULL THEN 0\n        WHEN COALESCE(sp.company_owns, FALSE) THEN 0\n        ELSE COALESCE(uc.unit_cost, 0)\n      END)::numeric(14,2) AS amount\nFROM tests.v_mrp_visiter_item AS vi\nLEFT JOIN tests.v_item_unit_cost AS uc ON uc.item_id = vi.item_id\nLEFT JOIN tests.trans_visiter_owner AS ow\n    ON ow.trans_visiter_id = vi.trans_visiter_id AND ow.remove IS FALSE\nLEFT JOIN tests.trans_supply_detail AS sd\n    ON sd.trans_supply_detail_id = ow.trans_supply_detail_id\nLEFT JOIN tests.trans_supply AS sp\n    ON sp.trans_supply_id = sd.trans_supply_id\nWHERE vi.finished AND vi.item_count = 1 AND vi.item_id IS NOT NULL AND vi.quantity > 0"
+      },
+      "preQuery": "",
+      "postQuery": "COMMENT ON COLUMN tests.v_visiter_valuation.trans_visiter_id IS '棚ビジターID';\nCOMMENT ON COLUMN tests.v_visiter_valuation.symbol IS 'リニアシンボル';\nCOMMENT ON COLUMN tests.v_visiter_valuation.item_id IS '品目ID';\nCOMMENT ON COLUMN tests.v_visiter_valuation.item_code IS '品目コード';\nCOMMENT ON COLUMN tests.v_visiter_valuation.quantity IS '数量';\nCOMMENT ON COLUMN tests.v_visiter_valuation.held IS '仮止め中(出庫許可なし・未完了の異常あり)';\nCOMMENT ON COLUMN tests.v_visiter_valuation.external_owned IS '社外の所有物(顧客・発注先の物。評価しない)';\nCOMMENT ON COLUMN tests.v_visiter_valuation.transferred IS '譲渡で自社の物になった(支給の company_owns。0 円)';\nCOMMENT ON COLUMN tests.v_visiter_valuation.evaluated IS '評価の対象(社外の所有物でない)';\nCOMMENT ON COLUMN tests.v_visiter_valuation.unit_cost IS '品目の標準原価';\nCOMMENT ON COLUMN tests.v_visiter_valuation.unit_value IS 'ロットの単価(評価しないときは NULL)';\nCOMMENT ON COLUMN tests.v_visiter_valuation.amount IS '評価額(数量 × 単価。評価しないときは 0)';"
+    },
+    {
+      "id": 6193,
+      "kind": "view",
+      "logicalName": "",
+      "physicalName": "v_item_valuation",
+      "comment": "@primaryKey item_id\n@unique item_symbol\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n品目別の在庫評価額(社外の所有物を除く)",
+      "locked": false,
+      "viewType": "sql",
+      "join": {
+        "sources": [],
+        "columns": [],
+        "where": ""
+      },
+      "function": {
+        "methodId": null,
+        "args": [],
+        "columns": []
+      },
+      "sql": {
+        "sql": "SELECT\n    v.item_id\n    , i.symbol AS item_symbol\n    , v.item_code\n    , SUM(v.quantity)::numeric(14,2) AS quantity\n    , COALESCE(SUM(v.quantity) FILTER (WHERE v.evaluated), 0)::numeric(14,2) AS evaluated_quantity\n    , COALESCE(SUM(v.quantity) FILTER (WHERE v.external_owned), 0)::numeric(14,2) AS external_quantity\n    , SUM(v.amount)::numeric(14,2) AS amount\nFROM tests.v_visiter_valuation AS v\nINNER JOIN tests.mstr_item AS i ON i.mstr_item_id = v.item_id\nGROUP BY v.item_id, i.symbol, v.item_code"
+      },
+      "preQuery": "",
+      "postQuery": "COMMENT ON COLUMN tests.v_item_valuation.item_id IS '品目ID';\nCOMMENT ON COLUMN tests.v_item_valuation.item_symbol IS '品目のシンボル';\nCOMMENT ON COLUMN tests.v_item_valuation.item_code IS '品目コード';\nCOMMENT ON COLUMN tests.v_item_valuation.quantity IS '現在庫の数量(社外の所有物を含む)';\nCOMMENT ON COLUMN tests.v_item_valuation.evaluated_quantity IS '評価の対象の数量';\nCOMMENT ON COLUMN tests.v_item_valuation.external_quantity IS '社外の所有物の数量';\nCOMMENT ON COLUMN tests.v_item_valuation.amount IS '在庫評価額';"
     }
   ],
   "relationships": [
@@ -86061,6 +86133,24 @@
           "entityId": 4024,
           "x": 40.0,
           "y": 40.0,
+          "collapsed": false
+        },
+        {
+          "entityId": 6191,
+          "x": 40.0,
+          "y": 3200.0,
+          "collapsed": false
+        },
+        {
+          "entityId": 6192,
+          "x": 520.0,
+          "y": 3200.0,
+          "collapsed": false
+        },
+        {
+          "entityId": 6193,
+          "x": 1000.0,
+          "y": 3200.0,
           "collapsed": false
         }
       ],
