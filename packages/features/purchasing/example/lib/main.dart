@@ -27,8 +27,19 @@ class ExampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => FeatureHost(
     title: '購買 (example)',
-    modules: const [PurchasingModule(), ItemModule(), ProductionPlanModule(), SharedMasterModule(), SystemModule(), WorkRecordModule()],
-    entries: const [FeatureHostEntry('非計上', EntityListDestination('unrec')), FeatureHostEntry('発注', EntityListDestination('purchase')), FeatureHostEntry('受入実績', EntityListDestination('purchaserec'))],
+    modules: const [
+      PurchasingModule(),
+      ItemModule(),
+      ProductionPlanModule(),
+      SharedMasterModule(),
+      SystemModule(),
+      WorkRecordModule(),
+    ],
+    entries: const [
+      FeatureHostEntry('非計上', EntityListDestination('unrec')),
+      FeatureHostEntry('発注', EntityListDestination('purchase')),
+      FeatureHostEntry('受入実績', EntityListDestination('purchaserec')),
+    ],
     logger: logger,
     // flgtable_lib / theme_lib が使うテーマ側のロガー
     overrides: [themeLoggerProvider.overrideWithValue(logger)],

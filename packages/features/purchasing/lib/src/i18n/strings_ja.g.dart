@@ -337,6 +337,9 @@ class PurchasingStrings$entity$purchaserec$fields$ja {
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
+
+	/// ja: '異常を登録'
+	String get f_reserve => '異常を登録';
 }
 
 // Path: entity.purchaseline.fields
@@ -429,6 +432,7 @@ extension on PurchasingStrings {
 			'entity.purchaserec.fields.f_receive_at' => '受入日時',
 			'entity.purchaserec.fields.f_quantity' => '数量',
 			'entity.purchaserec.fields.f_remarks' => '備考',
+			'entity.purchaserec.fields.f_reserve' => '異常を登録',
 			'entity.purchaseline.title' => '受入明細',
 			'entity.purchaseline.fields.f_item' => '品目',
 			'entity.purchaseline.fields.f_qty' => '受入数量',
