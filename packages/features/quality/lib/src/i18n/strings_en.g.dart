@@ -40,6 +40,7 @@ class QualityStringsEn extends QualityStrings with BaseTranslations<QualityLocal
 	// Translations
 	@override late final _QualityStrings$auditRun$en auditRun = _QualityStrings$auditRun$en._(_root);
 	@override late final _QualityStrings$auditNotice$en auditNotice = _QualityStrings$auditNotice$en._(_root);
+	@override late final _QualityStrings$auditPlan$en auditPlan = _QualityStrings$auditPlan$en._(_root);
 	@override late final _QualityStrings$menu$en menu = _QualityStrings$menu$en._(_root);
 	@override late final _QualityStrings$entity$en entity = _QualityStrings$entity$en._(_root);
 }
@@ -114,6 +115,48 @@ class _QualityStrings$auditNotice$en extends QualityStrings$auditNotice$ja {
 	@override String get inProgress => 'In progress';
 	@override String get today => 'Today';
 	@override String inDays({required Object n}) => 'In ${n} days';
+}
+
+// Path: auditPlan
+class _QualityStrings$auditPlan$en extends QualityStrings$auditPlan$ja {
+	_QualityStrings$auditPlan$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Register audit plan';
+	@override String get back => 'Back';
+	@override String get hint => 'Enter the audit title, standard, and teams with schedules. Each row becomes one team (with auditors) and one scheduled audit.';
+	@override String get loadFailed => 'Could not load the options.';
+	@override String get fieldTitle => 'Audit title';
+	@override String get fieldDetails => 'Details';
+	@override String get fieldStandard => 'Audit standard';
+	@override String get lines => 'Teams and schedules';
+	@override String get addLine => 'Add row';
+	@override String get removeLine => 'Remove this row';
+	@override String line({required Object n}) => 'Team ${n}';
+	@override String get teamName => 'Team name';
+	@override String get auditors => 'Auditors';
+	@override String get pickAuditors => 'Choose auditors';
+	@override String get noAuditors => 'No auditors chosen';
+	@override String get scheduledAt => 'Scheduled at';
+	@override String get expectedEndAt => 'Expected end';
+	@override String get pickDate => 'Choose';
+	@override String get clearDate => 'Clear';
+	@override String get notSet => 'Not set';
+	@override String get register => 'Register';
+	@override String get registered => 'Registered.';
+	@override String get registerFailed => 'Could not register.';
+	@override String get goMyAudits => 'Go to my audits';
+	@override String get errTitle => 'Enter a title.';
+	@override String get errStandard => 'Choose an audit standard.';
+	@override String get errLines => 'Add at least one row.';
+	@override String get errTeam => 'Enter a team name.';
+	@override String get errAuditor => 'Choose auditors.';
+	@override String get errPeriod => 'The expected end is before the schedule.';
+	@override String get pickerTitle => 'Choose auditors';
+	@override String get ok => 'OK';
+	@override String get cancel => 'Cancel';
 }
 
 // Path: menu
@@ -728,6 +771,39 @@ extension on QualityStringsEn {
 			'auditNotice.inProgress' => 'In progress',
 			'auditNotice.today' => 'Today',
 			'auditNotice.inDays' => ({required Object n}) => 'In ${n} days',
+			'auditPlan.title' => 'Register audit plan',
+			'auditPlan.back' => 'Back',
+			'auditPlan.hint' => 'Enter the audit title, standard, and teams with schedules. Each row becomes one team (with auditors) and one scheduled audit.',
+			'auditPlan.loadFailed' => 'Could not load the options.',
+			'auditPlan.fieldTitle' => 'Audit title',
+			'auditPlan.fieldDetails' => 'Details',
+			'auditPlan.fieldStandard' => 'Audit standard',
+			'auditPlan.lines' => 'Teams and schedules',
+			'auditPlan.addLine' => 'Add row',
+			'auditPlan.removeLine' => 'Remove this row',
+			'auditPlan.line' => ({required Object n}) => 'Team ${n}',
+			'auditPlan.teamName' => 'Team name',
+			'auditPlan.auditors' => 'Auditors',
+			'auditPlan.pickAuditors' => 'Choose auditors',
+			'auditPlan.noAuditors' => 'No auditors chosen',
+			'auditPlan.scheduledAt' => 'Scheduled at',
+			'auditPlan.expectedEndAt' => 'Expected end',
+			'auditPlan.pickDate' => 'Choose',
+			'auditPlan.clearDate' => 'Clear',
+			'auditPlan.notSet' => 'Not set',
+			'auditPlan.register' => 'Register',
+			'auditPlan.registered' => 'Registered.',
+			'auditPlan.registerFailed' => 'Could not register.',
+			'auditPlan.goMyAudits' => 'Go to my audits',
+			'auditPlan.errTitle' => 'Enter a title.',
+			'auditPlan.errStandard' => 'Choose an audit standard.',
+			'auditPlan.errLines' => 'Add at least one row.',
+			'auditPlan.errTeam' => 'Enter a team name.',
+			'auditPlan.errAuditor' => 'Choose auditors.',
+			'auditPlan.errPeriod' => 'The expected end is before the schedule.',
+			'auditPlan.pickerTitle' => 'Choose auditors',
+			'auditPlan.ok' => 'OK',
+			'auditPlan.cancel' => 'Cancel',
 			'menu.group' => 'Quality control',
 			'entity.complaint.title' => 'Nonconformities',
 			'entity.complaint.fields.f_occurent_at' => 'Occurred on',

@@ -57,6 +57,42 @@ auditNotice:
   inProgress: 実施中
   today: 今日
   inDays: 'あと ${n} 日'
+# 監査計画の登録
+auditPlan:
+  title: 監査計画の登録
+  back: 戻る
+  hint: 監査の題名・監査標準・チームと予定を入れて登録します。1 行が、チーム 1 つ(監査員つき)と、その予定の監査実施 1 件になります。
+  loadFailed: 選択肢を読み込めませんでした。
+  fieldTitle: 監査の題名
+  fieldDetails: 詳細
+  fieldStandard: 監査標準
+  lines: チームと予定
+  addLine: 行を追加
+  removeLine: この行を削除
+  line: 'チーム ${n}'
+  teamName: チーム名
+  auditors: 監査員
+  pickAuditors: 監査員を選ぶ
+  noAuditors: 監査員が選ばれていません
+  scheduledAt: 予定日時
+  expectedEndAt: 終了予定日時
+  pickDate: 選ぶ
+  clearDate: 消す
+  notSet: 未設定
+  register: 登録
+  registered: 登録しました。
+  registerFailed: 登録できませんでした。
+  goMyAudits: 自分の監査へ
+  errTitle: 題名を入れてください。
+  errStandard: 監査標準を選んでください。
+  errLines: 行を 1 行以上入れてください。
+  errTeam: チーム名を入れてください。
+  errAuditor: 監査員を選んでください。
+  errPeriod: 終了予定が予定より前です。
+  pickerTitle: 監査員の選択
+  ok: 決定
+  cancel: キャンセル
+
 # --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
 # 品質管理の実体と項目の表示名(日本語。基準言語)。
 # 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。

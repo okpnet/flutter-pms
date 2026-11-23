@@ -58,6 +58,42 @@ auditNotice:
   today: Today
   inDays: 'In ${n} days'
 
+# Audit plan registration
+auditPlan:
+  title: Register audit plan
+  back: Back
+  hint: Enter the audit title, standard, and teams with schedules. Each row becomes one team (with auditors) and one scheduled audit.
+  loadFailed: Could not load the options.
+  fieldTitle: Audit title
+  fieldDetails: Details
+  fieldStandard: Audit standard
+  lines: Teams and schedules
+  addLine: Add row
+  removeLine: Remove this row
+  line: 'Team ${n}'
+  teamName: Team name
+  auditors: Auditors
+  pickAuditors: Choose auditors
+  noAuditors: No auditors chosen
+  scheduledAt: Scheduled at
+  expectedEndAt: Expected end
+  pickDate: Choose
+  clearDate: Clear
+  notSet: Not set
+  register: Register
+  registered: Registered.
+  registerFailed: Could not register.
+  goMyAudits: Go to my audits
+  errTitle: Enter a title.
+  errStandard: Choose an audit standard.
+  errLines: Add at least one row.
+  errTeam: Enter a team name.
+  errAuditor: Choose auditors.
+  errPeriod: The expected end is before the schedule.
+  pickerTitle: Choose auditors
+  ok: OK
+  cancel: Cancel
+
 menu:
   group: "Quality control"
 entity:

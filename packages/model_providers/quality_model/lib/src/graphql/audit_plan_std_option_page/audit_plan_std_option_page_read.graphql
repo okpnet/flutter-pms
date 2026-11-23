@@ -1,0 +1,44 @@
+# audit_plan_std_option_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #AuditPlanStdOptionPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query AuditPlanStdOptionPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: MstrAuditStdFilter = {and: []}
+  $orderBy: [MstrAuditStdsOrderBy!]
+  $languageCodeId: UUID!
+  $removed: Boolean = false
+) {
+  allMstrAuditStds(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      mstrAuditStdId
+      code
+
+      labels: sharedAppellationByNames {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+      }
+    }
+  }
+}

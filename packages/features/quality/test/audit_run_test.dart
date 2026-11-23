@@ -175,6 +175,6 @@ void main() {
 
   test('遷移先は JSON にできる', () {
     expect(const AuditRunDestination('d1').toJson()['detailId'], 'd1');
-    expect(auditRunDestinationSamples.length, 2);
+    expect(auditRunDestinationSamples.length, 3);
   });
 }

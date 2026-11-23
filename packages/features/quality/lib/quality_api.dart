@@ -2,3 +2,4 @@
 library;
 
 export 'src/page/audit_run_destination.dart';
+export 'src/page/audit_plan_destination.dart';

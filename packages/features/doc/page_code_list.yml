@@ -583,6 +583,10 @@ features:
         code: X
         page: QX
         label: 監査の実施
+      - screen: auditplan
+        code: W
+        page: QW
+        label: 監査計画の登録
 
   - feature: maintenance
     code: M

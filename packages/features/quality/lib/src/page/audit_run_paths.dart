@@ -2,6 +2,7 @@
 abstract final class AuditRunPaths {
   static const myAudits = '/quality/my-audits';
   static const run = '/quality/audit-run';
+  static const plan = '/quality/audit-plan';
 
   static String runOf(String detailId) => Uri(path: run, queryParameters: {'id': detailId}).toString();
 }

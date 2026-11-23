@@ -8,6 +8,8 @@ import 'entities/quality_definitions.dart';
 import 'entities/quality_labels.dart';
 import 'entities/quality_seeds.dart';
 import 'i18n/strings_provider.dart';
+import 'page/audit_plan_destination.dart';
+import 'page/audit_plan_page.dart';
 import 'page/audit_run_destination.dart';
 import 'page/audit_run_page.dart';
 import 'page/audit_run_paths.dart';
@@ -38,6 +40,7 @@ class QualityModule extends EntityFeatureModule {
   List<RouteBase> get routes => [
     ...super.routes,
     GoRoute(path: AuditRunPaths.myAudits, builder: (context, state) => const MyAuditsPage()),
+    GoRoute(path: AuditRunPaths.plan, builder: (context, state) => const AuditPlanPage()),
     GoRoute(
       path: AuditRunPaths.run,
       builder: (context, state) => AuditRunPage(
@@ -50,6 +53,7 @@ class QualityModule extends EntityFeatureModule {
   @override
   String? locationOf(PageDestination<Object?> destination) => switch (destination) {
     MyAuditsDestination() => AuditRunPaths.myAudits,
+    AuditPlanDestination() => AuditRunPaths.plan,
     AuditRunDestination(:final detailId) => AuditRunPaths.runOf(detailId),
     _ => super.locationOf(destination),
   };
@@ -62,6 +66,12 @@ class QualityModule extends EntityFeatureModule {
       groupLabel: menuGroupLabel(ref),
       label: ref.watch(qualityStringsProvider).auditRun.myTitle,
       destination: const MyAuditsDestination(),
+    ),
+    MenuEntry(
+      groupId: menuGroupId,
+      groupLabel: menuGroupLabel(ref),
+      label: ref.watch(qualityStringsProvider).auditPlan.title,
+      destination: const AuditPlanDestination(),
     ),
     ...super.menuEntries(ref),
   ];

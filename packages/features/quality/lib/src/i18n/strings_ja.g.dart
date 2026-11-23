@@ -37,6 +37,7 @@ class QualityStrings with BaseTranslations<QualityLocale, QualityStrings> {
 	// Translations
 	late final QualityStrings$auditRun$ja auditRun = QualityStrings$auditRun$ja.internal(_root);
 	late final QualityStrings$auditNotice$ja auditNotice = QualityStrings$auditNotice$ja.internal(_root);
+	late final QualityStrings$auditPlan$ja auditPlan = QualityStrings$auditPlan$ja.internal(_root);
 	late final QualityStrings$menu$ja menu = QualityStrings$menu$ja.internal(_root);
 	late final QualityStrings$entity$ja entity = QualityStrings$entity$ja.internal(_root);
 }
@@ -219,6 +220,114 @@ class QualityStrings$auditNotice$ja {
 
 	/// ja: 'あと ${n} 日'
 	String inDays({required Object n}) => 'あと ${n} 日';
+}
+
+// Path: auditPlan
+class QualityStrings$auditPlan$ja {
+	QualityStrings$auditPlan$ja.internal(this._root);
+
+	final QualityStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '監査計画の登録'
+	String get title => '監査計画の登録';
+
+	/// ja: '戻る'
+	String get back => '戻る';
+
+	/// ja: '監査の題名・監査標準・チームと予定を入れて登録します。1 行が、チーム 1 つ(監査員つき)と、その予定の監査実施 1 件になります。'
+	String get hint => '監査の題名・監査標準・チームと予定を入れて登録します。1 行が、チーム 1 つ(監査員つき)と、その予定の監査実施 1 件になります。';
+
+	/// ja: '選択肢を読み込めませんでした。'
+	String get loadFailed => '選択肢を読み込めませんでした。';
+
+	/// ja: '監査の題名'
+	String get fieldTitle => '監査の題名';
+
+	/// ja: '詳細'
+	String get fieldDetails => '詳細';
+
+	/// ja: '監査標準'
+	String get fieldStandard => '監査標準';
+
+	/// ja: 'チームと予定'
+	String get lines => 'チームと予定';
+
+	/// ja: '行を追加'
+	String get addLine => '行を追加';
+
+	/// ja: 'この行を削除'
+	String get removeLine => 'この行を削除';
+
+	/// ja: 'チーム ${n}'
+	String line({required Object n}) => 'チーム ${n}';
+
+	/// ja: 'チーム名'
+	String get teamName => 'チーム名';
+
+	/// ja: '監査員'
+	String get auditors => '監査員';
+
+	/// ja: '監査員を選ぶ'
+	String get pickAuditors => '監査員を選ぶ';
+
+	/// ja: '監査員が選ばれていません'
+	String get noAuditors => '監査員が選ばれていません';
+
+	/// ja: '予定日時'
+	String get scheduledAt => '予定日時';
+
+	/// ja: '終了予定日時'
+	String get expectedEndAt => '終了予定日時';
+
+	/// ja: '選ぶ'
+	String get pickDate => '選ぶ';
+
+	/// ja: '消す'
+	String get clearDate => '消す';
+
+	/// ja: '未設定'
+	String get notSet => '未設定';
+
+	/// ja: '登録'
+	String get register => '登録';
+
+	/// ja: '登録しました。'
+	String get registered => '登録しました。';
+
+	/// ja: '登録できませんでした。'
+	String get registerFailed => '登録できませんでした。';
+
+	/// ja: '自分の監査へ'
+	String get goMyAudits => '自分の監査へ';
+
+	/// ja: '題名を入れてください。'
+	String get errTitle => '題名を入れてください。';
+
+	/// ja: '監査標準を選んでください。'
+	String get errStandard => '監査標準を選んでください。';
+
+	/// ja: '行を 1 行以上入れてください。'
+	String get errLines => '行を 1 行以上入れてください。';
+
+	/// ja: 'チーム名を入れてください。'
+	String get errTeam => 'チーム名を入れてください。';
+
+	/// ja: '監査員を選んでください。'
+	String get errAuditor => '監査員を選んでください。';
+
+	/// ja: '終了予定が予定より前です。'
+	String get errPeriod => '終了予定が予定より前です。';
+
+	/// ja: '監査員の選択'
+	String get pickerTitle => '監査員の選択';
+
+	/// ja: '決定'
+	String get ok => '決定';
+
+	/// ja: 'キャンセル'
+	String get cancel => 'キャンセル';
 }
 
 // Path: menu
@@ -1039,6 +1148,39 @@ extension on QualityStrings {
 			'auditNotice.inProgress' => '実施中',
 			'auditNotice.today' => '今日',
 			'auditNotice.inDays' => ({required Object n}) => 'あと ${n} 日',
+			'auditPlan.title' => '監査計画の登録',
+			'auditPlan.back' => '戻る',
+			'auditPlan.hint' => '監査の題名・監査標準・チームと予定を入れて登録します。1 行が、チーム 1 つ(監査員つき)と、その予定の監査実施 1 件になります。',
+			'auditPlan.loadFailed' => '選択肢を読み込めませんでした。',
+			'auditPlan.fieldTitle' => '監査の題名',
+			'auditPlan.fieldDetails' => '詳細',
+			'auditPlan.fieldStandard' => '監査標準',
+			'auditPlan.lines' => 'チームと予定',
+			'auditPlan.addLine' => '行を追加',
+			'auditPlan.removeLine' => 'この行を削除',
+			'auditPlan.line' => ({required Object n}) => 'チーム ${n}',
+			'auditPlan.teamName' => 'チーム名',
+			'auditPlan.auditors' => '監査員',
+			'auditPlan.pickAuditors' => '監査員を選ぶ',
+			'auditPlan.noAuditors' => '監査員が選ばれていません',
+			'auditPlan.scheduledAt' => '予定日時',
+			'auditPlan.expectedEndAt' => '終了予定日時',
+			'auditPlan.pickDate' => '選ぶ',
+			'auditPlan.clearDate' => '消す',
+			'auditPlan.notSet' => '未設定',
+			'auditPlan.register' => '登録',
+			'auditPlan.registered' => '登録しました。',
+			'auditPlan.registerFailed' => '登録できませんでした。',
+			'auditPlan.goMyAudits' => '自分の監査へ',
+			'auditPlan.errTitle' => '題名を入れてください。',
+			'auditPlan.errStandard' => '監査標準を選んでください。',
+			'auditPlan.errLines' => '行を 1 行以上入れてください。',
+			'auditPlan.errTeam' => 'チーム名を入れてください。',
+			'auditPlan.errAuditor' => '監査員を選んでください。',
+			'auditPlan.errPeriod' => '終了予定が予定より前です。',
+			'auditPlan.pickerTitle' => '監査員の選択',
+			'auditPlan.ok' => '決定',
+			'auditPlan.cancel' => 'キャンセル',
 			'menu.group' => '品質管理',
 			'entity.complaint.title' => '異常',
 			'entity.complaint.fields.f_occurent_at' => '発生年月日',

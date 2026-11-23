@@ -64,7 +64,7 @@
 1.  取得元は `IAuditRunGateway`(`auditRunGatewayProvider`。既定はメモリ上。`pms_app` が `GraphqlAuditRunGateway` に差し替える)。GraphQL 版: 自分の監査は、ビュー `v_audit_assignment`(`staff_id` = 自分。状態の boolean・文字・件数。画面で状態を判定しない)を読み、名称は監査実施詳細(`AuditDetailPage`)から引く。項目の値・所見は `AuditItemPageEdit` + `trans_text_save`。開始・終了・異常の登録は DB の関数(`audit_detail_start`・`audit_detail_finish`・`audit_complaint_register`。1 トランザクション)。終了は未入力の項目を押し切る(`pForce`。画面で未入力が見えている)。失敗(チームの監査員でない・終了した監査など)は例外で、画面は「操作できませんでした」を出す。
 1.  **ダッシュボードの通知**: `AuditNoticeBanner`(「監査の予定が N 件あります」。予定超過は赤、各行から監査の実施へ、「自分の監査」へのリンク)。取得元は `IAuditNoticeSource`(`auditNoticeSourceProvider`。`pms_app` が `GraphqlAuditNoticeSource` に差し替え、`dashboardAlertSlotProvider` に承認待ちの通知と並べて差し込む)。DB の関数 `audit_notice`(STABLE。予定日から導く。通知の行は作らない)を呼ぶ。生成器が STABLE の関数(query)に未対応のため、問い合わせは `graphql_audit_notice_source.dart` に手書きしてある(生成器を対応させたら、モデルへ移す)。取得に失敗したときは通知を出さない(ダッシュボードを止めない)。
 1.  値は JSON `{"value": "…"}`(式 `formula_class` ごとの入力は、式の種類を決めてから)。
-1.  監査の計画(監査・チーム・監査員・監査実施詳細)の登録は、まだアプリから行えない(台帳は読み取り専用)。
+1.  **監査計画の登録**(`/quality/audit-plan`。`AuditPlanPage`。メニュー「監査計画の登録」): 監査の題名・詳細・監査標準と、チームと予定の行(1 行 = チーム 1 つ + 監査員(複数選択)+ 予定日時・終了予定日時 = 監査実施詳細 1 件)を入れて登録する。入力の検査は `validateAuditPlan`(誤りは種類 `AuditPlanError`。画面と取得元で同じ)。取得元は `IAuditPlanGateway`(`auditPlanGatewayProvider`。`pms_app` が `GraphqlAuditPlanGateway` に差し替える)。GraphQL 版は、選択肢(監査標準・担当者。`AuditPlanStdOptionPage`・`AuditPlanStaffOptionPage`)を読める。**登録は、DB の関数 `audit_plan_register`(提案。`issue/20261123_0001.md` の E。複数の表への登録を 1 トランザクションで)の導入後に実装する**(それまで `UnsupportedError`)。監査標準・項目を作る側の登録は、まだ行えない(台帳は読み取り専用)。
 
 ## example と多言語
 1.  ビジュアルテスト用に`example`(Windows 向け)を持つ。`flutter run -d windows`で起動し、`lib/main.dart`の`entries`に遷移先を足す(`packages/features/CLAUDE.md`の「機能プロジェクト共通」)。

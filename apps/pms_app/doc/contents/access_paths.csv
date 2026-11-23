@@ -12,6 +12,7 @@
 /organization/approval-steps,承認の段,Approval steps,organization,false
 /quality/my-audits,自分の監査,My audits,quality,false
 /quality/audit-run,監査の実施,Conduct audit,quality,false
+/quality/audit-plan,監査計画の登録,Register audit plan,quality,false
 /mrp,資材所要計算(MRP),Material requirements planning (MRP),production_plan,false
 /shipping-kinds,配送区分,Shipping kind,shared_master,false
 /auth/login,ログイン,Log in,auth_files,true

@@ -1,0 +1,74 @@
+import 'package:gql/ast.dart' show DocumentNode;
+import 'package:graphql/client.dart';
+import 'package:quality_model/quality_model.dart';
+
+import '../audit_plan/audit_plan_gateway.dart';
+
+/// 監査の計画の登録の GraphQL 版の取得元(モデルは `quality_model` の `AuditPlanStdOptionPage`・`AuditPlanStaffOptionPage`。Issue 20261123_0001)。
+///
+/// 選択肢(監査標準・担当者。名称は言語 [languageCode])は読める。登録は、DB の関数 `audit_plan_register`(提案。複数の表への登録を
+/// 1 トランザクションで行う)の導入後に実装する。それまで [UnsupportedError] を投げる(画面は「登録できませんでした」を出す)。
+/// 入力の検査は、通信の前に行う([AuditPlanException])。
+///
+/// パターン: Adapter(生成された読み込みの結果と、画面の [AuditPlanOption] を変換する)
+class GraphqlAuditPlanGateway implements IAuditPlanGateway {
+  GraphqlAuditPlanGateway(this.client, {this.languageCode = 'ja'});
+
+  final GraphQLClient client;
+  final String languageCode;
+
+  Future<String>? _languageId;
+
+  Future<Map<String, dynamic>> _query(DocumentNode document, Map<String, dynamic> variables) async {
+    final result = await client.query(QueryOptions(document: document, variables: variables, fetchPolicy: FetchPolicy.noCache));
+    final e = result.exception;
+    if (e != null) throw e;
+    return result.data ?? const {};
+  }
+
+  Future<String> _language() => _languageId ??= _loadLanguage();
+
+  Future<String> _loadLanguage() async {
+    final data = await _query(
+      gql('query { allSharedLanguageCodes(first: 20, filter: {remove: {equalTo: false}}) { nodes { sharedLanguageCodeId code } } }'),
+      const {},
+    );
+    for (final n in ((data['allSharedLanguageCodes'] as Map?)?['nodes'] as List? ?? const []).whereType<Map>()) {
+      if ('${n['code']}'.toLowerCase() == languageCode.toLowerCase()) return '${n['sharedLanguageCodeId']}';
+    }
+    throw StateError('言語コード $languageCode が見つかりません');
+  }
+
+  static String _name(Object? labels) {
+    if (labels is! Map) return '';
+    final dict = labels['sharedDictionaryBySharedDictionaryNameId'];
+    if (dict is! Map) return '';
+    final value = dict['value'];
+    final nodes = value is Map ? value['nodes'] : null;
+    if (nodes is! List || nodes.isEmpty) return '';
+    return '${(nodes.first as Map)['dictionaryValue'] ?? ''}';
+  }
+
+  Future<List<AuditPlanOption>> _options(DocumentNode document, String listKey, String idKey) async {
+    final data = await _query(document, {'first': 500, 'languageCodeId': await _language()});
+    final nodes = (data[listKey] as Map?)?['nodes'] as List? ?? const [];
+    return [
+      for (final n in nodes.whereType<Map>())
+        AuditPlanOption(id: '${n[idKey]}', name: _name(n['labels']), code: '${n['code'] ?? ''}'),
+    ];
+  }
+
+  @override
+  Future<List<AuditPlanOption>> standards() =>
+      _options(documentNodeQueryAuditPlanStdOptionPageRead, 'allMstrAuditStds', 'mstrAuditStdId');
+
+  @override
+  Future<List<AuditPlanOption>> staff() => _options(documentNodeQueryAuditPlanStaffOptionPageRead, 'allInfoStaffs', 'infoStaffId');
+
+  @override
+  Future<String> register(AuditPlanInput input) async {
+    final errors = validateAuditPlan(input);
+    if (errors.isNotEmpty) throw AuditPlanException(errors);
+    throw UnsupportedError('audit_plan_register(DB の関数)の導入後に実装する');
+  }
+}

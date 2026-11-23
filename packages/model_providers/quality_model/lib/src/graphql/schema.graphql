@@ -20,6 +20,40 @@ scalar JSON
 
 scalar UUID
 
+enum InfoStaffsOrderBy {
+  NATURAL
+  INFO_STAFF_ID_ASC
+  INFO_STAFF_ID_DESC
+  INFO_COMPANY_ID_ASC
+  INFO_COMPANY_ID_DESC
+  CODE_ASC
+  CODE_DESC
+  NAMES_ASC
+  NAMES_DESC
+  SEX_ASC
+  SEX_DESC
+  PHONE_ASC
+  PHONE_DESC
+  PRIVATE_PHONE_ASC
+  PRIVATE_PHONE_DESC
+  REVISION_ASC
+  REVISION_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 enum MstrAuditStdCheckitemsOrderBy {
   NATURAL
   MSTR_AUDIT_STD_CHECKITEM_ID_ASC
@@ -1152,6 +1186,18 @@ type InfoDepartment {
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
 }
 
+type InfoStaff {
+  infoStaffId: UUID!
+  code: String
+  sharedAppellationByNames: SharedAppellation
+}
+
+type InfoStaffsConnection {
+  nodes: [InfoStaff]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type Interval {
   seconds: Float
   minutes: Int
@@ -1356,6 +1402,7 @@ type PageInfo {
 }
 
 type Query {
+  allInfoStaffs(first: Int, offset: Int, orderBy: [InfoStaffsOrderBy!] = [PRIMARY_KEY_ASC], filter: InfoStaffFilter): InfoStaffsConnection
   allMstrAuditStds(first: Int, offset: Int, orderBy: [MstrAuditStdsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrAuditStdFilter): MstrAuditStdsConnection
   allMstrAuditStdCheckitems(first: Int, offset: Int, orderBy: [MstrAuditStdCheckitemsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrAuditStdCheckitemFilter): MstrAuditStdCheckitemsConnection
   allMstrReports(first: Int, offset: Int, orderBy: [MstrReportsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrReportFilter): MstrReportsConnection
@@ -2970,6 +3017,43 @@ input InfoDepartmentFilter {
   and: [InfoDepartmentFilter!]
   or: [InfoDepartmentFilter!]
   not: InfoDepartmentFilter
+}
+
+input InfoStaffFilter {
+  infoStaffId: UUIDFilter
+  infoCompanyId: UUIDFilter
+  code: StringFilter
+  names: UUIDFilter
+  sex: StringFilter
+  phone: StringFilter
+  privatePhone: StringFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historyInfoStaffsByInfoStaffIdExist: Boolean
+  infoAssignsByInfoStaffIdExist: Boolean
+  mstrStaffLicensesByInfoStaffIdExist: Boolean
+  infoStaffAccessPermissionsByInfoStaffIdExist: Boolean
+  mstrStaffCapabilitiesByInfoStaffIdExist: Boolean
+  mstrSignsByInfoStaffIdExist: Boolean
+  vApprovalPendingsByApplicantStaffIdExist: Boolean
+  vDocumentApprovalStampsByApprovedStaffIdExist: Boolean
+  vDocumentPublicationsByApprovedStaffIdExist: Boolean
+  vStaffAssignCountByInfoStaffIdExists: Boolean
+  vStaffEffectiveAccessPathsByInfoStaffIdExist: Boolean
+  vStaffSignCountByInfoStaffIdExists: Boolean
+  vStaffStaffAccessPermissionCountByInfoStaffIdExists: Boolean
+  vStaffStaffCapabilityCountByInfoStaffIdExists: Boolean
+  vStaffStaffLicenseCountByInfoStaffIdExists: Boolean
+  sharedAppellationByNames: SharedAppellationFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [InfoStaffFilter!]
+  or: [InfoStaffFilter!]
+  not: InfoStaffFilter
 }
 
 input IntFilter {
