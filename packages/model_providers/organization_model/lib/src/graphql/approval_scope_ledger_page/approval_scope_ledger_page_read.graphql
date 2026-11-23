@@ -1,0 +1,34 @@
+# approval_scope_ledger_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ApprovalScopeLedgerPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ApprovalScopeLedgerPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: MstrApprovalScopePatternFilter = {and: []}
+  $orderBy: [MstrApprovalScopePatternsOrderBy!]
+  $removed: Boolean = false
+) {
+  allMstrApprovalScopePatterns(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      mstrApprovalScopePatternId
+      mstrApprovalPatternId
+      infoAccessPathApprovalId
+      symbol
+      remarks
+      updateAt
+      remove
+    }
+  }
+}

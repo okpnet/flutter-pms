@@ -1,0 +1,23 @@
+# approval_scope_ledger_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ApprovalScopeLedgerPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ApprovalScopeLedgerPageRemove(
+  $mstrApprovalScopePatternId: UUID!
+  $remove: Boolean!
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  updateMstrApprovalScopePatternByMstrApprovalScopePatternId(
+    input: {
+      mstrApprovalScopePatternId: $mstrApprovalScopePatternId
+      mstrApprovalScopePatternPatch: { remove: $remove, updateUserId: $updateUserId, updateUserHistoryId: $updateUserHistoryId }
+    }
+  ) {
+    mstrApprovalScopePattern {
+      mstrApprovalScopePatternId
+      remove
+    }
+  }
+}

@@ -54,6 +54,32 @@ enum HistoryInfoStaffsOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum InfoAccessPathApprovalsOrderBy {
+  NATURAL
+  INFO_ACCESS_PATH_APPROVAL_ID_ASC
+  INFO_ACCESS_PATH_APPROVAL_ID_DESC
+  INFO_ACCESS_PATH_ID_ASC
+  INFO_ACCESS_PATH_ID_DESC
+  NAMES_ASC
+  NAMES_DESC
+  REVISION_ASC
+  REVISION_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 enum InfoAppsOrderBy {
   NATURAL
   INFO_APP_ID_ASC
@@ -588,6 +614,10 @@ enum VStaffCountsOrderBy {
   PRIMARY_KEY_DESC
 }
 
+type CreateInfoAccessPathApprovalPayload {
+  infoAccessPathApproval: InfoAccessPathApproval
+}
+
 type CreateInfoAddressPayload {
   infoAddress: InfoAddress
 }
@@ -608,6 +638,10 @@ type CreateMstrApprovalPayload {
   mstrApproval: MstrApproval
 }
 
+type CreateMstrApprovalScopePatternPayload {
+  mstrApprovalScopePattern: MstrApprovalScopePattern
+}
+
 type HistoryInfoStaff {
   historyId: UUID!
   infoStaffId: UUID!
@@ -623,6 +657,25 @@ type HistoryInfoStaff {
 
 type HistoryInfoStaffsConnection {
   nodes: [HistoryInfoStaff]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type InfoAccessPathApproval {
+  infoAccessPathApprovalId: UUID!
+  infoAccessPathId: UUID
+  names: UUID!
+  symbol: String
+  remarks: String
+  updateAt: Datetime
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+  remove: Boolean
+  sharedAppellationByNames: SharedAppellation
+}
+
+type InfoAccessPathApprovalsConnection {
+  nodes: [InfoAccessPathApproval]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
@@ -1087,11 +1140,14 @@ type MstrStaffLicensesConnection {
 }
 
 type Mutation {
+  createInfoAccessPathApproval(input: CreateInfoAccessPathApprovalInput!): CreateInfoAccessPathApprovalPayload
   createInfoAddress(input: CreateInfoAddressInput!): CreateInfoAddressPayload
   createInfoOffice(input: CreateInfoOfficeInput!): CreateInfoOfficePayload
   createMstrApproval(input: CreateMstrApprovalInput!): CreateMstrApprovalPayload
   createMstrApprovalPattern(input: CreateMstrApprovalPatternInput!): CreateMstrApprovalPatternPayload
   createMstrApprovalPatternDetail(input: CreateMstrApprovalPatternDetailInput!): CreateMstrApprovalPatternDetailPayload
+  createMstrApprovalScopePattern(input: CreateMstrApprovalScopePatternInput!): CreateMstrApprovalScopePatternPayload
+  updateInfoAccessPathApprovalByInfoAccessPathApprovalId(input: UpdateInfoAccessPathApprovalByInfoAccessPathApprovalIdInput!): UpdateInfoAccessPathApprovalPayload
   updateInfoAddressByInfoAddressId(input: UpdateInfoAddressByInfoAddressIdInput!): UpdateInfoAddressPayload
   updateInfoAppByInfoAppId(input: UpdateInfoAppByInfoAppIdInput!): UpdateInfoAppPayload
   updateInfoAssignByInfoAssignId(input: UpdateInfoAssignByInfoAssignIdInput!): UpdateInfoAssignPayload
@@ -1120,6 +1176,7 @@ type PageInfo {
 
 type Query {
   allHistoryInfoStaffs(first: Int, offset: Int, orderBy: [HistoryInfoStaffsOrderBy!] = [PRIMARY_KEY_ASC], filter: HistoryInfoStaffFilter): HistoryInfoStaffsConnection
+  allInfoAccessPathApprovals(first: Int, offset: Int, orderBy: [InfoAccessPathApprovalsOrderBy!] = [PRIMARY_KEY_ASC], filter: InfoAccessPathApprovalFilter): InfoAccessPathApprovalsConnection
   allInfoApps(first: Int, offset: Int, orderBy: [InfoAppsOrderBy!] = [PRIMARY_KEY_ASC], filter: InfoAppFilter): InfoAppsConnection
   allInfoAssigns(first: Int, offset: Int, orderBy: [InfoAssignsOrderBy!] = [PRIMARY_KEY_ASC], filter: InfoAssignFilter): InfoAssignsConnection
   allInfoCompanies(first: Int, offset: Int, orderBy: [InfoCompaniesOrderBy!] = [PRIMARY_KEY_ASC], filter: InfoCompanyFilter): InfoCompaniesConnection
@@ -1135,6 +1192,7 @@ type Query {
   allMstrApprovalScopePatterns(first: Int, offset: Int, orderBy: [MstrApprovalScopePatternsOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrApprovalScopePatternFilter): MstrApprovalScopePatternsConnection
   allSharedLanguageCodes(first: Int, offset: Int, orderBy: [SharedLanguageCodesOrderBy!] = [PRIMARY_KEY_ASC], filter: SharedLanguageCodeFilter): SharedLanguageCodesConnection
   allVStaffCounts(first: Int, offset: Int, orderBy: [VStaffCountsOrderBy!] = [PRIMARY_KEY_ASC], filter: VStaffCountFilter): VStaffCountsConnection
+  infoAccessPathApprovalByInfoAccessPathApprovalId(infoAccessPathApprovalId: UUID!): InfoAccessPathApproval
   infoAddressByInfoAddressId(infoAddressId: UUID!): InfoAddress
   infoAssignByInfoAssignId(infoAssignId: UUID!): InfoAssign
   infoCompanyByInfoCompanyId(infoCompanyId: UUID!): InfoCompany
@@ -1208,6 +1266,10 @@ type TransFile {
   transFileId: UUID!
   name: String!
   mediaType: String
+}
+
+type UpdateInfoAccessPathApprovalPayload {
+  infoAccessPathApproval: InfoAccessPathApproval
 }
 
 type UpdateInfoAddressPayload {
@@ -1434,6 +1496,10 @@ input BooleanFilter {
   greaterThanOrEqualTo: Boolean
 }
 
+input CreateInfoAccessPathApprovalInput {
+  infoAccessPathApproval: InfoAccessPathApprovalInput!
+}
+
 input CreateInfoAddressInput {
   infoAddress: InfoAddressInput!
 }
@@ -1452,6 +1518,10 @@ input CreateMstrApprovalPatternDetailInput {
 
 input CreateMstrApprovalPatternInput {
   mstrApprovalPattern: MstrApprovalPatternInput!
+}
+
+input CreateMstrApprovalScopePatternInput {
+  mstrApprovalScopePattern: MstrApprovalScopePatternInput!
 }
 
 input DatetimeFilter {
@@ -1775,6 +1845,44 @@ input HistoryInfoStaffFilter {
   and: [HistoryInfoStaffFilter!]
   or: [HistoryInfoStaffFilter!]
   not: HistoryInfoStaffFilter
+}
+
+input InfoAccessPathApprovalFilter {
+  infoAccessPathApprovalId: UUIDFilter
+  infoAccessPathId: UUIDFilter
+  names: UUIDFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  mstrApprovalScopePatternsByInfoAccessPathApprovalIdExist: Boolean
+  historyInfoAccessPathApprovalsByInfoAccessPathApprovalIdExist: Boolean
+  infoAccessPathByInfoAccessPathIdExists: Boolean
+  sharedAppellationByNames: SharedAppellationFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [InfoAccessPathApprovalFilter!]
+  or: [InfoAccessPathApprovalFilter!]
+  not: InfoAccessPathApprovalFilter
+}
+
+input InfoAccessPathApprovalInput {
+  infoAccessPathId: UUID
+  names: UUID
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
+input InfoAccessPathApprovalPatch {
+  infoAccessPathId: UUID
+  names: UUID
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+  remove: Boolean
 }
 
 input InfoAddressFilter {
@@ -2789,10 +2897,20 @@ input MstrApprovalScopePatternFilter {
   not: MstrApprovalScopePatternFilter
 }
 
+input MstrApprovalScopePatternInput {
+  mstrApprovalPatternId: UUID
+  infoAccessPathApprovalId: UUID
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
 input MstrApprovalScopePatternPatch {
   mstrApprovalPatternId: UUID
   infoAccessPathApprovalId: UUID
   remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
   remove: Boolean
 }
 
@@ -3652,6 +3770,11 @@ input UUIDFilter {
   lessThanOrEqualTo: UUID
   greaterThan: UUID
   greaterThanOrEqualTo: UUID
+}
+
+input UpdateInfoAccessPathApprovalByInfoAccessPathApprovalIdInput {
+  infoAccessPathApprovalPatch: InfoAccessPathApprovalPatch!
+  infoAccessPathApprovalId: UUID!
 }
 
 input UpdateInfoAddressByInfoAddressIdInput {

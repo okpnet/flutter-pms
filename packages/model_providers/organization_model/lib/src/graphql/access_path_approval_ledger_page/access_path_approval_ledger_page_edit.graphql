@@ -1,0 +1,33 @@
+# access_path_approval_ledger_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #AccessPathApprovalLedgerPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AccessPathApprovalLedgerPageEdit(
+  $infoAccessPathApprovalId: UUID!
+  $infoAccessPathId: UUID
+  $names: UUID
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  updateInfoAccessPathApprovalByInfoAccessPathApprovalId(
+    input: {
+      infoAccessPathApprovalId: $infoAccessPathApprovalId
+      infoAccessPathApprovalPatch: {
+        infoAccessPathId: $infoAccessPathId
+        names: $names
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    infoAccessPathApproval {
+      infoAccessPathApprovalId
+      infoAccessPathId
+      names
+      remarks
+    }
+  }
+}

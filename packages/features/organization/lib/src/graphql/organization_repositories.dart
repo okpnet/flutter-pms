@@ -8,6 +8,7 @@ import 'package:pms_graphql/pms_graphql.dart' show AuditUserSource;
 
 import '../entities/organization_definitions.dart';
 import 'approval_pattern_repository.dart';
+import 'approval_scope_repositories.dart';
 import 'site_repository.dart';
 import 'staff_icon_repository.dart';
 
@@ -19,8 +20,8 @@ import 'staff_icon_repository.dart';
 ///
 /// 対象は職員(`staff`)・事業所(`site`)・部署(`department`。ツリー)。名称・読み・略称は多言語の辞書で、言語コード `ja` の値を読む。
 /// 部署の親は部署ツリー(`info_department_tree`)の親の部署 ID。事業所の住所は、住所(`info_address`)の国・郵便番号・住所1・住所2・建物・電話番号・FAX(住所1・住所2・建物は多言語の辞書の `ja` の値。住所1 = 都道府県と市区町村、住所2 = 町名・番地・号)。
-/// 承認パターン(`approvalpattern`)は書き込みできる(名称・読みは共通関数、承認の段は専用の画面)。
-/// ほかの実体(会社・提供・役職・割当・部署区分・力量・資格・アクセスパスの承認など)は、サンプルのまま。
+/// 承認パターン(`approvalpattern`)・アクセスパスの承認(`accesspathapproval`)・承認の範囲(`approvalscope`)は書き込みできる
+/// (名称・読みは共通関数、承認の段は専用の画面)。ほかの実体(会社・提供・役職・割当・部署区分・力量・資格など)は、サンプルのまま。
 /// 生成された型は、この中だけで使い、外へ出さない。抽出条件・並び順は無視する(サンプルと同じ)。
 ///
 /// パターン: Adapter(生成された読み込みの結果と、画面の [EntityRecord] を変換する)
@@ -54,6 +55,14 @@ List<IEntityRepository> organizationRepositories(
       () => language.id,
       auditUser,
     ),
+    // アクセスパスの承認・承認の範囲(書き込みできる)
+    AccessPathApprovalRepository(
+      organizationDefinitions.firstWhere((d) => d.key == 'accesspathapproval'),
+      client,
+      () => language.id,
+      auditUser,
+    ),
+    ApprovalScopeRepository(organizationDefinitions.firstWhere((d) => d.key == 'approvalscope'), client, auditUser),
   ];
 }
 

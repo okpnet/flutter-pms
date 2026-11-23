@@ -1,0 +1,49 @@
+# access_path_approval_ledger_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #AccessPathApprovalLedgerPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query AccessPathApprovalLedgerPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: InfoAccessPathApprovalFilter = {and: []}
+  $orderBy: [InfoAccessPathApprovalsOrderBy!]
+  $languageCodeId: UUID!
+  $removed: Boolean = false
+) {
+  allInfoAccessPathApprovals(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      infoAccessPathApprovalId
+      infoAccessPathId
+
+      labels: sharedAppellationByNames {
+        sharedAppellationsId
+        sharedDictionaryBySharedDictionaryNameId {
+          sharedDictionaryId
+          value: sharedDictionaryValuesBySharedDictionaryId(
+            condition: { sharedLanguageCodeId: $languageCodeId }
+          ) {
+            nodes {
+              dictionaryValue
+            }
+          }
+        }
+      }
+
+      symbol
+      remarks
+      updateAt
+      remove
+    }
+  }
+}

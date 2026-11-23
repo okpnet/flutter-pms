@@ -1,0 +1,33 @@
+# approval_scope_ledger_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ApprovalScopeLedgerPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ApprovalScopeLedgerPageCreate(
+  $mstrApprovalPatternId: UUID
+  $infoAccessPathApprovalId: UUID
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  createMstrApprovalScopePattern(
+    input: {
+      mstrApprovalScopePattern: {
+        mstrApprovalPatternId: $mstrApprovalPatternId
+        infoAccessPathApprovalId: $infoAccessPathApprovalId
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    mstrApprovalScopePattern {
+      mstrApprovalScopePatternId
+      mstrApprovalPatternId
+      infoAccessPathApprovalId
+      remarks
+      updateUserId
+      updateUserHistoryId
+    }
+  }
+}
