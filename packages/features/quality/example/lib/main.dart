@@ -1,3 +1,4 @@
+// 手書き(tools/entity_gen/gen.js は上書きしない): 生成の雛形から、手で書き足している
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:logger_provider/logger_provider.dart';

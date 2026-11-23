@@ -445,9 +445,26 @@ for (const e of entities) {
 /* ------------------------------------------------------------------ 出力 */
 const dq = (s) => `'${String(s).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\$/g, '\\$').replace(/\r?\n/g, '\\n')}'`;
 const camel = (pkg) => pkg.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
+// 手書きに変えたファイル(先頭付近に下の印がある)は、上書きしない。生成物でないものを手で直したときは、ファイルの先頭に印を書く。
+const HAND_MARK = '手書き(tools/entity_gen/gen.js は上書きしない)';
+const skipped = [];
+const written = [];
+const CHECK = process.argv.includes('--check'); // 書き出さず、コミット済みの内容と違うファイルだけ数える(ずれの検出)
+const drift = [];
 const write = (file, text) => {
+  if (CHECK) {
+    const norm = (t) => t.split(String.fromCharCode(13)).join("");
+    const old = fs.existsSync(file) ? norm(fs.readFileSync(file, "utf8")) : null;
+    if (old !== norm(text) && !(old && old.slice(0, 400).includes(HAND_MARK))) drift.push(file);
+    return;
+  }
+  if (fs.existsSync(file) && fs.readFileSync(file, 'utf8').slice(0, 400).includes(HAND_MARK)) {
+    skipped.push(file);
+    return;
+  }
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, text, 'utf8');
+  if (file.endsWith('.dart')) written.push(file);
 };
 
 function defsDart(pkg, list) {
@@ -713,6 +730,29 @@ const labelStats = require('./labels_report.js')({
   out: path.join(__dirname, 'out'),
 });
 console.log('labels:', JSON.stringify(labelStats));
+
+if (CHECK) {
+  console.log('生成元とコミット済みの内容が違うファイル(整形・改行の差を含む):', drift.length);
+  for (const f of drift) console.log('  ' + path.relative(process.cwd(), f));
+  process.exit(drift.length ? 1 : 0);
+}
+// 書き出した Dart を整形する(コミット済みの整形済みの内容との、書式だけの差分を出さない)
+if (written.length && !process.argv.includes('--no-format')) {
+  // コマンドラインの長さの制限(Windows)のため、30 ファイルずつ整形する
+  let ok = true;
+  for (let i = 0; i < written.length; i += 30) {
+    const fr = cp.spawnSync('dart', ['format', ...written.slice(i, i + 30).map((f) => `"${f}"`)], { shell: true, encoding: 'utf8' });
+    if (fr.status !== 0) {
+      ok = false;
+      console.log('dart format FAILED\n' + fr.stdout + fr.stderr);
+    }
+  }
+  if (ok) console.log('dart format: ok');
+}
+if (skipped.length) {
+  console.log('手書きのため上書きしなかった:', skipped.length);
+  for (const f of skipped) console.log('  ' + path.relative(process.cwd(), f));
+}
 
 if (process.argv.includes('--no-slang')) process.exit(0);
 for (const pkg of Object.keys(rootsOf)) {

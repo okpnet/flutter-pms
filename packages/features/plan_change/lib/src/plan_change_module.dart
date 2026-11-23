@@ -1,3 +1,4 @@
+// 手書き(tools/entity_gen/gen.js は上書きしない): 生成の雛形から、手で書き足している
 import 'package:entity_screens/entity_screens.dart';
 import 'package:feature_shared/feature_shared.dart';
 import 'package:production_plan/production_plan_api.dart';

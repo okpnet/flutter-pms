@@ -640,3 +640,62 @@
         +   ExternalProperty 台帳[ExternalPropertyPage]
         +   VisiterOwnerRebuild 登録[VisiterOwnerRebuildPageCall]<!--管理者だけ。所有者の決め直し-->
         +   WorkRecordFileBody 項目[WorkRecordFileBodyFields]<!--ファイル(trans_file)の名前・種類-->
+    1.  manual_model/manual.yaml
+        +   ManualTier 台帳[ManualTierPage]<!--文書の階層(ルート)-->
+        +   ManualDocument 台帳[ManualDocumentPage]<!--マニュアルのルートの文書(mstr_document)-->
+        +   ManualContent 台帳[ManualContentPage]<!--ページ(mstr_document_content)-->
+        +   ManualTextValue 台帳[ManualTextValuePage]<!--本文(共有テキストの値)-->
+        +   ManualTextHistory 台帳[ManualTextHistoryPage]<!--本文の履歴-->
+        +   ManualLanguage 台帳[ManualLanguagePage]<!--言語コード-->
+        +   ManualPublication 台帳[ManualPublicationPage]<!--公開の判定(v_document_publication)-->
+        +   ManualApprovalStamp 台帳[ManualApprovalStampPage]<!--承認の段ごとの状態-->
+        +   ManualApprovalStyle 台帳[ManualApprovalStylePage]<!--承認パターンごとのスタンプの様式-->
+        +   ManualAppellation 登録・更新(共通関数)[ManualAppellationSavePageCall]
+        +   ManualText 登録・更新(共通関数)[ManualTextSavePageCall]
+        +   ManualDocument 登録[ManualDocumentPageCreate]
+        +   ManualDocumentTree 登録[ManualDocumentTreePageCreate]
+        +   ManualContent 登録[ManualContentPageCreate]
+        +   ManualContentTree 登録[ManualContentTreePageCreate]
+    1.  document_approval_model/approval_pending.yaml
+        +   ApprovalPending 台帳[ApprovalPendingPage]<!--承認待ち(v_approval_pending)-->
+        +   ApprovalApproveMany 登録[ApprovalApproveManyPageCall]<!--一括承認(DB 関数 approval_approve_many)-->
+    1.  organization_model/approval_defaults.yaml
+        +   ApprovalDefaults 台帳[ApprovalDefaultsPage]<!--標準の承認パターン(info_app の対象ごとの列)-->
+        +   ApprovalDefaults 情報[ApprovalDefaultsPageEdit]
+        +   ApprovalPatternOption 台帳[ApprovalPatternOptionPage]<!--選択肢の承認パターン-->
+        +   ApprovalDefaultsLanguage 台帳[ApprovalDefaultsLanguagePage]<!--言語コード-->
+    1.  organization_model/approval_pattern.yaml
+        +   ApprovalPatternLedger 台帳[ApprovalPatternLedgerPage]
+        +   ApprovalPatternLedger 情報[ApprovalPatternLedgerPageEdit]
+        +   ApprovalPatternLedger 登録[ApprovalPatternLedgerPageCreate]
+        +   ApprovalPatternAppellation 登録・更新(共通関数)[ApprovalPatternAppellationSavePageCall]
+        +   ApprovalStepApproval 項目[ApprovalStepApprovalRead]<!--承認の段(承認)-->
+        +   ApprovalStep 明細[ApprovalStepPage]<!--承認の段(承認パターン明細 + 承認)-->
+        +   ApprovalStepApproval 情報[ApprovalStepApprovalPageEdit]
+        +   ApprovalStepApproval 登録[ApprovalStepApprovalPageCreate]
+        +   ApprovalStepDetail 情報[ApprovalStepDetailPageEdit]
+        +   ApprovalStepDetail 登録[ApprovalStepDetailPageCreate]
+        +   ApprovalStepDepartmentOption 台帳[ApprovalStepDepartmentOptionPage]<!--選択肢(部署)-->
+        +   ApprovalStepPositionOption 台帳[ApprovalStepPositionOptionPage]<!--選択肢(役職)-->
+    1.  quality_document_model/document_content_body.yaml
+        +   DocumentContentBody 台帳[DocumentContentBodyPage]<!--文書コンテンツの本文-->
+        +   DocumentContentText 登録・更新(共通関数)[DocumentContentTextSavePageCall]
+    1.  quality_model/audit_execution.yaml
+        +   AuditFullText 項目[AuditFullTextReadFields]<!--文章の全文(所見・結論)-->
+        +   AuditDetail 台帳[AuditDetailPage]<!--監査実施詳細-->
+        +   AuditDetail 情報[AuditDetailPageEdit]
+        +   AuditDetail 登録[AuditDetailPageCreate]
+        +   AuditItem 台帳[AuditItemPage]<!--監査実施詳細項目-->
+        +   AuditItem 情報[AuditItemPageEdit]
+        +   AuditItem 登録[AuditItemPageCreate]
+        +   AuditComplaintLink 登録[AuditComplaintLinkPageCreate]<!--監査の異常(つなぎ)-->
+        +   AuditComplaintLink 情報[AuditComplaintLinkPageEdit]
+        +   AuditText 登録・更新(共通関数)[AuditTextSavePageCall]
+        +   AuditLabel 登録・更新(共通関数)[AuditLabelSavePageCall]
+        +   AuditAssignment 台帳[AuditAssignmentPage]<!--監査の割り当て(v_audit_assignment)-->
+        +   AuditDetailStart 登録[AuditDetailStartPageCall]<!--DB 関数 audit_detail_start-->
+        +   AuditDetailFinish 登録[AuditDetailFinishPageCall]<!--DB 関数 audit_detail_finish-->
+        +   AuditComplaintRegister 登録[AuditComplaintRegisterPageCall]<!--DB 関数 audit_complaint_register-->
+        +   AuditNotice 登録[AuditNoticePageCall]<!--DB の STABLE の関数 audit_notice(Query。読み取り)-->
+        +   AuditPlanStdOption 台帳[AuditPlanStdOptionPage]<!--選択肢(監査標準)-->
+        +   AuditPlanStaffOption 台帳[AuditPlanStaffOptionPage]<!--選択肢(担当者)-->
