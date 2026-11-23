@@ -44,6 +44,13 @@ class _FakeLink extends Link {
           ],
         },
       },
+      'ApprovalDefaultsPageRead' => {
+        'allInfoApps': {
+          'nodes': [
+            {'infoAppId': 'app1', 'documentApprovalPatternId': 'p-used', 'orderApprovalPatternId': null},
+          ],
+        },
+      },
       'ApprovalPatternAppellationSavePageCall' => {
         'sharedAppellationSave': {
           'sharedAppellation': {'sharedAppellationsId': 'ap-new'},
@@ -201,6 +208,12 @@ void main() {
       expect(appellation['pPronunciation'], isNull);
       await r.remove('p1');
       expect(link.varsOf('ApprovalPatternLedgerPageRemove').single['remove'], isTrue);
+    });
+
+    test('標準の承認パターンが指しているものは、削除できない(使用中。削除の通信はしない)', () async {
+      final r = repo();
+      await expectLater(r.remove('p-used'), throwsA(isA<EntityInUseException>()));
+      expect(link.varsOf('ApprovalPatternLedgerPageRemove'), isEmpty);
     });
   });
 }

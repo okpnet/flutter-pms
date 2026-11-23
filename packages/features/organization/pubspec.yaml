@@ -50,6 +50,10 @@ dev_dependencies:
     sdk: flutter
   data_test_harness:
     path: ../../infra/data_test_harness
+  logger_provider:
+    path: ../../infra/logger_provider
+  theme_lib:
+    path: ../../ui/theme_lib
   flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
 
 # For information on the generic Dart part of this file, see the

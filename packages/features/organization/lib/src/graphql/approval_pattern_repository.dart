@@ -150,9 +150,11 @@ class ApprovalPatternRepository implements IEntityRepository {
     return (await findById(id)) ?? record;
   }
 
-  /// 論理削除(`remove = true`)。承認の段は残す。使用中かの判定は呼び出し側([EntityCatalog])が行う。
+  /// 論理削除(`remove = true`)。承認の段は残す。標準の承認パターン(`info_app` の対象ごとの列)が指しているときは、使用中として止める
+  /// ([EntityInUseException]。削除すると、その対象は承認不要として扱われてしまうため)。ほかの実体からの参照は、呼び出し側([EntityCatalog])が判定する。
   @override
   Future<void> remove(String id) async {
+    if (await _usedAsDefault(id)) throw EntityInUseException(definition.key, id, EntityBlockReason.referenced);
     final au = await _updater();
     await _run(
       documentNodeMutationApprovalPatternLedgerPageRemove,
@@ -164,6 +166,16 @@ class ApprovalPatternRepository implements IEntityRepository {
       },
       mutation: true,
     );
+  }
+
+  /// 標準の承認パターン(`info_app` の対象ごとの列)のどれかが [id] か。
+  Future<bool> _usedAsDefault(String id) async {
+    final data = await _run(documentNodeQueryApprovalDefaultsPageRead, {'first': 1});
+    final apps = (data['allInfoApps'] as Map?)?['nodes'] as List? ?? const [];
+    for (final app in apps.whereType<Map>()) {
+      if (app.entries.any((e) => e.key.toString().endsWith('ApprovalPatternId') && e.value == id)) return true;
+    }
+    return false;
   }
 
   @override

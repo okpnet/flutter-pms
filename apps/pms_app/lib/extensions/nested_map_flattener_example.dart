@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+// (動作確認用のサンプルで、出力が目的のため print を許可する)
 // nested_map_flattener_example.dart
 //
 // nested_map_flattener.dart の動作確認用サンプル。

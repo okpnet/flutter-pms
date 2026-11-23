@@ -12,6 +12,9 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('作業者'));
     await tester.pumpAndSettle();
+    // 台帳は、はじめは閲覧。「編集」を押すと、行を開く操作が使える
+    await tester.tap(find.text('編集').first);
+    await tester.pumpAndSettle();
     await tester.tap(find.text('E-0012').first);
     await tester.pump(const Duration(milliseconds: 50));
     await tester.tap(find.text('E-0012').first);
