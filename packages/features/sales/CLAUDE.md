@@ -48,6 +48,7 @@
 
 
 
+
 ## 取得元(GraphQL 版)
 `lib/src/graphql/sales_repositories.dart` の `salesRepositories(GraphQLClient, {AuditUserSource? auditUser})` が、受注(`order`)・受注明細(`orderdetail`)・出荷予定(`shipplan`。DB の出荷オーダー)・出荷指示(`shipline`。出荷オーダー明細)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
 1.  書き込み: 受注・受注明細は、登録・更新・削除(論理削除。`remove = true`)ができる(`OrderPageCreate`・`OrderPageEdit`・`OrderPageRemove`、`OrderDetailPage*`)。顧客・品目の履歴ID+IDは、画面の ID から最新の履歴(`revision` が最大)を引いて送る。更新者(`update_user_id`・`update_user_history_id`)は、ログイン中の担当者(アプリの認証のセッションの担当者の ID と、その最新の履歴の ID。`pms_graphql` の `AuditUserResolver`)を、アプリが `auditUser` として渡し、登録・更新・論理削除で送る(渡されていない・ログインしていないときは送らない)。必須・数値・日付の検証は取得元が行い、`EntityValidationException` で返す。キャンセル・停止・残など操作の DB 関数やビューで決まる項目は読み取り専用で、ここから書かない(操作は DB の関数。画面は別に作る)。

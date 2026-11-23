@@ -148,6 +148,9 @@ class SalesStrings$entity$order$fields$ja {
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
+
+	/// ja: 'クレームを登録'
+	String get f_reserve => 'クレームを登録';
 }
 
 // Path: entity.orderdetail.fields
@@ -275,6 +278,7 @@ extension on SalesStrings {
 			'entity.order.fields.f_delivery_date' => '納期',
 			'entity.order.fields.f_deadline' => '完了期限',
 			'entity.order.fields.f_remarks' => '備考',
+			'entity.order.fields.f_reserve' => 'クレームを登録',
 			'entity.orderdetail.title' => '受注明細',
 			'entity.orderdetail.fields.f_item_id' => '品目',
 			'entity.orderdetail.fields.f_quantity' => '数量',
