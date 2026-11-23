@@ -699,3 +699,10 @@
         +   AuditNotice 登録[AuditNoticePageCall]<!--DB の STABLE の関数 audit_notice(Query。読み取り)-->
         +   AuditPlanStdOption 台帳[AuditPlanStdOptionPage]<!--選択肢(監査標準)-->
         +   AuditPlanStaffOption 台帳[AuditPlanStaffOptionPage]<!--選択肢(担当者)-->
+    1.  organization_model/approval_pattern.yaml(アクセスパスの承認・承認の範囲)
+        +   AccessPathApprovalLedger 台帳[AccessPathApprovalLedgerPage]<!--アクセスパスの承認-->
+        +   AccessPathApprovalLedger 情報[AccessPathApprovalLedgerPageEdit]
+        +   AccessPathApprovalLedger 登録[AccessPathApprovalLedgerPageCreate]
+        +   ApprovalScopeLedger 台帳[ApprovalScopeLedgerPage]<!--承認の範囲(承認パターンごと)-->
+        +   ApprovalScopeLedger 情報[ApprovalScopeLedgerPageEdit]
+        +   ApprovalScopeLedger 登録[ApprovalScopeLedgerPageCreate]
