@@ -1,4 +1,4 @@
--- 20261123_0005 異常の登録の関数 complaint_register と、種類のビュー(v_complaint・v_complaint_kind)の検査 G1〜G6
+-- 20261123_0005 異常の登録の関数 complaint_register と、種類のビュー(v_complaint・v_complaint_kind)の検査 G1〜G7
 -- 実行: node runtest.js <.env> NONE 20261123_0005_complaint_ddl.sql 20261123_0005_complaint.sql
 --   ビュー・関数が DB に適用済みなら、このファイルだけでよい。最後に ROLLBACK するのでデータは変わらない。
 -- 前提: 検証用 DB(ダミーデータ)。担当者 ADMIN・設備・工程・利害関係者・受注がある。
@@ -58,4 +58,10 @@ BEGIN
     SELECT count(*) INTO n FROM tests.v_complaint WHERE trans_complaint_id = c1.trans_complaint_id;
     IF n <> 1 THEN RAISE EXCEPTION 'G6 NG: % 行', n; END IF;
     RAISE NOTICE 'G6 OK';
+
+    -- G7: 利害関係者(最初の 1 つ・件数)と、対象のシンボル(" / " でつなぐ)
+    SELECT * INTO v FROM tests.v_complaint WHERE trans_complaint_id = c1.trans_complaint_id;
+    IF v.party_stakeholder_id IS DISTINCT FROM sh OR v.party_count <> 1 THEN RAISE EXCEPTION 'G7 NG: 利害関係者 % / %', v.party_stakeholder_id, v.party_count; END IF;
+    IF v.target_symbols IS NULL OR v.target_symbols NOT LIKE '% / %' THEN RAISE EXCEPTION 'G7 NG: 対象 %', v.target_symbols; END IF;
+    RAISE NOTICE 'G7 OK';
 END $$;
