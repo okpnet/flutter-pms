@@ -35,9 +35,40 @@ class WorkRecordStrings with BaseTranslations<WorkRecordLocale, WorkRecordString
 	WorkRecordStrings $copyWith({TranslationMetadata<WorkRecordLocale, WorkRecordStrings>? meta}) => WorkRecordStrings(meta: meta ?? this.$meta);
 
 	// Translations
+	late final WorkRecordStrings$pick$ja pick = WorkRecordStrings$pick$ja.internal(_root);
 	late final WorkRecordStrings$register$ja register = WorkRecordStrings$register$ja.internal(_root);
 	late final WorkRecordStrings$menu$ja menu = WorkRecordStrings$menu$ja.internal(_root);
 	late final WorkRecordStrings$entity$ja entity = WorkRecordStrings$entity$ja.internal(_root);
+}
+
+// Path: pick
+class WorkRecordStrings$pick$ja {
+	WorkRecordStrings$pick$ja.internal(this._root);
+
+	final WorkRecordStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '作業実績'
+	String get workRecord => '作業実績';
+
+	/// ja: 'ロット'
+	String get lot => 'ロット';
+
+	/// ja: 'シンボル'
+	String get symbol => 'シンボル';
+
+	/// ja: '数量'
+	String get quantity => '数量';
+
+	/// ja: '回'
+	String get nthTime => '回';
+
+	/// ja: '開始日'
+	String get startAt => '開始日';
+
+	/// ja: '出庫許可'
+	String get release => '出庫許可';
 }
 
 // Path: register
@@ -791,6 +822,13 @@ class WorkRecordStrings$entity$stockstatus$fields$ja {
 extension on WorkRecordStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'pick.workRecord' => '作業実績',
+			'pick.lot' => 'ロット',
+			'pick.symbol' => 'シンボル',
+			'pick.quantity' => '数量',
+			'pick.nthTime' => '回',
+			'pick.startAt' => '開始日',
+			'pick.release' => '出庫許可',
 			'register.title' => '実績登録',
 			'register.empty' => '生産計画がありません。',
 			'register.loadFailed' => '読み込めませんでした。',

@@ -37,6 +37,9 @@
 ## ビジター品目(読み取り専用)
 MRP のビジター品目(`mrpvisiter`、`v_mrp_visiter_item`)は、読み取り専用(`viewOnly`)の台帳として出す。項目は品目・品目数・完了・数量。
 
+## 選択用の実体(作業実績・ロット。手書き)
+異常の登録(`quality`。Issue 20261123_0001 C-1)などで、対象の作業実績・ロットを選ぶための、読み取り専用の台帳(`lib/src/pick/pick_definitions.dart`。`inMenu: false`)。**キーは契約**: 作業実績 `workrecpick`・ロット `lotpick`(他の機能は `EntityPickerDestination` でキーだけで選ぶ)。表示は シンボル + 数量(先頭から文字・数値の 2 つ)。取得元(`lib/src/graphql/pick_repositories.dart`。`work_record_model` の `WorkRecordPickPage`・`LotPickPage`。軽い読み取り)は、作業実績 = `trans_work_record`、ロット = `trans_visiter` の数量が正で、調整でない行。生成の対象外で、モジュールが生成された定義に足す(`workRecordDefinitions` + `pickDefinitions`)。名称は手書きの文字(`pick`。ja・en)を `ExtraFieldLabels` で足す。アクセスパスは `/e/workrecpick`・`/e/lotpick`。
+
 <!-- entity_gen:begin -->
 ## 実体の画面(生成)
 台帳(テーブル/ツリー)と編集の画面は、`tools/entity_gen/gen.js` が `tools/open-design` の画面定義から生成する(定義・サンプル・表示名・モジュール・テスト)。

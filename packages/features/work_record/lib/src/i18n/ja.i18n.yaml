@@ -1,3 +1,12 @@
+# 選択用の実体(手書き。異常の登録などで、対象の作業実績・ロットを選ぶ)
+pick:
+  workRecord: 作業実績
+  lot: ロット
+  symbol: シンボル
+  quantity: 数量
+  nthTime: 回
+  startAt: 開始日
+  release: 出庫許可
 register:
   title: 実績登録
   empty: 生産計画がありません。

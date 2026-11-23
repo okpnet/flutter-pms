@@ -430,6 +430,14 @@ features:
         code: S
         page: WS
         label: 在庫状況
+      - screen: workrecpick
+        code: P
+        page: WP
+        label: 作業実績の選択
+      - screen: lotpick
+        code: L
+        page: WL
+        label: ロットの選択
   - feature: quality_common
     code: C
     label: 品質共通

@@ -131,3 +131,39 @@ ConveyPageEdit:
     - update_user_history_id
     - remove
 
+
+# ---- 選択画面(異常の登録の対象を選ぶ。Issue 20261123_0001 C-1)。シンボルと数量だけを軽く読む ----
+
+# 作業実績の選択(trans_work_record)
+WorkRecordPickPage:
+  lightRead: true
+  kind: read
+  from: trans_work_record
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - trans_work_record_id
+    - symbol
+    - nth_time
+    - start_at
+    - qty
+
+# ロットの選択(trans_visiter。数量が正で、調整でない行 = ロットは、画面側の絞り込みで指定する)
+LotPickPage:
+  lightRead: true
+  kind: read
+  from: trans_visiter
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - trans_visiter_id
+    - symbol
+    - quantity
+    - release
+    - adjustment

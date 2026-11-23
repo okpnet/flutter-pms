@@ -5,13 +5,16 @@ import 'package:entity_screens/entity_screens.dart';
 /// 生成物は再生成で上書きされるため、行の操作(`RowAction`)の名前は、機能のモジュールが持つ文字([extra])として足す。
 /// キーは `<実体のキー>.<項目(操作)のキー>`(例 `order.complaint`)。ない項目は [base] に任せる。
 class ExtraFieldLabels implements EntityLabels {
-  const ExtraFieldLabels(this.base, this.extra);
+  const ExtraFieldLabels(this.base, this.extra, {this.entities = const {}});
 
   final EntityLabels base;
   final Map<String, String> extra;
 
+  /// 手書きの実体の名称(キー = 実体のキー)。
+  final Map<String, String> entities;
+
   @override
-  String entity(String entityKey) => base.entity(entityKey);
+  String entity(String entityKey) => entities[entityKey] ?? base.entity(entityKey);
 
   @override
   String field(String entityKey, String fieldKey) => extra['$entityKey.$fieldKey'] ?? base.field(entityKey, fieldKey);

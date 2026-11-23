@@ -4,6 +4,7 @@ import 'package:graphql/client.dart';
 import 'package:work_record_model/work_record_model.dart';
 
 import '../entities/work_record_definitions.dart';
+import 'pick_repositories.dart';
 
 /// 作業実績の実体の取得元(GraphQL 版。読み取り専用)。アプリが [GraphQLClient] を渡して組み立て、
 /// `entityRepositoryOverridesProvider` に渡すと、サンプル(メモリ上)の代わりに使われる。
@@ -22,6 +23,8 @@ List<IEntityRepository> workRecordRepositories(GraphQLClient client) {
   return [
     _ContainerRepository(_readOnly('container'), client, language),
     _CertificateRepository(_readOnly('certificate'), client, language),
+    // 選択用(異常の登録などで、対象の作業実績・ロットを選ぶ)
+    ...workRecordPickRepositories(client),
   ];
 }
 

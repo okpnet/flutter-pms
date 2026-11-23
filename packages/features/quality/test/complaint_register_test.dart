@@ -53,11 +53,13 @@ void main() {
       expect(validateComplaintRegister(const ComplaintRegisterInput(target: ComplaintTarget.work, targetId: 'w', title: 'x', quantity: 'abc')), [ComplaintRegisterError.quantityInvalid]);
     });
 
-    test('対象の種類は、選ぶ台帳のキー(作業実績・ロットはシンボル入力)を持つ', () {
+    test('対象の種類は、選ぶ台帳のキーを持つ', () {
       expect(ComplaintTarget.process.pickerKey, 'task');
       expect(ComplaintTarget.stakeholder.pickerKey, 'stakeholder');
-      expect(ComplaintTarget.work.pickerKey, isNull);
-      expect(ComplaintTarget.visiter.pickerKey, isNull);
+      expect(ComplaintTarget.work.pickerKey, 'workrecpick');
+      expect(ComplaintTarget.visiter.pickerKey, 'lotpick');
+      expect(ComplaintTarget.work.symbolEntry, isTrue); // 作業実績・ロットは、シンボル(バーコード)の入力も使える
+      expect(ComplaintTarget.process.symbolEntry, isFalse);
       expect(ComplaintTarget.byName('order'), ComplaintTarget.order);
       expect(ComplaintTarget.byName('?'), isNull);
     });
@@ -92,14 +94,14 @@ void main() {
       expect(find.text('選んだ task'), findsNothing);
     });
 
-    testWidgets('作業実績・ロットは、シンボルまたは ID を入力する。ロットは数量が必須', (tester) async {
+    testWidgets('作業実績・ロットは、選択画面と、シンボルまたは ID の入力の両方で指定できる。ロットは数量が必須', (tester) async {
       final g = InMemoryComplaintRegisterGateway();
       await _open(tester, _app(g, _Bus()));
       await tester.tap(find.byKey(const Key('cr-kind')));
       await tester.pumpAndSettle();
       await tester.tap(find.text('ロット(棚移動で発見された異常)').last);
       await tester.pumpAndSettle();
-      expect(find.byKey(const Key('cr-pick')), findsNothing);
+      expect(find.byKey(const Key('cr-pick')), findsOneWidget); // 選択画面も使える
       await tester.enterText(find.byKey(const Key('cr-target-text')), 'LT-0001');
       await tester.enterText(find.byKey(const Key('cr-title')), '棚の取り違え');
       await tester.tap(find.byKey(const Key('cr-register')));
@@ -129,6 +131,29 @@ void main() {
       await tester.tap(find.byKey(const Key('cr-register')));
       await tester.pumpAndSettle();
       expect(find.byKey(const Key('cr-failed')), findsOneWidget);
+    });
+
+    testWidgets('作業実績・ロットを選択画面で選ぶと、その ID で登録する。選んだあとにシンボルを入力すると、入力したシンボルを使う(後から指定した方が優先)', (tester) async {
+      final g = InMemoryComplaintRegisterGateway();
+      final bus = _Bus();
+      await _open(tester, _app(g, bus, location: '/quality/complaint-register?target=visiter'));
+      await tester.tap(find.byKey(const Key('cr-pick')));
+      await tester.pumpAndSettle();
+      expect(bus.picked, ['lotpick']);
+      await tester.enterText(find.byKey(const Key('cr-title')), '棚の取り違え');
+      await tester.enterText(find.byKey(const Key('cr-quantity')), '2');
+      await tester.tap(find.byKey(const Key('cr-register')));
+      await tester.pumpAndSettle();
+      expect(g.registered.last.targetId, 'id-lotpick');
+
+      await tester.tap(find.byKey(const Key('cr-pick')));
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byKey(const Key('cr-target-text')), 'LT-0009'); // 選んだ対象は使わない
+      await tester.enterText(find.byKey(const Key('cr-title')), '別のロット');
+      await tester.enterText(find.byKey(const Key('cr-quantity')), '1');
+      await tester.tap(find.byKey(const Key('cr-register')));
+      await tester.pumpAndSettle();
+      expect(g.registered.last.targetId, 'LT-0009');
     });
 
     testWidgets('関連する画面からは、種類と対象を決めて開ける(対象は選び直せる)', (tester) async {

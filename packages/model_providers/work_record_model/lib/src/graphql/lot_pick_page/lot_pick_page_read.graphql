@@ -1,0 +1,32 @@
+# lot_pick_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #LotPickPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query LotPickPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransVisiterFilter = {and: []}
+  $orderBy: [TransVisitersOrderBy!]
+  $removed: Boolean = false
+) {
+  allTransVisiters(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transVisiterId
+      symbol
+      quantity
+      release
+      adjustment
+    }
+  }
+}

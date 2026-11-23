@@ -113,3 +113,5 @@
 /auth/admin/users/new,ユーザーの作成,Create user,auth_files,false
 /e/provision,提供,Provision,organization,false
 /e/position,役割(役職),Position,organization,false
+/e/workrecpick,作業実績の選択,Work record picker,work_record,false
+/e/lotpick,ロットの選択,Lot picker,work_record,false

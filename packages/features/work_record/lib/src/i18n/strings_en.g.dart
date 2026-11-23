@@ -38,9 +38,26 @@ class WorkRecordStringsEn extends WorkRecordStrings with BaseTranslations<WorkRe
 	WorkRecordStringsEn $copyWith({TranslationMetadata<WorkRecordLocale, WorkRecordStrings>? meta}) => WorkRecordStringsEn(meta: meta ?? this.$meta);
 
 	// Translations
+	@override late final _WorkRecordStrings$pick$en pick = _WorkRecordStrings$pick$en._(_root);
 	@override late final _WorkRecordStrings$menu$en menu = _WorkRecordStrings$menu$en._(_root);
 	@override late final _WorkRecordStrings$entity$en entity = _WorkRecordStrings$entity$en._(_root);
 	@override late final _WorkRecordStrings$register$en register = _WorkRecordStrings$register$en._(_root);
+}
+
+// Path: pick
+class _WorkRecordStrings$pick$en extends WorkRecordStrings$pick$ja {
+	_WorkRecordStrings$pick$en._(WorkRecordStringsEn root) : this._root = root, super.internal(root);
+
+	final WorkRecordStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get workRecord => 'Work record';
+	@override String get lot => 'Lot';
+	@override String get symbol => 'Symbol';
+	@override String get quantity => 'Quantity';
+	@override String get nthTime => 'Time';
+	@override String get startAt => 'Started on';
+	@override String get release => 'Release allowed';
 }
 
 // Path: menu
@@ -487,6 +504,13 @@ class _WorkRecordStrings$entity$stockstatus$fields$en extends WorkRecordStrings$
 extension on WorkRecordStringsEn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'pick.workRecord' => 'Work record',
+			'pick.lot' => 'Lot',
+			'pick.symbol' => 'Symbol',
+			'pick.quantity' => 'Quantity',
+			'pick.nthTime' => 'Time',
+			'pick.startAt' => 'Started on',
+			'pick.release' => 'Release allowed',
 			'menu.group' => 'Work records',
 			'entity.container.title' => 'Containers',
 			'entity.container.fields.f_code' => 'Code',

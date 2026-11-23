@@ -4,16 +4,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 enum ComplaintTarget {
   equipment('equipment'),
   process('task'),
-  work(null),
+  work('workrecpick'),
   purchaseRec('purchaserec'),
-  visiter(null),
+  visiter('lotpick'),
   order('order'),
   stakeholder('stakeholder');
 
   const ComplaintTarget(this.pickerKey);
 
-  /// 対象を選ぶ台帳の実体のキー(`EntityPickerDestination`)。null は、シンボルまたは ID を入力する。
-  final String? pickerKey;
+  /// 対象を選ぶ台帳の実体のキー(`EntityPickerDestination`。機能同士は、キーだけで受け渡す)。
+  final String pickerKey;
+
+  /// シンボル(バーコード)を入力して指定できる(作業実績・ロット。選択画面と併用する)。
+  bool get symbolEntry => this == work || this == visiter;
 
   /// 数量が必須(ロット)。
   bool get quantityRequired => this == visiter;

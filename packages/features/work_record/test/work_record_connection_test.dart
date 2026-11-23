@@ -8,9 +8,9 @@ import 'package:work_record/work_record.dart';
 /// 一般ユーザーの資格情報を渡して実行する(packages/infra/data_test_harness/CLAUDE.md)。
 void main() {
   group('検証用サーバー: 作業実績の取得元(読み取り専用)', () {
-    serverTest('コンテナ・成績書を、画面の値(名称は言語コード ja)で取得できる', (server) async {
+    serverTest('コンテナ・成績書・選択用(作業実績・ロット)を、画面の値(名称は言語コード ja)で取得できる', (server) async {
       final repos = workRecordRepositories(server.provider.client);
-      for (final key in ['container', 'certificate']) {
+      for (final key in ['container', 'certificate', 'workrecpick', 'lotpick']) {
         final repo = repos.firstWhere((r) => r.definition.key == key);
         final rows = await repo.find(take: 50);
         // 検証用 DB にデータが無い実体は、取得できる(空)ことだけを確認する
@@ -22,7 +22,7 @@ void main() {
 
     test('実体は読み取り専用: 新規・保存・削除を出さず、書き込もうとすると失敗する', () {
       final repos = workRecordRepositories(GraphQLClient(link: HttpLink('http://localhost:1'), cache: GraphQLCache()));
-      expect(repos.map((r) => r.definition.key), ['container', 'certificate']);
+      expect(repos.map((r) => r.definition.key), ['container', 'certificate', 'workrecpick', 'lotpick']);
       for (final r in repos) {
         expect(r.definition.viewOnly, isTrue);
         expect(r.definition.fields.every((f) => f.readOnly), isTrue);

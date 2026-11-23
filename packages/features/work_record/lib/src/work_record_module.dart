@@ -8,6 +8,7 @@ import 'entities/work_record_definitions.dart';
 import 'entities/work_record_labels.dart';
 import 'entities/work_record_seeds.dart';
 import 'i18n/strings_provider.dart';
+import 'pick/pick_definitions.dart';
 import 'register/register_destinations.dart';
 import 'register/register_page.dart';
 
@@ -25,14 +26,29 @@ class WorkRecordModule extends EntityFeatureModule {
   static const registerPath = '/wr';
 
   @override
-  List<EntityDefinition> get definitions => workRecordDefinitions;
+  /// 生成された定義に、選択用の実体(作業実績・ロット。手書き)を足す。
+  List<EntityDefinition> get definitions => [...workRecordDefinitions, ...pickDefinitions];
 
   @override
-  Map<String, List<EntityRecord>> get seeds => workRecordSeeds;
+  Map<String, List<EntityRecord>> get seeds => {...workRecordSeeds, ...pickSeeds};
 
   @override
-  EntityLabels labelsOf(WidgetRef ref) =>
-      WorkRecordLabels(ref.watch(workRecordStringsProvider));
+  EntityLabels labelsOf(WidgetRef ref) {
+    final t = ref.watch(workRecordStringsProvider);
+    return ExtraFieldLabels(
+      WorkRecordLabels(t),
+      {
+        '$workRecordPickKey.symbol': t.pick.symbol,
+        '$workRecordPickKey.qty': t.pick.quantity,
+        '$workRecordPickKey.nth_time': t.pick.nthTime,
+        '$workRecordPickKey.start_at': t.pick.startAt,
+        '$lotPickKey.symbol': t.pick.symbol,
+        '$lotPickKey.quantity': t.pick.quantity,
+        '$lotPickKey.release': t.pick.release,
+      },
+      entities: {workRecordPickKey: t.pick.workRecord, lotPickKey: t.pick.lot},
+    );
+  }
 
   @override
   String get menuGroupId => 'work_record';

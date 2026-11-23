@@ -1,3 +1,12 @@
+# Pick entities (hand-written; choose a work record or a lot as a target)
+pick:
+  workRecord: Work record
+  lot: Lot
+  symbol: Symbol
+  quantity: Quantity
+  nthTime: Time
+  startAt: Started on
+  release: Release allowed
 # Work records strings (English). Keys missing here fall back to the base language (ja).
 menu:
   group: "Work records"
