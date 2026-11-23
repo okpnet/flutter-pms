@@ -243,9 +243,6 @@ class ProductionProcessStrings$entity$task$reverse$ja {
 	/// ja: '生産計画明細'
 	String get workplan => '生産計画明細';
 
-	/// ja: '工程苦情'
-	String get cproc => '工程苦情';
-
 	/// ja: '工程リスク'
 	String get taskrisk => '工程リスク';
 }
@@ -387,7 +384,6 @@ extension on ProductionProcessStrings {
 			'entity.task.fields.f_remarks' => '備考',
 			'entity.task.reverse.optask' => '工程の選択',
 			'entity.task.reverse.workplan' => '生産計画明細',
-			'entity.task.reverse.cproc' => '工程苦情',
 			'entity.task.reverse.taskrisk' => '工程リスク',
 			'entity.taskres.title' => '工程場所',
 			'entity.taskres.fields.f_info_department_id' => '組織情報',

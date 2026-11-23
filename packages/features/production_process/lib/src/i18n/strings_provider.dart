@@ -11,9 +11,13 @@ export 'strings.g.dart' show ProductionProcessStrings;
 /// 基準言語以外は遅延読み込み(slang の生成物)のため、読み込みが終わるまでは
 /// 基準言語の文字列を返し、終わった時点で差し替える。
 final productionProcessStringsProvider =
-    NotifierProvider<ProductionProcessStringsNotifier, ProductionProcessStrings>(ProductionProcessStringsNotifier.new);
+    NotifierProvider<
+      ProductionProcessStringsNotifier,
+      ProductionProcessStrings
+    >(ProductionProcessStringsNotifier.new);
 
-class ProductionProcessStringsNotifier extends Notifier<ProductionProcessStrings> {
+class ProductionProcessStringsNotifier
+    extends Notifier<ProductionProcessStrings> {
   @override
   ProductionProcessStrings build() {
     final languageCode = ref.watch(localeProvider).languageCode;

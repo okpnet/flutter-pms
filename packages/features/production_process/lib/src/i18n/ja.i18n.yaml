@@ -23,7 +23,6 @@ entity:
     reverse:
       optask: "工程の選択"
       workplan: "生産計画明細"
-      cproc: "工程苦情"
       taskrisk: "工程リスク"
   taskres:
     title: "工程場所"

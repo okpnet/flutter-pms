@@ -28,6 +28,7 @@ class ProductionProcessModule extends EntityFeatureModule {
   String get menuGroupId => 'production_process';
 
   @override
-  String menuGroupLabel(WidgetRef ref) =>
-      ProductionProcessLabels(ref.watch(productionProcessStringsProvider)).menuGroup;
+  String menuGroupLabel(WidgetRef ref) => ProductionProcessLabels(
+    ref.watch(productionProcessStringsProvider),
+  ).menuGroup;
 }
