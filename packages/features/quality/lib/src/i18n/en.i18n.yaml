@@ -28,6 +28,11 @@ auditRun:
   ok: Finish
   noItems: There are no items. Starting the audit prepares the items of the audit standard.
   itemValue: Value
+  expected: 'Criterion: ${expr}'
+  yes: 'Yes'
+  no: 'No'
+  judgePass: Pass
+  judgeFail: Fail
   itemFindings: Findings (comment)
   save: Save
   saved: Saved.

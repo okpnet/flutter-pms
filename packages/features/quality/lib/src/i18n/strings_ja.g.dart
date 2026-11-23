@@ -134,6 +134,21 @@ class QualityStrings$auditRun$ja {
 	/// ja: '値'
 	String get itemValue => '値';
 
+	/// ja: '基準: ${expr}'
+	String expected({required Object expr}) => '基準: ${expr}';
+
+	/// ja: 'はい'
+	String get yes => 'はい';
+
+	/// ja: 'いいえ'
+	String get no => 'いいえ';
+
+	/// ja: '適合'
+	String get judgePass => '適合';
+
+	/// ja: '不適合'
+	String get judgeFail => '不適合';
+
 	/// ja: '所見(コメント)'
 	String get itemFindings => '所見(コメント)';
 
@@ -1122,6 +1137,11 @@ extension on QualityStrings {
 			'auditRun.ok' => '終了する',
 			'auditRun.noItems' => '項目がありません。実施を開始すると、監査標準の項目が用意されます。',
 			'auditRun.itemValue' => '値',
+			'auditRun.expected' => ({required Object expr}) => '基準: ${expr}',
+			'auditRun.yes' => 'はい',
+			'auditRun.no' => 'いいえ',
+			'auditRun.judgePass' => '適合',
+			'auditRun.judgeFail' => '不適合',
 			'auditRun.itemFindings' => '所見(コメント)',
 			'auditRun.save' => '保存',
 			'auditRun.saved' => '保存しました。',

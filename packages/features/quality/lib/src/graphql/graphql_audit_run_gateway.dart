@@ -5,6 +5,7 @@ import 'package:graphql/client.dart';
 import 'package:pms_graphql/pms_graphql.dart' show AuditUser, AuditUserSource;
 import 'package:quality_model/quality_model.dart';
 
+import '../audit_run/audit_judgement.dart';
 import '../audit_run/audit_run_gateway.dart';
 
 /// 監査を実施する側の GraphQL 版の取得元(モデルは `quality_model` の `AuditDetailPage`・`AuditItemPage` ほか。Issue 20261122_0001)。
@@ -170,6 +171,7 @@ class GraphqlAuditRunGateway implements IAuditRunGateway {
           detailId: detailId,
           name: master is Map ? _dictionaryName(master['labels']) : '',
           code: std is Map ? '${std['code'] ?? ''}' : '',
+          expr: std is Map ? (AuditJudgement.parseExpr(std['argClass'])?.toJsonString() ?? '') : '',
           value: text,
           findings: findings is Map ? _first(findings['value'], 'textValue') : '',
           complaints: [

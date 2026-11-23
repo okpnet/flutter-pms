@@ -28,6 +28,11 @@ auditRun:
   ok: 終了する
   noItems: 項目がありません。実施を開始すると、監査標準の項目が用意されます。
   itemValue: 値
+  expected: '基準: ${expr}'
+  yes: はい
+  no: いいえ
+  judgePass: 適合
+  judgeFail: 不適合
   itemFindings: 所見(コメント)
   save: 保存
   saved: 保存しました。

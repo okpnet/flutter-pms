@@ -108,6 +108,7 @@ class AuditItem {
     required this.detailId,
     required this.name,
     this.code = '',
+    this.expr = '',
     this.value = '',
     this.findings = '',
     this.complaints = const [],
@@ -117,6 +118,9 @@ class AuditItem {
   final String detailId;
   final String name;
   final String code;
+
+  /// 判定の式(条件の JSON。`ConditionValue`。空 = 式なし)。入力欄の種類と合否の判定に使う。
+  final String expr;
 
   /// 式に対する値(JSON の value の文字)。
   final String value;
@@ -133,6 +137,7 @@ class AuditItem {
     detailId: detailId,
     name: name,
     code: code,
+    expr: expr,
     value: value ?? this.value,
     findings: findings ?? this.findings,
     complaints: complaints ?? this.complaints,

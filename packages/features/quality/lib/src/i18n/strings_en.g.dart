@@ -80,6 +80,11 @@ class _QualityStrings$auditRun$en extends QualityStrings$auditRun$ja {
 	@override String get ok => 'Finish';
 	@override String get noItems => 'There are no items. Starting the audit prepares the items of the audit standard.';
 	@override String get itemValue => 'Value';
+	@override String expected({required Object expr}) => 'Criterion: ${expr}';
+	@override String get yes => 'Yes';
+	@override String get no => 'No';
+	@override String get judgePass => 'Pass';
+	@override String get judgeFail => 'Fail';
 	@override String get itemFindings => 'Findings (comment)';
 	@override String get save => 'Save';
 	@override String get saved => 'Saved.';
@@ -745,6 +750,11 @@ extension on QualityStringsEn {
 			'auditRun.ok' => 'Finish',
 			'auditRun.noItems' => 'There are no items. Starting the audit prepares the items of the audit standard.',
 			'auditRun.itemValue' => 'Value',
+			'auditRun.expected' => ({required Object expr}) => 'Criterion: ${expr}',
+			'auditRun.yes' => 'Yes',
+			'auditRun.no' => 'No',
+			'auditRun.judgePass' => 'Pass',
+			'auditRun.judgeFail' => 'Fail',
 			'auditRun.itemFindings' => 'Findings (comment)',
 			'auditRun.save' => 'Save',
 			'auditRun.saved' => 'Saved.',

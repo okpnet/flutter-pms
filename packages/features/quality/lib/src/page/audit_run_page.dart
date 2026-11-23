@@ -1,8 +1,10 @@
 import 'package:app_shell/app_shell.dart';
+import 'package:entity_screens/entity_screens.dart' show ConditionOperator, ConditionValue;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loadux_lib/loadux_lib.dart';
 
+import '../audit_run/audit_judgement.dart';
 import '../audit_run/audit_run_gateway.dart';
 import '../i18n/strings_provider.dart';
 import 'my_audits_page.dart' show formatAuditDate;
@@ -235,6 +237,61 @@ class _ItemCardState extends ConsumerState<_ItemCard> {
     super.dispose();
   }
 
+  ConditionValue? get _expr => ConditionValue.tryParse(widget.item.expr);
+
+  /// 値の入力欄。式(条件)の種類ごと: はい/いいえ = 選択、数・範囲 = 数の入力、ほか = 文字。基準と、入力した値の合否を出す。
+  List<Widget> _valueInput(dynamic s, String id) {
+    final expr = _expr;
+    final judged = AuditJudgement.judge(expr, _value.text);
+    final scheme = Theme.of(context).colorScheme;
+    final Widget input;
+    if (expr?.operator == ConditionOperator.yesNo) {
+      input = SegmentedButton<String>(
+        key: Key('ar-value-$id'),
+        emptySelectionAllowed: true,
+        showSelectedIcon: false,
+        segments: [
+          ButtonSegment(value: 'true', label: Text(s.yes as String)),
+          ButtonSegment(value: 'false', label: Text(s.no as String)),
+        ],
+        selected: {if (_value.text == 'true' || _value.text == 'false') _value.text},
+        onSelectionChanged: widget.editable ? (v) => setState(() => _value.text = v.isEmpty ? '' : v.first) : null,
+      );
+    } else {
+      final numeric = AuditJudgement.isNumeric(expr);
+      input = TextField(
+        key: Key('ar-value-$id'),
+        controller: _value,
+        enabled: widget.editable,
+        keyboardType: numeric ? const TextInputType.numberWithOptions(decimal: true, signed: true) : null,
+        onChanged: (_) => setState(() {}),
+        decoration: InputDecoration(labelText: s.itemValue as String, isDense: true, border: const OutlineInputBorder()),
+      );
+    }
+    return [
+      if (expr != null)
+        Padding(
+          padding: const EdgeInsets.only(bottom: 6),
+          child: Text(s.expected(expr: expr.display) as String, key: Key('ar-expr-$id'), style: Theme.of(context).textTheme.bodySmall),
+        ),
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(child: input),
+          if (judged != null) ...[
+            const SizedBox(width: 10),
+            Chip(
+              key: Key('ar-judge-$id'),
+              label: Text(judged ? s.judgePass as String : s.judgeFail as String),
+              visualDensity: VisualDensity.compact,
+              side: BorderSide(color: judged ? scheme.primary : scheme.error),
+            ),
+          ],
+        ],
+      ),
+    ];
+  }
+
   bool get _dirty => _value.text != widget.item.value || _findings.text != widget.item.findings;
 
   @override
@@ -282,13 +339,7 @@ class _ItemCardState extends ConsumerState<_ItemCard> {
                 ],
               ),
               const SizedBox(height: 10),
-              TextField(
-                key: Key('ar-value-$id'),
-                controller: _value,
-                enabled: widget.editable,
-                onChanged: (_) => setState(() {}),
-                decoration: InputDecoration(labelText: s.itemValue, isDense: true, border: const OutlineInputBorder()),
-              ),
+              ..._valueInput(s, id),
               const SizedBox(height: 10),
               TextField(
                 key: Key('ar-findings-$id'),
