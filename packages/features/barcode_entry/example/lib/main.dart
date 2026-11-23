@@ -35,7 +35,7 @@ class ExampleApp extends StatelessWidget {
       themeLoggerProvider.overrideWithValue(logger),
       // 処理待ち(まとめて登録)・担当者の読み取りは、example では有効にしない(既定の false のまま)。
       // 有効にすると登録の通信がまとめて登録のときに移るため、通信できる環境での確認が済んでから、アプリ側で書く
-      // (条件は `batchQueueProvider` のコメントと `issue/20261120_0001.md`)。
+      // (条件は `batchQueueProvider` のコメントと `issue/202611.md#20261120_0001`)。
       // batchQueueProvider.overrideWithValue(true),
       // requireOperatorProvider.overrideWithValue(true),
     ],

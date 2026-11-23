@@ -1,7 +1,7 @@
 # approval
 
 承認一覧(承認待ちの一覧・複数選択の一括承認・パスワードの再入力・ダッシュボードの承認待ち通知)。`packages/features/CLAUDE.md` の[規則/仕様]を必ず適用する。
-デザインは `tools/open-design` の 6.7「承認一覧と、ダッシュボードの承認待ち通知」。経緯は `issue/20261121_0001.md`(リポジトリのルート)。
+デザインは `tools/open-design` の 6.7「承認一覧と、ダッシュボードの承認待ち通知」。経緯は `issue/202611.md#20261121_0001`(リポジトリのルート)。
 契約(遷移先)は `lib/approval_api.dart`(`ApprovalListDestination`)。実装の入口 `lib/approval.dart` はアプリだけが読み込む。
 
 ## 画面(`/approval/<メニュー>`。`ApprovalListPage`)

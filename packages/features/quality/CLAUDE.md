@@ -73,7 +73,7 @@
 ## 取得元(GraphQL 版。読み取り専用)
 `lib/src/graphql/quality_repositories.dart` の `qualityRepositories(GraphQLClient)` が、苦情(`complaint`)・監査(`audit`)・監査基準(`auditstd`)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
 1.  読み取り専用: 実体を `viewOnly`・各項目 `readOnly` にし、保存・削除は `UnsupportedError`。苦情・監査の題名は多言語のラベル(`trans_label`)、詳細は多言語の文章(`trans_text`。先頭の文)、監査基準の名称・読み・略称は多言語の辞書、詳細は文章(`shared_text`)で、言語コード `ja` の値を読む。ほかの実体は、サンプルのまま: 親の ID を必須にする読み込みの実体(苦情の子の受入・関係者・ファイル・受注・工程・設備、受注リスク・工程リスク、監査チーム・監査員など)、帳票。
-1.  **【入れ替え: 呼称の DB 関数】** 書き込みは、ラベル・文章(`trans_label`・`trans_text` と値の表)・辞書を複数の表へ登録する関数を足して適用したら、`~PageCall` で `save` を入れ替え、`viewOnly` を外す(`issue/C_202611.md` の 2-1。`doc/query/20261114_0002` の補助は辞書・文章(`shared_*`)用で、`trans_*` のラベル・文章は別の表のため、同じ方式の補助を足す)。
+1.  **【入れ替え: 呼称の DB 関数】** 書き込みは、ラベル・文章(`trans_label`・`trans_text` と値の表)・辞書を複数の表へ登録する関数を足して適用したら、`~PageCall` で `save` を入れ替え、`viewOnly` を外す(`issue/202611.md#C_202611` の 2-1。`doc/query/20261114_0002` の補助は辞書・文章(`shared_*`)用で、`trans_*` のラベル・文章は別の表のため、同じ方式の補助を足す)。
 1.  検証用 DB には苦情が 1 件あり、題名・詳細・日付・報告者の値が取得できることを確認した。監査・監査基準は 0 件で、取得できる(空)ことだけを確認した。
 
 ## 規則/仕様

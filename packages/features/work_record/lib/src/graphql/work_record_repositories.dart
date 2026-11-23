@@ -9,7 +9,7 @@ import '../entities/work_record_definitions.dart';
 /// `entityRepositoryOverridesProvider` に渡すと、サンプル(メモリ上)の代わりに使われる。
 ///
 /// 【入れ替え: 呼称の DB 関数】 書き込みは、共通関数(`shared_appellation_save`・`shared_text_save`)で呼称・文章を作り、返った ID を本体のミューテーションに渡す形で、コンテナ・成績書の取得元の `save` を入れ替え、`viewOnly` を外す
-/// (`issue/C_202611.md` の 2-1)。
+/// (`issue/202611.md#C_202611` の 2-1)。
 ///
 /// 対象はコンテナ(`container`)・成績書(`certificate`)。名称は多言語のラベル(`trans_label`)で、言語コード `ja` の値を読む。
 /// コンテナは、DB に親子の列が無いため、すべてトップに並べる。作業実績(`workrec`。読み込みが作業指示を必須にしている)・

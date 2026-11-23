@@ -1,6 +1,6 @@
 # document_settings
 
-承認スタンプ・PDF の設定(`info_app.settings` の `stamp`・`pdf`)の編集画面。`packages/features/CLAUDE.md` の[規則/仕様]を必ず適用する。仕様の経緯は `issue/20261121_0001.md`(リポジトリのルート)。
+承認スタンプ・PDF の設定(`info_app.settings` の `stamp`・`pdf`)の編集画面。`packages/features/CLAUDE.md` の[規則/仕様]を必ず適用する。仕様の経緯は `issue/202611.md#20261121_0001`(リポジトリのルート)。
 契約(遷移先の型)は `lib/document_settings_api.dart`(`DocumentSettingsDestination`)。実装の入口 `lib/document_settings.dart` はアプリだけが読み込む。
 
 ## 画面(`/auth/admin/document-settings`。`DocumentSettingsPage`)

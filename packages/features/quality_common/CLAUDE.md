@@ -50,7 +50,7 @@
 ## 取得元(GraphQL 版。読み取り専用)
 `lib/src/graphql/quality_common_repositories.dart` の `qualityCommonRepositories(GraphQLClient)` が、リスク(`risk`)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
 1.  読み取り専用: 実体を `viewOnly`・各項目 `readOnly` にし、保存・削除は `UnsupportedError`。題名は多言語のラベル(`trans_label`)、詳細は多言語の文章(`trans_text`。先頭の文)で、言語コード `ja` の値を読む。処置・再発防止(読み込みが親の苦情・処置を必須にしている)・予防・予防明細・観察・監査基準の確認項目は、サンプルのまま。
-1.  **【入れ替え: 呼称の DB 関数】** 書き込みは、ラベル・文章(`trans_label`・`trans_text` と値の表)を複数の表へ登録する関数を足して適用したら、`~PageCall` で `save` を入れ替え、`viewOnly` を外す(`issue/C_202611.md` の 2-1。`doc/query/20261114_0002` の補助は辞書用で、ラベル・文章は別の表のため、同じ方式の補助を足す)。
+1.  **【入れ替え: 呼称の DB 関数】** 書き込みは、ラベル・文章(`trans_label`・`trans_text` と値の表)を複数の表へ登録する関数を足して適用したら、`~PageCall` で `save` を入れ替え、`viewOnly` を外す(`issue/202611.md#C_202611` の 2-1。`doc/query/20261114_0002` の補助は辞書用で、ラベル・文章は別の表のため、同じ方式の補助を足す)。
 
 ## 規則/仕様
 1.  ディリクトリ/ファイル

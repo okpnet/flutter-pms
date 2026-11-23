@@ -15,7 +15,7 @@ cd apps\pms_app_example; flutter run -d windows
 右下の検証パネルで、接続断・メンテナンス・セッション切れを再現する。仮想のユーザー: `admin` / `admin-pass`(管理者)、`sato` / `sato-pass`(受注だけ許可)。
 
 ## テスト(評価)
-`flutter test`(サーバーに接続しない)。`test/navigation_session_test.dart`(遷移・セッション切れ・接続断・メンテナンス)、`test/shell_evaluation_test.dart`(テーマ・ログインユーザー・ファイル・権限・メニュー)。評価の結果と指摘は `doc/contents/evaluation.md`(Issue は `issue/D_20261117_0002.md`)。画面の見た目の確認は利用者が行う。
+`flutter test`(サーバーに接続しない)。`test/navigation_session_test.dart`(遷移・セッション切れ・接続断・メンテナンス)、`test/shell_evaluation_test.dart`(テーマ・ログインユーザー・ファイル・権限・メニュー)。評価の結果と指摘は `doc/contents/evaluation.md`(Issue は `issue/202611.md#D_20261117_0002`)。画面の見た目の確認は利用者が行う。
 
 ## 規則: プロジェクト間をまたぐ指示
 指示や実装が、プロジェクト(アプリ・ライブラリ)をまたいで行われるときの`issue`・`doc/log`の扱い。

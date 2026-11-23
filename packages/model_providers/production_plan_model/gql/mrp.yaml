@@ -472,7 +472,7 @@ ResourcePlanCoveragePage:
 # 受注明細の計画状況(v_order_detail_planning。MRP の対象になるか)。
 # planned = 資材計画が有る(MRP が計画した)、to_plan = 次の受注MRP が計画する(未計画・需要が有る・停止していない)。
 # 定義は DB のビュー(mrp_run の受注の需要と同じ)。画面で判定を組み立てない。
-# ビューは 2026-11-18 に追加(DB への適用と、本家スキーマの再取得のあとに生成できる。issue/20261118_0001.md の G14)
+# ビューは 2026-11-18 に追加(DB への適用と、本家スキーマの再取得のあとに生成できる。issue/202611.md#20261118_0001 の G14)
 OrderDetailPlanningPage:
   kind: read
   from: v_order_detail_planning

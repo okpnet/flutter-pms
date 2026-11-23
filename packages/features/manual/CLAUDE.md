@@ -21,7 +21,7 @@
 1.  **メニュー**: グループ ID `quality_document`(品質管理文書)に、ルートごとに 1 項目(`ManualModule.menuEntries`。取得元の状態から作るため、ルートを足すと項目も増える)。ルートが無いときは「マニュアル」の 1 項目。
 1.  **PDF の出力**(「PDF」ボタン。`showManualPdfDialog`): 範囲(このページ / 文書全体)を選び、「名前を付けて保存」で保存する。`markdown_pdf` で生成し、設定(`manualAppSettingsProvider`。`info_app.settings` の標準。用紙・テーマ・ヘッダ/フッタ・スタンプ)と承認の状態を使う。保存先は `manualFileSaverProvider`(既定は OS のダイアログ。テストは差し替え)、フォントは `manualPdfFontsProvider`(既定は同梱の BIZ UDP 明朝)。ヘッダ・フッタの `{printedBy}` は `manualPrinterNameProvider`。
 1.  **承認と公開**(`ManualApprovalGate`): 文書(ルートのページ)の承認の状態は `manualApprovalSourceProvider`(`IManualApprovalSource`。既定は承認なし = 公開・スタンプなし。アプリが DB のビュー `v_document_publication`・`v_document_approval_stamp` の値に差し替える)。承認待ち(`pending`)の文書は、読める人にも「承認待ち」の帯を出す。読めない(`readable = false`)ときは本文の代わりに案内を出す。承認スタンプはルートの文書にだけ出す(子ページには注記)。判定は DB のビューの値で、画面・PDF では判定しない。承認の操作(承認待ち一覧・承認)の画面は別。
-1.  制約: 画像の取り込みなし・目次にページ番号なし。取得元の既定はメモリ上のサンプル(再読み込みで初期データに戻る)。決定の経緯は `issue/20261120_0002.md`。
+1.  制約: 画像の取り込みなし・目次にページ番号なし。取得元の既定はメモリ上のサンプル(再読み込みで初期データに戻る)。決定の経緯は `issue/202611.md#20261120_0002`。
 
 ## 構成
 Markdown の読み取り・閲覧・編集・PDF は `packages/foundation` の Markdown 系のパッケージ(`markdown_ast`・`markdown_view`・`wysiwyg_editor`・`markdown_pdf` ほか)。この機能は組み合わせるだけ(本文の表示 `ManualContent` = `MarkdownView` + ページへのリンクの行き先、編集 `ManualEditor` = ページ名・保存・取り消し + `WysiwygEditor`)。

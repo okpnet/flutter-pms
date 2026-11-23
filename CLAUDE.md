@@ -292,7 +292,7 @@ DB(`tools/docker/postgresql/script`、スキーマ `tests`)の仕様。正は DD
 
 ## 文書の公開・承認スタンプ・アプリの設定
 
-文書(`mstr_document`)の公開の判定・承認の登録・承認スタンプ・PDF の設定の決定事項。経緯は `issue/20261121_0001.md`。DB の正は `06_cteate_test.sql`。
+文書(`mstr_document`)の公開の判定・承認の登録・承認スタンプ・PDF の設定の決定事項。経緯は `issue/202611.md#20261121_0001`。DB の正は `06_cteate_test.sql`。
 
 1.  **公開の判定は DB のビュー `v_document_publication`(1 行 = 文書)で 1 か所だけ**: 承認の段(承認前 `trans_preapproval`)が 0 件(承認不要のパターン)、またはすべての段に承認適用(`trans_approved.approved = true`。最新の 1 件)があれば `published`。そうでなければ `pending`(承認待ち)。画面・PDF・アプリごとに判定しない。文書の承認パターン(`trans_approval_pattern_id`)は NOT NULL のまま。
 1.  **閲覧の範囲**: `readable`(公開済み、または承認の段(部署・役職)に当てはまる担当者、または管理者)。非公開でも該当者・管理者は読め、「承認待ち」を表示する。中身は閲覧用のビュー `v_document_content`(読めないとき `contents`・`trans_file_id` が NULL)から読む。基の表 `mstr_document_content` は直接読める(行の権限(RLS)は次の段階の判断)。管理者の判定は DB のロール名 `pms_admin` の固定。

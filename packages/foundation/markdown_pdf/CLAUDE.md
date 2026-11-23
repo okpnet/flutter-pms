@@ -1,6 +1,6 @@
 # markdown_pdf
 
-Markdown → PDF の出力(テーマ・ヘッダ/フッタ・承認スタンプ・日本語フォント)。`pdf` パッケージ(`dart_pdf`。PDF の標準的な実装で更新が活発)を使う。仕様の経緯は `issue/20261121_0001.md`(リポジトリのルート)。
+Markdown → PDF の出力(テーマ・ヘッダ/フッタ・承認スタンプ・日本語フォント)。`pdf` パッケージ(`dart_pdf`。PDF の標準的な実装で更新が活発)を使う。仕様の経緯は `issue/202611.md#20261121_0001`(リポジトリのルート)。
 
 ## 構成
 | 場所 | 内容 |
@@ -35,7 +35,7 @@ Markdown → PDF の出力(テーマ・ヘッダ/フッタ・承認スタンプ�
 
 依存は一方向: `markdown_ast` ← (`markdown_view`・`markdown_to_wysiwyg`・`wysiwyg_to_markdown`・`markdown_stream`・`markdown_pdf`) ← `wysiwyg_editor`。
 画面(`manual`・`quality_document`)は、これらを組み合わせるだけにし、Markdown の読み書き・表示・編集・PDF を画面の中に持たない。
-経緯は `issue/20261121_0001.md`(リポジトリのルート)の 20。
+経緯は `issue/202611.md#20261121_0001`(リポジトリのルート)の 20。
 
 ## 規則/仕様
 `packages/foundation` の他のパッケージと同じ(ディレクトリ/ファイル・命名・バレルファイル・JSON 化・ログ・GoF)。

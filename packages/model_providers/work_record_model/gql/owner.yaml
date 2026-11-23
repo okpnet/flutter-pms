@@ -44,7 +44,7 @@ ExternalPropertyPage:
 # ---- 管理者の操作: ロットの所有者を決め直す(visiter_owner_rebuild)----
 # 受注明細の顧客所有(customer_property)・受注の顧客を後から変えたあとに、全ロットの有効な所有者(trans_visiter_owner)を決め直す。
 # 管理者だけが実行できる(一般ユーザーは権限エラー)。引数は無く、戻り値は決め直したロットの件数(Int)。
-# 画面は未作成。単一の画面・サブ画面・子の台帳のどれにするかは、issue/20261118_0001.md の「所有者の決め直しの画面の検討」。
+# 画面は未作成。単一の画面・サブ画面・子の台帳のどれにするかは、issue/202611.md#20261118_0001 の「所有者の決め直しの画面の検討」。
 VisiterOwnerRebuildPageCall:
   kind: function
   mutation: visiterOwnerRebuild

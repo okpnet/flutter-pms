@@ -16,7 +16,7 @@ import 'license_repository.dart';
 /// `entityRepositoryOverridesProvider` に渡すと、サンプル(メモリ上)の代わりに使われる。
 ///
 /// 【入れ替え: 呼称の DB 関数】 書き込みは、共通関数(`shared_appellation_save`・`shared_text_save`)で呼称・文章を作り、返った ID を本体のミューテーションに渡す形で、力量・資格・場所の取得元の `save` を入れ替え、`viewOnly` を外す
-/// (`issue/C_202611.md` の 2-1)。
+/// (`issue/202611.md#C_202611` の 2-1)。
 ///
 /// 対象は力量(`capability`)・資格(`license`)・場所(`location`。ツリー)・設備(`equipment`)。名称・読み・詳細は多言語の辞書・文章
 /// (先頭の文)で、言語コード `ja` の値を読む。場所の親は場所ツリーの親の場所 ID。設備は名称を持たず、コード・品目・区分・場所を持つ。

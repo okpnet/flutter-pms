@@ -27,7 +27,7 @@ final openWorkRegisterLinkProvider = Provider<bool>((ref) => true);
 /// `batchQueueProvider.overrideWithValue(true)` を書く(いまはどのアプリも書いていない。`example` も false のまま):
 ///  1. 取得元が担当者を引ける(`findOperator`。GraphQL 版は未対応)→ [requireOperatorProvider] も true にする。
 ///  2. 通信できる環境で、まとめて登録の通信(入庫・出庫の順序・途中失敗の扱い)を実機で確認する
-///     (`issue/20261120_0001.md` の「通信が必要な確認」。確認が済むまで true にしない)。
+///     (`issue/202611.md#20261120_0001` の「通信が必要な確認」。確認が済むまで true にしない)。
 /// キューは画面内のメモリだけに持つ(保存・復元しない。アプリの終了・画面を離れると消える)。
 final batchQueueProvider = Provider<bool>((ref) => false);
 

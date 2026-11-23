@@ -15,7 +15,7 @@ import 'staff_icon_repository.dart';
 /// `entityRepositoryOverridesProvider` に渡すと、サンプル(メモリ上)の代わりに使われる。
 ///
 /// 【入れ替え: 呼称の DB 関数】 書き込みは、共通関数(`shared_appellation_save`・`shared_text_save`)で呼称・文章を作り、返った ID を本体のミューテーションに渡す形で、職員・事業所・部署の取得元の `save` を入れ替え、`viewOnly` を外す
-/// (`issue/C_202611.md` の 2-1)。
+/// (`issue/202611.md#C_202611` の 2-1)。
 ///
 /// 対象は職員(`staff`)・事業所(`site`)・部署(`department`。ツリー)。名称・読み・略称は多言語の辞書で、言語コード `ja` の値を読む。
 /// 部署の親は部署ツリー(`info_department_tree`)の親の部署 ID。事業所の住所は、住所(`info_address`)の国・郵便番号・住所1・住所2・建物・電話番号・FAX(住所1・住所2・建物は多言語の辞書の `ja` の値。住所1 = 都道府県と市区町村、住所2 = 町名・番地・号)。

@@ -49,7 +49,7 @@
 ## 取得元(GraphQL 版。読み取り専用)
 `lib/src/graphql/quality_document_repositories.dart` の `qualityDocumentRepositories(GraphQLClient)` が、文書階層(`doctier`)・文書(`doc`。ツリー)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
 1.  読み取り専用: 実体を `viewOnly`・各項目 `readOnly` にし、保存・削除は `UnsupportedError`。名称(文書は題名)・読み・略称は多言語の辞書で、言語コード `ja` の値を読む。文書の親は文書ツリーの親の文書 ID(親ごとの絞り込みはサーバー側に無く、取得した中から選ぶ)。文書コンテンツ(読み込みが文書を必須にしている)・レポートは、サンプルのまま。
-1.  **【入れ替え: 呼称の DB 関数】** 書き込みは、共通関数(`shared_appellation_save`・`shared_text_save`)で呼称・文章を作り、返った ID を本体のミューテーションに渡す形で、文書階層・文書の取得元の `save` を入れ替え、`viewOnly` を外す(`issue/C_202611.md` の 2-1)。
+1.  **【入れ替え: 呼称の DB 関数】** 書き込みは、共通関数(`shared_appellation_save`・`shared_text_save`)で呼称・文章を作り、返った ID を本体のミューテーションに渡す形で、文書階層・文書の取得元の `save` を入れ替え、`viewOnly` を外す(`issue/202611.md#C_202611` の 2-1)。
 1.  検証用 DB には文書階層・文書のデータが無い(0 件)。通信テストは取得できる(空)ことだけを確認する。値の対応は、データが入ってから確認する。
 
 ## 規則/仕様
