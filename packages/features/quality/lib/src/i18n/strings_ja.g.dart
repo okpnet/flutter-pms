@@ -357,6 +357,15 @@ class QualityStrings$auditPlan$ja {
 	/// ja: '監査標準'
 	String get fieldStandard => '監査標準';
 
+	/// ja: '対象の部署(任意)'
+	String get fieldDepartment => '対象の部署(任意)';
+
+	/// ja: '対象の利害関係者(任意)'
+	String get fieldStakeholder => '対象の利害関係者(任意)';
+
+	/// ja: '指定なし'
+	String get notSelected => '指定なし';
+
 	/// ja: 'チームと予定'
 	String get lines => 'チームと予定';
 
@@ -1113,6 +1122,9 @@ extension on QualityStrings {
 			'auditPlan.fieldTitle' => '監査の題名',
 			'auditPlan.fieldDetails' => '詳細',
 			'auditPlan.fieldStandard' => '監査標準',
+			'auditPlan.fieldDepartment' => '対象の部署(任意)',
+			'auditPlan.fieldStakeholder' => '対象の利害関係者(任意)',
+			'auditPlan.notSelected' => '指定なし',
 			'auditPlan.lines' => 'チームと予定',
 			'auditPlan.addLine' => '行を追加',
 			'auditPlan.removeLine' => 'この行を削除',

@@ -100,6 +100,9 @@ auditPlan:
   fieldTitle: 監査の題名
   fieldDetails: 詳細
   fieldStandard: 監査標準
+  fieldDepartment: 対象の部署(任意)
+  fieldStakeholder: 対象の利害関係者(任意)
+  notSelected: 指定なし
   lines: チームと予定
   addLine: 行を追加
   removeLine: この行を削除

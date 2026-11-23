@@ -1,6 +1,7 @@
 import 'package:app_shell/app_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:feature_shared/feature_shared.dart' show EntityPickerDestination, commandBusProvider;
 import 'package:go_router/go_router.dart';
 import 'package:loadux_lib/loadux_lib.dart';
 
@@ -12,7 +13,7 @@ import 'my_audits_page.dart' show formatAuditDate;
 /// 監査計画の登録。監査の題名・詳細・監査標準と、チームと予定の行(1 行 = チーム 1 つ + 監査員 + 監査実施 1 件)を入れて登録する。
 ///
 /// 入力の検査は、登録の前に画面でも行う([validateAuditPlan]。誤りは種類(enum)で持ち、表示時に文字へ変える)。
-/// 登録は、DB の関数 `audit_plan_register`(提案)の導入後に GraphQL 版が実装される(それまで「登録できませんでした」)。
+/// 対象の部署・利害関係者は任意(台帳の選択画面で選ぶ)。
 /// 登録できたら「自分の監査へ」のボタンを出す(自分が監査員のとき、そこに現れる)。
 class AuditPlanPage extends ConsumerStatefulWidget {
   const AuditPlanPage({super.key});
@@ -27,6 +28,10 @@ class _AuditPlanPageState extends ConsumerState<AuditPlanPage> {
   List<AuditPlanOption> _standards = const [];
   List<AuditPlanOption> _staff = const [];
   String? _standardId;
+  String? _departmentId;
+  String _departmentLabel = '';
+  String? _stakeholderId;
+  String _stakeholderLabel = '';
   List<AuditPlanLine> _lines = [const AuditPlanLine()];
   int _generation = 0; // 行の追加・削除のたびに、入力欄を作り直す
   bool _loaded = false;
@@ -70,7 +75,7 @@ class _AuditPlanPageState extends ConsumerState<AuditPlanPage> {
     }
   }
 
-  AuditPlanInput get _input => AuditPlanInput(title: _title.text, details: _details.text, standardId: _standardId, lines: _lines);
+  AuditPlanInput get _input => AuditPlanInput(title: _title.text, details: _details.text, standardId: _standardId, lines: _lines, departmentId: _departmentId, stakeholderId: _stakeholderId);
 
   List<({AuditPlanError error, int? line})> get _errors => _submitted ? validateAuditPlan(_input) : const [];
 
@@ -101,6 +106,45 @@ class _AuditPlanPageState extends ConsumerState<AuditPlanPage> {
     final time = await showTimePicker(context: context, initialTime: TimeOfDay.fromDateTime(base));
     if (time == null) return DateTime(date.year, date.month, date.day);
     return DateTime(date.year, date.month, date.day, time.hour, time.minute);
+  }
+
+  /// 対象の部署・利害関係者を、台帳の選択画面(機能同士はキーだけで使う)で選ぶ。取り消しは何も変えない。
+  Future<void> _pickTarget({required bool department}) async {
+    final sel = await ref.read(commandBusProvider).execute(EntityPickerDestination(department ? 'department' : 'stakeholder'));
+    if (sel == null || !mounted) return;
+    setState(() {
+      if (department) {
+        _departmentId = sel.id;
+        _departmentLabel = sel.label;
+      } else {
+        _stakeholderId = sel.id;
+        _stakeholderLabel = sel.label;
+      }
+    });
+  }
+
+  void _clearTarget({required bool department}) => setState(() {
+    if (department) {
+      _departmentId = null;
+      _departmentLabel = '';
+    } else {
+      _stakeholderId = null;
+      _stakeholderLabel = '';
+    }
+  });
+
+  Widget _targetRow(dynamic s, {required bool department}) {
+    final id = department ? _departmentId : _stakeholderId;
+    final label = department ? _departmentLabel : _stakeholderLabel;
+    final k = department ? 'department' : 'stakeholder';
+    return Row(
+      children: [
+        SizedBox(width: 140, child: Text(department ? s.fieldDepartment : s.fieldStakeholder)),
+        Expanded(child: Text(id == null ? s.notSelected : label, key: Key('ap-$k-label'), overflow: TextOverflow.ellipsis)),
+        TextButton(key: Key('ap-pick-$k'), onPressed: () => _pickTarget(department: department), child: Text(s.pickDate)),
+        if (id != null) TextButton(key: Key('ap-clear-$k'), onPressed: () => _clearTarget(department: department), child: Text(s.clearDate)),
+      ],
+    );
   }
 
   Future<void> _pickAuditors(int i) async {
@@ -187,6 +231,9 @@ class _AuditPlanPageState extends ConsumerState<AuditPlanPage> {
                 items: [for (final o in _standards) DropdownMenuItem(value: o.id, child: Text(o.label, overflow: TextOverflow.ellipsis))],
                 onChanged: (v) => setState(() => _standardId = v),
               ),
+              const SizedBox(height: 12),
+              _targetRow(s, department: true),
+              _targetRow(s, department: false),
             ],
           ),
         ),

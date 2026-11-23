@@ -46,17 +46,32 @@ class AuditPlanLine {
 
 /// 監査の計画の入力。
 class AuditPlanInput {
-  const AuditPlanInput({this.title = '', this.details = '', this.standardId, this.lines = const []});
+  const AuditPlanInput({
+    this.title = '',
+    this.details = '',
+    this.standardId,
+    this.lines = const [],
+    this.departmentId,
+    this.stakeholderId,
+  });
 
   final String title;
   final String details;
   final String? standardId;
   final List<AuditPlanLine> lines;
 
+  /// 監査の対象の部署(任意。null は指定なし)。
+  final String? departmentId;
+
+  /// 監査の対象の利害関係者(任意。null は指定なし)。
+  final String? stakeholderId;
+
   Map<String, Object?> toJson() => {
     'title': title,
     'details': details,
     'standardId': standardId,
+    'departmentId': departmentId,
+    'stakeholderId': stakeholderId,
     'lines': [for (final l in lines) l.toJson()],
   };
 }
@@ -94,8 +109,7 @@ class AuditPlanException implements Exception {
 
 /// 監査の計画の登録の取得元。アプリが GraphQL 版に差し替える(Strategy)。
 ///
-/// 登録は、DB の関数 `audit_plan_register`(提案。`issue/20261123_0001.md` の E)で行う(複数の表への登録。1 トランザクション)。
-/// それまで、GraphQL 版の登録は [UnsupportedError] を投げる(選択肢の読み込みは実装済み)。
+/// 登録は、DB の関数 `audit_plan_register`で行う(複数の表への登録。1 トランザクション)。
 abstract interface class IAuditPlanGateway {
   /// 監査標準の選択肢。
   Future<List<AuditPlanOption>> standards();

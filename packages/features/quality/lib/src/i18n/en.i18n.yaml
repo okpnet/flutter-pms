@@ -101,6 +101,9 @@ auditPlan:
   fieldTitle: Audit title
   fieldDetails: Details
   fieldStandard: Audit standard
+  fieldDepartment: Target department (optional)
+  fieldStakeholder: Target stakeholder (optional)
+  notSelected: Not specified
   lines: Teams and schedules
   addLine: Add row
   removeLine: Remove this row

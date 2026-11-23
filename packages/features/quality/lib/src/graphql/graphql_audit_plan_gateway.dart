@@ -93,6 +93,8 @@ class GraphqlAuditPlanGateway implements IAuditPlanGateway {
             if (l.expectedEndAt != null) 'expected_end_at': l.expectedEndAt!.toIso8601String(),
           },
       ]),
+      if (input.departmentId != null) 'pDepartmentId': input.departmentId,
+      if (input.stakeholderId != null) 'pStakeholderId': input.stakeholderId,
       'pStaffId': au?.staffId,
     }, mutation: true);
     final id = ((data['auditPlanRegister'] as Map?)?['transAudit'] as Map?)?['transAuditId'];

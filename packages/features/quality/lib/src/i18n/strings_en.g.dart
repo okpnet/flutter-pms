@@ -173,6 +173,9 @@ class _QualityStrings$auditPlan$en extends QualityStrings$auditPlan$ja {
 	@override String get fieldTitle => 'Audit title';
 	@override String get fieldDetails => 'Details';
 	@override String get fieldStandard => 'Audit standard';
+	@override String get fieldDepartment => 'Target department (optional)';
+	@override String get fieldStakeholder => 'Target stakeholder (optional)';
+	@override String get notSelected => 'Not specified';
 	@override String get lines => 'Teams and schedules';
 	@override String get addLine => 'Add row';
 	@override String get removeLine => 'Remove this row';
@@ -709,6 +712,9 @@ extension on QualityStringsEn {
 			'auditPlan.fieldTitle' => 'Audit title',
 			'auditPlan.fieldDetails' => 'Details',
 			'auditPlan.fieldStandard' => 'Audit standard',
+			'auditPlan.fieldDepartment' => 'Target department (optional)',
+			'auditPlan.fieldStakeholder' => 'Target stakeholder (optional)',
+			'auditPlan.notSelected' => 'Not specified',
 			'auditPlan.lines' => 'Teams and schedules',
 			'auditPlan.addLine' => 'Add row',
 			'auditPlan.removeLine' => 'Remove this row',

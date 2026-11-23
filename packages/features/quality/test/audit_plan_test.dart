@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:baton_lib/baton_lib.dart';
+import 'package:feature_shared/feature_shared.dart' show EntityPickerDestination, commandBusProvider;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -9,6 +11,7 @@ import 'package:graphql/client.dart';
 import 'package:pms_graphql/pms_graphql.dart' show AuditUser;
 import 'package:quality/quality.dart';
 import 'package:quality/src/page/audit_plan_page.dart';
+import 'package:selection_result/selection_result.dart';
 
 const _standards = [
   AuditPlanOption(id: 's1', name: '内部監査標準', code: 'STD-01'),
@@ -22,20 +25,40 @@ const _staff = [
 
 InMemoryAuditPlanGateway _gateway() => InMemoryAuditPlanGateway(standardOptions: _standards, staffOptions: _staff);
 
-Widget _app(IAuditPlanGateway g) {
+/// 台帳の選択画面の代わりに、決まった選択を返す(取り消しは null)。
+class _Bus implements CommandBus {
+  final List<String> picked = [];
+  bool cancel = false;
+
+  @override
+  Future<R> execute<R>(ActionCommand<R> command) async {
+    final c = command as Object;
+    if (c is EntityPickerDestination) {
+      picked.add(c.entityKey);
+      if (cancel) return null as R;
+      return Selection(entityKey: c.entityKey, id: 'id-${c.entityKey}', label: '選んだ ${c.entityKey}') as R;
+    }
+    throw UnimplementedError('$command');
+  }
+}
+
+Widget _app(IAuditPlanGateway g, {_Bus? bus}) {
   final router = GoRouter(
     routes: [
       GoRoute(path: '/', builder: (context, state) => const AuditPlanPage()),
       GoRoute(path: '/quality/my-audits', builder: (context, state) => const Text('my-audits-page')),
     ],
   );
-  return ProviderScope(overrides: [auditPlanGatewayProvider.overrideWithValue(g)], child: MaterialApp.router(routerConfig: router));
+  return ProviderScope(
+    overrides: [auditPlanGatewayProvider.overrideWithValue(g), if (bus != null) commandBusProvider.overrideWithValue(bus)],
+    child: MaterialApp.router(routerConfig: router),
+  );
 }
 
-Future<void> _open(WidgetTester tester, IAuditPlanGateway g) async {
+Future<void> _open(WidgetTester tester, IAuditPlanGateway g, {_Bus? bus}) async {
   await tester.binding.setSurfaceSize(const Size(1000, 1600));
   addTearDown(() => tester.binding.setSurfaceSize(null));
-  await tester.pumpWidget(_app(g));
+  await tester.pumpWidget(_app(g, bus: bus));
   await tester.pumpAndSettle();
 }
 
@@ -111,6 +134,50 @@ void main() {
       expect(find.text('my-audits-page'), findsOneWidget);
     });
 
+    testWidgets('対象の部署・利害関係者は任意。選択画面で選ぶと登録に含まれ、消すと外れる', (tester) async {
+      final g = _gateway();
+      final bus = _Bus();
+      await _open(tester, g, bus: bus);
+      expect(find.text('指定なし'), findsNWidgets(2));
+      await tester.tap(find.byKey(const Key('ap-pick-department')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('ap-pick-stakeholder')));
+      await tester.pumpAndSettle();
+      expect(bus.picked, ['department', 'stakeholder']);
+      expect(find.text('選んだ department'), findsOneWidget);
+      expect(find.text('選んだ stakeholder'), findsOneWidget);
+      await tester.tap(find.byKey(const Key('ap-clear-stakeholder')));
+      await tester.pumpAndSettle();
+      expect(find.text('選んだ stakeholder'), findsNothing);
+      await tester.enterText(find.byKey(const Key('ap-title')), 't');
+      await _chooseStandard(tester, 'STD-01  内部監査標準');
+      await tester.enterText(find.byKey(const Key('ap-team-0')), 'A');
+      await _pickAuditors(tester, 0, ['u1']);
+      await tester.ensureVisible(find.byKey(const Key('ap-register')));
+      await tester.tap(find.byKey(const Key('ap-register')));
+      await tester.pumpAndSettle();
+      expect(g.registered.single.departmentId, 'id-department');
+      expect(g.registered.single.stakeholderId, isNull);
+    });
+
+    testWidgets('選択画面を取り消すと、何も変わらない。指定しなくても登録できる', (tester) async {
+      final g = _gateway();
+      final bus = _Bus()..cancel = true;
+      await _open(tester, g, bus: bus);
+      await tester.tap(find.byKey(const Key('ap-pick-department')));
+      await tester.pumpAndSettle();
+      expect(find.text('指定なし'), findsNWidgets(2));
+      await tester.enterText(find.byKey(const Key('ap-title')), 't');
+      await _chooseStandard(tester, 'STD-01  内部監査標準');
+      await tester.enterText(find.byKey(const Key('ap-team-0')), 'A');
+      await _pickAuditors(tester, 0, ['u1']);
+      await tester.ensureVisible(find.byKey(const Key('ap-register')));
+      await tester.tap(find.byKey(const Key('ap-register')));
+      await tester.pumpAndSettle();
+      expect(g.registered.single.departmentId, isNull);
+      expect(g.registered.single.stakeholderId, isNull);
+    });
+
     testWidgets('入力が足りないときは、誤りを出して登録しない', (tester) async {
       final g = _gateway();
       await _open(tester, g);
@@ -168,6 +235,19 @@ void main() {
       expect(staff.single.name, '田中');
       await expectLater(gw.register(const AuditPlanInput()), throwsA(isA<AuditPlanException>()));
       expect(link.requests.map(_op), isNot(contains('AuditPlanRegisterPageCall')));
+    });
+
+    test('対象の部署・利害関係者は、指定したときだけ引数(pDepartmentId・pStakeholderId)に入る', () async {
+      final link = _FakeLink();
+      final gw = GraphqlAuditPlanGateway(GraphQLClient(link: link, cache: GraphQLCache()));
+      const line = AuditPlanLine(teamName: 'A', auditorIds: ['u1']);
+      await gw.register(const AuditPlanInput(title: 't', standardId: 's1', lines: [line]));
+      await gw.register(const AuditPlanInput(title: 't', standardId: 's1', lines: [line], departmentId: 'd1', stakeholderId: 'k1'));
+      final calls = link.requests.where((r) => _op(r) == 'AuditPlanRegisterPageCall').toList();
+      expect(calls.first.variables.containsKey('pDepartmentId'), isFalse);
+      expect(calls.first.variables.containsKey('pStakeholderId'), isFalse);
+      expect(calls.last.variables['pDepartmentId'], 'd1');
+      expect(calls.last.variables['pStakeholderId'], 'k1');
     });
 
     test('登録は、DB の関数 audit_plan_register を呼ぶ(題名・詳細・チーム名は言語別の JSON、行は JSON の配列)', () async {
