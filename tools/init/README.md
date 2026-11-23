@@ -73,7 +73,7 @@ PostgreSQL のダミーの担当者(管理者の担当者を除く)を、`userna
 流してから、バッチを実行する。何度流しても同じ(あるコードは作らない)。
 - `tools/docker/postgresql/script/07_dummy.sql`(1 節): 担当者 `ADMIN`。
 - `tools/docker/postgresql/script/07_dummy.sql`(3 節): 管理者の `username` が `admin` 以外のとき、同じコードの担当者を作る。`psql -d test_avocado -v admin_code=ADMINISTRATOR -f 07_dummy.sql`
-- `tools/docker/postgresql/script/07_dummy.sql`(4 節): 利用者の担当者 `TANAKA`・`SUZUKI`・`SATO`。
+- `tools/docker/postgresql/script/07_dummy.sql`(4 節): 利用者の担当者 `TANAKA`・`SUZUKI`・`SATO`。4-2 節: 役職(組長・係長・課長・部長)・部署「製造部」と、役職ごとの担当者 `KUMICHO`・`KAKARICHO`・`KACHO`・`BUCHO`(`test_user_init.bat` が、管理者以外の担当者をすべて PocketBase のユーザーにするため、DB へ流したあとに実行すれば、これらも作られる)。
 
 ## アプリからのログイン
 `apps/pms_app` を `--dart-define=POCKETBASE_URL=<PocketBase の接続先>` で起動し、ログイン画面に `username` とパスワードを入力する。

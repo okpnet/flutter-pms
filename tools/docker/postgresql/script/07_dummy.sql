@@ -856,6 +856,77 @@ WHERE upper(code) IN ('TANAKA', 'SUZUKI', 'SATO') AND remove IS FALSE
 ORDER BY code;
 
 -- #####################################################################
+-- 4-2. 役職(組長・係長・課長・部長)・部署・担当者・割り当て(承認パターン・監査のテスト用)
+-- #####################################################################
+-- 役職は順位(priority)の小さい順に 組長 → 係長 → 課長 → 部長。部署「製造部」に、役職ごとの担当者を 1 人ずつ割り当てる。
+-- 担当者のコードは KUMICHO・KAKARICHO・KACHO・BUCHO(PocketBase のユーザーは、toolsinit	est_user_init.bat が、このコードの小文字で作る)。
+-- 承認パターンの書き込みの通信テスト(organization/test/approval_pattern_server_test.dart)が、役職 2 件以上・部署 1 件以上を要る。
+-- 何度流しても同じ(既にあるものは作らない)。
+c test_avocado
+
+CREATE OR REPLACE FUNCTION pg_temp.nm2(p_ja varchar, p_en varchar DEFAULT NULL) RETURNS uuid AS $
+DECLARE d uuid; a uuid;
+BEGIN
+    INSERT INTO tests.shared_dictionary (remarks) VALUES (NULL) RETURNING shared_dictionary_id INTO d;
+    INSERT INTO tests.shared_dictionary_value (shared_dictionary_id, shared_language_code_id, dictionary_value)
+    SELECT d, l.shared_language_code_id, v.val
+    FROM (VALUES ('ja', p_ja), ('en', p_en)) AS v(code, val)
+    INNER JOIN tests.shared_language_code AS l ON l.code = v.code AND l.remove IS FALSE
+    WHERE v.val IS NOT NULL;
+    INSERT INTO tests.shared_appellations (shared_dictionary_name_id) VALUES (d) RETURNING shared_appellations_id INTO a;
+    RETURN a;
+END $ LANGUAGE plpgsql;
+
+DO $
+DECLARE
+    c uuid; dep uuid; pos uuid; st uuid; r record;
+BEGIN
+    SELECT info_company_id INTO c FROM tests.info_company WHERE remove IS FALSE ORDER BY update_at LIMIT 1;
+
+    SELECT info_department_id INTO dep FROM tests.info_department WHERE code = 'MFG' AND remove IS FALSE;
+    IF dep IS NULL THEN
+        INSERT INTO tests.info_department (info_company_id, code, names)
+        VALUES (c, 'MFG', pg_temp.nm2('製造部', 'Manufacturing')) RETURNING info_department_id INTO dep;
+        RAISE NOTICE '部署 製造部 を作りました';
+    END IF;
+
+    FOR r IN
+        SELECT * FROM (VALUES
+            (1, '組長', 'Team Leader',        'KUMICHO',  '高橋 健', 'Ken Takahashi'),
+            (2, '係長', 'Section Chief',      'KAKARICHO','渡辺 誠', 'Makoto Watanabe'),
+            (3, '課長', 'Manager',            'KACHO',    '中村 優', 'Yu Nakamura'),
+            (4, '部長', 'General Manager',    'BUCHO',    '小林 学', 'Manabu Kobayashi')
+        ) AS v(pri, pos_ja, pos_en, code, ja, en)
+    LOOP
+        SELECT p.info_position_id INTO pos
+        FROM tests.info_position AS p
+        INNER JOIN tests.shared_appellations AS a ON a.shared_appellations_id = p.names
+        INNER JOIN tests.shared_dictionary_value AS dv ON dv.shared_dictionary_id = a.shared_dictionary_name_id
+        WHERE dv.dictionary_value = r.pos_ja AND p.remove IS FALSE LIMIT 1;
+        IF pos IS NULL THEN
+            INSERT INTO tests.info_position (priority, names) VALUES (r.pri, pg_temp.nm2(r.pos_ja, r.pos_en)) RETURNING info_position_id INTO pos;
+            RAISE NOTICE '役職 % を作りました', r.pos_ja;
+        END IF;
+
+        SELECT info_staff_id INTO st FROM tests.info_staff WHERE upper(code) = r.code AND remove IS FALSE;
+        IF st IS NULL THEN
+            INSERT INTO tests.info_staff (info_company_id, code, names) VALUES (c, r.code, pg_temp.nm2(r.ja, r.en)) RETURNING info_staff_id INTO st;
+            RAISE NOTICE '担当者 % を作りました', r.code;
+        END IF;
+
+        IF NOT EXISTS (SELECT 1 FROM tests.info_assign WHERE info_staff_id = st AND info_position_id = pos AND info_department_id = dep AND remove IS FALSE) THEN
+            INSERT INTO tests.info_assign (info_staff_id, info_position_id, info_department_id) VALUES (st, pos, dep);
+            RAISE NOTICE '% を 製造部の % に割り当てました', r.code, r.pos_ja;
+        END IF;
+    END LOOP;
+END $;
+
+SELECT s.code AS "担当者のコード", s.info_staff_id AS "担当者のID(PocketBase の app_user_id)"
+FROM tests.info_staff AS s
+WHERE upper(s.code) IN ('KUMICHO', 'KAKARICHO', 'KACHO', 'BUCHO') AND s.remove IS FALSE
+ORDER BY s.code;
+
+-- #####################################################################
 -- 5. キャンセル・返品・精算・支給のマスタ
 -- #####################################################################
 \c test_avocado
