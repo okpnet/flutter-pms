@@ -646,9 +646,16 @@ ComplaintListPage:
     - trans_complaint_id
     - symbol
     - occurent_at
-    # TODO(DB の v_complaint のスマートコメント @foreignKey の適用後に、題名・内容を labels・detailTexts に戻す)
-    - titles
-    - details
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: titles
+      <<: *FlexibleLabelReadFields
+    - name: detailTexts
+      as: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FlexibleTextReadFields
     - reporter_staff_id
     - kind_count
     - has_equipment

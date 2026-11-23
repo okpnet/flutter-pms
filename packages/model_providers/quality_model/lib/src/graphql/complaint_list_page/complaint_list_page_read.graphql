@@ -25,8 +25,32 @@ query ComplaintListPageRead(
       transComplaintId
       symbol
       occurentAt
-      titles
-      details
+
+      labels: transLabelByTitles {
+        transLabelId
+
+        value: transLabelValuesByTransLabelId(
+          condition: { sharedLanguageCodeId: $languageCodeId }
+        ) {
+          nodes {
+            labelValue
+          }
+        }
+      }
+
+      detailTexts: transTextByDetails {
+        transTextId
+
+        value: transTextValuesByTransTextId(
+          condition: { sharedLanguageCodeId: $languageCodeId }
+        ) {
+          nodes {
+            charCount
+            leadText
+          }
+        }
+      }
+
       reporterStaffId
       kindCount
       hasEquipment

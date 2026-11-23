@@ -139,7 +139,9 @@ abstract class _ReadOnlyRepository implements IEntityRepository {
 class _ComplaintRepository extends _ReadOnlyRepository {
   _ComplaintRepository(super.definition, super.client, super.language);
 
-  EntityRecord _record(Query$ComplaintPageRead$allTransComplaints$nodes n) {
+  /// 異常の台帳は、DB のビュー `v_complaint`(1 行 = 1 異常)から読む。種類の名称(`kind_names`)・外部か・クレームかは、ビューの値
+  /// (画面で決めない。種類は 1 つの異常が複数持てるため、名称は " / " でつながる)。利害関係者・対象の表示名は、ビューが持たないため空。
+  EntityRecord _record(Query$ComplaintListPageRead$allVComplaints$nodes n) {
     return EntityRecord(
       id: n.transComplaintId,
       values: {
@@ -148,6 +150,9 @@ class _ComplaintRepository extends _ReadOnlyRepository {
         'detail': _ReadOnlyRepository.lead(n.detailTexts),
         'reporter_staff_id': _ReadOnlyRepository.text(n.reporterStaffId),
         'remarks': _ReadOnlyRepository.text(n.remarks),
+        'kind': _ReadOnlyRepository.text(n.kindNames),
+        'external': n.isExternal == true ? flagOn : '',
+        'claim': n.isClaim == true ? 'クレーム' : '',
       },
     );
   }
@@ -157,9 +162,9 @@ class _ComplaintRepository extends _ReadOnlyRepository {
     int offset,
     Map<String, dynamic> filter,
   ) async {
-    final result = await client.query$ComplaintPageRead(
-      Options$Query$ComplaintPageRead(
-        variables: Variables$Query$ComplaintPageRead.fromJson({
+    final result = await client.query$ComplaintListPageRead(
+      Options$Query$ComplaintListPageRead(
+        variables: Variables$Query$ComplaintListPageRead.fromJson({
           'first': first,
           'offset': offset,
           'languageCodeId': await language.id,
@@ -172,8 +177,8 @@ class _ComplaintRepository extends _ReadOnlyRepository {
     if (e != null) throw e;
     return [
       for (final n
-          in result.parsedData?.allTransComplaints?.nodes ??
-              const <Query$ComplaintPageRead$allTransComplaints$nodes?>[])
+          in result.parsedData?.allVComplaints?.nodes ??
+              const <Query$ComplaintListPageRead$allVComplaints$nodes?>[])
         if (n != null) _record(n),
     ];
   }

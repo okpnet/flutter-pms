@@ -2572,6 +2572,7 @@ input InfoStaffFilter {
   mstrStaffCapabilitiesByInfoStaffIdExist: Boolean
   mstrSignsByInfoStaffIdExist: Boolean
   vApprovalPendingsByApplicantStaffIdExist: Boolean
+  vComplaintsByReporterStaffIdExist: Boolean
   vDocumentApprovalStampsByApprovedStaffIdExist: Boolean
   vDocumentPublicationsByApprovedStaffIdExist: Boolean
   vStaffAssignCountByInfoStaffId: VStaffAssignCountFilter

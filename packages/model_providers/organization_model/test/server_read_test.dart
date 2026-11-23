@@ -14,6 +14,18 @@ const _zeroId = '00000000-0000-0000-0000-000000000000';
 
 void main() {
   group('検証用サーバー: 全readクエリ', () {
+    serverTest('AccessPathApprovalLedgerPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryAccessPathApprovalLedgerPageRead,
+          variables: Variables$Query$AccessPathApprovalLedgerPageRead(first: 1, languageCodeId: _zeroId).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$AccessPathApprovalLedgerPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
     serverTest('ApprovalDefaultsLanguagePageRead', (server) async {
       final result = await server.provider.query(
         QueryOptions(
@@ -50,6 +62,18 @@ void main() {
         Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
       );
     });
+    serverTest('ApprovalPatternLedgerPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryApprovalPatternLedgerPageRead,
+          variables: Variables$Query$ApprovalPatternLedgerPageRead(first: 1, languageCodeId: _zeroId).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$ApprovalPatternLedgerPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
     serverTest('ApprovalPatternOptionPageRead', (server) async {
       final result = await server.provider.query(
         QueryOptions(
@@ -62,6 +86,18 @@ void main() {
         Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
       );
     });
+    serverTest('ApprovalScopeLedgerPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryApprovalScopeLedgerPageRead,
+          variables: Variables$Query$ApprovalScopeLedgerPageRead(first: 1).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$ApprovalScopeLedgerPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
     serverTest('ApprovalScopePageRead', (server) async {
       final result = await server.provider.query(
         QueryOptions(
@@ -71,6 +107,42 @@ void main() {
       );
       expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
       Query$ApprovalScopePageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
+    serverTest('ApprovalStepDepartmentOptionPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryApprovalStepDepartmentOptionPageRead,
+          variables: Variables$Query$ApprovalStepDepartmentOptionPageRead(first: 1, languageCodeId: _zeroId).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$ApprovalStepDepartmentOptionPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
+    serverTest('ApprovalStepPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryApprovalStepPageRead,
+          variables: Variables$Query$ApprovalStepPageRead(first: 1, languageCodeId: _zeroId).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$ApprovalStepPageRead.fromJson(
+        Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
+      );
+    });
+    serverTest('ApprovalStepPositionOptionPageRead', (server) async {
+      final result = await server.provider.query(
+        QueryOptions(
+          document: documentNodeQueryApprovalStepPositionOptionPageRead,
+          variables: Variables$Query$ApprovalStepPositionOptionPageRead(first: 1, languageCodeId: _zeroId).toJson(),
+        ),
+      );
+      expect(result, isA<Ok<Map<dynamic, dynamic>>>(), reason: '$result');
+      Query$ApprovalStepPositionOptionPageRead.fromJson(
         Map<String, dynamic>.from((result as Ok<Map<dynamic, dynamic>>).value),
       );
     });
@@ -238,8 +310,8 @@ void main() {
     tearDown(() => server.close());
 
     QueryOptions options() => QueryOptions(
-      document: documentNodeQueryApprovalDefaultsLanguagePageRead,
-      variables: Variables$Query$ApprovalDefaultsLanguagePageRead(first: 1).toJson(),
+      document: documentNodeQueryAccessPathApprovalLedgerPageRead,
+      variables: Variables$Query$AccessPathApprovalLedgerPageRead(first: 1, languageCodeId: _zeroId).toJson(),
     );
 
     // 代役サーバーの既定の応答に合う、中身の無い問い合わせ(応答の読み取りを確認しないテスト用)。

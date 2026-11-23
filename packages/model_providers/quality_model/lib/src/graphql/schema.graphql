@@ -2558,8 +2558,6 @@ type VComplaint {
   transComplaintId: UUID!
   symbol: String
   occurentAt: Datetime
-  titles: UUID
-  details: UUID
   reporterStaffId: UUID
   remarks: String
   kindCount: Int
@@ -2573,6 +2571,8 @@ type VComplaint {
   isExternal: Boolean
   isClaim: Boolean
   kindNames: String
+  transLabelByTitles: TransLabel
+  transTextByDetails: TransText
 }
 
 type VComplaintComplaintEquipmentCount {
@@ -3362,6 +3362,7 @@ input InfoStaffFilter {
   mstrStaffCapabilitiesByInfoStaffIdExist: Boolean
   mstrSignsByInfoStaffIdExist: Boolean
   vApprovalPendingsByApplicantStaffIdExist: Boolean
+  vComplaintsByReporterStaffIdExist: Boolean
   vDocumentApprovalStampsByApprovedStaffIdExist: Boolean
   vDocumentPublicationsByApprovedStaffIdExist: Boolean
   vStaffAssignCountByInfoStaffIdExists: Boolean
@@ -4933,6 +4934,7 @@ input TransLabelFilter {
   transInspectImpFilesByTitlesExist: Boolean
   transCertificatesByTitlesExist: Boolean
   transAuditDetailsByNamesExist: Boolean
+  vComplaintsByTitlesExist: Boolean
   vLabelLabelValueCountByTransLabelIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransLabelFilter!]
@@ -5396,6 +5398,7 @@ input TransTextFilter {
   transRecurrencePreventionsByDetailsExist: Boolean
   transAuditDetailsByConclusionExist: Boolean
   transAuditDetailCheckItemsByFindingsExist: Boolean
+  vComplaintsByDetailsExist: Boolean
   vTextTransTextValueCountByTransTextIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [TransTextFilter!]
@@ -5932,6 +5935,11 @@ input VComplaintFilter {
   isClaim: BooleanFilter
   kindNames: StringFilter
   transComplaintByTransComplaintIdExists: Boolean
+  transLabelByTitles: TransLabelFilter
+  transLabelByTitlesExists: Boolean
+  transTextByDetails: TransTextFilter
+  transTextByDetailsExists: Boolean
+  infoStaffByReporterStaffIdExists: Boolean
   and: [VComplaintFilter!]
   or: [VComplaintFilter!]
   not: VComplaintFilter
