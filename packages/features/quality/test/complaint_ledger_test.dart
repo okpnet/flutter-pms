@@ -31,7 +31,29 @@ Map<String, dynamic> _text(String v) => {
   },
 };
 
-Map<String, dynamic> _row(String id, {required String title, Map<String, dynamic>? detail, required bool external, required bool claim, required String kinds, String? remarks}) => {
+Map<String, dynamic>? _party(String name) => {
+  'mstrStakeholderId': 'sh1',
+  'isCustomer': true,
+  'isSupplier': false,
+  'isLogistics': false,
+  'code': 'C1',
+  'controlCode': null,
+  'labels': {
+    'sharedAppellationsId': 'ap',
+    'sharedDictionaryBySharedDictionaryNameId': {
+      'sharedDictionaryId': 'd',
+      'value': {
+        'nodes': [
+          {'dictionaryValue': name},
+        ],
+      },
+    },
+    'sharedDictionaryBySharedDictionaryPronunciationId': null,
+    'sharedDictionaryBySharedDictionaryNicknameId': null,
+  },
+};
+
+Map<String, dynamic> _row(String id, {required String title, Map<String, dynamic>? detail, required bool external, required bool claim, required String kinds, String? remarks, String? party, int partyCount = 0, String? targets}) => {
   'transComplaintId': id,
   'symbol': 'CP-$id',
   'occurentAt': '2026-10-22T09:00:00',
@@ -49,6 +71,10 @@ Map<String, dynamic> _row(String id, {required String title, Map<String, dynamic
   'isExternal': external,
   'isClaim': claim,
   'kindNames': kinds,
+  'partyStakeholderId': party == null ? null : 'sh1',
+  'partyCount': partyCount,
+  'targetSymbols': targets,
+  'party': party == null ? null : _party(party),
   'remarks': remarks,
 };
 
@@ -64,8 +90,8 @@ class _FakeLink extends Link {
           'totalCount': 2,
           'pageInfo': {'hasNextPage': false, 'endCursor': 'cur'},
           'nodes': [
-            _row('c1', title: '梱包の破損', detail: _text('箱が潰れていた'), external: true, claim: true, kinds: '顧客クレーム / 工程で発見された異常'),
-            _row('c2', title: '寸法の外れ', external: false, claim: false, kinds: '工程で発見された異常', remarks: '備考'),
+            _row('c1', title: '梱包の破損', detail: _text('箱が潰れていた'), external: true, claim: true, kinds: '顧客クレーム / 工程で発見された異常', party: '北斗機械株式会社', partyCount: 2, targets: 'SO-1001 / TK-0001'),
+            _row('c2', title: '寸法の外れ', external: false, claim: false, kinds: '工程で発見された異常', remarks: '備考', targets: 'TK-0001'),
           ],
         },
       },
@@ -95,10 +121,14 @@ void main() {
     expect(a.valueOf('kind'), '顧客クレーム / 工程で発見された異常'); // 1 つの異常が複数の種類を持てる
     expect(a.valueOf('external'), flagOn);
     expect(a.valueOf('claim'), 'クレーム');
+    expect(a.valueOf('party'), '北斗機械株式会社 (2)'); // 利害関係者の名称(複数あるときは件数を添える)
+    expect(a.valueOf('target'), 'SO-1001 / TK-0001'); // 対象のシンボル
     final b = rows.last;
     expect(b.valueOf('external'), '');
     expect(b.valueOf('claim'), '');
     expect(b.valueOf('remarks'), '備考');
+    expect(b.valueOf('party'), '');
+    expect(b.valueOf('target'), 'TK-0001');
   });
 
   test('異常の台帳は読み取り専用(新規・保存・削除を出さない)', () {

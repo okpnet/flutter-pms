@@ -632,6 +632,7 @@ input MstrStakeholderFilter {
   mstrStakeholderProvisionsByMstrStakeholderIdExist: Boolean
   transAuditsByMstrStakeholderIdExist: Boolean
   vCancelOpenItemsByStakeholderIdExist: Boolean
+  vComplaintsByPartyStakeholderIdExist: Boolean
   vComplaintKindsByStakeholderIdExist: Boolean
   vExternalPropertiesByOwnerStakeholderIdExist: Boolean
   vInspectionStatusesBySupplierIdExist: Boolean

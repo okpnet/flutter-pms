@@ -153,8 +153,19 @@ class _ComplaintRepository extends _ReadOnlyRepository {
         'kind': _ReadOnlyRepository.text(n.kindNames),
         'external': n.isExternal == true ? flagOn : '',
         'claim': n.isClaim == true ? 'クレーム' : '',
+        'party': _party(n),
+        // 対象は、対象の表のシンボル(バーコードと同じ呼び名。複数あるときは " / " でつなぐ)
+        'target': _ReadOnlyRepository.text(n.targetSymbols),
       },
     );
+  }
+
+  /// 利害関係者の名称(言語 ja の辞書の値)。2 件以上あるときは、最初の 1 つの名称に件数を添える(例: 北斗機械 (2))。
+  static String _party(Query$ComplaintListPageRead$allVComplaints$nodes n) {
+    final nodes = n.party?.labels?.sharedDictionaryBySharedDictionaryNameId?.value.nodes;
+    final name = nodes == null || nodes.isEmpty ? '' : _ReadOnlyRepository.text(nodes.first?.dictionaryValue);
+    final count = n.partyCount ?? 0;
+    return count > 1 && name.isNotEmpty ? '$name ($count)' : name;
   }
 
   Future<List<EntityRecord>> _read(

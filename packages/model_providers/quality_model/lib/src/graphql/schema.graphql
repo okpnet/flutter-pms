@@ -1192,6 +1192,12 @@ enum VComplaintsOrderBy {
   IS_CLAIM_DESC
   KIND_NAMES_ASC
   KIND_NAMES_DESC
+  PARTY_STAKEHOLDER_ID_ASC
+  PARTY_STAKEHOLDER_ID_DESC
+  PARTY_COUNT_ASC
+  PARTY_COUNT_DESC
+  TARGET_SYMBOLS_ASC
+  TARGET_SYMBOLS_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -2571,8 +2577,12 @@ type VComplaint {
   isExternal: Boolean
   isClaim: Boolean
   kindNames: String
+  partyStakeholderId: UUID
+  partyCount: Int
+  targetSymbols: String
   transLabelByTitles: TransLabel
   transTextByDetails: TransText
+  mstrStakeholderByPartyStakeholderId: MstrStakeholder
 }
 
 type VComplaintComplaintEquipmentCount {
@@ -3682,6 +3692,7 @@ input MstrStakeholderFilter {
   mstrStakeholderProvisionsByMstrStakeholderIdExist: Boolean
   transAuditsByMstrStakeholderIdExist: Boolean
   vCancelOpenItemsByStakeholderIdExist: Boolean
+  vComplaintsByPartyStakeholderIdExist: Boolean
   vComplaintKindsByStakeholderIdExist: Boolean
   vExternalPropertiesByOwnerStakeholderIdExist: Boolean
   vInspectionStatusesBySupplierIdExist: Boolean
@@ -5934,12 +5945,17 @@ input VComplaintFilter {
   isExternal: BooleanFilter
   isClaim: BooleanFilter
   kindNames: StringFilter
+  partyStakeholderId: UUIDFilter
+  partyCount: IntFilter
+  targetSymbols: StringFilter
   transComplaintByTransComplaintIdExists: Boolean
   transLabelByTitles: TransLabelFilter
   transLabelByTitlesExists: Boolean
   transTextByDetails: TransTextFilter
   transTextByDetailsExists: Boolean
   infoStaffByReporterStaffIdExists: Boolean
+  mstrStakeholderByPartyStakeholderId: MstrStakeholderFilter
+  mstrStakeholderByPartyStakeholderIdExists: Boolean
   and: [VComplaintFilter!]
   or: [VComplaintFilter!]
   not: VComplaintFilter

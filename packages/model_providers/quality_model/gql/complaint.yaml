@@ -668,6 +668,14 @@ ComplaintListPage:
     - is_external
     - is_claim
     - kind_names
+    - party_stakeholder_id
+    - party_count
+    - target_symbols
+    - name: party
+      as: party
+      arrayType: toFirstOne
+      using: party_stakeholder_id
+      <<: *StakeholderReadFields
     - remarks
 
 # 異常の登録で、作業実績・ロットを、シンボル(バーコード)から ID に解決する
