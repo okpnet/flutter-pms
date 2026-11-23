@@ -1,0 +1,42 @@
+# audit_std_ledger_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #AuditStdLedgerPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AuditStdLedgerPageCreate(
+  $code: String
+  $controlCode: String
+  $category: Int
+  $names: UUID
+  $details: UUID
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  createMstrAuditStd(
+    input: {
+      mstrAuditStd: {
+        code: $code
+        controlCode: $controlCode
+        category: $category
+        names: $names
+        details: $details
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    mstrAuditStd {
+      mstrAuditStdId
+      code
+      controlCode
+      category
+      names
+      details
+      remarks
+      updateUserId
+      updateUserHistoryId
+    }
+  }
+}

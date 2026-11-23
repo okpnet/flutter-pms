@@ -1106,6 +1106,10 @@ type AuditNoticeRecord {
   isInProgress: Boolean
 }
 
+type CreateMstrAuditStdPayload {
+  mstrAuditStd: MstrAuditStd
+}
+
 type CreateTransAuditComplaintPayload {
   transAuditComplaint: TransAuditComplaint
 }
@@ -1236,6 +1240,8 @@ type MstrAuditStd {
   code: String
   controlCode: String
   category: Int
+  names: UUID!
+  details: UUID
   symbol: String
   remarks: String
   updateAt: Datetime
@@ -1362,6 +1368,7 @@ type MstrTaskGroup {
 }
 
 type Mutation {
+  createMstrAuditStd(input: CreateMstrAuditStdInput!): CreateMstrAuditStdPayload
   createTransAuditComplaint(input: CreateTransAuditComplaintInput!): CreateTransAuditComplaintPayload
   createTransAuditDetailCheckItem(input: CreateTransAuditDetailCheckItemInput!): CreateTransAuditDetailCheckItemPayload
   createTransAuditDetail(input: CreateTransAuditDetailInput!): CreateTransAuditDetailPayload
@@ -1406,6 +1413,8 @@ type Mutation {
   auditComplaintRegister(input: AuditComplaintRegisterInput!): AuditComplaintRegisterPayload
   auditDetailFinish(input: AuditDetailFinishInput!): AuditDetailFinishPayload
   auditDetailStart(input: AuditDetailStartInput!): AuditDetailStartPayload
+  sharedAppellationSave(input: SharedAppellationSaveInput!): SharedAppellationSavePayload
+  sharedTextSave(input: SharedTextSaveInput!): SharedTextSavePayload
   transLabelSave(input: TransLabelSaveInput!): TransLabelSavePayload
   transTextSave(input: TransTextSaveInput!): TransTextSavePayload
 }
@@ -1487,6 +1496,10 @@ type SharedAppellation {
   sharedDictionaryBySharedDictionaryNicknameId: SharedDictionary
 }
 
+type SharedAppellationSavePayload {
+  sharedAppellation: SharedAppellation
+}
+
 type SharedDictionary {
   sharedDictionaryId: UUID!
   sharedDictionaryValuesBySharedDictionaryId(condition: SharedDictionaryValueCondition): SharedDictionaryValuesConnection!
@@ -1503,6 +1516,10 @@ type SharedDictionaryValuesConnection {
 type SharedText {
   sharedTextId: UUID!
   sharedTextValuesBySharedTextId(condition: SharedTextValueCondition): SharedTextValuesConnection!
+}
+
+type SharedTextSavePayload {
+  sharedText: SharedText
 }
 
 type SharedTextValue {
@@ -2546,6 +2563,10 @@ input BooleanFilter {
   greaterThanOrEqualTo: Boolean
 }
 
+input CreateMstrAuditStdInput {
+  mstrAuditStd: MstrAuditStdInput!
+}
+
 input CreateTransAuditComplaintInput {
   transAuditComplaint: TransAuditComplaintInput!
 }
@@ -3245,11 +3266,26 @@ input MstrAuditStdFk2Input {
   updateBySharedAppellationsId: SharedAppellationOnMstrAuditStdForMstrAuditStdFk2UsingSharedAppellationsPkUpdate
 }
 
+input MstrAuditStdInput {
+  code: String
+  controlCode: String
+  category: Int
+  names: UUID
+  details: UUID
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
 input MstrAuditStdPatch {
   code: String
   controlCode: String
   category: Int
+  names: UUID
+  details: UUID
   remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
   remove: Boolean
   sharedAppellationToNames: MstrAuditStdFk2Input
   sharedTextToDetails: MstrAuditStdFk1Input
@@ -3530,6 +3566,15 @@ input SharedAppellationOnMstrReportForMstrReportFk1UsingSharedAppellationsPkUpda
   sharedAppellationsId: UUID!
 }
 
+input SharedAppellationSaveInput {
+  pAppellationId: UUID
+  pName: JSON
+  pPronunciation: JSON
+  pNickname: JSON
+  pStaffId: UUID
+  pStaffHistoryId: UUID
+}
+
 input SharedAppellationsFk1Input {
   updateBySharedDictionaryId: SharedDictionaryOnSharedAppellationForSharedAppellationsFk1UsingSharedDictionaryPkUpdate
 }
@@ -3662,6 +3707,13 @@ input SharedTextOnMstrAuditStdCheckitemForMstrAuditStdCheckitemFk1UsingSharedTex
 input SharedTextOnMstrAuditStdForMstrAuditStdFk1UsingSharedTextPkUpdate {
   sharedTextPatch: updateSharedTextOnMstrAuditStdForMstrAuditStdFk1Patch!
   sharedTextId: UUID!
+}
+
+input SharedTextSaveInput {
+  pTextId: UUID
+  pValues: JSON
+  pStaffId: UUID
+  pStaffHistoryId: UUID
 }
 
 input SharedTextToManySharedTextValueFilter {

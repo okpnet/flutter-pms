@@ -1,0 +1,42 @@
+# audit_std_ledger_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #AuditStdLedgerPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AuditStdLedgerPageEdit(
+  $mstrAuditStdId: UUID!
+  $code: String
+  $controlCode: String
+  $category: Int
+  $names: UUID
+  $details: UUID
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  updateMstrAuditStdByMstrAuditStdId(
+    input: {
+      mstrAuditStdId: $mstrAuditStdId
+      mstrAuditStdPatch: {
+        code: $code
+        controlCode: $controlCode
+        category: $category
+        names: $names
+        details: $details
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    mstrAuditStd {
+      mstrAuditStdId
+      code
+      controlCode
+      category
+      names
+      details
+      remarks
+    }
+  }
+}

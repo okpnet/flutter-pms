@@ -706,3 +706,11 @@
         +   ApprovalScopeLedger 台帳[ApprovalScopeLedgerPage]<!--承認の範囲(承認パターンごと)-->
         +   ApprovalScopeLedger 情報[ApprovalScopeLedgerPageEdit]
         +   ApprovalScopeLedger 登録[ApprovalScopeLedgerPageCreate]
+    1.  organization_model/staff.yaml(作業者の登録・更新)
+        +   StaffLedger 情報[StaffLedgerPageEdit]
+        +   StaffLedger 登録[StaffLedgerPageCreate]
+    1.  quality_model/audit_execution.yaml(監査標準の登録・更新)
+        +   AuditStdLedger 情報[AuditStdLedgerPageEdit]
+        +   AuditStdLedger 登録[AuditStdLedgerPageCreate]
+        +   AuditStdAppellation 登録・更新(共通関数)[AuditStdAppellationSavePageCall]
+        +   AuditStdText 登録・更新(共通関数)[AuditStdTextSavePageCall]

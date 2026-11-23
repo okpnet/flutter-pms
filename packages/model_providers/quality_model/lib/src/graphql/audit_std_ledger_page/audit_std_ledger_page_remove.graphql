@@ -1,0 +1,23 @@
+# audit_std_ledger_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #AuditStdLedgerPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AuditStdLedgerPageRemove(
+  $mstrAuditStdId: UUID!
+  $remove: Boolean!
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  updateMstrAuditStdByMstrAuditStdId(
+    input: {
+      mstrAuditStdId: $mstrAuditStdId
+      mstrAuditStdPatch: { remove: $remove, updateUserId: $updateUserId, updateUserHistoryId: $updateUserHistoryId }
+    }
+  ) {
+    mstrAuditStd {
+      mstrAuditStdId
+      remove
+    }
+  }
+}

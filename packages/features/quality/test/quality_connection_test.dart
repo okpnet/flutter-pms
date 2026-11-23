@@ -27,14 +27,14 @@ void main() {
           cache: GraphQLCache(),
         ),
       );
-      // 異常報告のファイル(compfile)だけ書き込める(complaint_file_test.dart)。ほかは読み取り専用
+      // 異常報告のファイル(compfile)・監査標準(auditstd。audit_std_repository_test.dart)だけ書き込める。ほかは読み取り専用
       expect(repos.map((r) => r.definition.key), [
         'compfile',
         'complaint',
         'audit',
         'auditstd',
       ]);
-      for (final r in repos.where((r) => r.definition.key != 'compfile')) {
+      for (final r in repos.where((r) => !['compfile', 'auditstd'].contains(r.definition.key))) {
         expect(r.definition.viewOnly, isTrue);
         expect(r.definition.fields.every((f) => f.readOnly), isTrue);
         expect(

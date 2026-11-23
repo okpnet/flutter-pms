@@ -397,3 +397,52 @@ AuditNoticePageCall:
     - days_until
     - is_overdue
     - is_in_progress
+
+# ---- 監査標準の登録・更新(Issue 20261123_0001。名称・読み・略称は共通関数 shared_appellation_save、詳細は shared_text_save で作る)----
+
+AuditStdLedgerPageEdit:
+  kind: edit
+  from: mstr_audit_std
+  requiredWhere:
+    - mstr_audit_std_id
+  generateRfe: true
+  withUpdater: true
+  columns:
+    - mstr_audit_std_id
+    - code
+    - control_code
+    - category
+    - names
+    - details
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+AuditStdLedgerPageCreate:
+  kind: create
+  from: mstr_audit_std
+  columns:
+    - code
+    - control_code
+    - category
+    - names
+    - details
+    - remarks
+    - update_user_id
+    - update_user_history_id
+
+# 呼称(名称・読み・略称。言語別の値)・文章(詳細)を作る・変える
+AuditStdAppellationSavePageCall:
+  kind: function
+  mutation: sharedAppellationSave
+  returns: sharedAppellation
+  columns:
+    - shared_appellations_id
+
+AuditStdTextSavePageCall:
+  kind: function
+  mutation: sharedTextSave
+  returns: sharedText
+  columns:
+    - shared_text_id

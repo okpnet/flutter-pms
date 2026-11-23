@@ -1,4 +1,3 @@
-import 'package:localized_values/localized_values.dart';
 import 'package:data_strategist/lib.dart';
 import 'package:entity_screens/entity_screens.dart';
 import 'package:graphql/client.dart';
@@ -6,6 +5,7 @@ import 'package:pms_graphql/pms_graphql.dart' show AuditUserSource;
 import 'package:quality_model/quality_model.dart';
 
 import '../entities/quality_definitions.dart';
+import 'audit_std_repository.dart';
 import 'complaint_file_repository.dart';
 
 /// 品質管理の実体の取得元(GraphQL 版。読み取り専用)。アプリが [GraphQLClient] を渡して組み立て、
@@ -38,7 +38,8 @@ List<IEntityRepository> qualityRepositories(
     ),
     _ComplaintRepository(_readOnly('complaint'), client, language),
     _AuditRepository(_readOnly('audit'), client, language),
-    _AuditStdRepository(_readOnly('auditstd'), client, language),
+    // 監査標準(書き込みできる。項目の登録は別の作業)
+    AuditStdRepository(qualityDefinitions.firstWhere((d) => d.key == 'auditstd'), client, () => language.id, auditUser),
   ];
 }
 
@@ -120,21 +121,6 @@ abstract class _ReadOnlyRepository implements IEntityRepository {
   static String lead(dynamic textValue) {
     final nodes = textValue?.value?.nodes as List?;
     return nodes == null || nodes.isEmpty ? '' : text(nodes.first.leadText);
-  }
-
-  /// DB の numeric(文字列)を、画面の数値の形にする(小数の 0 は省く)。
-  static String number(Object? v) {
-    final s = text(v);
-    if (s.isEmpty) return '';
-    final n = num.tryParse(s);
-    if (n == null) return s;
-    return n == n.roundToDouble() ? '${n.round()}' : '$n';
-  }
-
-  /// 辞書(`value.nodes[0].dictionaryValue`)の言語コード指定の値。
-  static String dict(dynamic dictionary) {
-    // 言語を絞った問い合わせは、絞った言語(ja)の値になる。言語ごとの値を取る問い合わせになれば、代替も効く
-    return LocalizedValues.fromDictionary(dictionary).resolve('ja');
   }
 
   /// 日付(ISO 8601)を、画面の日付の形(年-月-日)にする。
@@ -278,74 +264,3 @@ class _AuditRepository extends _ReadOnlyRepository {
   Future<List<EntityRecord>> findByParent(String? parentId) async => const [];
 }
 
-class _AuditStdRepository extends _ReadOnlyRepository {
-  _AuditStdRepository(super.definition, super.client, super.language);
-
-  EntityRecord _record(Query$AuditStdPageRead$allMstrAuditStds$nodes n) {
-    final l = n.labels;
-    return EntityRecord(
-      id: n.mstrAuditStdId,
-      values: {
-        'code': _ReadOnlyRepository.text(n.code),
-        'control_code': _ReadOnlyRepository.text(n.controlCode),
-        'name': _ReadOnlyRepository.dict(
-          l?.sharedDictionaryBySharedDictionaryNameId,
-        ),
-        'pronunciation': _ReadOnlyRepository.dict(
-          l?.sharedDictionaryBySharedDictionaryPronunciationId,
-        ),
-        'nickname': _ReadOnlyRepository.dict(
-          l?.sharedDictionaryBySharedDictionaryNicknameId,
-        ),
-        'category': _ReadOnlyRepository.number(n.category),
-        'detail': _ReadOnlyRepository.lead(n.detailTexts),
-        'remarks': _ReadOnlyRepository.text(n.remarks),
-      },
-    );
-  }
-
-  Future<List<EntityRecord>> _read(
-    int first,
-    int offset,
-    Map<String, dynamic> filter,
-  ) async {
-    final result = await client.query$AuditStdPageRead(
-      Options$Query$AuditStdPageRead(
-        variables: Variables$Query$AuditStdPageRead.fromJson({
-          'first': first,
-          'offset': offset,
-          'languageCodeId': await language.id,
-          if (filter.isNotEmpty) 'filter': filter,
-        }),
-        fetchPolicy: FetchPolicy.noCache,
-      ),
-    );
-    final e = result.exception;
-    if (e != null) throw e;
-    return [
-      for (final n
-          in result.parsedData?.allMstrAuditStds?.nodes ??
-              const <Query$AuditStdPageRead$allMstrAuditStds$nodes?>[])
-        if (n != null) _record(n),
-    ];
-  }
-
-  @override
-  Future<List<EntityRecord>> find({
-    required int take,
-    int skip = 0,
-    Expression? predicate,
-    SortExpression? orders,
-  }) => _read(take, skip, const {});
-
-  @override
-  Future<EntityRecord?> findById(String id) async {
-    final rows = await _read(1, 0, {
-      'mstrAuditStdId': {'equalTo': id},
-    });
-    return rows.isEmpty ? null : rows.first;
-  }
-
-  @override
-  Future<List<EntityRecord>> findByParent(String? parentId) async => const [];
-}
