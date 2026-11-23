@@ -1,6 +1,7 @@
 import 'package:entity_screens/entity_screens.dart';
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quality/quality_api.dart' show ComplaintRegisterDestination;
 
 import '../i18n/strings_provider.dart';
 import '../shared_master_entity_module.dart';
@@ -13,6 +14,30 @@ import 'stakeholder_destinations.dart';
 /// 同じ取得元から役割で絞って登録簿に登録する。
 class StakeholderModule extends SharedMasterEntityModule {
   const StakeholderModule();
+
+  static const _complaintAction = RowAction(key: 'complaint', target: '');
+
+  /// 利害関係者の台帳に、行の操作「苦情を登録」(品質管理の異常の登録の画面へ。利害関係者を対象にして開く)を足す。
+  @override
+  List<EntityDefinition> get definitions => [
+    for (final d in super.definitions) d.key == stakeholderEntityKey ? withRowAction(d, _complaintAction) : d,
+  ];
+
+  @override
+  EntityLabels labelsOf(WidgetRef ref) {
+    final t = ref.watch(sharedMasterStringsProvider);
+    return ExtraFieldLabels(super.labelsOf(ref), {'$stakeholderEntityKey.complaint': t.complaintAction.stakeholder});
+  }
+
+  @override
+  Future<bool> handleRowAction(WidgetRef ref, RowAction action, EntityRecord record) async {
+    if (action.key != 'complaint') return false;
+    final name = record.valueOf('name');
+    await ref.read(commandBusProvider).execute(
+      ComplaintRegisterDestination(target: 'stakeholder', targetId: record.id, targetLabel: name.isEmpty ? null : name),
+    );
+    return true;
+  }
 
   static const _aliases = {
     'customer': 'is_customer',

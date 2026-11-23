@@ -38,10 +38,21 @@ class SharedMasterStringsEn extends SharedMasterStrings with BaseTranslations<Sh
 	SharedMasterStringsEn $copyWith({TranslationMetadata<SharedMasterLocale, SharedMasterStrings>? meta}) => SharedMasterStringsEn(meta: meta ?? this.$meta);
 
 	// Translations
+	@override late final _SharedMasterStrings$complaintAction$en complaintAction = _SharedMasterStrings$complaintAction$en._(_root);
 	@override late final _SharedMasterStrings$shippingKind$en shippingKind = _SharedMasterStrings$shippingKind$en._(_root);
 	@override late final _SharedMasterStrings$common$en common = _SharedMasterStrings$common$en._(_root);
 	@override late final _SharedMasterStrings$menu$en menu = _SharedMasterStrings$menu$en._(_root);
 	@override late final _SharedMasterStrings$stakeholder$en stakeholder = _SharedMasterStrings$stakeholder$en._(_root);
+}
+
+// Path: complaintAction
+class _SharedMasterStrings$complaintAction$en extends SharedMasterStrings$complaintAction$ja {
+	_SharedMasterStrings$complaintAction$en._(SharedMasterStringsEn root) : this._root = root, super.internal(root);
+
+	final SharedMasterStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get stakeholder => 'Register complaint';
 }
 
 // Path: shippingKind
@@ -160,6 +171,7 @@ class _SharedMasterStrings$shippingKind$confirmDelete$en extends SharedMasterStr
 extension on SharedMasterStringsEn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'complaintAction.stakeholder' => 'Register complaint',
 			'shippingKind.title' => 'Shipping kinds',
 			'shippingKind.pickerTitle' => 'Select a shipping kind',
 			'shippingKind.createTitle' => 'New shipping kind',

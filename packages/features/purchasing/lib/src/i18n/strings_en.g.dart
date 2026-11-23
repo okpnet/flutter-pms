@@ -38,8 +38,19 @@ class PurchasingStringsEn extends PurchasingStrings with BaseTranslations<Purcha
 	PurchasingStringsEn $copyWith({TranslationMetadata<PurchasingLocale, PurchasingStrings>? meta}) => PurchasingStringsEn(meta: meta ?? this.$meta);
 
 	// Translations
+	@override late final _PurchasingStrings$complaintAction$en complaintAction = _PurchasingStrings$complaintAction$en._(_root);
 	@override late final _PurchasingStrings$menu$en menu = _PurchasingStrings$menu$en._(_root);
 	@override late final _PurchasingStrings$entity$en entity = _PurchasingStrings$entity$en._(_root);
+}
+
+// Path: complaintAction
+class _PurchasingStrings$complaintAction$en extends PurchasingStrings$complaintAction$ja {
+	_PurchasingStrings$complaintAction$en._(PurchasingStringsEn root) : this._root = root, super.internal(root);
+
+	final PurchasingStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get purchaseRec => 'Register nonconformity';
 }
 
 // Path: menu
@@ -264,6 +275,7 @@ class _PurchasingStrings$entity$purcert$fields$en extends PurchasingStrings$enti
 extension on PurchasingStringsEn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'complaintAction.purchaseRec' => 'Register nonconformity',
 			'menu.group' => 'Purchasing',
 			'entity.unrec.title' => 'Unrecorded orders',
 			'entity.unrec.fields.f_decision_date' => 'Decision date',

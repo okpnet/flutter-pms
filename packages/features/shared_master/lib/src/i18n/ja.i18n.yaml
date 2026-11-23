@@ -1,3 +1,6 @@
+# 行の操作の名前(手書き)
+complaintAction:
+  stakeholder: 苦情を登録
 # 共有マスタの文字列(日本語。基準言語)。
 # 列のラベルは本来 schema.graphql のコメントを使う。コメントが無いものは仮(doc/log に記録)。
 shippingKind:

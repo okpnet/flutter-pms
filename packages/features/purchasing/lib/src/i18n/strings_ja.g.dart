@@ -35,8 +35,21 @@ class PurchasingStrings with BaseTranslations<PurchasingLocale, PurchasingString
 	PurchasingStrings $copyWith({TranslationMetadata<PurchasingLocale, PurchasingStrings>? meta}) => PurchasingStrings(meta: meta ?? this.$meta);
 
 	// Translations
+	late final PurchasingStrings$complaintAction$ja complaintAction = PurchasingStrings$complaintAction$ja.internal(_root);
 	late final PurchasingStrings$menu$ja menu = PurchasingStrings$menu$ja.internal(_root);
 	late final PurchasingStrings$entity$ja entity = PurchasingStrings$entity$ja.internal(_root);
+}
+
+// Path: complaintAction
+class PurchasingStrings$complaintAction$ja {
+	PurchasingStrings$complaintAction$ja.internal(this._root);
+
+	final PurchasingStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '異常を登録'
+	String get purchaseRec => '異常を登録';
 }
 
 // Path: menu
@@ -383,6 +396,7 @@ class PurchasingStrings$entity$purcert$fields$ja {
 extension on PurchasingStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'complaintAction.purchaseRec' => '異常を登録',
 			'menu.group' => '購買',
 			'entity.unrec.title' => '非計上',
 			'entity.unrec.fields.f_decision_date' => '決定日',

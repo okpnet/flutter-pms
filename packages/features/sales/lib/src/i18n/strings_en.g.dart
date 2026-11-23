@@ -38,8 +38,19 @@ class SalesStringsEn extends SalesStrings with BaseTranslations<SalesLocale, Sal
 	SalesStringsEn $copyWith({TranslationMetadata<SalesLocale, SalesStrings>? meta}) => SalesStringsEn(meta: meta ?? this.$meta);
 
 	// Translations
+	@override late final _SalesStrings$complaintAction$en complaintAction = _SalesStrings$complaintAction$en._(_root);
 	@override late final _SalesStrings$menu$en menu = _SalesStrings$menu$en._(_root);
 	@override late final _SalesStrings$entity$en entity = _SalesStrings$entity$en._(_root);
+}
+
+// Path: complaintAction
+class _SalesStrings$complaintAction$en extends SalesStrings$complaintAction$ja {
+	_SalesStrings$complaintAction$en._(SalesStringsEn root) : this._root = root, super.internal(root);
+
+	final SalesStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get order => 'Register claim';
 }
 
 // Path: menu
@@ -187,6 +198,7 @@ class _SalesStrings$entity$shipline$fields$en extends SalesStrings$entity$shipli
 extension on SalesStringsEn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'complaintAction.order' => 'Register claim',
 			'menu.group' => 'Sales',
 			'entity.order.title' => 'Sales orders',
 			'entity.order.fields.f_order_number' => 'Order number',

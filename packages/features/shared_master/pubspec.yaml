@@ -10,6 +10,8 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  quality:
+    path: ../quality
   loadux_lib:
     path: ../../ui/loadux_lib
   localized_values:

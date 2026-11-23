@@ -35,8 +35,21 @@ class SalesStrings with BaseTranslations<SalesLocale, SalesStrings> {
 	SalesStrings $copyWith({TranslationMetadata<SalesLocale, SalesStrings>? meta}) => SalesStrings(meta: meta ?? this.$meta);
 
 	// Translations
+	late final SalesStrings$complaintAction$ja complaintAction = SalesStrings$complaintAction$ja.internal(_root);
 	late final SalesStrings$menu$ja menu = SalesStrings$menu$ja.internal(_root);
 	late final SalesStrings$entity$ja entity = SalesStrings$entity$ja.internal(_root);
+}
+
+// Path: complaintAction
+class SalesStrings$complaintAction$ja {
+	SalesStrings$complaintAction$ja.internal(this._root);
+
+	final SalesStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'クレームを登録'
+	String get order => 'クレームを登録';
 }
 
 // Path: menu
@@ -269,6 +282,7 @@ class SalesStrings$entity$shipline$fields$ja {
 extension on SalesStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'complaintAction.order' => 'クレームを登録',
 			'menu.group' => '営業',
 			'entity.order.title' => '受注',
 			'entity.order.fields.f_order_number' => '注文番号',

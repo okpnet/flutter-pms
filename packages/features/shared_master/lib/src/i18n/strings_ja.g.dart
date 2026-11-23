@@ -35,11 +35,24 @@ class SharedMasterStrings with BaseTranslations<SharedMasterLocale, SharedMaster
 	SharedMasterStrings $copyWith({TranslationMetadata<SharedMasterLocale, SharedMasterStrings>? meta}) => SharedMasterStrings(meta: meta ?? this.$meta);
 
 	// Translations
+	late final SharedMasterStrings$complaintAction$ja complaintAction = SharedMasterStrings$complaintAction$ja.internal(_root);
 	late final SharedMasterStrings$shippingKind$ja shippingKind = SharedMasterStrings$shippingKind$ja.internal(_root);
 	late final SharedMasterStrings$common$ja common = SharedMasterStrings$common$ja.internal(_root);
 	late final SharedMasterStrings$menu$ja menu = SharedMasterStrings$menu$ja.internal(_root);
 	late final SharedMasterStrings$stakeholder$ja stakeholder = SharedMasterStrings$stakeholder$ja.internal(_root);
 	late final SharedMasterStrings$entity$ja entity = SharedMasterStrings$entity$ja.internal(_root);
+}
+
+// Path: complaintAction
+class SharedMasterStrings$complaintAction$ja {
+	SharedMasterStrings$complaintAction$ja.internal(this._root);
+
+	final SharedMasterStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '苦情を登録'
+	String get stakeholder => '苦情を登録';
 }
 
 // Path: shippingKind
@@ -341,6 +354,7 @@ class SharedMasterStrings$entity$contact$fields$ja {
 extension on SharedMasterStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'complaintAction.stakeholder' => '苦情を登録',
 			'shippingKind.title' => '配送区分台帳',
 			'shippingKind.pickerTitle' => '配送区分を選択',
 			'shippingKind.createTitle' => '配送区分の登録',
