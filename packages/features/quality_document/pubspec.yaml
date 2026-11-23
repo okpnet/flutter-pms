@@ -22,6 +22,11 @@ dependencies:
     path: ../../ui/app_shell
   markdown_view:
     path: ../../foundation/markdown_view
+  markdown_pdf:
+    path: ../../foundation/markdown_pdf
+  approval_stamp:
+    path: ../../foundation/approval_stamp
+  file_picker: ^13.3.2
   wysiwyg_editor:
     path: ../../foundation/wysiwyg_editor
   flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml

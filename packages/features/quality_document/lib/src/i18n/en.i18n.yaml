@@ -6,6 +6,12 @@ body:
   notFound: The document content was not found.
   noBody: No body yet.
   readOnly: Read only
+  pdf: PDF
+  pdfSaved: PDF saved.
+  pdfCanceled: Save canceled.
+  pdfFailed: Could not create the PDF.
+  pendingNote: This document is pending approval.
+  unreadable: This document is pending approval and cannot be read.
   edit: Edit
   save: Save
   cancel: Cancel

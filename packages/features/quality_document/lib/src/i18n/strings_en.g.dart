@@ -56,6 +56,12 @@ class _QualityDocumentStrings$body$en extends QualityDocumentStrings$body$ja {
 	@override String get notFound => 'The document content was not found.';
 	@override String get noBody => 'No body yet.';
 	@override String get readOnly => 'Read only';
+	@override String get pdf => 'PDF';
+	@override String get pdfSaved => 'PDF saved.';
+	@override String get pdfCanceled => 'Save canceled.';
+	@override String get pdfFailed => 'Could not create the PDF.';
+	@override String get pendingNote => 'This document is pending approval.';
+	@override String get unreadable => 'This document is pending approval and cannot be read.';
 	@override String get edit => 'Edit';
 	@override String get save => 'Save';
 	@override String get cancel => 'Cancel';
@@ -223,6 +229,12 @@ extension on QualityDocumentStringsEn {
 			'body.notFound' => 'The document content was not found.',
 			'body.noBody' => 'No body yet.',
 			'body.readOnly' => 'Read only',
+			'body.pdf' => 'PDF',
+			'body.pdfSaved' => 'PDF saved.',
+			'body.pdfCanceled' => 'Save canceled.',
+			'body.pdfFailed' => 'Could not create the PDF.',
+			'body.pendingNote' => 'This document is pending approval.',
+			'body.unreadable' => 'This document is pending approval and cannot be read.',
 			'body.edit' => 'Edit',
 			'body.save' => 'Save',
 			'body.cancel' => 'Cancel',

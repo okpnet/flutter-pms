@@ -66,6 +66,24 @@ class QualityDocumentStrings$body$ja {
 	/// ja: '閲覧のみ'
 	String get readOnly => '閲覧のみ';
 
+	/// ja: 'PDF'
+	String get pdf => 'PDF';
+
+	/// ja: 'PDF を保存しました。'
+	String get pdfSaved => 'PDF を保存しました。';
+
+	/// ja: '保存を取り消しました。'
+	String get pdfCanceled => '保存を取り消しました。';
+
+	/// ja: 'PDF を作成できませんでした。'
+	String get pdfFailed => 'PDF を作成できませんでした。';
+
+	/// ja: 'この文書は承認待ちです。'
+	String get pendingNote => 'この文書は承認待ちです。';
+
+	/// ja: 'この文書は承認待ちのため、読めません。'
+	String get unreadable => 'この文書は承認待ちのため、読めません。';
+
 	/// ja: '編集'
 	String get edit => '編集';
 
@@ -342,6 +360,12 @@ extension on QualityDocumentStrings {
 			'body.notFound' => '文書コンテンツが見つかりません。',
 			'body.noBody' => 'まだ本文がありません。',
 			'body.readOnly' => '閲覧のみ',
+			'body.pdf' => 'PDF',
+			'body.pdfSaved' => 'PDF を保存しました。',
+			'body.pdfCanceled' => '保存を取り消しました。',
+			'body.pdfFailed' => 'PDF を作成できませんでした。',
+			'body.pendingNote' => 'この文書は承認待ちです。',
+			'body.unreadable' => 'この文書は承認待ちのため、読めません。',
 			'body.edit' => '編集',
 			'body.save' => '保存',
 			'body.cancel' => 'キャンセル',

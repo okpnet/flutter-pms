@@ -6,6 +6,7 @@ import 'package:markdown_view/markdown_view.dart';
 import 'package:wysiwyg_editor/wysiwyg_editor.dart';
 
 import '../body/document_body_gateway.dart';
+import '../body/document_pdf.dart';
 import '../i18n/strings_provider.dart';
 
 // 読み込みの失敗は、自動で再試行せず、そのまま画面に出す(見つからない・接続できない)
@@ -49,6 +50,13 @@ class _DocumentBodyPageState extends ConsumerState<DocumentBodyPage> {
           title: b.title.isEmpty ? s.title : b.title,
           actions: [
             if (!admin) Chip(label: Text(s.readOnly)),
+            if (!editing)
+              OutlinedButton.icon(
+                key: const Key('body-pdf'),
+                onPressed: () => _exportPdf(b, s),
+                icon: const Icon(Icons.picture_as_pdf_outlined),
+                label: Text(s.pdf),
+              ),
             if (admin && !editing)
               FilledButton.icon(
                 key: const Key('body-edit'),
@@ -66,9 +74,51 @@ class _DocumentBodyPageState extends ConsumerState<DocumentBodyPage> {
     );
   }
 
-  Widget _viewer(DocumentBody b, dynamic s) => SingleChildScrollView(
-    child: MarkdownView(key: const Key('body-view'), markdown: b.markdown, emptyText: s.noBody as String),
-  );
+  Widget _viewer(DocumentBody b, dynamic s) {
+    final approval = ref.watch(documentApprovalProvider(widget.contentId)).value ?? DocumentApproval.none;
+    if (!approval.readable) return Center(child: Text(s.unreadable as String, key: const Key('body-unreadable')));
+    final scheme = Theme.of(context).colorScheme;
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (approval.pending)
+            Container(
+              key: const Key('body-approval-pending'),
+              padding: const EdgeInsets.all(10),
+              margin: const EdgeInsets.only(bottom: 10),
+              decoration: BoxDecoration(color: scheme.tertiaryContainer, borderRadius: BorderRadius.circular(6)),
+              child: Text(s.pendingNote as String, style: TextStyle(color: scheme.onTertiaryContainer)),
+            ),
+          MarkdownView(key: const Key('body-view'), markdown: b.markdown, emptyText: s.noBody as String),
+        ],
+      ),
+    );
+  }
+
+  /// PDF を作って「名前を付けて保存」で保存する。設定・承認の状態・フォント・保存先は、窓口(Provider)から取る。
+  Future<void> _exportPdf(DocumentBody b, dynamic s) async {
+    final messenger = ScaffoldMessenger.of(context);
+    try {
+      final approval = await ref.read(documentApprovalProvider(widget.contentId).future);
+      final fonts = await ref.read(documentPdfFontsProvider.future);
+      final bytes = await buildDocumentPdf(
+        title: b.title,
+        markdown: b.markdown,
+        settings: ref.read(documentAppSettingsProvider),
+        approval: approval,
+        fonts: fonts,
+        printedAt: ref.read(documentClockProvider)(),
+        printedBy: ref.read(documentPrinterNameProvider),
+      );
+      final base = (b.title.isEmpty ? 'document' : b.title).replaceAll(RegExp(r'[\\/:*?"<>|]'), '_');
+      final saved = await ref.read(documentFileSaverProvider).save('$base.pdf', bytes);
+      messenger.showSnackBar(SnackBar(content: Text((saved ? s.pdfSaved : s.pdfCanceled) as String)));
+    } catch (e, st) {
+      debugPrint('[quality_document] PDF の作成に失敗: $e\n$st');
+      messenger.showSnackBar(SnackBar(content: Text(s.pdfFailed as String)));
+    }
+  }
 
   Widget _editor(BuildContext context, DocumentBody b, dynamic s) {
     final controller = _controller ??= WysiwygEditorController(b.markdown);

@@ -6,6 +6,12 @@ body:
   notFound: 文書コンテンツが見つかりません。
   noBody: まだ本文がありません。
   readOnly: 閲覧のみ
+  pdf: PDF
+  pdfSaved: PDF を保存しました。
+  pdfCanceled: 保存を取り消しました。
+  pdfFailed: PDF を作成できませんでした。
+  pendingNote: この文書は承認待ちです。
+  unreadable: この文書は承認待ちのため、読めません。
   edit: 編集
   save: 保存
   cancel: キャンセル

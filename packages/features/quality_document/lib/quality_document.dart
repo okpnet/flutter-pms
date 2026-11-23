@@ -13,3 +13,14 @@ export 'src/graphql/graphql_document_body_gateway.dart' show GraphqlDocumentBody
 export 'src/graphql/quality_document_repositories.dart'
     show qualityDocumentRepositories;
 export 'src/quality_document_module.dart' show QualityDocumentModule;
+export 'src/body/document_pdf.dart'
+    show
+        DocumentApproval,
+        IDocumentApprovalSource,
+        IDocumentFileSaver,
+        documentApprovalSourceProvider,
+        documentAppSettingsProvider,
+        documentClockProvider,
+        documentFileSaverProvider,
+        documentPdfFontsProvider,
+        documentPrinterNameProvider;

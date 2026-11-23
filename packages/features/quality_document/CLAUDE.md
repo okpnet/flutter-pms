@@ -40,7 +40,8 @@
 1.  画面(`DocumentBodyPage`)は組み合わせるだけ。閲覧 = `markdown_view`(`MarkdownView`)、編集 = `wysiwyg_editor`(`WysiwygEditor`。ビジュアル / Markdown)。Markdown の読み取り・変換・表示・編集は `packages/foundation` の Markdown 系のパッケージが持ち、この機能には持たない。保存・取り消し(変更があれば確認)・読み込み・権限だけを持つ。
 1.  編集は管理者だけ(`documentBodyIsAdminProvider`。既定は閲覧のみ。アプリが認証の結果で差し込む)。変更が無いまま保存しても、保存しない。
 1.  取得元は `IDocumentBodyGateway`(`documentBodyGatewayProvider`。既定はメモリ上)。GraphQL 版(`GraphqlDocumentBodyGateway`)は、文書コンテンツの `contents`(共有テキストの ID)から本文を読み(`DocumentContentBodyPage`。言語 `ja` の値)、保存は共通関数 `shared_text_save`(`DocumentContentTextSavePageCall`)で `ja` の値だけを入れ替える(他の言語は残る。担当者は関数が JWT から決める)。履歴は DB の履歴の表(`history_shared_text_value`)が持つ。
-1.  テスト: `test/document_body_test.dart`(画面・取得元。サーバーには接続しない)。通信テストは読み取りだけで、本文の保存はサーバーでは試していない。
+1.  **PDF の出力・承認の表示**(`lib/src/body/document_pdf.dart`): 本文の画面の「PDF」で、本文(Markdown)を `markdown_pdf` で PDF にし、「名前を付けて保存」で保存する(`manual` と同じ形。出力に使った設定は PDF のメタデータに残る)。設定は `documentAppSettingsProvider`(`info_app.settings`。既定は標準)、承認の状態は `documentApprovalSourceProvider`(`IDocumentApprovalSource`。既定は承認なし = 公開・スタンプなし。アプリが DB のビュー `v_document_publication`・`v_document_approval_stamp` の値に差し替える)、保存先は `documentFileSaverProvider`、フォントは `documentPdfFontsProvider`、出力者・日時は `documentPrinterNameProvider`・`documentClockProvider`。承認待ちは帯を出し、読めない(`readable = false`)ときは本文の代わりに案内を出す。判定は DB のビューの値で、画面・PDF では判定しない。承認スタンプは承認の段があるときだけ付ける。**アプリ側の差し込み(GraphQL 版の承認の取得元)は未実施**。
+1.  テスト: `test/document_body_test.dart`(画面・取得元。サーバーには接続しない)・`test/document_pdf_test.dart`(PDF・承認待ち)。通信テストは読み取りだけで、本文の保存はサーバーでは試していない。
 
 ## example と多言語
 1.  ビジュアルテスト用に`example`(Windows 向け)を持つ。`flutter run -d windows`で起動し、`lib/main.dart`の`entries`に遷移先を足す(`packages/features/CLAUDE.md`の「機能プロジェクト共通」)。
