@@ -149,6 +149,7 @@ class _OrganizationStrings$staffUser$en extends OrganizationStrings$staffUser$ja
 
 	// Translations
 	@override String get createUser => 'Create user';
+	@override String get approvalSteps => 'Approval steps';
 }
 
 // Path: accessRights
@@ -538,7 +539,6 @@ class _OrganizationStrings$entity$approvalpattern$fields$en extends Organization
 	@override String get f_name => 'Pattern name';
 	@override String get f_pronunciation => 'Reading';
 	@override String get f_remarks => 'Remarks';
-	@override String get f_steps => 'Approval steps';
 }
 
 // Path: entity.accesspathapproval.fields
@@ -640,6 +640,7 @@ extension on OrganizationStringsEn {
 			'approvalSteps.delete' => 'Delete',
 			'approvalSteps.deleteConfirm' => 'Delete this approval step?',
 			'staffUser.createUser' => 'Create user',
+			'staffUser.approvalSteps' => 'Approval steps',
 			'accessRights.title' => 'Access rights',
 			'accessRights.staff' => 'Staff access',
 			'accessRights.department' => 'Department access',
@@ -728,7 +729,6 @@ extension on OrganizationStringsEn {
 			'entity.approvalpattern.fields.f_name' => 'Pattern name',
 			'entity.approvalpattern.fields.f_pronunciation' => 'Reading',
 			'entity.approvalpattern.fields.f_remarks' => 'Remarks',
-			'entity.approvalpattern.fields.f_steps' => 'Approval steps',
 			'entity.accesspathapproval.title' => 'Access path approvals',
 			'entity.accesspathapproval.fields.f_name' => 'Name',
 			'entity.accesspathapproval.fields.f_access_path' => 'Access path',

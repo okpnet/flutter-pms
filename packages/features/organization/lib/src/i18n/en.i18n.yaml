@@ -73,6 +73,7 @@ approvalSteps:
 # Row action on the staff ledger (hand-written)
 staffUser:
   createUser: Create user
+  approvalSteps: Approval steps
 
 # Access rights on the company overview (hand-written)
 accessRights:
@@ -192,7 +193,6 @@ entity:
       f_name: "Pattern name"
       f_pronunciation: "Reading"
       f_remarks: "Remarks"
-      f_steps: "Approval steps"
   accesspathapproval:
     title: "Access path approvals"
     fields:

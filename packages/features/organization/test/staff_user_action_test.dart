@@ -10,4 +10,9 @@ void main() {
     final others = const OrganizationModule().definitions.where((d) => d.key != 'staff');
     expect(others.any((d) => d.rowActions.any((a) => a.key == 'create_user')), isFalse);
   });
+
+  test('承認パターンの台帳に、行の操作「承認の段」がある(再生成しても消えない。モジュールが足す)', () {
+    final d = const OrganizationModule().definitions.firstWhere((d) => d.key == 'approvalpattern');
+    expect(d.rowActions.map((a) => a.key), contains('steps'));
+  });
 }

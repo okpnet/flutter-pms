@@ -72,6 +72,7 @@ approvalSteps:
 # 作業者の行の操作(手書き)
 staffUser:
   createUser: ユーザーを作成
+  approvalSteps: 承認の段
 # 会社情報の概要のアクセス権(手書き)
 accessRights:
   title: アクセス権
@@ -198,7 +199,6 @@ entity:
       f_name: "パターン名称"
       f_pronunciation: "読み"
       f_remarks: "備考"
-      f_steps: "承認の段"
   accesspathapproval:
     title: "アクセスパスの承認"
     fields:

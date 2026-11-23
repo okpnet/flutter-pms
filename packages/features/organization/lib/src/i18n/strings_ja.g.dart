@@ -282,6 +282,9 @@ class OrganizationStrings$staffUser$ja {
 
 	/// ja: 'ユーザーを作成'
 	String get createUser => 'ユーザーを作成';
+
+	/// ja: '承認の段'
+	String get approvalSteps => '承認の段';
 }
 
 // Path: accessRights
@@ -898,9 +901,6 @@ class OrganizationStrings$entity$approvalpattern$fields$ja {
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
-
-	/// ja: '承認の段'
-	String get f_steps => '承認の段';
 }
 
 // Path: entity.accesspathapproval.fields
@@ -1012,6 +1012,7 @@ extension on OrganizationStrings {
 			'approvalSteps.delete' => '削除',
 			'approvalSteps.deleteConfirm' => 'この承認の段を削除しますか。',
 			'staffUser.createUser' => 'ユーザーを作成',
+			'staffUser.approvalSteps' => '承認の段',
 			'accessRights.title' => 'アクセス権',
 			'accessRights.staff' => '担当者のアクセス権',
 			'accessRights.department' => '部署のアクセス権',
@@ -1104,7 +1105,6 @@ extension on OrganizationStrings {
 			'entity.approvalpattern.fields.f_name' => 'パターン名称',
 			'entity.approvalpattern.fields.f_pronunciation' => '読み',
 			'entity.approvalpattern.fields.f_remarks' => '備考',
-			'entity.approvalpattern.fields.f_steps' => '承認の段',
 			'entity.accesspathapproval.title' => 'アクセスパスの承認',
 			'entity.accesspathapproval.fields.f_name' => '名称',
 			'entity.accesspathapproval.fields.f_access_path' => 'アクセスパス',

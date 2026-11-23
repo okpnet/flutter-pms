@@ -26,11 +26,17 @@ class OrganizationModule extends EntityFeatureModule {
   const OrganizationModule();
 
   static const _createUserAction = RowAction(key: 'create_user', target: '');
+  static const _stepsAction = RowAction(key: 'steps', target: '');
 
   /// 作業者の台帳に、行の操作「ユーザーを作成」(管理者のユーザー作成の画面へ。担当者の ID と氏名を渡す)を足す。
   @override
   List<EntityDefinition> get definitions => [
-    for (final d in organizationDefinitions) d.key == 'staff' ? _withAction(d, _createUserAction) : d,
+    for (final d in organizationDefinitions)
+      switch (d.key) {
+        'staff' => _withAction(d, _createUserAction),
+        'approvalpattern' => _withAction(d, _stepsAction), // 承認の段の画面(ドラッグで並べ替え)へ
+        _ => d,
+      },
   ];
 
   static EntityDefinition _withAction(EntityDefinition d, RowAction action) => EntityDefinition(
@@ -127,5 +133,9 @@ class _Labels extends OrganizationLabels {
 
   @override
   String field(String entityKey, String fieldKey) =>
-      entityKey == 'staff' && fieldKey == 'create_user' ? _strings.staffUser.createUser : super.field(entityKey, fieldKey);
+      entityKey == 'staff' && fieldKey == 'create_user'
+      ? _strings.staffUser.createUser
+      : entityKey == 'approvalpattern' && fieldKey == 'steps'
+      ? _strings.staffUser.approvalSteps
+      : super.field(entityKey, fieldKey);
 }
