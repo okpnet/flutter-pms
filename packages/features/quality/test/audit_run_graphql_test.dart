@@ -63,14 +63,12 @@ class _FakeLink extends Link {
               'findingsText': _text('t-f', '一部未実施'),
               'standard': {
                 'code': 'A1',
-                'master': {
-                  'labels': {
-                    'sharedDictionaryBySharedDictionaryNameId': {
-                      'value': {
-                        'nodes': [
-                          {'dictionaryValue': '記録の管理'},
-                        ],
-                      },
+                'labels': {
+                  'sharedDictionaryBySharedDictionaryNameId': {
+                    'value': {
+                      'nodes': [
+                        {'dictionaryValue': '記録の管理'},
+                      ],
                     },
                   },
                 },
@@ -89,7 +87,7 @@ class _FakeLink extends Link {
               'transAuditDetailCheckItemsId': 'i2',
               'formulaValue': null,
               'findingsText': null,
-              'standard': {'code': 'A2', 'master': null},
+              'standard': {'code': 'A2', 'labels': null},
               'complaints': {'nodes': []},
             },
           ],

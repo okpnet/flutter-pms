@@ -1795,6 +1795,8 @@ input MstrItemFilter {
   vItemItemProvisionCountByMstrItemId: VItemItemProvisionCountFilter
   vItemItemProvisionCountByMstrItemIdExists: Boolean
   vItemOnHandByItemIdExists: Boolean
+  vItemUnitCostByItemIdExists: Boolean
+  vItemValuationByItemIdExists: Boolean
   vMrpMasterIssuesByItemIdExist: Boolean
   vMrpPendingSuggestionsByItemIdExist: Boolean
   vMrpSuggestionsByItemIdExist: Boolean
@@ -1815,6 +1817,7 @@ input MstrItemFilter {
   vStockStatusesByMstrItemIdExist: Boolean
   vSupplyDetailBalancesByItemIdExist: Boolean
   vVisiterItemsByMstrItemIdExist: Boolean
+  vVisiterValuationsByItemIdExist: Boolean
   mstrItemKindByMstrItemKindId: MstrItemKindFilter
   mstrManufacturerByMstrManufacturerId: MstrManufacturerFilter
   mstrManufacturerByMstrManufacturerIdExists: Boolean
@@ -2544,6 +2547,7 @@ input SharedAppellationFilter {
   mstrItemTreesByNamesExist: Boolean
   mstrAuditStdsByNamesExist: Boolean
   mstrAuditStdCheckitemsByNamesExist: Boolean
+  historyMstrAuditStdCheckitemsByNamesExist: Boolean
   mstrEquipmentTagsByNamesExist: Boolean
   mstrLicensesByNamesExist: Boolean
   infoAccessPathApprovalsByNamesExist: Boolean
@@ -3033,6 +3037,7 @@ input SharedTextFilter {
   mstrItemTreesByDetailsExist: Boolean
   mstrAuditStdsByDetailsExist: Boolean
   mstrAuditStdCheckitemsByDetailsExist: Boolean
+  historyMstrAuditStdCheckitemsByDetailsExist: Boolean
   mstrLicensesByDetailsExist: Boolean
   mstrCapabilitiesByDetailsExist: Boolean
   vTextSharedTextValueCountBySharedTextIdExists: Boolean

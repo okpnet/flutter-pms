@@ -67462,7 +67462,7 @@
       "kind": "view",
       "logicalName": "",
       "physicalName": "v_complaint",
-      "comment": "@primaryKey trans_complaint_id\n@unique symbol\n@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\n異常の一覧(1 行 = 異常)。種類は、子の表に行があるか(has_*)で分かる(1 つの異常が複数の種類を持てる)。外部か・クレームかは、種類のビュー v_complaint_kind の値。種類の名称 kind_names も同じビューの値(画面で決めない)",
+      "comment": "@primaryKey trans_complaint_id\n@unique symbol\n@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)\n@foreignKey (titles) references trans_label (trans_label_id)\n@foreignKey (details) references trans_text (trans_text_id)\n@foreignKey (reporter_staff_id) references info_staff (info_staff_id)\n異常の一覧(1 行 = 異常)。種類は、子の表に行があるか(has_*)で分かる(1 つの異常が複数の種類を持てる)。外部か・クレームかは、種類のビュー v_complaint_kind の値。種類の名称 kind_names も同じビューの値(画面で決めない)",
       "locked": false,
       "viewType": "sql",
       "join": {

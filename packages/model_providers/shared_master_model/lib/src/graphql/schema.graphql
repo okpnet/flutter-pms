@@ -750,6 +750,7 @@ input SharedAppellationFilter {
   mstrItemTreesByNamesExist: Boolean
   mstrAuditStdsByNamesExist: Boolean
   mstrAuditStdCheckitemsByNamesExist: Boolean
+  historyMstrAuditStdCheckitemsByNamesExist: Boolean
   mstrEquipmentTagsByNamesExist: Boolean
   mstrLicensesByNamesExist: Boolean
   infoAccessPathApprovalsByNamesExist: Boolean

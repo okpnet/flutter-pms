@@ -1,0 +1,28 @@
+# complaint_visiter_lookup_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ComplaintVisiterLookupPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ComplaintVisiterLookupPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransVisiterFilter = {and: []}
+  $orderBy: [TransVisitersOrderBy!]
+) {
+  allTransVisiters(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transVisiterId
+      symbol
+    }
+  }
+}

@@ -1590,6 +1590,8 @@ input MstrItemFilter {
   vItemItemOperationTaskCountByMstrItemIdExists: Boolean
   vItemItemProvisionCountByMstrItemIdExists: Boolean
   vItemOnHandByItemIdExists: Boolean
+  vItemUnitCostByItemIdExists: Boolean
+  vItemValuationByItemIdExists: Boolean
   vMrpMasterIssuesByItemIdExist: Boolean
   vMrpPendingSuggestionsByItemIdExist: Boolean
   vMrpSuggestionsByItemIdExist: Boolean
@@ -1610,6 +1612,7 @@ input MstrItemFilter {
   vStockStatusesByMstrItemIdExist: Boolean
   vSupplyDetailBalancesByItemIdExist: Boolean
   vVisiterItemsByMstrItemIdExist: Boolean
+  vVisiterValuationsByItemIdExist: Boolean
   mstrManufacturerByMstrManufacturerIdExists: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   sharedTextByDetailsExists: Boolean
@@ -1723,6 +1726,7 @@ input SharedAppellationFilter {
   mstrItemTreesByNamesExist: Boolean
   mstrAuditStdsByNamesExist: Boolean
   mstrAuditStdCheckitemsByNamesExist: Boolean
+  historyMstrAuditStdCheckitemsByNamesExist: Boolean
   mstrEquipmentTagsByNamesExist: Boolean
   mstrLicensesByNamesExist: Boolean
   infoAccessPathApprovalsByNamesExist: Boolean
@@ -2258,6 +2262,7 @@ input TransVisiterFilter {
   vVisiterLotsByParentTransVisiterIdExist: Boolean
   vVisiterLotsByRootVisiterIdExist: Boolean
   vVisiterPurchaseRecVisiterCountByTransVisiterIdExists: Boolean
+  vVisiterValuationByTransVisiterIdExists: Boolean
   vVisiterWorkRecordVisiterCountByTransVisiterIdExists: Boolean
   transVisiterByParentTransVisiterIdExists: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
@@ -2324,6 +2329,7 @@ input TransWorkRecordFilter {
   transComplaintWorksByTransWorkRecordIdExist: Boolean
   transWorkRecordVisitersByTransWorkRecordIdExist: Boolean
   transWorkRecordCertificatesByTransWorkRecordIdExist: Boolean
+  vComplaintKindsByTransWorkRecordIdExist: Boolean
   vComplaintTargetsByTransWorkRecordIdExist: Boolean
   vComplaintTargetVisitersByTransWorkRecordIdExist: Boolean
   vVisiterOriginChecksByTransWorkRecordIdExist: Boolean

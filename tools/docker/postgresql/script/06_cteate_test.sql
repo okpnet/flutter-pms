@@ -9082,6 +9082,78 @@ COMMENT ON COLUMN tests.trans_announcement.update_user_history_id IS '更新者�
 
 COMMENT ON COLUMN tests.trans_announcement.remove IS '削除';
 
+CREATE OR REPLACE FUNCTION tests.announcement_register(
+    p_to_staff_ids uuid[],
+    p_category varchar,
+    p_titles jsonb,
+    p_messages jsonb DEFAULT NULL,
+    p_target_symbol varchar DEFAULT NULL,
+    p_expiration_date timestamp DEFAULT NULL,
+    p_staff_id uuid DEFAULT NULL,
+    p_staff_history_id uuid DEFAULT NULL
+) RETURNS integer AS $$
+DECLARE
+    v_staff record;
+    v_label uuid;
+    v_text uuid;
+    v_to uuid;
+    v_hist uuid;
+    v_n integer := 0;
+BEGIN
+    SELECT * INTO v_staff FROM tests.apl_staff(p_staff_id, p_staff_history_id);
+    IF NULLIF(btrim(p_category), '') IS NULL THEN
+        RAISE EXCEPTION '通知区分がありません' USING ERRCODE = 'ANN02';
+    END IF;
+    IF p_titles IS NULL OR p_titles = '{}'::jsonb THEN
+        RAISE EXCEPTION '通知の題名がありません' USING ERRCODE = 'ANN02';
+    END IF;
+    FOREACH v_to IN ARRAY COALESCE(p_to_staff_ids, ARRAY[]::uuid[]) LOOP
+        -- 対象(target_symbol)があるとき、同じ宛先・同じ区分・同じ対象の通知は、1 件だけ(冪等)
+        CONTINUE WHEN p_target_symbol IS NOT NULL AND EXISTS (
+            SELECT 1 FROM tests.trans_announcement AS n
+            WHERE n.to_staff_id = v_to AND n.category = p_category AND n.target_symbol = p_target_symbol AND n.remove IS FALSE
+        );
+        SELECT h.history_id INTO v_hist FROM tests.history_info_staff AS h
+         WHERE h.info_staff_id = v_to ORDER BY h.revision DESC LIMIT 1;
+        CONTINUE WHEN v_hist IS NULL; -- 履歴の無い担当者には作らない
+        IF v_label IS NULL THEN
+            -- 題名・本文は、宛先に共通の 1 組(言語別の値)。作る必要が出たときに作る(重複だけのときは作らない)
+            v_label := (tests.trans_label_save(NULL, p_titles, v_staff.staff_id, v_staff.staff_history_id)).trans_label_id;
+            IF p_messages IS NOT NULL AND p_messages <> '{}'::jsonb THEN
+                v_text := (tests.trans_text_save(NULL, p_messages, v_staff.staff_id, v_staff.staff_history_id)).trans_text_id;
+            END IF;
+        END IF;
+        INSERT INTO tests.trans_announcement (to_staff_history_id, to_staff_id, category, titles, messages, expiration_date, target_symbol, update_user_id, update_user_history_id)
+        VALUES (v_hist, v_to, p_category, v_label, v_text, COALESCE(p_expiration_date, CURRENT_DATE + 30), p_target_symbol, v_staff.staff_id, v_staff.staff_history_id);
+        v_n := v_n + 1;
+    END LOOP;
+    RETURN v_n;
+END
+$$ LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION tests.announcement_register(uuid[], varchar, jsonb, jsonb, varchar, timestamp, uuid, uuid) IS '通知を、宛先(担当者の配列)ごとに 1 件ずつ作る(1 トランザクション)。通知の文は、言語別の値(JSON。例 {"ja":"…","en":"…"})を直接登録する(題名 p_titles は必須、本文 p_messages は任意)。対象は汎用の p_target_symbol(対象の表の symbol。外部キーではない。アプリは symbol のショートカットで画面へ進む)。対象があるとき、同じ宛先・区分・対象の通知は 1 件だけ(冪等)。履歴の無い担当者には作らない。戻り値は作った件数。担当者は引数、省略時は JWT の staff_id。errcode: APL00 担当者・言語が無い / ANN02 区分・題名が無い';
+
+CREATE OR REPLACE FUNCTION tests.announcement_mark_read(
+    p_announcement_id uuid,
+    p_staff_id uuid DEFAULT NULL
+) RETURNS tests.trans_announcement AS $$
+DECLARE
+    v_me uuid := COALESCE(p_staff_id, NULLIF(current_setting('jwt.claims.staff_id', true), '')::uuid);
+    v_row tests.trans_announcement;
+BEGIN
+    -- 自分宛ての通知だけを既読にする
+    UPDATE tests.trans_announcement SET is_read = TRUE
+     WHERE trans_announcement_id = p_announcement_id AND to_staff_id = v_me AND remove IS FALSE
+    RETURNING * INTO v_row;
+    IF v_row.trans_announcement_id IS NULL THEN
+        RAISE EXCEPTION '通知が見つかりません (%)', p_announcement_id USING ERRCODE = 'ANN01';
+    END IF;
+    RETURN v_row;
+END
+$$ LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION tests.announcement_mark_read(uuid, uuid) IS '自分宛て(担当者は引数、省略時は JWT の staff_id)の通知を既読にする。他の人の通知・削除済みは ANN01。戻り値は更新後の通知';
+
 CREATE TABLE tests.mstr_operation_task (
   mstr_operation_task_id uuid DEFAULT gen_random_uuid() NOT NULL,
   mstr_operation_id uuid NOT NULL,
@@ -13281,6 +13353,103 @@ COMMENT ON COLUMN tests.trans_complaint_order.update_user_history_id IS '更新�
 
 COMMENT ON COLUMN tests.trans_complaint_order.remove IS '削除';
 
+CREATE OR REPLACE FUNCTION tests.complaint_register(
+    p_titles jsonb,
+    p_details jsonb DEFAULT NULL,
+    p_occurred_at timestamp DEFAULT NULL,
+    p_equipment_id uuid DEFAULT NULL,
+    p_task_id uuid DEFAULT NULL,
+    p_purchase_rec_id uuid DEFAULT NULL,
+    p_visiter_id uuid DEFAULT NULL,
+    p_work_record_id uuid DEFAULT NULL,
+    p_order_id uuid DEFAULT NULL,
+    p_stakeholder_id uuid DEFAULT NULL,
+    p_quantity numeric DEFAULT NULL,
+    p_staff_id uuid DEFAULT NULL
+) RETURNS tests.trans_complaint AS $$
+DECLARE
+    v_st record;
+    v_label uuid;
+    v_text uuid;
+    v_hist uuid;
+    v_row tests.trans_complaint;
+BEGIN
+    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
+    IF p_titles IS NULL OR p_titles = '{}'::jsonb THEN
+        RAISE EXCEPTION '異常の題名を指定してください' USING ERRCODE = 'OPR02';
+    END IF;
+    -- 種類は、対象の ID のどれが入っているかで決まる(1 つだけ)
+    IF num_nonnulls(p_equipment_id, p_task_id, p_purchase_rec_id, p_visiter_id, p_work_record_id, p_order_id, p_stakeholder_id) <> 1 THEN
+        RAISE EXCEPTION '異常の対象は、設備・工程・受入・ロット・作業実績・受注・利害関係者のうち 1 つだけを指定してください' USING ERRCODE = 'OPR02';
+    END IF;
+    IF p_visiter_id IS NOT NULL AND COALESCE(p_quantity, 0) <= 0 THEN
+        RAISE EXCEPTION 'ロットの異常は、数量(0 より大きい)を指定してください' USING ERRCODE = 'OPR02';
+    END IF;
+    -- 対象の存在(履歴が要る対象は、最新の履歴を引く)
+    IF p_equipment_id IS NOT NULL THEN
+        SELECT h.history_id INTO v_hist FROM tests.history_mstr_equipment AS h
+         WHERE h.mstr_equipment_id = p_equipment_id ORDER BY h.revision DESC LIMIT 1;
+        IF v_hist IS NULL THEN RAISE EXCEPTION '設備が見つかりません (%)', p_equipment_id USING ERRCODE = 'OPR01'; END IF;
+    ELSIF p_stakeholder_id IS NOT NULL THEN
+        SELECT h.history_id INTO v_hist FROM tests.history_mstr_stakeholder AS h
+         WHERE h.mstr_stakeholder_id = p_stakeholder_id ORDER BY h.revision DESC LIMIT 1;
+        IF v_hist IS NULL THEN RAISE EXCEPTION '利害関係者が見つかりません (%)', p_stakeholder_id USING ERRCODE = 'OPR01'; END IF;
+    ELSIF p_task_id IS NOT NULL THEN
+        IF NOT EXISTS (SELECT 1 FROM tests.mstr_task WHERE mstr_task_id = p_task_id AND remove IS FALSE) THEN
+            RAISE EXCEPTION '工程が見つかりません (%)', p_task_id USING ERRCODE = 'OPR01';
+        END IF;
+    ELSIF p_purchase_rec_id IS NOT NULL THEN
+        IF NOT EXISTS (SELECT 1 FROM tests.trans_purchase_rec WHERE trans_purchase_rec_id = p_purchase_rec_id AND remove IS FALSE) THEN
+            RAISE EXCEPTION '受入実績が見つかりません (%)', p_purchase_rec_id USING ERRCODE = 'OPR01';
+        END IF;
+    ELSIF p_visiter_id IS NOT NULL THEN
+        IF NOT EXISTS (SELECT 1 FROM tests.trans_visiter WHERE trans_visiter_id = p_visiter_id AND remove IS FALSE) THEN
+            RAISE EXCEPTION 'ロット(棚ビジター)が見つかりません (%)', p_visiter_id USING ERRCODE = 'OPR01';
+        END IF;
+    ELSIF p_work_record_id IS NOT NULL THEN
+        IF NOT EXISTS (SELECT 1 FROM tests.trans_work_record WHERE trans_work_record_id = p_work_record_id AND remove IS FALSE) THEN
+            RAISE EXCEPTION '作業実績が見つかりません (%)', p_work_record_id USING ERRCODE = 'OPR01';
+        END IF;
+    ELSIF p_order_id IS NOT NULL THEN
+        IF NOT EXISTS (SELECT 1 FROM tests.trans_order WHERE trans_order_id = p_order_id AND remove IS FALSE) THEN
+            RAISE EXCEPTION '受注が見つかりません (%)', p_order_id USING ERRCODE = 'OPR01';
+        END IF;
+    END IF;
+
+    SELECT t.trans_label_id INTO v_label FROM tests.trans_label_save(NULL, p_titles, v_st.staff_id, v_st.staff_history_id) AS t;
+    SELECT t.trans_text_id INTO v_text FROM tests.trans_text_save(NULL, COALESCE(NULLIF(p_details, '{}'::jsonb), p_titles), v_st.staff_id, v_st.staff_history_id) AS t;
+    INSERT INTO tests.trans_complaint (occurent_at, titles, details, reporter_staff_history_id, reporter_staff_id, update_user_id, update_user_history_id)
+    VALUES (COALESCE(p_occurred_at, now()), v_label, v_text, v_st.staff_history_id, v_st.staff_id, v_st.staff_id, v_st.staff_history_id)
+    RETURNING * INTO v_row;
+
+    IF p_equipment_id IS NOT NULL THEN
+        INSERT INTO tests.trans_complaint_equipment (trans_complaint_id, equipment_history_id, equipment_id, update_user_id, update_user_history_id)
+        VALUES (v_row.trans_complaint_id, v_hist, p_equipment_id, v_st.staff_id, v_st.staff_history_id);
+    ELSIF p_task_id IS NOT NULL THEN
+        INSERT INTO tests.trans_complaint_process (trans_complaint_id, mstr_task_id, update_user_id, update_user_history_id)
+        VALUES (v_row.trans_complaint_id, p_task_id, v_st.staff_id, v_st.staff_history_id);
+    ELSIF p_purchase_rec_id IS NOT NULL THEN
+        INSERT INTO tests.trans_complaint_purchase_rec (trans_complaint_id, trans_purchase_rec_id, quantity, update_user_id, update_user_history_id)
+        VALUES (v_row.trans_complaint_id, p_purchase_rec_id, COALESCE(p_quantity, 1), v_st.staff_id, v_st.staff_history_id);
+    ELSIF p_visiter_id IS NOT NULL THEN
+        INSERT INTO tests.trans_complaint_visiter (trans_complaint_id, trans_visiter_id, quantity, update_user_id, update_user_history_id)
+        VALUES (v_row.trans_complaint_id, p_visiter_id, p_quantity, v_st.staff_id, v_st.staff_history_id);
+    ELSIF p_work_record_id IS NOT NULL THEN
+        INSERT INTO tests.trans_complaint_work (trans_complaint_id, trans_work_record_id, quantity, update_user_id, update_user_history_id)
+        VALUES (v_row.trans_complaint_id, p_work_record_id, COALESCE(p_quantity, 1), v_st.staff_id, v_st.staff_history_id);
+    ELSIF p_order_id IS NOT NULL THEN
+        INSERT INTO tests.trans_complaint_order (trans_complaint_id, trans_order_id, update_user_id, update_user_history_id)
+        VALUES (v_row.trans_complaint_id, p_order_id, v_st.staff_id, v_st.staff_history_id);
+    ELSE
+        INSERT INTO tests.trans_complaint_stakeholder (trans_complaint_id, stakeholder_history_id, stakeholder_id, update_user_id, update_user_history_id)
+        VALUES (v_row.trans_complaint_id, v_hist, p_stakeholder_id, v_st.staff_id, v_st.staff_history_id);
+    END IF;
+    RETURN v_row;
+END
+$$ LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION tests.complaint_register(jsonb, jsonb, timestamp, uuid, uuid, uuid, uuid, uuid, uuid, uuid, numeric, uuid) IS '異常を登録する(1 トランザクション: 題名・内容のラベルと文章・異常本体・種類の子の表)。題名・内容は言語別の値(JSON。内容が空のときは題名と同じ)。種類は、対象の ID(設備・工程・受入・ロット・作業実績・受注・利害関係者)のうち 1 つだけを渡すことで決まる(コード値では分岐しない)。ロットは数量が必須、受入・作業実績の数量は省略で 1。承認パターンがあれば、DB のトリガーが申請にする。既存の異常へ種類を足すときは、子の表のミューテーションを使う。担当者は引数、省略時は JWT の staff_id。errcode: OPR00 担当者が無い / OPR01 対象が無い / OPR02 題名・対象・数量が不正';
+
 CREATE TABLE tests.trans_inspect_imp_file (
   trans_inspect_imp_file_id uuid DEFAULT gen_random_uuid() NOT NULL,
   trans_inspect_record_id uuid NOT NULL,
@@ -15052,10 +15221,6 @@ ALTER TABLE tests.history_mstr_audit_std_checkitem ADD CONSTRAINT history_mstr_a
 
 ALTER TABLE tests.history_mstr_audit_std_checkitem ADD CONSTRAINT history_mstr_audit_std_checkitem_fk2 FOREIGN KEY (update_user_history_id, update_user_id) REFERENCES tests.history_info_staff (history_id, info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 
-ALTER TABLE tests.history_mstr_audit_std_checkitem ADD CONSTRAINT history_mstr_audit_std_checkitem_fk3 FOREIGN KEY (names) REFERENCES tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
-
-ALTER TABLE tests.history_mstr_audit_std_checkitem ADD CONSTRAINT history_mstr_audit_std_checkitem_fk4 FOREIGN KEY (details) REFERENCES tests.shared_text (shared_text_id) DEFERRABLE INITIALLY DEFERRED;
-
 ALTER TABLE tests.history_mstr_audit_std ADD CONSTRAINT history_mstr_audit_std_fk1 FOREIGN KEY (mstr_audit_std_id) REFERENCES tests.mstr_audit_std (mstr_audit_std_id) DEFERRABLE INITIALLY DEFERRED;
 
 ALTER TABLE tests.history_mstr_audit_std ADD CONSTRAINT history_mstr_audit_std_fk2 FOREIGN KEY (update_user_history_id, update_user_id) REFERENCES tests.history_info_staff (history_id, info_staff_id) DEFERRABLE INITIALLY DEFERRED;
@@ -16011,6 +16176,10 @@ ALTER TABLE tests.trans_audit_complaint ADD CONSTRAINT trans_audit_complaint_fk1
 ALTER TABLE tests.trans_audit_complaint ADD CONSTRAINT trans_audit_complaint_fk2 FOREIGN KEY (trans_audit_detail_check_items_id) REFERENCES tests.trans_audit_detail_check_items (trans_audit_detail_check_items_id) DEFERRABLE INITIALLY DEFERRED;
 
 ALTER TABLE tests.trans_audit_complaint ADD CONSTRAINT trans_audit_complaint_fk3 FOREIGN KEY (update_user_history_id, update_user_id) REFERENCES tests.history_info_staff (history_id, info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.history_mstr_audit_std_checkitem ADD CONSTRAINT history_mstr_audit_std_checkitem_fk3 FOREIGN KEY (names) REFERENCES tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.history_mstr_audit_std_checkitem ADD CONSTRAINT history_mstr_audit_std_checkitem_fk4 FOREIGN KEY (details) REFERENCES tests.shared_text (shared_text_id) DEFERRABLE INITIALLY DEFERRED;
 
 CREATE VIEW tests.v_plan_change_unreflected AS
 -- MRP 未反映の計画変更  claude/131
@@ -23772,168 +23941,6 @@ COMMENT ON COLUMN tests.v_complaint_kind.trans_visiter_id IS '棚ビジターID'
 COMMENT ON COLUMN tests.v_complaint_kind.trans_work_record_id IS '作業実績ID';
 COMMENT ON COLUMN tests.v_complaint_kind.target_symbol IS '対象の表のシンボル';
 
-CREATE VIEW tests.v_complaint AS
-SELECT
-    c.trans_complaint_id
-    , c.symbol
-    , c.occurent_at
-    , c.titles
-    , c.details
-    , c.reporter_staff_id
-    , c.approvals
-    , c.remarks
-    , COALESCE(k.kind_count, 0)::integer AS kind_count
-    , COALESCE(k.has_equipment, FALSE) AS has_equipment
-    , COALESCE(k.has_process, FALSE) AS has_process
-    , COALESCE(k.has_work, FALSE) AS has_work
-    , COALESCE(k.has_purchase_rec, FALSE) AS has_purchase_rec
-    , COALESCE(k.has_visiter, FALSE) AS has_visiter
-    , COALESCE(k.has_order, FALSE) AS has_order
-    , COALESCE(k.has_stakeholder, FALSE) AS has_stakeholder
-    , COALESCE(k.is_external, FALSE) AS is_external
-    , COALESCE(k.is_claim, FALSE) AS is_claim
-    , k.kind_names
-FROM tests.trans_complaint AS c
-LEFT JOIN LATERAL (
-    SELECT
-        count(*) AS kind_count
-        , bool_or(v.mstr_equipment_id IS NOT NULL) AS has_equipment
-        , bool_or(v.mstr_task_id IS NOT NULL) AS has_process
-        , bool_or(v.trans_work_record_id IS NOT NULL) AS has_work
-        , bool_or(v.trans_purchase_rec_id IS NOT NULL) AS has_purchase_rec
-        , bool_or(v.trans_visiter_id IS NOT NULL) AS has_visiter
-        , bool_or(v.trans_order_id IS NOT NULL) AS has_order
-        , bool_or(v.is_external AND NOT v.is_claim) AS has_stakeholder
-        , bool_or(v.is_external) AS is_external
-        , bool_or(v.is_claim) AS is_claim
-        , string_agg(DISTINCT v.kind_name, ' / ') AS kind_names
-    FROM tests.v_complaint_kind AS v
-    WHERE v.trans_complaint_id = c.trans_complaint_id
-) AS k ON TRUE
-WHERE c.remove IS FALSE;
-
-COMMENT ON VIEW tests.v_complaint IS '@primaryKey trans_complaint_id
-@unique symbol
-@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)
-異常の一覧(1 行 = 異常)。種類は、子の表に行があるか(has_*)で分かる(1 つの異常が複数の種類を持てる)。外部か・クレームかは、種類のビュー v_complaint_kind の値。種類の名称 kind_names も同じビューの値(画面で決めない)';
-
-COMMENT ON COLUMN tests.v_complaint.trans_complaint_id IS '異常ID';
-COMMENT ON COLUMN tests.v_complaint.symbol IS 'リニアシンボル';
-COMMENT ON COLUMN tests.v_complaint.occurent_at IS '発生日時';
-COMMENT ON COLUMN tests.v_complaint.titles IS '題名(ラベルID)';
-COMMENT ON COLUMN tests.v_complaint.details IS '内容(文章ID)';
-COMMENT ON COLUMN tests.v_complaint.reporter_staff_id IS '報告者の担当者ID';
-COMMENT ON COLUMN tests.v_complaint.approvals IS '承認実行パターンID';
-COMMENT ON COLUMN tests.v_complaint.remarks IS '備考';
-COMMENT ON COLUMN tests.v_complaint.kind_count IS '種類の件数';
-COMMENT ON COLUMN tests.v_complaint.has_equipment IS '設備の点検で発見された異常がある';
-COMMENT ON COLUMN tests.v_complaint.has_process IS '工程で発見された異常がある';
-COMMENT ON COLUMN tests.v_complaint.has_work IS '作業実績で発見された異常がある';
-COMMENT ON COLUMN tests.v_complaint.has_purchase_rec IS '受入で発見された異常がある';
-COMMENT ON COLUMN tests.v_complaint.has_visiter IS '棚移動で発見された異常がある';
-COMMENT ON COLUMN tests.v_complaint.has_order IS '顧客クレームがある';
-COMMENT ON COLUMN tests.v_complaint.has_stakeholder IS '利害関係者の苦情がある';
-COMMENT ON COLUMN tests.v_complaint.is_external IS '外部の異常がある';
-COMMENT ON COLUMN tests.v_complaint.is_claim IS 'クレームがある';
-COMMENT ON COLUMN tests.v_complaint.kind_names IS '種類の名称(" / " 区切り)';
-
-CREATE OR REPLACE FUNCTION tests.complaint_register(
-    p_titles jsonb,
-    p_details jsonb DEFAULT NULL,
-    p_occurred_at timestamp DEFAULT NULL,
-    p_equipment_id uuid DEFAULT NULL,
-    p_task_id uuid DEFAULT NULL,
-    p_purchase_rec_id uuid DEFAULT NULL,
-    p_visiter_id uuid DEFAULT NULL,
-    p_work_record_id uuid DEFAULT NULL,
-    p_order_id uuid DEFAULT NULL,
-    p_stakeholder_id uuid DEFAULT NULL,
-    p_quantity numeric DEFAULT NULL,
-    p_staff_id uuid DEFAULT NULL
-) RETURNS tests.trans_complaint AS $$
-DECLARE
-    v_st record;
-    v_label uuid;
-    v_text uuid;
-    v_hist uuid;
-    v_row tests.trans_complaint;
-BEGIN
-    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);
-    IF p_titles IS NULL OR p_titles = '{}'::jsonb THEN
-        RAISE EXCEPTION '異常の題名を指定してください' USING ERRCODE = 'OPR02';
-    END IF;
-    -- 種類は、対象の ID のどれが入っているかで決まる(1 つだけ)
-    IF num_nonnulls(p_equipment_id, p_task_id, p_purchase_rec_id, p_visiter_id, p_work_record_id, p_order_id, p_stakeholder_id) <> 1 THEN
-        RAISE EXCEPTION '異常の対象は、設備・工程・受入・ロット・作業実績・受注・利害関係者のうち 1 つだけを指定してください' USING ERRCODE = 'OPR02';
-    END IF;
-    IF p_visiter_id IS NOT NULL AND COALESCE(p_quantity, 0) <= 0 THEN
-        RAISE EXCEPTION 'ロットの異常は、数量(0 より大きい)を指定してください' USING ERRCODE = 'OPR02';
-    END IF;
-    -- 対象の存在(履歴が要る対象は、最新の履歴を引く)
-    IF p_equipment_id IS NOT NULL THEN
-        SELECT h.history_id INTO v_hist FROM tests.history_mstr_equipment AS h
-         WHERE h.mstr_equipment_id = p_equipment_id ORDER BY h.revision DESC LIMIT 1;
-        IF v_hist IS NULL THEN RAISE EXCEPTION '設備が見つかりません (%)', p_equipment_id USING ERRCODE = 'OPR01'; END IF;
-    ELSIF p_stakeholder_id IS NOT NULL THEN
-        SELECT h.history_id INTO v_hist FROM tests.history_mstr_stakeholder AS h
-         WHERE h.mstr_stakeholder_id = p_stakeholder_id ORDER BY h.revision DESC LIMIT 1;
-        IF v_hist IS NULL THEN RAISE EXCEPTION '利害関係者が見つかりません (%)', p_stakeholder_id USING ERRCODE = 'OPR01'; END IF;
-    ELSIF p_task_id IS NOT NULL THEN
-        IF NOT EXISTS (SELECT 1 FROM tests.mstr_task WHERE mstr_task_id = p_task_id AND remove IS FALSE) THEN
-            RAISE EXCEPTION '工程が見つかりません (%)', p_task_id USING ERRCODE = 'OPR01';
-        END IF;
-    ELSIF p_purchase_rec_id IS NOT NULL THEN
-        IF NOT EXISTS (SELECT 1 FROM tests.trans_purchase_rec WHERE trans_purchase_rec_id = p_purchase_rec_id AND remove IS FALSE) THEN
-            RAISE EXCEPTION '受入実績が見つかりません (%)', p_purchase_rec_id USING ERRCODE = 'OPR01';
-        END IF;
-    ELSIF p_visiter_id IS NOT NULL THEN
-        IF NOT EXISTS (SELECT 1 FROM tests.trans_visiter WHERE trans_visiter_id = p_visiter_id AND remove IS FALSE) THEN
-            RAISE EXCEPTION 'ロット(棚ビジター)が見つかりません (%)', p_visiter_id USING ERRCODE = 'OPR01';
-        END IF;
-    ELSIF p_work_record_id IS NOT NULL THEN
-        IF NOT EXISTS (SELECT 1 FROM tests.trans_work_record WHERE trans_work_record_id = p_work_record_id AND remove IS FALSE) THEN
-            RAISE EXCEPTION '作業実績が見つかりません (%)', p_work_record_id USING ERRCODE = 'OPR01';
-        END IF;
-    ELSIF p_order_id IS NOT NULL THEN
-        IF NOT EXISTS (SELECT 1 FROM tests.trans_order WHERE trans_order_id = p_order_id AND remove IS FALSE) THEN
-            RAISE EXCEPTION '受注が見つかりません (%)', p_order_id USING ERRCODE = 'OPR01';
-        END IF;
-    END IF;
-
-    SELECT t.trans_label_id INTO v_label FROM tests.trans_label_save(NULL, p_titles, v_st.staff_id, v_st.staff_history_id) AS t;
-    SELECT t.trans_text_id INTO v_text FROM tests.trans_text_save(NULL, COALESCE(NULLIF(p_details, '{}'::jsonb), p_titles), v_st.staff_id, v_st.staff_history_id) AS t;
-    INSERT INTO tests.trans_complaint (occurent_at, titles, details, reporter_staff_history_id, reporter_staff_id, update_user_id, update_user_history_id)
-    VALUES (COALESCE(p_occurred_at, now()), v_label, v_text, v_st.staff_history_id, v_st.staff_id, v_st.staff_id, v_st.staff_history_id)
-    RETURNING * INTO v_row;
-
-    IF p_equipment_id IS NOT NULL THEN
-        INSERT INTO tests.trans_complaint_equipment (trans_complaint_id, equipment_history_id, equipment_id, update_user_id, update_user_history_id)
-        VALUES (v_row.trans_complaint_id, v_hist, p_equipment_id, v_st.staff_id, v_st.staff_history_id);
-    ELSIF p_task_id IS NOT NULL THEN
-        INSERT INTO tests.trans_complaint_process (trans_complaint_id, mstr_task_id, update_user_id, update_user_history_id)
-        VALUES (v_row.trans_complaint_id, p_task_id, v_st.staff_id, v_st.staff_history_id);
-    ELSIF p_purchase_rec_id IS NOT NULL THEN
-        INSERT INTO tests.trans_complaint_purchase_rec (trans_complaint_id, trans_purchase_rec_id, quantity, update_user_id, update_user_history_id)
-        VALUES (v_row.trans_complaint_id, p_purchase_rec_id, COALESCE(p_quantity, 1), v_st.staff_id, v_st.staff_history_id);
-    ELSIF p_visiter_id IS NOT NULL THEN
-        INSERT INTO tests.trans_complaint_visiter (trans_complaint_id, trans_visiter_id, quantity, update_user_id, update_user_history_id)
-        VALUES (v_row.trans_complaint_id, p_visiter_id, p_quantity, v_st.staff_id, v_st.staff_history_id);
-    ELSIF p_work_record_id IS NOT NULL THEN
-        INSERT INTO tests.trans_complaint_work (trans_complaint_id, trans_work_record_id, quantity, update_user_id, update_user_history_id)
-        VALUES (v_row.trans_complaint_id, p_work_record_id, COALESCE(p_quantity, 1), v_st.staff_id, v_st.staff_history_id);
-    ELSIF p_order_id IS NOT NULL THEN
-        INSERT INTO tests.trans_complaint_order (trans_complaint_id, trans_order_id, update_user_id, update_user_history_id)
-        VALUES (v_row.trans_complaint_id, p_order_id, v_st.staff_id, v_st.staff_history_id);
-    ELSE
-        INSERT INTO tests.trans_complaint_stakeholder (trans_complaint_id, stakeholder_history_id, stakeholder_id, update_user_id, update_user_history_id)
-        VALUES (v_row.trans_complaint_id, v_hist, p_stakeholder_id, v_st.staff_id, v_st.staff_history_id);
-    END IF;
-    RETURN v_row;
-END
-$$ LANGUAGE plpgsql VOLATILE;
-
-COMMENT ON FUNCTION tests.complaint_register(jsonb, jsonb, timestamp, uuid, uuid, uuid, uuid, uuid, uuid, uuid, numeric, uuid) IS '異常を登録する(1 トランザクション: 題名・内容のラベルと文章・異常本体・種類の子の表)。題名・内容は言語別の値(JSON。内容が空のときは題名と同じ)。種類は、対象の ID(設備・工程・受入・ロット・作業実績・受注・利害関係者)のうち 1 つだけを渡すことで決まる(コード値では分岐しない)。ロットは数量が必須、受入・作業実績の数量は省略で 1。承認パターンがあれば、DB のトリガーが申請にする。既存の異常へ種類を足すときは、子の表のミューテーションを使う。担当者は引数、省略時は JWT の staff_id。errcode: OPR00 担当者が無い / OPR01 対象が無い / OPR02 題名・対象・数量が不正';
-
 CREATE VIEW tests.v_document_approval_stamp AS
 SELECT
     pre.trans_preapproval_id
@@ -24335,6 +24342,38 @@ $$ LANGUAGE sql STABLE;
 
 COMMENT ON FUNCTION tests.audit_notice(integer) IS '監査の通知(予定日をもとに導く。行は作らない)。呼び出した人(JWT の staff_id)がチームの監査員で、未終了で、予定日時が p_days_before 日以内(または過ぎた)の監査実施詳細を返す。days_until は予定日までの日数(過ぎたものは負)。予定日を変えると結果も変わる';
 
+CREATE OR REPLACE FUNCTION tests.audit_notify_due(
+    p_days_before integer DEFAULT 3,
+    p_staff_id uuid DEFAULT NULL,
+    p_staff_history_id uuid DEFAULT NULL
+) RETURNS integer AS $$
+DECLARE
+    r record;
+    v_n integer := 0;
+BEGIN
+    -- 予定日が p_days_before 日以内(または過ぎた)で、未終了の監査実施詳細の監査員へ、通知(区分 audit。対象 = 監査実施詳細の symbol)を 1 件ずつ作る
+    FOR r IN
+        SELECT a.staff_id, a.symbol, a.scheduled_at, a.is_overdue
+        FROM tests.v_audit_assignment AS a
+        WHERE NOT a.is_done AND a.scheduled_at IS NOT NULL
+          AND a.scheduled_at < now() + make_interval(days => p_days_before)
+    LOOP
+        v_n := v_n + tests.announcement_register(
+            ARRAY[r.staff_id], 'audit',
+            jsonb_build_object(
+                'ja', CASE WHEN r.is_overdue THEN '監査の予定日を過ぎています' ELSE '監査の予定があります' END,
+                'en', CASE WHEN r.is_overdue THEN 'An audit is overdue' ELSE 'An audit is scheduled' END),
+            jsonb_build_object(
+                'ja', '予定日時: ' || to_char(r.scheduled_at, 'YYYY-MM-DD HH24:MI'),
+                'en', 'Scheduled at: ' || to_char(r.scheduled_at, 'YYYY-MM-DD HH24:MI')),
+            r.symbol, NULL, p_staff_id, p_staff_history_id);
+    END LOOP;
+    RETURN v_n;
+END
+$$ LANGUAGE plpgsql VOLATILE;
+
+COMMENT ON FUNCTION tests.audit_notify_due(integer, uuid, uuid) IS '監査の予定の通知を作る(冪等。アプリのログイン時、または外部のスケジューラから呼ぶ)。予定日時が p_days_before 日以内(または過ぎた)で未終了の監査実施詳細の監査員へ、区分 audit の通知を、監査実施詳細ごとに 1 人 1 件だけ作る(対象 target_symbol = 監査実施詳細の symbol)。戻り値は作った件数。いまの audit_notice(通知の行を作らない)は、通知の行が使えるようになるまで残す';
+
 CREATE VIEW tests.v_audit_item AS
 SELECT
     i.trans_audit_detail_check_items_id
@@ -24520,109 +24559,73 @@ COMMENT ON COLUMN tests.v_item_valuation.evaluated_quantity IS '評価の対象�
 COMMENT ON COLUMN tests.v_item_valuation.external_quantity IS '社外の所有物の数量';
 COMMENT ON COLUMN tests.v_item_valuation.amount IS '在庫評価額';
 
-CREATE OR REPLACE FUNCTION tests.announcement_register(
-    p_to_staff_ids uuid[],
-    p_category varchar,
-    p_titles jsonb,
-    p_messages jsonb DEFAULT NULL,
-    p_target_symbol varchar DEFAULT NULL,
-    p_expiration_date timestamp DEFAULT NULL,
-    p_staff_id uuid DEFAULT NULL,
-    p_staff_history_id uuid DEFAULT NULL
-) RETURNS integer AS $
-DECLARE
-    v_staff record;
-    v_label uuid;
-    v_text uuid;
-    v_to uuid;
-    v_hist uuid;
-    v_n integer := 0;
-BEGIN
-    SELECT * INTO v_staff FROM tests.apl_staff(p_staff_id, p_staff_history_id);
-    IF NULLIF(btrim(p_category), '') IS NULL THEN
-        RAISE EXCEPTION '通知区分がありません' USING ERRCODE = 'ANN02';
-    END IF;
-    IF p_titles IS NULL OR p_titles = '{}'::jsonb THEN
-        RAISE EXCEPTION '通知の題名がありません' USING ERRCODE = 'ANN02';
-    END IF;
-    FOREACH v_to IN ARRAY COALESCE(p_to_staff_ids, ARRAY[]::uuid[]) LOOP
-        -- 対象(target_symbol)があるとき、同じ宛先・同じ区分・同じ対象の通知は、1 件だけ(冪等)
-        CONTINUE WHEN p_target_symbol IS NOT NULL AND EXISTS (
-            SELECT 1 FROM tests.trans_announcement AS n
-            WHERE n.to_staff_id = v_to AND n.category = p_category AND n.target_symbol = p_target_symbol AND n.remove IS FALSE
-        );
-        SELECT h.history_id INTO v_hist FROM tests.history_info_staff AS h
-         WHERE h.info_staff_id = v_to ORDER BY h.revision DESC LIMIT 1;
-        CONTINUE WHEN v_hist IS NULL; -- 履歴の無い担当者には作らない
-        IF v_label IS NULL THEN
-            -- 題名・本文は、宛先に共通の 1 組(言語別の値)。作る必要が出たときに作る(重複だけのときは作らない)
-            v_label := (tests.trans_label_save(NULL, p_titles, v_staff.staff_id, v_staff.staff_history_id)).trans_label_id;
-            IF p_messages IS NOT NULL AND p_messages <> '{}'::jsonb THEN
-                v_text := (tests.trans_text_save(NULL, p_messages, v_staff.staff_id, v_staff.staff_history_id)).trans_text_id;
-            END IF;
-        END IF;
-        INSERT INTO tests.trans_announcement (to_staff_history_id, to_staff_id, category, titles, messages, expiration_date, target_symbol, update_user_id, update_user_history_id)
-        VALUES (v_hist, v_to, p_category, v_label, v_text, COALESCE(p_expiration_date, CURRENT_DATE + 30), p_target_symbol, v_staff.staff_id, v_staff.staff_history_id);
-        v_n := v_n + 1;
-    END LOOP;
-    RETURN v_n;
-END
-$ LANGUAGE plpgsql VOLATILE;
+CREATE VIEW tests.v_complaint AS
+SELECT
+    c.trans_complaint_id
+    , c.symbol
+    , c.occurent_at
+    , c.titles
+    , c.details
+    , c.reporter_staff_id
+    , c.approvals
+    , c.remarks
+    , COALESCE(k.kind_count, 0)::integer AS kind_count
+    , COALESCE(k.has_equipment, FALSE) AS has_equipment
+    , COALESCE(k.has_process, FALSE) AS has_process
+    , COALESCE(k.has_work, FALSE) AS has_work
+    , COALESCE(k.has_purchase_rec, FALSE) AS has_purchase_rec
+    , COALESCE(k.has_visiter, FALSE) AS has_visiter
+    , COALESCE(k.has_order, FALSE) AS has_order
+    , COALESCE(k.has_stakeholder, FALSE) AS has_stakeholder
+    , COALESCE(k.is_external, FALSE) AS is_external
+    , COALESCE(k.is_claim, FALSE) AS is_claim
+    , k.kind_names
+FROM tests.trans_complaint AS c
+LEFT JOIN LATERAL (
+    SELECT
+        count(*) AS kind_count
+        , bool_or(v.mstr_equipment_id IS NOT NULL) AS has_equipment
+        , bool_or(v.mstr_task_id IS NOT NULL) AS has_process
+        , bool_or(v.trans_work_record_id IS NOT NULL) AS has_work
+        , bool_or(v.trans_purchase_rec_id IS NOT NULL) AS has_purchase_rec
+        , bool_or(v.trans_visiter_id IS NOT NULL) AS has_visiter
+        , bool_or(v.trans_order_id IS NOT NULL) AS has_order
+        , bool_or(v.is_external AND NOT v.is_claim) AS has_stakeholder
+        , bool_or(v.is_external) AS is_external
+        , bool_or(v.is_claim) AS is_claim
+        , string_agg(DISTINCT v.kind_name, ' / ') AS kind_names
+    FROM tests.v_complaint_kind AS v
+    WHERE v.trans_complaint_id = c.trans_complaint_id
+) AS k ON TRUE
+WHERE c.remove IS FALSE;
 
-COMMENT ON FUNCTION tests.announcement_register(uuid[], varchar, jsonb, jsonb, varchar, timestamp, uuid, uuid) IS '通知を、宛先(担当者の配列)ごとに 1 件ずつ作る(1 トランザクション)。通知の文は、言語別の値(JSON。例 {"ja":"…","en":"…"})を直接登録する(題名 p_titles は必須、本文 p_messages は任意)。対象は汎用の p_target_symbol(対象の表の symbol。外部キーではない。アプリは symbol のショートカットで画面へ進む)。対象があるとき、同じ宛先・区分・対象の通知は 1 件だけ(冪等)。履歴の無い担当者には作らない。戻り値は作った件数。担当者は引数、省略時は JWT の staff_id。errcode: APL00 担当者・言語が無い / ANN02 区分・題名が無い';
+COMMENT ON VIEW tests.v_complaint IS '@primaryKey trans_complaint_id
+@unique symbol
+@foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)
+@foreignKey (titles) references trans_label (trans_label_id)
+@foreignKey (details) references trans_text (trans_text_id)
+@foreignKey (reporter_staff_id) references info_staff (info_staff_id)
+異常の一覧(1 行 = 異常)。種類は、子の表に行があるか(has_*)で分かる(1 つの異常が複数の種類を持てる)。外部か・クレームかは、種類のビュー v_complaint_kind の値。種類の名称 kind_names も同じビューの値(画面で決めない)';
 
-CREATE OR REPLACE FUNCTION tests.announcement_mark_read(
-    p_announcement_id uuid,
-    p_staff_id uuid DEFAULT NULL
-) RETURNS tests.trans_announcement AS $
-DECLARE
-    v_me uuid := COALESCE(p_staff_id, NULLIF(current_setting('jwt.claims.staff_id', true), '')::uuid);
-    v_row tests.trans_announcement;
-BEGIN
-    -- 自分宛ての通知だけを既読にする
-    UPDATE tests.trans_announcement SET is_read = TRUE
-     WHERE trans_announcement_id = p_announcement_id AND to_staff_id = v_me AND remove IS FALSE
-    RETURNING * INTO v_row;
-    IF v_row.trans_announcement_id IS NULL THEN
-        RAISE EXCEPTION '通知が見つかりません (%)', p_announcement_id USING ERRCODE = 'ANN01';
-    END IF;
-    RETURN v_row;
-END
-$ LANGUAGE plpgsql VOLATILE;
-
-COMMENT ON FUNCTION tests.announcement_mark_read(uuid, uuid) IS '自分宛て(担当者は引数、省略時は JWT の staff_id)の通知を既読にする。他の人の通知・削除済みは ANN01。戻り値は更新後の通知';
-
-CREATE OR REPLACE FUNCTION tests.audit_notify_due(
-    p_days_before integer DEFAULT 3,
-    p_staff_id uuid DEFAULT NULL,
-    p_staff_history_id uuid DEFAULT NULL
-) RETURNS integer AS $
-DECLARE
-    r record;
-    v_n integer := 0;
-BEGIN
-    -- 予定日が p_days_before 日以内(または過ぎた)で、未終了の監査実施詳細の監査員へ、通知(区分 audit。対象 = 監査実施詳細の symbol)を 1 件ずつ作る
-    FOR r IN
-        SELECT a.staff_id, a.symbol, a.scheduled_at, a.is_overdue
-        FROM tests.v_audit_assignment AS a
-        WHERE NOT a.is_done AND a.scheduled_at IS NOT NULL
-          AND a.scheduled_at < now() + make_interval(days => p_days_before)
-    LOOP
-        v_n := v_n + tests.announcement_register(
-            ARRAY[r.staff_id], 'audit',
-            jsonb_build_object(
-                'ja', CASE WHEN r.is_overdue THEN '監査の予定日を過ぎています' ELSE '監査の予定があります' END,
-                'en', CASE WHEN r.is_overdue THEN 'An audit is overdue' ELSE 'An audit is scheduled' END),
-            jsonb_build_object(
-                'ja', '予定日時: ' || to_char(r.scheduled_at, 'YYYY-MM-DD HH24:MI'),
-                'en', 'Scheduled at: ' || to_char(r.scheduled_at, 'YYYY-MM-DD HH24:MI')),
-            r.symbol, NULL, p_staff_id, p_staff_history_id);
-    END LOOP;
-    RETURN v_n;
-END
-$ LANGUAGE plpgsql VOLATILE;
-
-COMMENT ON FUNCTION tests.audit_notify_due(integer, uuid, uuid) IS '監査の予定の通知を作る(冪等。アプリのログイン時、または外部のスケジューラから呼ぶ)。予定日時が p_days_before 日以内(または過ぎた)で未終了の監査実施詳細の監査員へ、区分 audit の通知を、監査実施詳細ごとに 1 人 1 件だけ作る(対象 target_symbol = 監査実施詳細の symbol)。戻り値は作った件数。いまの audit_notice(通知の行を作らない)は、通知の行が使えるようになるまで残す';
+COMMENT ON COLUMN tests.v_complaint.trans_complaint_id IS '異常ID';
+COMMENT ON COLUMN tests.v_complaint.symbol IS 'リニアシンボル';
+COMMENT ON COLUMN tests.v_complaint.occurent_at IS '発生日時';
+COMMENT ON COLUMN tests.v_complaint.titles IS '題名(ラベルID)';
+COMMENT ON COLUMN tests.v_complaint.details IS '内容(文章ID)';
+COMMENT ON COLUMN tests.v_complaint.reporter_staff_id IS '報告者の担当者ID';
+COMMENT ON COLUMN tests.v_complaint.approvals IS '承認実行パターンID';
+COMMENT ON COLUMN tests.v_complaint.remarks IS '備考';
+COMMENT ON COLUMN tests.v_complaint.kind_count IS '種類の件数';
+COMMENT ON COLUMN tests.v_complaint.has_equipment IS '設備の点検で発見された異常がある';
+COMMENT ON COLUMN tests.v_complaint.has_process IS '工程で発見された異常がある';
+COMMENT ON COLUMN tests.v_complaint.has_work IS '作業実績で発見された異常がある';
+COMMENT ON COLUMN tests.v_complaint.has_purchase_rec IS '受入で発見された異常がある';
+COMMENT ON COLUMN tests.v_complaint.has_visiter IS '棚移動で発見された異常がある';
+COMMENT ON COLUMN tests.v_complaint.has_order IS '顧客クレームがある';
+COMMENT ON COLUMN tests.v_complaint.has_stakeholder IS '利害関係者の苦情がある';
+COMMENT ON COLUMN tests.v_complaint.is_external IS '外部の異常がある';
+COMMENT ON COLUMN tests.v_complaint.is_claim IS 'クレームがある';
+COMMENT ON COLUMN tests.v_complaint.kind_names IS '種類の名称(" / " 区切り)';
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_shared_dictionary() RETURNS trigger AS
 $BODY$

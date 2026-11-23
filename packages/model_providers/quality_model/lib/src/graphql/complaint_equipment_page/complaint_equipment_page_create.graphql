@@ -1,0 +1,30 @@
+# complaint_equipment_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ComplaintEquipmentPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ComplaintEquipmentPageCreate(
+  $transComplaintId: UUID
+  $equipmentHistoryId: UUID
+  $equipmentId: UUID
+  $remarks: String
+) {
+  createTransComplaintEquipment(
+    input: {
+      transComplaintEquipment: {
+        transComplaintId: $transComplaintId
+        equipmentHistoryId: $equipmentHistoryId
+        equipmentId: $equipmentId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transComplaintEquipment {
+      transComplaintEquipmentId
+      transComplaintId
+      equipmentHistoryId
+      equipmentId
+      remarks
+    }
+  }
+}

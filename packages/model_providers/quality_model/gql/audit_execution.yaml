@@ -165,21 +165,14 @@ AuditItemPage:
         - type_class
         - formula_class
         - arg_class
-        # 名称は、履歴の表に呼称への外部キーが無いため、現行のマスタ(mstr_audit_std_checkitem)から読む
-        - name: master
-          as: master
+        # 名称は、履歴の表の呼称(names。外部キーあり)から読む。項目の名称を変えるときは新しい呼称を作るため、過去の監査の名称が残る
+        - name: labels
+          as: labels
           arrayType: toFirstOne
-          using: mstr_audit_std_checkitem_id
-          from: mstr_audit_std_checkitem
-          columns:
-            - mstr_audit_std_checkitem_id
-            - name: labels
-              as: labels
-              arrayType: toFirstOne
-              using: names
-              pick:
-                - name
-              <<: *AppellationLabelsReadFields
+          using: names
+          pick:
+            - name
+          <<: *AppellationLabelsReadFields
     - name: complaints
       as: complaints
       arrayType: toMany

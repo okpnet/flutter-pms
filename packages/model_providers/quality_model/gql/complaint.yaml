@@ -570,3 +570,112 @@ ComplaintKindPage:
     - mstr_task_id
     - trans_purchase_rec_id
     - trans_visiter_id
+
+# ---- 異常の登録・種類(Issue 20261123_0001 C-1) ----
+
+# 異常の登録(DB の関数 complaint_register。題名・内容のラベルと文章・異常本体・種類の子の表を 1 トランザクションで登録する)。
+# 種類は、対象の ID(設備・工程・受入・ロット・作業実績・受注・利害関係者)のうち 1 つだけを渡すことで決まる
+ComplaintRegisterPageCall:
+  kind: function
+  mutation: complaintRegister
+  returns: transComplaint
+  columns:
+    - trans_complaint_id
+
+# 既存の異常へ種類を足す(子の表の登録。1 表の登録のため、ミューテーションで行う)
+ComplaintEquipmentPageCreate:
+  kind: create
+  from: trans_complaint_equipment
+  columns:
+    - trans_complaint_id
+    - equipment_history_id
+    - equipment_id
+    - remarks
+
+ComplaintProcessPageCreate:
+  kind: create
+  from: trans_complaint_process
+  columns:
+    - trans_complaint_id
+    - mstr_task_id
+    - remarks
+
+ComplaintKindPurchaseRecPageCreate:
+  kind: create
+  from: trans_complaint_purchase_rec
+  columns:
+    - trans_complaint_id
+    - trans_purchase_rec_id
+    - quantity
+    - remarks
+
+ComplaintKindWorkPageCreate:
+  kind: create
+  from: trans_complaint_work
+  columns:
+    - trans_complaint_id
+    - trans_work_record_id
+    - quantity
+    - remarks
+
+ComplaintOrderPageCreate:
+  kind: create
+  from: trans_complaint_order
+  columns:
+    - trans_complaint_id
+    - trans_order_id
+    - remarks
+
+ComplaintStakeholderPageCreate:
+  kind: create
+  from: trans_complaint_stakeholder
+  columns:
+    - trans_complaint_id
+    - stakeholder_history_id
+    - stakeholder_id
+    - remarks
+
+# 異常の台帳(DB のビュー v_complaint。1 行 = 1 異常。種類は has_* の boolean と kind_names。外部か・クレームかもビューの値)
+ComplaintListPage:
+  kind: read
+  from: v_complaint
+  filter: true
+  requiredWhere:
+    - languageCode
+  columns:
+    - trans_complaint_id
+    - symbol
+    - occurent_at
+    # TODO(DB の v_complaint のスマートコメント @foreignKey の適用後に、題名・内容を labels・detailTexts に戻す)
+    - titles
+    - details
+    - reporter_staff_id
+    - kind_count
+    - has_equipment
+    - has_process
+    - has_work
+    - has_purchase_rec
+    - has_visiter
+    - has_order
+    - has_stakeholder
+    - is_external
+    - is_claim
+    - kind_names
+    - remarks
+
+# 異常の登録で、作業実績・ロットを、シンボル(バーコード)から ID に解決する
+ComplaintWorkRecordLookupPage:
+  kind: read
+  from: trans_work_record
+  filter: true
+  columns:
+    - trans_work_record_id
+    - symbol
+
+ComplaintVisiterLookupPage:
+  kind: read
+  from: trans_visiter
+  filter: true
+  columns:
+    - trans_visiter_id
+    - symbol

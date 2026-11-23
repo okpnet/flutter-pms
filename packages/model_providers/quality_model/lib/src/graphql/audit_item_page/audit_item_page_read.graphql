@@ -50,19 +50,15 @@ query AuditItemPageRead(
         formulaClass
         argClass
 
-        master: mstrAuditStdCheckitemByMstrAuditStdCheckitemId {
-          mstrAuditStdCheckitemId
-
-          labels: sharedAppellationByNames {
-            sharedAppellationsId
-            sharedDictionaryBySharedDictionaryNameId {
-              sharedDictionaryId
-              value: sharedDictionaryValuesBySharedDictionaryId(
-                condition: { sharedLanguageCodeId: $languageCodeId }
-              ) {
-                nodes {
-                  dictionaryValue
-                }
+        labels: sharedAppellationByNames {
+          sharedAppellationsId
+          sharedDictionaryBySharedDictionaryNameId {
+            sharedDictionaryId
+            value: sharedDictionaryValuesBySharedDictionaryId(
+              condition: { sharedLanguageCodeId: $languageCodeId }
+            ) {
+              nodes {
+                dictionaryValue
               }
             }
           }

@@ -1,0 +1,30 @@
+# complaint_stakeholder_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ComplaintStakeholderPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ComplaintStakeholderPageCreate(
+  $transComplaintId: UUID
+  $stakeholderHistoryId: UUID
+  $stakeholderId: UUID
+  $remarks: String
+) {
+  createTransComplaintStakeholder(
+    input: {
+      transComplaintStakeholder: {
+        transComplaintId: $transComplaintId
+        stakeholderHistoryId: $stakeholderHistoryId
+        stakeholderId: $stakeholderId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transComplaintStakeholder {
+      transComplaintStakeholderId
+      transComplaintId
+      stakeholderHistoryId
+      stakeholderId
+      remarks
+    }
+  }
+}

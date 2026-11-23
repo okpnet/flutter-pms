@@ -1,0 +1,45 @@
+# complaint_list_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #ComplaintListPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query ComplaintListPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VComplaintFilter = {and: []}
+  $orderBy: [VComplaintsOrderBy!]
+  $languageCodeId: UUID!
+) {
+  allVComplaints(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transComplaintId
+      symbol
+      occurentAt
+      titles
+      details
+      reporterStaffId
+      kindCount
+      hasEquipment
+      hasProcess
+      hasWork
+      hasPurchaseRec
+      hasVisiter
+      hasOrder
+      hasStakeholder
+      isExternal
+      isClaim
+      kindNames
+      remarks
+    }
+  }
+}

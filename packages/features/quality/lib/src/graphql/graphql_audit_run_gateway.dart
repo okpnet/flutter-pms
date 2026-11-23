@@ -149,7 +149,6 @@ class GraphqlAuditRunGateway implements IAuditRunGateway {
     for (final n in nodes.whereType<Map>()) {
       final id = '${n['transAuditDetailCheckItemsId']}';
       final std = n['standard'];
-      final master = std is Map ? std['master'] : null;
       final findings = n['findingsText'];
       _findingsTextIds[id] = findings is Map ? findings['transTextId'] as String? : null;
       final value = n['formulaValue'];
@@ -169,7 +168,8 @@ class GraphqlAuditRunGateway implements IAuditRunGateway {
         AuditItem(
           id: id,
           detailId: detailId,
-          name: master is Map ? _dictionaryName(master['labels']) : '',
+          // 名称は、履歴の呼称(history_mstr_audit_std_checkitem.names。外部キーあり)。過去の監査の名称が残る
+          name: std is Map ? _dictionaryName(std['labels']) : '',
           code: std is Map ? '${std['code'] ?? ''}' : '',
           expr: std is Map ? (AuditJudgement.parseExpr(std['argClass'])?.toJsonString() ?? '') : '',
           value: text,

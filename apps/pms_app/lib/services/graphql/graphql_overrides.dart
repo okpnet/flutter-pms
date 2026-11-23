@@ -32,12 +32,15 @@ import 'package:quality/quality.dart'
         GraphqlAuditNoticeSource,
         GraphqlAuditPlanGateway,
         GraphqlAuditRunGateway,
+        GraphqlComplaintRegisterGateway,
         InMemoryAuditNoticeSource,
         InMemoryAuditPlanGateway,
         InMemoryAuditRunGateway,
+        InMemoryComplaintRegisterGateway,
         auditNoticeSourceProvider,
         auditPlanGatewayProvider,
-        auditRunGatewayProvider;
+        auditRunGatewayProvider,
+        complaintRegisterGatewayProvider;
 import 'package:production_process/production_process.dart'
     show productionProcessRepositories;
 import 'package:work_record/work_record.dart'
@@ -184,6 +187,12 @@ List<Override> graphqlOverrides() => [
     final client = ref.watch(graphqlClientProvider);
     if (client == null) return InMemoryAuditPlanGateway();
     return GraphqlAuditPlanGateway(client, auditUser: ref.watch(auditUserProvider));
+  }),
+  // 異常の登録(DB の関数 complaint_register)。接続先が無いときはメモリ上
+  complaintRegisterGatewayProvider.overrideWith((ref) {
+    final client = ref.watch(graphqlClientProvider);
+    if (client == null) return InMemoryComplaintRegisterGateway();
+    return GraphqlComplaintRegisterGateway(client, auditUser: ref.watch(auditUserProvider));
   }),
   // 監査の通知(ダッシュボード。DB の audit_notice)。接続先が無いときはメモリ上(空)
   auditNoticeSourceProvider.overrideWith((ref) {

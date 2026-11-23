@@ -592,6 +592,7 @@ input SharedAppellationFilter {
   mstrItemTreesByNamesExist: Boolean
   mstrAuditStdsByNamesExist: Boolean
   mstrAuditStdCheckitemsByNamesExist: Boolean
+  historyMstrAuditStdCheckitemsByNamesExist: Boolean
   mstrEquipmentTagsByNamesExist: Boolean
   mstrLicensesByNamesExist: Boolean
   infoAccessPathApprovalsByNamesExist: Boolean
@@ -694,6 +695,7 @@ input SharedTextFilter {
   mstrItemTreesByDetailsExist: Boolean
   mstrAuditStdsByDetailsExist: Boolean
   mstrAuditStdCheckitemsByDetailsExist: Boolean
+  historyMstrAuditStdCheckitemsByDetailsExist: Boolean
   mstrLicensesByDetailsExist: Boolean
   mstrCapabilitiesByDetailsExist: Boolean
   vTextSharedTextValueCountBySharedTextIdExists: Boolean

@@ -675,6 +675,8 @@ input MstrItemFilter {
   vItemItemOperationTaskCountByMstrItemIdExists: Boolean
   vItemItemProvisionCountByMstrItemIdExists: Boolean
   vItemOnHandByItemIdExists: Boolean
+  vItemUnitCostByItemIdExists: Boolean
+  vItemValuationByItemIdExists: Boolean
   vMrpMasterIssuesByItemIdExist: Boolean
   vMrpPendingSuggestionsByItemIdExist: Boolean
   vMrpSuggestionsByItemIdExist: Boolean
@@ -695,6 +697,7 @@ input MstrItemFilter {
   vStockStatusesByMstrItemIdExist: Boolean
   vSupplyDetailBalancesByItemIdExist: Boolean
   vVisiterItemsByMstrItemIdExist: Boolean
+  vVisiterValuationsByItemIdExist: Boolean
   mstrManufacturerByMstrManufacturerIdExists: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   sharedTextByDetailsExists: Boolean
@@ -782,6 +785,7 @@ input SharedAppellationFilter {
   mstrItemTreesByNamesExist: Boolean
   mstrAuditStdsByNamesExist: Boolean
   mstrAuditStdCheckitemsByNamesExist: Boolean
+  historyMstrAuditStdCheckitemsByNamesExist: Boolean
   mstrEquipmentTagsByNamesExist: Boolean
   mstrLicensesByNamesExist: Boolean
   infoAccessPathApprovalsByNamesExist: Boolean

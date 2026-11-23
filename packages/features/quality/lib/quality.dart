@@ -28,3 +28,14 @@ export 'src/audit_plan/audit_plan_gateway.dart'
         auditPlanGatewayProvider,
         validateAuditPlan;
 export 'src/graphql/graphql_audit_plan_gateway.dart' show GraphqlAuditPlanGateway;
+export 'src/complaint_register/complaint_register_gateway.dart'
+    show
+        ComplaintRegisterError,
+        ComplaintRegisterException,
+        ComplaintRegisterInput,
+        ComplaintTarget,
+        IComplaintRegisterGateway,
+        InMemoryComplaintRegisterGateway,
+        complaintRegisterGatewayProvider,
+        validateComplaintRegister;
+export 'src/graphql/graphql_complaint_register_gateway.dart' show GraphqlComplaintRegisterGateway;

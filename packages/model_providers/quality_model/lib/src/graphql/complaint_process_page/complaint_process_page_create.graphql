@@ -1,0 +1,27 @@
+# complaint_process_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #ComplaintProcessPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ComplaintProcessPageCreate(
+  $transComplaintId: UUID
+  $mstrTaskId: UUID
+  $remarks: String
+) {
+  createTransComplaintProcess(
+    input: {
+      transComplaintProcess: {
+        transComplaintId: $transComplaintId
+        mstrTaskId: $mstrTaskId
+        remarks: $remarks
+      }
+    }
+  ) {
+    transComplaintProcess {
+      transComplaintProcessId
+      transComplaintId
+      mstrTaskId
+      remarks
+    }
+  }
+}

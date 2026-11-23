@@ -6,7 +6,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quality/quality.dart';
 import 'package:quality/quality_api.dart';
-import 'package:quality/src/complaint_register/complaint_register_gateway.dart';
 import 'package:selection_result/selection_result.dart';
 
 /// 台帳の選択画面の代わりに、決まった選択を返す(機能同士は、キーだけで受け渡す)。

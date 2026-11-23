@@ -166,6 +166,9 @@ WHERE c.remove IS FALSE;
 COMMENT ON VIEW tests.v_complaint IS '@primaryKey trans_complaint_id
 @unique symbol
 @foreignKey (trans_complaint_id) references trans_complaint (trans_complaint_id)
+@foreignKey (titles) references trans_label (trans_label_id)
+@foreignKey (details) references trans_text (trans_text_id)
+@foreignKey (reporter_staff_id) references info_staff (info_staff_id)
 異常の一覧(1 行 = 異常)。種類は、子の表に行があるか(has_*)で分かる(1 つの異常が複数の種類を持てる)。外部か・クレームかは、種類のビュー v_complaint_kind の値。種類の名称 kind_names も同じビューの値(画面で決めない)';
 
 COMMENT ON COLUMN tests.v_complaint.trans_complaint_id IS '異常ID';
