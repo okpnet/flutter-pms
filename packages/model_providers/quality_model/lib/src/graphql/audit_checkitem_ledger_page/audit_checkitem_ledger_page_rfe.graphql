@@ -1,0 +1,25 @@
+# audit_checkitem_ledger_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: gql/*.yaml #AuditCheckitemLedgerPageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query AuditCheckitemLedgerPageRfe(
+  $mstrAuditStdCheckitemId: UUID!
+) {
+  mstrAuditStdCheckitemByMstrAuditStdCheckitemId(mstrAuditStdCheckitemId: $mstrAuditStdCheckitemId) {
+    mstrAuditStdCheckitemId
+    mstrAuditStdId
+    code
+    controlCode
+    names
+    details
+    typeClass
+    formulaClass
+    argClass
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
+  }
+}

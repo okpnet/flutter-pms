@@ -1,0 +1,51 @@
+# audit_checkitem_ledger_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #AuditCheckitemLedgerPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AuditCheckitemLedgerPageCreate(
+  $mstrAuditStdId: UUID
+  $code: String
+  $controlCode: String
+  $names: UUID
+  $details: UUID
+  $typeClass: Int!
+  $formulaClass: Int!
+  $argClass: JSON
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  createMstrAuditStdCheckitem(
+    input: {
+      mstrAuditStdCheckitem: {
+        mstrAuditStdId: $mstrAuditStdId
+        code: $code
+        controlCode: $controlCode
+        names: $names
+        details: $details
+        typeClass: $typeClass
+        formulaClass: $formulaClass
+        argClass: $argClass
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    mstrAuditStdCheckitem {
+      mstrAuditStdCheckitemId
+      mstrAuditStdId
+      code
+      controlCode
+      names
+      details
+      typeClass
+      formulaClass
+      argClass
+      remarks
+      updateUserId
+      updateUserHistoryId
+    }
+  }
+}

@@ -715,3 +715,6 @@
         +   AuditStdAppellation 登録・更新(共通関数)[AuditStdAppellationSavePageCall]
         +   AuditStdText 登録・更新(共通関数)[AuditStdTextSavePageCall]
         +   AuditPlanRegister 登録[AuditPlanRegisterPageCall]<!--DB 関数 audit_plan_register-->
+        +   AuditCheckitemLedger 台帳[AuditCheckitemLedgerPage]<!--監査標準の項目(判定の式つき)-->
+        +   AuditCheckitemLedger 情報[AuditCheckitemLedgerPageEdit]
+        +   AuditCheckitemLedger 登録[AuditCheckitemLedgerPageCreate]

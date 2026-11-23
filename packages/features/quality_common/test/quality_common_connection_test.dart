@@ -9,7 +9,7 @@ import 'package:quality_common/quality_common.dart';
 void main() {
   group('検証用サーバー: 品質共通の取得元(読み取り専用)', () {
     serverTest('リスクを、画面の値(題名は言語コード ja)で取得できる', (server) async {
-      final risk = qualityCommonRepositories(server.provider.client).single;
+      final risk = qualityCommonRepositories(server.provider.client).firstWhere((r) => r.definition.key == 'risk');
       final rows = await risk.find(take: 50);
       // 検証用 DB にデータが無いときは、取得できる(空)ことだけを確認する
       if (rows.isEmpty) return;
@@ -17,10 +17,10 @@ void main() {
       expect(again?.values, rows.first.values);
     });
 
-    test('実体は読み取り専用: 新規・保存・削除を出さず、書き込もうとすると失敗する', () {
+    test('リスクは読み取り専用: 新規・保存・削除を出さず、書き込もうとすると失敗する(監査標準の項目は書き込める。audit_checkitem_test.dart)', () {
       final repos = qualityCommonRepositories(GraphQLClient(link: HttpLink('http://localhost:1'), cache: GraphQLCache()));
-      expect(repos.map((r) => r.definition.key), ['risk']);
-      for (final r in repos) {
+      expect(repos.map((r) => r.definition.key), ['risk', 'auditstdcheck']);
+      for (final r in repos.where((r) => r.definition.key == 'risk')) {
         expect(r.definition.viewOnly, isTrue);
         expect(r.definition.fields.every((f) => f.readOnly), isTrue);
         expect(() => r.save(const EntityRecord(id: '', values: {})), throwsUnsupportedError);

@@ -1,4 +1,8 @@
 # Quality common strings (English). Keys missing here fall back to the base language (ja).
+# Hand-written field name of the audit standard check item
+checkitem:
+  expr: Judgement formula
+
 menu:
   group: "Quality common"
 entity:

@@ -454,3 +454,81 @@ AuditPlanRegisterPageCall:
   returns: transAudit
   columns:
     - trans_audit_id
+
+# ---- 監査標準の項目(監査標準項目マスタ)の台帳・登録・更新(Issue 20261123_0001)。設備の点検整備項目と同じ構造:
+#      項目(コード・名称・詳細)+ 判定の式(条件 = 演算子 + 値の JSON。arg_class)。type_class・formula_class は NOT NULL のため、arg_class から導いて書く ----
+
+AuditCheckitemLedgerPage:
+  lightRead: true
+  kind: read
+  from: mstr_audit_std_checkitem
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - mstr_audit_std_checkitem_id
+    - mstr_audit_std_id
+    - code
+    - control_code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - name: detailTexts
+      as: detailTexts
+      arrayType: toFirstOne
+      using: details
+      <<: *FixTextReadFields
+    - type_class
+    - formula_class
+    - arg_class
+    - symbol
+    - remarks
+    - update_at
+
+AuditCheckitemLedgerPageEdit:
+  kind: edit
+  from: mstr_audit_std_checkitem
+  requiredWhere:
+    - mstr_audit_std_checkitem_id
+  generateRfe: true
+  withUpdater: true
+  columns:
+    - mstr_audit_std_checkitem_id
+    - mstr_audit_std_id
+    - code
+    - control_code
+    - names
+    - details
+    - type_class
+    - formula_class
+    - arg_class
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+AuditCheckitemLedgerPageCreate:
+  kind: create
+  from: mstr_audit_std_checkitem
+  columns:
+    - mstr_audit_std_id
+    - code
+    - control_code
+    - names
+    - details
+    - type_class
+    - formula_class
+    - arg_class
+    - remarks
+    - update_user_id
+    - update_user_history_id

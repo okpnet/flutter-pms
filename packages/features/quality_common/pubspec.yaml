@@ -22,6 +22,7 @@ dependencies:
   data_strategist:
     path: ../../foundation/data_strategist
   graphql: ^5.2.3
+  gql: ^1.0.1
   pms_graphql:
     path: ../../infra/pms_graphql
   quality_model:

@@ -1110,6 +1110,10 @@ type AuditPlanRegisterPayload {
   transAudit: TransAudit
 }
 
+type CreateMstrAuditStdCheckitemPayload {
+  mstrAuditStdCheckitem: MstrAuditStdCheckitem
+}
+
 type CreateMstrAuditStdPayload {
   mstrAuditStd: MstrAuditStd
 }
@@ -1263,6 +1267,8 @@ type MstrAuditStdCheckitem {
   mstrAuditStdId: UUID!
   code: String
   controlCode: String
+  names: UUID!
+  details: UUID
   typeClass: Int!
   formulaClass: Int!
   argClass: JSON
@@ -1373,6 +1379,7 @@ type MstrTaskGroup {
 
 type Mutation {
   createMstrAuditStd(input: CreateMstrAuditStdInput!): CreateMstrAuditStdPayload
+  createMstrAuditStdCheckitem(input: CreateMstrAuditStdCheckitemInput!): CreateMstrAuditStdCheckitemPayload
   createTransAuditComplaint(input: CreateTransAuditComplaintInput!): CreateTransAuditComplaintPayload
   createTransAuditDetailCheckItem(input: CreateTransAuditDetailCheckItemInput!): CreateTransAuditDetailCheckItemPayload
   createTransAuditDetail(input: CreateTransAuditDetailInput!): CreateTransAuditDetailPayload
@@ -2578,6 +2585,10 @@ input BooleanFilter {
   greaterThanOrEqualTo: Boolean
 }
 
+input CreateMstrAuditStdCheckitemInput {
+  mstrAuditStdCheckitem: MstrAuditStdCheckitemInput!
+}
+
 input CreateMstrAuditStdInput {
   mstrAuditStd: MstrAuditStdInput!
 }
@@ -3232,14 +3243,32 @@ input MstrAuditStdCheckitemFk2Input {
   updateBySharedAppellationsId: SharedAppellationOnMstrAuditStdCheckitemForMstrAuditStdCheckitemFk2UsingSharedAppellationsPkUpdate
 }
 
+input MstrAuditStdCheckitemInput {
+  mstrAuditStdId: UUID
+  code: String
+  controlCode: String
+  names: UUID
+  details: UUID
+  typeClass: Int!
+  formulaClass: Int!
+  argClass: JSON
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
 input MstrAuditStdCheckitemPatch {
   mstrAuditStdId: UUID
   code: String
   controlCode: String
+  names: UUID
+  details: UUID
   typeClass: Int
   formulaClass: Int
   argClass: JSON
   remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
   remove: Boolean
   sharedAppellationToNames: MstrAuditStdCheckitemFk2Input
   sharedTextToDetails: MstrAuditStdCheckitemFk1Input

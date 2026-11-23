@@ -52,6 +52,12 @@
 1.  読み取り専用: 実体を `viewOnly`・各項目 `readOnly` にし、保存・削除は `UnsupportedError`。題名は多言語のラベル(`trans_label`)、詳細は多言語の文章(`trans_text`。先頭の文)で、言語コード `ja` の値を読む。処置・再発防止(読み込みが親の苦情・処置を必須にしている)・予防・予防明細・観察・監査基準の確認項目は、サンプルのまま。
 1.  **【入れ替え: 呼称の DB 関数】** 書き込みは、ラベル・文章(`trans_label`・`trans_text` と値の表)を複数の表へ登録する関数を足して適用したら、`~PageCall` で `save` を入れ替え、`viewOnly` を外す(`issue/202611.md#C_202611` の 2-1。`doc/query/20261114_0002` の補助は辞書用で、ラベル・文章は別の表のため、同じ方式の補助を足す)。
 
+## 監査標準の項目(Issue 20261123_0001)
+監査標準の項目(`auditstdcheck`。DB の `mstr_audit_std_checkitem`)は、**設備の点検整備項目と同じ構造**: 項目(コード・管理コード・名称・読み・略称・詳細・監査標準)+ 判定の式 `expr`(`FieldKind.condition`。条件 = 演算子 + 値の JSON。`entity_screens` の `ConditionValue`)。
+1.  式は DB の `arg_class` に条件の JSON を書く(設備の点検整備の式 `mstr_inspection_formula` と同じ形。ダミーの `{"operator":"<=","value":0.5}` も読める)。**判定は `arg_class` の JSON だけで行う**(コード値で判定しない)。`formula_class`・`type_class` は DB の NOT NULL の列のため、`AuditCheckExpr`(`lib/src/graphql/audit_check_expr.dart`)が `arg_class` から導いて書く(`formula_class` = 演算子の番号(1 から。`ConditionOperator` の宣言順)、`type_class` = 1 数・2 文字・3 はい/いいえ。式が無いときは 0)。
+1.  取得元は `AuditCheckitemRepository`(書き込みできる。名称・読み・略称は `shared_appellation_save`、詳細は `shared_text_save`、論理削除。詳細は先頭の文だけを読むため、変えたときだけ保存)。定義は `QualityCommonModule.definitions` が、生成の定義(型・式・引数の数値の項目)を `expr` の定義(`auditCheckitemDefinition`)に差し替える。
+1.  実施した監査の項目は、履歴(ID + 履歴 ID)で参照するため、項目を変えても過去の監査の基準は、そのときのまま。監査の実施の値の入力欄を、式(`expr`)の種類ごと(数・範囲・はい/いいえ・文字)に分けるのは、次の作業。
+
 ## 規則/仕様
 1.  ディリクトリ/ファイル
     1.  生成結果のレポートは`doc/log`ディリクトリにファイル名`年月日_4桁ゼロ埋の番号.md`として保存する。

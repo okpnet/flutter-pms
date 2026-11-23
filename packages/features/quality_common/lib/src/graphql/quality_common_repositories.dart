@@ -1,9 +1,12 @@
 import 'package:data_strategist/lib.dart';
 import 'package:entity_screens/entity_screens.dart';
 import 'package:graphql/client.dart';
+import 'package:pms_graphql/pms_graphql.dart' show AuditUserSource;
 import 'package:quality_model/quality_model.dart';
 
 import '../entities/quality_common_definitions.dart';
+import '../quality_common_module.dart' show auditCheckitemDefinition;
+import 'audit_checkitem_repository.dart';
 
 /// 品質共通の実体の取得元(GraphQL 版。読み取り専用)。アプリが [GraphQLClient] を渡して組み立て、
 /// `entityRepositoryOverridesProvider` に渡すと、サンプル(メモリ上)の代わりに使われる。
@@ -11,15 +14,19 @@ import '../entities/quality_common_definitions.dart';
 /// 【入れ替え: 呼称の DB 関数】 書き込みは、共通関数(`shared_appellation_save`・`shared_text_save`)で呼称・文章を作り、返った ID を本体のミューテーションに渡す形で、リスクの取得元の `save` を入れ替え、`viewOnly` を外す
 /// (`issue/202611.md#C_202611` の 2-1)。
 ///
-/// 対象はリスク(`risk`)。題名は多言語のラベル(`trans_label`)、詳細は多言語の文章(`trans_text`。先頭の文)で、言語コード `ja` の値を読む。
+/// 対象はリスク(`risk`。読み取り専用)・監査標準の項目(`auditstdcheck`。書き込みできる)。題名は多言語のラベル(`trans_label`)、詳細は多言語の文章(`trans_text`。先頭の文)で、言語コード `ja` の値を読む。
 /// ほかの実体は、サンプルのまま: 処置・再発防止(読み込みが親の苦情・処置を必須にしている)、予防(リスクの子)・予防明細、
 /// 処置の観察・予防の観察、監査基準の確認項目。生成された型は、この中だけで使い、外へ出さない。
 /// 抽出条件・並び順は無視する(サンプルと同じ)。
 ///
 /// パターン: Adapter(生成された読み込みの結果と、画面の [EntityRecord] を変換する)
-List<IEntityRepository> qualityCommonRepositories(GraphQLClient client) {
+List<IEntityRepository> qualityCommonRepositories(GraphQLClient client, {AuditUserSource? auditUser}) {
   final language = _LanguageCode(client);
-  return [_RiskRepository(_readOnly('risk'), client, language)];
+  return [
+    _RiskRepository(_readOnly('risk'), client, language),
+    // 監査標準の項目(書き込みできる。判定の式は条件の JSON)
+    AuditCheckitemRepository(auditCheckitemDefinition, client, () => language.id, auditUser),
+  ];
 }
 
 /// 生成された定義(DB に合わせた項目)を、すべて読み取り専用にして使う(台帳に「新規」を出さず、保存・削除を出さない)。
