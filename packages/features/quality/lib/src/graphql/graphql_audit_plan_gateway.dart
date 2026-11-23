@@ -14,8 +14,7 @@ import '../audit_plan/audit_plan_gateway.dart';
 /// (PostGraphile v4 は JSON を文字列で受け取るため `jsonEncode` する)。責任者は担当者([auditUser]。無いときは DB が JWT の担当者を使う)。
 /// 入力の検査は、通信の前に行う([AuditPlanException])。DB の検査の誤り(`AUD07`・`AUD08`・`AUD09` など)は、例外のまま投げる。
 ///
-/// **暫定**: 登録の問い合わせは、スキーマの再取得(`melos run gql:schema`)ができなかったため、ここに手書きしている(入力・戻り値は
-/// PostGraphile の命名規則どおり)。スキーマを取得できたら、`quality_model` の `AuditPlanRegisterPageCall`(`kind: function`)に移す。
+/// 登録の問い合わせは生成モデル(`quality_model` の `AuditPlanRegisterPageCall`。`kind: function`)。
 ///
 /// パターン: Adapter(生成された読み込みの結果と、画面の [AuditPlanOption] を変換する)
 class GraphqlAuditPlanGateway implements IAuditPlanGateway {
@@ -24,24 +23,6 @@ class GraphqlAuditPlanGateway implements IAuditPlanGateway {
   final GraphQLClient client;
   final String languageCode;
   final AuditUserSource? auditUser;
-
-  static final DocumentNode _registerMutation = gql(r'''
-mutation AuditPlanRegister(
-  $pTitles: JSON
-  $pDetails: JSON
-  $pAuditStdId: UUID
-  $pLines: JSON
-  $pStaffId: UUID
-) {
-  auditPlanRegister(
-    input: {pTitles: $pTitles, pDetails: $pDetails, pAuditStdId: $pAuditStdId, pLines: $pLines, pStaffId: $pStaffId}
-  ) {
-    transAudit {
-      transAuditId
-    }
-  }
-}
-''');
 
   Future<String>? _languageId;
 
@@ -99,7 +80,7 @@ mutation AuditPlanRegister(
     if (errors.isNotEmpty) throw AuditPlanException(errors);
     final au = auditUser == null ? null : await auditUser!();
     String ml(String v) => jsonEncode({languageCode: v});
-    final data = await _query(_registerMutation, {
+    final data = await _query(documentNodeMutationAuditPlanRegisterPageCall, {
       'pTitles': ml(input.title.trim()),
       if (input.details.trim().isNotEmpty) 'pDetails': ml(input.details.trim()),
       'pAuditStdId': input.standardId,

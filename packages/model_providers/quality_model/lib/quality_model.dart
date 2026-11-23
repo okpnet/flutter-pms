@@ -63,6 +63,7 @@ export 'src/graphql/audit_page/audit_page_edit.graphql.dart';
 export 'src/graphql/audit_page/audit_page_read.graphql.dart';
 export 'src/graphql/audit_page/audit_page_remove.graphql.dart';
 export 'src/graphql/audit_page/audit_page_rfe.graphql.dart';
+export 'src/graphql/audit_plan_register_page/audit_plan_register_page_call.graphql.dart';
 export 'src/graphql/audit_plan_staff_option_page/audit_plan_staff_option_page_read.graphql.dart';
 export 'src/graphql/audit_plan_std_option_page/audit_plan_std_option_page_read.graphql.dart';
 export 'src/graphql/audit_std_appellation_save_page/audit_std_appellation_save_page_call.graphql.dart';

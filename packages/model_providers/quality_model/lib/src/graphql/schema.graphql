@@ -1106,6 +1106,10 @@ type AuditNoticeRecord {
   isInProgress: Boolean
 }
 
+type AuditPlanRegisterPayload {
+  transAudit: TransAudit
+}
+
 type CreateMstrAuditStdPayload {
   mstrAuditStd: MstrAuditStd
 }
@@ -1413,6 +1417,7 @@ type Mutation {
   auditComplaintRegister(input: AuditComplaintRegisterInput!): AuditComplaintRegisterPayload
   auditDetailFinish(input: AuditDetailFinishInput!): AuditDetailFinishPayload
   auditDetailStart(input: AuditDetailStartInput!): AuditDetailStartPayload
+  auditPlanRegister(input: AuditPlanRegisterInput!): AuditPlanRegisterPayload
   sharedAppellationSave(input: SharedAppellationSaveInput!): SharedAppellationSavePayload
   sharedTextSave(input: SharedTextSaveInput!): SharedTextSavePayload
   transLabelSave(input: TransLabelSaveInput!): TransLabelSavePayload
@@ -2518,6 +2523,16 @@ input AuditDetailFinishInput {
 
 input AuditDetailStartInput {
   pAuditDetailsId: UUID
+  pStaffId: UUID
+}
+
+input AuditPlanRegisterInput {
+  pTitles: JSON
+  pDetails: JSON
+  pAuditStdId: UUID
+  pLines: JSON
+  pDepartmentId: UUID
+  pStakeholderId: UUID
   pStaffId: UUID
 }
 

@@ -714,3 +714,4 @@
         +   AuditStdLedger 登録[AuditStdLedgerPageCreate]
         +   AuditStdAppellation 登録・更新(共通関数)[AuditStdAppellationSavePageCall]
         +   AuditStdText 登録・更新(共通関数)[AuditStdTextSavePageCall]
+        +   AuditPlanRegister 登録[AuditPlanRegisterPageCall]<!--DB 関数 audit_plan_register-->

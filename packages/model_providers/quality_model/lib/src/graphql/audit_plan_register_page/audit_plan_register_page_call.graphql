@@ -1,0 +1,30 @@
+# audit_plan_register_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #AuditPlanRegisterPageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AuditPlanRegisterPageCall(
+  $pTitles: JSON
+  $pDetails: JSON
+  $pAuditStdId: UUID
+  $pLines: JSON
+  $pDepartmentId: UUID
+  $pStakeholderId: UUID
+  $pStaffId: UUID
+) {
+  auditPlanRegister(
+    input: {
+      pTitles: $pTitles
+      pDetails: $pDetails
+      pAuditStdId: $pAuditStdId
+      pLines: $pLines
+      pDepartmentId: $pDepartmentId
+      pStakeholderId: $pStakeholderId
+      pStaffId: $pStaffId
+    }
+  ) {
+    transAudit {
+      transAuditId
+    }
+  }
+}

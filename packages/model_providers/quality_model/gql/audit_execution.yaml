@@ -446,3 +446,11 @@ AuditStdTextSavePageCall:
   returns: sharedText
   columns:
     - shared_text_id
+
+# 監査計画の登録(DB の関数 audit_plan_register。監査・チーム・監査員・監査実施詳細・ラベル・文章を 1 トランザクションで登録する)
+AuditPlanRegisterPageCall:
+  kind: function
+  mutation: auditPlanRegister
+  returns: transAudit
+  columns:
+    - trans_audit_id

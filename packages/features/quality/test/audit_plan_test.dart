@@ -167,7 +167,7 @@ void main() {
       final staff = await gw.staff();
       expect(staff.single.name, '田中');
       await expectLater(gw.register(const AuditPlanInput()), throwsA(isA<AuditPlanException>()));
-      expect(link.requests.map(_op), isNot(contains('AuditPlanRegister')));
+      expect(link.requests.map(_op), isNot(contains('AuditPlanRegisterPageCall')));
     });
 
     test('登録は、DB の関数 audit_plan_register を呼ぶ(題名・詳細・チーム名は言語別の JSON、行は JSON の配列)', () async {
@@ -188,7 +188,7 @@ void main() {
         ),
       );
       expect(id, 'audit-1');
-      final v = link.requests.firstWhere((r) => _op(r) == 'AuditPlanRegister').variables;
+      final v = link.requests.firstWhere((r) => _op(r) == 'AuditPlanRegisterPageCall').variables;
       expect(v['pTitles'], '{"ja":"年度監査"}');
       expect(v['pDetails'], '{"ja":"計画"}');
       expect(v['pAuditStdId'], 's1');
@@ -233,7 +233,7 @@ class _FakeLink extends Link {
           ],
         },
       },
-      'AuditPlanRegister' => {
+      'AuditPlanRegisterPageCall' => {
         'auditPlanRegister': {
           'transAudit': {'transAuditId': 'audit-1'},
         },
