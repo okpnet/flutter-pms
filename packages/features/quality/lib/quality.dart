@@ -13,7 +13,7 @@ export 'src/audit_run/audit_run_gateway.dart'
         auditRunGatewayProvider;
 export 'src/graphql/graphql_audit_run_gateway.dart' show GraphqlAuditRunGateway;
 export 'src/audit_notice/audit_notice_source.dart'
-    show AuditNotice, IAuditNoticeSource, InMemoryAuditNoticeSource, auditNoticeSourceProvider;
+    show AuditNotice, IAuditNoticeSource, auditNoticesProvider, InMemoryAuditNoticeSource, auditNoticeSourceProvider;
 export 'src/graphql/graphql_audit_notice_source.dart' show GraphqlAuditNoticeSource;
 export 'src/page/audit_notice_banner.dart' show AuditNoticeBanner;
 export 'src/audit_plan/audit_plan_gateway.dart'

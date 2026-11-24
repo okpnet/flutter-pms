@@ -12,7 +12,10 @@ import 'my_audits_page.dart' show formatAuditDate;
 /// 自分のチームの、予定日が近い・過ぎた、未終了の監査があるときだけ出す。0 件のとき・取得に失敗したときは何も出さない。
 /// 各行を押すと、その監査の実施の画面へ。「自分の監査」へのリンクを添える。
 class AuditNoticeBanner extends ConsumerWidget {
-  const AuditNoticeBanner({super.key, this.maxRows = 3});
+  const AuditNoticeBanner({super.key, this.maxRows = 3, this.showWhenEmpty = false});
+
+  /// 通知が無いときに「メッセージはありません」を出す(承認待ちなどほかの通知も無いときに、アプリが true にする)。
+  final bool showWhenEmpty;
 
   /// 一覧に並べる最大の件数(残りは「自分の監査」で見る)。
   final int maxRows;
@@ -20,8 +23,15 @@ class AuditNoticeBanner extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final notices = ref.watch(auditNoticesProvider).value ?? const <AuditNotice>[];
-    if (notices.isEmpty) return const SizedBox.shrink();
     final s = ref.watch(qualityStringsProvider).auditNotice;
+    if (notices.isEmpty) {
+      if (!showWhenEmpty) return const SizedBox.shrink();
+      return Padding(
+        key: const Key('notice-none'),
+        padding: const EdgeInsets.only(bottom: 12),
+        child: Text(s.none, style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant)),
+      );
+    }
     final scheme = Theme.of(context).colorScheme;
     String when(AuditNotice n) => n.overdue
         ? s.overdue

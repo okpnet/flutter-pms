@@ -1,3 +1,4 @@
+import 'package:feature_shared/feature_shared.dart' show EntityPickerDestination;
 import 'package:entity_screens/entity_screens.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gql/ast.dart' show OperationDefinitionNode;
@@ -50,6 +51,12 @@ class _FakeLink extends Link {
 }
 
 void main() {
+  test('メニューに出さない選択用の実体も、選択画面のパスに変換できる(他の機能が、キーだけで選ぶ)', () {
+    const m = WorkRecordModule();
+    expect(m.locationOf(const EntityPickerDestination('lotpick')), '/e/lotpick/pick');
+    expect(m.locationOf(const EntityPickerDestination('workrecpick')), '/e/workrecpick/pick');
+  });
+
   test('選択用の実体(作業実績・ロット)は、読み取り専用でメニューに出さない。キーは契約として固定', () {
     final defs = const WorkRecordModule().definitions;
     for (final key in [workRecordPickKey, lotPickKey]) {

@@ -60,6 +60,7 @@ auditRun:
 # Quality control strings (English). Keys missing here fall back to the base language (ja).
 # Audit notices on the dashboard
 auditNotice:
+  none: No messages
   summary: '${n} audits are coming up'
   all: My audits
   overdue: Overdue

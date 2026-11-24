@@ -109,6 +109,9 @@ Future<List<Override>> exampleOverrides(
     ),
     ...dashboardOverrides(),
     ...userSummaryOverrides(),
+    // 実物と同じ差し込み(管理者の判定: マニュアルの編集・承認スタンプ・PDF の設定、承認一覧、ダッシュボードの通知)
+    ...manualOverrides(),
+    ...approvalOverrides(),
     entityFileTransferProvider.overrideWith(PocketBaseEntityFileTransfer.new),
     ...graphqlOverrides(),
     pbConnectionProvider.overrideWithValue(connection),

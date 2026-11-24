@@ -322,7 +322,7 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
             alias: entityKey,
           ),
         EntityPickerDestination(:final entityKey)
-            when entityKeys.contains(entityKey) =>
+            when definitions.any((d) => d.key == entityKey && (!d.isChild || !d.inlineInOwner)) =>
           pickPath(entityKey),
         EntityEditDestination(
           :final entityKey,

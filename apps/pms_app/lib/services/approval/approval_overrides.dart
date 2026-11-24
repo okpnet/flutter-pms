@@ -1,6 +1,7 @@
 import 'package:approval/approval.dart';
 import 'package:feature_shared/feature_shared.dart' show dashboardAlertSlotProvider;
-import 'package:flutter/widgets.dart' show Column, CrossAxisAlignment;
+import 'package:flutter/widgets.dart' show BuildContext, Column, CrossAxisAlignment, Widget;
+import 'package:flutter_riverpod/flutter_riverpod.dart' show ConsumerWidget, WidgetRef;
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:pbapi/pbapi.dart' show sessionServiceProvider;
 import 'package:quality/quality.dart' show AuditNoticeBanner;
@@ -28,13 +29,24 @@ List<Override> approvalOverrides() => [
     return _SessionPasswordVerifier(ref.read(sessionServiceProvider).verifyPassword);
   }),
   dashboardAlertSlotProvider.overrideWithValue(
-    (context) => const Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [ApprovalAlertBanner(), AuditNoticeBanner()],
-    ),
+    (context) => const _NoticeArea(),
   ),
   approvalTargetLocatorProvider.overrideWithValue(_targetLocation),
 ];
+
+/// 通知の領域。承認待ちも監査の予定も無いときは「メッセージはありません」を出す(領域があることを示す)。
+class _NoticeArea extends ConsumerWidget {
+  const _NoticeArea();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final none = ref.watch(pendingCountsByKindProvider).values.fold<int>(0, (a, b) => a + b) == 0;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [const ApprovalAlertBanner(), AuditNoticeBanner(showWhenEmpty: none)],
+    );
+  }
+}
 
 class _SessionPasswordVerifier implements IPasswordVerifier {
   _SessionPasswordVerifier(this._verify);

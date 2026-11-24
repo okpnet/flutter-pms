@@ -127,6 +127,7 @@ class _QualityStrings$auditNotice$en extends QualityStrings$auditNotice$ja {
 	final QualityStringsEn _root; // ignore: unused_field
 
 	// Translations
+	@override String get none => 'No messages';
 	@override String summary({required Object n}) => '${n} audits are coming up';
 	@override String get all => 'My audits';
 	@override String get overdue => 'Overdue';
@@ -686,6 +687,7 @@ extension on QualityStringsEn {
 			'auditRun.complaintsOfItem' => 'Nonconformities of this item',
 			'auditRun.noComplaints' => 'No nonconformities for this item.',
 			'auditRun.actionFailed' => 'The operation failed.',
+			'auditNotice.none' => 'No messages',
 			'auditNotice.summary' => ({required Object n}) => '${n} audits are coming up',
 			'auditNotice.all' => 'My audits',
 			'auditNotice.overdue' => 'Overdue',

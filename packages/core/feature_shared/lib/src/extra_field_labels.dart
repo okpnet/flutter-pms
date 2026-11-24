@@ -47,16 +47,19 @@ EntityDefinition withRowAction(EntityDefinition d, RowAction action) => EntityDe
 );
 
 /// 実体の定義に、関連する実体の一覧を 1 つ足した定義を返す(編集画面の下に出す。[ReverseList.editable] なら追加・編集もできる)。
-EntityDefinition withReverseList(EntityDefinition d, ReverseList reverse) => EntityDefinition(
+EntityDefinition withReverseList(EntityDefinition d, ReverseList reverse) => withFields(d, d.fields, reverses: [...d.reverseLists, reverse]);
+
+/// 実体の定義の項目(または関連する実体の一覧)だけを入れ替えた定義を返す(例: 台帳の列から項目を外す)。
+EntityDefinition withFields(EntityDefinition d, List<FieldDefinition> fields, {List<ReverseList>? reverses}) => EntityDefinition(
   key: d.key,
-  fields: d.fields,
+  fields: fields,
   owner: d.owner,
   isTree: d.isTree,
   treeTitle: d.treeTitle,
   treeTags: d.treeTags,
   inlineInOwner: d.inlineInOwner,
   uniqueKeys: d.uniqueKeys,
-  reverseLists: [...d.reverseLists, reverse],
+  reverseLists: reverses ?? d.reverseLists,
   nest: d.nest,
   viewOnly: d.viewOnly,
   rowActions: d.rowActions,

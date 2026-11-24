@@ -60,6 +60,7 @@ auditRun:
 
 # ダッシュボードの監査の通知
 auditNotice:
+  none: メッセージはありません
   summary: '監査の予定が ${n} 件あります'
   all: 自分の監査
   overdue: 予定超過
@@ -142,7 +143,7 @@ entity:
   complaint:
     title: "異常"
     fields:
-      f_occurent_at: "発生年月日"
+      f_occurent_at: "発見日"
       f_title: "件名"
       f_detail: "詳細"
       f_reporter_staff_id: "報告者"

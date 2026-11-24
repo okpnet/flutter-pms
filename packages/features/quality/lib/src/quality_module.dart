@@ -33,11 +33,17 @@ class QualityModule extends EntityFeatureModule {
   List<EntityDefinition> get definitions => [
     for (final d in qualityDefinitions)
       switch (d.key) {
-        'complaint' => withReverseList(d, const ReverseList(entity: 'disposal', field: 'trans_complaint_id', editable: true)),
+        'complaint' => withReverseList(_complaintFields(d), const ReverseList(entity: 'disposal', field: 'trans_complaint_id', editable: true)),
         'auditstd' => withReverseList(d, const ReverseList(entity: 'auditstdcheck', field: 'mstr_audit_std_id', editable: true)),
         _ => d,
       },
   ];
+
+  /// 備考は、詳細があるため台帳の列に出さない(編集画面には出る)。
+  static EntityDefinition _complaintFields(EntityDefinition d) => withFields(d, [
+    for (final f in d.fields)
+      if (f.key == 'remarks') const FieldDefinition(key: 'remarks', kind: FieldKind.multiline, required: false, inList: false) else f,
+  ]);
 
   @override
   EntityLabels labelsOf(WidgetRef ref) {

@@ -235,6 +235,9 @@ class QualityStrings$auditNotice$ja {
 
 	// Translations
 
+	/// ja: 'メッセージはありません'
+	String get none => 'メッセージはありません';
+
 	/// ja: '監査の予定が ${n} 件あります'
 	String summary({required Object n}) => '監査の予定が ${n} 件あります';
 
@@ -730,8 +733,8 @@ class QualityStrings$entity$complaint$fields$ja {
 
 	// Translations
 
-	/// ja: '発生年月日'
-	String get f_occurent_at => '発生年月日';
+	/// ja: '発見日'
+	String get f_occurent_at => '発見日';
 
 	/// ja: '件名'
 	String get f_title => '件名';
@@ -1100,6 +1103,7 @@ extension on QualityStrings {
 			'auditRun.complaintsOfItem' => 'この項目の異常',
 			'auditRun.noComplaints' => 'この項目に異常はありません。',
 			'auditRun.actionFailed' => '操作できませんでした。',
+			'auditNotice.none' => 'メッセージはありません',
 			'auditNotice.summary' => ({required Object n}) => '監査の予定が ${n} 件あります',
 			'auditNotice.all' => '自分の監査',
 			'auditNotice.overdue' => '予定超過',
@@ -1171,7 +1175,7 @@ extension on QualityStrings {
 			'auditPlan.cancel' => 'キャンセル',
 			'menu.group' => '品質管理',
 			'entity.complaint.title' => '異常',
-			'entity.complaint.fields.f_occurent_at' => '発生年月日',
+			'entity.complaint.fields.f_occurent_at' => '発見日',
 			'entity.complaint.fields.f_title' => '件名',
 			'entity.complaint.fields.f_detail' => '詳細',
 			'entity.complaint.fields.f_reporter_staff_id' => '報告者',

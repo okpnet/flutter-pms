@@ -2,6 +2,7 @@
 import 'package:app_core/app_core.dart';
 import 'package:backstage/backstage.dart';
 import 'package:dashboard_container/dashboard_container_api.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:logger_provider/logger_provider.dart';
 import 'package:settings_keeper/settings_keeper.dart';
 import 'package:user_profile/user_profile.dart' show MyImagePanel;
@@ -134,6 +135,10 @@ class _AppMain extends ConsumerState {
             theme: ref.watch(lightThemeProvider),
             darkTheme: ref.watch(darkThemeProvider),
             themeMode: ref.watch(themeModeProvider),
+            // 日付の選択・標準の部品の文字を、使用言語(設定)にする
+            locale: ref.watch(localeProvider),
+            localizationsDelegates: GlobalMaterialLocalizations.delegates,
+            supportedLocales: const [Locale('ja'), Locale('en')],
           )
         : const StartSplashScreen();
   }
