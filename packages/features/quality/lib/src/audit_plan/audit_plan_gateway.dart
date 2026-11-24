@@ -160,4 +160,18 @@ class InMemoryAuditPlanGateway implements IAuditPlanGateway {
   }
 }
 
-final auditPlanGatewayProvider = Provider<IAuditPlanGateway>((ref) => InMemoryAuditPlanGateway());
+/// 既定の取得元は、メモリ上のサンプル(アプリは GraphQL 版に差し替える)。サンプルにも選択肢を持たせる
+/// (example で、監査標準・監査員を選んで登録の画面を確認できるようにするため)。
+final auditPlanGatewayProvider = Provider<IAuditPlanGateway>(
+  (ref) => InMemoryAuditPlanGateway(
+    standardOptions: const [
+      AuditPlanOption(id: 'std-1', code: 'AS-01', name: '内部監査標準'),
+      AuditPlanOption(id: 'std-2', code: 'AS-02', name: '工程監査標準'),
+    ],
+    staffOptions: const [
+      AuditPlanOption(id: 'staff-1', code: 'E-0101', name: '山田 太郎'),
+      AuditPlanOption(id: 'staff-2', code: 'E-0102', name: '佐藤 花子'),
+      AuditPlanOption(id: 'staff-3', code: 'E-0103', name: '鈴木 一郎'),
+    ],
+  ),
+);

@@ -245,4 +245,37 @@ class InMemoryAuditRunGateway implements IAuditRunGateway {
   }
 }
 
-final auditRunGatewayProvider = Provider<IAuditRunGateway>((ref) => InMemoryAuditRunGateway());
+/// 既定の取得元は、メモリ上のサンプル(アプリは GraphQL 版に差し替える)。サンプルにも、予定・実施中・終了の監査を持たせる
+/// (example で、自分の監査・監査の実施の画面を確認できるようにするため。日付は今日からの相対)。
+final auditRunGatewayProvider = Provider<IAuditRunGateway>((ref) {
+  final today = _sampleToday();
+  return InMemoryAuditRunGateway(
+    assignments: [
+      AuditAssignment(id: 'sample-run', auditName: '内部監査', name: '品質保証部', teamName: 'チームA', scheduledAt: today.add(const Duration(hours: 9)), performedDate: today),
+      AuditAssignment(id: 'sample-soon', auditName: '内部監査', name: '第1製造棟', teamName: 'チームA', scheduledAt: today.add(const Duration(days: 2, hours: 9))),
+      AuditAssignment(id: 'sample-late', auditName: '内部監査', name: '倉庫', teamName: 'チームA', scheduledAt: today.subtract(const Duration(days: 3)).add(const Duration(hours: 9))),
+      AuditAssignment(
+        id: 'sample-done',
+        auditName: '内部監査',
+        name: '設備',
+        teamName: 'チームA',
+        scheduledAt: today.subtract(const Duration(days: 20)),
+        performedDate: today.subtract(const Duration(days: 20)),
+        endedAt: today.subtract(const Duration(days: 20)).add(const Duration(hours: 17)),
+      ),
+    ],
+    items: {
+      'sample-run': const [
+        AuditItem(id: 'sample-i1', detailId: 'sample-run', name: '記録の管理', code: 'A1', expr: '{"operator":"yesno","value":true}'),
+        AuditItem(id: 'sample-i2', detailId: 'sample-run', name: '不適合率(%)', code: 'A2', expr: '{"operator":"<=","value":"0.5"}'),
+        AuditItem(id: 'sample-i3', detailId: 'sample-run', name: '教育訓練の記録', code: 'A3'),
+      ],
+    },
+  );
+});
+
+/// サンプルの日付(今日の 0 時)。
+DateTime _sampleToday() {
+  final n = DateTime.now();
+  return DateTime(n.year, n.month, n.day);
+}
