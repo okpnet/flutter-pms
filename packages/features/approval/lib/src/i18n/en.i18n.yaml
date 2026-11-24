@@ -4,10 +4,9 @@ loading: Loading…
 loadFailed: Could not load the pending approvals.
 empty: There are no pending approvals.
 menus:
-  quality_document: Quality documents
+  operations: Operations & improvement
   sales: Sales
   purchasing: Purchasing
-  quality_common: Quality (common)
 kinds:
   document: Documents
   order: Orders

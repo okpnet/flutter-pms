@@ -66,17 +66,14 @@ class ApprovalStrings$menus$ja {
 
 	// Translations
 
-	/// ja: '品質管理文書'
-	String get quality_document => '品質管理文書';
+	/// ja: '運用と改善'
+	String get operations => '運用と改善';
 
 	/// ja: '営業'
 	String get sales => '営業';
 
 	/// ja: '購買'
 	String get purchasing => '購買';
-
-	/// ja: '品質共通'
-	String get quality_common => '品質共通';
 }
 
 // Path: kinds
@@ -276,10 +273,9 @@ extension on ApprovalStrings {
 			'loading' => '読み込み中…',
 			'loadFailed' => '承認待ちを読み込めませんでした。',
 			'empty' => '承認待ちはありません。',
-			'menus.quality_document' => '品質管理文書',
+			'menus.operations' => '運用と改善',
 			'menus.sales' => '営業',
 			'menus.purchasing' => '購買',
-			'menus.quality_common' => '品質共通',
 			'kinds.document' => '文書',
 			'kinds.order' => '受注',
 			'kinds.shipping_order' => '出荷',

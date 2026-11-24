@@ -36,7 +36,7 @@ class QualityModule extends EntityFeatureModule {
       QualityLabels(ref.watch(qualityStringsProvider));
 
   @override
-  String get menuGroupId => 'quality';
+  String get menuGroupId => operationsMenuGroupId;
 
   /// 監査を実施する側の画面(自分の監査・監査の実施)。台帳(監査標準・計画)は、項目を作る側の画面のまま。
   @override
@@ -73,29 +73,24 @@ class QualityModule extends EntityFeatureModule {
 
   /// メニューの先頭に「自分の監査」を足す(割り当てられた監査だけを見る入口)。
   @override
-  List<MenuEntry> menuEntries(WidgetRef ref) => [
-    MenuEntry(
-      groupId: menuGroupId,
-      groupLabel: menuGroupLabel(ref),
-      label: ref.watch(qualityStringsProvider).auditRun.myTitle,
-      destination: const MyAuditsDestination(),
-    ),
-    MenuEntry(
-      groupId: menuGroupId,
-      groupLabel: menuGroupLabel(ref),
-      label: ref.watch(qualityStringsProvider).auditPlan.title,
-      destination: const AuditPlanDestination(),
-    ),
-    MenuEntry(
-      groupId: menuGroupId,
-      groupLabel: menuGroupLabel(ref),
-      label: ref.watch(qualityStringsProvider).complaintRegister.title,
-      destination: const ComplaintRegisterDestination(),
-    ),
-    ...super.menuEntries(ref),
-  ];
+  List<MenuEntry> menuEntries(WidgetRef ref) {
+    final s = ref.watch(qualityStringsProvider);
+    MenuEntry entry(String label, PageDestination<Object?> destination) =>
+        MenuEntry(groupId: menuGroupId, groupLabel: menuGroupLabel(ref), label: label, destination: destination);
+    // 台帳の項目から、監査チーム(監査の子として開く)を除く。異常 → 異常の登録 → 自分の監査 → 監査の計画 → ほかの台帳の順
+    bool isLedger(MenuEntry e, String key) => e.destination is EntityListDestination && (e.destination as EntityListDestination).entityKey == key;
+    final ledgers = super.menuEntries(ref).where((e) => !isLedger(e, 'auditteam')).toList();
+    final complaint = ledgers.where((e) => isLedger(e, 'complaint')).toList();
+    final others = ledgers.where((e) => !isLedger(e, 'complaint')).toList();
+    return [
+      ...complaint,
+      entry(s.complaintRegister.title, const ComplaintRegisterDestination()),
+      entry(s.auditRun.myTitle, const MyAuditsDestination()),
+      entry(s.auditPlan.title, const AuditPlanDestination()),
+      ...others,
+    ];
+  }
 
   @override
-  String menuGroupLabel(WidgetRef ref) =>
-      QualityLabels(ref.watch(qualityStringsProvider)).menuGroup;
+  String menuGroupLabel(WidgetRef ref) => operationsMenuGroupLabel(ref.watch(localeProvider).languageCode);
 }

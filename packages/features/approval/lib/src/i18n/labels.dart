@@ -15,9 +15,8 @@ String approvalKindLabel(ApprovalStrings s, String kind) => switch (kind) {
 
 /// メニュー(グループ ID)の名前。
 String approvalMenuLabel(ApprovalStrings s, String menu) => switch (menu) {
-  'quality_document' => s.menus.quality_document,
+  'operations' => s.menus.operations,
   'sales' => s.menus.sales,
   'purchasing' => s.menus.purchasing,
-  'quality_common' => s.menus.quality_common,
   _ => menu,
 };

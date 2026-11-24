@@ -46,10 +46,9 @@ class ExampleApp extends StatelessWidget {
     title: '承認一覧 (example)',
     modules: const [ApprovalModule()],
     entries: const [
-      FeatureHostEntry('品質管理文書の承認一覧', ApprovalListDestination('quality_document')),
+      FeatureHostEntry('運用と改善の承認一覧', ApprovalListDestination('operations')),
       FeatureHostEntry('営業の承認一覧', ApprovalListDestination('sales')),
       FeatureHostEntry('購買の承認一覧', ApprovalListDestination('purchasing')),
-      FeatureHostEntry('品質共通の承認一覧', ApprovalListDestination('quality_common')),
     ],
     logger: logger,
     overrides: [

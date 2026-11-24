@@ -55,10 +55,9 @@ class ApprovalMenus {
 
   /// メニューのグループ ID → タブの区分(左から)。
   static const Map<String, List<String>> tabs = {
-    'quality_document': ['document'],
+    'operations': ['document', 'complaint', 'disposal', 'recurrence_prevention'],
     'sales': ['order', 'shipping_order'],
     'purchasing': ['purchase', 'unrecognized'],
-    'quality_common': ['complaint', 'disposal', 'recurrence_prevention'],
   };
 
   static List<String> get menus => tabs.keys.toList();

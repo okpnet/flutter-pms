@@ -125,3 +125,10 @@ class UserSummaryNotifier extends Notifier<UserSummary?> {
   /// ログアウト(ユーザーなし)にする。
   void logout() => state = null;
 }
+
+/// 品質・文書・監査・異常の処置をまとめるメニューのグループの識別子(機能は分かれていても、メニューでは 1 つにまとまる)。
+const operationsMenuGroupId = 'operations';
+
+/// [operationsMenuGroupId] の表示名(言語ごと。基準言語は日本語)。
+String operationsMenuGroupLabel(String languageCode) =>
+    languageCode == 'en' ? 'Operations & improvement' : '運用と改善';

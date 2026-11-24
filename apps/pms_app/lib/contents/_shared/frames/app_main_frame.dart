@@ -85,9 +85,7 @@ class AppMainFrame extends ConsumerWidget {
     'production_plan',
     'plan_change',
     'work_record',
-    'quality_common',
-    'quality_document',
-    'quality',
+    operationsMenuGroupId,
     'access_control',
     'organization',
   ];
@@ -106,9 +104,7 @@ class AppMainFrame extends ConsumerWidget {
     'production_plan': Icons.calendar_month_outlined,
     'plan_change': Icons.fact_check_outlined,
     'work_record': Icons.build_outlined,
-    'quality_common': Icons.warning_amber_outlined,
-    'quality_document': Icons.list_alt_outlined,
-    'quality': Icons.verified_outlined,
+    operationsMenuGroupId: Icons.verified_outlined,
     'access_control': Icons.badge_outlined,
     'organization': Icons.apartment_outlined,
   };

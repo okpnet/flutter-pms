@@ -44,11 +44,11 @@ class QualityCommonModule extends EntityFeatureModule {
   EntityLabels labelsOf(WidgetRef ref) => _Labels(ref.watch(qualityCommonStringsProvider));
 
   @override
-  String get menuGroupId => 'quality_common';
+  String get menuGroupId => operationsMenuGroupId;
 
   @override
   String menuGroupLabel(WidgetRef ref) =>
-      QualityCommonLabels(ref.watch(qualityCommonStringsProvider)).menuGroup;
+      operationsMenuGroupLabel(ref.watch(localeProvider).languageCode);
 }
 
 /// 生成された表示名に、手書きの項目の名前(判定の式)を足す。

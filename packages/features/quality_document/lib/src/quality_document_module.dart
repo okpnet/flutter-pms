@@ -55,11 +55,11 @@ class QualityDocumentModule extends EntityFeatureModule {
   EntityLabels labelsOf(WidgetRef ref) => _Labels(ref.watch(qualityDocumentStringsProvider));
 
   @override
-  String get menuGroupId => 'quality_document';
+  String get menuGroupId => operationsMenuGroupId;
 
   @override
   String menuGroupLabel(WidgetRef ref) =>
-      QualityDocumentLabels(ref.watch(qualityDocumentStringsProvider)).menuGroup;
+      operationsMenuGroupLabel(ref.watch(localeProvider).languageCode);
 
   @override
   List<RouteBase> get routes => [

@@ -189,7 +189,7 @@ void main() {
   });
 
   testWidgets('文書の承認一覧: 参照先が無い区分は、参照のボタンを出さない', (tester) async {
-    await _pump(tester, _app(gateway: InMemoryApprovalGateway(_sample()), verifier: _Verifier('pw'), initial: '/approval/quality_document'));
+    await _pump(tester, _app(gateway: InMemoryApprovalGateway(_sample()), verifier: _Verifier('pw'), initial: '/approval/operations'));
     expect(find.text('文書(1)'), findsOneWidget);
     expect(find.byKey(const Key('approval-refer-p-d1')), findsNothing);
   });
@@ -205,8 +205,7 @@ void main() {
       await _pump(tester, _app(gateway: InMemoryApprovalGateway(_sample()), verifier: _Verifier('pw'), initial: '/dash'));
       expect(find.text('承認待ちが 5 件あります'), findsOneWidget);
       expect(find.text('営業の承認一覧(受注(2)・出荷(1))'), findsOneWidget);
-      expect(find.text('品質管理文書の承認一覧(文書(1))'), findsOneWidget);
-      expect(find.text('品質共通の承認一覧(異常(1))'), findsOneWidget);
+      expect(find.text('運用と改善の承認一覧(文書(1)・異常(1))'), findsOneWidget);
       expect(find.byKey(const Key('approval-alert-link-purchasing')), findsNothing); // 購買は 0 件
       await tester.tap(find.byKey(const Key('approval-alert-link-sales')));
       await tester.pumpAndSettle();
@@ -223,10 +222,10 @@ void main() {
   test('モジュール: メニューは 4 グループの末尾の「承認一覧」。遷移先はパスに変換できる', () {
     const m = ApprovalModule();
     expect(m.locationOf(const ApprovalListDestination('sales')), '/approval/sales');
-    expect(ApprovalMenus.menus, ['quality_document', 'sales', 'purchasing', 'quality_common']);
+    expect(ApprovalMenus.menus, ['operations', 'sales', 'purchasing']);
     expect(ApprovalMenus.menuOf('shipping_order'), 'sales');
     expect(ApprovalMenus.menuOf('unrecognized'), 'purchasing');
-    expect(ApprovalMenus.kindsOf('quality_common'), ['complaint', 'disposal', 'recurrence_prevention']);
+    expect(ApprovalMenus.kindsOf('operations'), ['document', 'complaint', 'disposal', 'recurrence_prevention']);
     for (final d in approvalDestinationSamples) {
       expect(m.locationOf(d), isNotNull);
     }

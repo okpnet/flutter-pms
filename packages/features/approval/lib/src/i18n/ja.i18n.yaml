@@ -5,10 +5,9 @@ loading: 読み込み中…
 loadFailed: 承認待ちを読み込めませんでした。
 empty: 承認待ちはありません。
 menus:
-  quality_document: 品質管理文書
+  operations: 運用と改善
   sales: 営業
   purchasing: 購買
-  quality_common: 品質共通
 kinds:
   document: 文書
   order: 受注

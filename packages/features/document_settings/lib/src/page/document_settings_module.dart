@@ -33,8 +33,8 @@ class DocumentSettingsModule implements FeatureModule, MenuContributor {
     final s = ref.watch(documentSettingsStringsProvider);
     return [
       MenuEntry(
-        groupId: 'quality_document',
-        groupLabel: s.menuGroup,
+        groupId: operationsMenuGroupId,
+        groupLabel: operationsMenuGroupLabel(ref.watch(localeProvider).languageCode),
         label: s.menuLabel,
         destination: const DocumentSettingsDestination(),
       ),

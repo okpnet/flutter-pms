@@ -50,8 +50,8 @@ class ManualModule implements FeatureModule, MenuContributor {
     if (roots.isEmpty) {
       return [
         MenuEntry(
-          groupId: 'quality_document',
-          groupLabel: s.menuGroup,
+          groupId: operationsMenuGroupId,
+          groupLabel: operationsMenuGroupLabel(ref.watch(localeProvider).languageCode),
           label: s.menuManual,
           destination: const ManualDestination(),
         ),
@@ -60,8 +60,8 @@ class ManualModule implements FeatureModule, MenuContributor {
     return [
       for (final r in roots)
         MenuEntry(
-          groupId: 'quality_document',
-          groupLabel: s.menuGroup,
+          groupId: operationsMenuGroupId,
+          groupLabel: operationsMenuGroupLabel(ref.watch(localeProvider).languageCode),
           label: r.title,
           destination: ManualDestination(pageId: r.id),
         ),

@@ -57,10 +57,9 @@ class _ApprovalStrings$menus$en extends ApprovalStrings$menus$ja {
 	final ApprovalStringsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get quality_document => 'Quality documents';
+	@override String get operations => 'Operations & improvement';
 	@override String get sales => 'Sales';
 	@override String get purchasing => 'Purchasing';
-	@override String get quality_common => 'Quality (common)';
 }
 
 // Path: kinds
@@ -174,10 +173,9 @@ extension on ApprovalStringsEn {
 			'loading' => 'Loading…',
 			'loadFailed' => 'Could not load the pending approvals.',
 			'empty' => 'There are no pending approvals.',
-			'menus.quality_document' => 'Quality documents',
+			'menus.operations' => 'Operations & improvement',
 			'menus.sales' => 'Sales',
 			'menus.purchasing' => 'Purchasing',
-			'menus.quality_common' => 'Quality (common)',
 			'kinds.document' => 'Documents',
 			'kinds.order' => 'Orders',
 			'kinds.shipping_order' => 'Shipments',

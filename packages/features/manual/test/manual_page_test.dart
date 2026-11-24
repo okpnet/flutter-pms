@@ -1,3 +1,4 @@
+import 'package:feature_shared/feature_shared.dart' show operationsMenuGroupId;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -284,7 +285,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(labels(), ['品質マニュアル', '安全マニュアル']);
     final e = const ManualModule().menuEntries(captured).last;
-    expect(e.groupId, 'quality_document');
+    expect(e.groupId, operationsMenuGroupId);
     expect(e.destination, isA<ManualDestination>().having((d) => d.pageId, 'pageId', isNotNull));
   });
 
