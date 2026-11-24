@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:logger_provider/logger_provider.dart';
 import 'package:organization/organization.dart';
 import 'package:production_process/production_process.dart';
+import 'package:purchasing/purchasing.dart';
 import 'package:quality/quality.dart';
+import 'package:quality/quality_api.dart';
 import 'package:quality_common/quality_common.dart';
+import 'package:resource/resource.dart';
 import 'package:sales/sales.dart';
 import 'package:shared_master/shared_master.dart';
 import 'package:theme_lib/theme_lib.dart';
+import 'package:work_record/work_record.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,8 +32,19 @@ class ExampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => FeatureHost(
     title: '品質管理 (example)',
-    modules: const [QualityModule(), OrganizationModule(), ProductionProcessModule(), QualityCommonModule(), SalesModule(), SharedMasterModule()],
-    entries: const [FeatureHostEntry('異常', EntityListDestination('complaint')), FeatureHostEntry('注文苦情', EntityListDestination('corder')), FeatureHostEntry('工程苦情', EntityListDestination('cproc')), FeatureHostEntry('設備苦情', EntityListDestination('cequip')), FeatureHostEntry('注文リスク', EntityListDestination('orderrisk')), FeatureHostEntry('受注明細リスク', EntityListDestination('orderdetailrisk')), FeatureHostEntry('工程リスク', EntityListDestination('taskrisk')), FeatureHostEntry('監査標準', EntityListDestination('auditstd')), FeatureHostEntry('監査チーム', EntityListDestination('auditteam')), FeatureHostEntry('監査', EntityListDestination('audit'))],
+    // 異常の登録の対象(設備・工程・作業実績・受入・受注・利害関係者)を台帳の選択画面で選べるよう、参照先の機能も載せる
+    modules: const [QualityModule(), OrganizationModule(), ProductionProcessModule(), QualityCommonModule(), SalesModule(), SharedMasterModule(), WorkRecordModule(), PurchasingModule(), ResourceModule()],
+    entries: const [
+      FeatureHostEntry('異常', EntityListDestination('complaint')),
+      FeatureHostEntry('異常の登録', ComplaintRegisterDestination()),
+      FeatureHostEntry('自分の監査', MyAuditsDestination()),
+      FeatureHostEntry('監査計画の登録', AuditPlanDestination()),
+      FeatureHostEntry('注文リスク', EntityListDestination('orderrisk')),
+      FeatureHostEntry('受注明細リスク', EntityListDestination('orderdetailrisk')),
+      FeatureHostEntry('工程リスク', EntityListDestination('taskrisk')),
+      FeatureHostEntry('監査標準', EntityListDestination('auditstd')),
+      FeatureHostEntry('監査', EntityListDestination('audit')),
+    ],
     logger: logger,
     // flgtable_lib / theme_lib が使うテーマ側のロガー
     overrides: [themeLoggerProvider.overrideWithValue(logger)],

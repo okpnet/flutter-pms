@@ -25,6 +25,15 @@ dependencies:
   production_process:
     path: ../../production_process
 
+  purchasing:
+    path: ../../purchasing
+
+  resource:
+    path: ../../resource
+
+  work_record:
+    path: ../../work_record
+
   quality_common:
     path: ../../quality_common
 
