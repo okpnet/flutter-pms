@@ -57,6 +57,16 @@ class QualityDocumentModule extends EntityFeatureModule {
   @override
   String get menuGroupId => operationsMenuGroupId;
 
+  /// 文書と文書コンテンツ(ページ)の閲覧・編集は、マニュアル(`manual`。文書 = ルート、コンテンツ = ページの木)に統合した。
+  /// 台帳の画面(`/e/doc`・`/e/doccontent`)は残すが、メニューには出さない(文書階層・レポートだけ出す)。
+  static const _hiddenFromMenu = {'doc', 'doccontent'};
+
+  @override
+  List<MenuEntry> menuEntries(WidgetRef ref) => [
+    for (final e in super.menuEntries(ref))
+      if (!(e.destination is EntityListDestination && _hiddenFromMenu.contains((e.destination as EntityListDestination).entityKey))) e,
+  ];
+
   @override
   String menuGroupLabel(WidgetRef ref) =>
       operationsMenuGroupLabel(ref.watch(localeProvider).languageCode);

@@ -18,7 +18,7 @@
     1.  保存すると、直前の版を履歴(最新 10 件)に残し、改訂を 1 つ上げる。変更が無ければ保存しない(整えただけの差は無視)。ページ名は必須・重複不可(エラーは種類 `ManualError` で持ち、画面が文字にする)。キャンセルは、変更があれば確認する。
 1.  **履歴**(管理者): 過去の版の一覧。「この版に戻す」で復元(戻す前の版も履歴に残る)。
 1.  **Markdown の書き出し**: 「Markdown」ボタンで、生成した Markdown を表示し、コピーできる。範囲は「このページ」(ページ名が H1。他ページへのリンクは文字だけ)か「文書全体」(章の順に結合し、見出しの階層を合わせ、ページ間のリンクを文書内のリンク `[表示](#id)` に直す。範囲の外のページへのリンクは文字だけ)。
-1.  **メニュー**: グループ ID `quality_document`(品質管理文書)に、ルートごとに 1 項目(`ManualModule.menuEntries`。取得元の状態から作るため、ルートを足すと項目も増える)。ルートが無いときは「マニュアル」の 1 項目。
+1.  **メニュー**: グループ「運用と改善」(`operationsMenuGroupId`)に、ルートごとに 1 項目(`ManualModule.menuEntries`。取得元の状態から作るため、ルートを足すと項目も増える)。ルートが無いときは「マニュアル」の 1 項目。
 1.  **PDF の出力**(「PDF」ボタン。`showManualPdfDialog`): 範囲(このページ / 文書全体)を選び、「名前を付けて保存」で保存する。`markdown_pdf` で生成し、設定(`manualAppSettingsProvider`。`info_app.settings` の標準。用紙・テーマ・ヘッダ/フッタ・スタンプ)と承認の状態を使う。保存先は `manualFileSaverProvider`(既定は OS のダイアログ。テストは差し替え)、フォントは `manualPdfFontsProvider`(既定は同梱の BIZ UDP 明朝)。ヘッダ・フッタの `{printedBy}` は `manualPrinterNameProvider`。
 1.  **承認と公開**(`ManualApprovalGate`): 文書(ルートのページ)の承認の状態は `manualApprovalSourceProvider`(`IManualApprovalSource`。既定は承認なし = 公開・スタンプなし。アプリが DB のビュー `v_document_publication`・`v_document_approval_stamp` の値に差し替える)。承認待ち(`pending`)の文書は、読める人にも「承認待ち」の帯を出す。読めない(`readable = false`)ときは本文の代わりに案内を出す。承認スタンプはルートの文書にだけ出す(子ページには注記)。判定は DB のビューの値で、画面・PDF では判定しない。承認の操作(承認待ち一覧・承認)の画面は別。
 1.  制約: 画像の取り込みなし・目次にページ番号なし。取得元の既定はメモリ上のサンプル(再読み込みで初期データに戻る)。決定の経緯は `issue/202611.md#20261120_0002`。
