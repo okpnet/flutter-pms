@@ -58,17 +58,17 @@ register:
   submit: Send
   note: Your request is sent to an administrator. If approved, you will receive a code.
   acceptedHeading: Request received
-  accepted: Please wait for approval. If approved, a code is sent by email or handed over by an administrator.
+  accepted: Please wait for approval. If approved, an administrator hands over a code.
   toCode: Enter the code
 forgot:
   heading: Forgot your password
-  description: Enter your user ID or email address. If an email is registered, a code is sent by email. Otherwise, ask an administrator for a code.
+  description: Enter your user ID or email address. An administrator issues the code. Ask an administrator for it.
   who: User ID or email address
   submit: Send
 code:
   heading: Enter code
-  description: Enter the code you received by email or from an administrator.
-  accepted: Received. Please get the code by email or from an administrator.
+  description: Enter the code you received from an administrator.
+  accepted: Received. Please get the code from an administrator.
   username: User ID
   code: Code (12 characters)
   submit: Confirm
@@ -117,17 +117,15 @@ admin:
     created: Requested at
   createUser:
     title: "Account management: Create user"
-    hint: Creates a user who can sign in for a staff member (already registered in the database) and issues an activation code. Hand the code to the person (unless it is sent by e-mail).
+    hint: Creates a user who can sign in for a staff member (already registered in the database) and issues an activation code. Hand the code to the person (no e-mail is sent).
     userId: User ID (used to sign in)
     appUserId: Staff ID
     name: Name
     email: E-mail (optional)
-    mail: Send by e-mail (when an e-mail is set and the server can send mail)
     create: Create user
     created: The user was created. Hand the code to the person.
   issuedCode:
     title: Issued code
     code: Code
     expires: Expires
-    mailed: Sent by email
     handOver: Hand this to the person. It cannot be shown again after closing.

@@ -1,0 +1,58 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 原価計算のビュー(読み取りだけ。計算は DB のビューが 1 か所で持つ。Dart で原価・評価額を計算しない)。
+# 標準原価 = 購入品(優先順位が最も小さい仕入先の単価)+ 生産コスト(工程ごとの原価)+ 下位の部品(部品表を展開)。
+# 評価額: 社外の所有物(顧客・発注先の物)は評価しない、譲渡で自社の物になった材料は 0 円(判定は boolean の列)。
+# 実績の原価(作業実績・実際の仕入単価。支給品を 0 円にする規則)は、標準原価の次の段階。
+
+# 品目別の標準原価(v_item_unit_cost。1 行 = 品目)
+CostItemUnitPage:
+  lightRead: true
+  kind: read
+  from: v_item_unit_cost
+  filter: true
+  columns:
+    - item_id
+    - item_symbol
+    - item_code
+    - purchase_cost
+    - production_cost
+    - component_cost
+    - unit_cost
+    - has_supplier
+    - has_components
+
+# 品目別の在庫評価額(v_item_valuation。1 行 = 品目)
+CostItemValuationPage:
+  lightRead: true
+  kind: read
+  from: v_item_valuation
+  filter: true
+  columns:
+    - item_id
+    - item_symbol
+    - item_code
+    - quantity
+    - evaluated_quantity
+    - external_quantity
+    - amount
+
+# ロットの評価額(v_visiter_valuation。1 行 = 棚ビジターのロット)
+CostVisiterValuationPage:
+  lightRead: true
+  kind: read
+  from: v_visiter_valuation
+  filter: true
+  columns:
+    - trans_visiter_id
+    - symbol
+    - item_id
+    - item_code
+    - quantity
+    - held
+    - external_owned
+    - transferred
+    - evaluated
+    - unit_cost
+    - unit_value
+    - amount

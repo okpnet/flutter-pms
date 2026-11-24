@@ -1,5 +1,6 @@
 import 'package:access_control/access_control.dart';
 import 'package:announcement/announcement.dart';
+import 'package:cost/cost.dart';
 import 'package:app_core/app_core.dart';
 import 'package:approval/approval.dart';
 import 'package:auth_files/auth_files.dart';
@@ -47,6 +48,8 @@ const List<FeatureModule> featureModules = [
   PurchasingModule(),
   ProductionPlanModule(),
   PlanChangeModule(),
+  // 原価(読み取り専用。メニューは品目・作業実績のグループに並ぶ)
+  CostModule(),
   ProductionProcessModule(),
   WorkRecordModule(),
   BarcodeEntryModule(),

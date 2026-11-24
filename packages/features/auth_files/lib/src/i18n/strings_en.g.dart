@@ -156,7 +156,7 @@ class _AuthFilesStrings$register$en extends AuthFilesStrings$register$ja {
 	@override String get submit => 'Send';
 	@override String get note => 'Your request is sent to an administrator. If approved, you will receive a code.';
 	@override String get acceptedHeading => 'Request received';
-	@override String get accepted => 'Please wait for approval. If approved, a code is sent by email or handed over by an administrator.';
+	@override String get accepted => 'Please wait for approval. If approved, an administrator hands over a code.';
 	@override String get toCode => 'Enter the code';
 }
 
@@ -168,7 +168,7 @@ class _AuthFilesStrings$forgot$en extends AuthFilesStrings$forgot$ja {
 
 	// Translations
 	@override String get heading => 'Forgot your password';
-	@override String get description => 'Enter your user ID or email address. If an email is registered, a code is sent by email. Otherwise, ask an administrator for a code.';
+	@override String get description => 'Enter your user ID or email address. An administrator issues the code. Ask an administrator for it.';
 	@override String get who => 'User ID or email address';
 	@override String get submit => 'Send';
 }
@@ -181,8 +181,8 @@ class _AuthFilesStrings$code$en extends AuthFilesStrings$code$ja {
 
 	// Translations
 	@override String get heading => 'Enter code';
-	@override String get description => 'Enter the code you received by email or from an administrator.';
-	@override String get accepted => 'Received. Please get the code by email or from an administrator.';
+	@override String get description => 'Enter the code you received from an administrator.';
+	@override String get accepted => 'Received. Please get the code from an administrator.';
 	@override String get username => 'User ID';
 	@override String get code => 'Code (12 characters)';
 	@override String get submit => 'Confirm';
@@ -283,12 +283,11 @@ class _AuthFilesStrings$admin$createUser$en extends AuthFilesStrings$admin$creat
 
 	// Translations
 	@override String get title => 'Account management: Create user';
-	@override String get hint => 'Creates a user who can sign in for a staff member (already registered in the database) and issues an activation code. Hand the code to the person (unless it is sent by e-mail).';
+	@override String get hint => 'Creates a user who can sign in for a staff member (already registered in the database) and issues an activation code. Hand the code to the person (no e-mail is sent).';
 	@override String get userId => 'User ID (used to sign in)';
 	@override String get appUserId => 'Staff ID';
 	@override String get name => 'Name';
 	@override String get email => 'E-mail (optional)';
-	@override String get mail => 'Send by e-mail (when an e-mail is set and the server can send mail)';
 	@override String get create => 'Create user';
 	@override String get created => 'The user was created. Hand the code to the person.';
 }
@@ -303,7 +302,6 @@ class _AuthFilesStrings$admin$issuedCode$en extends AuthFilesStrings$admin$issue
 	@override String get title => 'Issued code';
 	@override String get code => 'Code';
 	@override String get expires => 'Expires';
-	@override String get mailed => 'Sent by email';
 	@override String get handOver => 'Hand this to the person. It cannot be shown again after closing.';
 }
 
@@ -368,15 +366,15 @@ extension on AuthFilesStringsEn {
 			'register.submit' => 'Send',
 			'register.note' => 'Your request is sent to an administrator. If approved, you will receive a code.',
 			'register.acceptedHeading' => 'Request received',
-			'register.accepted' => 'Please wait for approval. If approved, a code is sent by email or handed over by an administrator.',
+			'register.accepted' => 'Please wait for approval. If approved, an administrator hands over a code.',
 			'register.toCode' => 'Enter the code',
 			'forgot.heading' => 'Forgot your password',
-			'forgot.description' => 'Enter your user ID or email address. If an email is registered, a code is sent by email. Otherwise, ask an administrator for a code.',
+			'forgot.description' => 'Enter your user ID or email address. An administrator issues the code. Ask an administrator for it.',
 			'forgot.who' => 'User ID or email address',
 			'forgot.submit' => 'Send',
 			'code.heading' => 'Enter code',
-			'code.description' => 'Enter the code you received by email or from an administrator.',
-			'code.accepted' => 'Received. Please get the code by email or from an administrator.',
+			'code.description' => 'Enter the code you received from an administrator.',
+			'code.accepted' => 'Received. Please get the code from an administrator.',
 			'code.username' => 'User ID',
 			'code.code' => 'Code (12 characters)',
 			'code.submit' => 'Confirm',
@@ -419,18 +417,16 @@ extension on AuthFilesStringsEn {
 			'admin.resets.issued' => 'Code issued. Verify the person and hand it over.',
 			'admin.resets.created' => 'Requested at',
 			'admin.createUser.title' => 'Account management: Create user',
-			'admin.createUser.hint' => 'Creates a user who can sign in for a staff member (already registered in the database) and issues an activation code. Hand the code to the person (unless it is sent by e-mail).',
+			'admin.createUser.hint' => 'Creates a user who can sign in for a staff member (already registered in the database) and issues an activation code. Hand the code to the person (no e-mail is sent).',
 			'admin.createUser.userId' => 'User ID (used to sign in)',
 			'admin.createUser.appUserId' => 'Staff ID',
 			'admin.createUser.name' => 'Name',
 			'admin.createUser.email' => 'E-mail (optional)',
-			'admin.createUser.mail' => 'Send by e-mail (when an e-mail is set and the server can send mail)',
 			'admin.createUser.create' => 'Create user',
 			'admin.createUser.created' => 'The user was created. Hand the code to the person.',
 			'admin.issuedCode.title' => 'Issued code',
 			'admin.issuedCode.code' => 'Code',
 			'admin.issuedCode.expires' => 'Expires',
-			'admin.issuedCode.mailed' => 'Sent by email',
 			'admin.issuedCode.handOver' => 'Hand this to the person. It cannot be shown again after closing.',
 			_ => null,
 		};

@@ -1,0 +1,33 @@
+# cost_item_valuation_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #CostItemValuationPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query CostItemValuationPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VItemValuationFilter = {and: []}
+  $orderBy: [VItemValuationsOrderBy!]
+) {
+  allVItemValuations(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      itemId
+      itemSymbol
+      itemCode
+      quantity
+      evaluatedQuantity
+      externalQuantity
+      amount
+    }
+  }
+}

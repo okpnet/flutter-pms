@@ -34,7 +34,6 @@ Future<void> _showIssuedCode(
         Text(
           '${t.admin.issuedCode.expires}: ${_format(issued.expiresAt?.toLocal())}',
         ),
-        if (issued.mailed) Text(t.admin.issuedCode.mailed),
         Text(t.admin.issuedCode.handOver),
       ],
     ),
@@ -281,8 +280,7 @@ class _AdminResetsPageState extends ConsumerState<AdminResetsPage>
 /// 管理者: ユーザーの作成。担当者(DB の `info_staff`。担当者の画面から [appUserId]・[initialName] を渡す)に、PocketBase のユーザーを作り、
 /// 有効化コードを発行して、一度だけ見せる(`AdminService.createUser`)。作業者が自分でユーザーを作ることはできない。
 ///
-/// 入力の検査は形式だけ(ユーザーIDの重複・担当者の存在はサーバーが判定する)。メールを入れ、「メールで送る」のときは、サーバーが
-/// コードを送る(メールが無い・送れないときは、手渡し)。役割(`role`)は、画面からは `user` だけ(`admin` を付けられるのは superuser だけ)。
+/// 入力の検査は形式だけ(ユーザーIDの重複・担当者の存在はサーバーが判定する)。メールは送らない(コードは管理者が本人へ手渡す)。役割(`role`)は、画面からは `user` だけ(`admin` を付けられるのは superuser だけ)。
 class AdminCreateUserPage extends ConsumerStatefulWidget {
   const AdminCreateUserPage({super.key, this.appUserId = '', this.initialName = ''});
 
@@ -298,7 +296,6 @@ class _AdminCreateUserPageState extends ConsumerState<AdminCreateUserPage> with 
   late final _appUserId = TextEditingController(text: widget.appUserId);
   late final _name = TextEditingController(text: widget.initialName);
   final _email = TextEditingController();
-  bool _mail = true;
   bool _submitted = false;
   String? _notice;
 
@@ -327,7 +324,7 @@ class _AdminCreateUserPageState extends ConsumerState<AdminCreateUserPage> with 
         appUserId: _appUserId.text,
         name: _name.text.trim().isEmpty ? null : _name.text,
         email: _email.text.trim().isEmpty ? null : _email.text,
-        mail: _mail && _email.text.trim().isNotEmpty,
+        mail: false, // メールは送らない(コードは管理者が本人へ手渡す)
       );
     }, operation: 'createUser');
     if (!ok || !mounted) return;
@@ -373,14 +370,6 @@ class _AdminCreateUserPageState extends ConsumerState<AdminCreateUserPage> with 
                   controller: _email,
                   onChanged: (_) => setState(() {}),
                   decoration: InputDecoration(labelText: c.email, border: const OutlineInputBorder(), errorText: err(() => _emailError(t))),
-                ),
-                CheckboxListTile(
-                  key: const Key('cu-mail'),
-                  contentPadding: EdgeInsets.zero,
-                  controlAffinity: ListTileControlAffinity.leading,
-                  value: _mail && _email.text.trim().isNotEmpty,
-                  onChanged: _email.text.trim().isEmpty ? null : (v) => setState(() => _mail = v ?? false),
-                  title: Text(c.mail),
                 ),
                 Align(
                   alignment: Alignment.centerLeft,

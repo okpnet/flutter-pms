@@ -84,6 +84,8 @@ dependencies:
     path: ../../packages/features/approval
   announcement:
     path: ../../packages/features/announcement
+  cost:
+    path: ../../packages/features/cost
   system:
     path: ../../packages/features/system
   access_control_model:

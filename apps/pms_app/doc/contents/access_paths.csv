@@ -117,3 +117,6 @@ usecase_path,name_ja,name_en,feature,public
 /e/workrecpick,作業実績の選択,Work record picker,work_record,false
 /e/lotpick,ロットの選択,Lot picker,work_record,false
 /announcements,通知の一覧,Notifications,announcement,false
+/e/costunit,標準原価の一覧,Standard costs,cost,false
+/e/costvaluation,在庫評価額の一覧,Inventory valuation,cost,false
+/e/costlot,ロットの評価額,Lot valuation,cost,false

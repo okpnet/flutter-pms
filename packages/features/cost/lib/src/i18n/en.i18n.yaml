@@ -1,0 +1,36 @@
+menu:
+  group: "Cost"
+  group_item: "Items"
+  group_work_record: "Work records"
+entity:
+  costunit:
+    title: "Standard costs"
+    fields:
+      f_item: "Item"
+      f_purchase_cost: "Purchase unit price"
+      f_production_cost: "Production cost"
+      f_component_cost: "Component cost"
+      f_unit_cost: "Standard cost"
+      f_has_supplier: "Has supplier"
+      f_has_components: "Has components"
+  costvaluation:
+    title: "Inventory valuation"
+    fields:
+      f_item: "Item"
+      f_quantity: "Stock quantity"
+      f_evaluated_quantity: "Evaluated quantity"
+      f_external_quantity: "Externally owned quantity"
+      f_amount: "Valuation"
+  costlot:
+    title: "Lot valuation"
+    fields:
+      f_symbol: "Symbol"
+      f_item: "Item"
+      f_quantity: "Quantity"
+      f_held: "On hold"
+      f_external_owned: "Externally owned"
+      f_transferred: "Transferred to us"
+      f_evaluated: "Evaluated"
+      f_unit_cost: "Item standard cost"
+      f_unit_value: "Lot unit value"
+      f_amount: "Valuation"

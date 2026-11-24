@@ -74,19 +74,17 @@ void main() {
     expect(find.text('ユーザーを作成しました。コードを本人へ渡してください。'), findsOneWidget);
   });
 
-  testWidgets('Eメールを入れて「メールで送る」にすると、メール送信を依頼する。メールが無いときは選べない', (tester) async {
+  testWidgets('メールは送らない(Eメールを入れても、メール送信を依頼しない。送信の選択も無い)', (tester) async {
     final admin = _FakeAdmin();
     await _open(tester, admin, const AdminCreateUserDestination(appUserId: 's2'));
-    expect(tester.widget<CheckboxListTile>(find.byKey(const Key('cu-mail'))).onChanged, isNull);
+    expect(find.byKey(const Key('cu-mail')), findsNothing);
     await tester.enterText(find.byKey(const Key('cu-username')), 'tanaka');
     await tester.enterText(find.byKey(const Key('cu-email')), 'tanaka@example.com');
-    await tester.pump();
-    expect(tester.widget<CheckboxListTile>(find.byKey(const Key('cu-mail'))).onChanged, isNotNull);
     await tester.tap(find.byKey(const Key('cu-create')));
     await tester.pumpAndSettle();
-    expect(admin.calls.single['mail'], isTrue);
+    expect(admin.calls.single['mail'], isFalse);
     expect(admin.calls.single['email'], 'tanaka@example.com');
-    expect(find.text('メールで送信済み'), findsOneWidget);
+    expect(find.text('メールで送信済み'), findsNothing);
   });
 
   testWidgets('入力の誤り(ユーザーID・担当者の ID・メールの形式)は、送信せずに表示する', (tester) async {

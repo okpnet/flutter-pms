@@ -12,6 +12,7 @@ import 'package:pbapi/pbapi.dart';
 import 'package:pms_graphql/pms_graphql.dart'
     show AuditUser, AuditUserSource, SessionUnavailableException;
 import 'package:plan_change/plan_change.dart' show planChangeRepositories;
+import 'package:cost/cost.dart' show costRepositories;
 import 'package:production_plan/production_plan.dart'
     show productionPlanRepositories;
 import 'package:purchasing/purchasing.dart' show purchasingRepositories;
@@ -236,6 +237,8 @@ List<Override> graphqlOverrides() => [
       ...productionPlanRepositories(client, auditUser: auditUser),
       // 計画変更: 計画変更の履歴・未処置一覧(読み取り専用。boolean の列で種類・動き・処置を出す)
       ...planChangeRepositories(client),
+      // 原価: 標準原価・在庫評価額・ロットの評価額(読み取り専用。DB のビューの値のまま)
+      ...costRepositories(client),
       // システム: 単位(書き込みは更新者つき。名称・読み・略称は言語コード ja の値)
       ...systemRepositories(client, auditUser: auditUser),
       // 共有マスタ: 利害関係者(書き込みは更新者つき。顧客・外部供給者・運送業者はフラグで見分ける)

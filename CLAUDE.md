@@ -144,7 +144,7 @@ DB(`tools/docker/postgresql/script`、スキーマ `tests`)の仕様。正は DD
 13 の関数のオーナーは `APP_OWNER_ID`。`visiter_owner_refresh` は一般ユーザー・管理者、`visiter_owner_rebuild` は管理者だけが実行できる。一般ユーザー(`APP_USER_ID`)は `SELECT, INSERT, UPDATE, DELETE`(05・09)で、登録・`visiter_move`・`mrp_run`・`mrp_execute` が使える。管理者は ALL。ただし `trans_visiter_owner` は一般ユーザー・管理者とも読み取りだけ(13 で REVOKE)。
 
 ### 未決・未作成
-ビュー `v_plan_change`・`v_cancel_open_item`・`v_mrp_run`・`v_mrp_suggestion`、受注金額のビュー(`v_sales_record`)の精算額、`trans_visiter_owner` の `@omit`、押さえたロットの処置の関数と `shipping_order_detail_cancel`、操作をまとめる DB 関数、登録できる作業指示の判定のビュー(`v_work_plan_registrable`)は、DB に適用済み(PERO のデータから `06_cteate_test.sql`。下の「操作の DB 関数」)。原価計算のビューは、DB に無い。
+ビュー `v_plan_change`・`v_cancel_open_item`・`v_mrp_run`・`v_mrp_suggestion`、受注金額のビュー(`v_sales_record`)の精算額、`trans_visiter_owner` の `@omit`、押さえたロットの処置の関数と `shipping_order_detail_cancel`、操作をまとめる DB 関数、登録できる作業指示の判定のビュー(`v_work_plan_registrable`)は、DB に適用済み(PERO のデータから `06_cteate_test.sql`。下の「操作の DB 関数」)。原価計算のビュー(`v_item_unit_cost`・`v_visiter_valuation`・`v_item_valuation`)は DB に適用済みで、画面は `packages/features/cost`。
 
 ## 受注・発注まわりの GraphQL モデルと画面の仕様(キャンセル・停止・返品・精算・支給・所有)
 

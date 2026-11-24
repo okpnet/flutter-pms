@@ -756,3 +756,19 @@ features:
         code: L
         page: JL
         label: 通知の一覧
+  - feature: cost
+    code: V
+    label: 原価
+    screens:
+      - screen: costunit
+        code: U
+        page: VU
+        label: 標準原価の一覧
+      - screen: costvaluation
+        code: V
+        page: VV
+        label: 在庫評価額の一覧
+      - screen: costlot
+        code: L
+        page: VL
+        label: ロットの評価額

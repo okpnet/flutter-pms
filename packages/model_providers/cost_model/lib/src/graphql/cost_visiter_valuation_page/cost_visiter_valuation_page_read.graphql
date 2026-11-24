@@ -1,0 +1,38 @@
+# cost_visiter_valuation_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #CostVisiterValuationPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query CostVisiterValuationPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VVisiterValuationFilter = {and: []}
+  $orderBy: [VVisiterValuationsOrderBy!]
+) {
+  allVVisiterValuations(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transVisiterId
+      symbol
+      itemId
+      itemCode
+      quantity
+      held
+      externalOwned
+      transferred
+      evaluated
+      unitCost
+      unitValue
+      amount
+    }
+  }
+}

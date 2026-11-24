@@ -1,0 +1,38 @@
+# 原価の実体と項目の表示名(日本語。基準言語)。項目名は DB のビューの列のコメントに合わせる。
+# メニューは、標準原価 = 品目のグループ、在庫評価額・ロットの評価額 = 作業実績のグループ(同じ ID のグループにまとまる)。
+menu:
+  group: "原価"
+  group_item: "品目"
+  group_work_record: "作業実績"
+entity:
+  costunit:
+    title: "標準原価の一覧"
+    fields:
+      f_item: "品目"
+      f_purchase_cost: "購入品の単価"
+      f_production_cost: "生産コスト"
+      f_component_cost: "下位の部品の原価"
+      f_unit_cost: "標準原価"
+      f_has_supplier: "仕入先がある"
+      f_has_components: "部品表に下位の部品がある"
+  costvaluation:
+    title: "在庫評価額の一覧"
+    fields:
+      f_item: "品目"
+      f_quantity: "現在庫の数量"
+      f_evaluated_quantity: "評価の対象の数量"
+      f_external_quantity: "社外の所有物の数量"
+      f_amount: "在庫評価額"
+  costlot:
+    title: "ロットの評価額"
+    fields:
+      f_symbol: "シンボル"
+      f_item: "品目"
+      f_quantity: "数量"
+      f_held: "仮止め中"
+      f_external_owned: "社外の所有物"
+      f_transferred: "譲渡で自社の物"
+      f_evaluated: "評価の対象"
+      f_unit_cost: "品目の標準原価"
+      f_unit_value: "ロットの単価"
+      f_amount: "評価額"

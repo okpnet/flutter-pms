@@ -260,8 +260,8 @@ class AuthFilesStrings$register$ja {
 	/// ja: '申請を受け付けました'
 	String get acceptedHeading => '申請を受け付けました';
 
-	/// ja: '管理者の承認をお待ちください。承認されると、メールまたは管理者から認証コードが渡されます。'
-	String get accepted => '管理者の承認をお待ちください。承認されると、メールまたは管理者から認証コードが渡されます。';
+	/// ja: '管理者の承認をお待ちください。承認されると、管理者から認証コードが渡されます。'
+	String get accepted => '管理者の承認をお待ちください。承認されると、管理者から認証コードが渡されます。';
 
 	/// ja: '認証コードを入力する'
 	String get toCode => '認証コードを入力する';
@@ -278,8 +278,8 @@ class AuthFilesStrings$forgot$ja {
 	/// ja: 'パスワードを忘れた'
 	String get heading => 'パスワードを忘れた';
 
-	/// ja: 'ユーザーIDまたはメールアドレスを入力してください。メールが登録されている場合は、認証コードをメールでお送りします。メールが無い場合は、管理者に確認して認証コードを受け取ってください。'
-	String get description => 'ユーザーIDまたはメールアドレスを入力してください。メールが登録されている場合は、認証コードをメールでお送りします。メールが無い場合は、管理者に確認して認証コードを受け取ってください。';
+	/// ja: 'ユーザーIDまたはメールアドレスを入力してください。認証コードは管理者が発行します。管理者に確認して受け取ってください。'
+	String get description => 'ユーザーIDまたはメールアドレスを入力してください。認証コードは管理者が発行します。管理者に確認して受け取ってください。';
 
 	/// ja: 'ユーザーIDまたはメールアドレス'
 	String get who => 'ユーザーIDまたはメールアドレス';
@@ -299,11 +299,11 @@ class AuthFilesStrings$code$ja {
 	/// ja: '認証コードの入力'
 	String get heading => '認証コードの入力';
 
-	/// ja: '認証コードを入力してください。認証コードはメールまたは管理者から受け取ります。'
-	String get description => '認証コードを入力してください。認証コードはメールまたは管理者から受け取ります。';
+	/// ja: '認証コードを入力してください。認証コードは管理者から受け取ります。'
+	String get description => '認証コードを入力してください。認証コードは管理者から受け取ります。';
 
-	/// ja: '受け付けました。メールまたは管理者から認証コードを受け取ってください。'
-	String get accepted => '受け付けました。メールまたは管理者から認証コードを受け取ってください。';
+	/// ja: '受け付けました。管理者から認証コードを受け取ってください。'
+	String get accepted => '受け付けました。管理者から認証コードを受け取ってください。';
 
 	/// ja: 'ユーザーID'
 	String get username => 'ユーザーID';
@@ -489,8 +489,8 @@ class AuthFilesStrings$admin$createUser$ja {
 	/// ja: 'アカウント管理: ユーザーの作成'
 	String get title => 'アカウント管理: ユーザーの作成';
 
-	/// ja: '担当者(DB に登録済み)に、ログインできるユーザーを作り、有効化コードを発行します。コードは本人へ渡してください(メールを登録し、メールで送る場合を除く)。'
-	String get hint => '担当者(DB に登録済み)に、ログインできるユーザーを作り、有効化コードを発行します。コードは本人へ渡してください(メールを登録し、メールで送る場合を除く)。';
+	/// ja: '担当者(DB に登録済み)に、ログインできるユーザーを作り、有効化コードを発行します。コードは本人へ手渡してください(メールは送りません)。'
+	String get hint => '担当者(DB に登録済み)に、ログインできるユーザーを作り、有効化コードを発行します。コードは本人へ手渡してください(メールは送りません)。';
 
 	/// ja: 'ユーザーID(ログインに使う)'
 	String get userId => 'ユーザーID(ログインに使う)';
@@ -503,9 +503,6 @@ class AuthFilesStrings$admin$createUser$ja {
 
 	/// ja: 'Eメール(任意)'
 	String get email => 'Eメール(任意)';
-
-	/// ja: 'メールで送る(Eメールがあり、サーバーでメールが有効なとき)'
-	String get mail => 'メールで送る(Eメールがあり、サーバーでメールが有効なとき)';
 
 	/// ja: 'ユーザーを作成'
 	String get create => 'ユーザーを作成';
@@ -530,9 +527,6 @@ class AuthFilesStrings$admin$issuedCode$ja {
 
 	/// ja: '有効期限'
 	String get expires => '有効期限';
-
-	/// ja: 'メールで送信済み'
-	String get mailed => 'メールで送信済み';
 
 	/// ja: '本人へ手渡ししてください。閉じると再表示できません。'
 	String get handOver => '本人へ手渡ししてください。閉じると再表示できません。';
@@ -599,15 +593,15 @@ extension on AuthFilesStrings {
 			'register.submit' => '送信',
 			'register.note' => '送信すると管理者に申請されます。承認されると、認証コードが渡されます。',
 			'register.acceptedHeading' => '申請を受け付けました',
-			'register.accepted' => '管理者の承認をお待ちください。承認されると、メールまたは管理者から認証コードが渡されます。',
+			'register.accepted' => '管理者の承認をお待ちください。承認されると、管理者から認証コードが渡されます。',
 			'register.toCode' => '認証コードを入力する',
 			'forgot.heading' => 'パスワードを忘れた',
-			'forgot.description' => 'ユーザーIDまたはメールアドレスを入力してください。メールが登録されている場合は、認証コードをメールでお送りします。メールが無い場合は、管理者に確認して認証コードを受け取ってください。',
+			'forgot.description' => 'ユーザーIDまたはメールアドレスを入力してください。認証コードは管理者が発行します。管理者に確認して受け取ってください。',
 			'forgot.who' => 'ユーザーIDまたはメールアドレス',
 			'forgot.submit' => '送信',
 			'code.heading' => '認証コードの入力',
-			'code.description' => '認証コードを入力してください。認証コードはメールまたは管理者から受け取ります。',
-			'code.accepted' => '受け付けました。メールまたは管理者から認証コードを受け取ってください。',
+			'code.description' => '認証コードを入力してください。認証コードは管理者から受け取ります。',
+			'code.accepted' => '受け付けました。管理者から認証コードを受け取ってください。',
 			'code.username' => 'ユーザーID',
 			'code.code' => '認証コード(12文字)',
 			'code.submit' => '確認',
@@ -650,18 +644,16 @@ extension on AuthFilesStrings {
 			'admin.resets.issued' => 'コードを発行しました。本人確認のうえ、手渡してください。',
 			'admin.resets.created' => '依頼日時',
 			'admin.createUser.title' => 'アカウント管理: ユーザーの作成',
-			'admin.createUser.hint' => '担当者(DB に登録済み)に、ログインできるユーザーを作り、有効化コードを発行します。コードは本人へ渡してください(メールを登録し、メールで送る場合を除く)。',
+			'admin.createUser.hint' => '担当者(DB に登録済み)に、ログインできるユーザーを作り、有効化コードを発行します。コードは本人へ手渡してください(メールは送りません)。',
 			'admin.createUser.userId' => 'ユーザーID(ログインに使う)',
 			'admin.createUser.appUserId' => '担当者のID',
 			'admin.createUser.name' => '氏名',
 			'admin.createUser.email' => 'Eメール(任意)',
-			'admin.createUser.mail' => 'メールで送る(Eメールがあり、サーバーでメールが有効なとき)',
 			'admin.createUser.create' => 'ユーザーを作成',
 			'admin.createUser.created' => 'ユーザーを作成しました。コードを本人へ渡してください。',
 			'admin.issuedCode.title' => '発行したコード',
 			'admin.issuedCode.code' => 'コード',
 			'admin.issuedCode.expires' => '有効期限',
-			'admin.issuedCode.mailed' => 'メールで送信済み',
 			'admin.issuedCode.handOver' => '本人へ手渡ししてください。閉じると再表示できません。',
 			_ => null,
 		};
