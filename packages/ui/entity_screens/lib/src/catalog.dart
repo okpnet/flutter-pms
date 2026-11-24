@@ -87,10 +87,26 @@ class EntityCatalog {
   /// コード + 参照先の表示(例「E-001 I-1000 ユニットA」)。それ以外は [displayLabel]。
   Future<String> labelOf(
     EntityDefinition definition,
-    EntityRecord record,
-  ) async {
+    EntityRecord record, {
+    int depth = 0,
+  }) async {
     final source = definition.nameReference;
-    if (source == null) return displayLabel(definition, record);
+    if (source == null) {
+      // 名称(name)も借りる参照も無い実体(例: 受入実績)は、最初の参照先の表示を先頭に付ける(番号や数量だけでは、何の行か分からないため)
+      if (definition.field('name') == null && depth < 2) {
+        for (final f in definition.fields) {
+          if (f.kind != FieldKind.reference) continue;
+          final id = record.valueOf(f.key);
+          final target = id.isEmpty ? null : _repositories[f.reference];
+          final found = target == null ? null : await target.findById(id);
+          if (found == null) continue;
+          final head = await labelOf(target!.definition, found, depth: depth + 1);
+          final rest = displayLabel(definition, record);
+          return rest == record.id || head.isEmpty ? (head.isEmpty ? rest : head) : '$head $rest';
+        }
+      }
+      return displayLabel(definition, record);
+    }
     final target = _repositories[source.reference];
     final id = record.valueOf(source.key);
     final borrowed = target == null || id.isEmpty

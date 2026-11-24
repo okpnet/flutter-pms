@@ -454,7 +454,7 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
               final repository = scope.catalog.repository(key);
               final label = repository == null
                   ? r.id
-                  : EntityCatalog.displayLabel(repository.definition, r);
+                  : await scope.catalog.labelOf(repository.definition, r);
               Navigator.of(
                 context,
               ).pop(Selection(entityKey: asKey, id: r.id, label: label));
