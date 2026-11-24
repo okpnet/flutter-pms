@@ -11,7 +11,13 @@ import 'package:document_settings/document_settings.dart'
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:quality_document/quality_document.dart'
-    show GraphqlDocumentBodyGateway, InMemoryDocumentBodyGateway, documentBodyGatewayProvider, documentBodyIsAdminProvider;
+    show
+        GraphqlDocumentBodyGateway,
+        InMemoryDocumentBodyGateway,
+        NoDocumentApprovalSource,
+        documentApprovalSourceProvider,
+        documentBodyGatewayProvider,
+        documentBodyIsAdminProvider;
 import 'package:manual/manual.dart'
     show
         AppSettings,
@@ -29,6 +35,7 @@ import 'package:manual/manual.dart'
 import '../graphql/graphql_overrides.dart'
     show auditUserProvider, graphqlClientProvider, pocketbaseEnabledProvider;
 import '../session/pocketbase_user_identity.dart';
+import 'document_approval_adapter.dart';
 
 /// マニュアル(Wiki)の編集権限を、アプリが認証の結果で差し込む。
 ///
@@ -48,6 +55,12 @@ List<Override> manualOverrides() => [
     final client = ref.watch(graphqlClientProvider);
     if (client == null) return const NoManualApprovalSource();
     return GraphqlManualApprovalSource(ManualGraphqlClient(client));
+  }),
+  // 品質管理文書の本文の承認の状態: GraphQL に接続するときは DB のビュー(マニュアルと同じ)、しないときは承認なし
+  documentApprovalSourceProvider.overrideWith((ref) {
+    final client = ref.watch(graphqlClientProvider);
+    if (client == null) return const NoDocumentApprovalSource();
+    return GraphqlDocumentApprovalAdapter(client, GraphqlManualApprovalSource(ManualGraphqlClient(client)));
   }),
   // 文書コンテンツの本文(品質管理文書)。GraphQL に接続するときは DB(共有テキスト)、しないときはメモリ上。編集は管理者だけ
   documentBodyGatewayProvider.overrideWith((ref) {

@@ -18,6 +18,7 @@ export 'src/body/document_pdf.dart'
         DocumentApproval,
         IDocumentApprovalSource,
         IDocumentFileSaver,
+        NoDocumentApprovalSource,
         documentApprovalSourceProvider,
         documentAppSettingsProvider,
         documentClockProvider,
