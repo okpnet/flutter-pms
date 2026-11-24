@@ -1,0 +1,13 @@
+title: Notifications
+loading: Loading…
+loadFailed: Could not load notifications.
+empty: No notifications.
+unreadOnly: Unread only
+markRead: Mark as read
+markReadFailed: Could not mark as read.
+unread: Unread
+target: Target
+expires: Expires
+banner:
+  summary: 'You have ${n} unread notifications'
+  viewAll: View all

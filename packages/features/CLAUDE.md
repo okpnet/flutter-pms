@@ -238,6 +238,7 @@ GraphQLから取得したデータのうち、イミュータブルな更新者�
 | マニュアル(Wiki。品質管理文書のグループに並ぶ。Markdown が正本・管理者だけ編集・ルートは複数) | `manual`(閲覧・編集(Markdown / ビジュアル)・履歴・Markdown の書き出し。パスは `/manual`。決定の経緯は `issue/202611.md#20261120_0002`) |
 | 承認スタンプ・PDF の設定(管理者だけ。`info_app.settings` の `stamp`・`pdf` の編集とプレビュー。品質管理文書のグループ) | `document_settings`(フォーム(承認スタンプ・PDF)+ JSON + 用紙のプレビュー。パスは `/auth/admin/document-settings`。決定の経緯は `issue/202611.md#20261121_0001`) |
 | 承認一覧(各メニューの末尾の「承認一覧」。承認待ちの一覧・複数選択の一括承認・パスワードの再入力・ダッシュボードの承認待ち通知) | `approval`(パスは `/approval/<メニュー>`。決定の経緯は `issue/202611.md#20261121_0001`) |
+| 通知(自分宛ての通知の一覧・既読・ダッシュボードの未読通知・ログイン時の監査の予定の通知づくり。メニューには出さない) | `announcement`(パスは `/announcements`。題名・本文は DB の言語別の値のまま。`packages/features/announcement/CLAUDE.md`) |
 | 品質管理 | `quality` |
 | 会社情報 | `organization` |
 | 認証(PocketBase のログイン・ログアウト・登録申請・コード入力・管理者操作)と共有ファイルのアップロード/ダウンロード | `auth_files`(認証は `packages/infra/pbapi` を使う。遷移の仕様は `tools/docker/pocketbase/README.md`) |

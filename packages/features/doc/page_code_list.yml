@@ -748,3 +748,11 @@ features:
         code: S
         page: DS
         label: 承認スタンプ・PDF の設定
+  - feature: announcement
+    code: J
+    label: 通知
+    screens:
+      - screen: announcements
+        code: L
+        page: JL
+        label: 通知の一覧

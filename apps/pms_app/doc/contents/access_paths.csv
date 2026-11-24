@@ -116,3 +116,4 @@ usecase_path,name_ja,name_en,feature,public
 /e/position,役割(役職),Position,organization,false
 /e/workrecpick,作業実績の選択,Work record picker,work_record,false
 /e/lotpick,ロットの選択,Lot picker,work_record,false
+/announcements,通知の一覧,Notifications,announcement,false

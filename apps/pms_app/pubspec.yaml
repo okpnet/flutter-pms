@@ -82,6 +82,8 @@ dependencies:
     path: ../../packages/features/document_settings
   approval:
     path: ../../packages/features/approval
+  announcement:
+    path: ../../packages/features/announcement
   system:
     path: ../../packages/features/system
   access_control_model:

@@ -1,0 +1,100 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 通知(trans_announcement)のモデル。通知の文は、登録時に言語別の値(題名 trans_label・本文 trans_text)として直接持つ。
+# 区分(category)・既読(is_read)・期限(expiration_date)・対象のシンボル(target_symbol。外部キーではない)だけで扱い、状態の文字は組み立てない。
+# 既読にする操作は DB 関数 announcement_mark_read(自分宛てだけ。他の人の通知・削除済みは ANN01)。
+# 監査の予定の通知を作る audit_notify_due(整数を返す)は、スカラーの戻り値のため、取得元が GraphQL の文で直接呼ぶ。
+
+# 通知の一覧(宛先 to_staff_id で絞る。言語 languageCode の題名・本文)
+AnnouncementPage:
+  kind: read
+  from: trans_announcement
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - trans_announcement_id
+    - to_staff_id
+    - category
+    - is_read
+    - expiration_date
+    - target_symbol
+    - symbol
+    - update_at
+    - name: titleLabel
+      as: titleLabel
+      arrayType: toFirstOne
+      using: titles
+      from: trans_label
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+      columns:
+        - trans_label_id
+        - name: value
+          arrayType: toFirstOne
+          using: trans_label_id
+          from: trans_label_value
+          defaultWhere:
+            - column: remove
+              operator: "="
+              value: false
+          columns:
+            - label_value
+            - name: language
+              arrayType: toFirstOne
+              from: shared_language_code
+              output: false
+              requiredWhere:
+                - column: code
+                  as: languageCode
+              defaultWhere:
+                - column: remove
+                  operator: "="
+                  value: false
+    - name: messageText
+      as: messageText
+      arrayType: toFirstOne
+      using: messages
+      from: trans_text
+      defaultWhere:
+        - column: remove
+          operator: "="
+          value: false
+      columns:
+        - trans_text_id
+        - name: value
+          arrayType: toFirstOne
+          using: trans_text_id
+          from: trans_text_value
+          defaultWhere:
+            - column: remove
+              operator: "="
+              value: false
+          columns:
+            - text_value
+            - name: language
+              arrayType: toFirstOne
+              from: shared_language_code
+              output: false
+              requiredWhere:
+                - column: code
+                  as: languageCode
+              defaultWhere:
+                - column: remove
+                  operator: "="
+                  value: false
+
+# 既読にする(DB 関数 announcement_mark_read。担当者は省略すると JWT の staff_id)
+AnnouncementMarkReadPageCall:
+  kind: function
+  mutation: announcementMarkRead
+  returns: transAnnouncement
+  columns:
+    - trans_announcement_id
+    - is_read

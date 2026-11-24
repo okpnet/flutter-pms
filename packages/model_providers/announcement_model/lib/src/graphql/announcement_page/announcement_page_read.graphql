@@ -1,0 +1,61 @@
+# announcement_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #AnnouncementPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query AnnouncementPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: TransAnnouncementFilter = {and: []}
+  $orderBy: [TransAnnouncementsOrderBy!]
+  $languageCodeId: UUID!
+  $removed: Boolean = false
+) {
+  allTransAnnouncements(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [{ remove: { equalTo: $removed } }, $filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transAnnouncementId
+      toStaffId
+      category
+      isRead
+      expirationDate
+      targetSymbol
+      symbol
+      updateAt
+      remove
+
+      titleLabel: transLabelByTitles {
+        transLabelId
+
+        value: transLabelValuesByTransLabelId(
+          condition: { sharedLanguageCodeId: $languageCodeId }
+        ) {
+          nodes {
+            labelValue
+          }
+        }
+      }
+
+      messageText: transTextByMessages {
+        transTextId
+
+        value: transTextValuesByTransTextId(
+          condition: { sharedLanguageCodeId: $languageCodeId }
+        ) {
+          nodes {
+            textValue
+          }
+        }
+      }
+    }
+  }
+}

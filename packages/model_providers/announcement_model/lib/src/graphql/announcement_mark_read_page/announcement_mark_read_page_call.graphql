@@ -1,0 +1,21 @@
+# announcement_mark_read_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #AnnouncementMarkReadPageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation AnnouncementMarkReadPageCall(
+  $pAnnouncementId: UUID
+  $pStaffId: UUID
+) {
+  announcementMarkRead(
+    input: {
+      pAnnouncementId: $pAnnouncementId
+      pStaffId: $pStaffId
+    }
+  ) {
+    transAnnouncement {
+      transAnnouncementId
+      isRead
+    }
+  }
+}

@@ -1,3 +1,4 @@
+import 'package:announcement/announcement.dart' show AnnouncementBanner, unreadAnnouncementCountProvider;
 import 'package:approval/approval.dart';
 import 'package:feature_shared/feature_shared.dart' show dashboardAlertSlotProvider;
 import 'package:flutter/widgets.dart' show BuildContext, Column, CrossAxisAlignment, Widget;
@@ -12,7 +13,7 @@ import '../graphql/graphql_overrides.dart' show graphqlClientProvider, pocketbas
 ///
 /// - パスワードの確認: PocketBase に接続するとき、ログイン中のユーザーのパスワードを `pbapi` で照合する(今のセッションは変えない)。
 ///   接続しない環境(サンプル)は、確認できない(承認の操作はできない)。
-/// - ダッシュボードの通知(差し込み口は 1 つ): 「承認待ちが N 件あります」(`ApprovalAlertBanner`)と、
+/// - ダッシュボードの通知(差し込み口は 1 つ): 「承認待ちが N 件あります」(`ApprovalAlertBanner`)・「未読の通知が N 件あります」(`announcement` の `AnnouncementBanner`)と、
 ///   「監査の予定が N 件あります」(`quality` の `AuditNoticeBanner`。DB の `audit_notice`)を縦に並べて差し込む。
 /// - 「参照」の移り先: 台帳の画面(`/e/<キー>?id=<行>`)へ。区分に対応する台帳のキーは、機能(`sales`・`purchasing`・`quality`)の定義に従う。
 /// - 承認待ちの取得・承認の登録の取得元(`approvalGatewayProvider`): GraphQL に接続するときは `GraphqlApprovalGateway`(DB の
@@ -40,10 +41,11 @@ class _NoticeArea extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final none = ref.watch(pendingCountsByKindProvider).values.fold<int>(0, (a, b) => a + b) == 0;
+    final none =
+        ref.watch(pendingCountsByKindProvider).values.fold<int>(0, (a, b) => a + b) == 0 && ref.watch(unreadAnnouncementCountProvider) == 0;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [const ApprovalAlertBanner(), AuditNoticeBanner(showWhenEmpty: none)],
+      children: [const ApprovalAlertBanner(), const AnnouncementBanner(), AuditNoticeBanner(showWhenEmpty: none)],
     );
   }
 }
