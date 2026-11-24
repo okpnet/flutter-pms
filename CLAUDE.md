@@ -146,6 +146,16 @@ DB(`tools/docker/postgresql/script`、スキーマ `tests`)の仕様。正は DD
 ### 未決・未作成
 ビュー `v_plan_change`・`v_cancel_open_item`・`v_mrp_run`・`v_mrp_suggestion`、受注金額のビュー(`v_sales_record`)の精算額、`trans_visiter_owner` の `@omit`、押さえたロットの処置の関数と `shipping_order_detail_cancel`、操作をまとめる DB 関数、登録できる作業指示の判定のビュー(`v_work_plan_registrable`)は、DB に適用済み(PERO のデータから `06_cteate_test.sql`。下の「操作の DB 関数」)。原価計算のビュー(`v_item_unit_cost`・`v_visiter_valuation`・`v_item_valuation`)は DB に適用済みで、画面は `packages/features/cost`。
 
+## 原価計算
+
+DB のビュー(`06_cteate_test.sql`)が計算し、アプリ(`packages/features/cost`)は値をそのまま出す(Dart で原価・評価額を計算しない)。
+
+1.  **標準原価**: `v_item_unit_cost`(購入品 = 優先順位が最も小さい仕入先の単価 + 生産コスト(工程ごとの原価の合計)+ 部品表の下位の部品)。在庫の評価額は `v_visiter_valuation`・`v_item_valuation`(社外の所有物は評価しない、譲渡で自社の物になった材料は 0 円。判定は boolean の列)。
+1.  **実績の原価は、作業実績単位で計算する**。作業実績の原価 = 投入した材料の評価額の合計 + 工程の原価。作ったロットの原価は、その作業実績の原価(作ったロットが複数あるときは、数量で按分する。複数のロットに分ける運用は無いため、按分の規則は、その運用が出てから決める)。
+1.  **投入した材料のたどり方**: 作業実績ビジター(`trans_work_record_visiter`。棚ビジターと作業実績のつなぎだけで、数量・向きの列は無い)に、2 種類の棚ビジターの行がつながる。**向きは棚ビジターの行の数量の符号で決まる**: `+` の行 = その作業で作ったロット(入庫。`visiter_receive` の `p_work_record_id`)、`−` の行 = 製造への材料の投入(払出。`visiter_issue` の `p_work_record_id`)。`−` の行の `parent_trans_visiter_id` が材料のロット。購入品・支給品の区別なく同じ形で、材料のロットの由来(受入実績ビジター・支給ビジター・所有者 `trans_visiter_owner`)で区別する。
+1.  **支給品は 0 円**: 投入した材料のロットが、社外の所有物(`external_owned`)または譲渡で自社の物になった(`transferred`)ときは 0 円。購入品 + 支給品で作った品目は、購入品 + 工程の原価(支給品は 0 円)。
+1.  **材料の対応の限界**: 1 つの作業実績が複数の材料を投入し、複数のロットを作るとき、どの材料のロットがどの作ったロットになったかの個別の対応は残らない(作業実績単位でしか分からない。トレースは作業実績をたどれば、投入した材料のすべてが分かる)。材料の対応を残したい場合は、作業実績を分けて登録する(例: 材料 A1 だけで B1、A2 だけで B2 を作るなら、作業実績を 2 つに分ける。納入が遅延して A1・A2 を別々に払い出すときは、払出の行が別々に残る)。
+
 ## 受注・発注まわりの GraphQL モデルと画面の仕様(キャンセル・停止・返品・精算・支給・所有)
 
 画面ごとの `.graphql`(`packages/model_providers`)と、画面(`packages/features`)を作るときの決定事項。DB の正は `06_cteate_test.sql`(MRP・棚ビジターの関数・操作の関数を含む)・`12`・`13` で、PostGraphile v4 が生成する型をそのまま使い、独自のスキーマプラグインは使わない。業務の決定事項は上の「受注・発注まわりの仕様」。

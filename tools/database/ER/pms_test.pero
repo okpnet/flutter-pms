@@ -2,7 +2,7 @@
   "formatVersion": 3,
   "appVersion": "0.1.0",
   "id": 538067658,
-  "nextId": 6200,
+  "nextId": 6201,
   "properties": {
     "outputFileName": "pms_test",
     "outputFolder": "",
@@ -67480,6 +67480,30 @@
       },
       "preQuery": "",
       "postQuery": "COMMENT ON COLUMN tests.v_complaint.trans_complaint_id IS '異常ID';\nCOMMENT ON COLUMN tests.v_complaint.symbol IS 'リニアシンボル';\nCOMMENT ON COLUMN tests.v_complaint.occurent_at IS '発生日時';\nCOMMENT ON COLUMN tests.v_complaint.titles IS '題名(ラベルID)';\nCOMMENT ON COLUMN tests.v_complaint.details IS '内容(文章ID)';\nCOMMENT ON COLUMN tests.v_complaint.reporter_staff_id IS '報告者の担当者ID';\nCOMMENT ON COLUMN tests.v_complaint.approvals IS '承認実行パターンID';\nCOMMENT ON COLUMN tests.v_complaint.remarks IS '備考';\nCOMMENT ON COLUMN tests.v_complaint.kind_count IS '種類の件数';\nCOMMENT ON COLUMN tests.v_complaint.has_equipment IS '設備の点検で発見された異常がある';\nCOMMENT ON COLUMN tests.v_complaint.has_process IS '工程で発見された異常がある';\nCOMMENT ON COLUMN tests.v_complaint.has_work IS '作業実績で発見された異常がある';\nCOMMENT ON COLUMN tests.v_complaint.has_purchase_rec IS '受入で発見された異常がある';\nCOMMENT ON COLUMN tests.v_complaint.has_visiter IS '棚移動で発見された異常がある';\nCOMMENT ON COLUMN tests.v_complaint.has_order IS '顧客クレームがある';\nCOMMENT ON COLUMN tests.v_complaint.has_stakeholder IS '利害関係者の苦情がある';\nCOMMENT ON COLUMN tests.v_complaint.is_external IS '外部の異常がある';\nCOMMENT ON COLUMN tests.v_complaint.is_claim IS 'クレームがある';\nCOMMENT ON COLUMN tests.v_complaint.kind_names IS '種類の名称(\" / \" 区切り)';\nCOMMENT ON COLUMN tests.v_complaint.party_stakeholder_id IS '利害関係者ID(最初の 1 つ。名前は関連でたどる)';\nCOMMENT ON COLUMN tests.v_complaint.party_count IS '利害関係者の件数';\nCOMMENT ON COLUMN tests.v_complaint.target_symbols IS '対象の表のシンボル(\" / \" 区切り)';"
+    },
+    {
+      "id": 6200,
+      "kind": "view",
+      "logicalName": "",
+      "physicalName": "v_work_record_cost",
+      "comment": "@primaryKey trans_work_record_id\n@unique symbol\n@foreignKey (trans_work_record_id) references trans_work_record (trans_work_record_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n実績の原価(1 行 = 作業実績。投入した材料の評価額の合計 + 工程の原価。作ったロットが複数のときは、数量で按分して単価にする)",
+      "locked": false,
+      "viewType": "sql",
+      "join": {
+        "sources": [],
+        "columns": [],
+        "where": ""
+      },
+      "function": {
+        "methodId": null,
+        "args": [],
+        "columns": []
+      },
+      "sql": {
+        "sql": "SELECT\n    w.trans_work_record_id\n    , w.symbol\n    , w.trans_work_plan_id\n    , rp.item_id\n    , w.qty AS quantity\n    , COALESCE(pro.quantity, 0)::numeric(14,2) AS produced_quantity\n    , COALESCE(inp.amount, 0)::numeric(14,2) AS material_amount\n    , COALESCE(inp.line_count, 0)::integer AS material_line_count\n    , COALESCE(inp.supplied, FALSE) AS has_supplied_material\n    , (COALESCE(w.qty, 0) * COALESCE(pc.cost, 0))::numeric(14,2) AS process_cost\n    , (COALESCE(inp.amount, 0) + COALESCE(w.qty, 0) * COALESCE(pc.cost, 0))::numeric(14,2) AS total_cost\n    , CASE WHEN COALESCE(pro.quantity, 0) > 0\n           THEN ((COALESCE(inp.amount, 0) + COALESCE(w.qty, 0) * COALESCE(pc.cost, 0)) / pro.quantity)::numeric(14,2)\n      END AS unit_cost\nFROM tests.trans_work_record AS w\nINNER JOIN tests.trans_work_plan AS wp ON wp.trans_work_plan_id = w.trans_work_plan_id\nINNER JOIN tests.trans_operations_plan AS op ON op.trans_operations_plan_id = wp.trans_operations_plan_id\nINNER JOIN tests.trans_resource_plan AS rp ON rp.trans_resource_plan_id = op.trans_resource_plan_id\nLEFT JOIN LATERAL (\n    -- 作ったロット(+ の行)の数量\n    SELECT SUM(v.quantity) AS quantity\n    FROM tests.trans_work_record_visiter AS wrv\n    INNER JOIN tests.trans_visiter AS v ON v.trans_visiter_id = wrv.trans_visiter_id AND v.remove IS FALSE\n    WHERE wrv.trans_work_record_id = w.trans_work_record_id AND wrv.remove IS FALSE\n      AND v.quantity > 0 AND v.adjustment IS NOT TRUE\n) AS pro ON TRUE\nLEFT JOIN LATERAL (\n    -- 投入した材料(- の行)の評価額。材料のロット(分割元)が社外の所有物、または譲渡で自社の物になった材料は 0 円(支給品)。\n    -- それ以外は、材料の品目の標準原価 × 投入した数量\n    SELECT\n        SUM(-v.quantity * CASE\n            WHEN ow.owner_stakeholder_id IS NOT NULL THEN 0\n            WHEN COALESCE(sp.company_owns, FALSE) THEN 0\n            ELSE COALESCE(uc.unit_cost, 0)\n        END) AS amount\n        , COUNT(*) AS line_count\n        , BOOL_OR(ow.owner_stakeholder_id IS NOT NULL OR COALESCE(sp.company_owns, FALSE)) AS supplied\n    FROM tests.trans_work_record_visiter AS wrv\n    INNER JOIN tests.trans_visiter AS v ON v.trans_visiter_id = wrv.trans_visiter_id AND v.remove IS FALSE\n    LEFT JOIN tests.v_mrp_visiter_item AS mi ON mi.trans_visiter_id = v.parent_trans_visiter_id\n    LEFT JOIN tests.v_item_unit_cost AS uc ON uc.item_id = mi.item_id\n    LEFT JOIN tests.trans_visiter_owner AS ow ON ow.trans_visiter_id = v.parent_trans_visiter_id AND ow.remove IS FALSE\n    LEFT JOIN tests.trans_supply_detail AS sd ON sd.trans_supply_detail_id = ow.trans_supply_detail_id\n    LEFT JOIN tests.trans_supply AS sp ON sp.trans_supply_id = sd.trans_supply_id\n    WHERE wrv.trans_work_record_id = w.trans_work_record_id AND wrv.remove IS FALSE\n      AND v.quantity < 0 AND v.adjustment IS NOT TRUE\n) AS inp ON TRUE\nLEFT JOIN LATERAL (\n    -- 工程の原価(作業の品目 × 作業の標準の原価の合計。数量 × 単価。標準原価の生産コストと同じ考え方)\n    SELECT SUM(c.cost) AS cost\n    FROM tests.mstr_item_task_cost AS c\n    INNER JOIN tests.mstr_task_location AS tl ON tl.mstr_task_location_id = c.mstr_task_location_id\n    WHERE c.mstr_item_id = rp.item_id AND tl.mstr_task_id = wp.mstr_task_id AND c.remove IS FALSE\n) AS pc ON TRUE\nWHERE w.remove IS FALSE"
+      },
+      "preQuery": "",
+      "postQuery": "COMMENT ON COLUMN tests.v_work_record_cost.trans_work_record_id IS '作業実績ID';\nCOMMENT ON COLUMN tests.v_work_record_cost.symbol IS 'リニアシンボル';\nCOMMENT ON COLUMN tests.v_work_record_cost.trans_work_plan_id IS '作業指示ID';\nCOMMENT ON COLUMN tests.v_work_record_cost.item_id IS '作った品目ID';\nCOMMENT ON COLUMN tests.v_work_record_cost.quantity IS '作業実績の数量';\nCOMMENT ON COLUMN tests.v_work_record_cost.produced_quantity IS '作ったロット(+ の行)の数量の合計';\nCOMMENT ON COLUMN tests.v_work_record_cost.material_amount IS '投入した材料の評価額の合計(支給品は 0 円)';\nCOMMENT ON COLUMN tests.v_work_record_cost.material_line_count IS '投入した材料の払出の行の数';\nCOMMENT ON COLUMN tests.v_work_record_cost.has_supplied_material IS '支給品(社外の所有物・譲渡で自社の物になった材料)を投入した';\nCOMMENT ON COLUMN tests.v_work_record_cost.process_cost IS '工程の原価(数量 × 作業の標準の原価)';\nCOMMENT ON COLUMN tests.v_work_record_cost.total_cost IS '作業実績の原価(材料 + 工程)';\nCOMMENT ON COLUMN tests.v_work_record_cost.unit_cost IS '作ったロットの単価(作業実績の原価 ÷ 作ったロットの数量。作ったロットが無いときは NULL)';"
     }
   ],
   "relationships": [
@@ -86306,6 +86330,12 @@
         {
           "entityId": 6193,
           "x": 1000.0,
+          "y": 3200.0,
+          "collapsed": false
+        },
+        {
+          "entityId": 6200,
+          "x": 1480.0,
           "y": 3200.0,
           "collapsed": false
         }
