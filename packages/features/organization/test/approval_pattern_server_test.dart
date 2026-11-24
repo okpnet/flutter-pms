@@ -1,7 +1,9 @@
 import 'package:data_test_harness/data_test_harness.dart';
 import 'package:entity_screens/entity_screens.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:graphql/client.dart';
 import 'package:organization/organization.dart';
+import 'package:pms_graphql/pms_graphql.dart' show AuditUser;
 
 /// 承認パターンの台帳と承認の段の通信テスト(検証用サーバー)。画面のテストとは別のファイルにする。
 /// 「変更する」テストは、登録した承認パターン・段を、最後に論理削除する(管理者の資格情報で実行する。呼称の行は残る)。
@@ -26,8 +28,16 @@ void main() {
 
   serverTest('変更する: 承認パターンと段を登録・並べ替え・削除する(最後に論理削除)', (server) async {
     final client = server.provider.client;
-    final repo = organizationRepositories(client).firstWhere((r) => r.definition.key == 'approvalpattern');
-    final steps = GraphqlApprovalStepsGateway(client);
+    // 更新者は、DB の最初の担当者で行う(PocketBase のユーザーの app_user_id が、DB の担当者と合っているとは限らないため)
+    final staff = await client.query(QueryOptions(document: gql('query { allInfoStaffs(first: 1, filter: {remove: {equalTo: false}}) { nodes { infoStaffId } } }'), fetchPolicy: FetchPolicy.noCache));
+    final staffId = ((staff.data?['allInfoStaffs'] as Map?)?['nodes'] as List?)?.firstOrNull?['infoStaffId'] as String?;
+    expect(staffId, isNotNull, reason: '担当者が無い');
+    final history = await client.query(QueryOptions(document: gql('query { allHistoryInfoStaffs(first: 1, orderBy: REVISION_DESC, filter: {infoStaffId: {equalTo: "$staffId"}}) { nodes { historyId } } }'), fetchPolicy: FetchPolicy.noCache));
+    final historyId = ((history.data?['allHistoryInfoStaffs'] as Map?)?['nodes'] as List?)?.firstOrNull?['historyId'] as String?;
+    expect(historyId, isNotNull, reason: '担当者の履歴が無い');
+    final user = AuditUser(staffId: staffId!, staffHistoryId: historyId!);
+    final repo = organizationRepositories(client, auditUser: () async => user).firstWhere((r) => r.definition.key == 'approvalpattern');
+    final steps = GraphqlApprovalStepsGateway(client, auditUser: () async => user);
     final departments = await steps.departments();
     final positions = await steps.positions();
     if (positions.length < 2) {

@@ -62,6 +62,8 @@ BEGIN
     -- G7: 利害関係者(最初の 1 つ・件数)と、対象のシンボル(" / " でつなぐ)
     SELECT * INTO v FROM tests.v_complaint WHERE trans_complaint_id = c1.trans_complaint_id;
     IF v.party_stakeholder_id IS DISTINCT FROM sh OR v.party_count <> 1 THEN RAISE EXCEPTION 'G7 NG: 利害関係者 % / %', v.party_stakeholder_id, v.party_count; END IF;
-    IF v.target_symbols IS NULL OR v.target_symbols NOT LIKE '% / %' THEN RAISE EXCEPTION 'G7 NG: 対象 %', v.target_symbols; END IF;
+    -- 種類ごとの対象のシンボルが異なれば " / " でつながる(同じ文字なら DISTINCT で 1 つになる。ダミーの工程と利害関係者は同じ 0001)
+    SELECT count(DISTINCT k.target_symbol) INTO n FROM tests.v_complaint_kind k WHERE k.trans_complaint_id = c1.trans_complaint_id AND k.target_symbol IS NOT NULL;
+    IF v.target_symbols IS NULL OR (n > 1) <> (v.target_symbols LIKE '% / %') THEN RAISE EXCEPTION 'G7 NG: 対象 %', v.target_symbols; END IF;
     RAISE NOTICE 'G7 OK';
 END $$;

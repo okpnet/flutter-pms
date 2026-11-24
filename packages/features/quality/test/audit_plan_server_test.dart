@@ -87,4 +87,76 @@ void main() {
       await stdRepo.remove(std.id);
     }
   });
+
+  serverTest('変更する: 部署・利害関係者を指定して計画を登録すると、監査に入る。指定なしでも登録できる(最後に論理削除する)', (server) async {
+    final client = server.provider.client;
+    final staff = await GraphqlAuditPlanGateway(client).staff();
+    if (staff.isEmpty) {
+      markTestSkipped('担当者が無いため、中止した');
+      return;
+    }
+    final me = staff.first;
+    Future<String?> firstId(String doc, String list, String key) async {
+      final r = await client.query(QueryOptions(document: gql(doc), fetchPolicy: FetchPolicy.noCache));
+      return ((r.data?[list] as Map?)?['nodes'] as List?)?.firstOrNull?[key] as String?;
+    }
+
+    final history = await firstId(
+      'query { allHistoryInfoStaffs(first: 1, orderBy: REVISION_DESC, filter: {infoStaffId: {equalTo: "${me.id}"}}) { nodes { historyId } } }',
+      'allHistoryInfoStaffs',
+      'historyId',
+    );
+    expect(history, isNotNull, reason: '担当者の履歴が無い');
+    final department = await firstId('query { allInfoDepartments(first: 1, filter: {remove: {equalTo: false}}) { nodes { infoDepartmentId } } }', 'allInfoDepartments', 'infoDepartmentId');
+    final stakeholder = await firstId('query { allMstrStakeholders(first: 1, filter: {remove: {equalTo: false}}) { nodes { mstrStakeholderId } } }', 'allMstrStakeholders', 'mstrStakeholderId');
+    if (department == null || stakeholder == null) {
+      markTestSkipped('部署または利害関係者が無いため、中止した');
+      return;
+    }
+    final user = AuditUser(staffId: me.id, staffHistoryId: history!);
+    final plan = GraphqlAuditPlanGateway(client, auditUser: () async => user);
+    final stamp = DateTime.now().millisecondsSinceEpoch;
+    final stdRepo = qualityRepositories(client, auditUser: () async => user).firstWhere((r) => r.definition.key == 'auditstd');
+    final std = await stdRepo.save(EntityRecord(id: '', values: {'code': 'U$stamp', 'name': 'TEST-監査標準B-$stamp', 'pronunciation': '', 'category': '1', 'detail': '', 'remarks': ''}));
+    final auditIds = <String>[];
+    try {
+      Future<Map?> fetchAudit(String id) async {
+        final r = await client.query(
+          QueryOptions(
+            document: gql('query { allTransAudits(filter: {transAuditId: {equalTo: "$id"}}) { nodes { infoDepartmentId mstrStakeholderId } } }'),
+            fetchPolicy: FetchPolicy.noCache,
+          ),
+        );
+        return ((r.data?['allTransAudits'] as Map?)?['nodes'] as List?)?.firstOrNull as Map?;
+      }
+
+      AuditPlanInput input(String title, {String? departmentId, String? stakeholderId}) => AuditPlanInput(
+        title: title,
+        details: 'テスト',
+        standardId: std.id,
+        departmentId: departmentId,
+        stakeholderId: stakeholderId,
+        lines: [AuditPlanLine(teamName: 'テストチーム', auditorIds: [me.id], scheduledAt: DateTime.now().add(const Duration(days: 1)))],
+      );
+
+      // 指定あり: 部署・利害関係者が trans_audit に入る
+      final withIds = await plan.register(input('TEST-監査B1-$stamp', departmentId: department, stakeholderId: stakeholder));
+      auditIds.add(withIds);
+      final a = await fetchAudit(withIds);
+      expect(a?['infoDepartmentId'], department);
+      expect(a?['mstrStakeholderId'], stakeholder);
+
+      // 指定なし: 登録でき、どちらも null
+      final without = await plan.register(input('TEST-監査B2-$stamp'));
+      auditIds.add(without);
+      final b = await fetchAudit(without);
+      expect(b?['infoDepartmentId'], isNull);
+      expect(b?['mstrStakeholderId'], isNull);
+    } finally {
+      for (final id in auditIds) {
+        await client.mutate(MutationOptions(document: documentNodeMutationAuditPageRemove, variables: {'transAuditId': id, 'remove': true}, fetchPolicy: FetchPolicy.noCache));
+      }
+      await stdRepo.remove(std.id);
+    }
+  });
 }
