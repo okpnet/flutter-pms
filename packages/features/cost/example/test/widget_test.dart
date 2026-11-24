@@ -16,7 +16,7 @@ void main() {
     expect(find.text('合計(在庫評価額): 16000'), findsOneWidget);
     await tester.pageBack();
     await tester.pumpAndSettle();
-    for (final title in ['標準原価の一覧', '在庫評価額の一覧', 'ロットの評価額']) {
+    for (final title in ['標準原価の一覧', '在庫評価額の一覧', 'ロットの評価額', '実績の原価']) {
       await tester.tap(find.text(title));
       await tester.pumpAndSettle();
       expect(find.text(title), findsWidgets);

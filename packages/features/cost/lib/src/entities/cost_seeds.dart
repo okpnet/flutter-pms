@@ -73,4 +73,21 @@ const Map<String, List<EntityRecord>> costSeeds = {
       },
     ),
   ],
+  'costwork': [
+    EntityRecord(
+      id: '4bccf346-0000-4000-8000-0000000000a1',
+      values: {
+        'symbol': 'WR-0001',
+        'item': '9f3833e6-0000-4000-8000-000000000001',
+        'quantity': '3',
+        'produced_quantity': '3',
+        'material_amount': '24800',
+        'material_line_count': '1',
+        'has_supplied_material': '',
+        'process_cost': '75',
+        'total_cost': '24875',
+        'unit_cost': '8291.67',
+      },
+    ),
+  ],
 };

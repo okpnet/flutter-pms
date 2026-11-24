@@ -11,7 +11,7 @@ void main() {
   const module = CostModule();
 
   test('台帳を持つ実体のルートがあり、すべて読み取り専用', () {
-    expect(module.entityKeys, ['costunit', 'costvaluation', 'costlot']);
+    expect(module.entityKeys, ['costunit', 'costvaluation', 'costlot', 'costwork']);
     expect(module.routes, isNotEmpty);
     for (final d in costDefinitions) {
       expect(d.viewOnly, isTrue, reason: d.key);
@@ -52,7 +52,8 @@ void main() {
       ('item', '品目', '標準原価の一覧'),
       ('work_record', '作業実績', '在庫評価額の一覧'),
       ('work_record', '作業実績', 'ロットの評価額'),
+      ('work_record', '作業実績', '実績の原価'),
     ]);
-    expect([for (final e in entries) (e.destination as EntityListDestination).entityKey], ['costunit', 'costvaluation', 'costlot']);
+    expect([for (final e in entries) (e.destination as EntityListDestination).entityKey], ['costunit', 'costvaluation', 'costlot', 'costwork']);
   });
 }

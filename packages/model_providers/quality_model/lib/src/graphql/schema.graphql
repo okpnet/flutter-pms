@@ -5594,6 +5594,7 @@ input TransWorkRecordFilter {
   vComplaintTargetsByTransWorkRecordIdExist: Boolean
   vComplaintTargetVisitersByTransWorkRecordIdExist: Boolean
   vVisiterOriginChecksByTransWorkRecordIdExist: Boolean
+  vWorkRecordCostByTransWorkRecordIdExists: Boolean
   vWorkRecordWorkRecordCertificateCountByTransWorkRecordIdExists: Boolean
   vWorkRecordWorkRecordVisiterCountByTransWorkRecordIdExists: Boolean
   historyInfoStaffByStaffHistoryIdAndStaffIdExists: Boolean

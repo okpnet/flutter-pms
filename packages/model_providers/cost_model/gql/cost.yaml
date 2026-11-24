@@ -56,3 +56,23 @@ CostVisiterValuationPage:
     - unit_cost
     - unit_value
     - amount
+
+# 実績の原価(v_work_record_cost。1 行 = 作業実績)。作業実績の原価 = 投入した材料の評価額の合計 + 工程の原価
+CostWorkRecordPage:
+  lightRead: true
+  kind: read
+  from: v_work_record_cost
+  filter: true
+  columns:
+    - trans_work_record_id
+    - symbol
+    - trans_work_plan_id
+    - item_id
+    - quantity
+    - produced_quantity
+    - material_amount
+    - material_line_count
+    - has_supplied_material
+    - process_cost
+    - total_cost
+    - unit_cost

@@ -80,6 +80,7 @@ class CostStrings$entity$ja {
 	late final CostStrings$entity$costunit$ja costunit = CostStrings$entity$costunit$ja.internal(_root);
 	late final CostStrings$entity$costvaluation$ja costvaluation = CostStrings$entity$costvaluation$ja.internal(_root);
 	late final CostStrings$entity$costlot$ja costlot = CostStrings$entity$costlot$ja.internal(_root);
+	late final CostStrings$entity$costwork$ja costwork = CostStrings$entity$costwork$ja.internal(_root);
 }
 
 // Path: entity.costunit
@@ -122,6 +123,20 @@ class CostStrings$entity$costlot$ja {
 	String get title => 'ロットの評価額';
 
 	late final CostStrings$entity$costlot$fields$ja fields = CostStrings$entity$costlot$fields$ja.internal(_root);
+}
+
+// Path: entity.costwork
+class CostStrings$entity$costwork$ja {
+	CostStrings$entity$costwork$ja.internal(this._root);
+
+	final CostStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '実績の原価'
+	String get title => '実績の原価';
+
+	late final CostStrings$entity$costwork$fields$ja fields = CostStrings$entity$costwork$fields$ja.internal(_root);
 }
 
 // Path: entity.costunit.fields
@@ -217,6 +232,45 @@ class CostStrings$entity$costlot$fields$ja {
 	String get f_amount => '評価額';
 }
 
+// Path: entity.costwork.fields
+class CostStrings$entity$costwork$fields$ja {
+	CostStrings$entity$costwork$fields$ja.internal(this._root);
+
+	final CostStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'シンボル'
+	String get f_symbol => 'シンボル';
+
+	/// ja: '作った品目'
+	String get f_item => '作った品目';
+
+	/// ja: '作業実績の数量'
+	String get f_quantity => '作業実績の数量';
+
+	/// ja: '作ったロットの数量'
+	String get f_produced_quantity => '作ったロットの数量';
+
+	/// ja: '材料の評価額'
+	String get f_material_amount => '材料の評価額';
+
+	/// ja: '材料の払出の行数'
+	String get f_material_line_count => '材料の払出の行数';
+
+	/// ja: '支給品を投入'
+	String get f_has_supplied_material => '支給品を投入';
+
+	/// ja: '工程の原価'
+	String get f_process_cost => '工程の原価';
+
+	/// ja: '作業実績の原価'
+	String get f_total_cost => '作業実績の原価';
+
+	/// ja: 'ロットの単価'
+	String get f_unit_cost => 'ロットの単価';
+}
+
 /// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -254,6 +308,17 @@ extension on CostStrings {
 			'entity.costlot.fields.f_unit_cost' => '品目の標準原価',
 			'entity.costlot.fields.f_unit_value' => 'ロットの単価',
 			'entity.costlot.fields.f_amount' => '評価額',
+			'entity.costwork.title' => '実績の原価',
+			'entity.costwork.fields.f_symbol' => 'シンボル',
+			'entity.costwork.fields.f_item' => '作った品目',
+			'entity.costwork.fields.f_quantity' => '作業実績の数量',
+			'entity.costwork.fields.f_produced_quantity' => '作ったロットの数量',
+			'entity.costwork.fields.f_material_amount' => '材料の評価額',
+			'entity.costwork.fields.f_material_line_count' => '材料の払出の行数',
+			'entity.costwork.fields.f_has_supplied_material' => '支給品を投入',
+			'entity.costwork.fields.f_process_cost' => '工程の原価',
+			'entity.costwork.fields.f_total_cost' => '作業実績の原価',
+			'entity.costwork.fields.f_unit_cost' => 'ロットの単価',
 			_ => null,
 		};
 	}

@@ -2862,6 +2862,7 @@ input MstrItemFilter {
   vSupplyDetailBalancesByItemIdExist: Boolean
   vVisiterItemsByMstrItemIdExist: Boolean
   vVisiterValuationsByItemIdExist: Boolean
+  vWorkRecordCostsByItemIdExist: Boolean
   mstrItemKindByMstrItemKindId: MstrItemKindFilter
   mstrManufacturerByMstrManufacturerId: MstrManufacturerFilter
   mstrManufacturerByMstrManufacturerIdExists: Boolean

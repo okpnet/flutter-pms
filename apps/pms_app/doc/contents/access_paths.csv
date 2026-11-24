@@ -120,3 +120,4 @@ usecase_path,name_ja,name_en,feature,public
 /e/costunit,標準原価の一覧,Standard costs,cost,false
 /e/costvaluation,在庫評価額の一覧,Inventory valuation,cost,false
 /e/costlot,ロットの評価額,Lot valuation,cost,false
+/e/costwork,実績の原価,Actual cost,cost,false

@@ -4,10 +4,10 @@
 モデルは `packages/model_providers/cost_model`(`CostItemUnitPage`・`CostItemValuationPage`・`CostVisiterValuationPage`)。
 
 ## 決定(2026-11-24)
-1.  画面は 3 つ(いずれも台帳。金額の列は権限で隠さない): 標準原価の一覧(`costunit`。DB のビュー `v_item_unit_cost`)・在庫評価額の一覧(`costvaluation`。`v_item_valuation`)・ロットの評価額(`costlot`。`v_visiter_valuation`)。
-1.  メニュー: 標準原価の一覧 = 「品目」のグループ(`item`)、在庫評価額の一覧・ロットの評価額 = 「作業実績」のグループ(`work_record`。「倉庫・在庫」のグループが無いため)。機能のグループは持たない。
+1.  画面は 4 つ(いずれも台帳。金額の列は権限で隠さない): 標準原価の一覧(`costunit`。DB のビュー `v_item_unit_cost`)・在庫評価額の一覧(`costvaluation`。`v_item_valuation`)・ロットの評価額(`costlot`。`v_visiter_valuation`)・実績の原価(`costwork`。`v_work_record_cost`。1 行 = 作業実績。材料の評価額・工程の原価・作業実績の原価・ロットの単価。材料・工程・原価の合計を下に出す)。
+1.  メニュー: 標準原価の一覧 = 「品目」のグループ(`item`)、在庫評価額の一覧・ロットの評価額・実績の原価 = 「作業実績」のグループ(`work_record`。「倉庫・在庫」のグループが無いため)。機能のグループは持たない。
 1.  原価・評価額は DB のビューが計算した値で、Dart で計算しない(R1・R2)。社外の所有物・譲渡・仮止め・評価の対象は boolean の列のまま(チェック)で出す。
-1.  実績の原価は、作業実績単位で計算する(方針はルートの CLAUDE.md の「原価計算」)。DB のビュー(`v_work_record_cost`)の値をそのまま出す。
+1.  実績の原価は、作業実績単位で計算する(方針はルートの CLAUDE.md の「原価計算」)。DB のビュー(`v_work_record_cost`)の値をそのまま出す。材料の評価額は材料の品目の標準原価で数える(中間品の実績の原価では数えない)。
 1.  在庫評価額の一覧は、評価額の合計を下に出す(`FieldDefinition.total`。表示している行の合計)。行の操作「ロットを見る」で、その品目のロットの評価額を開く(`EntityListDestination('costlot', filter: {item: <品目の ID>})`)。品目の台帳の行の操作「原価を見る」(`item` の手書きの定義。機能同士はキーだけ)で、その品目の標準原価を開く。
 
 ## 構成

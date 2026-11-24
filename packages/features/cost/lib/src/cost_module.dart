@@ -62,6 +62,7 @@ class CostModule extends EntityFeatureModule {
       entry(itemGroupId, 'costunit'),
       entry(workRecordGroupId, 'costvaluation'),
       entry(workRecordGroupId, 'costlot'),
+      entry(workRecordGroupId, 'costwork'),
     ];
   }
 }

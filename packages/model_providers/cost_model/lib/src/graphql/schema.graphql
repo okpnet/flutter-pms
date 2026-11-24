@@ -85,6 +85,36 @@ enum VVisiterValuationsOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum VWorkRecordCostsOrderBy {
+  NATURAL
+  TRANS_WORK_RECORD_ID_ASC
+  TRANS_WORK_RECORD_ID_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  TRANS_WORK_PLAN_ID_ASC
+  TRANS_WORK_PLAN_ID_DESC
+  ITEM_ID_ASC
+  ITEM_ID_DESC
+  QUANTITY_ASC
+  QUANTITY_DESC
+  PRODUCED_QUANTITY_ASC
+  PRODUCED_QUANTITY_DESC
+  MATERIAL_AMOUNT_ASC
+  MATERIAL_AMOUNT_DESC
+  MATERIAL_LINE_COUNT_ASC
+  MATERIAL_LINE_COUNT_DESC
+  HAS_SUPPLIED_MATERIAL_ASC
+  HAS_SUPPLIED_MATERIAL_DESC
+  PROCESS_COST_ASC
+  PROCESS_COST_DESC
+  TOTAL_COST_ASC
+  TOTAL_COST_DESC
+  UNIT_COST_ASC
+  UNIT_COST_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
 type PageInfo {
   hasNextPage: Boolean!
   endCursor: Cursor
@@ -94,6 +124,7 @@ type Query {
   allVItemUnitCosts(first: Int, offset: Int, orderBy: [VItemUnitCostsOrderBy!] = [PRIMARY_KEY_ASC], filter: VItemUnitCostFilter): VItemUnitCostsConnection
   allVItemValuations(first: Int, offset: Int, orderBy: [VItemValuationsOrderBy!] = [PRIMARY_KEY_ASC], filter: VItemValuationFilter): VItemValuationsConnection
   allVVisiterValuations(first: Int, offset: Int, orderBy: [VVisiterValuationsOrderBy!] = [PRIMARY_KEY_ASC], filter: VVisiterValuationFilter): VVisiterValuationsConnection
+  allVWorkRecordCosts(first: Int, offset: Int, orderBy: [VWorkRecordCostsOrderBy!] = [PRIMARY_KEY_ASC], filter: VWorkRecordCostFilter): VWorkRecordCostsConnection
 }
 
 type VItemUnitCost {
@@ -151,6 +182,27 @@ type VVisiterValuationsConnection {
   totalCount: Int!
 }
 
+type VWorkRecordCost {
+  transWorkRecordId: UUID!
+  symbol: String
+  transWorkPlanId: UUID
+  itemId: UUID
+  quantity: BigFloat
+  producedQuantity: BigFloat
+  materialAmount: BigFloat
+  materialLineCount: Int
+  hasSuppliedMaterial: Boolean
+  processCost: BigFloat
+  totalCost: BigFloat
+  unitCost: BigFloat
+}
+
+type VWorkRecordCostsConnection {
+  nodes: [VWorkRecordCost]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 input BigFloatFilter {
   isNull: Boolean
   equalTo: BigFloat
@@ -177,6 +229,20 @@ input BooleanFilter {
   lessThanOrEqualTo: Boolean
   greaterThan: Boolean
   greaterThanOrEqualTo: Boolean
+}
+
+input IntFilter {
+  isNull: Boolean
+  equalTo: Int
+  notEqualTo: Int
+  distinctFrom: Int
+  notDistinctFrom: Int
+  in: [Int!]
+  notIn: [Int!]
+  lessThan: Int
+  lessThanOrEqualTo: Int
+  greaterThan: Int
+  greaterThanOrEqualTo: Int
 }
 
 input StringFilter {
@@ -281,4 +347,24 @@ input VVisiterValuationFilter {
   and: [VVisiterValuationFilter!]
   or: [VVisiterValuationFilter!]
   not: VVisiterValuationFilter
+}
+
+input VWorkRecordCostFilter {
+  transWorkRecordId: UUIDFilter
+  symbol: StringFilter
+  transWorkPlanId: UUIDFilter
+  itemId: UUIDFilter
+  quantity: BigFloatFilter
+  producedQuantity: BigFloatFilter
+  materialAmount: BigFloatFilter
+  materialLineCount: IntFilter
+  hasSuppliedMaterial: BooleanFilter
+  processCost: BigFloatFilter
+  totalCost: BigFloatFilter
+  unitCost: BigFloatFilter
+  transWorkRecordByTransWorkRecordIdExists: Boolean
+  mstrItemByItemIdExists: Boolean
+  and: [VWorkRecordCostFilter!]
+  or: [VWorkRecordCostFilter!]
+  not: VWorkRecordCostFilter
 }

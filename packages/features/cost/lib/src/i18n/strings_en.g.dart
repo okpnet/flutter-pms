@@ -75,6 +75,7 @@ class _CostStrings$entity$en extends CostStrings$entity$ja {
 	@override late final _CostStrings$entity$costunit$en costunit = _CostStrings$entity$costunit$en._(_root);
 	@override late final _CostStrings$entity$costvaluation$en costvaluation = _CostStrings$entity$costvaluation$en._(_root);
 	@override late final _CostStrings$entity$costlot$en costlot = _CostStrings$entity$costlot$en._(_root);
+	@override late final _CostStrings$entity$costwork$en costwork = _CostStrings$entity$costwork$en._(_root);
 }
 
 // Path: entity.costunit
@@ -108,6 +109,17 @@ class _CostStrings$entity$costlot$en extends CostStrings$entity$costlot$ja {
 	// Translations
 	@override String get title => 'Lot valuation';
 	@override late final _CostStrings$entity$costlot$fields$en fields = _CostStrings$entity$costlot$fields$en._(_root);
+}
+
+// Path: entity.costwork
+class _CostStrings$entity$costwork$en extends CostStrings$entity$costwork$ja {
+	_CostStrings$entity$costwork$en._(CostStringsEn root) : this._root = root, super.internal(root);
+
+	final CostStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Actual cost';
+	@override late final _CostStrings$entity$costwork$fields$en fields = _CostStrings$entity$costwork$fields$en._(_root);
 }
 
 // Path: entity.costunit.fields
@@ -159,6 +171,25 @@ class _CostStrings$entity$costlot$fields$en extends CostStrings$entity$costlot$f
 	@override String get f_amount => 'Valuation';
 }
 
+// Path: entity.costwork.fields
+class _CostStrings$entity$costwork$fields$en extends CostStrings$entity$costwork$fields$ja {
+	_CostStrings$entity$costwork$fields$en._(CostStringsEn root) : this._root = root, super.internal(root);
+
+	final CostStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get f_symbol => 'Symbol';
+	@override String get f_item => 'Produced item';
+	@override String get f_quantity => 'Work record quantity';
+	@override String get f_produced_quantity => 'Produced lot quantity';
+	@override String get f_material_amount => 'Material valuation';
+	@override String get f_material_line_count => 'Material issue lines';
+	@override String get f_has_supplied_material => 'Supplied material used';
+	@override String get f_process_cost => 'Process cost';
+	@override String get f_total_cost => 'Work record cost';
+	@override String get f_unit_cost => 'Lot unit cost';
+}
+
 /// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -196,6 +227,17 @@ extension on CostStringsEn {
 			'entity.costlot.fields.f_unit_cost' => 'Item standard cost',
 			'entity.costlot.fields.f_unit_value' => 'Lot unit value',
 			'entity.costlot.fields.f_amount' => 'Valuation',
+			'entity.costwork.title' => 'Actual cost',
+			'entity.costwork.fields.f_symbol' => 'Symbol',
+			'entity.costwork.fields.f_item' => 'Produced item',
+			'entity.costwork.fields.f_quantity' => 'Work record quantity',
+			'entity.costwork.fields.f_produced_quantity' => 'Produced lot quantity',
+			'entity.costwork.fields.f_material_amount' => 'Material valuation',
+			'entity.costwork.fields.f_material_line_count' => 'Material issue lines',
+			'entity.costwork.fields.f_has_supplied_material' => 'Supplied material used',
+			'entity.costwork.fields.f_process_cost' => 'Process cost',
+			'entity.costwork.fields.f_total_cost' => 'Work record cost',
+			'entity.costwork.fields.f_unit_cost' => 'Lot unit cost',
 			_ => null,
 		};
 	}

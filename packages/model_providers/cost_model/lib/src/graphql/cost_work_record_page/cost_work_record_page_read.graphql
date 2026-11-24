@@ -1,0 +1,38 @@
+# cost_work_record_page画面 - Read(一覧取得クエリ)
+#
+# 画面仕様: gql/*.yaml #CostWorkRecordPage
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query CostWorkRecordPageRead(
+  $first: Int!
+  $offset: Int
+  $filter: VWorkRecordCostFilter = {and: []}
+  $orderBy: [VWorkRecordCostsOrderBy!]
+) {
+  allVWorkRecordCosts(
+    first: $first
+    offset: $offset
+    orderBy: $orderBy
+    filter: { and: [$filter] }
+  ) {
+    totalCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      transWorkRecordId
+      symbol
+      transWorkPlanId
+      itemId
+      quantity
+      producedQuantity
+      materialAmount
+      materialLineCount
+      hasSuppliedMaterial
+      processCost
+      totalCost
+      unitCost
+    }
+  }
+}

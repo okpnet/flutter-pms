@@ -772,3 +772,7 @@ features:
         code: L
         page: VL
         label: ロットの評価額
+      - screen: costwork
+        code: W
+        page: VW
+        label: 実績の原価

@@ -50,4 +50,22 @@ const List<EntityDefinition> costDefinitions = [
       FieldDefinition(key: 'amount', kind: FieldKind.number, required: false, readOnly: true),
     ],
   ),
+  // 実績の原価(1 行 = 作業実績。投入した材料の評価額の合計 + 工程の原価)
+  EntityDefinition(
+    key: 'costwork',
+    viewOnly: true,
+    compactFlags: true,
+    fields: [
+      FieldDefinition(key: 'symbol', required: false, readOnly: true),
+      FieldDefinition(key: 'item', kind: FieldKind.reference, required: false, reference: 'item', readOnly: true),
+      FieldDefinition(key: 'quantity', kind: FieldKind.number, required: false, readOnly: true),
+      FieldDefinition(key: 'produced_quantity', kind: FieldKind.number, required: false, readOnly: true),
+      FieldDefinition(key: 'material_amount', kind: FieldKind.number, required: false, readOnly: true, total: true),
+      FieldDefinition(key: 'material_line_count', kind: FieldKind.number, required: false, readOnly: true),
+      FieldDefinition(key: 'has_supplied_material', kind: FieldKind.flag, required: false, readOnly: true),
+      FieldDefinition(key: 'process_cost', kind: FieldKind.number, required: false, readOnly: true, total: true),
+      FieldDefinition(key: 'total_cost', kind: FieldKind.number, required: false, readOnly: true, total: true),
+      FieldDefinition(key: 'unit_cost', kind: FieldKind.number, required: false, readOnly: true),
+    ],
+  ),
 ];

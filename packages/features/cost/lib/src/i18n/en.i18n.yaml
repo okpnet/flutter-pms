@@ -37,3 +37,16 @@ entity:
       f_unit_cost: "Item standard cost"
       f_unit_value: "Lot unit value"
       f_amount: "Valuation"
+  costwork:
+    title: "Actual cost"
+    fields:
+      f_symbol: "Symbol"
+      f_item: "Produced item"
+      f_quantity: "Work record quantity"
+      f_produced_quantity: "Produced lot quantity"
+      f_material_amount: "Material valuation"
+      f_material_line_count: "Material issue lines"
+      f_has_supplied_material: "Supplied material used"
+      f_process_cost: "Process cost"
+      f_total_cost: "Work record cost"
+      f_unit_cost: "Lot unit cost"

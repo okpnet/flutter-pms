@@ -698,6 +698,7 @@ input MstrItemFilter {
   vSupplyDetailBalancesByItemIdExist: Boolean
   vVisiterItemsByMstrItemIdExist: Boolean
   vVisiterValuationsByItemIdExist: Boolean
+  vWorkRecordCostsByItemIdExist: Boolean
   mstrManufacturerByMstrManufacturerIdExists: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   sharedTextByDetailsExists: Boolean

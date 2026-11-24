@@ -67,6 +67,26 @@ List<IEntityRepository> costRepositories(GraphQLClient client) => [
     },
     orderBy: 'SYMBOL_ASC',
   ),
+  _CostRepository(
+    _definition('costwork'),
+    client,
+    document: documentNodeQueryCostWorkRecordPageRead,
+    listKey: 'allVWorkRecordCosts',
+    idKey: 'transWorkRecordId',
+    record: (n) => {
+      'symbol': _text(n['symbol']),
+      'item': _text(n['itemId']),
+      'quantity': _number(n['quantity']),
+      'produced_quantity': _number(n['producedQuantity']),
+      'material_amount': _number(n['materialAmount']),
+      'material_line_count': _number(n['materialLineCount']),
+      'has_supplied_material': _flag(n['hasSuppliedMaterial']),
+      'process_cost': _number(n['processCost']),
+      'total_cost': _number(n['totalCost']),
+      'unit_cost': _number(n['unitCost']),
+    },
+    orderBy: 'SYMBOL_ASC',
+  ),
 ];
 
 EntityDefinition _definition(String key) => costDefinitions.firstWhere((d) => d.key == key);

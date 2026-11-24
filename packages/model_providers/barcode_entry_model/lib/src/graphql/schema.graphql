@@ -1614,6 +1614,7 @@ input MstrItemFilter {
   vSupplyDetailBalancesByItemIdExist: Boolean
   vVisiterItemsByMstrItemIdExist: Boolean
   vVisiterValuationsByItemIdExist: Boolean
+  vWorkRecordCostsByItemIdExist: Boolean
   mstrManufacturerByMstrManufacturerIdExists: Boolean
   sharedAppellationByNames: SharedAppellationFilter
   sharedTextByDetailsExists: Boolean
@@ -2335,6 +2336,7 @@ input TransWorkRecordFilter {
   vComplaintTargetsByTransWorkRecordIdExist: Boolean
   vComplaintTargetVisitersByTransWorkRecordIdExist: Boolean
   vVisiterOriginChecksByTransWorkRecordIdExist: Boolean
+  vWorkRecordCostByTransWorkRecordIdExists: Boolean
   vWorkRecordWorkRecordCertificateCountByTransWorkRecordIdExists: Boolean
   vWorkRecordWorkRecordVisiterCountByTransWorkRecordIdExists: Boolean
   historyInfoStaffByStaffHistoryIdAndStaffIdExists: Boolean

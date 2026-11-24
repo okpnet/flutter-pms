@@ -26,6 +26,13 @@ void main() {
       // 評価の対象でない(社外の所有物)ロットは、評価額 0
       if (l.valueOf('evaluated').isEmpty) expect(l.valueOf('amount'), '0', reason: l.id);
     }
+    // 実績の原価 = 材料 + 工程。作ったロットが無いときの単価は空
+    final works = await repos['costwork']!.find(take: 200);
+    for (final w in works) {
+      final total = num.parse(w.valueOf('material_amount')) + num.parse(w.valueOf('process_cost'));
+      expect(num.parse(w.valueOf('total_cost')), closeTo(total, 0.01), reason: w.id);
+      if (num.parse(w.valueOf('produced_quantity')) == 0) expect(w.valueOf('unit_cost'), '', reason: w.id);
+    }
     if (units.isNotEmpty) {
       expect((await repos['costunit']!.findById(units.first.id))?.id, units.first.id);
     }

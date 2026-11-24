@@ -39,3 +39,16 @@ entity:
       f_unit_cost: "品目の標準原価"
       f_unit_value: "ロットの単価"
       f_amount: "評価額"
+  costwork:
+    title: "実績の原価"
+    fields:
+      f_symbol: "シンボル"
+      f_item: "作った品目"
+      f_quantity: "作業実績の数量"
+      f_produced_quantity: "作ったロットの数量"
+      f_material_amount: "材料の評価額"
+      f_material_line_count: "材料の払出の行数"
+      f_has_supplied_material: "支給品を投入"
+      f_process_cost: "工程の原価"
+      f_total_cost: "作業実績の原価"
+      f_unit_cost: "ロットの単価"

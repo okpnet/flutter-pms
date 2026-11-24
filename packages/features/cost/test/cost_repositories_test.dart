@@ -57,6 +57,23 @@ void main() {
             'amount': '16040',
           },
         ]),
+        'CostWorkRecordPageRead' => _conn('WorkRecordCosts', [
+          {
+            '__typename': 'VWorkRecordCost',
+            'transWorkRecordId': 'w1',
+            'symbol': 'WR-1',
+            'transWorkPlanId': 'p1',
+            'itemId': 'i1',
+            'quantity': '3',
+            'producedQuantity': '3',
+            'materialAmount': '24800.00',
+            'materialLineCount': 1,
+            'hasSuppliedMaterial': true,
+            'processCost': '75',
+            'totalCost': '24875',
+            'unitCost': '8291.67',
+          },
+        ]),
         _ => _conn('VisiterValuations', [
           {
             '__typename': 'VVisiterValuation',
@@ -88,6 +105,13 @@ void main() {
     final valuation = (await repos['costvaluation']!.find(take: 10)).single;
     expect(valuation.valueOf('external_quantity'), '20');
     expect(valuation.valueOf('amount'), '16040');
+
+    final work = (await repos['costwork']!.find(take: 10)).single;
+    expect(work.id, 'w1');
+    expect(work.valueOf('material_amount'), '24800');
+    expect(work.valueOf('has_supplied_material'), '1');
+    expect(work.valueOf('total_cost'), '24875');
+    expect(work.valueOf('unit_cost'), '8291.67');
 
     final lot = (await repos['costlot']!.find(take: 10)).single;
     expect(lot.id, 'v1');

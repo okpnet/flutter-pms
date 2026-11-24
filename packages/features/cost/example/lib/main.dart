@@ -27,6 +27,7 @@ class ExampleApp extends StatelessWidget {
       FeatureHostEntry('標準原価の一覧', EntityListDestination('costunit')),
       FeatureHostEntry('在庫評価額の一覧', EntityListDestination('costvaluation')),
       FeatureHostEntry('ロットの評価額', EntityListDestination('costlot')),
+      FeatureHostEntry('実績の原価', EntityListDestination('costwork')),
     ],
     logger: logger,
     // flgtable_lib / theme_lib が使うテーマ側のロガー
