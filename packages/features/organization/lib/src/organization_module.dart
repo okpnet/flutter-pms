@@ -107,6 +107,11 @@ class OrganizationModule extends EntityFeatureModule {
     _ => super.locationOf(destination),
   };
 
+  /// 承認パターンの編集画面の下に、承認の段(子の表。ドラッグで並べ替え・追加・編集・削除)を出す。
+  @override
+  Widget? editSection(BuildContext context, WidgetRef ref, String entityKey, String id) =>
+      entityKey == 'approvalpattern' ? ApprovalStepsPage(key: ValueKey('steps:$id'), patternId: id, embedded: true) : null;
+
   /// 承認パターンの台帳の行の操作「承認の段」で、承認の段の画面(ドラッグで並べ替え)へ進む。
   @override
   Future<bool> handleRowAction(WidgetRef ref, RowAction action, EntityRecord record) async {

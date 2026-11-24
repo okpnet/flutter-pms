@@ -140,6 +140,9 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
   /// (例: 利害関係者のうち `is_supplier: はい` を `supplier` の選択とする)。
   Map<String, PickAlias> get pickAliases => const {};
 
+  /// 編集画面の下に出す、専用の部分(例: 承認パターンの承認の段)。null は何も出さない。
+  Widget? editSection(BuildContext context, WidgetRef ref, String entityKey, String id) => null;
+
   /// 選択画面の見出し。[key] は選択に使ったキー(別名を含む)。null は「<実体の名称>の選択」。
   String? pickTitle(WidgetRef ref, String key) => null;
 
@@ -483,6 +486,7 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
         onOpenChild: (childKey, childId, ownerId) => bus.execute(
           EntityEditDestination(childKey, id: childId, parentId: ownerId),
         ),
+        sectionBuilder: (context, entityKey, id) => editSection(context, ref, entityKey, id),
         onOpenRelated: (entityKey, id, initialValues) => bus.execute(
           EntityEditDestination(entityKey, id: id, initialValues: initialValues),
         ),

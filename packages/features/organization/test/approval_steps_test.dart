@@ -1,5 +1,7 @@
 import 'dart:ui' show PointerDeviceKind;
 
+import 'package:baton_lib/baton_lib.dart';
+import 'package:feature_shared/feature_shared.dart' show commandBusProvider;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -58,6 +60,7 @@ List<String> _order(WidgetTester tester) {
 }
 
 void main() {
+  embeddedMain();
   testWidgets('承認の段が順位の順に並び、承認パターンの名称が出る', (tester) async {
     await _open(tester, _gateway());
     expect(find.byKey(const Key('as-pattern')), findsOneWidget);
@@ -193,4 +196,33 @@ class _WriteFails extends InMemoryApprovalStepsGateway {
 
   @override
   Future<void> reorder(List<ApprovalStep> ordered) async => throw StateError('reorder failed');
+}
+
+void embeddedMain() {
+  testWidgets('承認パターンの編集画面の下に、承認の段(子の表)が出る。新規のときは出ない', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1300, 1600));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    Future<void> open(String location) async {
+      final router = GoRouter(initialLocation: location, routes: const OrganizationModule().routes);
+      final container = ProviderContainer(overrides: [approvalStepsGatewayProvider.overrideWithValue(_gateway()), commandBusProvider.overrideWithValue(_NoBus())]);
+      addTearDown(container.dispose);
+      // 実体を登録簿へ登録する(アプリが起動時に行う)
+      container.read(Provider<void>((ref) => const OrganizationModule().registerHandlers(CommandHandlerRegistry(), ref)));
+      await tester.pumpWidget(UncontrolledProviderScope(container: container, child: MaterialApp.router(routerConfig: router)));
+      await tester.pumpAndSettle();
+    }
+
+    await open('/e/approvalpattern/c1404734-0000-4000-8000-000000000001');
+    expect(find.text('承認の段'), findsWidgets);
+    expect(find.byKey(const Key('as-add')), findsOneWidget);
+    expect(find.text('製造部'), findsOneWidget);
+
+    await open('/e/approvalpattern/new');
+    expect(find.byKey(const Key('as-add')), findsNothing);
+  });
+}
+
+class _NoBus implements CommandBus {
+  @override
+  Future<R> execute<R>(ActionCommand<R> command) async => throw UnimplementedError('$command');
 }

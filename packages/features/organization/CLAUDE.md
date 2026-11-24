@@ -48,6 +48,7 @@
 
 ## 承認パターンの台帳と承認の段(GraphQL 版。Issue 20261122_0001)
 1.  承認パターン(`approvalpattern`。DB の `mstr_approval_pattern`)の台帳は、`ApprovalPatternRepository`(`lib/src/graphql/approval_pattern_repository.dart`。`organizationRepositories` が組み込む)で読み書きする。名称・読みは共通関数 `shared_appellation_save`(言語 `ja`)で作り、返った ID を本体の create・update の `names` に渡す。削除は論理削除。モデルは `organization_model/gql/approval_pattern.yaml`(`ApprovalPatternLedgerPage` ほか)。
+1.  承認パターンの編集画面の下に、承認の段が**子の表**として並ぶ(`OrganizationModule.editSection`。`feature_shared` の編集画面の差し込み口。`ApprovalStepsPage(embedded: true)`。新規のときは出さない)。ドラッグ並べ替え・追加・編集・削除は、下の専用の画面と同じ部品。
 1.  承認の段(部署・役職・順位。DB の承認パターン明細 `mstr_approval_pattern_detail` + 承認 `mstr_approval`)は、台帳の行の操作「承認の段」(`RowAction(key: 'steps')`。`OrganizationModule.handleRowAction`)で開く専用の画面 `/organization/approval-steps?id=…&name=…`(`ApprovalStepsPage`。契約 `organization_api.dart` の `ApprovalStepsDestination`)で編集する。実体 `approver`(承認できる人)は、この画面に置き換えて廃止した(画面案の「承認できる人」(段ごとの担当者)は DB に表・列が無い)。
 1.  段の表は `flgtable_lib`(`TableConfig.dragEnabled`)。**行をドラッグして並べ替える**と、順位(`mstr_approval.priority`)を 1 から振り直して保存する(変わった段だけを更新。`renumberSteps`)。表は、ソート・絞り込みをしていないあいだ、渡した元のリストへ並べ替えの結果を書き戻すため、ドロップのあとにそのリストの順で保存する。保存に失敗したときは、読み直して元の並びに戻し、知らせる。行のダブルクリック・長押しで部署・役職の変更・段の削除(確認つき)、「段を追加」で最後の順位の段を足す(役職は必須。部署は指定なしにできる)。
 1.  段の取得元は `IApprovalStepsGateway`(`approvalStepsGatewayProvider`。既定はメモリ上。`pms_app` が `GraphqlApprovalStepsGateway` に差し替える)。追加は「呼称 → 承認 → 承認パターン明細」の順(別のトランザクション)。

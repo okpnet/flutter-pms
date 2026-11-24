@@ -14,7 +14,10 @@ import '../i18n/strings_provider.dart';
 /// - 行のダブルクリック・長押しで、部署・役職の変更と段の削除。「段を追加」で、最後の順位の段を足す。
 /// - 並べ替えの結果は、表が元のリストへ書き戻す(ソート・絞り込みをしていないあいだ)ため、このページは、並べ替えを無効にしたソートを持たない。
 class ApprovalStepsPage extends ConsumerStatefulWidget {
-  const ApprovalStepsPage({super.key, required this.patternId, this.patternName = ''});
+  const ApprovalStepsPage({super.key, required this.patternId, this.patternName = '', this.embedded = false});
+
+  /// true のとき、画面の枠(タイトル・戻る)を持たず、承認パターンの編集画面の下に並べる部品として出す。
+  final bool embedded;
 
   final String patternId;
   final String patternName;
@@ -124,6 +127,16 @@ class _ApprovalStepsPageState extends ConsumerState<ApprovalStepsPage> {
   Widget build(BuildContext context) {
     final s = ref.watch(organizationStringsProvider).approvalSteps;
     final scheme = Theme.of(context).colorScheme;
+    if (widget.embedded) {
+      return Padding(
+        padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
+        child: !_loaded
+            ? const LoadingIndicator.centered()
+            : _failed
+            ? Center(child: Text(s.loadFailed, key: const Key('as-load-failed'), style: TextStyle(color: scheme.error)))
+            : _body(context, s, scheme),
+      );
+    }
     return ScreenScaffold(
       title: s.title,
       backLabel: s.back,
@@ -163,9 +176,8 @@ class _ApprovalStepsPageState extends ConsumerState<ApprovalStepsPage> {
         readOnly: true,
       ),
     ];
-    return ListView(
-      padding: const EdgeInsets.fromLTRB(24, 8, 24, 32),
-      children: [
+    final children = <Widget>[
+        if (widget.embedded) Padding(padding: const EdgeInsets.only(bottom: 8), child: Text(s.title as String, style: text.titleMedium)),
         if (widget.patternName.isNotEmpty)
           Padding(
             padding: const EdgeInsets.only(bottom: 4),
@@ -206,8 +218,9 @@ class _ApprovalStepsPageState extends ConsumerState<ApprovalStepsPage> {
               ),
             ),
           ),
-      ],
-    );
+    ];
+    if (widget.embedded) return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: children);
+    return ListView(padding: const EdgeInsets.fromLTRB(24, 8, 24, 32), children: children);
   }
 }
 

@@ -25,6 +25,7 @@ class EntityEditPage extends StatefulWidget {
     required this.onOpenChild,
     this.onPick,
     this.onOpenRelated,
+    this.sectionBuilder,
     this.id,
     this.parentId,
     this.initialValues = const {},
@@ -52,6 +53,9 @@ class EntityEditPage extends StatefulWidget {
 
   /// 関連する実体([ReverseList.editable])の編集を開く。[id] が null なら新規([initialValues] が初期値)。null のときは、関連する実体を開けない。
   final Future<void> Function(String entityKey, String? id, Map<String, String> initialValues)? onOpenRelated;
+
+  /// 編集画面の下(関連する一覧のあと)に出す、専用の部分。[id] はこの 1 件の id(新規のときは呼ばれない)。null を返すと何も出さない。
+  final Widget? Function(BuildContext context, String entityKey, String id)? sectionBuilder;
 
   @override
   State<EntityEditPage> createState() => _EntityEditPageState();
@@ -531,6 +535,7 @@ class _EntityEditPageState extends State<EntityEditPage> {
                 onOpen: widget.onOpenChild,
                 onOpenRelated: widget.onOpenRelated,
               ),
+          if (!_isNew) ?widget.sectionBuilder?.call(context, widget.entityKey, widget.id!),
           if (!_isNew)
             for (final child in scope.catalog.childrenOf(widget.entityKey))
               if (child.inlineInOwner)
