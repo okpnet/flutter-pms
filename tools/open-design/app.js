@@ -2714,7 +2714,25 @@
   /* ---------- generic domain screens (declared in domains.js) ----------
      Every ledger is one entity: a table (テーブル構造) or tree (ツリー構造) page, plus an edit page (編集構造)
      whose child entities are listed below the form. Routes: #/g/<screen>[/<tab>][/edit], #/g/e/<entity>/<id|new>[/<parentId>] */
-  const DOM = window.OD_DOMAINS ?? { entities: [], screens: [], groups: [] };
+  const DOM = window.OD_DOMAINS ?? { entities: [], screens: [], groups: [], menuGroups: [] };
+  /* メニューの見せ方。品質共通・品質管理文書・品質管理は、「運用と改善」の 1 つにまとめる(画面の生成 tools/entity_gen/gen.js は、元の groups を使う)。
+     流れの順(異常 → 処置 → リスク → 監査 → 文書)に並べ、親の画面から開く画面(監査チーム・監査標準項目)は出さない。 */
+  const MENU_GROUPS = (() => {
+    const OPS = ["qcommon", "qdoc", "quality"];
+    const HIDDEN = ["auditteam", "auditstdcheck"];
+    const ORDER = ["complaint", "disposal", "recur", "observe", "qrisk", "risk", "auditstd", "audit", "doc", "report", "doctier"];
+    const rank = (sid) => { const i = ORDER.indexOf(sid); return i < 0 ? ORDER.length : i; };
+    const ops = DOM.groups.filter((g) => OPS.includes(g.id));
+    if (!ops.length) return DOM.groups;
+    const screens = [...new Set(ops.flatMap((g) => g.screens))].filter((sid) => !HIDDEN.includes(sid)).map((sid, i) => [sid, i]).sort((x, y) => rank(x[0]) - rank(y[0]) || x[1] - y[1]).map((x) => x[0]);
+    const merged = { id: "ops", label: "運用と改善", icon: "check", screens };
+    const out = [];
+    for (const g of DOM.groups) {
+      if (!OPS.includes(g.id)) out.push(g);
+      else if (!out.includes(merged)) out.push(merged);
+    }
+    return out;
+  })();
   const G = {};
   const GS = {};
   const gSel = {}; // selected row per entity in view mode (master -> detail chain)
@@ -2761,7 +2779,7 @@
   const gName = (E, r) => { const k = E.fields.filter((f) => ["code", "no", "name", "title"].includes(f.id)).slice(0, 2); return (k.length ? k : [E.fields[0]]).map((f) => String(gShow(f, r[f.id]))).filter((x) => x && x !== "―").join(" ") || "―"; };
   const gScr = (E) => E.screen ?? (E.parent ? gScr(G[E.parent.ent]) : "");
   const gTab = (E) => E.tab ?? (E.parent ? gTab(G[E.parent.ent]) : "");
-  const gGroupOf = (sid) => DOM.groups.find((g) => g.screens.includes(sid));
+  const gGroupOf = (sid) => MENU_GROUPS.find((g) => g.screens.includes(sid));
   function gCrumb() {
     const P = parseRoute();
     const sid = P.name === "g" ? P.sid : P.name === "g/entity" && G[P.ent] ? gScr(G[P.ent]) : null;
@@ -3040,7 +3058,7 @@
   /* entry list of every business screen (used by the 業務メニュー page, mainly for phones) */
   function menuScreen() {
     const row = (href, ic, label, sub) => `<a class="rowi" href="${href}"><span class="rowi-main"><span class="rowi-name">${icon(ic)}${label}</span><span class="rowi-sub">${sub}</span></span><span class="rowi-right">${icon("chevron")}</span></a>`;
-    return DOM.groups.map((g) => `<section class="card list-card" aria-labelledby="mg-${g.id}"><h2 class="sec-title menu-title" id="mg-${g.id}">${icon(g.icon)}${g.label}</h2>${g.screens.map((sid) => {
+    return MENU_GROUPS.map((g) => `<section class="card list-card" aria-labelledby="mg-${g.id}"><h2 class="sec-title menu-title" id="mg-${g.id}">${icon(g.icon)}${g.label}</h2>${g.screens.map((sid) => {
       const S = GS[sid];
       if (sid === "doc") return row("#/manual", "list", "マニュアル", "品質管理文書のWiki（管理者は編集できます）");
       return row(`#/g/${sid}`, S.icon, S.label, S.tabs.map((t) => t.label).join("・"));
@@ -3417,22 +3435,21 @@
 
   /* ---------- 承認一覧（メニューごと）と、ダッシュボードの承認待ち通知 ----------
      ログインユーザーが承認者になっている「未承認」のレコードだけを、区分ごとのタブで表示する。
-       品質管理文書 → 文書 / 営業 → 受注 / 購買 → 発注・非計上発注 / 出荷管理 → 出荷 / 品質共通 → 異常・再発防止
+       運用と改善 → 文書・異常・再発防止 / 営業 → 受注 / 購買 → 発注・非計上発注 / 出荷管理 → 出荷
      「参照」を押すと、該当するレコードの画面へ移り、そのレコード 1 件に絞り込む（?id=）。
      行を押して複数を選び、まとめて承認する。承認の前に内容を確認し、担当者のパスワードでアカウントを照合する
      （プロトタイプのパスワードは、ログインと同じ demo-password）。承認すると、DB の更新結果を表示する（模擬）。 */
   const APV = JSON.parse(JSON.stringify(X.approval ?? { items: [] }));
   const APV_GROUPS = {
-    qdoc: [{ kind: "doc", label: "文書" }],
+    ops: [{ kind: "doc", label: "文書" }, { kind: "disposal", label: "異常" }, { kind: "recur", label: "再発防止" }],
     sales: [{ kind: "order", label: "受注" }],
     ship: [{ kind: "shipplan", label: "出荷" }],
     purchasing: [{ kind: "purchase", label: "発注" }, { kind: "unrec", label: "非計上発注" }],
-    qcommon: [{ kind: "disposal", label: "異常" }, { kind: "recur", label: "再発防止" }],
   };
   const APV_KIND = { doc: "文書", order: "受注", shipplan: "出荷", purchase: "発注", unrec: "非計上発注", disposal: "異常", recur: "再発防止" };
   const apvState = { tab: {}, sel: new Set(), dlg: { items: [], err: "", busy: false, result: null } };
   const apvMine = (kind) => APV.items.filter((x) => x.kind === kind && x.status === "未承認" && x.approver === D.user.name);
-  const apvGroupLabel = (gid) => DOM.groups.find((g) => g.id === gid)?.label ?? gid;
+  const apvGroupLabel = (gid) => MENU_GROUPS.find((g) => g.id === gid)?.label ?? gid;
   const apvRoute = (it) => (it.kind === "doc" ? `#/manual/${it.ref}` : `#/g/${it.kind}/main?id=${it.ref}`);
   const apvCount = (gid) => APV_GROUPS[gid].reduce((n, t) => n + apvMine(t.kind).length, 0);
   const apvTotal = () => Object.keys(APV_GROUPS).reduce((n, g) => n + apvCount(g), 0);
@@ -4944,7 +4961,7 @@
       { id: "equipment", icon: "factory", label: "設備" },
       { id: "maintenance", icon: "wrench", label: "保全" },
     ] },
-    ...DOM.groups.map((g) => ({ group: `g_${g.id}`, icon: g.icon, label: g.label,
+    ...MENU_GROUPS.map((g) => ({ group: `g_${g.id}`, icon: g.icon, label: g.label,
       children: [...(g.id === "result" ? [{ id: "wr", icon: "wrench", label: "実績登録" }, { id: "barcode", icon: "barcode", label: "バーコード" }] : []), ...g.screens.map((sid) => (sid === "doc" ? { id: "manual", icon: "list", label: "マニュアル" } : { id: `g/${sid}`, icon: GS[sid].icon, label: GS[sid].label })), ...(APV_GROUPS[g.id] ? [{ id: `ap/${g.id}`, icon: "check", label: "承認一覧" }] : [])] })),
     { id: "company", icon: "building", label: "会社情報" },
     /* DEV-ONLY: 確認用のメニュー（メンテナンス中・アクセス拒否）。実際の APP には含めない（フラグ・権限の結果で表示される） */
