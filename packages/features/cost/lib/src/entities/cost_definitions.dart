@@ -23,12 +23,13 @@ const List<EntityDefinition> costDefinitions = [
   EntityDefinition(
     key: 'costvaluation',
     viewOnly: true,
+    rowActions: [RowAction(key: 'lots', target: '')],
     fields: [
       FieldDefinition(key: 'item', kind: FieldKind.reference, required: false, reference: 'item', readOnly: true),
       FieldDefinition(key: 'quantity', kind: FieldKind.number, required: false, readOnly: true),
       FieldDefinition(key: 'evaluated_quantity', kind: FieldKind.number, required: false, readOnly: true),
       FieldDefinition(key: 'external_quantity', kind: FieldKind.number, required: false, readOnly: true),
-      FieldDefinition(key: 'amount', kind: FieldKind.number, required: false, readOnly: true),
+      FieldDefinition(key: 'amount', kind: FieldKind.number, required: false, readOnly: true, total: true),
     ],
   ),
   // ロットの評価額(1 行 = 棚ビジターのロット)

@@ -87,6 +87,9 @@ class EntityScreenStrings with BaseTranslations<EntityScreenLocale, EntityScreen
 	/// ja: '全${total}件のうち${shown}件を表示。'
 	String listCount({required Object total, required Object shown}) => '全${total}件のうち${shown}件を表示。';
 
+	/// ja: '合計(${label}): ${value}'
+	String listTotal({required Object label, required Object value}) => '合計(${label}): ${value}';
+
 	/// ja: '操作'
 	String get actionMenu => '操作';
 
@@ -390,6 +393,7 @@ extension on EntityScreenStrings {
 			'chipAll' => 'すべて',
 			'listTitle' => ({required Object name}) => '${name}の一覧',
 			'listCount' => ({required Object total, required Object shown}) => '全${total}件のうち${shown}件を表示。',
+			'listTotal' => ({required Object label, required Object value}) => '合計(${label}): ${value}',
 			'actionMenu' => '操作',
 			'actionSelected' => '選択中の行',
 			'actionHint' => '行を選ぶと、その行に使える操作を選べます。',

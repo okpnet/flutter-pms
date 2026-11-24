@@ -55,6 +55,7 @@ class EntityScreenStringsEn extends EntityScreenStrings with BaseTranslations<En
 	@override String get chipAll => 'All';
 	@override String listTitle({required Object name}) => '${name} list';
 	@override String listCount({required Object shown, required Object total}) => 'Showing ${shown} of ${total}.';
+	@override String listTotal({required Object label, required Object value}) => 'Total (${label}): ${value}';
 	@override String get actionMenu => 'Actions';
 	@override String get actionSelected => 'Selected row';
 	@override String get actionHint => 'Select a row to choose an action for it.';
@@ -220,6 +221,7 @@ extension on EntityScreenStringsEn {
 			'chipAll' => 'All',
 			'listTitle' => ({required Object name}) => '${name} list',
 			'listCount' => ({required Object shown, required Object total}) => 'Showing ${shown} of ${total}.',
+			'listTotal' => ({required Object label, required Object value}) => 'Total (${label}): ${value}',
 			'actionMenu' => 'Actions',
 			'actionSelected' => 'Selected row',
 			'actionHint' => 'Select a row to choose an action for it.',

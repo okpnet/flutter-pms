@@ -38,8 +38,19 @@ class CostStringsEn extends CostStrings with BaseTranslations<CostLocale, CostSt
 	CostStringsEn $copyWith({TranslationMetadata<CostLocale, CostStrings>? meta}) => CostStringsEn(meta: meta ?? this.$meta);
 
 	// Translations
+	@override late final _CostStrings$lotsAction$en lotsAction = _CostStrings$lotsAction$en._(_root);
 	@override late final _CostStrings$menu$en menu = _CostStrings$menu$en._(_root);
 	@override late final _CostStrings$entity$en entity = _CostStrings$entity$en._(_root);
+}
+
+// Path: lotsAction
+class _CostStrings$lotsAction$en extends CostStrings$lotsAction$ja {
+	_CostStrings$lotsAction$en._(CostStringsEn root) : this._root = root, super.internal(root);
+
+	final CostStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get costvaluation => 'View lots';
 }
 
 // Path: menu
@@ -156,6 +167,7 @@ class _CostStrings$entity$costlot$fields$en extends CostStrings$entity$costlot$f
 extension on CostStringsEn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'lotsAction.costvaluation' => 'View lots',
 			'menu.group' => 'Cost',
 			'menu.group_item' => 'Items',
 			'menu.group_work_record' => 'Work records',

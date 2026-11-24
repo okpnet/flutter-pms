@@ -29,7 +29,19 @@ class CostModule extends EntityFeatureModule {
   Map<String, List<EntityRecord>> get seeds => costSeeds;
 
   @override
-  EntityLabels labelsOf(WidgetRef ref) => CostLabels(ref.watch(costStringsProvider));
+  EntityLabels labelsOf(WidgetRef ref) {
+    final t = ref.watch(costStringsProvider);
+    return ExtraFieldLabels(CostLabels(t), {'costvaluation.lots': t.lotsAction.costvaluation});
+  }
+
+  /// 在庫評価額の行の操作「ロットを見る」: その品目のロットの評価額を開く(品目で絞る)。
+  @override
+  Future<bool> handleRowAction(WidgetRef ref, RowAction action, EntityRecord record) async {
+    if (action.key != 'lots') return false;
+    // 在庫評価額の行の id は品目の ID
+    await ref.read(commandBusProvider).execute(EntityListDestination('costlot', filter: {'item': record.id}));
+    return true;
+  }
 
   @override
   String get menuGroupId => workRecordGroupId;

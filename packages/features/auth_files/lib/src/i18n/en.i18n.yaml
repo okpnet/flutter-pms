@@ -122,10 +122,13 @@ admin:
     appUserId: Staff ID
     name: Name
     email: E-mail (optional)
+    # Enable when e-mail becomes available (restore together with the commented-out screen code)
+    # mail: Send by e-mail (when an e-mail is set and the server can send mail)
     create: Create user
     created: The user was created. Hand the code to the person.
   issuedCode:
     title: Issued code
     code: Code
     expires: Expires
+    # mailed: Sent by email
     handOver: Hand this to the person. It cannot be shown again after closing.

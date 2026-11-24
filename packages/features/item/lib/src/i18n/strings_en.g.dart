@@ -38,8 +38,19 @@ class ItemStringsEn extends ItemStrings with BaseTranslations<ItemLocale, ItemSt
 	ItemStringsEn $copyWith({TranslationMetadata<ItemLocale, ItemStrings>? meta}) => ItemStringsEn(meta: meta ?? this.$meta);
 
 	// Translations
+	@override late final _ItemStrings$costAction$en costAction = _ItemStrings$costAction$en._(_root);
 	@override late final _ItemStrings$menu$en menu = _ItemStrings$menu$en._(_root);
 	@override late final _ItemStrings$entity$en entity = _ItemStrings$entity$en._(_root);
+}
+
+// Path: costAction
+class _ItemStrings$costAction$en extends ItemStrings$costAction$ja {
+	_ItemStrings$costAction$en._(ItemStringsEn root) : this._root = root, super.internal(root);
+
+	final ItemStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get item => 'View cost';
 }
 
 // Path: menu
@@ -418,6 +429,7 @@ class _ItemStrings$entity$itemonhand$fields$en extends ItemStrings$entity$itemon
 extension on ItemStringsEn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'costAction.item' => 'View cost',
 			'menu.group' => 'Items',
 			'menu.group_purchasing' => 'Purchasing',
 			'entity.itemkind.title' => 'Item kinds',

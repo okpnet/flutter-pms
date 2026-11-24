@@ -15,6 +15,7 @@ searchHint: Search
 chipAll: All
 listTitle: ${name} list
 listCount: Showing ${shown} of ${total}.
+listTotal: "Total (${label}): ${value}"
 actionMenu: Actions
 actionSelected: Selected row
 actionHint: Select a row to choose an action for it.

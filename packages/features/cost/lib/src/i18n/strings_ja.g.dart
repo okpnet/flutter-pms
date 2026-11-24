@@ -35,8 +35,21 @@ class CostStrings with BaseTranslations<CostLocale, CostStrings> {
 	CostStrings $copyWith({TranslationMetadata<CostLocale, CostStrings>? meta}) => CostStrings(meta: meta ?? this.$meta);
 
 	// Translations
+	late final CostStrings$lotsAction$ja lotsAction = CostStrings$lotsAction$ja.internal(_root);
 	late final CostStrings$menu$ja menu = CostStrings$menu$ja.internal(_root);
 	late final CostStrings$entity$ja entity = CostStrings$entity$ja.internal(_root);
+}
+
+// Path: lotsAction
+class CostStrings$lotsAction$ja {
+	CostStrings$lotsAction$ja.internal(this._root);
+
+	final CostStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'ロットを見る'
+	String get costvaluation => 'ロットを見る';
 }
 
 // Path: menu
@@ -212,6 +225,7 @@ class CostStrings$entity$costlot$fields$ja {
 extension on CostStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'lotsAction.costvaluation' => 'ロットを見る',
 			'menu.group' => '原価',
 			'menu.group_item' => '品目',
 			'menu.group_work_record' => '作業実績',

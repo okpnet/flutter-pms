@@ -231,7 +231,7 @@ class _EntityListPageState extends State<EntityListPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 SizedBox(
-                  height: _cardHeight(constraints.maxHeight, records.length),
+                  height: _cardHeight(constraints.maxHeight, records.length, extra: _hasTotal(loaded.definition) ? 44 : 0),
                   child: Card(
                     margin: EdgeInsets.zero,
                     clipBehavior: Clip.antiAlias,
@@ -303,6 +303,7 @@ class _EntityListPageState extends State<EntityListPage> {
                         if (chip != null) _chipBand(chip),
                         const Divider(height: 1),
                         Expanded(child: _table(loaded, records)),
+                        ?_totalBand(loaded.definition, records),
                       ],
                     ),
                   ),
@@ -316,10 +317,10 @@ class _EntityListPageState extends State<EntityListPage> {
   }
 
   /// 一覧のカードの高さ。行数に合わせる(行が少ないとき、表の下に空白を作らない)。上限は画面の残り。
-  double _cardHeight(double available, int rows) {
+  double _cardHeight(double available, int rows, {double extra = 0}) {
     const head = 150.0; // 見出し・件数・区切り・チップ
     const rowHeight = 44.0;
-    final want = head + (rows + 1) * rowHeight;
+    final want = head + extra + (rows + 1) * rowHeight; // extra: 合計の帯
     final max = available - 32; // 上下の余白
     return want < max ? want : max;
   }
@@ -334,6 +335,40 @@ class _EntityListPageState extends State<EntityListPage> {
     ),
     onChanged: (v) => setState(() => _query = v),
   );
+
+  bool _hasTotal(EntityDefinition definition) => definition.fields.any((f) => f.total && f.kind == FieldKind.number);
+
+  /// 合計を出す項目(`FieldDefinition.total`)の、表示している行の合計。無いときは null。
+  Widget? _totalBand(EntityDefinition definition, List<EntityRecord> records) {
+    final fields = [for (final f in definition.fields) if (f.total && f.kind == FieldKind.number) f];
+    if (fields.isEmpty) return null;
+    final scope = widget.scope;
+    final theme = Theme.of(context);
+    String sum(String key) {
+      var total = 0.0;
+      for (final r in records) {
+        total += double.tryParse(r.valueOf(key)) ?? 0;
+      }
+      return total == total.roundToDouble() ? '${total.round()}' : total.toStringAsFixed(2);
+    }
+
+    return Container(
+      key: const ValueKey('listTotal'),
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      decoration: BoxDecoration(border: Border(top: BorderSide(color: theme.dividerColor))),
+      child: Wrap(
+        spacing: 24,
+        children: [
+          for (final f in fields)
+            Text(
+              scope.strings.listTotal(label: scope.labels.field(widget.entityKey, f.key), value: sum(f.key)),
+              style: theme.textTheme.titleSmall,
+            ),
+        ],
+      ),
+    );
+  }
 
   /// 種別のチップ(表の直上の細い帯)。
   Widget _chipBand(FieldDefinition chip) {

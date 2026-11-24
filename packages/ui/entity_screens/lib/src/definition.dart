@@ -105,6 +105,7 @@ class FieldDefinition {
     this.maxFrom = const [],
     this.needUnless,
     this.lockedBy,
+    this.total = false,
   }) : assert(
          kind != FieldKind.reference || reference != null,
          'reference には参照先の実体キーが必要',
@@ -173,6 +174,9 @@ class FieldDefinition {
   /// (例: 品目の購入品は、仕入先が登録されている間は外せない)。子は、この実体が所有する子の台帳。
   final String? lockedBy;
 
+  /// 台帳の下に、表示している行の合計を出す(数値の項目。DB のビューの値の総計。例: 在庫評価額)。
+  final bool total;
+
   Map<String, Object?> toJson() => {
     'key': key,
     'kind': kind.name,
@@ -193,6 +197,7 @@ class FieldDefinition {
     'maxFrom': [for (final m in maxFrom) m.toJson()],
     'needUnless': needUnless,
     'lockedBy': lockedBy,
+    if (total) 'total': total,
   };
 }
 

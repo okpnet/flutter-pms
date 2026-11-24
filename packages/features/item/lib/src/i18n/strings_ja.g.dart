@@ -35,8 +35,21 @@ class ItemStrings with BaseTranslations<ItemLocale, ItemStrings> {
 	ItemStrings $copyWith({TranslationMetadata<ItemLocale, ItemStrings>? meta}) => ItemStrings(meta: meta ?? this.$meta);
 
 	// Translations
+	late final ItemStrings$costAction$ja costAction = ItemStrings$costAction$ja.internal(_root);
 	late final ItemStrings$menu$ja menu = ItemStrings$menu$ja.internal(_root);
 	late final ItemStrings$entity$ja entity = ItemStrings$entity$ja.internal(_root);
+}
+
+// Path: costAction
+class ItemStrings$costAction$ja {
+	ItemStrings$costAction$ja.internal(this._root);
+
+	final ItemStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '原価を見る'
+	String get item => '原価を見る';
 }
 
 // Path: menu
@@ -588,6 +601,7 @@ class ItemStrings$entity$itemonhand$fields$ja {
 extension on ItemStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'costAction.item' => '原価を見る',
 			'menu.group' => '品目',
 			'menu.group_purchasing' => '購買',
 			'entity.itemkind.title' => '品目区分',

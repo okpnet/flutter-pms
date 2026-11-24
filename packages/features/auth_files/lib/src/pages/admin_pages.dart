@@ -34,6 +34,8 @@ Future<void> _showIssuedCode(
         Text(
           '${t.admin.issuedCode.expires}: ${_format(issued.expiresAt?.toLocal())}',
         ),
+        // メールが使えるようになったら有効にする(メールで送信済みの表示。i18n の `mailed` も戻す)
+        // if (issued.mailed) Text(t.admin.issuedCode.mailed),
         Text(t.admin.issuedCode.handOver),
       ],
     ),
@@ -296,6 +298,8 @@ class _AdminCreateUserPageState extends ConsumerState<AdminCreateUserPage> with 
   late final _appUserId = TextEditingController(text: widget.appUserId);
   late final _name = TextEditingController(text: widget.initialName);
   final _email = TextEditingController();
+  // メールが使えるようになったら有効にする(「メールで送る」の選択)
+  // bool _mail = true;
   bool _submitted = false;
   String? _notice;
 
@@ -324,7 +328,8 @@ class _AdminCreateUserPageState extends ConsumerState<AdminCreateUserPage> with 
         appUserId: _appUserId.text,
         name: _name.text.trim().isEmpty ? null : _name.text,
         email: _email.text.trim().isEmpty ? null : _email.text,
-        mail: false, // メールは送らない(コードは管理者が本人へ手渡す)
+        mail: false, // メールは送らない(コードは管理者が本人へ手渡す)。メールが使えるようになったら、下の行に戻す
+        // mail: _mail && _email.text.trim().isNotEmpty,
       );
     }, operation: 'createUser');
     if (!ok || !mounted) return;
@@ -371,6 +376,15 @@ class _AdminCreateUserPageState extends ConsumerState<AdminCreateUserPage> with 
                   onChanged: (_) => setState(() {}),
                   decoration: InputDecoration(labelText: c.email, border: const OutlineInputBorder(), errorText: err(() => _emailError(t))),
                 ),
+                // メールが使えるようになったら有効にする(Eメールがあるときだけ選べる。i18n の `mail` も戻す)
+                // CheckboxListTile(
+                //   key: const Key('cu-mail'),
+                //   contentPadding: EdgeInsets.zero,
+                //   controlAffinity: ListTileControlAffinity.leading,
+                //   value: _mail && _email.text.trim().isNotEmpty,
+                //   onChanged: _email.text.trim().isEmpty ? null : (v) => setState(() => _mail = v ?? false),
+                //   title: Text(c.mail),
+                // ),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: FilledButton(key: const Key('cu-create'), onPressed: busy ? null : _create, child: Text(c.create)),

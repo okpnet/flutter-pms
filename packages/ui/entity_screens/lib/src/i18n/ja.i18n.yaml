@@ -16,6 +16,7 @@ searchHint: 検索
 chipAll: すべて
 listTitle: ${name}の一覧
 listCount: 全${total}件のうち${shown}件を表示。
+listTotal: "合計(${label}): ${value}"
 actionMenu: 操作
 actionSelected: 選択中の行
 actionHint: 行を選ぶと、その行に使える操作を選べます。
