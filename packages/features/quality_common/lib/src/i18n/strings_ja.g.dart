@@ -36,6 +36,7 @@ class QualityCommonStrings with BaseTranslations<QualityCommonLocale, QualityCom
 
 	// Translations
 	late final QualityCommonStrings$checkitem$ja checkitem = QualityCommonStrings$checkitem$ja.internal(_root);
+	late final QualityCommonStrings$related$ja related = QualityCommonStrings$related$ja.internal(_root);
 	late final QualityCommonStrings$menu$ja menu = QualityCommonStrings$menu$ja.internal(_root);
 	late final QualityCommonStrings$entity$ja entity = QualityCommonStrings$entity$ja.internal(_root);
 }
@@ -50,6 +51,30 @@ class QualityCommonStrings$checkitem$ja {
 
 	/// ja: '判定の式'
 	String get expr => '判定の式';
+}
+
+// Path: related
+class QualityCommonStrings$related$ja {
+	QualityCommonStrings$related$ja.internal(this._root);
+
+	final QualityCommonStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '再発防止処置'
+	String get recur => '再発防止処置';
+
+	/// ja: '再発防止監視'
+	String get obsprev => '再発防止監視';
+
+	/// ja: '注文リスク'
+	String get orderrisk => '注文リスク';
+
+	/// ja: '受注明細リスク'
+	String get orderdetailrisk => '受注明細リスク';
+
+	/// ja: '工程リスク'
+	String get taskrisk => '工程リスク';
 }
 
 // Path: menu
@@ -430,6 +455,11 @@ extension on QualityCommonStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'checkitem.expr' => '判定の式',
+			'related.recur' => '再発防止処置',
+			'related.obsprev' => '再発防止監視',
+			'related.orderrisk' => '注文リスク',
+			'related.orderdetailrisk' => '受注明細リスク',
+			'related.taskrisk' => '工程リスク',
 			'menu.group' => '品質共通',
 			'entity.disposal.title' => '異常処置',
 			'entity.disposal.fields.f_trans_complaint_id' => '異常',

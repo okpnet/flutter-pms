@@ -1,3 +1,7 @@
+# 親の編集画面の下に出す、関連する一覧の見出し(手書き)
+related:
+  disposal: 異常処置
+  auditstdcheck: 監査標準項目
 # 監査を実施する側の画面(手書き。この行より上は、生成で書き換えない)
 auditRun:
   myTitle: 自分の監査

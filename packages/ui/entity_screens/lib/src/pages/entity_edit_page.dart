@@ -24,6 +24,7 @@ class EntityEditPage extends StatefulWidget {
     required this.scope,
     required this.onOpenChild,
     this.onPick,
+    this.onOpenRelated,
     this.id,
     this.parentId,
     this.initialValues = const {},
@@ -48,6 +49,9 @@ class EntityEditPage extends StatefulWidget {
   /// 子の編集を開く。[id] が null なら新規(親は [ownerId])。
   final Future<void> Function(String childKey, String? id, String ownerId)
   onOpenChild;
+
+  /// 関連する実体([ReverseList.editable])の編集を開く。[id] が null なら新規([initialValues] が初期値)。null のときは、関連する実体を開けない。
+  final Future<void> Function(String entityKey, String? id, Map<String, String> initialValues)? onOpenRelated;
 
   @override
   State<EntityEditPage> createState() => _EntityEditPageState();
@@ -525,6 +529,7 @@ class _EntityEditPageState extends State<EntityEditPage> {
                 targetId: widget.id!,
                 scope: scope,
                 onOpen: widget.onOpenChild,
+                onOpenRelated: widget.onOpenRelated,
               ),
           if (!_isNew)
             for (final child in scope.catalog.childrenOf(widget.entityKey))
@@ -1058,8 +1063,10 @@ class _ReverseSection extends StatefulWidget {
     required this.targetId,
     required this.scope,
     required this.onOpen,
+    this.onOpenRelated,
   });
 
+  final Future<void> Function(String entityKey, String? id, Map<String, String> initialValues)? onOpenRelated;
   final String entityKey;
   final ReverseList reverse;
   final String targetId;
@@ -1099,7 +1106,28 @@ class _ReverseSectionState extends State<_ReverseSection> {
     return _ReverseData(definition, records, namesOf(options), owners);
   }
 
+  bool get _related => widget.reverse.editable && widget.onOpenRelated != null;
+
+  void _reload() {
+    if (mounted) {
+      setState(() {
+        _generation++;
+        _future = _load();
+      });
+    }
+  }
+
+  Future<void> _add() async {
+    await widget.onOpenRelated!(widget.reverse.entity, null, {widget.reverse.field: widget.targetId});
+    _reload();
+  }
+
   Future<void> _open(EntityRecord record) async {
+    if (_related) {
+      await widget.onOpenRelated!(widget.reverse.entity, record.id, const {});
+      _reload();
+      return;
+    }
     final ownerId = record.parentId;
     if (ownerId == null) return;
     await widget.onOpen(widget.reverse.entity, record.id, ownerId);
@@ -1122,11 +1150,24 @@ class _ReverseSectionState extends State<_ReverseSection> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              scope.labels.reverse(widget.entityKey, widget.reverse.entity),
-              style: theme.textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.w700,
-              ),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    scope.labels.reverse(widget.entityKey, widget.reverse.entity),
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+                if (_related)
+                  OutlinedButton.icon(
+                    key: ValueKey('reverse-add-' + widget.reverse.entity),
+                    onPressed: _add,
+                    icon: const Icon(Icons.add, size: 18),
+                    label: Text(scope.strings.add),
+                  ),
+              ],
             ),
             const SizedBox(height: 12),
             FutureBuilder<_ReverseData>(

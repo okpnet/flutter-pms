@@ -26,14 +26,28 @@ class QualityModule extends EntityFeatureModule {
   const QualityModule();
 
   @override
-  List<EntityDefinition> get definitions => qualityDefinitions;
-
-  @override
   Map<String, List<EntityRecord>> get seeds => qualitySeeds;
 
+  /// 異常の編集の下に異常処置、監査標準の編集の下に監査標準項目(追加・編集もできる。別の機能の実体を、キーで引く)を出す。
   @override
-  EntityLabels labelsOf(WidgetRef ref) =>
-      QualityLabels(ref.watch(qualityStringsProvider));
+  List<EntityDefinition> get definitions => [
+    for (final d in qualityDefinitions)
+      switch (d.key) {
+        'complaint' => withReverseList(d, const ReverseList(entity: 'disposal', field: 'trans_complaint_id', editable: true)),
+        'auditstd' => withReverseList(d, const ReverseList(entity: 'auditstdcheck', field: 'mstr_audit_std_id', editable: true)),
+        _ => d,
+      },
+  ];
+
+  @override
+  EntityLabels labelsOf(WidgetRef ref) {
+    final t = ref.watch(qualityStringsProvider);
+    return ExtraFieldLabels(
+      QualityLabels(t),
+      const {},
+      reverses: {'complaint.disposal': t.related.disposal, 'auditstd.auditstdcheck': t.related.auditstdcheck},
+    );
+  }
 
   @override
   String get menuGroupId => operationsMenuGroupId;
@@ -79,7 +93,9 @@ class QualityModule extends EntityFeatureModule {
         MenuEntry(groupId: menuGroupId, groupLabel: menuGroupLabel(ref), label: label, destination: destination);
     // 台帳の項目から、監査チーム(監査の子として開く)を除く。異常 → 異常の登録 → 自分の監査 → 監査の計画 → ほかの台帳の順
     bool isLedger(MenuEntry e, String key) => e.destination is EntityListDestination && (e.destination as EntityListDestination).entityKey == key;
-    final ledgers = super.menuEntries(ref).where((e) => !isLedger(e, 'auditteam')).toList();
+    // リスクの割り付け(注文・受注明細・工程)は、リスクの編集画面から開く
+    const hidden = ['auditteam', 'orderrisk', 'orderdetailrisk', 'taskrisk'];
+    final ledgers = super.menuEntries(ref).where((e) => !hidden.any((k) => isLedger(e, k))).toList();
     final complaint = ledgers.where((e) => isLedger(e, 'complaint')).toList();
     final others = ledgers.where((e) => !isLedger(e, 'complaint')).toList();
     return [

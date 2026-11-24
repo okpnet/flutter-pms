@@ -483,6 +483,9 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
         onOpenChild: (childKey, childId, ownerId) => bus.execute(
           EntityEditDestination(childKey, id: childId, parentId: ownerId),
         ),
+        onOpenRelated: (entityKey, id, initialValues) => bus.execute(
+          EntityEditDestination(entityKey, id: id, initialValues: initialValues),
+        ),
       );
     },
   );

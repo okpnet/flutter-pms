@@ -35,12 +35,28 @@ class QualityStrings with BaseTranslations<QualityLocale, QualityStrings> {
 	QualityStrings $copyWith({TranslationMetadata<QualityLocale, QualityStrings>? meta}) => QualityStrings(meta: meta ?? this.$meta);
 
 	// Translations
+	late final QualityStrings$related$ja related = QualityStrings$related$ja.internal(_root);
 	late final QualityStrings$auditRun$ja auditRun = QualityStrings$auditRun$ja.internal(_root);
 	late final QualityStrings$auditNotice$ja auditNotice = QualityStrings$auditNotice$ja.internal(_root);
 	late final QualityStrings$complaintRegister$ja complaintRegister = QualityStrings$complaintRegister$ja.internal(_root);
 	late final QualityStrings$auditPlan$ja auditPlan = QualityStrings$auditPlan$ja.internal(_root);
 	late final QualityStrings$menu$ja menu = QualityStrings$menu$ja.internal(_root);
 	late final QualityStrings$entity$ja entity = QualityStrings$entity$ja.internal(_root);
+}
+
+// Path: related
+class QualityStrings$related$ja {
+	QualityStrings$related$ja.internal(this._root);
+
+	final QualityStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '異常処置'
+	String get disposal => '異常処置';
+
+	/// ja: '監査標準項目'
+	String get auditstdcheck => '監査標準項目';
 }
 
 // Path: auditRun
@@ -1029,6 +1045,8 @@ class QualityStrings$entity$auditmember$fields$ja {
 extension on QualityStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'related.disposal' => '異常処置',
+			'related.auditstdcheck' => '監査標準項目',
 			'auditRun.myTitle' => '自分の監査',
 			'auditRun.myHint' => '自分のチームに割り当てられた監査です。実施中のものを上に、予定日の近い順に並びます。',
 			'auditRun.sectionInProgress' => '実施中',

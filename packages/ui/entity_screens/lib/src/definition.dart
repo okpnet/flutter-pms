@@ -199,7 +199,7 @@ class FieldDefinition {
 /// 他の実体から、この実体の1件を参照している一覧(例: 力量を持つ作業者)。
 /// 読み取り専用で、編集画面の下に出す。
 class ReverseList {
-  const ReverseList({required this.entity, required this.field});
+  const ReverseList({required this.entity, required this.field, this.editable = false});
 
   /// 参照している側の実体のキー。
   final String entity;
@@ -207,7 +207,11 @@ class ReverseList {
   /// [entity] の中で、この実体を参照している項目のキー。
   final String field;
 
-  Map<String, Object?> toJson() => {'entity': entity, 'field': field};
+  /// true のとき、行を開くと [entity] の編集へ進み、見出しの右の「追加」で、この1件を [field] の初期値にして新規登録を開く
+  /// (所有する子ではない関連する実体を、親の画面から追加・編集するため。例: 監査標準の項目)。
+  final bool editable;
+
+  Map<String, Object?> toJson() => {'entity': entity, 'field': field, if (editable) 'editable': true};
 }
 
 /// 所有する子の台帳を、親の表の各行に子の表を入れた「表の中の表」で出す指定。

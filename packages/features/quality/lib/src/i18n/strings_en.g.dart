@@ -38,12 +38,24 @@ class QualityStringsEn extends QualityStrings with BaseTranslations<QualityLocal
 	QualityStringsEn $copyWith({TranslationMetadata<QualityLocale, QualityStrings>? meta}) => QualityStringsEn(meta: meta ?? this.$meta);
 
 	// Translations
+	@override late final _QualityStrings$related$en related = _QualityStrings$related$en._(_root);
 	@override late final _QualityStrings$auditRun$en auditRun = _QualityStrings$auditRun$en._(_root);
 	@override late final _QualityStrings$auditNotice$en auditNotice = _QualityStrings$auditNotice$en._(_root);
 	@override late final _QualityStrings$complaintRegister$en complaintRegister = _QualityStrings$complaintRegister$en._(_root);
 	@override late final _QualityStrings$auditPlan$en auditPlan = _QualityStrings$auditPlan$en._(_root);
 	@override late final _QualityStrings$menu$en menu = _QualityStrings$menu$en._(_root);
 	@override late final _QualityStrings$entity$en entity = _QualityStrings$entity$en._(_root);
+}
+
+// Path: related
+class _QualityStrings$related$en extends QualityStrings$related$ja {
+	_QualityStrings$related$en._(QualityStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get disposal => 'Corrective actions';
+	@override String get auditstdcheck => 'Audit standard items';
 }
 
 // Path: auditRun
@@ -619,6 +631,8 @@ class _QualityStrings$entity$auditmember$fields$en extends QualityStrings$entity
 extension on QualityStringsEn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'related.disposal' => 'Corrective actions',
+			'related.auditstdcheck' => 'Audit standard items',
 			'auditRun.myTitle' => 'My audits',
 			'auditRun.myHint' => 'Audits assigned to your team. In-progress audits come first, then by scheduled date.',
 			'auditRun.sectionInProgress' => 'In progress',

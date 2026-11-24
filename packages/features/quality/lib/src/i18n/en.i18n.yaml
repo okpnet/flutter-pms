@@ -1,3 +1,7 @@
+# Headings of the related lists under a parent's edit screen (hand-written)
+related:
+  disposal: Corrective actions
+  auditstdcheck: Audit standard items
 # Screens for the auditor side (hand-written. Above this line is not rewritten by generation)
 auditRun:
   myTitle: My audits

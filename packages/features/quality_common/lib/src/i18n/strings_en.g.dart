@@ -39,6 +39,7 @@ class QualityCommonStringsEn extends QualityCommonStrings with BaseTranslations<
 
 	// Translations
 	@override late final _QualityCommonStrings$checkitem$en checkitem = _QualityCommonStrings$checkitem$en._(_root);
+	@override late final _QualityCommonStrings$related$en related = _QualityCommonStrings$related$en._(_root);
 	@override late final _QualityCommonStrings$menu$en menu = _QualityCommonStrings$menu$en._(_root);
 	@override late final _QualityCommonStrings$entity$en entity = _QualityCommonStrings$entity$en._(_root);
 }
@@ -51,6 +52,20 @@ class _QualityCommonStrings$checkitem$en extends QualityCommonStrings$checkitem$
 
 	// Translations
 	@override String get expr => 'Judgement formula';
+}
+
+// Path: related
+class _QualityCommonStrings$related$en extends QualityCommonStrings$related$ja {
+	_QualityCommonStrings$related$en._(QualityCommonStringsEn root) : this._root = root, super.internal(root);
+
+	final QualityCommonStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get recur => 'Recurrence prevention actions';
+	@override String get obsprev => 'Recurrence prevention monitoring';
+	@override String get orderrisk => 'Order risks';
+	@override String get orderdetailrisk => 'Sales order line risks';
+	@override String get taskrisk => 'Task risks';
 }
 
 // Path: menu
@@ -301,6 +316,11 @@ extension on QualityCommonStringsEn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'checkitem.expr' => 'Judgement formula',
+			'related.recur' => 'Recurrence prevention actions',
+			'related.obsprev' => 'Recurrence prevention monitoring',
+			'related.orderrisk' => 'Order risks',
+			'related.orderdetailrisk' => 'Sales order line risks',
+			'related.taskrisk' => 'Task risks',
 			'menu.group' => 'Quality common',
 			'entity.disposal.title' => 'Nonconformity dispositions',
 			'entity.disposal.fields.f_trans_complaint_id' => 'Nonconformity',

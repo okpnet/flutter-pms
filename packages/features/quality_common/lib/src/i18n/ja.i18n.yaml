@@ -1,6 +1,13 @@
 # 監査標準の項目の手書きの項目名
 checkitem:
   expr: 判定の式
+# 親の編集画面の下に出す、関連する一覧の見出し(手書き)
+related:
+  recur: 再発防止処置
+  obsprev: 再発防止監視
+  orderrisk: 注文リスク
+  orderdetailrisk: 受注明細リスク
+  taskrisk: 工程リスク
 # --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
 # 品質共通の実体と項目の表示名(日本語。基準言語)。
 # 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。

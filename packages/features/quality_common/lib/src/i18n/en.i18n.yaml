@@ -3,6 +3,13 @@
 checkitem:
   expr: Judgement formula
 
+# Headings of the related lists under a parent's edit screen (hand-written)
+related:
+  recur: Recurrence prevention actions
+  obsprev: Recurrence prevention monitoring
+  orderrisk: Order risks
+  orderdetailrisk: Sales order line risks
+  taskrisk: Task risks
 menu:
   group: "Quality common"
 entity:

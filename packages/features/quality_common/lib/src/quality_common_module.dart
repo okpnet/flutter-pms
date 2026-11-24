@@ -34,7 +34,29 @@ class QualityCommonModule extends EntityFeatureModule {
 
   @override
   List<EntityDefinition> get definitions => [
-    for (final d in qualityCommonDefinitions) d.key == 'auditstdcheck' ? auditCheckitemDefinition : d,
+    for (final d in qualityCommonDefinitions) _withRelated(d.key == 'auditstdcheck' ? auditCheckitemDefinition : d),
+  ];
+
+  /// 異常処置の編集の下に再発防止処置、再発防止処置の下に再発防止監視、リスクの下に割り付け(注文・受注明細・工程)を出す
+  /// (追加・編集もできる。別の機能の実体は、キーで引く)。
+  static EntityDefinition _withRelated(EntityDefinition d) => switch (d.key) {
+    'disposal' => withReverseList(d, const ReverseList(entity: 'recur', field: 'trans_disposal_id', editable: true)),
+    'recur' => withReverseList(d, const ReverseList(entity: 'obsprev', field: 'trans_recurrence_prevention_id', editable: true)),
+    'risk' => [
+      const ReverseList(entity: 'orderrisk', field: 'trans_risk_id', editable: true),
+      const ReverseList(entity: 'orderdetailrisk', field: 'risk_id', editable: true),
+      const ReverseList(entity: 'taskrisk', field: 'risk_id', editable: true),
+    ].fold(d, withReverseList),
+    _ => d,
+  };
+
+  /// メニューには、親の画面から開く実体(再発防止処置・再発防止監視・監査標準項目)を出さない。
+  static const _hiddenFromMenu = {'recur', 'obsprev', 'auditstdcheck'};
+
+  @override
+  List<MenuEntry> menuEntries(WidgetRef ref) => [
+    for (final e in super.menuEntries(ref))
+      if (!(e.destination is EntityListDestination && _hiddenFromMenu.contains((e.destination as EntityListDestination).entityKey))) e,
   ];
 
   @override
@@ -57,6 +79,16 @@ class _Labels extends QualityCommonLabels {
   const _Labels(QualityCommonStrings t) : _strings = t, super(t);
 
   final QualityCommonStrings _strings;
+
+  @override
+  String reverse(String entityKey, String reverseEntityKey) => switch ('$entityKey.$reverseEntityKey') {
+    'disposal.recur' => _strings.related.recur,
+    'recur.obsprev' => _strings.related.obsprev,
+    'risk.orderrisk' => _strings.related.orderrisk,
+    'risk.orderdetailrisk' => _strings.related.orderdetailrisk,
+    'risk.taskrisk' => _strings.related.taskrisk,
+    _ => super.reverse(entityKey, reverseEntityKey),
+  };
 
   @override
   String field(String entityKey, String fieldKey) =>

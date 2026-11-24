@@ -301,6 +301,39 @@ void main() {
       expect(find.text('ルート'), findsOneWidget);
     });
 
+    testWidgets('編集: 追加・編集できる関連一覧は、「追加」で親を初期値にして開き、行で編集を開く', (tester) async {
+      await tester.binding.setSurfaceSize(const Size(900, 1800));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+      const kind = EntityDefinition(
+        key: 'kind',
+        reverseLists: [ReverseList(entity: 'node', field: 'kind', editable: true)],
+        fields: [FieldDefinition(key: 'code'), FieldDefinition(key: 'name')],
+      );
+      final catalog = EntityCatalog()
+        ..register(InMemoryEntityRepository(kind, [_r('k1', {'code': 'K1', 'name': '製品'})]))
+        ..register(InMemoryEntityRepository(_node, [_r('n1', {'code': 'N1', 'name': 'ルート', 'kind': 'k1'})]));
+      final opened = <String>[];
+      await tester.pumpWidget(
+        _host(
+          EntityEditPage(
+            entityKey: 'kind',
+            id: 'k1',
+            scope: _scope(catalog),
+            onOpenChild: (_, _, _) async {},
+            onOpenRelated: (key, id, initial) async => opened.add('$key|$id|${initial['kind']}'),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const ValueKey('reverse-add-node')));
+      await tester.pumpAndSettle();
+      expect(opened, ['node|null|k1']);
+      await tester.tap(find.text('ルート'));
+      await tester.tap(find.text('ルート'));
+      await tester.pumpAndSettle();
+      expect(opened.last, 'node|n1|null');
+    });
+
     testWidgets('編集: 使用中は削除確認のあとエラーを表示する', (tester) async {
       await tester.binding.setSurfaceSize(const Size(900, 1600));
       addTearDown(() => tester.binding.setSurfaceSize(null));
