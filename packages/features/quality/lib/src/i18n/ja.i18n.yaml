@@ -80,7 +80,7 @@ complaintRegister:
   pick: 選ぶ
   titleLabel: 題名
   details: 内容
-  occurredAt: 発生日
+  occurredAt: 発見日
   now: 登録の日時
   pickDate: 日付を選ぶ
   quantity: 数量(省略は 1)

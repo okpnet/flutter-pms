@@ -206,13 +206,6 @@ const List<EntityDefinition> purchasingDefinitions = [
   ),
   EntityDefinition(
     key: 'purchaserec',
-    rowActions: [
-      RowAction(
-        key: 'reserve',
-        target: 'stockrez',
-        initialValues: {'purchaserec': RowAction.idSource},
-      ),
-    ],
     fields: [
       FieldDefinition(
         key: 'trans_purchase_detail_id',

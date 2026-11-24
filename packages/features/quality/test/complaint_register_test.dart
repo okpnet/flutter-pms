@@ -156,15 +156,18 @@ void main() {
       expect(g.registered.last.targetId, 'LT-0009');
     });
 
-    testWidgets('関連する画面からは、種類と対象を決めて開ける(対象は選び直せる)', (tester) async {
+    testWidgets('関連する画面からは、種類と対象を決めて開ける(対象は変更できない)。発見日の標準は当日', (tester) async {
       final g = InMemoryComplaintRegisterGateway();
       await _open(tester, _app(g, _Bus(), location: '/quality/complaint-register?target=order&id=o1&label=SO-1001'));
       expect(find.text('SO-1001'), findsOneWidget);
+      expect(find.byKey(const Key('cr-pick')).evaluate().isEmpty ? null : tester.widget<OutlinedButton>(find.byKey(const Key('cr-pick'))).onPressed, isNull);
+      expect(tester.widget<DropdownButtonFormField<ComplaintTarget>>(find.byKey(const Key('cr-kind'))).onChanged, isNull);
       await tester.enterText(find.byKey(const Key('cr-title')), '梱包の破損');
       await tester.tap(find.byKey(const Key('cr-register')));
       await tester.pumpAndSettle();
       expect(g.registered.single.target, ComplaintTarget.order);
       expect(g.registered.single.targetId, 'o1');
+      expect(g.registered.single.occurredAt, DateUtils.dateOnly(DateTime.now()));
     });
   });
 }

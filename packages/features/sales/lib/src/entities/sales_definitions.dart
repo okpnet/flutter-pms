@@ -5,13 +5,6 @@ import 'package:entity_screens/entity_screens.dart';
 const List<EntityDefinition> salesDefinitions = [
   EntityDefinition(
     key: 'order',
-    rowActions: [
-      RowAction(
-        key: 'reserve',
-        target: 'stockrez',
-        initialValues: {'order': RowAction.idSource},
-      ),
-    ],
     fields: [
       FieldDefinition(key: 'order_number'),
       FieldDefinition(key: 'customer_order_number', required: false),

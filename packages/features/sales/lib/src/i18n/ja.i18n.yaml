@@ -17,7 +17,6 @@ entity:
       f_delivery_date: "納期"
       f_deadline: "完了期限"
       f_remarks: "備考"
-      f_reserve: "クレームを登録"
   orderdetail:
     title: "受注明細"
     fields:

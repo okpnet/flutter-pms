@@ -146,7 +146,7 @@ class _QualityStrings$complaintRegister$en extends QualityStrings$complaintRegis
 	@override String get pick => 'Choose';
 	@override String get titleLabel => 'Title';
 	@override String get details => 'Details';
-	@override String get occurredAt => 'Occurred on';
+	@override String get occurredAt => 'Found on';
 	@override String get now => 'Time of registration';
 	@override String get pickDate => 'Pick a date';
 	@override String get quantity => 'Quantity (default 1)';
@@ -694,7 +694,7 @@ extension on QualityStringsEn {
 			'complaintRegister.pick' => 'Choose',
 			'complaintRegister.titleLabel' => 'Title',
 			'complaintRegister.details' => 'Details',
-			'complaintRegister.occurredAt' => 'Occurred on',
+			'complaintRegister.occurredAt' => 'Found on',
 			'complaintRegister.now' => 'Time of registration',
 			'complaintRegister.pickDate' => 'Pick a date',
 			'complaintRegister.quantity' => 'Quantity (default 1)',

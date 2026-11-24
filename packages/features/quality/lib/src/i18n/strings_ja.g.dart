@@ -294,8 +294,8 @@ class QualityStrings$complaintRegister$ja {
 	/// ja: '内容'
 	String get details => '内容';
 
-	/// ja: '発生日'
-	String get occurredAt => '発生日';
+	/// ja: '発見日'
+	String get occurredAt => '発見日';
 
 	/// ja: '登録の日時'
 	String get now => '登録の日時';
@@ -1104,7 +1104,7 @@ extension on QualityStrings {
 			'complaintRegister.pick' => '選ぶ',
 			'complaintRegister.titleLabel' => '題名',
 			'complaintRegister.details' => '内容',
-			'complaintRegister.occurredAt' => '発生日',
+			'complaintRegister.occurredAt' => '発見日',
 			'complaintRegister.now' => '登録の日時',
 			'complaintRegister.pickDate' => '日付を選ぶ',
 			'complaintRegister.quantity' => '数量(省略は 1)',

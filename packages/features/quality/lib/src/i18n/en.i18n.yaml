@@ -81,7 +81,7 @@ complaintRegister:
   pick: Choose
   titleLabel: Title
   details: Details
-  occurredAt: Occurred on
+  occurredAt: Found on
   now: Time of registration
   pickDate: Pick a date
   quantity: Quantity (default 1)

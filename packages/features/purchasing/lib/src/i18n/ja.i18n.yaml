@@ -65,7 +65,6 @@ entity:
       f_receive_at: "受入日時"
       f_quantity: "数量"
       f_remarks: "備考"
-      f_reserve: "異常を登録"
   purchaseline:
     title: "受入明細"
     fields:

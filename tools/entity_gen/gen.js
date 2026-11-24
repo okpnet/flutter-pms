@@ -144,7 +144,7 @@ function fromHtml(e) {
   // whenAny を指定すると、そのどれかの真偽の項目がオンの行にだけ出す(行の種類を真偽の列で見分ける台帳用)
   const rowActions = e.actions
     ? e.actions.map((x) => ({ key: x.key, label: x.label, target: x.target, params: x.params, whenAny: x.whenAny }))
-    : e.action
+    : e.action && e.action.to !== 'complaint' // 異常の登録への遷移は、各機能が手書きで足す(引当予約の遷移ではない)
       ? [{ key: 'reserve', label: e.action.label, target: 'stockrez', params: { [e.action.param]: 'id' } }]
       : undefined;
   if (e.parent && e.tree) {

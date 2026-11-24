@@ -10,6 +10,9 @@ import 'my_audits_page.dart' show formatAuditDate;
 
 /// 異常の登録。対象の種類(設備・工程・作業実績・受入・ロット・受注・利害関係者)を選び、その対象を選んで、題名・内容を入れて登録する。
 ///
+/// 種類と対象を決めて開いたとき([target] と [targetId])は、変更できない(関連する画面の行の操作からの登録)。
+/// 発見日の標準は当日。
+///
 /// 種類は、対象を選ぶことで決まる(DB の関数 `complaint_register` が、対象の ID のどれが入っているかで種類を決める)。
 /// 設備・工程・受入・受注・利害関係者は、台帳の選択画面(`EntityPickerDestination`。機能同士はキーだけで使う)で選ぶ。
 /// 作業実績・ロットは、シンボル(バーコード)または ID を入力する。関連する画面の行の操作からは、種類と対象を決めて開く。
@@ -39,7 +42,11 @@ class _ComplaintRegisterPageState extends ConsumerState<ComplaintRegisterPage> {
       ComplaintTarget.byName(widget.target) ?? ComplaintTarget.process;
   String _targetId = '';
   String _targetLabel = '';
-  DateTime? _occurredAt;
+  // 発見日。標準は当日(日付だけ)
+  DateTime? _occurredAt = DateUtils.dateOnly(DateTime.now());
+
+  /// 行の操作などから、種類と対象を決めて開いたとき(変更できない)
+  bool get _locked => widget.target != null && (widget.targetId ?? '').isNotEmpty;
   bool _submitted = false;
   bool _saving = false;
   bool _registered = false;
@@ -165,7 +172,7 @@ class _ComplaintRegisterPageState extends ConsumerState<ComplaintRegisterPage> {
                     for (final t in ComplaintTarget.values)
                       DropdownMenuItem(value: t, child: Text(_kindLabel(s, t))),
                   ],
-                  onChanged: _saving
+                  onChanged: _saving || _locked
                       ? null
                       : (t) => setState(() {
                           if (t == null || t == _target) return;
@@ -203,12 +210,12 @@ class _ComplaintRegisterPageState extends ConsumerState<ComplaintRegisterPage> {
                     const SizedBox(width: 10),
                     OutlinedButton(
                       key: const Key('cr-pick'),
-                      onPressed: _saving ? null : _pick,
+                      onPressed: _saving || _locked ? null : _pick,
                       child: Text(s.pick),
                     ),
                   ],
                 ),
-                if (_target.symbolEntry) ...[
+                if (_target.symbolEntry && !_locked) ...[
                   const SizedBox(height: 12),
                   TextField(
                     key: const Key('cr-target-text'),
