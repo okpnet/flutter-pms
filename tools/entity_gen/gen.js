@@ -445,6 +445,12 @@ for (const e of entities) {
 const dq = (s) => `'${String(s).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\$/g, '\\$').replace(/\r?\n/g, '\\n')}'`;
 const camel = (pkg) => pkg.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
 // 手書きに変えたファイル(先頭付近に下の印がある)は、上書きしない。生成物でないものを手で直したときは、ファイルの先頭に印を書く。
+/** 項目名の手直し(DB のコメント・画面案の名称を、画面では別の名前にするもの。キー = `<実体のキー>.<項目のキー>`)。 */
+const LABEL_FIX = {
+  // 異常の日付は、発生ではなく発見の日(再発防止の「発生年月日」は変えない)
+  'complaint.occurent_at': '発見日',
+};
+
 const HAND_MARK = '手書き(tools/entity_gen/gen.js は上書きしない)';
 const skipped = [];
 const written = [];
@@ -565,7 +571,7 @@ function yamlJa(pkg, list, file) {
   for (const e of list) {
     lines.push(`  ${e.key}:`, `    title: ${y(e.label)}`, '    fields:');
     for (const fl of e.fields) {
-      lines.push(`      f_${fl.key}: ${y(fl.label)}`);
+      lines.push(`      f_${fl.key}: ${y(LABEL_FIX[`${e.key}.${fl.key}`] ?? fl.label)}`);
       // 別の真偽(トグル)がオンで無効になる項目(例: 言い値のときの単価)の表示
       const flag = e.fields.find((x) => x.disables === fl.key);
       if (flag) lines.push(`      f_${fl.key}__off: ${y(flag.label.replace(/区分$/, '') + '（都度確認）')}`);
