@@ -38,8 +38,40 @@ class AccessControlStringsEn extends AccessControlStrings with BaseTranslations<
 	AccessControlStringsEn $copyWith({TranslationMetadata<AccessControlLocale, AccessControlStrings>? meta}) => AccessControlStringsEn(meta: meta ?? this.$meta);
 
 	// Translations
+	@override late final _AccessControlStrings$bulk$en bulk = _AccessControlStrings$bulk$en._(_root);
 	@override late final _AccessControlStrings$menu$en menu = _AccessControlStrings$menu$en._(_root);
 	@override late final _AccessControlStrings$entity$en entity = _AccessControlStrings$entity$en._(_root);
+}
+
+// Path: bulk
+class _AccessControlStrings$bulk$en extends AccessControlStrings$bulk$ja {
+	_AccessControlStrings$bulk$en._(AccessControlStringsEn root) : this._root = root, super.internal(root);
+
+	final AccessControlStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Bulk access settings';
+	@override String get back => 'Back';
+	@override String get hint => 'Pick a department or a staff member, check "Allow" and "Write" for each access path, and save them together. A staff member\'s permissions add to those of their departments (permissions inherited from departments are not changed here).';
+	@override String get scopeDepartment => 'Department';
+	@override String get scopeStaff => 'Staff';
+	@override String get targetDepartment => 'Select a department';
+	@override String get targetStaff => 'Select a staff member';
+	@override String get pickTarget => 'Select a department or a staff member.';
+	@override String get filter => 'Filter by page name or path';
+	@override String get allowAll => 'Allow all shown';
+	@override String get denyAll => 'Clear all shown';
+	@override String get colAllow => 'Allow';
+	@override String get colWrite => 'Write';
+	@override String get colPage => 'Page';
+	@override String get empty => 'No matching access paths.';
+	@override String get noChanges => 'No changes.';
+	@override String changes({required Object n}) => '${n} changes (highlighted rows).';
+	@override String get save => 'Save';
+	@override String get reset => 'Revert';
+	@override String get saved => 'Saved.';
+	@override String get saveFailed => 'Could not save. Some changes may have been saved, so the current state was reloaded.';
+	@override String get loadFailed => 'Could not load.';
 }
 
 // Path: menu
@@ -170,6 +202,28 @@ class _AccessControlStrings$entity$effectiveaccesspath$fields$en extends AccessC
 extension on AccessControlStringsEn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'bulk.title' => 'Bulk access settings',
+			'bulk.back' => 'Back',
+			'bulk.hint' => 'Pick a department or a staff member, check "Allow" and "Write" for each access path, and save them together. A staff member\'s permissions add to those of their departments (permissions inherited from departments are not changed here).',
+			'bulk.scopeDepartment' => 'Department',
+			'bulk.scopeStaff' => 'Staff',
+			'bulk.targetDepartment' => 'Select a department',
+			'bulk.targetStaff' => 'Select a staff member',
+			'bulk.pickTarget' => 'Select a department or a staff member.',
+			'bulk.filter' => 'Filter by page name or path',
+			'bulk.allowAll' => 'Allow all shown',
+			'bulk.denyAll' => 'Clear all shown',
+			'bulk.colAllow' => 'Allow',
+			'bulk.colWrite' => 'Write',
+			'bulk.colPage' => 'Page',
+			'bulk.empty' => 'No matching access paths.',
+			'bulk.noChanges' => 'No changes.',
+			'bulk.changes' => ({required Object n}) => '${n} changes (highlighted rows).',
+			'bulk.save' => 'Save',
+			'bulk.reset' => 'Revert',
+			'bulk.saved' => 'Saved.',
+			'bulk.saveFailed' => 'Could not save. Some changes may have been saved, so the current state was reloaded.',
+			'bulk.loadFailed' => 'Could not load.',
 			'menu.group' => 'Access control',
 			'entity.accesspath.title' => 'Access paths',
 			'entity.accesspath.fields.f_name_ja' => 'Page name (Japanese)',

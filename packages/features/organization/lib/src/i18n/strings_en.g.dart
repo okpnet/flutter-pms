@@ -160,6 +160,7 @@ class _OrganizationStrings$accessRights$en extends OrganizationStrings$accessRig
 
 	// Translations
 	@override String get title => 'Access rights';
+	@override String get bulk => 'Bulk settings';
 	@override String get staff => 'Staff access';
 	@override String get department => 'Department access';
 	@override String get effective => 'Effective access';
@@ -642,6 +643,7 @@ extension on OrganizationStringsEn {
 			'staffUser.createUser' => 'Create user',
 			'staffUser.approvalSteps' => 'Approval steps',
 			'accessRights.title' => 'Access rights',
+			'accessRights.bulk' => 'Bulk settings',
 			'accessRights.staff' => 'Staff access',
 			'accessRights.department' => 'Department access',
 			'accessRights.effective' => 'Effective access',

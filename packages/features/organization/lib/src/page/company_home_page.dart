@@ -1,3 +1,4 @@
+import 'package:access_control/access_control_api.dart' show AccessBulkDestination;
 import 'package:app_shell/app_shell.dart';
 import 'package:entity_screens/entity_screens.dart';
 import 'package:feature_shared/feature_shared.dart';
@@ -386,6 +387,11 @@ class _CompanyHomePageState extends ConsumerState<CompanyHomePage> {
             mainAxisSize: MainAxisSize.min,
             spacing: 8,
             children: [
+              _EditButton(
+                key: const ValueKey('homeBulkAccess'),
+                label: ref.watch(organizationStringsProvider).accessRights.bulk,
+                onPressed: () => _open(const AccessBulkDestination()),
+              ),
               _EditButton(
                 key: const ValueKey('homeStaffAccess'),
                 label: ref.watch(organizationStringsProvider).accessRights.staff,

@@ -24,11 +24,15 @@ dependencies:
   graphql: ^5.2.3
   entity_screens:
     path: ../../ui/entity_screens
+  app_shell:
+    path: ../../ui/app_shell
+  loadux_lib:
+    path: ../../ui/loadux_lib
+  baton_lib:
+    path: ../../core/baton_lib
 
 dev_dependencies:
   gql: ^1.0.1
-  baton_lib:
-    path: ../../core/baton_lib
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml

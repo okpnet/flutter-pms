@@ -28,6 +28,7 @@ const CUSTOM = [
   ['maintenance', 'maintenance', '/maintenance', 'メンテナンス中', 'Under maintenance', true],
   ['backstage', 'backstage', '/backstage', '裏設定', 'Backstage settings', true],
   ['barcode_entry', 'top', '/barcode', 'リーディングトップ', 'Barcode entry top', false],
+  ['access_control', 'bulk', '/access-control/bulk', 'アクセス権の一括設定', 'Bulk access settings', false],
   ['production_plan', 'mrp', '/mrp', '資材所要計算(MRP)', 'Material requirements planning (MRP)', false],
   ['manual', 'manual', '/manual', 'マニュアル', 'Manual', false],
   ['quality_document', 'body', '/quality-document/body', '文書コンテンツの本文', 'Document content body', false],

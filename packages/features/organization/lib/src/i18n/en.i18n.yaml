@@ -78,6 +78,7 @@ staffUser:
 # Access rights on the company overview (hand-written)
 accessRights:
   title: Access rights
+  bulk: Bulk settings
   staff: Staff access
   department: Department access
   effective: Effective access

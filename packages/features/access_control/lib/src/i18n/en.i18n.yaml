@@ -1,3 +1,28 @@
+# Bulk access settings (hand-written; not overwritten by generation)
+bulk:
+  title: Bulk access settings
+  back: Back
+  hint: Pick a department or a staff member, check "Allow" and "Write" for each access path, and save them together. A staff member's permissions add to those of their departments (permissions inherited from departments are not changed here).
+  scopeDepartment: Department
+  scopeStaff: Staff
+  targetDepartment: Select a department
+  targetStaff: Select a staff member
+  pickTarget: Select a department or a staff member.
+  filter: Filter by page name or path
+  allowAll: Allow all shown
+  denyAll: Clear all shown
+  colAllow: Allow
+  colWrite: Write
+  colPage: Page
+  empty: No matching access paths.
+  noChanges: No changes.
+  changes: '${n} changes (highlighted rows).'
+  save: Save
+  reset: Revert
+  saved: Saved.
+  saveFailed: Could not save. Some changes may have been saved, so the current state was reloaded.
+  loadFailed: Could not load.
+# --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
 # Access control strings (English). Keys missing here fall back to the base language (ja).
 menu:
   group: "Access control"

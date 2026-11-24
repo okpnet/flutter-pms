@@ -76,6 +76,7 @@ staffUser:
 # 会社情報の概要のアクセス権(手書き)
 accessRights:
   title: アクセス権
+  bulk: 一括設定
   staff: 担当者のアクセス権
   department: 部署のアクセス権
   effective: 実効アクセス権

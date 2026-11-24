@@ -35,8 +35,84 @@ class AccessControlStrings with BaseTranslations<AccessControlLocale, AccessCont
 	AccessControlStrings $copyWith({TranslationMetadata<AccessControlLocale, AccessControlStrings>? meta}) => AccessControlStrings(meta: meta ?? this.$meta);
 
 	// Translations
+	late final AccessControlStrings$bulk$ja bulk = AccessControlStrings$bulk$ja.internal(_root);
 	late final AccessControlStrings$menu$ja menu = AccessControlStrings$menu$ja.internal(_root);
 	late final AccessControlStrings$entity$ja entity = AccessControlStrings$entity$ja.internal(_root);
+}
+
+// Path: bulk
+class AccessControlStrings$bulk$ja {
+	AccessControlStrings$bulk$ja.internal(this._root);
+
+	final AccessControlStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: 'アクセス権の一括設定'
+	String get title => 'アクセス権の一括設定';
+
+	/// ja: '戻る'
+	String get back => '戻る';
+
+	/// ja: '部署または担当者を選び、アクセスパスごとに「許可」と「書き込み」をチェックして、まとめて保存します。担当者の許可は、所属する部署の権限に足すためのものです(部署から受け継ぐ権限は、ここでは変わりません)。'
+	String get hint => '部署または担当者を選び、アクセスパスごとに「許可」と「書き込み」をチェックして、まとめて保存します。担当者の許可は、所属する部署の権限に足すためのものです(部署から受け継ぐ権限は、ここでは変わりません)。';
+
+	/// ja: '部署'
+	String get scopeDepartment => '部署';
+
+	/// ja: '担当者'
+	String get scopeStaff => '担当者';
+
+	/// ja: '部署を選ぶ'
+	String get targetDepartment => '部署を選ぶ';
+
+	/// ja: '担当者を選ぶ'
+	String get targetStaff => '担当者を選ぶ';
+
+	/// ja: '部署または担当者を選んでください。'
+	String get pickTarget => '部署または担当者を選んでください。';
+
+	/// ja: 'ページ名・パスで絞り込み'
+	String get filter => 'ページ名・パスで絞り込み';
+
+	/// ja: '表示中をすべて許可'
+	String get allowAll => '表示中をすべて許可';
+
+	/// ja: '表示中をすべて外す'
+	String get denyAll => '表示中をすべて外す';
+
+	/// ja: '許可'
+	String get colAllow => '許可';
+
+	/// ja: '書き込み'
+	String get colWrite => '書き込み';
+
+	/// ja: 'ページ'
+	String get colPage => 'ページ';
+
+	/// ja: '該当するアクセスパスがありません。'
+	String get empty => '該当するアクセスパスがありません。';
+
+	/// ja: '変更はありません。'
+	String get noChanges => '変更はありません。';
+
+	/// ja: '${n} 件の変更があります(色の付いた行)。'
+	String changes({required Object n}) => '${n} 件の変更があります(色の付いた行)。';
+
+	/// ja: '保存'
+	String get save => '保存';
+
+	/// ja: '元に戻す'
+	String get reset => '元に戻す';
+
+	/// ja: '保存しました。'
+	String get saved => '保存しました。';
+
+	/// ja: '保存できませんでした。一部だけ保存された可能性があるため、現在の状態を読み直しました。'
+	String get saveFailed => '保存できませんでした。一部だけ保存された可能性があるため、現在の状態を読み直しました。';
+
+	/// ja: '読み込めませんでした。'
+	String get loadFailed => '読み込めませんでした。';
 }
 
 // Path: menu
@@ -215,6 +291,28 @@ class AccessControlStrings$entity$effectiveaccesspath$fields$ja {
 extension on AccessControlStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'bulk.title' => 'アクセス権の一括設定',
+			'bulk.back' => '戻る',
+			'bulk.hint' => '部署または担当者を選び、アクセスパスごとに「許可」と「書き込み」をチェックして、まとめて保存します。担当者の許可は、所属する部署の権限に足すためのものです(部署から受け継ぐ権限は、ここでは変わりません)。',
+			'bulk.scopeDepartment' => '部署',
+			'bulk.scopeStaff' => '担当者',
+			'bulk.targetDepartment' => '部署を選ぶ',
+			'bulk.targetStaff' => '担当者を選ぶ',
+			'bulk.pickTarget' => '部署または担当者を選んでください。',
+			'bulk.filter' => 'ページ名・パスで絞り込み',
+			'bulk.allowAll' => '表示中をすべて許可',
+			'bulk.denyAll' => '表示中をすべて外す',
+			'bulk.colAllow' => '許可',
+			'bulk.colWrite' => '書き込み',
+			'bulk.colPage' => 'ページ',
+			'bulk.empty' => '該当するアクセスパスがありません。',
+			'bulk.noChanges' => '変更はありません。',
+			'bulk.changes' => ({required Object n}) => '${n} 件の変更があります(色の付いた行)。',
+			'bulk.save' => '保存',
+			'bulk.reset' => '元に戻す',
+			'bulk.saved' => '保存しました。',
+			'bulk.saveFailed' => '保存できませんでした。一部だけ保存された可能性があるため、現在の状態を読み直しました。',
+			'bulk.loadFailed' => '読み込めませんでした。',
 			'menu.group' => 'アクセス管理',
 			'entity.accesspath.title' => 'アクセスパス',
 			'entity.accesspath.fields.f_name_ja' => 'ページ名（日本語）',

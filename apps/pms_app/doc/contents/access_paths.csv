@@ -1,4 +1,4 @@
-﻿usecase_path,name_ja,name_en,feature,public
+usecase_path,name_ja,name_en,feature,public
 /boot,ブート,Boot,app_core,true
 /dashboard,ダッシュボード,Dashboard,app_core,false
 /settings,設定,Settings,app_core,false
@@ -6,6 +6,7 @@
 /maintenance,メンテナンス中,Under maintenance,maintenance,true
 /backstage,裏設定,Backstage settings,backstage,true
 /barcode,リーディングトップ,Barcode entry top,barcode_entry,false
+/access-control/bulk,アクセス権の一括設定,Bulk access settings,access_control,false
 /mrp,資材所要計算(MRP),Material requirements planning (MRP),production_plan,false
 /manual,マニュアル,Manual,manual,false
 /quality-document/body,文書コンテンツの本文,Document content body,quality_document,false

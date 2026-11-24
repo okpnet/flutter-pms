@@ -298,6 +298,9 @@ class OrganizationStrings$accessRights$ja {
 	/// ja: 'アクセス権'
 	String get title => 'アクセス権';
 
+	/// ja: '一括設定'
+	String get bulk => '一括設定';
+
 	/// ja: '担当者のアクセス権'
 	String get staff => '担当者のアクセス権';
 
@@ -1014,6 +1017,7 @@ extension on OrganizationStrings {
 			'staffUser.createUser' => 'ユーザーを作成',
 			'staffUser.approvalSteps' => '承認の段',
 			'accessRights.title' => 'アクセス権',
+			'accessRights.bulk' => '一括設定',
 			'accessRights.staff' => '担当者のアクセス権',
 			'accessRights.department' => '部署のアクセス権',
 			'accessRights.effective' => '実効アクセス権',

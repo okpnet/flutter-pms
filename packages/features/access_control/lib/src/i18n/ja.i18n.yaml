@@ -1,3 +1,27 @@
+# アクセス権の一括設定(手書き。この行より上は、生成で書き換えない)
+bulk:
+  title: アクセス権の一括設定
+  back: 戻る
+  hint: 部署または担当者を選び、アクセスパスごとに「許可」と「書き込み」をチェックして、まとめて保存します。担当者の許可は、所属する部署の権限に足すためのものです(部署から受け継ぐ権限は、ここでは変わりません)。
+  scopeDepartment: 部署
+  scopeStaff: 担当者
+  targetDepartment: 部署を選ぶ
+  targetStaff: 担当者を選ぶ
+  pickTarget: 部署または担当者を選んでください。
+  filter: ページ名・パスで絞り込み
+  allowAll: 表示中をすべて許可
+  denyAll: 表示中をすべて外す
+  colAllow: 許可
+  colWrite: 書き込み
+  colPage: ページ
+  empty: 該当するアクセスパスがありません。
+  noChanges: 変更はありません。
+  changes: '${n} 件の変更があります(色の付いた行)。'
+  save: 保存
+  reset: 元に戻す
+  saved: 保存しました。
+  saveFailed: 保存できませんでした。一部だけ保存された可能性があるため、現在の状態を読み直しました。
+  loadFailed: 読み込めませんでした。
 # --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
 # アクセス管理の実体と項目の表示名(日本語。基準言語)。
 # 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。
