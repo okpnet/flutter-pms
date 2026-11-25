@@ -123,3 +123,8 @@ app.*.symbols
 # 本家 GraphQL スキーマ(10MB超)。melos run gql:schema で取得する
 /.schema/
 /doc/contents/property_list.csv
+
+# 秘密情報(パスワード・鍵)を含む環境変数のファイル。雛形は .env.example を使う
+.env
+**/.env
+!**/.env.example
