@@ -449,6 +449,9 @@ const camel = (pkg) => pkg.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
 const LABEL_FIX = {
   // 異常の日付は、発生ではなく発見の日(再発防止の「発生年月日」は変えない)
   'complaint.occurent_at': '発見日',
+  // 文書階層(マスタ)は、利用者の言葉では「文書レベル」(画面案の呼び名。マニュアル・手順書・様式の段)
+  'doctier': '文書レベル',
+  'doc.mstr_document_tier_id': '文書レベル',
 };
 
 const HAND_MARK = '手書き(tools/entity_gen/gen.js は上書きしない)';
@@ -569,7 +572,7 @@ function yamlJa(pkg, list, file) {
     lines.splice(at, 0, ...externalGroups.map((g) => `  group_${g}: ${y(PROJECTS[g].title)}`));
   }
   for (const e of list) {
-    lines.push(`  ${e.key}:`, `    title: ${y(e.label)}`, '    fields:');
+    lines.push(`  ${e.key}:`, `    title: ${y(LABEL_FIX[e.key] ?? e.label)}`, '    fields:');
     for (const fl of e.fields) {
       lines.push(`      f_${fl.key}: ${y(LABEL_FIX[`${e.key}.${fl.key}`] ?? fl.label)}`);
       // 別の真偽(トグル)がオンで無効になる項目(例: 言い値のときの単価)の表示

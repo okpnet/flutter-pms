@@ -183,7 +183,7 @@ class _CostStrings$entity$costwork$fields$en extends CostStrings$entity$costwork
 	@override String get f_quantity => 'Work record quantity';
 	@override String get f_produced_quantity => 'Produced lot quantity';
 	@override String get f_material_amount => 'Material valuation';
-	@override String get f_material_line_count => 'Material issue lines';
+	@override String get f_material_line_count => 'Material count';
 	@override String get f_has_supplied_material => 'Supplied material used';
 	@override String get f_process_cost => 'Process cost';
 	@override String get f_total_cost => 'Work record cost';
@@ -233,7 +233,7 @@ extension on CostStringsEn {
 			'entity.costwork.fields.f_quantity' => 'Work record quantity',
 			'entity.costwork.fields.f_produced_quantity' => 'Produced lot quantity',
 			'entity.costwork.fields.f_material_amount' => 'Material valuation',
-			'entity.costwork.fields.f_material_line_count' => 'Material issue lines',
+			'entity.costwork.fields.f_material_line_count' => 'Material count',
 			'entity.costwork.fields.f_has_supplied_material' => 'Supplied material used',
 			'entity.costwork.fields.f_process_cost' => 'Process cost',
 			'entity.costwork.fields.f_total_cost' => 'Work record cost',

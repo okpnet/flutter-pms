@@ -30,7 +30,7 @@ menu:
   group: "Quality documents"
 entity:
   doctier:
-    title: "Document tiers"
+    title: "Document levels"
     fields:
       f_code: "Code"
       f_identifier: "Control number identifier"
@@ -50,7 +50,7 @@ entity:
       f_name: "Document name"
       f_pronunciation: "Reading"
       f_nickname: "Abbreviation"
-      f_mstr_document_tier_id: "Document tier"
+      f_mstr_document_tier_id: "Document level"
       f_file: "File"
       f_remarks: "Remarks"
   doccontent:

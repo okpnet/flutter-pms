@@ -157,8 +157,8 @@ class QualityDocumentStrings$entity$doctier$ja {
 
 	// Translations
 
-	/// ja: '文書階層'
-	String get title => '文書階層';
+	/// ja: '文書レベル'
+	String get title => '文書レベル';
 
 	late final QualityDocumentStrings$entity$doctier$fields$ja fields = QualityDocumentStrings$entity$doctier$fields$ja.internal(_root);
 }
@@ -267,8 +267,8 @@ class QualityDocumentStrings$entity$doc$fields$ja {
 	/// ja: '略称'
 	String get f_nickname => '略称';
 
-	/// ja: '文書階層'
-	String get f_mstr_document_tier_id => '文書階層';
+	/// ja: '文書レベル'
+	String get f_mstr_document_tier_id => '文書レベル';
 
 	/// ja: 'ファイル'
 	String get f_file => 'ファイル';
@@ -380,7 +380,7 @@ extension on QualityDocumentStrings {
 			'body.modeMarkdown' => 'Markdown',
 			'body.preview' => 'プレビュー',
 			'menu.group' => '品質管理文書',
-			'entity.doctier.title' => '文書階層',
+			'entity.doctier.title' => '文書レベル',
 			'entity.doctier.fields.f_code' => 'コード',
 			'entity.doctier.fields.f_identifier' => '管理番号識別子',
 			'entity.doctier.fields.f_name' => '名前',
@@ -397,7 +397,7 @@ extension on QualityDocumentStrings {
 			'entity.doc.fields.f_name' => '文書名',
 			'entity.doc.fields.f_pronunciation' => '読み',
 			'entity.doc.fields.f_nickname' => '略称',
-			'entity.doc.fields.f_mstr_document_tier_id' => '文書階層',
+			'entity.doc.fields.f_mstr_document_tier_id' => '文書レベル',
 			'entity.doc.fields.f_file' => 'ファイル',
 			'entity.doc.fields.f_remarks' => '備考',
 			'entity.doccontent.title' => '文書コンテンツ',

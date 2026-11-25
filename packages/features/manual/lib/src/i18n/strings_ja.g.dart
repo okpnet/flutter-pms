@@ -408,8 +408,8 @@ class ManualStrings$errors$ja {
 	/// ja: '管理番号を入力してください。'
 	String get controlNumberRequired => '管理番号を入力してください。';
 
-	/// ja: '文書階層が登録されていません。先に品質管理文書の文書階層を登録してください。'
-	String get rootTierMissing => '文書階層が登録されていません。先に品質管理文書の文書階層を登録してください。';
+	/// ja: '文書レベルが登録されていません。先に文書レベルを登録してください。'
+	String get rootTierMissing => '文書レベルが登録されていません。先に文書レベルを登録してください。';
 
 	/// ja: '文書の承認パターンが設定されていません。会社情報の「承認」で、文書の標準の承認パターンを設定してください(承認が要らないときは、承認の段が無いパターンを選びます)。'
 	String get approvalPatternMissing => '文書の承認パターンが設定されていません。会社情報の「承認」で、文書の標準の承認パターンを設定してください(承認が要らないときは、承認の段が無いパターンを選びます)。';
@@ -569,7 +569,7 @@ extension on ManualStrings {
 			'errors.notFound' => 'ページが見つかりません。',
 			'errors.notAdmin' => '管理者だけが編集できます。',
 			'errors.controlNumberRequired' => '管理番号を入力してください。',
-			'errors.rootTierMissing' => '文書階層が登録されていません。先に品質管理文書の文書階層を登録してください。',
+			'errors.rootTierMissing' => '文書レベルが登録されていません。先に文書レベルを登録してください。',
 			'errors.approvalPatternMissing' => '文書の承認パターンが設定されていません。会社情報の「承認」で、文書の標準の承認パターンを設定してください(承認が要らないときは、承認の段が無いパターンを選びます)。',
 			_ => null,
 		};

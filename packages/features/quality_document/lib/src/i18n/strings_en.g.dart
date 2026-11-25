@@ -107,7 +107,7 @@ class _QualityDocumentStrings$entity$doctier$en extends QualityDocumentStrings$e
 	final QualityDocumentStringsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Document tiers';
+	@override String get title => 'Document levels';
 	@override late final _QualityDocumentStrings$entity$doctier$fields$en fields = _QualityDocumentStrings$entity$doctier$fields$en._(_root);
 }
 
@@ -175,7 +175,7 @@ class _QualityDocumentStrings$entity$doc$fields$en extends QualityDocumentString
 	@override String get f_name => 'Document name';
 	@override String get f_pronunciation => 'Reading';
 	@override String get f_nickname => 'Abbreviation';
-	@override String get f_mstr_document_tier_id => 'Document tier';
+	@override String get f_mstr_document_tier_id => 'Document level';
 	@override String get f_file => 'File';
 	@override String get f_remarks => 'Remarks';
 }
@@ -249,7 +249,7 @@ extension on QualityDocumentStringsEn {
 			'body.modeMarkdown' => 'Markdown',
 			'body.preview' => 'Preview',
 			'menu.group' => 'Quality documents',
-			'entity.doctier.title' => 'Document tiers',
+			'entity.doctier.title' => 'Document levels',
 			'entity.doctier.fields.f_code' => 'Code',
 			'entity.doctier.fields.f_identifier' => 'Control number identifier',
 			'entity.doctier.fields.f_name' => 'Name',
@@ -266,7 +266,7 @@ extension on QualityDocumentStringsEn {
 			'entity.doc.fields.f_name' => 'Document name',
 			'entity.doc.fields.f_pronunciation' => 'Reading',
 			'entity.doc.fields.f_nickname' => 'Abbreviation',
-			'entity.doc.fields.f_mstr_document_tier_id' => 'Document tier',
+			'entity.doc.fields.f_mstr_document_tier_id' => 'Document level',
 			'entity.doc.fields.f_file' => 'File',
 			'entity.doc.fields.f_remarks' => 'Remarks',
 			'entity.doccontent.title' => 'Document contents',

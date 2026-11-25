@@ -45,7 +45,7 @@ entity:
       f_quantity: "Work record quantity"
       f_produced_quantity: "Produced lot quantity"
       f_material_amount: "Material valuation"
-      f_material_line_count: "Material issue lines"
+      f_material_line_count: "Material count"
       f_has_supplied_material: "Supplied material used"
       f_process_cost: "Process cost"
       f_total_cost: "Work record cost"

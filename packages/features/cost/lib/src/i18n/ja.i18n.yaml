@@ -16,8 +16,8 @@ entity:
       f_production_cost: "生産コスト"
       f_component_cost: "下位の部品の原価"
       f_unit_cost: "標準原価"
-      f_has_supplier: "仕入先がある"
-      f_has_components: "部品表に下位の部品がある"
+      f_has_supplier: "仕入先有"
+      f_has_components: "子部品有"
   costvaluation:
     title: "在庫評価額の一覧"
     fields:
@@ -47,7 +47,7 @@ entity:
       f_quantity: "作業実績の数量"
       f_produced_quantity: "作ったロットの数量"
       f_material_amount: "材料の評価額"
-      f_material_line_count: "材料の払出の行数"
+      f_material_line_count: "材料の件数"
       f_has_supplied_material: "支給品を投入"
       f_process_cost: "工程の原価"
       f_total_cost: "作業実績の原価"

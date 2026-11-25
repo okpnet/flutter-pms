@@ -113,5 +113,5 @@ errors:
   notFound: ページが見つかりません。
   notAdmin: 管理者だけが編集できます。
   controlNumberRequired: 管理番号を入力してください。
-  rootTierMissing: 文書階層が登録されていません。先に品質管理文書の文書階層を登録してください。
+  rootTierMissing: 文書レベルが登録されていません。先に文書レベルを登録してください。
   approvalPatternMissing: 文書の承認パターンが設定されていません。会社情報の「承認」で、文書の標準の承認パターンを設定してください(承認が要らないときは、承認の段が無いパターンを選びます)。

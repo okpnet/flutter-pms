@@ -32,7 +32,7 @@ menu:
   group: "品質管理文書"
 entity:
   doctier:
-    title: "文書階層"
+    title: "文書レベル"
     fields:
       f_code: "コード"
       f_identifier: "管理番号識別子"
@@ -52,7 +52,7 @@ entity:
       f_name: "文書名"
       f_pronunciation: "読み"
       f_nickname: "略称"
-      f_mstr_document_tier_id: "文書階層"
+      f_mstr_document_tier_id: "文書レベル"
       f_file: "ファイル"
       f_remarks: "備考"
   doccontent:

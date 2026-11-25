@@ -162,11 +162,11 @@ class CostStrings$entity$costunit$fields$ja {
 	/// ja: '標準原価'
 	String get f_unit_cost => '標準原価';
 
-	/// ja: '仕入先がある'
-	String get f_has_supplier => '仕入先がある';
+	/// ja: '仕入先有'
+	String get f_has_supplier => '仕入先有';
 
-	/// ja: '部品表に下位の部品がある'
-	String get f_has_components => '部品表に下位の部品がある';
+	/// ja: '子部品有'
+	String get f_has_components => '子部品有';
 }
 
 // Path: entity.costvaluation.fields
@@ -255,8 +255,8 @@ class CostStrings$entity$costwork$fields$ja {
 	/// ja: '材料の評価額'
 	String get f_material_amount => '材料の評価額';
 
-	/// ja: '材料の払出の行数'
-	String get f_material_line_count => '材料の払出の行数';
+	/// ja: '材料の件数'
+	String get f_material_line_count => '材料の件数';
 
 	/// ja: '支給品を投入'
 	String get f_has_supplied_material => '支給品を投入';
@@ -289,8 +289,8 @@ extension on CostStrings {
 			'entity.costunit.fields.f_production_cost' => '生産コスト',
 			'entity.costunit.fields.f_component_cost' => '下位の部品の原価',
 			'entity.costunit.fields.f_unit_cost' => '標準原価',
-			'entity.costunit.fields.f_has_supplier' => '仕入先がある',
-			'entity.costunit.fields.f_has_components' => '部品表に下位の部品がある',
+			'entity.costunit.fields.f_has_supplier' => '仕入先有',
+			'entity.costunit.fields.f_has_components' => '子部品有',
 			'entity.costvaluation.title' => '在庫評価額の一覧',
 			'entity.costvaluation.fields.f_item' => '品目',
 			'entity.costvaluation.fields.f_quantity' => '現在庫の数量',
@@ -314,7 +314,7 @@ extension on CostStrings {
 			'entity.costwork.fields.f_quantity' => '作業実績の数量',
 			'entity.costwork.fields.f_produced_quantity' => '作ったロットの数量',
 			'entity.costwork.fields.f_material_amount' => '材料の評価額',
-			'entity.costwork.fields.f_material_line_count' => '材料の払出の行数',
+			'entity.costwork.fields.f_material_line_count' => '材料の件数',
 			'entity.costwork.fields.f_has_supplied_material' => '支給品を投入',
 			'entity.costwork.fields.f_process_cost' => '工程の原価',
 			'entity.costwork.fields.f_total_cost' => '作業実績の原価',
