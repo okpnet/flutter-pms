@@ -4,6 +4,8 @@
     <modules>
 <module fileurl="file://$PROJECT_DIR$/packages/features/access_control/melos_access_control.iml" filepath="$PROJECT_DIR$/packages/features/access_control/melos_access_control.iml"/>
 <module fileurl="file://$PROJECT_DIR$/packages/model_providers/access_control_model/melos_access_control_model.iml" filepath="$PROJECT_DIR$/packages/model_providers/access_control_model/melos_access_control_model.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/features/announcement/melos_announcement.iml" filepath="$PROJECT_DIR$/packages/features/announcement/melos_announcement.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/model_providers/announcement_model/melos_announcement_model.iml" filepath="$PROJECT_DIR$/packages/model_providers/announcement_model/melos_announcement_model.iml"/>
 <module fileurl="file://$PROJECT_DIR$/packages/features/app_core/melos_app_core.iml" filepath="$PROJECT_DIR$/packages/features/app_core/melos_app_core.iml"/>
 <module fileurl="file://$PROJECT_DIR$/packages/ui/app_shell/melos_app_shell.iml" filepath="$PROJECT_DIR$/packages/ui/app_shell/melos_app_shell.iml"/>
 <module fileurl="file://$PROJECT_DIR$/packages/features/approval/melos_approval.iml" filepath="$PROJECT_DIR$/packages/features/approval/melos_approval.iml"/>
@@ -15,6 +17,8 @@
 <module fileurl="file://$PROJECT_DIR$/packages/model_providers/barcode_entry_model/melos_barcode_entry_model.iml" filepath="$PROJECT_DIR$/packages/model_providers/barcode_entry_model/melos_barcode_entry_model.iml"/>
 <module fileurl="file://$PROJECT_DIR$/packages/core/baton_lib/melos_baton_lib.iml" filepath="$PROJECT_DIR$/packages/core/baton_lib/melos_baton_lib.iml"/>
 <module fileurl="file://$PROJECT_DIR$/packages/ui/calendar_lib/melos_calendar_lib.iml" filepath="$PROJECT_DIR$/packages/ui/calendar_lib/melos_calendar_lib.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/features/cost/melos_cost.iml" filepath="$PROJECT_DIR$/packages/features/cost/melos_cost.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/model_providers/cost_model/melos_cost_model.iml" filepath="$PROJECT_DIR$/packages/model_providers/cost_model/melos_cost_model.iml"/>
 <module fileurl="file://$PROJECT_DIR$/packages/core/current_user/melos_current_user.iml" filepath="$PROJECT_DIR$/packages/core/current_user/melos_current_user.iml"/>
 <module fileurl="file://$PROJECT_DIR$/packages/features/dashboard_container/melos_dashboard_container.iml" filepath="$PROJECT_DIR$/packages/features/dashboard_container/melos_dashboard_container.iml"/>
 <module fileurl="file://$PROJECT_DIR$/packages/foundation/data_strategist/melos_data_strategist.iml" filepath="$PROJECT_DIR$/packages/foundation/data_strategist/melos_data_strategist.iml"/>
