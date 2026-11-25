@@ -357,7 +357,9 @@ class _EntityListPageState extends State<EntityListPage> {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(border: Border(top: BorderSide(color: theme.dividerColor))),
+      // 合計は右端にまとめる(表の数値の列は右揃えのため、値の位置をそろえる)
       child: Wrap(
+        alignment: WrapAlignment.end,
         spacing: 24,
         children: [
           for (final f in fields)
