@@ -14,6 +14,8 @@ dependencies:
   flutter_riverpod: ^3.4.3 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   go_router: ^18.1.0 # Managed by Melos, change it in the bootstrap config of the root pubspec.yaml
   http: ^1.2.0
+  announcement:
+    path: ../../packages/features/announcement
   pms_app:
     path: ../pms_app
   app_core:

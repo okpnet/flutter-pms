@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:announcement/announcement.dart' show Announcement, InMemoryAnnouncementGateway, announcementGatewayProvider;
 import 'package:app_core/app_core.dart';
 import 'package:app_core/app_core_api.dart' show signInDestinationProvider;
 import 'package:auth_files/auth_files.dart';
@@ -114,6 +115,8 @@ Future<List<Override>> exampleOverrides(
     ...approvalOverrides(),
     entityFileTransferProvider.overrideWith(PocketBaseEntityFileTransfer.new),
     ...graphqlOverrides(),
+    // 通知(メモリ上の見本。題名・本文は、DB に言語別で持つ値と同じ形)。ダッシュボードの未読通知・通知の一覧を確かめる
+    announcementGatewayProvider.overrideWithValue(InMemoryAnnouncementGateway(_sampleAnnouncements())),
     pbConnectionProvider.overrideWithValue(connection),
     tokenStoreProvider.overrideWithValue(store),
     filePickerGatewayProvider.overrideWithValue(picker ?? VirtualFilePicker()),
@@ -134,3 +137,17 @@ Future<List<Override>> exampleOverrides(
     ),
   ];
 }
+
+/// 見本の通知(接続なしで、ダッシュボードの未読通知・通知の一覧を確かめるため)。
+List<Announcement> _sampleAnnouncements() => [
+  Announcement(
+    id: 'n1',
+    title: '監査の予定: 工程監査',
+    message: '予定日が近づいています',
+    category: 'audit',
+    targetSymbol: 'AD-0001',
+    at: DateTime(2026, 11, 24),
+  ),
+  Announcement(id: 'n2', title: '承認待ちが 2 件あります', category: 'approval', at: DateTime(2026, 11, 23)),
+  Announcement(id: 'n3', title: '力量の更新のお知らせ', message: '資格の更新期限が近づいています', isRead: true, at: DateTime(2026, 11, 10)),
+];

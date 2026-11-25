@@ -255,7 +255,7 @@ class _AuthFilesStrings$admin$signups$en extends AuthFilesStrings$admin$signups$
 	@override String get created => 'Requested at';
 	@override String get approve => 'Create account';
 	@override String get reject => 'Reject';
-	@override String get appUserId => 'Staff ID (already registered in the App DB)';
+	@override String get appUserId => 'Staff member (already registered as a worker)';
 	@override String get approved => 'Approved. Hand the code to the person.';
 	@override String get rejected => 'Rejected.';
 	@override String get confirmReject => 'Reject this request?';
@@ -283,9 +283,9 @@ class _AuthFilesStrings$admin$createUser$en extends AuthFilesStrings$admin$creat
 
 	// Translations
 	@override String get title => 'Account management: Create user';
-	@override String get hint => 'Creates a user who can sign in for a staff member (already registered in the database) and issues an activation code. Hand the code to the person (no e-mail is sent).';
+	@override String get hint => 'Creates a user who can sign in for a staff member (already registered as a worker) and issues an activation code. Hand the code to the person (no e-mail is sent).';
 	@override String get userId => 'User ID (used to sign in)';
-	@override String get appUserId => 'Staff ID';
+	@override String get appUserId => 'Staff member (already registered as a worker)';
 	@override String get name => 'Name';
 	@override String get email => 'E-mail (optional)';
 	@override String get create => 'Create user';
@@ -407,7 +407,7 @@ extension on AuthFilesStringsEn {
 			'admin.signups.created' => 'Requested at',
 			'admin.signups.approve' => 'Create account',
 			'admin.signups.reject' => 'Reject',
-			'admin.signups.appUserId' => 'Staff ID (already registered in the App DB)',
+			'admin.signups.appUserId' => 'Staff member (already registered as a worker)',
 			'admin.signups.approved' => 'Approved. Hand the code to the person.',
 			'admin.signups.rejected' => 'Rejected.',
 			'admin.signups.confirmReject' => 'Reject this request?',
@@ -417,9 +417,9 @@ extension on AuthFilesStringsEn {
 			'admin.resets.issued' => 'Code issued. Verify the person and hand it over.',
 			'admin.resets.created' => 'Requested at',
 			'admin.createUser.title' => 'Account management: Create user',
-			'admin.createUser.hint' => 'Creates a user who can sign in for a staff member (already registered in the database) and issues an activation code. Hand the code to the person (no e-mail is sent).',
+			'admin.createUser.hint' => 'Creates a user who can sign in for a staff member (already registered as a worker) and issues an activation code. Hand the code to the person (no e-mail is sent).',
 			'admin.createUser.userId' => 'User ID (used to sign in)',
-			'admin.createUser.appUserId' => 'Staff ID',
+			'admin.createUser.appUserId' => 'Staff member (already registered as a worker)',
 			'admin.createUser.name' => 'Name',
 			'admin.createUser.email' => 'E-mail (optional)',
 			'admin.createUser.create' => 'Create user',

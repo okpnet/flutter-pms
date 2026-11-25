@@ -105,7 +105,7 @@ admin:
     created: Requested at
     approve: Create account
     reject: Reject
-    appUserId: Staff ID (already registered in the App DB)
+    appUserId: Staff member (already registered as a worker)
     approved: Approved. Hand the code to the person.
     rejected: Rejected.
     confirmReject: Reject this request?
@@ -117,9 +117,9 @@ admin:
     created: Requested at
   createUser:
     title: "Account management: Create user"
-    hint: Creates a user who can sign in for a staff member (already registered in the database) and issues an activation code. Hand the code to the person (no e-mail is sent).
+    hint: Creates a user who can sign in for a staff member (already registered as a worker) and issues an activation code. Hand the code to the person (no e-mail is sent).
     userId: User ID (used to sign in)
-    appUserId: Staff ID
+    appUserId: Staff member (already registered as a worker)
     name: Name
     email: E-mail (optional)
     # Enable when e-mail becomes available (restore together with the commented-out screen code)

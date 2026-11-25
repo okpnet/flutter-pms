@@ -441,8 +441,8 @@ class AuthFilesStrings$admin$signups$ja {
 	/// ja: '却下'
 	String get reject => '却下';
 
-	/// ja: '担当者のID(App DBで登録済みのもの)'
-	String get appUserId => '担当者のID(App DBで登録済みのもの)';
+	/// ja: '担当者(作業者として登録済みのもの)'
+	String get appUserId => '担当者(作業者として登録済みのもの)';
 
 	/// ja: 'アカウントを作成しました。コードを本人へ渡してください。'
 	String get approved => 'アカウントを作成しました。コードを本人へ渡してください。';
@@ -489,14 +489,14 @@ class AuthFilesStrings$admin$createUser$ja {
 	/// ja: 'アカウント管理: ユーザーの作成'
 	String get title => 'アカウント管理: ユーザーの作成';
 
-	/// ja: '担当者(DB に登録済み)に、ログインできるユーザーを作り、有効化コードを発行します。コードは本人へ手渡してください(メールは送りません)。'
-	String get hint => '担当者(DB に登録済み)に、ログインできるユーザーを作り、有効化コードを発行します。コードは本人へ手渡してください(メールは送りません)。';
+	/// ja: '作業者として登録済みの担当者に、ログインできるユーザーを作り、有効化コードを発行します。コードは本人へ手渡してください(メールは送りません)。'
+	String get hint => '作業者として登録済みの担当者に、ログインできるユーザーを作り、有効化コードを発行します。コードは本人へ手渡してください(メールは送りません)。';
 
 	/// ja: 'ユーザーID(ログインに使う)'
 	String get userId => 'ユーザーID(ログインに使う)';
 
-	/// ja: '担当者のID'
-	String get appUserId => '担当者のID';
+	/// ja: '担当者(作業者として登録済みのもの)'
+	String get appUserId => '担当者(作業者として登録済みのもの)';
 
 	/// ja: '氏名'
 	String get name => '氏名';
@@ -634,7 +634,7 @@ extension on AuthFilesStrings {
 			'admin.signups.created' => '申請日時',
 			'admin.signups.approve' => 'アカウントを作成',
 			'admin.signups.reject' => '却下',
-			'admin.signups.appUserId' => '担当者のID(App DBで登録済みのもの)',
+			'admin.signups.appUserId' => '担当者(作業者として登録済みのもの)',
 			'admin.signups.approved' => 'アカウントを作成しました。コードを本人へ渡してください。',
 			'admin.signups.rejected' => '却下しました。',
 			'admin.signups.confirmReject' => 'この申請を却下しますか?',
@@ -644,9 +644,9 @@ extension on AuthFilesStrings {
 			'admin.resets.issued' => 'コードを発行しました。本人確認のうえ、手渡してください。',
 			'admin.resets.created' => '依頼日時',
 			'admin.createUser.title' => 'アカウント管理: ユーザーの作成',
-			'admin.createUser.hint' => '担当者(DB に登録済み)に、ログインできるユーザーを作り、有効化コードを発行します。コードは本人へ手渡してください(メールは送りません)。',
+			'admin.createUser.hint' => '作業者として登録済みの担当者に、ログインできるユーザーを作り、有効化コードを発行します。コードは本人へ手渡してください(メールは送りません)。',
 			'admin.createUser.userId' => 'ユーザーID(ログインに使う)',
-			'admin.createUser.appUserId' => '担当者のID',
+			'admin.createUser.appUserId' => '担当者(作業者として登録済みのもの)',
 			'admin.createUser.name' => '氏名',
 			'admin.createUser.email' => 'Eメール(任意)',
 			'admin.createUser.create' => 'ユーザーを作成',

@@ -18,6 +18,10 @@
 --   4. 一般の利用者の担当者(TANAKA・SUZUKI・SATO)         旧 15_user_dummy.sql
 --   5. キャンセル・返品・精算・支給のマスタ                 doc/query/20261116_0005
 --   6. 棚ビジターの所有者をそろえる
+--   7. 標準の承認パターン(承認不要)と、文書の承認パターンの設定
+--   8. 標準の文書(文書階層・品質マニュアル・品質手順書とそのページ)
+--   9. 作業実績・支給のダミー(実績の原価・社外の所有物の確認用)
+--  10. 監査のダミー(監査標準・項目・監査の計画。ログイン時の通知づくりの確認用)
 -- =====================================================================
 
 -- 管理者の担当者のコード(14 の節で使う)。-v admin_code=... で渡さなければ ADMIN
@@ -1061,4 +1065,208 @@ BEGIN
     UPDATE tests.info_app AS app
     SET document_approval_pattern_id = v_pattern
     WHERE app.remove IS FALSE AND app.document_approval_pattern_id IS NULL;
+END $$;
+
+-- #####################################################################
+-- 8. 標準の文書(文書階層・品質マニュアル・品質手順書とそのページ)
+-- #####################################################################
+\c test_avocado
+-- 「品質マニュアル」「品質手順書」は文書の名称の例(専用の画面・コードは持たない。ルートの CLAUDE.md「文書の名称(サンプル)」)。
+-- ルート = 文書(mstr_document。文書ツリーの親は NULL)、ページ = 文書コンテンツ(mstr_document_content。本文は Markdown の共有テキスト)。
+-- 文書の承認パターンは、7 の標準(承認不要)が、登録が申請のトリガーで入る。何度流しても同じ(コードがあるものは作らない)。
+SELECT set_config('init.admin_code', :'admin_code', false) \gset
+
+-- 呼称(名称・ja/en)を作って ID を返す。このセッションだけの一時関数
+CREATE OR REPLACE FUNCTION pg_temp.ap(p_ja varchar, p_en varchar, p_staff uuid) RETURNS uuid AS $$
+    SELECT a.shared_appellations_id
+    FROM tests.shared_appellation_save(NULL, jsonb_build_object('ja', p_ja, 'en', p_en), NULL, NULL, p_staff) AS a
+$$ LANGUAGE sql;
+
+-- 文章(本文・Markdown。ja)を作って ID を返す
+CREATE OR REPLACE FUNCTION pg_temp.tx(p_md text, p_staff uuid) RETURNS uuid AS $$
+    SELECT t.shared_text_id FROM tests.shared_text_save(NULL, jsonb_build_object('ja', p_md), p_staff) AS t
+$$ LANGUAGE sql;
+
+DO $$
+DECLARE
+    adm uuid;
+    v_tier uuid;
+    r record;
+    d_id uuid;
+    c_id uuid;
+    p_id uuid;
+BEGIN
+    SELECT s.info_staff_id INTO adm FROM tests.info_staff AS s
+     WHERE s.remove IS FALSE
+     ORDER BY CASE WHEN upper(s.code) = upper(current_setting('init.admin_code')) THEN 0 ELSE 1 END, s.code LIMIT 1;
+
+    -- 文書階層(階層番号が最小のものが、ルートの文書の階層)
+    FOR r IN SELECT * FROM (VALUES
+        ('DT-1', 'マニュアル', 'Manual',   'マニュアル', 'M', 1),
+        ('DT-2', '手順書',     'Procedure', '手順書',     'P', 2),
+        ('DT-3', '様式',       'Form',      '様式',       'F', 3)
+    ) AS v(code, ja, en, noun, ident, tier_number) LOOP
+        IF NOT EXISTS (SELECT 1 FROM tests.mstr_document_tier AS m WHERE m.code = r.code AND m.remove IS FALSE) THEN
+            INSERT INTO tests.mstr_document_tier (code, names, attributive_noun, identifier, tier_number)
+            VALUES (r.code, pg_temp.ap(r.ja, r.en, adm), r.noun, r.ident, r.tier_number);
+        END IF;
+    END LOOP;
+
+    -- ルートの文書(品質マニュアル・品質手順書)と、そのページ
+    FOR r IN SELECT * FROM (VALUES
+        ('DOC-QM', '品質マニュアル', 'Quality manual', 'QM-001', 'DT-1', '1.0',
+         '品質管理の考え方と、現場での手順をまとめた文書です。管理者が書き足します。'),
+        ('DOC-QP', '品質手順書', 'Quality procedures', 'QP-001', 'DT-2', '1.0',
+         '日々の作業の手順をまとめた文書です。')
+    ) AS v(code, ja, en, control_number, tier_code, version_code, body) LOOP
+        IF EXISTS (SELECT 1 FROM tests.mstr_document AS m WHERE m.code = r.code AND m.remove IS FALSE) THEN CONTINUE; END IF;
+        SELECT t.mstr_document_tier_id INTO v_tier FROM tests.mstr_document_tier AS t WHERE t.code = r.tier_code AND t.remove IS FALSE;
+        INSERT INTO tests.mstr_document (code, titles, control_number, mstr_document_tier_id, version_code)
+        VALUES (r.code, pg_temp.ap(r.ja, r.en, adm), r.control_number, v_tier, r.version_code)
+        RETURNING mstr_document_id INTO d_id;
+        INSERT INTO tests.mstr_document_tree (mstr_document_id, parent_mstr_document_id) VALUES (d_id, NULL);
+    END LOOP;
+
+    -- ページ(親のページのコードは NULL = ルートの文書の直下)
+    FOR r IN SELECT * FROM (VALUES
+        ('DOC-QM', 'QM-01',  NULL,    1, 'はじめに', 'Introduction',
+         E'## 目的\n\n製品の品質を安定して保ち、不適合を早く見つけて、同じことを繰り返さないための共通のルールを定めます。\n\n## 適用の範囲\n\n受入から出荷までのすべての工程に適用します。'),
+        ('DOC-QM', 'QM-02',  NULL,    2, '品質方針と目標', 'Quality policy and objectives',
+         E'## 品質方針\n\n- お客様の要求事項を満たす\n- 不適合の再発を防ぐ\n- 品質マネジメントシステムを継続して改善する'),
+        ('DOC-QM', 'QM-03',  NULL,    3, '工程管理', 'Process control',
+         E'## 工程の管理\n\n作業指示に従って作業し、作業実績を登録します。'),
+        ('DOC-QM', 'QM-031', 'QM-03', 1, '作業の開始と終了', 'Starting and finishing work',
+         E'## 登録する内容\n\n- 数量\n- 不適合の理由(寸法不良・外観不良・材料不良・設備不具合・その他)'),
+        ('DOC-QM', 'QM-04',  NULL,    4, '不適合の管理', 'Control of nonconformity',
+         E'## 異常の登録\n\n不適合を見つけたら、異常を登録し、処置と再発防止を決めます。'),
+        ('DOC-QP', 'QP-01',  NULL,    1, '受入検査の手順', 'Incoming inspection',
+         E'## 手順\n\n1. 受入実績を登録する\n2. 検品する\n3. 合格したら仮止めを解除する'),
+        ('DOC-QP', 'QP-02',  NULL,    2, '出荷検査の手順', 'Shipping inspection',
+         E'## 手順\n\n1. 出荷オーダーを確認する\n2. 製品を検査する\n3. 出荷実績を登録する')
+    ) AS v(doc_code, code, parent_code, seq, ja, en, md) LOOP
+        SELECT d.mstr_document_id INTO d_id FROM tests.mstr_document AS d WHERE d.code = r.doc_code AND d.remove IS FALSE;
+        IF d_id IS NULL OR EXISTS (SELECT 1 FROM tests.mstr_document_content AS c WHERE c.code = r.code AND c.remove IS FALSE) THEN CONTINUE; END IF;
+        p_id := NULL;
+        IF r.parent_code IS NOT NULL THEN
+            SELECT c.mstr_document_content_id INTO p_id FROM tests.mstr_document_content AS c WHERE c.code = r.parent_code AND c.remove IS FALSE;
+        END IF;
+        INSERT INTO tests.mstr_document_content (mstr_document_id, code, titles, contents, sequence)
+        VALUES (d_id, r.code, pg_temp.ap(r.ja, r.en, adm), pg_temp.tx(r.md, adm), r.seq)
+        RETURNING mstr_document_content_id INTO c_id;
+        INSERT INTO tests.mstr_document_content_tree (mstr_document_content_id, parent_mstr_document_content_id) VALUES (c_id, p_id);
+    END LOOP;
+END $$;
+
+
+-- #####################################################################
+-- 9. 作業実績・支給のダミー(実績の原価・社外の所有物の確認用)
+-- #####################################################################
+\c test_avocado
+-- 作業実績 WR-1(10 を作る)→ WR-2(WR-1 のロットから 4 を投入して 3 を作る)→ 顧客支給の材料 5 を受け入れ(顧客の所有)→
+-- WR-3(支給の材料から 2 を投入して 2 を作る。実績の原価では、材料は 0 円で「支給品を投入」になる)。
+-- 作業実績・支給の登録は、DB の関数(visiter_receive・visiter_issue・supply_register)で行う(1 回ごとに 1 トランザクション)。
+-- 何度流しても同じ(作業実績がすでにあれば作らない)。作業指示・コンテナ・受注明細は、1・2 のダミーを使う(無ければ何もしない)。
+SELECT set_config('init.admin_code', :'admin_code', false) \gset
+
+DO $$
+DECLARE
+    adm uuid;
+    wp record;
+    cont uuid;
+    od record;
+    wr1 uuid; wr2 uuid; wr3 uuid;
+    lot1 tests.trans_visiter; lot_s tests.trans_visiter;
+    junk tests.trans_visiter;
+BEGIN
+    IF EXISTS (SELECT 1 FROM tests.trans_work_record) THEN RETURN; END IF;
+    SELECT s.info_staff_id INTO adm FROM tests.info_staff AS s
+     WHERE s.remove IS FALSE
+     ORDER BY CASE WHEN upper(s.code) = upper(current_setting('init.admin_code')) THEN 0 ELSE 1 END, s.code LIMIT 1;
+    SELECT w.trans_work_plan_id, rp.item_id INTO wp
+      FROM tests.trans_work_plan AS w
+      INNER JOIN tests.trans_operations_plan AS op ON op.trans_operations_plan_id = w.trans_operations_plan_id
+      INNER JOIN tests.trans_resource_plan AS rp ON rp.trans_resource_plan_id = op.trans_resource_plan_id
+     WHERE w.remove IS FALSE ORDER BY w.symbol LIMIT 1;
+    SELECT c.trans_container_id INTO cont FROM tests.trans_container AS c WHERE c.remove IS FALSE ORDER BY c.code LIMIT 1;
+    SELECT d.trans_order_detail_id, o.trans_order_id, o.stakeholder_id INTO od
+      FROM tests.trans_order_detail AS d
+      INNER JOIN tests.trans_order AS o ON o.trans_order_id = d.trans_order_id
+     WHERE d.remove IS FALSE AND o.stakeholder_id IS NOT NULL ORDER BY d.symbol LIMIT 1;
+    IF adm IS NULL OR wp.trans_work_plan_id IS NULL OR cont IS NULL OR od.trans_order_detail_id IS NULL THEN RETURN; END IF;
+
+    -- WR-1: 10 を作る
+    INSERT INTO tests.trans_work_record (trans_work_plan_id, nth_time, start_at, stop_at, qty, update_user_id)
+    VALUES (wp.trans_work_plan_id, 1, now() - interval '3 days', now() - interval '3 days' + interval '2 hours', 10, adm)
+    RETURNING trans_work_record_id INTO wr1;
+    lot1 := tests.visiter_receive(cont, 10, false, wr1, NULL, NULL, adm);
+
+    -- WR-2: WR-1 のロットから 4 を投入して 3 を作る
+    INSERT INTO tests.trans_work_record (trans_work_plan_id, nth_time, start_at, stop_at, qty, update_user_id)
+    VALUES (wp.trans_work_plan_id, 2, now() - interval '2 days', now() - interval '2 days' + interval '2 hours', 3, adm)
+    RETURNING trans_work_record_id INTO wr2;
+    junk := tests.visiter_issue(lot1.trans_visiter_id, 4, wr2, adm);
+    junk := tests.visiter_receive(cont, 3, false, wr2, NULL, NULL, adm);
+
+    -- 顧客支給の材料 5(受注の顧客から受け取る。検品済みとして、仮止めはしない)。所有者(顧客)はトリガーが決める
+    lot_s := tests.visiter_receive(cont, 5, false, NULL, NULL, NULL, adm);
+    PERFORM tests.supply_register(
+        od.stakeholder_id, true, true, false,
+        jsonb_build_array(jsonb_build_object('item_id', wp.item_id, 'quantity', 5, 'order_detail_id', od.trans_order_detail_id,
+                                             'visiter_ids', jsonb_build_array(lot_s.trans_visiter_id))),
+        od.trans_order_id, NULL, NULL, NULL, '顧客支給(ダミー)', NULL, NULL, adm);
+
+    -- WR-3: 支給の材料から 2 を投入して 2 を作る
+    INSERT INTO tests.trans_work_record (trans_work_plan_id, nth_time, start_at, stop_at, qty, update_user_id)
+    VALUES (wp.trans_work_plan_id, 3, now() - interval '1 day', now() - interval '1 day' + interval '2 hours', 2, adm)
+    RETURNING trans_work_record_id INTO wr3;
+    junk := tests.visiter_issue(lot_s.trans_visiter_id, 2, wr3, adm);
+    junk := tests.visiter_receive(cont, 2, false, wr3, NULL, NULL, adm);
+END $$;
+
+-- 棚ビジターの所有者をそろえる
+SELECT tests.visiter_owner_rebuild() AS lots_checked;
+
+-- #####################################################################
+-- 10. 監査のダミー(監査標準・項目・監査の計画)
+-- #####################################################################
+\c test_avocado
+-- 監査標準(項目 2 つ)と、その監査標準で登録した監査の計画(チーム 1 つ・監査員 = 管理者と TANAKA・予定日 = 3 日後)。
+-- 監査の計画は DB の関数(audit_plan_register。1 トランザクション)で登録する。予定が近いため、ログインのたびの audit_notify_due が
+-- 監査員へ通知を作る。何度流しても同じ(監査標準のコードがあれば作らない)。
+SELECT set_config('init.admin_code', :'admin_code', false) \gset
+
+CREATE OR REPLACE FUNCTION pg_temp.ap(p_ja varchar, p_en varchar, p_staff uuid) RETURNS uuid AS $$
+    SELECT a.shared_appellations_id
+    FROM tests.shared_appellation_save(NULL, jsonb_build_object('ja', p_ja, 'en', p_en), NULL, NULL, p_staff) AS a
+$$ LANGUAGE sql;
+
+DO $$
+DECLARE
+    adm uuid; tanaka uuid; std uuid; auditors jsonb;
+BEGIN
+    SELECT s.info_staff_id INTO adm FROM tests.info_staff AS s
+     WHERE s.remove IS FALSE
+     ORDER BY CASE WHEN upper(s.code) = upper(current_setting('init.admin_code')) THEN 0 ELSE 1 END, s.code LIMIT 1;
+    IF adm IS NULL OR EXISTS (SELECT 1 FROM tests.mstr_audit_std AS m WHERE m.code = 'AS-INTERNAL' AND m.remove IS FALSE) THEN RETURN; END IF;
+    SELECT s.info_staff_id INTO tanaka FROM tests.info_staff AS s WHERE upper(s.code) = 'TANAKA' AND s.remove IS FALSE LIMIT 1;
+
+    INSERT INTO tests.mstr_audit_std (code, names)
+    VALUES ('AS-INTERNAL', pg_temp.ap('内部監査の標準', 'Internal audit standard', adm))
+    RETURNING mstr_audit_std_id INTO std;
+    INSERT INTO tests.mstr_audit_std_checkitem (mstr_audit_std_id, code, names, type_class, formula_class)
+    VALUES (std, 'AS-I-01', pg_temp.ap('作業指示に従って作業している', 'Work follows the work instruction', adm), 1, 1),
+           (std, 'AS-I-02', pg_temp.ap('不適合を異常として登録している', 'Nonconformities are registered as complaints', adm), 1, 1);
+
+    auditors := jsonb_build_array(adm);
+    IF tanaka IS NOT NULL AND tanaka <> adm THEN auditors := auditors || to_jsonb(tanaka); END IF;
+    PERFORM tests.audit_plan_register(
+        '{"ja":"工程の内部監査","en":"Internal process audit"}'::jsonb,
+        '{"ja":"工程管理の運用を確認する(ダミー)"}'::jsonb,
+        std,
+        jsonb_build_array(jsonb_build_object(
+            'team_names', '{"ja":"工程監査チーム","en":"Process audit team"}'::jsonb,
+            'auditor_ids', auditors,
+            'scheduled_at', to_char(date_trunc('day', now() + interval '3 days') + interval '9 hours', 'YYYY-MM-DD HH24:MI'),
+            'expected_end_at', to_char(date_trunc('day', now() + interval '3 days') + interval '17 hours', 'YYYY-MM-DD HH24:MI'))),
+        NULL, NULL, adm);
 END $$;
