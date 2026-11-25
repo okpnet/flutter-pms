@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:crypto/crypto.dart';
+
 /// 検証用サーバーを使うテストの、GraphQL 用の JWT(PocketBase が発行する短期のトークン)を用意する。
 ///
 /// アプリと同じ手順: PocketBase のテスト用ユーザーでログイン →
@@ -32,15 +34,31 @@ class TestToken {
   /// 期限のこの手前までを、使える JWT とみなす。
   static const margin = Duration(seconds: 60);
 
+  // 自己署名(CI 用)。PocketBase を使わず、テストが JWT を自分で作る。
+  static const _definedSecret = String.fromEnvironment('PMS_TEST_JWT_SECRET');
+  static const _definedStaffId = String.fromEnvironment('PMS_TEST_STAFF_ID');
+  static const _definedDbRole = String.fromEnvironment('PMS_TEST_DB_ROLE');
+  static const _definedAudience = String.fromEnvironment(
+    'PMS_TEST_JWT_AUDIENCE',
+  );
+
   static String _setting(String defined, String envName) {
     if (defined.isNotEmpty) return defined;
     return Platform.environment[envName] ?? '';
   }
 
-  /// テスト用ユーザーの資格情報が渡されているか。
+  /// 自己署名で JWT を作る設定(署名の鍵と担当者の ID)が渡されているか。
+  /// GitHub Actions のように PocketBase が無い環境で使う。鍵は PostGraphile の `--jwt-secret` と同じ値。
+  /// PocketBase の資格情報より優先する。鍵はコード・Git に書かない(CI が実行のたびに乱数で作る)。
+  static bool get isSelfSigned =>
+      _setting(_definedSecret, 'PMS_TEST_JWT_SECRET').isNotEmpty &&
+      _setting(_definedStaffId, 'PMS_TEST_STAFF_ID').isNotEmpty;
+
+  /// テスト用ユーザーの資格情報(または自己署名の設定)が渡されているか。
   static bool get isConfigured =>
-      _setting(_definedUser, 'PMS_TEST_USER').isNotEmpty &&
-      _setting(_definedPassword, 'PMS_TEST_PASSWORD').isNotEmpty;
+      isSelfSigned ||
+      (_setting(_definedUser, 'PMS_TEST_USER').isNotEmpty &&
+          _setting(_definedPassword, 'PMS_TEST_PASSWORD').isNotEmpty);
 
   /// PocketBase の接続先(末尾の `/` と `/api` を除く)。
   static String get pocketBaseUrl {
@@ -86,7 +104,43 @@ class TestToken {
     }
   }
 
+  /// 自己署名の JWT を作る(HS256)。クレームは PocketBase の `/api/app/graphql-token` と同じ形:
+  /// `role`(DB のロール。既定 `pms_user` = 一般ユーザー)・`aud`・`staff_id`・`app_user_id`・`app_role`・`exp`。
+  /// 有効期間は 15 分(本物と同じ)。
+  static TestToken _mint() {
+    final secret = _setting(_definedSecret, 'PMS_TEST_JWT_SECRET');
+    final staffId = _setting(_definedStaffId, 'PMS_TEST_STAFF_ID');
+    final role = _setting(_definedDbRole, 'PMS_TEST_DB_ROLE');
+    final audience = _setting(_definedAudience, 'PMS_TEST_JWT_AUDIENCE');
+    final now = DateTime.now().toUtc();
+    final expiresAt = now.add(const Duration(minutes: 15));
+
+    String part(Object json) =>
+        base64Url.encode(utf8.encode(jsonEncode(json))).replaceAll('=', '');
+
+    final header = part({'alg': 'HS256', 'typ': 'JWT'});
+    final payload = part({
+      'role': role.isEmpty ? 'pms_user' : role,
+      'aud': audience.isEmpty ? 'postgraphile' : audience,
+      'staff_id': staffId,
+      'app_user_id': staffId,
+      'app_role': 'user',
+      'iat': now.millisecondsSinceEpoch ~/ 1000,
+      'exp': expiresAt.millisecondsSinceEpoch ~/ 1000,
+    });
+    final signature = base64Url
+        .encode(
+          Hmac(
+            sha256,
+            utf8.encode(secret),
+          ).convert(utf8.encode('$header.$payload')).bytes,
+        )
+        .replaceAll('=', '');
+    return TestToken._('Bearer $header.$payload.$signature', expiresAt);
+  }
+
   static Future<TestToken?> _load() async {
+    if (isSelfSigned) return _mint();
     final user = _setting(_definedUser, 'PMS_TEST_USER');
     final password = _setting(_definedPassword, 'PMS_TEST_PASSWORD');
     final base = pocketBaseUrl;

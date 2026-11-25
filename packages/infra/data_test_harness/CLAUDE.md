@@ -23,7 +23,7 @@ foundation / features / model_providers の test/
 | 名前 | 用途 |
 |---|---|
 | `TestServer` | 検証用サーバーの接続先の候補(`192.168.1.100`、`192.168.9.245`、`192.168.1.103`、`--dart-define=PMS_TEST_GRAPHQL_URL`)から、先に接続できたものを選び、`GraphQLClientProvider`を作る。どれにも接続できなければ`null`。資格情報(下)が渡されていれば、`Authorization: Bearer <JWT>`を付ける(`authenticated`) |
-| `TestToken` | テスト用ユーザーの GraphQL 用 JWT を用意する。PocketBase でログイン → `GET /api/app/graphql-token`(アプリと同じ手順)。取得した JWT は一時フォルダに期限の手前まで共有し、ログインの制限(同一 IP で 1 分 10 回)を避ける。資格情報が無ければ`null`(匿名) |
+| `TestToken` | テスト用ユーザーの GraphQL 用 JWT を用意する。PocketBase でログイン → `GET /api/app/graphql-token`(アプリと同じ手順)。取得した JWT は一時フォルダに期限の手前まで共有し、ログインの制限(同一 IP で 1 分 10 回)を避ける。資格情報が無ければ`null`(匿名)。PocketBase が無い環境(GitHub Actions)では、署名の鍵(`PMS_TEST_JWT_SECRET`。PostGraphile の `--jwt-secret` と同じ値)と担当者の ID(`PMS_TEST_STAFF_ID`)が渡されていれば、JWT(HS256。`role` は既定 `pms_user`、`PMS_TEST_DB_ROLE` で変更)を自分で作る(PocketBase より優先)。鍵は実行のたびに乱数で作り、Git に書かない |
 | `serverTest` | サーバーを使うテストの登録。`server`タグを付け、接続できなければ中止(skip)にする。`flutter test --exclude-tags server`で除外できる |
 | `FaultyGraphqlServer` | ローカルのGraphQLサーバーの代役。遅延(`FaultKind.delay`)・応答の途中/前の切断(`dropMidResponse`/`dropBeforeResponse`)・HTTPエラー(`status`、認証エラーなど)を再現し、受け取った要求(`Authorization`ヘッダーなど)を記録する。実サーバーを使わない |
 | `endedInTimeout` | 問い合わせがタイムアウトで終わったか(例外でも`Err(TimeoutError)`でも真) |

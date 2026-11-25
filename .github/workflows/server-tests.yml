@@ -1,0 +1,260 @@
+# =====================================================================
+#  server-tests.yml  使い捨ての DB と PostGraphile を立ち上げて、サーバーを使うテストを行う
+# =====================================================================
+#
+# ■ GitHub Actions とは(はじめての人向け)
+#   リポジトリに push したときなどに、GitHub が「使い捨ての仮想マシン(ランナー)」を1台用意し、
+#   このファイルに書いた手順(steps)を上から順に実行してくれる仕組み。
+#   実行が終わるとマシンは破棄される。手元の環境は汚れないし、ここで作った DB も残らない。
+#   結果は GitHub の画面の「Actions」タブで見られる(緑 = 成功、赤 = 失敗。失敗した手順のログも読める)。
+#
+# ■ このワークフローがやること(手元に Docker・Node・DB が無くてもテストできるようにする)
+#   1. PostgreSQL を起動し、tools/docker/postgresql/script の SQL を流して、テスト用の DB を作る
+#      (05 ロール → 06 表・関数 → 07 ダミーデータ → 09 権限。docker の初期化と同じ順)
+#   2. PostGraphile(DB を GraphQL にする Node のサーバー)を起動する
+#   3. PostGraphile から本家スキーマを取得し、コミット済みの画面用スキーマ・.graphql とずれていないか調べる
+#   4. モデル(*.graphql.dart)を生成し、*_model のテストを実行する
+#
+# ■ セキュリティの方針(公開リポジトリのため)
+#   - 秘密情報(パスワード・JWT の鍵)は、この実行の中で乱数から作る使い捨ての値。Git にも GitHub の設定にも保存しない。
+#     → フォークした人の PR が動かしても、盗める秘密は存在しない。
+#   - DB・PostGraphile は 127.0.0.1(このマシンの中)だけで待ち受ける。外からは届かない。
+#   - 使う DB の中身は 07_dummy.sql のダミーデータだけ。本番の接続先・データは一切使わない。
+#   - GITHUB_TOKEN の権限は読み取りだけ(下の permissions)。
+#   - pull_request_target は使わない(他人のコードが権限つきで動いてしまうため)。
+#   - 使うアクションはコミットのハッシュで固定している(タグは後から書き換えられるため)。
+#   - tools/docker/**/.env は使わない(追跡しない方針)。必要な設定はこのファイルの中で組み立てる。
+#
+# ■ 見方のコツ
+#   - `${{ ... }}` は GitHub が実行前に値を埋め込む記法。それ以外の `$VAR` はシェル(bash)が展開する。
+#   - `run: |` の下は、シェルのコマンド(複数行)。
+#   - `>> "$GITHUB_ENV"` に `名前=値` を書くと、以降の手順でその環境変数が使える。
+#   - `::add-mask::値` を出力すると、その値がログで `***` に置き換わる。
+# =====================================================================
+
+name: server-tests
+
+# --- いつ動かすか -----------------------------------------------------
+# 「作業を終えたときのコミット・push」では動かさないために、次の3つで絞っている。
+#   (a) 手動(workflow_dispatch): Actions タブの「Run workflow」ボタンで、好きなときに動かせる。
+#   (b) push は、DB・GraphQL のモデル・このテストの道具・このファイルを変えたときだけ(paths)。
+#       文書・画面だけの変更では動かない。
+#   (c) コミットのメッセージに [skip ci] を入れると、条件に合っていても動かない(GitHub の標準の機能)。
+# PR では動かさない(個人の開発で、フォークからの PR で無駄に動くのを避ける)。必要になったら pull_request を足す。
+on:
+  push:
+    branches: [main]
+    paths:
+      - "tools/docker/postgresql/script/**"     # DB の定義(06 など)
+      - "tools/docker/postgraphile/**"          # PostGraphile の設定
+      - "packages/model_providers/**"           # GraphQL のモデル
+      - "packages/infra/data_test_harness/**"   # テストの道具(接続・JWT)
+      - "packages/infra/pms_graphql/**"         # GraphQL のクライアント
+      - "tools/gql_yaml2graphql/**"             # YAML → .graphql の変換
+      - "tools/gql_schema_pruner/**"            # スキーマの抜き出し
+      - ".github/workflows/server-tests.yml"    # このファイル自身
+  workflow_dispatch:            # Actions タブの「Run workflow」ボタンから手動で動かす
+
+# --- GITHUB_TOKEN の権限を最小にする(読み取りだけ) --------------------
+permissions:
+  contents: read
+
+# --- 同じブランチで続けて push したら、古い実行を取り消す(無駄な実行を減らす) ---
+concurrency:
+  group: server-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  server-tests:
+    # ランナーの種類。ubuntu は GitHub が用意する Linux(無料枠で最も安く速い)。
+    runs-on: ubuntu-24.04
+    # 何かが固まったとき、無限に動かさないための上限(分)。
+    timeout-minutes: 60
+
+    env:
+      # --- テスト用 DB の設定(tools/docker/postgresql/.env.example と同じ項目名) ---
+      # 05・06・07・09 の SQL が \getenv で読む。パスワード類は次の手順で乱数から作る。
+      DB_SVR: avocado
+      DB_SCHEMA: stores
+      DB_TEST_SVR: test_avocado
+      DB_TEST_SCHEMA: tests
+      APP_SERVICE_USER_ID: authenticator   # PostGraphile がつなぐユーザー(権限なし。ロールを切り替えるだけ)
+      APP_OWNER_ID: app_owner
+      APP_ANONYMOUS: pms_anonymous         # JWT なしのリクエストのロール
+      APP_USER_ID: pms_user                # 一般ユーザーのロール
+      APP_ADMIN_ID: pms_admin              # 管理者のロール
+      TEST_DEBUGGER_ID: tester_admin
+      DEBUGGER_ID: avocado_admin
+      # --- 接続先(このマシンの中だけ) ---
+      PGHOST: 127.0.0.1
+      PGPORT: "5432"
+      PGUSER: postgres
+      GRAPHQL_URL: http://127.0.0.1:5000/graphql
+
+    steps:
+      # ---------------------------------------------------------------
+      # 1. ソースコードを取得する(checkout)
+      # ---------------------------------------------------------------
+      - name: ソースコードを取得
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false   # git の認証情報を、あとの手順に残さない
+
+      # ---------------------------------------------------------------
+      # 2. 使い捨ての秘密(パスワード・JWT の鍵)を作る
+      #    openssl rand -hex 24 = 48 文字のランダムな文字列。実行のたびに変わる。
+      # ---------------------------------------------------------------
+      - name: 使い捨ての秘密を作る
+        run: |
+          for name in PGPASSWORD APP_SERVICE_USER_PWD TEST_DEBUGGER_PWD DEBUGGER_PWD PMS_TEST_JWT_SECRET; do
+            value="$(openssl rand -hex 24)"
+            echo "::add-mask::$value"                 # ログに出ても *** になるようにする
+            echo "$name=$value" >> "$GITHUB_ENV"      # 以降の手順で使えるようにする
+          done
+
+      # ---------------------------------------------------------------
+      # 3. PostgreSQL を起動する(Docker。公式イメージ postgres:15)
+      #    -p 127.0.0.1:5432:5432 … このマシンの中からだけ接続できる(外には公開しない)
+      #    --encoding / --locale   … 本番の docker-compose.yml と同じ設定
+      # ---------------------------------------------------------------
+      - name: PostgreSQL を起動
+        run: |
+          docker run -d --name pms-postgres \
+            -e POSTGRES_USER="$PGUSER" \
+            -e POSTGRES_PASSWORD="$PGPASSWORD" \
+            -e POSTGRES_INITDB_ARGS="--encoding=UTF-8 --locale=C" \
+            -e TZ=Asia/Tokyo \
+            -p 127.0.0.1:5432:5432 \
+            postgres:15
+          # 接続できるようになるまで待つ(最大 60 秒)
+          for i in $(seq 1 60); do
+            if pg_isready -h 127.0.0.1 -p 5432 -U "$PGUSER" >/dev/null 2>&1; then
+              echo "PostgreSQL が起動しました"; exit 0
+            fi
+            sleep 1
+          done
+          echo "PostgreSQL が起動しませんでした"; docker logs pms-postgres; exit 1
+
+      # ---------------------------------------------------------------
+      # 4. テスト用 DB を作る(SQL を番号順に流す)
+      #    本番の docker は、script フォルダの *.sql を名前順に実行する。それと同じことを psql で行う。
+      #    01 DB 作成 → 02 → 04 → 05 ロール → 06 表・関数・ビュー → 07 ダミーデータ → 09 権限
+      #    ON_ERROR_STOP=1 … SQL が1つでも失敗したら、ここで止めて失敗にする
+      #    \getenv で読む環境変数(DB_TEST_SVR など)は、上の env で渡している
+      # ---------------------------------------------------------------
+      - name: テスト用 DB を作る(01〜09 の SQL)
+        run: |
+          for f in tools/docker/postgresql/script/*.sql; do
+            echo "=== $f"
+            psql -v ON_ERROR_STOP=1 --no-psqlrc -d postgres -f "$f" > /dev/null
+          done
+
+      # ---------------------------------------------------------------
+      # 5. 一般ユーザーの担当者 ID を DB から引く(JWT の staff_id に使う)
+      #    07_dummy.sql が、コード ADMIN の担当者を作っている。
+      #    ※ ロールは一般ユーザー(pms_user)で行う。管理者だけで確認しない方針のため。
+      # ---------------------------------------------------------------
+      - name: 担当者の ID を取得
+        run: |
+          staff_id="$(psql --no-psqlrc -d "$DB_TEST_SVR" -Atc \
+            "SELECT info_staff_id FROM ${DB_TEST_SCHEMA}.info_staff WHERE code = 'ADMIN' AND remove IS FALSE LIMIT 1")"
+          if [ -z "$staff_id" ]; then echo "担当者(ADMIN)が見つかりません"; exit 1; fi
+          echo "PMS_TEST_STAFF_ID=$staff_id" >> "$GITHUB_ENV"
+
+      # ---------------------------------------------------------------
+      # 6. PostGraphile を起動する(Node.js)
+      #    本番の tools/docker/postgraphile/docker-compose.yml と同じ設定。Docker のイメージは使わず、
+      #    ランナーの Node に npm で入れる(外部のイメージを増やさないため)。
+      #    .postgraphilerc.js(フィルタの設定)は、カレントフォルダから読まれるので、そのフォルダで起動する。
+      # ---------------------------------------------------------------
+      - name: Node.js を用意
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "22"
+
+      - name: PostGraphile を起動
+        working-directory: tools/docker/postgraphile
+        run: |
+          # Dockerfile と同じバージョン・プラグイン
+          npm install -g postgraphile@4 postgraphile-plugin-nested-mutations postgraphile-plugin-connection-filter@2.3.0
+          # スキーマが大きいと Node のメモリが足りなくなるため、上限を上げる(compose でも同じ対処)
+          export NODE_OPTIONS="--max-old-space-size=4096"
+          # バックグラウンドで起動する(&)。ログは postgraphile.log へ。
+          nohup postgraphile \
+            -n 127.0.0.1 -p 5000 \
+            --connection "postgres://${APP_SERVICE_USER_ID}:${APP_SERVICE_USER_PWD}@127.0.0.1:5432/${DB_TEST_SVR}" \
+            --schema "$DB_TEST_SCHEMA" \
+            --append-plugins postgraphile-plugin-nested-mutations,postgraphile-plugin-connection-filter \
+            --jwt-secret "$PMS_TEST_JWT_SECRET" \
+            --jwt-verify-audience postgraphile \
+            --jwt-verify-algorithms HS256 \
+            --jwt-verify-clock-tolerance 30 \
+            --default-role "$APP_ANONYMOUS" \
+            --extended-errors errcode \
+            > "$RUNNER_TEMP/postgraphile.log" 2>&1 &
+          # 起動を待つ(最大 3 分)。GraphQL に簡単な問い合わせをして、答えが返れば起動済み。
+          for i in $(seq 1 90); do
+            if curl -sf -X POST "$GRAPHQL_URL" -H 'Content-Type: application/json' \
+                 -d '{"query":"{ __typename }"}' >/dev/null; then
+              echo "PostGraphile が起動しました"; exit 0
+            fi
+            sleep 2
+          done
+          echo "PostGraphile が起動しませんでした。ログ:"; cat "$RUNNER_TEMP/postgraphile.log"; exit 1
+
+      # ---------------------------------------------------------------
+      # 7. Flutter と melos を用意する
+      #    channel: stable … 最新の安定版。プロジェクトの Dart の要件(pubspec.yaml の sdk)に
+      #    合わないと pub get で失敗する。その場合は flutter-version で版を指定する。
+      # ---------------------------------------------------------------
+      - name: Flutter を用意
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2
+        with:
+          channel: stable
+          cache: true      # ダウンロードを使い回して速くする
+
+      - name: 依存を解決して melos を用意
+        run: |
+          flutter pub get
+          dart pub global activate melos
+          echo "$HOME/.pub-cache/bin" >> "$GITHUB_PATH"   # melos コマンドを使えるようにする
+          melos bootstrap
+
+      # ---------------------------------------------------------------
+      # 8. スキーマの確認とモデルの生成
+      #    本家スキーマ(.schema/schema.graphql)は大きいので Git に入れない。
+      #    ここで PostGraphile から取得して、毎回その場で使う。
+      # ---------------------------------------------------------------
+      - name: 本家スキーマを PostGraphile から取得
+        run: dart run tools/gql_schema_pruner/bin/fetch_schema.dart --endpoint "$GRAPHQL_URL" --out .schema/schema.graphql
+
+      # YAML → .graphql、本家 → 画面用スキーマ を作り直し、コミット済みのものと違えば「DB と Git がずれている」。
+      # 初めのうちは、既にずれているかもしれないので、失敗しても全体は止めない(continue-on-error)。
+      # ずれが無くなったら、continue-on-error の行を消して、必須の確認にする。
+      - name: コミット済みの .graphql・スキーマとのずれを調べる
+        continue-on-error: true
+        run: |
+          melos run gql:yaml
+          melos run gql:prune
+          git diff --exit-code -- packages/model_providers
+
+      - name: モデルを生成(*.graphql.dart)
+        run: melos run gql:build
+
+      # ---------------------------------------------------------------
+      # 9. サーバーを使うテストを実行する
+      #    *_model パッケージのテスト。接続先と JWT は、環境変数・dart-define で渡す。
+      #    JWT は、テストが自分で作る(PocketBase は使わない)。鍵は PostGraphile と同じ乱数。
+      #    --dart-define=… はテストのプロセスに値を渡す指定。
+      # ---------------------------------------------------------------
+      - name: サーバーを使うテスト(*_model)
+        run: |
+          melos exec --scope="*_model" --dir-exists=test -- \
+            flutter test --dart-define=PMS_TEST_GRAPHQL_URL="$GRAPHQL_URL"
+
+      # ---------------------------------------------------------------
+      # 失敗したときだけ、PostGraphile のログを表示する(原因調べ用)
+      # ---------------------------------------------------------------
+      - name: PostGraphile のログ(失敗時のみ)
+        if: failure()
+        run: cat "$RUNNER_TEMP/postgraphile.log" || true
