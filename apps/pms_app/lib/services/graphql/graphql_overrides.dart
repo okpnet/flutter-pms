@@ -1,7 +1,7 @@
 import 'package:access_control/access_control.dart';
 import 'package:auth_files/auth_files_api.dart' show LogoutDestination;
 import 'package:feature_shared/feature_shared.dart'
-    show commandBusProvider, entityFileTransferProvider, localeProvider;
+    show commandBusProvider, entityFileTransferProvider, entityNewDefaultsProvider, localeProvider;
 import 'package:current_user/current_user.dart';
 import 'package:backstage/backstage.dart' show backstageBootProvider;
 import 'package:entity_screens/entity_screens.dart';
@@ -57,7 +57,7 @@ import 'package:quality_common/quality_common.dart'
 import 'package:quality/quality.dart' show qualityRepositories;
 import 'package:sales/sales.dart' show salesRepositories;
 import 'package:shared_master/shared_master.dart' show sharedMasterRepositories;
-import 'package:system/system.dart' show systemRepositories;
+import 'package:system/system.dart' show baseCurrencyId, systemRepositories;
 
 import '../pocketbase/pocketbase_overrides.dart';
 import '../session/pocketbase_user_identity.dart';
@@ -177,6 +177,15 @@ final auditUserProvider = Provider<AuditUserSource?>((ref) {
 
 /// 画面の取得元を GraphQL 版に差し替える。[graphqlUrl] が未指定なら空(サンプルのまま)。
 List<Override> graphqlOverrides() => [
+  // 新規登録の初期値: 利害関係者の取引の通貨は、標準の通貨(基準通貨。info_app)。DB の既定値では入れない(NULL を許さないため、アプリが入れる)。
+  // 取り出せないとき・接続先が無いときは入れない(通貨の選択で必須になる)
+  entityNewDefaultsProvider.overrideWith((ref, entityKey) async {
+    if (entityKey != 'stakeholder') return const {};
+    final client = ref.watch(graphqlClientProvider);
+    if (client == null) return const {};
+    final id = await baseCurrencyId(client);
+    return id == null ? const {} : {'mstr_currency_id': id};
+  }),
   // 標準の承認パターン(会社情報の「承認」。info_app の対象ごとの列)。接続先が無いときはメモリ上
   approvalDefaultsGatewayProvider.overrideWith((ref) {
     final client = ref.watch(graphqlClientProvider);

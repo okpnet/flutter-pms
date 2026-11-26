@@ -7,6 +7,7 @@ import 'package:selection_result/selection_result.dart';
 
 import 'command_bus_provider.dart';
 import 'feature_module.dart';
+import 'entity_new_defaults_provider.dart';
 import 'locale_provider.dart';
 import 'menu.dart';
 import 'money_format_provider.dart';
@@ -485,11 +486,18 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
   ]) => Consumer(
     builder: (context, ref, _) {
       final bus = ref.read(commandBusProvider);
+      // 新規のときは、アプリが決める初期値(標準の通貨など)を下敷きにする。遷移先が渡した値が優先
+      var initial = initialValues;
+      if (id == null) {
+        final defaults = ref.watch(entityNewDefaultsProvider(key));
+        if (defaults.isLoading) return const SizedBox.shrink();
+        initial = {...?defaults.value, ...initialValues};
+      }
       return EntityEditPage(
         entityKey: key,
         id: id,
         parentId: parentId,
-        initialValues: initialValues,
+        initialValues: initial,
         onPick: (entityKey) async =>
             (await bus.execute(EntityPickerDestination(entityKey)))?.id,
         scope: _scope(ref),

@@ -25,6 +25,7 @@ export 'src/busy.dart';
 export 'src/command_bus_provider.dart';
 export 'src/dashboard_alert_slot.dart';
 export 'src/entity_feature_module.dart';
+export 'src/entity_new_defaults_provider.dart';
 export 'src/feature_host.dart';
 export 'src/feature_module.dart';
 export 'src/go_router_destination_navigator.dart';
