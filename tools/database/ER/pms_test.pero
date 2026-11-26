@@ -2,14 +2,14 @@
   "formatVersion": 3,
   "appVersion": "0.1.0",
   "id": 538067658,
-  "nextId": 6202,
+  "nextId": 6272,
   "properties": {
     "outputFileName": "pms_test",
     "outputFolder": "",
     "targetDb": "postgresql",
     "postPath": "C:\\Users\\隼人さん\\AppData\\Local\\Programs\\PERO\\post\\postgresql.post",
     "startQuery": "\\c test_avocado\nSET search_path TO tests, public;",
-    "endQuery": "-- [PERO 取り込みログ] 取り込めなかった要素\n-- 取り込まない文: DROP VIEW IF × 163\n-- 取り込まない文: DROP TRIGGER IF × 3\n-- 取り込まない文: 主キーと重複するユニークインデックス(取り込まない) × 263\n\n-- [追加] コードの部分一意索引(doc/query/20261115_0002_code_unique_indexes.sql)。削除済み(remove = true)のコードは再利用できる\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_stakeholder_ix_code_active ON tests.mstr_stakeholder (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_capability_ix_code_active ON tests.mstr_capability (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_license_ix_code_active ON tests.mstr_license (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_location_ix_code_active ON tests.mstr_location (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS info_staff_ix_code_active ON tests.info_staff (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS info_office_ix_code_active ON tests.info_office (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS info_department_ix_code_active ON tests.info_department (code) WHERE remove = false;\n-- [追加] 言語コードの一意制約を、大文字小文字を区別しない一意索引にする(doc/query/20261116_0003_language_code_unique_lower.sql)\nALTER TABLE tests.shared_language_code DROP CONSTRAINT IF EXISTS shared_language_code_ix1;\nDROP INDEX IF EXISTS tests.shared_language_code_ix1;\nCREATE UNIQUE INDEX shared_language_code_ix1 ON tests.shared_language_code (lower(code));\n\n-- [追加] 監査の実施記録の重複(削除済み remove = true は再登録できる)\nCREATE UNIQUE INDEX IF NOT EXISTS trans_audit_detail_check_items_ix_active ON tests.trans_audit_detail_check_items (trans_audit_details_id, audit_std_checkitem_id) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS trans_audit_complaint_ix_active ON tests.trans_audit_complaint (trans_complaint_id, trans_audit_detail_check_items_id) WHERE remove = false;",
+    "endQuery": "-- [PERO 取り込みログ] 取り込めなかった要素\n-- 取り込まない文: DROP VIEW IF × 163\n-- 取り込まない文: DROP TRIGGER IF × 3\n-- 取り込まない文: 主キーと重複するユニークインデックス(取り込まない) × 263\n\n-- [追加] コードの部分一意索引(doc/query/20261115_0002_code_unique_indexes.sql)。削除済み(remove = true)のコードは再利用できる\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_stakeholder_ix_code_active ON tests.mstr_stakeholder (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_capability_ix_code_active ON tests.mstr_capability (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_license_ix_code_active ON tests.mstr_license (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_location_ix_code_active ON tests.mstr_location (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS info_staff_ix_code_active ON tests.info_staff (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS info_office_ix_code_active ON tests.info_office (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS info_department_ix_code_active ON tests.info_department (code) WHERE remove = false;\n-- [追加] 言語コードの一意制約を、大文字小文字を区別しない一意索引にする(doc/query/20261116_0003_language_code_unique_lower.sql)\nALTER TABLE tests.shared_language_code DROP CONSTRAINT IF EXISTS shared_language_code_ix1;\nDROP INDEX IF EXISTS tests.shared_language_code_ix1;\nCREATE UNIQUE INDEX shared_language_code_ix1 ON tests.shared_language_code (lower(code));\n\n-- [追加] 監査の実施記録の重複(削除済み remove = true は再登録できる)\nCREATE UNIQUE INDEX IF NOT EXISTS trans_audit_detail_check_items_ix_active ON tests.trans_audit_detail_check_items (trans_audit_details_id, audit_std_checkitem_id) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS trans_audit_complaint_ix_active ON tests.trans_audit_complaint (trans_complaint_id, trans_audit_detail_check_items_id) WHERE remove = false;\n\n-- [追加] 通貨・為替レート(doc: issue/20261126_0002.md)。削除済みの通貨のコードは再利用できる\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_currency_ix_code_active ON tests.mstr_currency (code) WHERE remove = false;\nCREATE INDEX IF NOT EXISTS trans_exchange_rate_ix_lookup ON tests.trans_exchange_rate (mstr_currency_id, rate_month DESC) WHERE remove = false;",
     "schema": "tests",
     "includeSchema": true
   },
@@ -6663,7 +6663,7 @@
         "sqlite": ""
       },
       "bodies": {
-        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_02_history_info_app() RETURNS trigger AS\r\n$BODY$\r\nDECLARE\r\n    revisions int;\r\nBEGIN\r\n    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN\r\n        SELECT Max(revision) INTO revisions FROM tests.history_info_app WHERE info_app_id=NEW.info_app_id;\r\n        IF (revisions >= 0) THEN\r\n            IF (\r\n                NEW.info_app_id,\r\n                NEW.info_company_id,\r\n                NEW.name,\r\n                NEW.settings,\r\n                NEW.document_approval_pattern_id,\r\n                NEW.order_approval_pattern_id,\r\n                NEW.purchase_approval_pattern_id,\r\n                NEW.unrecognized_approval_pattern_id,\r\n                NEW.shipping_order_approval_pattern_id,\r\n                NEW.complaint_approval_pattern_id,\r\n                NEW.disposal_approval_pattern_id,\r\n                NEW.recurrence_prevention_approval_pattern_id,\r\n                NEW.symbol,\r\n                NEW.remarks,\r\n                NEW.remove\r\n            ) IS NOT DISTINCT FROM (\r\n                OLD.info_app_id,\r\n                OLD.info_company_id,\r\n                OLD.name,\r\n                OLD.settings,\r\n                OLD.document_approval_pattern_id,\r\n                OLD.order_approval_pattern_id,\r\n                OLD.purchase_approval_pattern_id,\r\n                OLD.unrecognized_approval_pattern_id,\r\n                OLD.shipping_order_approval_pattern_id,\r\n                OLD.complaint_approval_pattern_id,\r\n                OLD.disposal_approval_pattern_id,\r\n                OLD.recurrence_prevention_approval_pattern_id,\r\n                OLD.symbol,\r\n                OLD.remarks,\r\n                OLD.remove\r\n            )\r\n            THEN\r\n                RETURN NULL;\r\n            END IF;\r\n            NEW.revision := revisions + 1;\r\n        ELSE\r\n            NEW.revision := 1;\r\n        END IF;\r\n        INSERT INTO tests.history_info_app (\r\n            info_app_id,\r\n            info_company_id,\r\n            name,\r\n            revision,\r\n            settings,\r\n            document_approval_pattern_id,\r\n            order_approval_pattern_id,\r\n            purchase_approval_pattern_id,\r\n            unrecognized_approval_pattern_id,\r\n            shipping_order_approval_pattern_id,\r\n            complaint_approval_pattern_id,\r\n            disposal_approval_pattern_id,\r\n            recurrence_prevention_approval_pattern_id,\r\n            symbol,\r\n            remarks,\r\n            update_at,\r\n            update_user_id,\r\n            update_user_history_id,\r\n            remove\r\n        )\r\n        VALUES\r\n        (\r\n            NEW.info_app_id,\r\n            NEW.info_company_id,\r\n            NEW.name,\r\n            NEW.revision,\r\n            NEW.settings,\r\n            NEW.document_approval_pattern_id,\r\n            NEW.order_approval_pattern_id,\r\n            NEW.purchase_approval_pattern_id,\r\n            NEW.unrecognized_approval_pattern_id,\r\n            NEW.shipping_order_approval_pattern_id,\r\n            NEW.complaint_approval_pattern_id,\r\n            NEW.disposal_approval_pattern_id,\r\n            NEW.recurrence_prevention_approval_pattern_id,\r\n            NEW.symbol,\r\n            NEW.remarks,\r\n            NEW.update_at,\r\n            NEW.update_user_id,\r\n            NEW.update_user_history_id,\r\n            NEW.remove\r\n        );\r\n        RETURN NEW;\r\n    ELSEIF (TG_OP = 'DELETE') THEN\r\n        RETURN OLD;\r\n    END IF;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_02_history_info_app() RETURNS trigger AS\r\n$BODY$\r\nDECLARE\r\n    revisions int;\r\nBEGIN\r\n    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN\r\n        SELECT Max(revision) INTO revisions FROM tests.history_info_app WHERE info_app_id=NEW.info_app_id;\r\n        IF (revisions >= 0) THEN\r\n            IF (\r\n                NEW.info_app_id,\r\n                NEW.info_company_id,\r\n                NEW.name,\r\n                NEW.settings,\r\n                NEW.document_approval_pattern_id,\r\n                NEW.order_approval_pattern_id,\r\n                NEW.purchase_approval_pattern_id,\r\n                NEW.unrecognized_approval_pattern_id,\r\n                NEW.shipping_order_approval_pattern_id,\r\n                NEW.complaint_approval_pattern_id,\r\n                NEW.disposal_approval_pattern_id,\r\n                NEW.recurrence_prevention_approval_pattern_id,\r\n                NEW.mstr_currency_id,\r\n                NEW.symbol,\r\n                NEW.remarks,\r\n                NEW.remove\r\n            ) IS NOT DISTINCT FROM (\r\n                OLD.info_app_id,\r\n                OLD.info_company_id,\r\n                OLD.name,\r\n                OLD.settings,\r\n                OLD.document_approval_pattern_id,\r\n                OLD.order_approval_pattern_id,\r\n                OLD.purchase_approval_pattern_id,\r\n                OLD.unrecognized_approval_pattern_id,\r\n                OLD.shipping_order_approval_pattern_id,\r\n                OLD.complaint_approval_pattern_id,\r\n                OLD.disposal_approval_pattern_id,\r\n                OLD.recurrence_prevention_approval_pattern_id,\r\n                OLD.mstr_currency_id,\r\n                OLD.symbol,\r\n                OLD.remarks,\r\n                OLD.remove\r\n            )\r\n            THEN\r\n                RETURN NULL;\r\n            END IF;\r\n            NEW.revision := revisions + 1;\r\n        ELSE\r\n            NEW.revision := 1;\r\n        END IF;\r\n        INSERT INTO tests.history_info_app (\r\n            info_app_id,\r\n            info_company_id,\r\n            name,\r\n            revision,\r\n            settings,\r\n            document_approval_pattern_id,\r\n            order_approval_pattern_id,\r\n            purchase_approval_pattern_id,\r\n            unrecognized_approval_pattern_id,\r\n            shipping_order_approval_pattern_id,\r\n            complaint_approval_pattern_id,\r\n            disposal_approval_pattern_id,\r\n            recurrence_prevention_approval_pattern_id,\r\n            mstr_currency_id,\r\n            symbol,\r\n            remarks,\r\n            update_at,\r\n            update_user_id,\r\n            update_user_history_id,\r\n            remove\r\n        )\r\n        VALUES\r\n        (\r\n            NEW.info_app_id,\r\n            NEW.info_company_id,\r\n            NEW.name,\r\n            NEW.revision,\r\n            NEW.settings,\r\n            NEW.document_approval_pattern_id,\r\n            NEW.order_approval_pattern_id,\r\n            NEW.purchase_approval_pattern_id,\r\n            NEW.unrecognized_approval_pattern_id,\r\n            NEW.shipping_order_approval_pattern_id,\r\n            NEW.complaint_approval_pattern_id,\r\n            NEW.disposal_approval_pattern_id,\r\n            NEW.recurrence_prevention_approval_pattern_id,\r\n            NEW.mstr_currency_id,\r\n            NEW.symbol,\r\n            NEW.remarks,\r\n            NEW.update_at,\r\n            NEW.update_user_id,\r\n            NEW.update_user_history_id,\r\n            NEW.remove\r\n        );\r\n        RETURN NEW;\r\n    ELSEIF (TG_OP = 'DELETE') THEN\r\n        RETURN OLD;\r\n    END IF;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
         "mysql": "",
         "sqlserver": "",
         "sqlite": ""
@@ -7785,7 +7785,7 @@
         "sqlite": ""
       },
       "bodies": {
-        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_stakeholder() RETURNS trigger AS\r\n$BODY$\r\nDECLARE\r\n    revisions int;\r\nBEGIN\r\n    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN\r\n        SELECT Max(revision) INTO revisions FROM tests.history_mstr_stakeholder WHERE mstr_stakeholder_id=NEW.mstr_stakeholder_id;\r\n        IF (revisions >= 0) THEN\r\n            IF (\r\n                NEW.mstr_stakeholder_id,\r\n                NEW.is_customer,\r\n                NEW.is_supplier,\r\n                NEW.is_logistics,\r\n                NEW.code,\r\n                NEW.control_code,\r\n                NEW.names,\r\n                NEW.mail,\r\n                NEW.info_address_id,\r\n                NEW.mstr_shipping_kind_id,\r\n                NEW.symbol,\r\n                NEW.remarks,\r\n                NEW.remove\r\n            ) IS NOT DISTINCT FROM (\r\n                OLD.mstr_stakeholder_id,\r\n                OLD.is_customer,\r\n                OLD.is_supplier,\r\n                OLD.is_logistics,\r\n                OLD.code,\r\n                OLD.control_code,\r\n                OLD.names,\r\n                OLD.mail,\r\n                OLD.info_address_id,\r\n                OLD.mstr_shipping_kind_id,\r\n                OLD.symbol,\r\n                OLD.remarks,\r\n                OLD.remove\r\n            )\r\n            THEN\r\n                RETURN NULL;\r\n            END IF;\r\n            NEW.revision := revisions + 1;\r\n        ELSE\r\n            NEW.revision := 1;\r\n        END IF;\r\n        INSERT INTO tests.history_mstr_stakeholder (\r\n            mstr_stakeholder_id,\r\n            is_customer,\r\n            is_supplier,\r\n            is_logistics,\r\n            code,\r\n            control_code,\r\n            names,\r\n            mail,\r\n            info_address_id,\r\n            mstr_shipping_kind_id,\r\n            revision,\r\n            symbol,\r\n            remarks,\r\n            update_at,\r\n            update_user_id,\r\n            update_user_history_id,\r\n            remove\r\n        )\r\n        VALUES\r\n        (\r\n            NEW.mstr_stakeholder_id,\r\n            NEW.is_customer,\r\n            NEW.is_supplier,\r\n            NEW.is_logistics,\r\n            NEW.code,\r\n            NEW.control_code,\r\n            NEW.names,\r\n            NEW.mail,\r\n            NEW.info_address_id,\r\n            NEW.mstr_shipping_kind_id,\r\n            NEW.revision,\r\n            NEW.symbol,\r\n            NEW.remarks,\r\n            NEW.update_at,\r\n            NEW.update_user_id,\r\n            NEW.update_user_history_id,\r\n            NEW.remove\r\n        );\r\n        RETURN NEW;\r\n    ELSEIF (TG_OP = 'DELETE') THEN\r\n        RETURN OLD;\r\n    END IF;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_stakeholder() RETURNS trigger AS\r\n$BODY$\r\nDECLARE\r\n    revisions int;\r\nBEGIN\r\n    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN\r\n        SELECT Max(revision) INTO revisions FROM tests.history_mstr_stakeholder WHERE mstr_stakeholder_id=NEW.mstr_stakeholder_id;\r\n        IF (revisions >= 0) THEN\r\n            IF (\r\n                NEW.mstr_stakeholder_id,\r\n                NEW.is_customer,\r\n                NEW.is_supplier,\r\n                NEW.is_logistics,\r\n                NEW.code,\r\n                NEW.control_code,\r\n                NEW.names,\r\n                NEW.mail,\r\n                NEW.info_address_id,\r\n                NEW.mstr_shipping_kind_id,\r\n                NEW.mstr_currency_id,\r\n                NEW.acceptance_day,\r\n                NEW.symbol,\r\n                NEW.remarks,\r\n                NEW.remove\r\n            ) IS NOT DISTINCT FROM (\r\n                OLD.mstr_stakeholder_id,\r\n                OLD.is_customer,\r\n                OLD.is_supplier,\r\n                OLD.is_logistics,\r\n                OLD.code,\r\n                OLD.control_code,\r\n                OLD.names,\r\n                OLD.mail,\r\n                OLD.info_address_id,\r\n                OLD.mstr_shipping_kind_id,\r\n                OLD.mstr_currency_id,\r\n                OLD.acceptance_day,\r\n                OLD.symbol,\r\n                OLD.remarks,\r\n                OLD.remove\r\n            )\r\n            THEN\r\n                RETURN NULL;\r\n            END IF;\r\n            NEW.revision := revisions + 1;\r\n        ELSE\r\n            NEW.revision := 1;\r\n        END IF;\r\n        INSERT INTO tests.history_mstr_stakeholder (\r\n            mstr_stakeholder_id,\r\n            is_customer,\r\n            is_supplier,\r\n            is_logistics,\r\n            code,\r\n            control_code,\r\n            names,\r\n            mail,\r\n            info_address_id,\r\n            mstr_shipping_kind_id,\r\n            mstr_currency_id,\r\n            acceptance_day,\r\n            revision,\r\n            symbol,\r\n            remarks,\r\n            update_at,\r\n            update_user_id,\r\n            update_user_history_id,\r\n            remove\r\n        )\r\n        VALUES\r\n        (\r\n            NEW.mstr_stakeholder_id,\r\n            NEW.is_customer,\r\n            NEW.is_supplier,\r\n            NEW.is_logistics,\r\n            NEW.code,\r\n            NEW.control_code,\r\n            NEW.names,\r\n            NEW.mail,\r\n            NEW.info_address_id,\r\n            NEW.mstr_shipping_kind_id,\r\n            NEW.mstr_currency_id,\r\n            NEW.acceptance_day,\r\n            NEW.revision,\r\n            NEW.symbol,\r\n            NEW.remarks,\r\n            NEW.update_at,\r\n            NEW.update_user_id,\r\n            NEW.update_user_history_id,\r\n            NEW.remove\r\n        );\r\n        RETURN NEW;\r\n    ELSEIF (TG_OP = 'DELETE') THEN\r\n        RETURN OLD;\r\n    END IF;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
         "mysql": "",
         "sqlserver": "",
         "sqlite": ""
@@ -11230,6 +11230,242 @@
         2924,
         3124,
         3221
+      ],
+      "schema": "tests"
+    },
+    {
+      "id": 6240,
+      "kind": "function",
+      "name": "currency_base_id",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.currency_base_id() RETURNS uuid AS $$\n    SELECT a.mstr_currency_id FROM tests.info_app AS a WHERE a.remove IS FALSE ORDER BY a.update_at LIMIT 1\n$$ LANGUAGE sql STABLE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "@omit\n基準通貨の ID(info_app)",
+      "args": "",
+      "dependsOnTableIds": [
+        2855
+      ],
+      "schema": "tests"
+    },
+    {
+      "id": 6241,
+      "kind": "function",
+      "name": "currency_rate_at",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.currency_rate_at(p_currency_id uuid, p_date date) RETURNS numeric AS $$\n    SELECT CASE\n        WHEN p_currency_id IS NULL THEN NULL\n        WHEN p_currency_id = tests.currency_base_id() THEN 1::numeric\n        ELSE (\n            SELECT r.rate FROM tests.trans_exchange_rate AS r\n            WHERE r.mstr_currency_id = p_currency_id AND r.remove IS FALSE\n              AND r.rate_month <= date_trunc('month', p_date)::date\n            ORDER BY r.rate_month DESC, r.update_at DESC LIMIT 1\n        )\n    END\n$$ LANGUAGE sql STABLE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "@omit\nその月以前で最新のレート(1 単位の通貨 = 基準通貨いくら)。基準通貨は 1。無ければ NULL",
+      "args": "uuid, date",
+      "dependsOnTableIds": [
+        6228,
+        2855
+      ],
+      "schema": "tests"
+    },
+    {
+      "id": 6242,
+      "kind": "function",
+      "name": "currency_rate_provisional",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.currency_rate_provisional(p_currency_id uuid, p_date date) RETURNS boolean AS $$\n    SELECT CASE\n        WHEN p_currency_id IS NULL THEN false\n        WHEN p_currency_id = tests.currency_base_id() THEN false\n        ELSE NOT EXISTS (\n            SELECT 1 FROM tests.trans_exchange_rate AS r\n            WHERE r.mstr_currency_id = p_currency_id AND r.remove IS FALSE\n              AND r.rate_month = date_trunc('month', p_date)::date\n        )\n    END\n$$ LANGUAGE sql STABLE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "@omit\nその月のレートが登録されていない(別の月のレートで代用している)とき true。基準通貨は false",
+      "args": "uuid, date",
+      "dependsOnTableIds": [
+        6228,
+        2855
+      ],
+      "schema": "tests"
+    },
+    {
+      "id": 6243,
+      "kind": "function",
+      "name": "acceptance_month",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.acceptance_month(p_acceptance_day smallint, p_date date) RETURNS date AS $$\n    SELECT CASE\n        WHEN p_date IS NULL THEN NULL\n        WHEN p_acceptance_day IS NULL THEN date_trunc('month', p_date)::date\n        WHEN extract(day FROM p_date)::int <= LEAST(\n            p_acceptance_day::int,\n            extract(day FROM (date_trunc('month', p_date) + interval '1 month' - interval '1 day'))::int\n        ) THEN date_trunc('month', p_date)::date\n        ELSE (date_trunc('month', p_date) + interval '1 month')::date\n    END\n$$ LANGUAGE sql IMMUTABLE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "@omit\n検収日を考慮した換算の月(月の初日)。検収日までは当月、後は翌月。NULL は月末(常に当月)。検収日が月の日数より大きいときは月末",
+      "args": "smallint, date",
+      "dependsOnTableIds": [],
+      "schema": "tests"
+    },
+    {
+      "id": 6244,
+      "kind": "function",
+      "name": "currency_to_base",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.currency_to_base(p_amount numeric, p_currency_id uuid, p_date date) RETURNS numeric AS $$\n    SELECT ROUND(p_amount * tests.currency_rate_at(p_currency_id, p_date),\n        COALESCE((SELECT c.minor_unit FROM tests.mstr_currency AS c WHERE c.mstr_currency_id = tests.currency_base_id()), 0))\n$$ LANGUAGE sql STABLE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "@omit\n金額を基準通貨に換算する(基準通貨の小数の桁数で四捨五入)。レートが無ければ NULL",
+      "args": "numeric, uuid, date",
+      "dependsOnTableIds": [
+        6228,
+        6209,
+        2855
+      ],
+      "schema": "tests"
+    },
+    {
+      "id": 6245,
+      "kind": "trigger",
+      "name": "trg_01_updatetimes_mstr_currency",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_currency() RETURNS trigger AS\r\n$BODY$\r\nDECLARE\r\n    latest_row record;\r\nBEGIN\r\n    IF (TG_OP = 'UPDATE') THEN\r\n        NEW.update_at:=now();\r\n        RETURN NEW;\r\n    ELSEIF (TG_OP='INSERT') THEN\r\n        NEW.mstr_currency_id := gen_random_uuid();\r\n        NEW.update_at:=now();\r\n        RETURN NEW;\r\n    ELSEIF (TG_OP = 'DELETE') THEN\r\n        RETURN OLD;\r\n    END IF;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "",
+      "args": "",
+      "dependsOnTableIds": [],
+      "schema": "tests"
+    },
+    {
+      "id": 6246,
+      "kind": "trigger",
+      "name": "trg_02_history_mstr_currency",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_currency() RETURNS trigger AS\r\n$BODY$\r\nDECLARE\r\n    revisions int;\r\nBEGIN\r\n    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN\r\n        SELECT Max(revision) INTO revisions FROM tests.history_mstr_currency WHERE mstr_currency_id=NEW.mstr_currency_id;\r\n        IF (revisions >= 0) THEN\r\n            IF (\r\n                NEW.mstr_currency_id,\r\n                NEW.code,\r\n                NEW.names,\r\n                NEW.currency_symbol,\r\n                NEW.minor_unit,\r\n                NEW.rate_auto,\r\n                NEW.symbol,\r\n                NEW.remarks,\r\n                NEW.remove\r\n            ) IS NOT DISTINCT FROM (\r\n                OLD.mstr_currency_id,\r\n                OLD.code,\r\n                OLD.names,\r\n                OLD.currency_symbol,\r\n                OLD.minor_unit,\r\n                OLD.rate_auto,\r\n                OLD.symbol,\r\n                OLD.remarks,\r\n                OLD.remove\r\n            )\r\n            THEN\r\n                RETURN NULL;\r\n            END IF;\r\n            NEW.revision := revisions + 1;\r\n        ELSE\r\n            NEW.revision := 1;\r\n        END IF;\r\n        INSERT INTO tests.history_mstr_currency (\r\n            mstr_currency_id,\r\n            code,\r\n            names,\r\n            currency_symbol,\r\n            minor_unit,\r\n            rate_auto,\r\n            revision,\r\n            symbol,\r\n            remarks,\r\n            update_at,\r\n            update_user_id,\r\n            update_user_history_id,\r\n            remove\r\n        )\r\n        VALUES\r\n        (\r\n            NEW.mstr_currency_id,\r\n            NEW.code,\r\n            NEW.names,\r\n            NEW.currency_symbol,\r\n            NEW.minor_unit,\r\n            NEW.rate_auto,\r\n            NEW.revision,\r\n            NEW.symbol,\r\n            NEW.remarks,\r\n            NEW.update_at,\r\n            NEW.update_user_id,\r\n            NEW.update_user_history_id,\r\n            NEW.remove\r\n        );\r\n        RETURN NEW;\r\n    ELSEIF (TG_OP = 'DELETE') THEN\r\n        RETURN OLD;\r\n    END IF;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "",
+      "args": "",
+      "dependsOnTableIds": [
+        6220
+      ],
+      "schema": "tests"
+    },
+    {
+      "id": 6247,
+      "kind": "trigger",
+      "name": "trg_01_updatetimes_history_mstr_currency",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_currency() RETURNS trigger AS\r\n$BODY$\r\nDECLARE\r\n    latest_row record;\r\nBEGIN\r\n    IF (TG_OP = 'UPDATE') THEN\r\n        NEW.update_at:=now();\r\n        RETURN NEW;\r\n    ELSEIF (TG_OP='INSERT') THEN\r\n        NEW.history_id := gen_random_uuid();\r\n        NEW.update_at:=now();\r\n        RETURN NEW;\r\n    ELSEIF (TG_OP = 'DELETE') THEN\r\n        RETURN OLD;\r\n    END IF;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "",
+      "args": "",
+      "dependsOnTableIds": [],
+      "schema": "tests"
+    },
+    {
+      "id": 6248,
+      "kind": "trigger",
+      "name": "trg_01_updatetimes_trans_exchange_rate",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_exchange_rate() RETURNS trigger AS\r\n$BODY$\r\nDECLARE\r\n    latest_row record;\r\nBEGIN\r\n    IF (TG_OP = 'UPDATE') THEN\r\n        NEW.update_at:=now();\r\n        RETURN NEW;\r\n    ELSEIF (TG_OP='INSERT') THEN\r\n        NEW.trans_exchange_rate_id := gen_random_uuid();\r\n        NEW.update_at:=now();\r\n        RETURN NEW;\r\n    ELSEIF (TG_OP = 'DELETE') THEN\r\n        RETURN OLD;\r\n    END IF;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "",
+      "args": "",
+      "dependsOnTableIds": [],
+      "schema": "tests"
+    },
+    {
+      "id": 6249,
+      "kind": "trigger",
+      "name": "trg_currency_base_guard",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_currency_base_guard() RETURNS trigger AS\r\n$BODY$\r\nBEGIN\r\n    IF NEW.mstr_currency_id IS DISTINCT FROM OLD.mstr_currency_id\r\n       AND EXISTS (SELECT 1 FROM tests.trans_exchange_rate WHERE remove IS FALSE) THEN\r\n        RAISE EXCEPTION '為替レートが登録されているため、基準通貨は変更できません' USING ERRCODE = 'CUR01';\r\n    END IF;\r\n    RETURN NEW;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "@omit\n基準通貨(info_app.mstr_currency_id)の変更の保護。為替レートがあれば CUR01",
+      "args": "",
+      "dependsOnTableIds": [
+        6228
       ],
       "schema": "tests"
     }
@@ -36736,6 +36972,38 @@
           "comment": "配送区分ID"
         },
         {
+          "id": 6234,
+          "logicalName": "取引の通貨ID",
+          "physicalName": "mstr_currency_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "取引の通貨ID"
+        },
+        {
+          "id": 6235,
+          "logicalName": "検収日(月の日。NULL は月末)",
+          "physicalName": "acceptance_day",
+          "typeId": "smallint",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "検収日(月の日。NULL は月末)"
+        },
+        {
           "id": 1833,
           "logicalName": "レビジョン",
           "physicalName": "revision",
@@ -36765,7 +37033,14 @@
           "nullsNotDistinct": false
         }
       ],
-      "checks": [],
+      "checks": [
+        {
+          "id": 6239,
+          "nameMode": "manual",
+          "name": "history_mstr_stakeholder_ck_acceptance_day",
+          "expression": "acceptance_day IS NULL OR acceptance_day BETWEEN 1 AND 31"
+        }
+      ],
       "preQuery": "",
       "postQuery": "",
       "triggers": [
@@ -40948,6 +41223,22 @@
           "defaultMethodId": null,
           "defaultExpression": "",
           "comment": "再発防止の承認パターン"
+        },
+        {
+          "id": 6237,
+          "logicalName": "基準通貨ID(標準の通貨)",
+          "physicalName": "mstr_currency_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "基準通貨ID(標準の通貨)"
         },
         {
           "id": 2140,
@@ -50975,6 +51266,22 @@
           "comment": "再発防止の承認パターン"
         },
         {
+          "id": 6236,
+          "logicalName": "基準通貨ID(標準の通貨)",
+          "physicalName": "mstr_currency_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "基準通貨ID(標準の通貨)"
+        },
+        {
           "id": 2859,
           "logicalName": "レビジョン",
           "physicalName": "revision",
@@ -51077,6 +51384,27 @@
             "INSERT",
             "UPDATE",
             "DELETE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        },
+        {
+          "id": 6257,
+          "source": "public",
+          "methodId": 6249,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_00_currency_base_guard",
+          "timing": "BEFORE",
+          "events": [
+            "UPDATE"
           ],
           "forEach": "ROW",
           "when": "",
@@ -58625,6 +58953,38 @@
           "comment": "配送区分ID"
         },
         {
+          "id": 6232,
+          "logicalName": "取引の通貨ID",
+          "physicalName": "mstr_currency_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "取引の通貨ID"
+        },
+        {
+          "id": 6233,
+          "logicalName": "検収日(月の日。NULL は月末)",
+          "physicalName": "acceptance_day",
+          "typeId": "smallint",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "検収日(月の日。NULL は月末)"
+        },
+        {
           "id": 3389,
           "logicalName": "レビジョン",
           "physicalName": "revision",
@@ -58653,7 +59013,14 @@
           "nullsNotDistinct": false
         }
       ],
-      "checks": [],
+      "checks": [
+        {
+          "id": 6238,
+          "nameMode": "manual",
+          "name": "mstr_stakeholder_ck_acceptance_day",
+          "expression": "acceptance_day IS NULL OR acceptance_day BETWEEN 1 AND 31"
+        }
+      ],
       "preQuery": "",
       "postQuery": "",
       "triggers": [
@@ -67437,10 +67804,10 @@
         "columns": []
       },
       "sql": {
-        "sql": "WITH RECURSIVE direct AS (\n    -- 品目ごとの直接の原価: 購入品 = 優先順位が最も小さい仕入先の単価、生産コスト = 工程ごとの原価の合計\n    SELECT\n        i.mstr_item_id\n        , COALESCE((\n            SELECT s.cost FROM tests.mstr_item_supplier AS s\n            WHERE s.mstr_item_id = i.mstr_item_id AND s.remove IS FALSE\n            ORDER BY s.priority, s.cost LIMIT 1\n        ), 0) AS purchase_cost\n        , COALESCE((\n            SELECT SUM(c.cost) FROM tests.mstr_item_task_cost AS c\n            WHERE c.mstr_item_id = i.mstr_item_id AND c.remove IS FALSE\n        ), 0) AS production_cost\n        , EXISTS (SELECT 1 FROM tests.mstr_item_supplier AS s WHERE s.mstr_item_id = i.mstr_item_id AND s.remove IS FALSE) AS has_supplier\n    FROM tests.mstr_item AS i\n    WHERE i.remove IS FALSE\n),\nbom (root_id, item_id, qty, path) AS (\n    -- 部品表(品目体系)を、品目ごとに下へ展開する(循環は止める)\n    SELECT d.mstr_item_id, d.mstr_item_id, 1::numeric, ARRAY[d.mstr_item_id] FROM direct AS d\n    UNION ALL\n    SELECT b.root_id, tr.mstr_item_id, b.qty * tr.quantity, b.path || tr.mstr_item_id\n    FROM bom AS b\n    INNER JOIN tests.mstr_item_tree AS tr ON tr.parent_mstr_item_id = b.item_id AND tr.remove IS FALSE\n    WHERE NOT (tr.mstr_item_id = ANY (b.path)) AND array_length(b.path, 1) < 30\n)\nSELECT\n    i.mstr_item_id AS item_id\n    , i.symbol AS item_symbol\n    , i.code AS item_code\n    , d.purchase_cost\n    , d.production_cost\n    , COALESCE(SUM(b.qty * (cd.purchase_cost + cd.production_cost)) FILTER (WHERE b.item_id <> b.root_id), 0)::numeric(14,2) AS component_cost\n    , (d.purchase_cost + d.production_cost\n        + COALESCE(SUM(b.qty * (cd.purchase_cost + cd.production_cost)) FILTER (WHERE b.item_id <> b.root_id), 0))::numeric(14,2) AS unit_cost\n    , d.has_supplier\n    , (COUNT(*) FILTER (WHERE b.item_id <> b.root_id) > 0) AS has_components\nFROM tests.mstr_item AS i\nINNER JOIN direct AS d ON d.mstr_item_id = i.mstr_item_id\nINNER JOIN bom AS b ON b.root_id = i.mstr_item_id\nINNER JOIN direct AS cd ON cd.mstr_item_id = b.item_id\nWHERE i.remove IS FALSE\nGROUP BY i.mstr_item_id, i.symbol, i.code, d.purchase_cost, d.production_cost, d.has_supplier"
+        "sql": "WITH RECURSIVE direct AS (\n    -- 品目ごとの直接の原価: 購入品 = 優先順位が最も小さい仕入先の単価、生産コスト = 工程ごとの原価の合計\n    SELECT\n        i.mstr_item_id\n        , COALESCE(sp.cost_base, 0) AS purchase_cost\n        , COALESCE((\n            SELECT SUM(c.cost) FROM tests.mstr_item_task_cost AS c\n            WHERE c.mstr_item_id = i.mstr_item_id AND c.remove IS FALSE\n        ), 0) AS production_cost\n        , EXISTS (SELECT 1 FROM tests.mstr_item_supplier AS s WHERE s.mstr_item_id = i.mstr_item_id AND s.remove IS FALSE) AS has_supplier\n        , (sp.cost_base IS NULL AND EXISTS (SELECT 1 FROM tests.mstr_item_supplier AS s WHERE s.mstr_item_id = i.mstr_item_id AND s.remove IS FALSE)) AS purchase_rate_missing\n    FROM tests.mstr_item AS i\n    LEFT JOIN LATERAL (\n        -- 仕入先の単価を、仕入先の通貨から基準通貨へ換算する(最新の月のレート。レートが無ければ NULL)\n        SELECT tests.currency_to_base(s.cost, st.mstr_currency_id, CURRENT_DATE) AS cost_base\n        FROM tests.mstr_item_supplier AS s\n        INNER JOIN tests.mstr_stakeholder AS st ON st.mstr_stakeholder_id = s.mstr_stakeholder_id\n        WHERE s.mstr_item_id = i.mstr_item_id AND s.remove IS FALSE\n        ORDER BY s.priority, s.cost LIMIT 1\n    ) AS sp ON TRUE\n    WHERE i.remove IS FALSE\n),\nbom (root_id, item_id, qty, path) AS (\n    -- 部品表(品目体系)を、品目ごとに下へ展開する(循環は止める)\n    SELECT d.mstr_item_id, d.mstr_item_id, 1::numeric, ARRAY[d.mstr_item_id] FROM direct AS d\n    UNION ALL\n    SELECT b.root_id, tr.mstr_item_id, b.qty * tr.quantity, b.path || tr.mstr_item_id\n    FROM bom AS b\n    INNER JOIN tests.mstr_item_tree AS tr ON tr.parent_mstr_item_id = b.item_id AND tr.remove IS FALSE\n    WHERE NOT (tr.mstr_item_id = ANY (b.path)) AND array_length(b.path, 1) < 30\n)\nSELECT\n    i.mstr_item_id AS item_id\n    , i.symbol AS item_symbol\n    , i.code AS item_code\n    , d.purchase_cost\n    , d.production_cost\n    , COALESCE(SUM(b.qty * (cd.purchase_cost + cd.production_cost)) FILTER (WHERE b.item_id <> b.root_id), 0)::numeric(14,2) AS component_cost\n    , (d.purchase_cost + d.production_cost\n        + COALESCE(SUM(b.qty * (cd.purchase_cost + cd.production_cost)) FILTER (WHERE b.item_id <> b.root_id), 0))::numeric(14,2) AS unit_cost\n    , d.has_supplier\n    , (COUNT(*) FILTER (WHERE b.item_id <> b.root_id) > 0) AS has_components\n    , BOOL_OR(cd.purchase_rate_missing) AS rate_missing\nFROM tests.mstr_item AS i\nINNER JOIN direct AS d ON d.mstr_item_id = i.mstr_item_id\nINNER JOIN bom AS b ON b.root_id = i.mstr_item_id\nINNER JOIN direct AS cd ON cd.mstr_item_id = b.item_id\nWHERE i.remove IS FALSE\nGROUP BY i.mstr_item_id, i.symbol, i.code, d.purchase_cost, d.production_cost, d.has_supplier"
       },
       "preQuery": "",
-      "postQuery": "COMMENT ON COLUMN tests.v_item_unit_cost.item_id IS '品目ID';\nCOMMENT ON COLUMN tests.v_item_unit_cost.item_symbol IS '品目のシンボル';\nCOMMENT ON COLUMN tests.v_item_unit_cost.item_code IS '品目コード';\nCOMMENT ON COLUMN tests.v_item_unit_cost.purchase_cost IS '購入品の単価(優先順位が最も小さい仕入先。仕入先が無いときは 0)';\nCOMMENT ON COLUMN tests.v_item_unit_cost.production_cost IS '生産コスト(品目の工程ごとの原価の合計)';\nCOMMENT ON COLUMN tests.v_item_unit_cost.component_cost IS '下位の部品の原価(部品表を展開した 数量 × (購入品 + 生産コスト) の合計)';\nCOMMENT ON COLUMN tests.v_item_unit_cost.unit_cost IS '標準原価(購入品 + 生産コスト + 下位の部品)';\nCOMMENT ON COLUMN tests.v_item_unit_cost.has_supplier IS '仕入先がある';\nCOMMENT ON COLUMN tests.v_item_unit_cost.has_components IS '部品表に下位の部品がある';"
+      "postQuery": "COMMENT ON COLUMN tests.v_item_unit_cost.item_id IS '品目ID';\nCOMMENT ON COLUMN tests.v_item_unit_cost.item_symbol IS '品目のシンボル';\nCOMMENT ON COLUMN tests.v_item_unit_cost.item_code IS '品目コード';\nCOMMENT ON COLUMN tests.v_item_unit_cost.purchase_cost IS '購入品の単価(優先順位が最も小さい仕入先。仕入先が無いときは 0)';\nCOMMENT ON COLUMN tests.v_item_unit_cost.production_cost IS '生産コスト(品目の工程ごとの原価の合計)';\nCOMMENT ON COLUMN tests.v_item_unit_cost.component_cost IS '下位の部品の原価(部品表を展開した 数量 × (購入品 + 生産コスト) の合計)';\nCOMMENT ON COLUMN tests.v_item_unit_cost.unit_cost IS '標準原価(購入品 + 生産コスト + 下位の部品)';\nCOMMENT ON COLUMN tests.v_item_unit_cost.has_supplier IS '仕入先がある';\nCOMMENT ON COLUMN tests.v_item_unit_cost.has_components IS '部品表に下位の部品がある';\nCOMMENT ON COLUMN tests.v_item_unit_cost.rate_missing IS '仕入先の単価を換算するレートが無い(購入品の単価を 0 として計算している)';"
     },
     {
       "id": 6192,
@@ -67537,6 +67904,743 @@
       },
       "preQuery": "",
       "postQuery": "COMMENT ON COLUMN tests.v_work_record_cost.trans_work_record_id IS '作業実績ID';\nCOMMENT ON COLUMN tests.v_work_record_cost.symbol IS 'リニアシンボル';\nCOMMENT ON COLUMN tests.v_work_record_cost.trans_work_plan_id IS '作業指示ID';\nCOMMENT ON COLUMN tests.v_work_record_cost.item_id IS '作った品目ID';\nCOMMENT ON COLUMN tests.v_work_record_cost.quantity IS '作業実績の数量';\nCOMMENT ON COLUMN tests.v_work_record_cost.produced_quantity IS '作ったロット(+ の行)の数量の合計';\nCOMMENT ON COLUMN tests.v_work_record_cost.material_amount IS '投入した材料の評価額の合計(支給品は 0 円)';\nCOMMENT ON COLUMN tests.v_work_record_cost.material_line_count IS '投入した材料の払出の行の数';\nCOMMENT ON COLUMN tests.v_work_record_cost.has_supplied_material IS '支給品(社外の所有物・譲渡で自社の物になった材料)を投入した';\nCOMMENT ON COLUMN tests.v_work_record_cost.process_cost IS '工程の原価(数量 × 作業の標準の原価)';\nCOMMENT ON COLUMN tests.v_work_record_cost.total_cost IS '作業実績の原価(材料 + 工程)';\nCOMMENT ON COLUMN tests.v_work_record_cost.unit_cost IS '作ったロットの単価(作業実績の原価 ÷ 作ったロットの数量。作ったロットが無いときは NULL)';"
+    },
+    {
+      "id": 6209,
+      "kind": "table",
+      "logicalName": "通貨マスタ",
+      "physicalName": "mstr_currency",
+      "comment": "通貨マスタ",
+      "locked": false,
+      "columns": [
+        {
+          "id": 6202,
+          "logicalName": "通貨ID",
+          "physicalName": "mstr_currency_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": true,
+          "notNull": true,
+          "defaultKind": "method",
+          "defaultValue": "",
+          "defaultMethodId": 10,
+          "defaultExpression": "",
+          "comment": "通貨ID"
+        },
+        {
+          "id": 6203,
+          "logicalName": "通貨コード(ISO 4217)",
+          "physicalName": "code",
+          "typeId": "varchar",
+          "length": 3,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "通貨コード(ISO 4217)"
+        },
+        {
+          "id": 6204,
+          "logicalName": "通貨名称",
+          "physicalName": "names",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "通貨名称"
+        },
+        {
+          "id": 6205,
+          "logicalName": "通貨記号",
+          "physicalName": "currency_symbol",
+          "typeId": "varchar",
+          "length": 8,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "通貨記号"
+        },
+        {
+          "id": 6206,
+          "logicalName": "小数の桁数",
+          "physicalName": "minor_unit",
+          "typeId": "smallint",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "value",
+          "defaultValue": "0",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "小数の桁数"
+        },
+        {
+          "id": 6207,
+          "logicalName": "レートの自動取得の対象",
+          "physicalName": "rate_auto",
+          "typeId": "boolean",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "value",
+          "defaultValue": "false",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "レートの自動取得の対象"
+        },
+        {
+          "id": 6208,
+          "logicalName": "レビジョン",
+          "physicalName": "revision",
+          "typeId": "integer",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "value",
+          "defaultValue": "1",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "レビジョン"
+        }
+      ],
+      "indexes": [],
+      "uniques": [
+        {
+          "id": 6210,
+          "nameMode": "manual",
+          "name": "mstr_currency_ix1",
+          "columnIds": [
+            5896
+          ],
+          "nullsNotDistinct": false
+        }
+      ],
+      "checks": [
+        {
+          "id": 6211,
+          "nameMode": "manual",
+          "name": "mstr_currency_ck_minor_unit",
+          "expression": "minor_unit BETWEEN 0 AND 4"
+        }
+      ],
+      "preQuery": "",
+      "postQuery": "",
+      "triggers": [
+        {
+          "id": 6250,
+          "source": "public",
+          "methodId": 6245,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_01_updatetimes_mstr_currency",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT",
+            "UPDATE",
+            "DELETE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        },
+        {
+          "id": 6251,
+          "source": "public",
+          "methodId": 6,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_04_symbol_mstr_currency",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        },
+        {
+          "id": 6252,
+          "source": "public",
+          "methodId": 6246,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_02_history_mstr_currency",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT",
+            "UPDATE",
+            "DELETE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        }
+      ]
+    },
+    {
+      "id": 6220,
+      "kind": "table",
+      "logicalName": "通貨マスタ履歴",
+      "physicalName": "history_mstr_currency",
+      "comment": "通貨マスタ履歴",
+      "locked": false,
+      "columns": [
+        {
+          "id": 6212,
+          "logicalName": "履歴ID",
+          "physicalName": "history_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": true,
+          "notNull": true,
+          "defaultKind": "method",
+          "defaultValue": "",
+          "defaultMethodId": 10,
+          "defaultExpression": "",
+          "comment": "履歴ID"
+        },
+        {
+          "id": 6213,
+          "logicalName": "通貨ID",
+          "physicalName": "mstr_currency_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": true,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "通貨ID"
+        },
+        {
+          "id": 6214,
+          "logicalName": "通貨コード(ISO 4217)",
+          "physicalName": "code",
+          "typeId": "varchar",
+          "length": 3,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "通貨コード(ISO 4217)"
+        },
+        {
+          "id": 6215,
+          "logicalName": "通貨名称",
+          "physicalName": "names",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "通貨名称"
+        },
+        {
+          "id": 6216,
+          "logicalName": "通貨記号",
+          "physicalName": "currency_symbol",
+          "typeId": "varchar",
+          "length": 8,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "通貨記号"
+        },
+        {
+          "id": 6217,
+          "logicalName": "小数の桁数",
+          "physicalName": "minor_unit",
+          "typeId": "smallint",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "value",
+          "defaultValue": "0",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "小数の桁数"
+        },
+        {
+          "id": 6218,
+          "logicalName": "レートの自動取得の対象",
+          "physicalName": "rate_auto",
+          "typeId": "boolean",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "value",
+          "defaultValue": "false",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "レートの自動取得の対象"
+        },
+        {
+          "id": 6219,
+          "logicalName": "レビジョン",
+          "physicalName": "revision",
+          "typeId": "integer",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "value",
+          "defaultValue": "1",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "レビジョン"
+        }
+      ],
+      "indexes": [],
+      "uniques": [
+        {
+          "id": 6221,
+          "nameMode": "manual",
+          "name": "history_mstr_currency_ix1",
+          "columnIds": [
+            6213,
+            6219
+          ],
+          "nullsNotDistinct": false
+        }
+      ],
+      "checks": [],
+      "preQuery": "",
+      "postQuery": "",
+      "triggers": [
+        {
+          "id": 6253,
+          "source": "public",
+          "methodId": 6247,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_01_updatetimes_history_mstr_currency",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT",
+            "UPDATE",
+            "DELETE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        },
+        {
+          "id": 6254,
+          "source": "public",
+          "methodId": 6,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_04_symbol_history_mstr_currency",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        }
+      ]
+    },
+    {
+      "id": 6228,
+      "kind": "table",
+      "logicalName": "為替レート(月ごとの概算。追記のみ)",
+      "physicalName": "trans_exchange_rate",
+      "comment": "為替レート(月ごとの概算。追記のみ)",
+      "locked": false,
+      "columns": [
+        {
+          "id": 6222,
+          "logicalName": "為替レートID",
+          "physicalName": "trans_exchange_rate_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": true,
+          "notNull": true,
+          "defaultKind": "method",
+          "defaultValue": "",
+          "defaultMethodId": 10,
+          "defaultExpression": "",
+          "comment": "為替レートID"
+        },
+        {
+          "id": 6223,
+          "logicalName": "通貨ID",
+          "physicalName": "mstr_currency_id",
+          "typeId": "uuid",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "通貨ID"
+        },
+        {
+          "id": 6224,
+          "logicalName": "適用する月(月の初日)",
+          "physicalName": "rate_month",
+          "typeId": "date",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "適用する月(月の初日)"
+        },
+        {
+          "id": 6225,
+          "logicalName": "レート(1 単位の通貨 = 基準通貨いくら)",
+          "physicalName": "rate",
+          "typeId": "numeric",
+          "length": null,
+          "precision": 18,
+          "scale": 8,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "レート(1 単位の通貨 = 基準通貨いくら)"
+        },
+        {
+          "id": 6226,
+          "logicalName": "自動取得",
+          "physicalName": "auto_fetched",
+          "typeId": "boolean",
+          "length": null,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": true,
+          "defaultKind": "value",
+          "defaultValue": "false",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "自動取得"
+        },
+        {
+          "id": 6227,
+          "logicalName": "取得元",
+          "physicalName": "source",
+          "typeId": "varchar",
+          "length": 255,
+          "precision": null,
+          "scale": null,
+          "pk": false,
+          "notNull": false,
+          "defaultKind": "none",
+          "defaultValue": "",
+          "defaultMethodId": null,
+          "defaultExpression": "",
+          "comment": "取得元"
+        }
+      ],
+      "indexes": [],
+      "uniques": [
+        {
+          "id": 6229,
+          "nameMode": "manual",
+          "name": "trans_exchange_rate_ix1",
+          "columnIds": [
+            5896
+          ],
+          "nullsNotDistinct": false
+        }
+      ],
+      "checks": [
+        {
+          "id": 6230,
+          "nameMode": "manual",
+          "name": "trans_exchange_rate_ck_rate",
+          "expression": "rate > 0"
+        },
+        {
+          "id": 6231,
+          "nameMode": "manual",
+          "name": "trans_exchange_rate_ck_month",
+          "expression": "rate_month = date_trunc('month', rate_month)::date"
+        }
+      ],
+      "preQuery": "",
+      "postQuery": "",
+      "triggers": [
+        {
+          "id": 6255,
+          "source": "public",
+          "methodId": 6248,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_01_updatetimes_trans_exchange_rate",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT",
+            "UPDATE",
+            "DELETE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        },
+        {
+          "id": 6256,
+          "source": "public",
+          "methodId": 5,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_04_symbol_trans_exchange_rate",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        }
+      ]
+    },
+    {
+      "id": 6266,
+      "kind": "view",
+      "logicalName": "",
+      "physicalName": "v_currency_rate_latest",
+      "comment": "@primaryKey mstr_currency_id\n@foreignKey (mstr_currency_id) references mstr_currency (mstr_currency_id)\n通貨ごとの最新のレート(月ごとの概算)",
+      "locked": false,
+      "viewType": "sql",
+      "join": {
+        "sources": [],
+        "columns": [],
+        "where": ""
+      },
+      "function": {
+        "methodId": null,
+        "args": [],
+        "columns": []
+      },
+      "sql": {
+        "sql": "SELECT DISTINCT ON (c.mstr_currency_id)\n       c.mstr_currency_id\n     , c.code\n     , c.currency_symbol\n     , c.minor_unit\n     , c.rate_auto\n     , (c.mstr_currency_id = tests.currency_base_id()) AS is_base\n     , r.rate_month\n     , CASE WHEN c.mstr_currency_id = tests.currency_base_id() THEN 1::numeric ELSE r.rate END AS rate\n     , r.auto_fetched\n     , r.source\n     , c.symbol\nFROM tests.mstr_currency AS c\nLEFT JOIN tests.trans_exchange_rate AS r\n       ON r.mstr_currency_id = c.mstr_currency_id AND r.remove IS FALSE\nWHERE c.remove IS FALSE\nORDER BY c.mstr_currency_id, r.rate_month DESC NULLS LAST, r.update_at DESC"
+      },
+      "preQuery": "",
+      "postQuery": "COMMENT ON COLUMN tests.v_currency_rate_latest.mstr_currency_id IS '通貨ID';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.code IS '通貨コード';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.currency_symbol IS '通貨記号';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.minor_unit IS '小数の桁数';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.rate_auto IS '自動取得の対象';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.is_base IS '基準通貨';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.rate_month IS '最新のレートの月';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.rate IS '最新のレート(基準通貨は 1)';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.auto_fetched IS '自動取得';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.source IS '取得元';"
+    },
+    {
+      "id": 6267,
+      "kind": "view",
+      "logicalName": "",
+      "physicalName": "v_shipping_record_amount",
+      "comment": "@primaryKey trans_shipping_order_detail_record_id\n@foreignKey (customer_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n@foreignKey (mstr_currency_id) references mstr_currency (mstr_currency_id)\n出荷実績の金額(顧客の通貨のまま)と、検収月のレートで換算した基準通貨の金額。provisional は、その月のレートが無く別の月で代用したとき true。レートが無いときは amount_base が NULL",
+      "locked": false,
+      "viewType": "sql",
+      "join": {
+        "sources": [],
+        "columns": [],
+        "where": ""
+      },
+      "function": {
+        "methodId": null,
+        "args": [],
+        "columns": []
+      },
+      "sql": {
+        "sql": "SELECT\n    r.trans_shipping_order_detail_record_id\n    , o.stakeholder_id AS customer_id\n    , od.trans_order_detail_id\n    , od.item_id\n    , r.shipping_date\n    , r.shipping_quantity\n    , h.mstr_currency_id\n    , cu.code AS currency_code\n    , cu.currency_symbol\n    , tests.acceptance_month(h.acceptance_day, r.shipping_date::date) AS rate_month\n    , ROUND(COALESCE(r.shipping_quantity, 0) * COALESCE(od.fixed_price, od.unit_price, 0) + COALESCE(od.price_adjustment, 0) * COALESCE(COALESCE(r.shipping_quantity, 0) / NULLIF(od.quantity, 0), 0), 2) AS amount\n    , tests.currency_rate_at(h.mstr_currency_id, tests.acceptance_month(h.acceptance_day, r.shipping_date::date)) AS rate\n    , tests.currency_rate_provisional(h.mstr_currency_id, tests.acceptance_month(h.acceptance_day, r.shipping_date::date)) AS provisional\n    , tests.currency_to_base(ROUND(COALESCE(r.shipping_quantity, 0) * COALESCE(od.fixed_price, od.unit_price, 0) + COALESCE(od.price_adjustment, 0) * COALESCE(COALESCE(r.shipping_quantity, 0) / NULLIF(od.quantity, 0), 0), 2), h.mstr_currency_id, tests.acceptance_month(h.acceptance_day, r.shipping_date::date)) AS amount_base\n    , r.symbol\nFROM tests.trans_shipping_order_detail_record AS r\nINNER JOIN tests.trans_shipping_order_detail AS sd ON sd.trans_shipping_order_detail_id = r.trans_shipping_order_detail_id\nINNER JOIN tests.trans_order_detail AS od ON od.trans_order_detail_id = sd.trans_order_detail_id\nINNER JOIN tests.trans_order AS o ON o.trans_order_id = od.trans_order_id\nINNER JOIN tests.history_mstr_stakeholder AS h ON h.history_id = o.stakeholder_history_id AND h.mstr_stakeholder_id = o.stakeholder_id\nINNER JOIN tests.mstr_currency AS cu ON cu.mstr_currency_id = h.mstr_currency_id\nWHERE r.remove IS FALSE"
+      },
+      "preQuery": "",
+      "postQuery": "COMMENT ON COLUMN tests.v_shipping_record_amount.mstr_currency_id IS '取引の通貨ID';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.currency_code IS '通貨コード';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.currency_symbol IS '通貨記号';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.amount IS '金額(取引の通貨のまま)';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.rate IS '換算のレート(1 単位 = 基準通貨いくら。無ければ NULL)';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.provisional IS '仮(その月のレートが無く、別の月のレートで代用している)';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.amount_base IS '基準通貨の金額(レートが無ければ NULL)';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.rate_month IS '換算の月(顧客の検収日を考慮)';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.customer_id IS '顧客ID';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.shipping_date IS '出荷日時';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.shipping_quantity IS '出荷数量';"
+    },
+    {
+      "id": 6268,
+      "kind": "view",
+      "logicalName": "",
+      "physicalName": "v_purchase_rec_amount",
+      "comment": "@primaryKey trans_purchase_rec_id\n@foreignKey (supplier_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n@foreignKey (mstr_currency_id) references mstr_currency (mstr_currency_id)\n受入実績の金額(仕入先の通貨のまま)と、検収月のレートで換算した基準通貨の金額。provisional は、その月のレートが無く別の月で代用したとき true。レートが無いときは amount_base が NULL",
+      "locked": false,
+      "viewType": "sql",
+      "join": {
+        "sources": [],
+        "columns": [],
+        "where": ""
+      },
+      "function": {
+        "methodId": null,
+        "args": [],
+        "columns": []
+      },
+      "sql": {
+        "sql": "SELECT\n    r.trans_purchase_rec_id\n    , p.stakeholder_id AS supplier_id\n    , pd.trans_purchase_detail_id\n    , pd.item_id\n    , r.receive_at\n    , r.quantity AS received_quantity\n    , h.mstr_currency_id\n    , cu.code AS currency_code\n    , cu.currency_symbol\n    , tests.acceptance_month(h.acceptance_day, r.receive_at::date) AS rate_month\n    , ROUND(COALESCE(r.quantity, 0) * COALESCE(pd.fixed_price, pd.unit_price, 0) + COALESCE(pd.price_adjustment, 0) * COALESCE(COALESCE(r.quantity, 0) / NULLIF(pd.quantity, 0), 0), 2) AS amount\n    , tests.currency_rate_at(h.mstr_currency_id, tests.acceptance_month(h.acceptance_day, r.receive_at::date)) AS rate\n    , tests.currency_rate_provisional(h.mstr_currency_id, tests.acceptance_month(h.acceptance_day, r.receive_at::date)) AS provisional\n    , tests.currency_to_base(ROUND(COALESCE(r.quantity, 0) * COALESCE(pd.fixed_price, pd.unit_price, 0) + COALESCE(pd.price_adjustment, 0) * COALESCE(COALESCE(r.quantity, 0) / NULLIF(pd.quantity, 0), 0), 2), h.mstr_currency_id, tests.acceptance_month(h.acceptance_day, r.receive_at::date)) AS amount_base\n    , r.symbol\nFROM tests.trans_purchase_rec AS r\nINNER JOIN tests.trans_purchase_detail AS pd ON pd.trans_purchase_detail_id = r.trans_purchase_detail_id\nINNER JOIN tests.trans_purchase AS p ON p.trans_purchase_id = pd.trans_purchase_id\nINNER JOIN tests.history_mstr_stakeholder AS h ON h.history_id = p.stakeholder_history_id AND h.mstr_stakeholder_id = p.stakeholder_id\nINNER JOIN tests.mstr_currency AS cu ON cu.mstr_currency_id = h.mstr_currency_id\nWHERE r.remove IS FALSE"
+      },
+      "preQuery": "",
+      "postQuery": "COMMENT ON COLUMN tests.v_purchase_rec_amount.mstr_currency_id IS '取引の通貨ID';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.currency_code IS '通貨コード';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.currency_symbol IS '通貨記号';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.amount IS '金額(取引の通貨のまま)';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.rate IS '換算のレート(1 単位 = 基準通貨いくら。無ければ NULL)';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.provisional IS '仮(その月のレートが無く、別の月のレートで代用している)';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.amount_base IS '基準通貨の金額(レートが無ければ NULL)';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.rate_month IS '換算の月(仕入先の検収日を考慮)';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.supplier_id IS '仕入先ID';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.receive_at IS '受入日時';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.received_quantity IS '受入数量';"
+    },
+    {
+      "id": 6269,
+      "kind": "view",
+      "logicalName": "",
+      "physicalName": "v_order_detail_amount",
+      "comment": "@primaryKey trans_order_detail_id\n@foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)\n@foreignKey (customer_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n@foreignKey (mstr_currency_id) references mstr_currency (mstr_currency_id)\n受注明細の金額(キャンセルを除く。顧客の通貨のまま)と、最新の月のレートで換算した基準通貨の目安の金額。固定しない",
+      "locked": false,
+      "viewType": "sql",
+      "join": {
+        "sources": [],
+        "columns": [],
+        "where": ""
+      },
+      "function": {
+        "methodId": null,
+        "args": [],
+        "columns": []
+      },
+      "sql": {
+        "sql": "SELECT\n    od.trans_order_detail_id\n    , o.stakeholder_id AS customer_id\n    , od.item_id\n    , h.mstr_currency_id\n    , cu.code AS currency_code\n    , cu.currency_symbol\n    , ROUND(GREATEST(COALESCE(od.quantity, 0) - COALESCE(od.cancel_quantity, 0), 0) * COALESCE(od.fixed_price, od.unit_price, 0) + COALESCE(od.price_adjustment, 0), 2) AS amount\n    , tests.currency_rate_at(h.mstr_currency_id, CURRENT_DATE) AS rate\n    , tests.currency_rate_provisional(h.mstr_currency_id, CURRENT_DATE) AS provisional\n    , tests.currency_to_base(ROUND(GREATEST(COALESCE(od.quantity, 0) - COALESCE(od.cancel_quantity, 0), 0) * COALESCE(od.fixed_price, od.unit_price, 0) + COALESCE(od.price_adjustment, 0), 2), h.mstr_currency_id, CURRENT_DATE) AS amount_base\n    , od.symbol\nFROM tests.trans_order_detail AS od\nINNER JOIN tests.trans_order AS o ON o.trans_order_id = od.trans_order_id\nINNER JOIN tests.history_mstr_stakeholder AS h ON h.history_id = o.stakeholder_history_id AND h.mstr_stakeholder_id = o.stakeholder_id\nINNER JOIN tests.mstr_currency AS cu ON cu.mstr_currency_id = h.mstr_currency_id\nWHERE od.remove IS FALSE"
+      },
+      "preQuery": "",
+      "postQuery": "COMMENT ON COLUMN tests.v_order_detail_amount.mstr_currency_id IS '取引の通貨ID';\nCOMMENT ON COLUMN tests.v_order_detail_amount.currency_code IS '通貨コード';\nCOMMENT ON COLUMN tests.v_order_detail_amount.currency_symbol IS '通貨記号';\nCOMMENT ON COLUMN tests.v_order_detail_amount.amount IS '金額(取引の通貨のまま)';\nCOMMENT ON COLUMN tests.v_order_detail_amount.rate IS '換算のレート(1 単位 = 基準通貨いくら。無ければ NULL)';\nCOMMENT ON COLUMN tests.v_order_detail_amount.provisional IS '仮(その月のレートが無く、別の月のレートで代用している)';\nCOMMENT ON COLUMN tests.v_order_detail_amount.amount_base IS '基準通貨の金額(レートが無ければ NULL)';\nCOMMENT ON COLUMN tests.v_order_detail_amount.customer_id IS '顧客ID';"
+    },
+    {
+      "id": 6270,
+      "kind": "view",
+      "logicalName": "",
+      "physicalName": "v_purchase_detail_amount",
+      "comment": "@primaryKey trans_purchase_detail_id\n@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)\n@foreignKey (supplier_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n@foreignKey (mstr_currency_id) references mstr_currency (mstr_currency_id)\n発注明細の金額(仕入先の通貨のまま)と、最新の月のレートで換算した基準通貨の目安の金額。固定しない",
+      "locked": false,
+      "viewType": "sql",
+      "join": {
+        "sources": [],
+        "columns": [],
+        "where": ""
+      },
+      "function": {
+        "methodId": null,
+        "args": [],
+        "columns": []
+      },
+      "sql": {
+        "sql": "SELECT\n    pd.trans_purchase_detail_id\n    , p.stakeholder_id AS supplier_id\n    , pd.item_id\n    , h.mstr_currency_id\n    , cu.code AS currency_code\n    , cu.currency_symbol\n    , ROUND(COALESCE(pd.quantity, 0) * COALESCE(pd.fixed_price, pd.unit_price, 0) + COALESCE(pd.price_adjustment, 0), 2) AS amount\n    , tests.currency_rate_at(h.mstr_currency_id, CURRENT_DATE) AS rate\n    , tests.currency_rate_provisional(h.mstr_currency_id, CURRENT_DATE) AS provisional\n    , tests.currency_to_base(ROUND(COALESCE(pd.quantity, 0) * COALESCE(pd.fixed_price, pd.unit_price, 0) + COALESCE(pd.price_adjustment, 0), 2), h.mstr_currency_id, CURRENT_DATE) AS amount_base\n    , pd.symbol\nFROM tests.trans_purchase_detail AS pd\nINNER JOIN tests.trans_purchase AS p ON p.trans_purchase_id = pd.trans_purchase_id\nINNER JOIN tests.history_mstr_stakeholder AS h ON h.history_id = p.stakeholder_history_id AND h.mstr_stakeholder_id = p.stakeholder_id\nINNER JOIN tests.mstr_currency AS cu ON cu.mstr_currency_id = h.mstr_currency_id\nWHERE pd.remove IS FALSE"
+      },
+      "preQuery": "",
+      "postQuery": "COMMENT ON COLUMN tests.v_purchase_detail_amount.mstr_currency_id IS '取引の通貨ID';\nCOMMENT ON COLUMN tests.v_purchase_detail_amount.currency_code IS '通貨コード';\nCOMMENT ON COLUMN tests.v_purchase_detail_amount.currency_symbol IS '通貨記号';\nCOMMENT ON COLUMN tests.v_purchase_detail_amount.amount IS '金額(取引の通貨のまま)';\nCOMMENT ON COLUMN tests.v_purchase_detail_amount.rate IS '換算のレート(1 単位 = 基準通貨いくら。無ければ NULL)';\nCOMMENT ON COLUMN tests.v_purchase_detail_amount.provisional IS '仮(その月のレートが無く、別の月のレートで代用している)';\nCOMMENT ON COLUMN tests.v_purchase_detail_amount.amount_base IS '基準通貨の金額(レートが無ければ NULL)';\nCOMMENT ON COLUMN tests.v_purchase_detail_amount.supplier_id IS '仕入先ID';"
+    },
+    {
+      "id": 6271,
+      "kind": "view",
+      "logicalName": "",
+      "physicalName": "v_item_supplier_cost",
+      "comment": "@primaryKey mstr_item_supplier_id\n@foreignKey (mstr_item_supplier_id) references mstr_item_supplier (mstr_item_supplier_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n@foreignKey (supplier_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (mstr_currency_id) references mstr_currency (mstr_currency_id)\n仕入先ごとの単価(仕入先の通貨のまま)と、最新の月のレートで換算した基準通貨の目安の単価。外注の単価も同じ",
+      "locked": false,
+      "viewType": "sql",
+      "join": {
+        "sources": [],
+        "columns": [],
+        "where": ""
+      },
+      "function": {
+        "methodId": null,
+        "args": [],
+        "columns": []
+      },
+      "sql": {
+        "sql": "SELECT\n    s.mstr_item_supplier_id\n    , s.mstr_item_id AS item_id\n    , s.mstr_stakeholder_id AS supplier_id\n    , s.priority\n    , st.mstr_currency_id\n    , cu.code AS currency_code\n    , cu.currency_symbol\n    , s.cost\n    , tests.currency_rate_at(st.mstr_currency_id, CURRENT_DATE) AS rate\n    , tests.currency_rate_provisional(st.mstr_currency_id, CURRENT_DATE) AS provisional\n    , tests.currency_to_base(s.cost, st.mstr_currency_id, CURRENT_DATE) AS cost_base\n    , s.symbol\nFROM tests.mstr_item_supplier AS s\nINNER JOIN tests.mstr_stakeholder AS st ON st.mstr_stakeholder_id = s.mstr_stakeholder_id\nINNER JOIN tests.mstr_currency AS cu ON cu.mstr_currency_id = st.mstr_currency_id\nWHERE s.remove IS FALSE"
+      },
+      "preQuery": "",
+      "postQuery": "COMMENT ON COLUMN tests.v_item_supplier_cost.mstr_currency_id IS '仕入先の通貨ID';\nCOMMENT ON COLUMN tests.v_item_supplier_cost.currency_code IS '通貨コード';\nCOMMENT ON COLUMN tests.v_item_supplier_cost.currency_symbol IS '通貨記号';\nCOMMENT ON COLUMN tests.v_item_supplier_cost.cost IS '単価(仕入先の通貨のまま)';\nCOMMENT ON COLUMN tests.v_item_supplier_cost.rate IS '換算のレート';\nCOMMENT ON COLUMN tests.v_item_supplier_cost.provisional IS '仮';\nCOMMENT ON COLUMN tests.v_item_supplier_cost.cost_base IS '基準通貨の単価(目安)';\nCOMMENT ON COLUMN tests.v_item_supplier_cost.priority IS '優先順位';\nCOMMENT ON COLUMN tests.v_item_supplier_cost.item_id IS '品目ID';\nCOMMENT ON COLUMN tests.v_item_supplier_cost.supplier_id IS '仕入先ID';"
     }
   ],
   "relationships": [
@@ -85227,6 +86331,178 @@
       "onDelete": "none",
       "onUpdate": "none",
       "deferrable": "deferred"
+    },
+    {
+      "id": 6258,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 6209,
+      "childId": 6220,
+      "columnPairs": [
+        {
+          "parentColumnId": 6202,
+          "childColumnId": 6213
+        }
+      ],
+      "dependency": true,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "history_mstr_currency_fk1",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6259,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 1995,
+      "childId": 6220,
+      "columnPairs": [
+        {
+          "parentColumnId": 1996,
+          "childColumnId": 5900
+        },
+        {
+          "parentColumnId": 1997,
+          "childColumnId": 5899
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "history_mstr_currency_fk2",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6260,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 906,
+      "childId": 6209,
+      "columnPairs": [
+        {
+          "parentColumnId": 907,
+          "childColumnId": 6204
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "mstr_currency_fk1",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6261,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 1995,
+      "childId": 6209,
+      "columnPairs": [
+        {
+          "parentColumnId": 1996,
+          "childColumnId": 5900
+        },
+        {
+          "parentColumnId": 1997,
+          "childColumnId": 5899
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "mstr_currency_fk2",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6262,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 6209,
+      "childId": 6228,
+      "columnPairs": [
+        {
+          "parentColumnId": 6202,
+          "childColumnId": 6223
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "trans_exchange_rate_fk1",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6263,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 1995,
+      "childId": 6228,
+      "columnPairs": [
+        {
+          "parentColumnId": 1996,
+          "childColumnId": 5900
+        },
+        {
+          "parentColumnId": 1997,
+          "childColumnId": 5899
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "trans_exchange_rate_fk2",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6264,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 6209,
+      "childId": 3378,
+      "columnPairs": [
+        {
+          "parentColumnId": 6202,
+          "childColumnId": 6232
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "mstr_stakeholder_fk_currency",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
+    },
+    {
+      "id": 6265,
+      "kind": "relationship",
+      "locked": false,
+      "parentId": 6209,
+      "childId": 2855,
+      "columnPairs": [
+        {
+          "parentColumnId": 6202,
+          "childColumnId": 6236
+        }
+      ],
+      "dependency": false,
+      "childMultiplicity": "many",
+      "nameMode": "manual",
+      "name": "info_app_fk_currency",
+      "onDelete": "none",
+      "onUpdate": "none",
+      "deferrable": "deferred"
     }
   ],
   "diagrams": [
@@ -85909,6 +87185,24 @@
           "x": 489.0,
           "y": 307.0,
           "collapsed": false
+        },
+        {
+          "entityId": 6209,
+          "x": 40.0,
+          "y": 1441.0,
+          "collapsed": false
+        },
+        {
+          "entityId": 6220,
+          "x": 500.0,
+          "y": 1441.0,
+          "collapsed": false
+        },
+        {
+          "entityId": 6228,
+          "x": 960.0,
+          "y": 1441.0,
+          "collapsed": false
         }
       ],
       "view": {
@@ -85942,6 +87236,18 @@
           "entityId": 3977,
           "x": 473.0,
           "y": 40.0,
+          "collapsed": false
+        },
+        {
+          "entityId": 6266,
+          "x": 40.0,
+          "y": 380.0,
+          "collapsed": false
+        },
+        {
+          "entityId": 6271,
+          "x": 500.0,
+          "y": 380.0,
           "collapsed": false
         }
       ],
@@ -86831,6 +88137,18 @@
           "x": 983.0,
           "y": 40.0,
           "collapsed": false
+        },
+        {
+          "entityId": 6268,
+          "x": 40.0,
+          "y": 514.0,
+          "collapsed": false
+        },
+        {
+          "entityId": 6270,
+          "x": 500.0,
+          "y": 514.0,
+          "collapsed": false
         }
       ],
       "view": {
@@ -86988,6 +88306,18 @@
           "entityId": 3933,
           "x": 40.0,
           "y": 40.0,
+          "collapsed": false
+        },
+        {
+          "entityId": 6267,
+          "x": 40.0,
+          "y": 514.0,
+          "collapsed": false
+        },
+        {
+          "entityId": 6269,
+          "x": 500.0,
+          "y": 514.0,
           "collapsed": false
         }
       ],

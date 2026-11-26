@@ -164,6 +164,29 @@ LANGUAGE plpgsql VOLATILE;
 
 CREATE TRIGGER trg_02_history_mstr_currency BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_currency FOR EACH ROW EXECUTE FUNCTION tests.trg_02_history_mstr_currency();
 
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_currency() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.history_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE TRIGGER trg_01_updatetimes_history_mstr_currency BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_currency FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_history_mstr_currency();
+
+CREATE TRIGGER trg_04_symbol_history_mstr_currency BEFORE INSERT ON tests.history_mstr_currency FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_seq();
+
 -- 2. 為替レート(追記のみ。月ごとの概算レート)
 CREATE TABLE tests.trans_exchange_rate (
   trans_exchange_rate_id uuid DEFAULT gen_random_uuid() NOT NULL,

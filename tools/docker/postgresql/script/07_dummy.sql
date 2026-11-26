@@ -141,9 +141,30 @@ BEGIN
     END IF;
 END $$;
 
--- アプリ (システムのアプリID)。会社は ADMIN の会社に紐付ける
-INSERT INTO tests.info_app (info_company_id, name)
-SELECT s.info_company_id, 'Product Manufacturing System'
+-- 通貨 (標準 = 基準通貨 JPY。USD・EUR は、レートを自動取得する通貨) と、月ごとの概算レート (今月と先月。手入力)
+DO $$
+DECLARE c uuid;
+BEGIN
+    INSERT INTO tests.mstr_currency (code, names, currency_symbol, minor_unit, rate_auto)
+    VALUES ('JPY', pg_temp.nm('日本円', 'Japanese yen'), '円', 0, false) RETURNING mstr_currency_id INTO c;
+    INSERT INTO _id VALUES ('CUR_JPY', c);
+    INSERT INTO tests.mstr_currency (code, names, currency_symbol, minor_unit, rate_auto)
+    VALUES ('USD', pg_temp.nm('米ドル', 'US dollar'), '$', 2, true) RETURNING mstr_currency_id INTO c;
+    INSERT INTO _id VALUES ('CUR_USD', c);
+    INSERT INTO tests.trans_exchange_rate (mstr_currency_id, rate_month, rate, auto_fetched, remarks) VALUES
+        (c, date_trunc('month', now())::date, 150.00, false, 'ダミー'),
+        (c, (date_trunc('month', now()) - interval '1 month')::date, 148.00, false, 'ダミー');
+    INSERT INTO tests.mstr_currency (code, names, currency_symbol, minor_unit, rate_auto)
+    VALUES ('EUR', pg_temp.nm('ユーロ', 'Euro'), 'EUR', 2, true) RETURNING mstr_currency_id INTO c;
+    INSERT INTO _id VALUES ('CUR_EUR', c);
+    INSERT INTO tests.trans_exchange_rate (mstr_currency_id, rate_month, rate, auto_fetched, remarks) VALUES
+        (c, date_trunc('month', now())::date, 162.00, false, 'ダミー'),
+        (c, (date_trunc('month', now()) - interval '1 month')::date, 160.00, false, 'ダミー');
+END $$;
+
+-- アプリ (システムのアプリID)。会社は ADMIN の会社に紐付ける。基準通貨は JPY
+INSERT INTO tests.info_app (info_company_id, name, mstr_currency_id)
+SELECT s.info_company_id, 'Product Manufacturing System', pg_temp.id('CUR_JPY')
 FROM tests.info_staff AS s
 WHERE s.code = 'ADMIN' AND s.remove IS FALSE
   AND NOT EXISTS (SELECT 1 FROM tests.info_app AS a WHERE a.name = 'Product Manufacturing System')
@@ -246,8 +267,8 @@ BEGIN
         ('V_PLATE', 'V002', 'めっき工業株式会社',   false, true),
         ('V_WELD',  'V003', '溶接協力会',           false, true)
     ) AS t(k, code, ja, cust, sup) LOOP
-        INSERT INTO tests.mstr_stakeholder (code, names, is_customer, is_supplier)
-        VALUES (r.code, pg_temp.nm(r.ja), r.cust, r.sup)
+        INSERT INTO tests.mstr_stakeholder (code, names, is_customer, is_supplier, mstr_currency_id)
+        VALUES (r.code, pg_temp.nm(r.ja), r.cust, r.sup, pg_temp.id('CUR_JPY'))
         RETURNING mstr_stakeholder_id INTO v;
         INSERT INTO _id VALUES (r.k, v);
     END LOOP;

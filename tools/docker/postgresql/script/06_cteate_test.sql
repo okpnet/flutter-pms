@@ -834,6 +834,130 @@ COMMENT ON COLUMN tests.mstr_shipping_kind.update_user_history_id IS '更新者�
 
 COMMENT ON COLUMN tests.mstr_shipping_kind.remove IS '削除';
 
+CREATE TABLE tests.mstr_currency (
+  mstr_currency_id uuid DEFAULT gen_random_uuid() NOT NULL,
+  code varchar(3) NOT NULL,
+  names uuid NOT NULL,
+  currency_symbol varchar(8) NOT NULL,
+  minor_unit smallint DEFAULT 0 NOT NULL,
+  rate_auto boolean DEFAULT false NOT NULL,
+  revision integer DEFAULT 1,
+  symbol varchar(16) DEFAULT '',
+  remarks varchar(1024),
+  update_at timestamp DEFAULT now(),
+  update_user_id uuid,
+  update_user_history_id uuid,
+  remove boolean DEFAULT false,
+  CONSTRAINT mstr_currency_pk PRIMARY KEY (mstr_currency_id),
+  CONSTRAINT mstr_currency_ck_minor_unit CHECK (minor_unit BETWEEN 0 AND 4)
+);
+
+ALTER TABLE tests.mstr_currency ADD CONSTRAINT mstr_currency_ix1 UNIQUE (symbol);
+
+CREATE UNIQUE INDEX IF NOT EXISTS mstr_currency_ix_code_active ON tests.mstr_currency (code) WHERE remove = false;
+
+COMMENT ON TABLE tests.mstr_currency IS '通貨マスタ';
+
+COMMENT ON COLUMN tests.mstr_currency.mstr_currency_id IS '通貨ID';
+
+COMMENT ON COLUMN tests.mstr_currency.code IS '通貨コード(ISO 4217)';
+
+COMMENT ON COLUMN tests.mstr_currency.names IS '通貨名称';
+
+COMMENT ON COLUMN tests.mstr_currency.currency_symbol IS '通貨記号';
+
+COMMENT ON COLUMN tests.mstr_currency.minor_unit IS '小数の桁数';
+
+COMMENT ON COLUMN tests.mstr_currency.rate_auto IS 'レートの自動取得の対象';
+
+COMMENT ON COLUMN tests.mstr_currency.revision IS 'レビジョン';
+
+COMMENT ON COLUMN tests.mstr_currency.symbol IS 'リニアシンボル';
+
+COMMENT ON COLUMN tests.mstr_currency.remarks IS '備考';
+
+COMMENT ON COLUMN tests.mstr_currency.update_at IS '更新日時';
+
+COMMENT ON COLUMN tests.mstr_currency.update_user_id IS '更新者ID';
+
+COMMENT ON COLUMN tests.mstr_currency.update_user_history_id IS '更新者履歴ID';
+
+COMMENT ON COLUMN tests.mstr_currency.remove IS '削除';
+
+CREATE TABLE tests.history_mstr_currency (
+  history_id uuid DEFAULT gen_random_uuid() NOT NULL,
+  mstr_currency_id uuid NOT NULL,
+  code varchar(3) NOT NULL,
+  names uuid NOT NULL,
+  currency_symbol varchar(8) NOT NULL,
+  minor_unit smallint DEFAULT 0 NOT NULL,
+  rate_auto boolean DEFAULT false NOT NULL,
+  revision integer DEFAULT 1,
+  symbol varchar(16) DEFAULT '',
+  remarks varchar(1024),
+  update_at timestamp DEFAULT now(),
+  update_user_id uuid,
+  update_user_history_id uuid,
+  remove boolean DEFAULT false,
+  CONSTRAINT history_mstr_currency_pk PRIMARY KEY (history_id, mstr_currency_id)
+);
+
+ALTER TABLE tests.history_mstr_currency ADD CONSTRAINT history_mstr_currency_ix1 UNIQUE (mstr_currency_id, revision);
+
+COMMENT ON TABLE tests.history_mstr_currency IS '通貨マスタ履歴';
+
+COMMENT ON COLUMN tests.history_mstr_currency.history_id IS '履歴ID';
+
+COMMENT ON COLUMN tests.history_mstr_currency.mstr_currency_id IS '通貨ID';
+
+CREATE TABLE tests.trans_exchange_rate (
+  trans_exchange_rate_id uuid DEFAULT gen_random_uuid() NOT NULL,
+  mstr_currency_id uuid NOT NULL,
+  rate_month date NOT NULL,
+  rate numeric(18,8) NOT NULL,
+  auto_fetched boolean DEFAULT false NOT NULL,
+  source varchar(255),
+  symbol varchar(16) DEFAULT '',
+  remarks varchar(1024),
+  update_at timestamp DEFAULT now(),
+  update_user_id uuid,
+  update_user_history_id uuid,
+  remove boolean DEFAULT false,
+  CONSTRAINT trans_exchange_rate_pk PRIMARY KEY (trans_exchange_rate_id),
+  CONSTRAINT trans_exchange_rate_ck_rate CHECK (rate > 0),
+  CONSTRAINT trans_exchange_rate_ck_month CHECK (rate_month = date_trunc('month', rate_month)::date)
+);
+
+ALTER TABLE tests.trans_exchange_rate ADD CONSTRAINT trans_exchange_rate_ix1 UNIQUE (symbol);
+
+CREATE INDEX IF NOT EXISTS trans_exchange_rate_ix_lookup ON tests.trans_exchange_rate (mstr_currency_id, rate_month DESC) WHERE remove = false;
+
+COMMENT ON TABLE tests.trans_exchange_rate IS '為替レート(月ごとの概算。追記のみ)';
+
+COMMENT ON COLUMN tests.trans_exchange_rate.trans_exchange_rate_id IS '為替レートID';
+
+COMMENT ON COLUMN tests.trans_exchange_rate.mstr_currency_id IS '通貨ID';
+
+COMMENT ON COLUMN tests.trans_exchange_rate.rate_month IS '適用する月(月の初日)';
+
+COMMENT ON COLUMN tests.trans_exchange_rate.rate IS 'レート(1 単位の通貨 = 基準通貨いくら)';
+
+COMMENT ON COLUMN tests.trans_exchange_rate.auto_fetched IS '自動取得';
+
+COMMENT ON COLUMN tests.trans_exchange_rate.source IS '取得元';
+
+COMMENT ON COLUMN tests.trans_exchange_rate.symbol IS 'リニアシンボル';
+
+COMMENT ON COLUMN tests.trans_exchange_rate.remarks IS '備考';
+
+COMMENT ON COLUMN tests.trans_exchange_rate.update_at IS '更新日時';
+
+COMMENT ON COLUMN tests.trans_exchange_rate.update_user_id IS '更新者ID';
+
+COMMENT ON COLUMN tests.trans_exchange_rate.update_user_history_id IS '更新者履歴ID';
+
+COMMENT ON COLUMN tests.trans_exchange_rate.remove IS '削除';
+
 CREATE TABLE tests.mstr_stakeholder (
   mstr_stakeholder_id uuid DEFAULT gen_random_uuid() NOT NULL,
   is_customer boolean DEFAULT false,
@@ -845,6 +969,8 @@ CREATE TABLE tests.mstr_stakeholder (
   mail varchar(255),
   info_address_id uuid,
   mstr_shipping_kind_id uuid,
+  mstr_currency_id uuid NOT NULL,
+  acceptance_day smallint,
   revision integer DEFAULT 1,
   symbol varchar(16) DEFAULT '',
   remarks varchar(1024),
@@ -1020,6 +1146,8 @@ CREATE TABLE tests.history_mstr_stakeholder (
   mail varchar(255),
   info_address_id uuid,
   mstr_shipping_kind_id uuid,
+  mstr_currency_id uuid NOT NULL,
+  acceptance_day smallint,
   revision integer DEFAULT 1,
   symbol varchar(16) DEFAULT '',
   remarks varchar(1024),
@@ -4375,6 +4503,7 @@ CREATE TABLE tests.info_app (
   complaint_approval_pattern_id uuid,
   disposal_approval_pattern_id uuid,
   recurrence_prevention_approval_pattern_id uuid,
+  mstr_currency_id uuid NOT NULL,
   revision integer DEFAULT 1,
   symbol varchar(16) DEFAULT '',
   remarks varchar(1024),
@@ -11925,6 +12054,7 @@ CREATE TABLE tests.history_info_app (
   complaint_approval_pattern_id uuid,
   disposal_approval_pattern_id uuid,
   recurrence_prevention_approval_pattern_id uuid,
+  mstr_currency_id uuid NOT NULL,
   revision integer DEFAULT 1,
   symbol varchar(16) DEFAULT '',
   remarks varchar(1024),
@@ -16005,6 +16135,38 @@ ALTER TABLE tests.mstr_stakeholder ADD CONSTRAINT mstr_stakeholder_fk2 FOREIGN K
 ALTER TABLE tests.mstr_stakeholder ADD CONSTRAINT mstr_stakeholder_fk3 FOREIGN KEY (info_address_id) REFERENCES tests.info_address (info_address_id) DEFERRABLE INITIALLY DEFERRED;
 
 ALTER TABLE tests.mstr_stakeholder ADD CONSTRAINT mstr_stakeholder_fk4 FOREIGN KEY (update_user_history_id, update_user_id) REFERENCES tests.history_info_staff (history_id, info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.history_mstr_currency ADD CONSTRAINT history_mstr_currency_fk1 FOREIGN KEY (mstr_currency_id) REFERENCES tests.mstr_currency (mstr_currency_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.history_mstr_currency ADD CONSTRAINT history_mstr_currency_fk2 FOREIGN KEY (update_user_history_id, update_user_id) REFERENCES tests.history_info_staff (history_id, info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.mstr_currency ADD CONSTRAINT mstr_currency_fk1 FOREIGN KEY (names) REFERENCES tests.shared_appellations (shared_appellations_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.mstr_currency ADD CONSTRAINT mstr_currency_fk2 FOREIGN KEY (update_user_history_id, update_user_id) REFERENCES tests.history_info_staff (history_id, info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.trans_exchange_rate ADD CONSTRAINT trans_exchange_rate_fk1 FOREIGN KEY (mstr_currency_id) REFERENCES tests.mstr_currency (mstr_currency_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.trans_exchange_rate ADD CONSTRAINT trans_exchange_rate_fk2 FOREIGN KEY (update_user_history_id, update_user_id) REFERENCES tests.history_info_staff (history_id, info_staff_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.mstr_stakeholder ADD CONSTRAINT mstr_stakeholder_fk_currency FOREIGN KEY (mstr_currency_id) REFERENCES tests.mstr_currency (mstr_currency_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.info_app ADD CONSTRAINT info_app_fk_currency FOREIGN KEY (mstr_currency_id) REFERENCES tests.mstr_currency (mstr_currency_id) DEFERRABLE INITIALLY DEFERRED;
+
+ALTER TABLE tests.mstr_stakeholder ADD CONSTRAINT mstr_stakeholder_ck_acceptance_day CHECK (acceptance_day IS NULL OR acceptance_day BETWEEN 1 AND 31);
+
+ALTER TABLE tests.history_mstr_stakeholder ADD CONSTRAINT history_mstr_stakeholder_ck_acceptance_day CHECK (acceptance_day IS NULL OR acceptance_day BETWEEN 1 AND 31);
+
+COMMENT ON COLUMN tests.mstr_stakeholder.mstr_currency_id IS '取引の通貨ID';
+
+COMMENT ON COLUMN tests.mstr_stakeholder.acceptance_day IS '検収日(月の日。NULL は月末)';
+
+COMMENT ON COLUMN tests.history_mstr_stakeholder.mstr_currency_id IS '取引の通貨ID';
+
+COMMENT ON COLUMN tests.history_mstr_stakeholder.acceptance_day IS '検収日(月の日。NULL は月末)';
+
+COMMENT ON COLUMN tests.info_app.mstr_currency_id IS '基準通貨ID(標準の通貨)';
+
+COMMENT ON COLUMN tests.history_info_app.mstr_currency_id IS '基準通貨ID(標準の通貨)';
 
 ALTER TABLE tests.mstr_staff_license ADD CONSTRAINT mstr_staff_license_fk1 FOREIGN KEY (info_staff_id) REFERENCES tests.info_staff (info_staff_id) DEFERRABLE INITIALLY DEFERRED;
 
@@ -24460,22 +24622,88 @@ COMMENT ON COLUMN tests.v_audit_item.answered IS '入力済み(値または所�
 COMMENT ON COLUMN tests.v_audit_item.complaint_count IS '異常の件数';
 COMMENT ON COLUMN tests.v_audit_item.symbol IS 'リニアシンボル';
 
+CREATE OR REPLACE FUNCTION tests.currency_base_id() RETURNS uuid AS $$
+    SELECT a.mstr_currency_id FROM tests.info_app AS a WHERE a.remove IS FALSE ORDER BY a.update_at LIMIT 1
+$$ LANGUAGE sql STABLE;
+
+COMMENT ON FUNCTION tests.currency_base_id() IS '@omit
+基準通貨の ID(info_app)';
+
+CREATE OR REPLACE FUNCTION tests.currency_rate_at(p_currency_id uuid, p_date date) RETURNS numeric AS $$
+    SELECT CASE
+        WHEN p_currency_id IS NULL THEN NULL
+        WHEN p_currency_id = tests.currency_base_id() THEN 1::numeric
+        ELSE (
+            SELECT r.rate FROM tests.trans_exchange_rate AS r
+            WHERE r.mstr_currency_id = p_currency_id AND r.remove IS FALSE
+              AND r.rate_month <= date_trunc('month', p_date)::date
+            ORDER BY r.rate_month DESC, r.update_at DESC LIMIT 1
+        )
+    END
+$$ LANGUAGE sql STABLE;
+
+COMMENT ON FUNCTION tests.currency_rate_at(uuid, date) IS '@omit
+その月以前で最新のレート(1 単位の通貨 = 基準通貨いくら)。基準通貨は 1。無ければ NULL';
+
+CREATE OR REPLACE FUNCTION tests.currency_rate_provisional(p_currency_id uuid, p_date date) RETURNS boolean AS $$
+    SELECT CASE
+        WHEN p_currency_id IS NULL THEN false
+        WHEN p_currency_id = tests.currency_base_id() THEN false
+        ELSE NOT EXISTS (
+            SELECT 1 FROM tests.trans_exchange_rate AS r
+            WHERE r.mstr_currency_id = p_currency_id AND r.remove IS FALSE
+              AND r.rate_month = date_trunc('month', p_date)::date
+        )
+    END
+$$ LANGUAGE sql STABLE;
+
+COMMENT ON FUNCTION tests.currency_rate_provisional(uuid, date) IS '@omit
+その月のレートが登録されていない(別の月のレートで代用している)とき true。基準通貨は false';
+
+CREATE OR REPLACE FUNCTION tests.acceptance_month(p_acceptance_day smallint, p_date date) RETURNS date AS $$
+    SELECT CASE
+        WHEN p_date IS NULL THEN NULL
+        WHEN p_acceptance_day IS NULL THEN date_trunc('month', p_date)::date
+        WHEN extract(day FROM p_date)::int <= LEAST(
+            p_acceptance_day::int,
+            extract(day FROM (date_trunc('month', p_date) + interval '1 month' - interval '1 day'))::int
+        ) THEN date_trunc('month', p_date)::date
+        ELSE (date_trunc('month', p_date) + interval '1 month')::date
+    END
+$$ LANGUAGE sql IMMUTABLE;
+
+COMMENT ON FUNCTION tests.acceptance_month(smallint, date) IS '@omit
+検収日を考慮した換算の月(月の初日)。検収日までは当月、後は翌月。NULL は月末(常に当月)。検収日が月の日数より大きいときは月末';
+
+CREATE OR REPLACE FUNCTION tests.currency_to_base(p_amount numeric, p_currency_id uuid, p_date date) RETURNS numeric AS $$
+    SELECT ROUND(p_amount * tests.currency_rate_at(p_currency_id, p_date),
+        COALESCE((SELECT c.minor_unit FROM tests.mstr_currency AS c WHERE c.mstr_currency_id = tests.currency_base_id()), 0))
+$$ LANGUAGE sql STABLE;
+
+COMMENT ON FUNCTION tests.currency_to_base(numeric, uuid, date) IS '@omit
+金額を基準通貨に換算する(基準通貨の小数の桁数で四捨五入)。レートが無ければ NULL';
+
 CREATE VIEW tests.v_item_unit_cost AS
 WITH RECURSIVE direct AS (
     -- 品目ごとの直接の原価: 購入品 = 優先順位が最も小さい仕入先の単価、生産コスト = 工程ごとの原価の合計
     SELECT
         i.mstr_item_id
-        , COALESCE((
-            SELECT s.cost FROM tests.mstr_item_supplier AS s
-            WHERE s.mstr_item_id = i.mstr_item_id AND s.remove IS FALSE
-            ORDER BY s.priority, s.cost LIMIT 1
-        ), 0) AS purchase_cost
+        , COALESCE(sp.cost_base, 0) AS purchase_cost
         , COALESCE((
             SELECT SUM(c.cost) FROM tests.mstr_item_task_cost AS c
             WHERE c.mstr_item_id = i.mstr_item_id AND c.remove IS FALSE
         ), 0) AS production_cost
         , EXISTS (SELECT 1 FROM tests.mstr_item_supplier AS s WHERE s.mstr_item_id = i.mstr_item_id AND s.remove IS FALSE) AS has_supplier
+        , (sp.cost_base IS NULL AND EXISTS (SELECT 1 FROM tests.mstr_item_supplier AS s WHERE s.mstr_item_id = i.mstr_item_id AND s.remove IS FALSE)) AS purchase_rate_missing
     FROM tests.mstr_item AS i
+    LEFT JOIN LATERAL (
+        -- 仕入先の単価を、仕入先の通貨から基準通貨へ換算する(最新の月のレート。レートが無ければ NULL)
+        SELECT tests.currency_to_base(s.cost, st.mstr_currency_id, CURRENT_DATE) AS cost_base
+        FROM tests.mstr_item_supplier AS s
+        INNER JOIN tests.mstr_stakeholder AS st ON st.mstr_stakeholder_id = s.mstr_stakeholder_id
+        WHERE s.mstr_item_id = i.mstr_item_id AND s.remove IS FALSE
+        ORDER BY s.priority, s.cost LIMIT 1
+    ) AS sp ON TRUE
     WHERE i.remove IS FALSE
 ),
 bom (root_id, item_id, qty, path) AS (
@@ -24498,6 +24726,7 @@ SELECT
         + COALESCE(SUM(b.qty * (cd.purchase_cost + cd.production_cost)) FILTER (WHERE b.item_id <> b.root_id), 0))::numeric(14,2) AS unit_cost
     , d.has_supplier
     , (COUNT(*) FILTER (WHERE b.item_id <> b.root_id) > 0) AS has_components
+    , BOOL_OR(cd.purchase_rate_missing) AS rate_missing
 FROM tests.mstr_item AS i
 INNER JOIN direct AS d ON d.mstr_item_id = i.mstr_item_id
 INNER JOIN bom AS b ON b.root_id = i.mstr_item_id
@@ -24509,6 +24738,172 @@ COMMENT ON VIEW tests.v_item_unit_cost IS '@primaryKey item_id
 @unique item_symbol
 @foreignKey (item_id) references mstr_item (mstr_item_id)
 品目別の標準原価(購入品 = 優先順位が最も小さい仕入先の単価 + 生産コスト + 部品表の下位の部品の原価 × 数量)';
+
+CREATE VIEW tests.v_currency_rate_latest AS
+SELECT DISTINCT ON (c.mstr_currency_id)
+       c.mstr_currency_id
+     , c.code
+     , c.currency_symbol
+     , c.minor_unit
+     , c.rate_auto
+     , (c.mstr_currency_id = tests.currency_base_id()) AS is_base
+     , r.rate_month
+     , CASE WHEN c.mstr_currency_id = tests.currency_base_id() THEN 1::numeric ELSE r.rate END AS rate
+     , r.auto_fetched
+     , r.source
+     , c.symbol
+FROM tests.mstr_currency AS c
+LEFT JOIN tests.trans_exchange_rate AS r
+       ON r.mstr_currency_id = c.mstr_currency_id AND r.remove IS FALSE
+WHERE c.remove IS FALSE
+ORDER BY c.mstr_currency_id, r.rate_month DESC NULLS LAST, r.update_at DESC;
+
+COMMENT ON VIEW tests.v_currency_rate_latest IS '@primaryKey mstr_currency_id
+@foreignKey (mstr_currency_id) references mstr_currency (mstr_currency_id)
+通貨ごとの最新のレート(月ごとの概算)';
+
+CREATE VIEW tests.v_shipping_record_amount AS
+SELECT
+    r.trans_shipping_order_detail_record_id
+    , o.stakeholder_id AS customer_id
+    , od.trans_order_detail_id
+    , od.item_id
+    , r.shipping_date
+    , r.shipping_quantity
+    , h.mstr_currency_id
+    , cu.code AS currency_code
+    , cu.currency_symbol
+    , tests.acceptance_month(h.acceptance_day, r.shipping_date::date) AS rate_month
+    , ROUND(COALESCE(r.shipping_quantity, 0) * COALESCE(od.fixed_price, od.unit_price, 0) + COALESCE(od.price_adjustment, 0) * COALESCE(COALESCE(r.shipping_quantity, 0) / NULLIF(od.quantity, 0), 0), 2) AS amount
+    , tests.currency_rate_at(h.mstr_currency_id, tests.acceptance_month(h.acceptance_day, r.shipping_date::date)) AS rate
+    , tests.currency_rate_provisional(h.mstr_currency_id, tests.acceptance_month(h.acceptance_day, r.shipping_date::date)) AS provisional
+    , tests.currency_to_base(ROUND(COALESCE(r.shipping_quantity, 0) * COALESCE(od.fixed_price, od.unit_price, 0) + COALESCE(od.price_adjustment, 0) * COALESCE(COALESCE(r.shipping_quantity, 0) / NULLIF(od.quantity, 0), 0), 2), h.mstr_currency_id, tests.acceptance_month(h.acceptance_day, r.shipping_date::date)) AS amount_base
+    , r.symbol
+FROM tests.trans_shipping_order_detail_record AS r
+INNER JOIN tests.trans_shipping_order_detail AS sd ON sd.trans_shipping_order_detail_id = r.trans_shipping_order_detail_id
+INNER JOIN tests.trans_order_detail AS od ON od.trans_order_detail_id = sd.trans_order_detail_id
+INNER JOIN tests.trans_order AS o ON o.trans_order_id = od.trans_order_id
+INNER JOIN tests.history_mstr_stakeholder AS h ON h.history_id = o.stakeholder_history_id AND h.mstr_stakeholder_id = o.stakeholder_id
+INNER JOIN tests.mstr_currency AS cu ON cu.mstr_currency_id = h.mstr_currency_id
+WHERE r.remove IS FALSE;
+
+COMMENT ON VIEW tests.v_shipping_record_amount IS '@primaryKey trans_shipping_order_detail_record_id
+@foreignKey (customer_id) references mstr_stakeholder (mstr_stakeholder_id)
+@foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)
+@foreignKey (item_id) references mstr_item (mstr_item_id)
+@foreignKey (mstr_currency_id) references mstr_currency (mstr_currency_id)
+出荷実績の金額(顧客の通貨のまま)と、検収月のレートで換算した基準通貨の金額。provisional は、その月のレートが無く別の月で代用したとき true。レートが無いときは amount_base が NULL';
+
+CREATE VIEW tests.v_purchase_rec_amount AS
+SELECT
+    r.trans_purchase_rec_id
+    , p.stakeholder_id AS supplier_id
+    , pd.trans_purchase_detail_id
+    , pd.item_id
+    , r.receive_at
+    , r.quantity AS received_quantity
+    , h.mstr_currency_id
+    , cu.code AS currency_code
+    , cu.currency_symbol
+    , tests.acceptance_month(h.acceptance_day, r.receive_at::date) AS rate_month
+    , ROUND(COALESCE(r.quantity, 0) * COALESCE(pd.fixed_price, pd.unit_price, 0) + COALESCE(pd.price_adjustment, 0) * COALESCE(COALESCE(r.quantity, 0) / NULLIF(pd.quantity, 0), 0), 2) AS amount
+    , tests.currency_rate_at(h.mstr_currency_id, tests.acceptance_month(h.acceptance_day, r.receive_at::date)) AS rate
+    , tests.currency_rate_provisional(h.mstr_currency_id, tests.acceptance_month(h.acceptance_day, r.receive_at::date)) AS provisional
+    , tests.currency_to_base(ROUND(COALESCE(r.quantity, 0) * COALESCE(pd.fixed_price, pd.unit_price, 0) + COALESCE(pd.price_adjustment, 0) * COALESCE(COALESCE(r.quantity, 0) / NULLIF(pd.quantity, 0), 0), 2), h.mstr_currency_id, tests.acceptance_month(h.acceptance_day, r.receive_at::date)) AS amount_base
+    , r.symbol
+FROM tests.trans_purchase_rec AS r
+INNER JOIN tests.trans_purchase_detail AS pd ON pd.trans_purchase_detail_id = r.trans_purchase_detail_id
+INNER JOIN tests.trans_purchase AS p ON p.trans_purchase_id = pd.trans_purchase_id
+INNER JOIN tests.history_mstr_stakeholder AS h ON h.history_id = p.stakeholder_history_id AND h.mstr_stakeholder_id = p.stakeholder_id
+INNER JOIN tests.mstr_currency AS cu ON cu.mstr_currency_id = h.mstr_currency_id
+WHERE r.remove IS FALSE;
+
+COMMENT ON VIEW tests.v_purchase_rec_amount IS '@primaryKey trans_purchase_rec_id
+@foreignKey (supplier_id) references mstr_stakeholder (mstr_stakeholder_id)
+@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)
+@foreignKey (item_id) references mstr_item (mstr_item_id)
+@foreignKey (mstr_currency_id) references mstr_currency (mstr_currency_id)
+受入実績の金額(仕入先の通貨のまま)と、検収月のレートで換算した基準通貨の金額。provisional は、その月のレートが無く別の月で代用したとき true。レートが無いときは amount_base が NULL';
+
+CREATE VIEW tests.v_order_detail_amount AS
+SELECT
+    od.trans_order_detail_id
+    , o.stakeholder_id AS customer_id
+    , od.item_id
+    , h.mstr_currency_id
+    , cu.code AS currency_code
+    , cu.currency_symbol
+    , ROUND(GREATEST(COALESCE(od.quantity, 0) - COALESCE(od.cancel_quantity, 0), 0) * COALESCE(od.fixed_price, od.unit_price, 0) + COALESCE(od.price_adjustment, 0), 2) AS amount
+    , tests.currency_rate_at(h.mstr_currency_id, CURRENT_DATE) AS rate
+    , tests.currency_rate_provisional(h.mstr_currency_id, CURRENT_DATE) AS provisional
+    , tests.currency_to_base(ROUND(GREATEST(COALESCE(od.quantity, 0) - COALESCE(od.cancel_quantity, 0), 0) * COALESCE(od.fixed_price, od.unit_price, 0) + COALESCE(od.price_adjustment, 0), 2), h.mstr_currency_id, CURRENT_DATE) AS amount_base
+    , od.symbol
+FROM tests.trans_order_detail AS od
+INNER JOIN tests.trans_order AS o ON o.trans_order_id = od.trans_order_id
+INNER JOIN tests.history_mstr_stakeholder AS h ON h.history_id = o.stakeholder_history_id AND h.mstr_stakeholder_id = o.stakeholder_id
+INNER JOIN tests.mstr_currency AS cu ON cu.mstr_currency_id = h.mstr_currency_id
+WHERE od.remove IS FALSE;
+
+COMMENT ON VIEW tests.v_order_detail_amount IS '@primaryKey trans_order_detail_id
+@foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)
+@foreignKey (customer_id) references mstr_stakeholder (mstr_stakeholder_id)
+@foreignKey (item_id) references mstr_item (mstr_item_id)
+@foreignKey (mstr_currency_id) references mstr_currency (mstr_currency_id)
+受注明細の金額(キャンセルを除く。顧客の通貨のまま)と、最新の月のレートで換算した基準通貨の目安の金額。固定しない';
+
+CREATE VIEW tests.v_purchase_detail_amount AS
+SELECT
+    pd.trans_purchase_detail_id
+    , p.stakeholder_id AS supplier_id
+    , pd.item_id
+    , h.mstr_currency_id
+    , cu.code AS currency_code
+    , cu.currency_symbol
+    , ROUND(COALESCE(pd.quantity, 0) * COALESCE(pd.fixed_price, pd.unit_price, 0) + COALESCE(pd.price_adjustment, 0), 2) AS amount
+    , tests.currency_rate_at(h.mstr_currency_id, CURRENT_DATE) AS rate
+    , tests.currency_rate_provisional(h.mstr_currency_id, CURRENT_DATE) AS provisional
+    , tests.currency_to_base(ROUND(COALESCE(pd.quantity, 0) * COALESCE(pd.fixed_price, pd.unit_price, 0) + COALESCE(pd.price_adjustment, 0), 2), h.mstr_currency_id, CURRENT_DATE) AS amount_base
+    , pd.symbol
+FROM tests.trans_purchase_detail AS pd
+INNER JOIN tests.trans_purchase AS p ON p.trans_purchase_id = pd.trans_purchase_id
+INNER JOIN tests.history_mstr_stakeholder AS h ON h.history_id = p.stakeholder_history_id AND h.mstr_stakeholder_id = p.stakeholder_id
+INNER JOIN tests.mstr_currency AS cu ON cu.mstr_currency_id = h.mstr_currency_id
+WHERE pd.remove IS FALSE;
+
+COMMENT ON VIEW tests.v_purchase_detail_amount IS '@primaryKey trans_purchase_detail_id
+@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)
+@foreignKey (supplier_id) references mstr_stakeholder (mstr_stakeholder_id)
+@foreignKey (item_id) references mstr_item (mstr_item_id)
+@foreignKey (mstr_currency_id) references mstr_currency (mstr_currency_id)
+発注明細の金額(仕入先の通貨のまま)と、最新の月のレートで換算した基準通貨の目安の金額。固定しない';
+
+CREATE VIEW tests.v_item_supplier_cost AS
+SELECT
+    s.mstr_item_supplier_id
+    , s.mstr_item_id AS item_id
+    , s.mstr_stakeholder_id AS supplier_id
+    , s.priority
+    , st.mstr_currency_id
+    , cu.code AS currency_code
+    , cu.currency_symbol
+    , s.cost
+    , tests.currency_rate_at(st.mstr_currency_id, CURRENT_DATE) AS rate
+    , tests.currency_rate_provisional(st.mstr_currency_id, CURRENT_DATE) AS provisional
+    , tests.currency_to_base(s.cost, st.mstr_currency_id, CURRENT_DATE) AS cost_base
+    , s.symbol
+FROM tests.mstr_item_supplier AS s
+INNER JOIN tests.mstr_stakeholder AS st ON st.mstr_stakeholder_id = s.mstr_stakeholder_id
+INNER JOIN tests.mstr_currency AS cu ON cu.mstr_currency_id = st.mstr_currency_id
+WHERE s.remove IS FALSE;
+
+COMMENT ON VIEW tests.v_item_supplier_cost IS '@primaryKey mstr_item_supplier_id
+@foreignKey (mstr_item_supplier_id) references mstr_item_supplier (mstr_item_supplier_id)
+@foreignKey (item_id) references mstr_item (mstr_item_id)
+@foreignKey (supplier_id) references mstr_stakeholder (mstr_stakeholder_id)
+@foreignKey (mstr_currency_id) references mstr_currency (mstr_currency_id)
+仕入先ごとの単価(仕入先の通貨のまま)と、最新の月のレートで換算した基準通貨の目安の単価。外注の単価も同じ';
+
+COMMENT ON COLUMN tests.v_item_unit_cost.rate_missing IS '仕入先の単価を換算するレートが無い(購入品の単価を 0 として計算している)';
 
 COMMENT ON COLUMN tests.v_item_unit_cost.item_id IS '品目ID';
 COMMENT ON COLUMN tests.v_item_unit_cost.item_symbol IS '品目のシンボル';
@@ -25439,6 +25834,146 @@ LANGUAGE plpgsql VOLATILE;
 
 CREATE TRIGGER trg_02_history_shared_unit BEFORE INSERT OR UPDATE OR DELETE ON tests.shared_unit FOR EACH ROW EXECUTE FUNCTION tests.trg_02_history_shared_unit();
 
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_currency() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.mstr_currency_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE TRIGGER trg_01_updatetimes_mstr_currency BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_currency FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_mstr_currency();
+
+CREATE TRIGGER trg_04_symbol_mstr_currency BEFORE INSERT ON tests.mstr_currency FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_seq();
+
+CREATE OR REPLACE FUNCTION tests.trg_02_history_mstr_currency() RETURNS trigger AS
+$BODY$
+DECLARE
+    revisions int;
+BEGIN
+    IF (TG_OP = 'UPDATE') OR (TG_OP='INSERT') THEN
+        SELECT Max(revision) INTO revisions FROM tests.history_mstr_currency WHERE mstr_currency_id=NEW.mstr_currency_id;
+        IF (revisions >= 0) THEN
+            IF (
+                NEW.mstr_currency_id,
+                NEW.code,
+                NEW.names,
+                NEW.currency_symbol,
+                NEW.minor_unit,
+                NEW.rate_auto,
+                NEW.symbol,
+                NEW.remarks,
+                NEW.remove
+            ) IS NOT DISTINCT FROM (
+                OLD.mstr_currency_id,
+                OLD.code,
+                OLD.names,
+                OLD.currency_symbol,
+                OLD.minor_unit,
+                OLD.rate_auto,
+                OLD.symbol,
+                OLD.remarks,
+                OLD.remove
+            )
+            THEN
+                RETURN NULL;
+            END IF;
+            NEW.revision := revisions + 1;
+        ELSE
+            NEW.revision := 1;
+        END IF;
+        INSERT INTO tests.history_mstr_currency (
+            mstr_currency_id,
+            code,
+            names,
+            currency_symbol,
+            minor_unit,
+            rate_auto,
+            revision,
+            symbol,
+            remarks,
+            update_at,
+            update_user_id,
+            update_user_history_id,
+            remove
+        )
+        VALUES
+        (
+            NEW.mstr_currency_id,
+            NEW.code,
+            NEW.names,
+            NEW.currency_symbol,
+            NEW.minor_unit,
+            NEW.rate_auto,
+            NEW.revision,
+            NEW.symbol,
+            NEW.remarks,
+            NEW.update_at,
+            NEW.update_user_id,
+            NEW.update_user_history_id,
+            NEW.remove
+        );
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE TRIGGER trg_02_history_mstr_currency BEFORE INSERT OR UPDATE OR DELETE ON tests.mstr_currency FOR EACH ROW EXECUTE FUNCTION tests.trg_02_history_mstr_currency();
+
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_history_mstr_currency() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.history_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE TRIGGER trg_01_updatetimes_history_mstr_currency BEFORE INSERT OR UPDATE OR DELETE ON tests.history_mstr_currency FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_history_mstr_currency();
+
+CREATE TRIGGER trg_04_symbol_history_mstr_currency BEFORE INSERT ON tests.history_mstr_currency FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_seq();
+
+CREATE OR REPLACE FUNCTION tests.trg_currency_base_guard() RETURNS trigger AS
+$BODY$
+BEGIN
+    IF NEW.mstr_currency_id IS DISTINCT FROM OLD.mstr_currency_id
+       AND EXISTS (SELECT 1 FROM tests.trans_exchange_rate WHERE remove IS FALSE) THEN
+        RAISE EXCEPTION '為替レートが登録されているため、基準通貨は変更できません' USING ERRCODE = 'CUR01';
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE TRIGGER trg_00_currency_base_guard BEFORE UPDATE ON tests.info_app FOR EACH ROW EXECUTE FUNCTION tests.trg_currency_base_guard();
+
+COMMENT ON FUNCTION tests.trg_currency_base_guard() IS '@omit
+基準通貨(info_app.mstr_currency_id)の変更の保護。為替レートがあれば CUR01';
+
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_spec_measurement() RETURNS trigger AS
 $BODY$
 DECLARE
@@ -26176,6 +26711,8 @@ BEGIN
                 NEW.mail,
                 NEW.info_address_id,
                 NEW.mstr_shipping_kind_id,
+                NEW.mstr_currency_id,
+                NEW.acceptance_day,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
@@ -26190,6 +26727,8 @@ BEGIN
                 OLD.mail,
                 OLD.info_address_id,
                 OLD.mstr_shipping_kind_id,
+                OLD.mstr_currency_id,
+                OLD.acceptance_day,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -26212,6 +26751,8 @@ BEGIN
             mail,
             info_address_id,
             mstr_shipping_kind_id,
+            mstr_currency_id,
+            acceptance_day,
             revision,
             symbol,
             remarks,
@@ -26232,6 +26773,8 @@ BEGIN
             NEW.mail,
             NEW.info_address_id,
             NEW.mstr_shipping_kind_id,
+            NEW.mstr_currency_id,
+            NEW.acceptance_day,
             NEW.revision,
             NEW.symbol,
             NEW.remarks,
@@ -28927,6 +29470,7 @@ BEGIN
                 NEW.complaint_approval_pattern_id,
                 NEW.disposal_approval_pattern_id,
                 NEW.recurrence_prevention_approval_pattern_id,
+                NEW.mstr_currency_id,
                 NEW.symbol,
                 NEW.remarks,
                 NEW.remove
@@ -28943,6 +29487,7 @@ BEGIN
                 OLD.complaint_approval_pattern_id,
                 OLD.disposal_approval_pattern_id,
                 OLD.recurrence_prevention_approval_pattern_id,
+                OLD.mstr_currency_id,
                 OLD.symbol,
                 OLD.remarks,
                 OLD.remove
@@ -28968,6 +29513,7 @@ BEGIN
             complaint_approval_pattern_id,
             disposal_approval_pattern_id,
             recurrence_prevention_approval_pattern_id,
+            mstr_currency_id,
             symbol,
             remarks,
             update_at,
@@ -28990,6 +29536,7 @@ BEGIN
             NEW.complaint_approval_pattern_id,
             NEW.disposal_approval_pattern_id,
             NEW.recurrence_prevention_approval_pattern_id,
+            NEW.mstr_currency_id,
             NEW.symbol,
             NEW.remarks,
             NEW.update_at,
@@ -34488,6 +35035,29 @@ LANGUAGE plpgsql VOLATILE;
 CREATE TRIGGER trg_01_updatetimes_trans_announcement BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_announcement FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_announcement();
 
 CREATE TRIGGER trg_04_symbol_trans_announcement BEFORE INSERT ON tests.trans_announcement FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
+
+CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_trans_exchange_rate() RETURNS trigger AS
+$BODY$
+DECLARE
+    latest_row record;
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP='INSERT') THEN
+        NEW.trans_exchange_rate_id := gen_random_uuid();
+        NEW.update_at:=now();
+        RETURN NEW;
+    ELSEIF (TG_OP = 'DELETE') THEN
+        RETURN OLD;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql VOLATILE;
+
+CREATE TRIGGER trg_01_updatetimes_trans_exchange_rate BEFORE INSERT OR UPDATE OR DELETE ON tests.trans_exchange_rate FOR EACH ROW EXECUTE FUNCTION tests.trg_01_updatetimes_trans_exchange_rate();
+
+CREATE TRIGGER trg_04_symbol_trans_exchange_rate BEFORE INSERT ON tests.trans_exchange_rate FOR EACH ROW EXECUTE FUNCTION tests.trg_gen_symbol_by_month();
 
 CREATE OR REPLACE FUNCTION tests.trg_01_updatetimes_mstr_operation_task() RETURNS trigger AS
 $BODY$
