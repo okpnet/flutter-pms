@@ -2,7 +2,7 @@
   "formatVersion": 3,
   "appVersion": "0.1.0",
   "id": 538067658,
-  "nextId": 6201,
+  "nextId": 6202,
   "properties": {
     "outputFileName": "pms_test",
     "outputFolder": "",
@@ -10700,13 +10700,13 @@
         "sqlite": ""
       },
       "bodies": {
-        "postgresql": "CREATE OR REPLACE FUNCTION tests.approval_start(\n    p_pattern_id uuid,\n    p_staff_id uuid DEFAULT NULL,\n    p_staff_history_id uuid DEFAULT NULL\n) RETURNS uuid AS $$\nDECLARE\n    v_tp uuid; v_min smallint;\nBEGIN\n    INSERT INTO tests.trans_approval_pattern (mstr_approval_pattern_id, update_user_id, update_user_history_id)\n    VALUES (p_pattern_id, p_staff_id, p_staff_history_id) RETURNING trans_approval_pattern_id INTO v_tp;\n    INSERT INTO tests.trans_preapproval (trans_approval_pattern_id, mstr_approval_id, update_user_id, update_user_history_id)\n    SELECT v_tp, d.mstr_approval_id, p_staff_id, p_staff_history_id\n    FROM tests.mstr_approval_pattern_detail AS d\n    WHERE d.mstr_approval_pattern_id = p_pattern_id AND d.remove IS FALSE;\n    SELECT min(a.priority) INTO v_min\n    FROM tests.trans_preapproval AS q INNER JOIN tests.mstr_approval AS a ON a.mstr_approval_id = q.mstr_approval_id\n    WHERE q.trans_approval_pattern_id = v_tp;\n    IF v_min IS NOT NULL THEN\n        PERFORM tests.approval_notify(v_tp, v_min, p_staff_id, p_staff_history_id);\n    END IF;\n    RETURN v_tp;\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.approval_start(\n    p_pattern_id uuid,\n    p_staff_id uuid DEFAULT NULL,\n    p_staff_history_id uuid DEFAULT NULL,\n    p_notify boolean DEFAULT true\n) RETURNS uuid AS $$\nDECLARE\n    v_tp uuid; v_min smallint;\nBEGIN\n    INSERT INTO tests.trans_approval_pattern (mstr_approval_pattern_id, update_user_id, update_user_history_id)\n    VALUES (p_pattern_id, p_staff_id, p_staff_history_id) RETURNING trans_approval_pattern_id INTO v_tp;\n    INSERT INTO tests.trans_preapproval (trans_approval_pattern_id, mstr_approval_id, update_user_id, update_user_history_id)\n    SELECT v_tp, d.mstr_approval_id, p_staff_id, p_staff_history_id\n    FROM tests.mstr_approval_pattern_detail AS d\n    WHERE d.mstr_approval_pattern_id = p_pattern_id AND d.remove IS FALSE;\n    IF p_notify IS TRUE THEN\n        SELECT min(a.priority) INTO v_min\n        FROM tests.trans_preapproval AS q INNER JOIN tests.mstr_approval AS a ON a.mstr_approval_id = q.mstr_approval_id\n        WHERE q.trans_approval_pattern_id = v_tp;\n        IF v_min IS NOT NULL THEN\n            PERFORM tests.approval_notify(v_tp, v_min, p_staff_id, p_staff_history_id);\n        END IF;\n    END IF;\n    RETURN v_tp;\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
         "mysql": "",
         "sqlserver": "",
         "sqlite": ""
       },
-      "comment": "@omit\n承認の実行を始める(承認パターンから、承認実行パターンと、段ごとの承認前を作り、最初の段の該当者へ通知する)。対象の登録のトリガー(trg_05_approval_request)が呼ぶ",
-      "args": "uuid, uuid, uuid",
+      "comment": "@omit\n承認の実行を始める(承認パターンから、承認実行パターンと、段ごとの承認前を作り、p_notify が true なら最初の段の該当者へ通知する)。対象の登録のトリガー(trg_05_approval_request)が呼ぶ。文書は p_notify = false(通知は document_request_approval で行う)",
+      "args": "uuid, uuid, uuid, boolean",
       "dependsOnTableIds": [
         2438,
         2427,
@@ -10782,6 +10782,39 @@
       "schema": "tests"
     },
     {
+      "id": 6201,
+      "kind": "function",
+      "name": "document_request_approval",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.document_request_approval(\n    p_document_id uuid,\n    p_staff_id uuid DEFAULT NULL\n) RETURNS integer AS $$\nDECLARE\n    v_st record; v_doc tests.mstr_document; v_min smallint;\nBEGIN\n    SELECT * INTO v_st FROM tests.op_staff(p_staff_id);\n    SELECT * INTO v_doc FROM tests.mstr_document WHERE mstr_document_id = p_document_id AND remove IS FALSE;\n    IF NOT FOUND THEN\n        RAISE EXCEPTION '文書が見つかりません (%)', p_document_id USING ERRCODE = 'OPR01';\n    END IF;\n    -- 承認の段が無い(承認不要)・すでに公開済みの文書は、申請できない\n    IF NOT EXISTS (SELECT 1 FROM tests.trans_preapproval AS q WHERE q.trans_approval_pattern_id = v_doc.trans_approval_pattern_id AND q.remove IS FALSE) THEN\n        RAISE EXCEPTION '承認の段が無い文書は申請できません' USING ERRCODE = 'OPR03';\n    END IF;\n    IF COALESCE((SELECT p.published FROM tests.v_document_publication AS p WHERE p.mstr_document_id = p_document_id), false) THEN\n        RAISE EXCEPTION 'すでに公開されています' USING ERRCODE = 'OPR03';\n    END IF;\n    -- 申請できるのは、編集の権限のある担当者(画面と取得元が検査する。DB は担当者の存在だけ確かめる)\n    SELECT min(a.priority) INTO v_min\n    FROM tests.trans_preapproval AS q INNER JOIN tests.mstr_approval AS a ON a.mstr_approval_id = q.mstr_approval_id\n    WHERE q.trans_approval_pattern_id = v_doc.trans_approval_pattern_id AND q.remove IS FALSE\n      AND NOT COALESCE((SELECT r.approved FROM tests.trans_approved AS r WHERE r.trans_preapproval_id = q.trans_preapproval_id AND r.remove IS FALSE\n                        ORDER BY r.update_at DESC LIMIT 1), false);\n    IF v_min IS NULL THEN\n        RETURN 0;\n    END IF;\n    RETURN tests.approval_notify(v_doc.trans_approval_pattern_id, v_min, v_st.staff_id, v_st.staff_history_id);\nEND\n$$ LANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "文書の承認を申請する(通知だけ。承認自体は承認の画面で行う)。まだ判断されていない最小の順位の段の該当者へ通知する(同じ段・同じ人には重複して作らない。冪等)。戻り値は作った通知の件数。担当者は引数、省略時は JWT の staff_id。errcode: OPR01 文書が無い / OPR03 承認の段が無い・すでに公開済み",
+      "args": "uuid, uuid",
+      "dependsOnTableIds": [
+        2438,
+        2427,
+        2380,
+        2393,
+        2306,
+        2828,
+        1459,
+        1995,
+        1177,
+        6047
+      ],
+      "schema": "tests"
+    },
+    {
       "id": 6063,
       "kind": "trigger",
       "name": "trg_05_approval_request",
@@ -10793,7 +10826,7 @@
         "sqlite": ""
       },
       "bodies": {
-        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_05_approval_request() RETURNS trigger AS\r\n$BODY$\r\n-- 引数: TG_ARGV[0] = このテーブルの承認実行パターンの列、TG_ARGV[1] = 承認パターンを持つ info_app の列(対象ごとの標準の承認パターン)\r\n-- info_app の列が NULL・承認パターンが削除済みのときは、承認不要\r\nDECLARE\r\n    v_col text := TG_ARGV[0];\r\n    v_src text := TG_ARGV[1];\r\n    v_pattern uuid;\r\n    v_tp uuid;\r\nBEGIN\r\n    IF (to_jsonb(NEW) ->> v_col) IS NOT NULL THEN\r\n        RETURN NEW;\r\n    END IF;\r\n    EXECUTE format(\r\n        'SELECT p.mstr_approval_pattern_id FROM tests.info_app AS a '\r\n        || 'INNER JOIN tests.mstr_approval_pattern AS p ON p.mstr_approval_pattern_id = a.%I AND p.remove IS FALSE '\r\n        || 'WHERE a.remove IS FALSE ORDER BY a.update_at LIMIT 1', v_src)\r\n    INTO v_pattern;\r\n    IF v_pattern IS NULL THEN\r\n        RETURN NEW;\r\n    END IF;\r\n    v_tp := tests.approval_start(v_pattern, NEW.update_user_id, NEW.update_user_history_id);\r\n    NEW := jsonb_populate_record(NEW, jsonb_build_object(v_col, v_tp));\r\n    RETURN NEW;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_05_approval_request() RETURNS trigger AS\r\n$BODY$\r\n-- 引数: TG_ARGV[0] = このテーブルの承認実行パターンの列、TG_ARGV[1] = 承認パターンを持つ info_app の列(対象ごとの標準の承認パターン)、\r\n--       TG_ARGV[2] = 'false' のとき、登録で通知しない(省略は通知する)\r\n-- info_app の列が NULL・承認パターンが削除済みのときは、承認不要\r\nDECLARE\r\n    v_col text := TG_ARGV[0];\r\n    v_src text := TG_ARGV[1];\r\n    v_notify boolean := COALESCE(TG_ARGV[2], 'true') <> 'false';\r\n    v_pattern uuid;\r\n    v_tp uuid;\r\nBEGIN\r\n    IF (to_jsonb(NEW) ->> v_col) IS NOT NULL THEN\r\n        RETURN NEW;\r\n    END IF;\r\n    EXECUTE format(\r\n        'SELECT p.mstr_approval_pattern_id FROM tests.info_app AS a '\r\n        || 'INNER JOIN tests.mstr_approval_pattern AS p ON p.mstr_approval_pattern_id = a.%I AND p.remove IS FALSE '\r\n        || 'WHERE a.remove IS FALSE ORDER BY a.update_at LIMIT 1', v_src)\r\n    INTO v_pattern;\r\n    IF v_pattern IS NULL THEN\r\n        RETURN NEW;\r\n    END IF;\r\n    v_tp := tests.approval_start(v_pattern, NEW.update_user_id, NEW.update_user_history_id, v_notify);\r\n    NEW := jsonb_populate_record(NEW, jsonb_build_object(v_col, v_tp));\r\n    RETURN NEW;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
         "mysql": "",
         "sqlserver": "",
         "sqlite": ""
@@ -27976,7 +28009,7 @@
           ],
           "forEach": "ROW",
           "when": "",
-          "args": "'trans_approval_pattern_id', 'document_approval_pattern_id'",
+          "args": "'trans_approval_pattern_id', 'document_approval_pattern_id', 'false'",
           "updateColumnIds": []
         }
       ]

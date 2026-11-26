@@ -46,6 +46,7 @@ on:
     branches: [main]
     paths:
       - "tools/docker/postgresql/script/**"     # DB の定義(06 など)
+      - "tools/docker/postgresql/test/*_test.sql" # DB の関数の SQL テスト
       - "tools/docker/postgraphile/**"          # PostGraphile の設定
       - "packages/model_providers/**"           # GraphQL のモデル
       - "packages/infra/data_test_harness/**"   # テストの道具(接続・JWT)
@@ -160,6 +161,20 @@ jobs:
             "SELECT info_staff_id FROM ${DB_TEST_SCHEMA}.info_staff WHERE code = 'ADMIN' AND remove IS FALSE LIMIT 1")"
           if [ -z "$staff_id" ]; then echo "担当者(ADMIN)が見つかりません"; exit 1; fi
           echo "PMS_TEST_STAFF_ID=$staff_id" >> "$GITHUB_ENV"
+
+      # ---------------------------------------------------------------
+      # 5b. DB の関数の SQL テストを実行する
+      #     tools/docker/postgresql/test/*_test.sql は、作った DB に対する SQL のテスト。
+      #     1 つのトランザクションで行い、最後に ROLLBACK するので、DB は変わらない(あとの手順に影響しない)。
+      #     期待と違うと、SQL の中の RAISE EXCEPTION で止まり、この手順が失敗になる。
+      #     ON_ERROR_STOP=1 … SQL のエラーで psql が失敗の終了コードを返す
+      # ---------------------------------------------------------------
+      - name: DB の関数の SQL テスト
+        run: |
+          for f in tools/docker/postgresql/test/*_test.sql; do
+            echo "=== $f"
+            psql -v ON_ERROR_STOP=1 --no-psqlrc -d postgres -f "$f"
+          done
 
       # ---------------------------------------------------------------
       # 6. PostGraphile を起動する(Node.js)
