@@ -132,3 +132,10 @@ const operationsMenuGroupId = 'operations';
 /// [operationsMenuGroupId] の表示名(言語ごと。基準言語は日本語)。
 String operationsMenuGroupLabel(String languageCode) =>
     languageCode == 'en' ? 'Operations & improvement' : '運用と改善';
+
+/// システムメニュー(管理者だけ)に出す項目のグループの識別子。サイドバーには出さず、管理者のユーザーメニューの
+/// 「システムメニュー」から開く(承認スタンプと PDF の設定・文書階層・レポートなど、管理者の設定の入口)。
+const systemMenuGroupId = 'system_menu';
+
+/// [systemMenuGroupId] の表示名(言語ごと。基準言語は日本語)。
+String systemMenuGroupLabel(String languageCode) => languageCode == 'en' ? 'System menu' : 'システムメニュー';

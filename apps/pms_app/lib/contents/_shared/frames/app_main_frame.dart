@@ -9,6 +9,8 @@ import '../../../imports.dart';
 import '../../../services/access/menu_access.dart';
 import '../../../services/features/feature_error.dart' show featureLocationOf;
 import '../../../services/features/feature_modules.dart';
+import '../../../services/session/pocketbase_user_identity.dart'
+    show userIdentitySourceProvider;
 import '../../../services/graphql/graphql_overrides.dart'
     show pocketbaseEnabledProvider;
 import '../../controls/route/dashboard_constant.dart';
@@ -42,6 +44,13 @@ class AppMainFrame extends ConsumerWidget {
           icon: Icons.account_circle_outlined,
           onSelected: () => bus.execute(const MyImageDestination()),
         ),
+        // システムメニュー(管理者だけ。承認スタンプと PDF の設定・文書階層・レポートなどの入口)
+        if (_isAdmin(ref))
+          UserMenuAction(
+            label: systemMenuGroupLabel(ref.watch(localeProvider).languageCode),
+            icon: Icons.admin_panel_settings_outlined,
+            onSelected: () => _showSystemMenu(context, ref),
+          ),
         UserMenuAction(
           label: t.shell.settings,
           icon: Icons.settings_outlined,
@@ -59,6 +68,40 @@ class AppMainFrame extends ConsumerWidget {
         userMenu: t.shell.userMenu,
       ),
       body: body,
+    );
+  }
+
+  /// 管理者か。PocketBase に接続しない環境(判定する元が無い)は、すべて許可するため管理者として扱う。
+  bool _isAdmin(WidgetRef ref) =>
+      !ref.watch(pocketbaseEnabledProvider) ||
+      (ref.watch(userIdentitySourceProvider).current?.isAdmin ?? false);
+
+  /// システムメニューの項目(`systemMenuGroupId`)。サイドバーには出さない。
+  List<MenuEntry> _systemEntries(WidgetRef ref) => [
+    for (final module in featureModules)
+      if (module is MenuContributor)
+        for (final e in (module as MenuContributor).menuEntries(ref))
+          if (e.groupId == systemMenuGroupId) e,
+  ];
+
+  Future<void> _showSystemMenu(BuildContext context, WidgetRef ref) {
+    final bus = ref.read(commandBusProvider);
+    final entries = _systemEntries(ref);
+    return showDialog<void>(
+      context: context,
+      builder: (ctx) => SimpleDialog(
+        title: Text(systemMenuGroupLabel(ref.read(localeProvider).languageCode)),
+        children: [
+          for (final e in entries)
+            SimpleDialogOption(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+                bus.execute(e.destination);
+              },
+              child: Text(e.label),
+            ),
+        ],
+      ),
     );
   }
 
@@ -181,6 +224,7 @@ class AppMainFrame extends ConsumerWidget {
     for (final module in featureModules) {
       if (module is! MenuContributor) continue;
       for (final entry in (module as MenuContributor).menuEntries(ref)) {
+        if (entry.groupId == systemMenuGroupId) continue; // サイドバーには出さない(ユーザーメニューのシステムメニュー)
         if (!_allowed(access, entry.destination)) continue;
         groups.putIfAbsent(entry.groupId, () => []).add(entry);
       }

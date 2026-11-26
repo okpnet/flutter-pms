@@ -58,15 +58,28 @@ class QualityDocumentModule extends EntityFeatureModule {
   String get menuGroupId => operationsMenuGroupId;
 
   /// 文書と文書コンテンツ(ページ)の閲覧・編集は、マニュアル(`manual`。文書 = ルート、コンテンツ = ページの木)に統合した。
-  /// 台帳の画面(`/e/doc`・`/e/doccontent`)は残すが、メニューには出さない。文書階層(`doctier`)・レポート(`report`)も、
-  /// 文書のメニュー(台帳の 1 項目)には出さず、管理者の設定の入口から開く(画面とパスは残す)。
-  static const _hiddenFromMenu = {'doc', 'doccontent', 'doctier', 'report'};
+  /// 台帳の画面(`/e/doc`・`/e/doccontent`)は残すが、メニューには出さない。
+  static const _hiddenFromMenu = {'doc', 'doccontent'};
+
+  /// 文書階層・レポートは、文書のメニューには出さず、システムメニュー(管理者のユーザーメニュー)へ移す。
+  static const _systemMenu = {'doctier', 'report'};
 
   @override
   List<MenuEntry> menuEntries(WidgetRef ref) => [
     for (final e in super.menuEntries(ref))
-      if (!(e.destination is EntityListDestination && _hiddenFromMenu.contains((e.destination as EntityListDestination).entityKey))) e,
+      if (_keyOf(e) case final key when !_hiddenFromMenu.contains(key))
+        if (_systemMenu.contains(key))
+          MenuEntry(
+            groupId: systemMenuGroupId,
+            groupLabel: systemMenuGroupLabel(ref.watch(localeProvider).languageCode),
+            label: e.label,
+            destination: e.destination,
+          )
+        else
+          e,
   ];
+
+  static String? _keyOf(MenuEntry e) => e.destination is EntityListDestination ? (e.destination as EntityListDestination).entityKey : null;
 
   @override
   String menuGroupLabel(WidgetRef ref) =>
