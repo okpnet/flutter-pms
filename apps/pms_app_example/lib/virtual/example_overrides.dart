@@ -11,7 +11,13 @@ import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:logger_provider/logger_provider.dart';
 import 'package:maintenance/maintenance.dart';
 import 'package:manual/manual.dart'
-    show ApprovalStepInfo, InMemoryManualApprovalSource, ManualApproval;
+    show
+        ApprovalStepInfo,
+        InMemoryManualApprovalSource,
+        InMemoryManualRepository,
+        ManualApproval,
+        ManualPageRecord,
+        manualSeedPages;
 import 'package:page_mediator_extension/page_mediator_extension.dart';
 import 'package:pbapi/pbapi.dart';
 import 'package:theme_lib/theme_lib.dart' show themeLoggerProvider;
@@ -114,7 +120,11 @@ Future<List<Override>> exampleOverrides(
     ...dashboardOverrides(),
     ...userSummaryOverrides(),
     // 実物と同じ差し込み(管理者の判定: マニュアルの編集・承認スタンプ・PDF の設定、承認一覧、ダッシュボードの通知)
-    ...manualOverrides(sampleApprovalSource: ExampleManualApprovalSource(announcements)),
+    // 文書の見本: 品質マニュアル(m1)は承認待ち、安全衛生マニュアル(m90)は承認済み(公開・承認スタンプつき)
+    ...manualOverrides(
+      sampleApprovalSource: ExampleManualApprovalSource(announcements),
+      sampleRepository: () => InMemoryManualRepository(initial: [...manualSeedPages(), ..._sampleApprovedManual()]),
+    ),
     ...approvalOverrides(),
     ...moneyOverrides(),
     entityFileTransferProvider.overrideWith(PocketBaseEntityFileTransfer.new),
@@ -149,6 +159,29 @@ Future<List<Override>> exampleOverrides(
 class ExampleManualApprovalSource extends InMemoryManualApprovalSource {
   ExampleManualApprovalSource(this.announcements)
     : super({
+        // 承認済み(公開)。承認スタンプ(承認者・日時)が出る
+        'm90': ManualApproval(
+          published: true,
+          pending: false,
+          statusLabel: '承認',
+          controlNumber: 'SM-001',
+          versionCode: 'B',
+          steps: [
+            ApprovalStepInfo(
+              approved: true,
+              rejected: false,
+              pending: false,
+              stampLabelJa: '承認',
+              stampLabelEn: 'Approval',
+              priority: 1,
+              approvedAt: DateTime(2026, 11, 20, 10),
+              approvedStaff: '鈴木 一郎',
+              approvalName: '品質責任者',
+              controlNumber: 'SM-001',
+              versionCode: 'B',
+            ),
+          ],
+        ),
         'm1': const ManualApproval(
           published: false,
           pending: true,
@@ -186,6 +219,30 @@ class ExampleManualApprovalSource extends InMemoryManualApprovalSource {
     return n;
   }
 }
+
+/// 承認済みの見本の文書(ルート 1 つ + 子ページ 1 つ)。
+List<ManualPageRecord> _sampleApprovedManual() => [
+  ManualPageRecord(
+    id: 'm90',
+    parentId: null,
+    order: 2,
+    title: '安全衛生マニュアル',
+    rev: 2,
+    updatedBy: '鈴木 一郎',
+    updatedAt: DateTime(2026, 11, 20),
+    md: '',
+  ),
+  ManualPageRecord(
+    id: 'm91',
+    parentId: 'm90',
+    order: 1,
+    title: '安全の基本',
+    rev: 1,
+    updatedBy: '鈴木 一郎',
+    updatedAt: DateTime(2026, 11, 20),
+    md: '## 基本\n\n作業の前に、保護具を確認します。',
+  ),
+];
 
 /// 見本の通知(接続なしで、ダッシュボードの未読通知・通知の一覧を確かめるため)。
 List<Announcement> _sampleAnnouncements() => [

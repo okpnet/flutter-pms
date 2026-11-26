@@ -26,6 +26,7 @@ import 'package:manual/manual.dart'
         AppSettings,
         GraphqlManualApprovalSource,
         IManualApprovalSource,
+        IManualRepository,
         GraphqlManualRepository,
         InMemoryManualRepository,
         ManualGraphqlClient,
@@ -50,12 +51,12 @@ import 'document_approval_adapter.dart';
 /// - 承認の状態・アプリの設定(スタンプ・PDF)の取得元は、DB の文書とつなぐまで既定(承認なし・標準の設定)。
 ///
 /// [sampleApprovalSource] は、GraphQL に接続しないとき(サンプル)の承認の取得元(評価用のアプリ `pms_app_example` が、承認待ちの文書と
-/// 申請の動きを再現するために渡す)。省略は承認なし。
-List<Override> manualOverrides({IManualApprovalSource? sampleApprovalSource}) => [
+/// 申請の動きを再現するために渡す)。省略は承認なし。[sampleRepository] は、同じく GraphQL に接続しないときの文書の取得元(省略は標準のサンプル)。
+List<Override> manualOverrides({IManualApprovalSource? sampleApprovalSource, IManualRepository Function()? sampleRepository}) => [
   // マニュアルの取得元・承認の状態: GraphQL に接続するときは DB(文書・文書コンテンツ・共有テキスト。ビュー v_document_publication)、しないときはメモリ上のサンプル
   manualRepositoryProvider.overrideWith((ref) {
     final client = ref.watch(graphqlClientProvider);
-    if (client == null) return InMemoryManualRepository();
+    if (client == null) return sampleRepository?.call() ?? InMemoryManualRepository();
     return GraphqlManualRepository(ManualGraphqlClient(client, auditUser: ref.watch(auditUserProvider)));
   }),
   manualApprovalSourceProvider.overrideWith((ref) {

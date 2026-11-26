@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'support/example_harness.dart';
 
 void main() {
+  _registerPublished();
   testWidgets('台帳に承認待ちの品質マニュアルが出て、管理者は編集の状態で開き、「承認を申請」で通知が 1 件増える(続けても増えない)', (tester) async {
     final h = await ExampleHarness.start(tester);
     await h.login('admin', 'admin-pass');
@@ -35,5 +36,24 @@ void main() {
     // 申請の通知は 1 件だけ(2 回目の申請では増えない)
     final gateway = h.container.read(announcementGatewayProvider) as InMemoryAnnouncementGateway;
     expect(gateway.items.where((a) => a.title == '承認の申請があります'), hasLength(1));
+  });
+}
+
+void _registerPublished() {
+  testWidgets('承認済みの安全衛生マニュアル: 台帳に公開で出て、閲覧で開き、承認スタンプが出る。申請のボタンは出ない', (tester) async {
+    final h = await ExampleHarness.start(tester);
+    await h.login('admin', 'admin-pass');
+    await h.go('/manual');
+    expect(find.byKey(const Key('manual-ledger-row-m1')), findsOneWidget);
+    expect(find.byKey(const Key('manual-ledger-row-m90')), findsOneWidget);
+    expect(find.text('SM-001'), findsOneWidget);
+
+    // 公開済みは、管理者でも閲覧で開く(編集の状態にしない)
+    await tester.tap(find.byKey(const Key('manual-ledger-row-m90')));
+    await h.settle();
+    expect(h.location, '/manual?id=m90');
+    expect(find.byKey(const Key('manual-approval-stamps')), findsOneWidget);
+    expect(find.byKey(const Key('manual-approval-pending')), findsNothing);
+    expect(find.byKey(const Key('manual-request-approval')), findsNothing);
   });
 }
