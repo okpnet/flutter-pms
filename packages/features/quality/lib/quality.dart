@@ -10,7 +10,8 @@ export 'src/audit_run/audit_run_gateway.dart'
         AuditItem,
         IAuditRunGateway,
         InMemoryAuditRunGateway,
-        auditRunGatewayProvider;
+        auditRunGatewayProvider,
+        sampleAuditRunGateway;
 export 'src/graphql/graphql_audit_run_gateway.dart' show GraphqlAuditRunGateway;
 export 'src/audit_notice/audit_notice_source.dart'
     show AuditNotice, IAuditNoticeSource, auditNoticesProvider, InMemoryAuditNoticeSource, auditNoticeSourceProvider;
@@ -26,6 +27,7 @@ export 'src/audit_plan/audit_plan_gateway.dart'
         IAuditPlanGateway,
         InMemoryAuditPlanGateway,
         auditPlanGatewayProvider,
+        sampleAuditPlanGateway,
         validateAuditPlan;
 export 'src/graphql/graphql_audit_plan_gateway.dart' show GraphqlAuditPlanGateway;
 export 'src/complaint_register/complaint_register_gateway.dart'

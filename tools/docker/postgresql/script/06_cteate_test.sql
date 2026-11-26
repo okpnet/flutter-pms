@@ -24054,6 +24054,26 @@ COMMENT ON VIEW tests.v_document_publication IS '@primaryKey mstr_document_id
 @foreignKey (approved_staff_id) references info_staff (info_staff_id)
 文書の公開の判定(1 行 = 文書)。承認の段が 0 件(承認不要のパターン)、またはすべての段が承認済み(承認適用 = true)のとき published。それ以外は pending(承認待ち)。readable は、ログイン中の担当者(JWT の staff_id)が中身を読めるか(公開済み、または承認の該当者、または管理者)。承認待ちの文書は、読める人にも pending を表示する。公開の判定・スタンプの文字は、このビューだけで定義する(画面・PDF で判定しない)';
 
+COMMENT ON COLUMN tests.v_document_publication.mstr_document_id IS '文書ID';
+COMMENT ON COLUMN tests.v_document_publication.symbol IS 'リニアシンボル';
+COMMENT ON COLUMN tests.v_document_publication.code IS '文書のコード';
+COMMENT ON COLUMN tests.v_document_publication.control_number IS '管理番号';
+COMMENT ON COLUMN tests.v_document_publication.version_code IS '版コード';
+COMMENT ON COLUMN tests.v_document_publication.trans_approval_pattern_id IS '承認実行パターンID';
+COMMENT ON COLUMN tests.v_document_publication.total_count IS '承認の段の件数';
+COMMENT ON COLUMN tests.v_document_publication.approved_count IS '承認済みの段の件数';
+COMMENT ON COLUMN tests.v_document_publication.published IS '公開(承認の段が 0 件、またはすべて承認済み)';
+COMMENT ON COLUMN tests.v_document_publication.pending IS '承認待ち(承認していない段がある)';
+COMMENT ON COLUMN tests.v_document_publication.rejected IS '却下された段がある';
+COMMENT ON COLUMN tests.v_document_publication.stamp_visible IS 'スタンプを出す(承認の段が 1 件以上)';
+COMMENT ON COLUMN tests.v_document_publication.approved_at IS '最後に承認した日時';
+COMMENT ON COLUMN tests.v_document_publication.approved_staff_id IS '最後に承認した担当者ID';
+COMMENT ON COLUMN tests.v_document_publication.approved_staff_history_id IS '最後に承認した担当者の履歴ID';
+COMMENT ON COLUMN tests.v_document_publication.readable IS 'ログイン中の担当者が中身を読める(公開済み、承認の該当者、または管理者)';
+COMMENT ON COLUMN tests.v_document_publication.approver IS 'ログイン中の担当者が承認の該当者';
+COMMENT ON COLUMN tests.v_document_publication.stamp_label_ja IS 'スタンプの文字(日本語)。承認・承認待ち';
+COMMENT ON COLUMN tests.v_document_publication.stamp_label_en IS 'スタンプの文字(英語)。Approval・Pending';
+
 CREATE OR REPLACE FUNCTION tests.document_request_approval(
     p_document_id uuid,
     p_staff_id uuid DEFAULT NULL
@@ -24087,26 +24107,6 @@ END
 $$ LANGUAGE plpgsql VOLATILE;
 
 COMMENT ON FUNCTION tests.document_request_approval(uuid, uuid) IS '文書の承認を申請する(通知だけ。承認自体は承認の画面で行う)。まだ判断されていない最小の順位の段の該当者へ通知する(同じ段・同じ人には重複して作らない。冪等)。戻り値は作った通知の件数。担当者は引数、省略時は JWT の staff_id。errcode: OPR01 文書が無い / OPR03 承認の段が無い・すでに公開済み';
-
-COMMENT ON COLUMN tests.v_document_publication.mstr_document_id IS '文書ID';
-COMMENT ON COLUMN tests.v_document_publication.symbol IS 'リニアシンボル';
-COMMENT ON COLUMN tests.v_document_publication.code IS '文書のコード';
-COMMENT ON COLUMN tests.v_document_publication.control_number IS '管理番号';
-COMMENT ON COLUMN tests.v_document_publication.version_code IS '版コード';
-COMMENT ON COLUMN tests.v_document_publication.trans_approval_pattern_id IS '承認実行パターンID';
-COMMENT ON COLUMN tests.v_document_publication.total_count IS '承認の段の件数';
-COMMENT ON COLUMN tests.v_document_publication.approved_count IS '承認済みの段の件数';
-COMMENT ON COLUMN tests.v_document_publication.published IS '公開(承認の段が 0 件、またはすべて承認済み)';
-COMMENT ON COLUMN tests.v_document_publication.pending IS '承認待ち(承認していない段がある)';
-COMMENT ON COLUMN tests.v_document_publication.rejected IS '却下された段がある';
-COMMENT ON COLUMN tests.v_document_publication.stamp_visible IS 'スタンプを出す(承認の段が 1 件以上)';
-COMMENT ON COLUMN tests.v_document_publication.approved_at IS '最後に承認した日時';
-COMMENT ON COLUMN tests.v_document_publication.approved_staff_id IS '最後に承認した担当者ID';
-COMMENT ON COLUMN tests.v_document_publication.approved_staff_history_id IS '最後に承認した担当者の履歴ID';
-COMMENT ON COLUMN tests.v_document_publication.readable IS 'ログイン中の担当者が中身を読める(公開済み、承認の該当者、または管理者)';
-COMMENT ON COLUMN tests.v_document_publication.approver IS 'ログイン中の担当者が承認の該当者';
-COMMENT ON COLUMN tests.v_document_publication.stamp_label_ja IS 'スタンプの文字(日本語)。承認・承認待ち';
-COMMENT ON COLUMN tests.v_document_publication.stamp_label_en IS 'スタンプの文字(英語)。Approval・Pending';
 
 CREATE VIEW tests.v_document_content AS
 SELECT

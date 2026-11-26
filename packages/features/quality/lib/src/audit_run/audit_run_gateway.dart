@@ -247,7 +247,10 @@ class InMemoryAuditRunGateway implements IAuditRunGateway {
 
 /// 既定の取得元は、メモリ上のサンプル(アプリは GraphQL 版に差し替える)。サンプルにも、予定・実施中・終了の監査を持たせる
 /// (example で、自分の監査・監査の実施の画面を確認できるようにするため。日付は今日からの相対)。
-final auditRunGatewayProvider = Provider<IAuditRunGateway>((ref) {
+final auditRunGatewayProvider = Provider<IAuditRunGateway>((ref) => sampleAuditRunGateway());
+
+/// サンプルの監査(予定・実施中・終了)を持つメモリ上の取得元。アプリは、接続先が無いとき、空の取得元ではなくこれを使う。
+InMemoryAuditRunGateway sampleAuditRunGateway() {
   final today = _sampleToday();
   return InMemoryAuditRunGateway(
     assignments: [
@@ -272,7 +275,7 @@ final auditRunGatewayProvider = Provider<IAuditRunGateway>((ref) {
       ],
     },
   );
-});
+}
 
 /// サンプルの日付(今日の 0 時)。
 DateTime _sampleToday() {

@@ -152,6 +152,10 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
   Future<void> Function(EntityRecord item, EntityRecord? newParent)?
   reparentHandler(WidgetRef ref, String entityKey) => null;
 
+  /// 台帳の「新規」で開く先。null は、実体の編集画面(新規)。専用の登録の画面があるとき(例: 監査の計画 = 監査計画の登録)に差し替える。
+  /// 機能同士は、遷移先の型(契約)だけで結ぶ。
+  PageDestination<Object?>? createDestination(WidgetRef ref, String entityKey, Map<String, String> filter) => null;
+
   /// 台帳(`/e/<キー>`)の画面を、専用の画面に差し替える(絞り込みの無いときだけ)。null は、実体の定義から作る台帳。
   /// 例: 会社情報(`company`)は、表ではなく、概要の画面を出す。画面の中で [entityScope] を使える。
   Widget? customListPage(WidgetRef ref, String key) => null;
@@ -376,6 +380,11 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
         onReparent: reparentHandler(ref, key),
         onOpen: (r) => bus.execute(EntityEditDestination(key, id: r.id)),
         onCreate: () async {
+          final custom = createDestination(ref, key, filter);
+          if (custom != null) {
+            await bus.execute(custom);
+            return;
+          }
           // 親の編集画面の外から開く子の台帳(親が 1 件だけ。例: 会社の提供・役職)は、親を自動で入れる
           final owner = definitions
               .where((d) => d.key == key)

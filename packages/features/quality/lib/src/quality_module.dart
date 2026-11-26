@@ -91,6 +91,11 @@ class QualityModule extends EntityFeatureModule {
     _ => super.locationOf(destination),
   };
 
+  /// 監査の計画の台帳の「新規」は、監査計画の登録の画面(題名・標準・チームと予定をまとめて登録する)。
+  @override
+  PageDestination<Object?>? createDestination(WidgetRef ref, String entityKey, Map<String, String> filter) =>
+      entityKey == 'audit' ? const AuditPlanDestination() : null;
+
   /// メニューの先頭に「自分の監査」を足す(割り当てられた監査だけを見る入口)。
   @override
   List<MenuEntry> menuEntries(WidgetRef ref) {
@@ -103,12 +108,13 @@ class QualityModule extends EntityFeatureModule {
     const hidden = ['auditteam', 'orderrisk', 'orderdetailrisk', 'taskrisk'];
     final ledgers = super.menuEntries(ref).where((e) => !hidden.any((k) => isLedger(e, k))).toList();
     final complaint = ledgers.where((e) => isLedger(e, 'complaint')).toList();
-    final others = ledgers.where((e) => !isLedger(e, 'complaint')).toList();
+    // 監査の計画 = 監査(`audit`)の台帳。「新規」は、監査計画の登録の画面(`createDestination`)。メニューは 1 項目にする
+    final others = ledgers.where((e) => !isLedger(e, 'complaint') && !isLedger(e, 'audit')).toList();
     return [
       ...complaint,
       entry(s.complaintRegister.title, const ComplaintRegisterDestination()),
       entry(s.auditRun.myTitle, const MyAuditsDestination()),
-      entry(s.auditPlan.title, const AuditPlanDestination()),
+      entry(s.auditPlan.menuTitle, const EntityListDestination('audit')),
       ...others,
     ];
   }

@@ -98,7 +98,8 @@ complaintRegister:
   errorQuantity: 数量は 0 より大きい数を入れてください。
 # 監査計画の登録
 auditPlan:
-  title: 監査計画の登録
+  menuTitle: 監査の計画
+  title: 監査の計画を登録
   back: 戻る
   hint: 監査の題名・監査標準・チームと予定を入れて登録します。1 行が、チーム 1 つ(監査員つき)と、その予定の監査実施 1 件になります。
   loadFailed: 選択肢を読み込めませんでした。

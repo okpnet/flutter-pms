@@ -179,6 +179,7 @@ class _QualityStrings$auditPlan$en extends QualityStrings$auditPlan$ja {
 	final QualityStringsEn _root; // ignore: unused_field
 
 	// Translations
+	@override String get menuTitle => 'Audit plans';
 	@override String get title => 'Register audit plan';
 	@override String get back => 'Back';
 	@override String get hint => 'Enter the audit title, standard, and teams with schedules. Each row becomes one team (with auditors) and one scheduled audit.';
@@ -721,6 +722,7 @@ extension on QualityStringsEn {
 			'complaintRegister.errorTitle' => 'Enter a title.',
 			'complaintRegister.errorTarget' => 'Choose a target.',
 			'complaintRegister.errorQuantity' => 'Enter a number greater than 0.',
+			'auditPlan.menuTitle' => 'Audit plans',
 			'auditPlan.title' => 'Register audit plan',
 			'auditPlan.back' => 'Back',
 			'auditPlan.hint' => 'Enter the audit title, standard, and teams with schedules. Each row becomes one team (with auditors) and one scheduled audit.',

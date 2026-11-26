@@ -23,7 +23,11 @@ void main() {
       for (final e in entries)
         e.destination is EntityListDestination ? (e.destination as EntityListDestination).entityKey : e.destination.runtimeType.toString(),
     ];
-    expect(kinds.take(4).toList(), ['complaint', 'ComplaintRegisterDestination', 'MyAuditsDestination', 'AuditPlanDestination']);
+    expect(kinds.take(4).toList(), ['complaint', 'ComplaintRegisterDestination', 'MyAuditsDestination', 'audit']);
+    // 監査の計画は、台帳(監査)の 1 項目だけ(登録の別メニューは無い)
+    expect(kinds.where((k) => k == 'audit').length, 1);
+    expect(kinds, isNot(contains('AuditPlanDestination')));
+    expect(entries[3].label, '監査の計画');
     expect(kinds, isNot(contains('auditteam')));
   });
 }

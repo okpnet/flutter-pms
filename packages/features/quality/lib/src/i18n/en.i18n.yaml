@@ -99,6 +99,7 @@ complaintRegister:
   errorQuantity: Enter a number greater than 0.
 # Audit plan registration
 auditPlan:
+  menuTitle: Audit plans
   title: Register audit plan
   back: Back
   hint: Enter the audit title, standard, and teams with schedules. Each row becomes one team (with auditors) and one scheduled audit.

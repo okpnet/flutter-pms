@@ -355,8 +355,11 @@ class QualityStrings$auditPlan$ja {
 
 	// Translations
 
-	/// ja: '監査計画の登録'
-	String get title => '監査計画の登録';
+	/// ja: '監査の計画'
+	String get menuTitle => '監査の計画';
+
+	/// ja: '監査の計画を登録'
+	String get title => '監査の計画を登録';
 
 	/// ja: '戻る'
 	String get back => '戻る';
@@ -1137,7 +1140,8 @@ extension on QualityStrings {
 			'complaintRegister.errorTitle' => '題名を入れてください。',
 			'complaintRegister.errorTarget' => '対象を選んでください。',
 			'complaintRegister.errorQuantity' => '数量は 0 より大きい数を入れてください。',
-			'auditPlan.title' => '監査計画の登録',
+			'auditPlan.menuTitle' => '監査の計画',
+			'auditPlan.title' => '監査の計画を登録',
 			'auditPlan.back' => '戻る',
 			'auditPlan.hint' => '監査の題名・監査標準・チームと予定を入れて登録します。1 行が、チーム 1 つ(監査員つき)と、その予定の監査実施 1 件になります。',
 			'auditPlan.loadFailed' => '選択肢を読み込めませんでした。',
