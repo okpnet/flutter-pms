@@ -1,0 +1,32 @@
+{
+  "operationName": "StaffCountPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVStaffCounts": {
+          "totalCount": 4,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiYTYyM2ExMzUtNzA0NS00Y2NhLThhNTYtZDVkYjQ5ZDI0ODRiIiwiMDgyYTNiOGYtMGEwMy00OWI1LTlkNGQtOWMyYjdhNGMxZTQ2Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "infoCompanyId": "d140e817-a893-4cfe-9ffb-aae9e9d10153",
+              "infoDepartmentId": "a623a135-7045-4cca-8a56-d5db49d2484b",
+              "infoPositionId": "082a3b8f-0a03-49b5-9d4d-9c2b7a4c1e46",
+              "staffCount": "1",
+              "assignCount": "1",
+              "__typename": "VStaffCount"
+            }
+          ],
+          "__typename": "VStaffCountsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

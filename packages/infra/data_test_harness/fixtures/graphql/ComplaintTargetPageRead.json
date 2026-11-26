@@ -1,0 +1,41 @@
+{
+  "operationName": "ComplaintTargetPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVComplaintTargets": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiODIwMzAwM2UtZmY4YS00YzExLWJjNDUtOTAxNmQ3NzQwZTQ0Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "targetLinkId": "8203003e-ff8a-4c11-bc45-9016d7740e44",
+              "transComplaintId": "1f89202c-d69c-4b0d-801c-b9142cf2026b",
+              "targetKind": "visiter",
+              "transPurchaseRecId": null,
+              "transWorkRecordId": null,
+              "transSupplyDetailId": null,
+              "complaintQuantity": "5.00",
+              "visiterCount": 1,
+              "visiterQuantity": "5.00",
+              "linkedCount": 1,
+              "openCount": 1,
+              "missingCount": 0,
+              "missingIssuableCount": 0,
+              "missingEmptyCount": 0,
+              "__typename": "VComplaintTarget"
+            }
+          ],
+          "__typename": "VComplaintTargetsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

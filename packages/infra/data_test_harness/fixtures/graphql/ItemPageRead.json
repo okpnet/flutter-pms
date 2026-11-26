@@ -1,0 +1,147 @@
+{
+  "operationName": "ItemPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allMstrItems": {
+          "totalCount": 13,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMDFiNGZjNmQtMjc1NS00MDNiLThjZDAtMWE0ODM0MDExYmE1Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrItemId": "01b4fc6d-2755-403b-8cd0-1a4834011ba5",
+              "parent": {
+                "nodes": [],
+                "__typename": "MstrItemTreesConnection"
+              },
+              "descendants": null,
+              "mstrItemKindId": "f91d82ed-bedf-4935-a1c8-e0a9dce0070f",
+              "kinds": {
+                "mstrItemKindId": "f91d82ed-bedf-4935-a1c8-e0a9dce0070f",
+                "code": "EQ",
+                "labels": {
+                  "sharedAppellationsId": "824b63a5-efe9-4558-a824-edcf2c0b9f37",
+                  "sharedDictionaryBySharedDictionaryNameId": {
+                    "sharedDictionaryId": "2f5e63a5-8d2d-4e97-a867-fc0817b8a9bd",
+                    "value": {
+                      "nodes": [],
+                      "__typename": "SharedDictionaryValuesConnection"
+                    },
+                    "__typename": "SharedDictionary"
+                  },
+                  "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                  "sharedDictionaryBySharedDictionaryNicknameId": null,
+                  "__typename": "SharedAppellation"
+                },
+                "__typename": "MstrItemKind"
+              },
+              "code": "EQ-PB01",
+              "identification": null,
+              "controlCode": null,
+              "manufacture": null,
+              "labels": {
+                "sharedAppellationsId": "c9e211c3-d1b4-4c7a-b99f-5e5ba7bd71d7",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "3852f991-ef2c-4b6d-aeab-335fa1bd5465",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                "sharedDictionaryBySharedDictionaryNicknameId": null,
+                "__typename": "SharedAppellation"
+              },
+              "labelCode": null,
+              "catalogItem": false,
+              "detailTexts": null,
+              "unit": {
+                "sharedUnitId": "a5445610-92e9-4741-a043-7d56efb85839",
+                "labels": {
+                  "sharedAppellationsId": "ababb40f-575b-4c40-a328-884d1655b202",
+                  "sharedDictionaryBySharedDictionaryNameId": {
+                    "sharedDictionaryId": "5ba768cc-782e-40e2-ad8b-175c09b1f394",
+                    "value": {
+                      "nodes": [],
+                      "__typename": "SharedDictionaryValuesConnection"
+                    },
+                    "__typename": "SharedDictionary"
+                  },
+                  "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                  "sharedDictionaryBySharedDictionaryNicknameId": null,
+                  "__typename": "SharedAppellation"
+                },
+                "__typename": "SharedUnit"
+              },
+              "sharedUnitId": "a5445610-92e9-4741-a043-7d56efb85839",
+              "units": {
+                "sharedUnitId": "a5445610-92e9-4741-a043-7d56efb85839",
+                "labels": {
+                  "sharedAppellationsId": "ababb40f-575b-4c40-a328-884d1655b202",
+                  "sharedDictionaryBySharedDictionaryNameId": {
+                    "sharedDictionaryId": "5ba768cc-782e-40e2-ad8b-175c09b1f394",
+                    "value": {
+                      "nodes": [],
+                      "__typename": "SharedDictionaryValuesConnection"
+                    },
+                    "__typename": "SharedDictionary"
+                  },
+                  "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                  "sharedDictionaryBySharedDictionaryNicknameId": null,
+                  "__typename": "SharedAppellation"
+                },
+                "__typename": "SharedUnit"
+              },
+              "mstrItemLotId": null,
+              "lots": null,
+              "symbol": "0009",
+              "remarks": null,
+              "item_provision_count": {
+                "mstrItemId": "01b4fc6d-2755-403b-8cd0-1a4834011ba5",
+                "__typename": "VItemItemProvisionCount"
+              },
+              "item_operation_task_count": {
+                "mstrItemId": "01b4fc6d-2755-403b-8cd0-1a4834011ba5",
+                "__typename": "VItemItemOperationTaskCount"
+              },
+              "item_operation_count": {
+                "mstrItemId": "01b4fc6d-2755-403b-8cd0-1a4834011ba5",
+                "__typename": "VItemItemOperationCount"
+              },
+              "item_hcdcs_count": {
+                "mstrItemId": "01b4fc6d-2755-403b-8cd0-1a4834011ba5",
+                "__typename": "VItemItemHcdcsCount"
+              },
+              "item_actual_size_count": {
+                "mstrItemId": "01b4fc6d-2755-403b-8cd0-1a4834011ba5",
+                "__typename": "VItemItemActualSizeCount"
+              },
+              "inspection_count": {
+                "mstrItemId": "01b4fc6d-2755-403b-8cd0-1a4834011ba5",
+                "__typename": "VItemInspectionCount"
+              },
+              "equipment_count": {
+                "mstrItemId": "01b4fc6d-2755-403b-8cd0-1a4834011ba5",
+                "__typename": "VItemEquipmentCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.100413",
+              "remove": false,
+              "update_user": null,
+              "__typename": "MstrItem"
+            }
+          ],
+          "__typename": "MstrItemsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

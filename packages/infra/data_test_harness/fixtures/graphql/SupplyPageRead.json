@@ -1,0 +1,44 @@
+{
+  "operationName": "SupplyPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allTransSupplies": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiM2Y3ZDM2NGEtOGZlMi00M2MyLWJjNTMtZGEzMzlkOGVlMTMwIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transSupplyId": "3f7d364a-8fe2-43c2-bc53-da339d8ee130",
+              "code": null,
+              "supplyAt": "2026-11-26T09:31:01.410447",
+              "stakeholderId": "5cdd74a9-79b6-4eec-acf6-28899ebba92e",
+              "receive": true,
+              "counterpartOwns": true,
+              "companyOwns": false,
+              "transOrderId": "f3e699b8-e066-47a8-8fd5-552ab38a85d9",
+              "transPurchaseId": null,
+              "transPlanChangeId": null,
+              "transComplaintId": null,
+              "reason": "顧客支給(ダミー)",
+              "staffId": "ee642769-b3e8-41b1-ac3a-1aefa50b105d",
+              "symbol": "2611-0001",
+              "remarks": null,
+              "updateAt": "2026-11-26T09:31:01.410447",
+              "remove": false,
+              "__typename": "TransSupply"
+            }
+          ],
+          "__typename": "TransSuppliesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

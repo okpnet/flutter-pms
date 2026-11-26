@@ -1,0 +1,86 @@
+{
+  "operationName": "TaskPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allMstrTasks": {
+          "totalCount": 7,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMDNmNzA4MjItMDc0NS00NWUwLThiMzctYWE0M2Y1YjIyMGI2Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrTaskId": "03f70822-0745-45e0-8b37-aa43f5b220b6",
+              "parent": {
+                "nodes": [],
+                "__typename": "MstrTaskTreesConnection"
+              },
+              "descendants": null,
+              "groups": null,
+              "code": "LASER",
+              "labels": {
+                "sharedAppellationsId": "63645049-41aa-4e97-802f-6e81668ec461",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "86c4c2eb-1063-4311-94bf-9f7bc9c06576",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                "sharedDictionaryBySharedDictionaryNicknameId": null,
+                "__typename": "SharedAppellation"
+              },
+              "detailTexts": null,
+              "class": 0,
+              "defaultTime": {
+                "seconds": 0,
+                "minutes": 0,
+                "hours": 0,
+                "days": 0,
+                "months": 0,
+                "years": 0,
+                "__typename": "Interval"
+              },
+              "symbol": "0001",
+              "remarks": null,
+              "work_plan_count": {
+                "mstrTaskId": "03f70822-0745-45e0-8b37-aa43f5b220b6",
+                "__typename": "VTaskWorkPlanCount"
+              },
+              "task_risk_count": {
+                "mstrTaskId": "03f70822-0745-45e0-8b37-aa43f5b220b6",
+                "__typename": "VTaskTaskRiskCount"
+              },
+              "complaint_process_count": {
+                "mstrTaskId": "03f70822-0745-45e0-8b37-aa43f5b220b6",
+                "__typename": "VTaskComplaintProcessCount"
+              },
+              "task_location_count": {
+                "mstrTaskId": "03f70822-0745-45e0-8b37-aa43f5b220b6",
+                "__typename": "VTaskTaskLocationCount"
+              },
+              "operation_task_count": {
+                "mstrTaskId": "03f70822-0745-45e0-8b37-aa43f5b220b6",
+                "__typename": "VTaskOperationTaskCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.100413",
+              "remove": false,
+              "update_user": null,
+              "__typename": "MstrTask"
+            }
+          ],
+          "__typename": "MstrTasksConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

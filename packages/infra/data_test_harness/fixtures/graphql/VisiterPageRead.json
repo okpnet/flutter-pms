@@ -1,0 +1,55 @@
+{
+  "operationName": "VisiterPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allTransVisiters": {
+          "totalCount": 12,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMWRlMzYwNjMtZDU1ZC00ZTE5LTk1NTQtZmIwNmJjOTM1ZWQwIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transVisiterId": "1de36063-d55d-4e19-9554-fb06bc935ed0",
+              "transContainerId": "4887d176-1be3-4e7f-9e1f-882428f97966",
+              "release": false,
+              "quantity": "3.00",
+              "adjustment": false,
+              "parentTransVisiterId": "c52769e9-336b-4e0a-a7e1-7882f894cd1a",
+              "symbol": "2611-0006",
+              "remarks": null,
+              "convey_count": {
+                "transVisiterId": "1de36063-d55d-4e19-9554-fb06bc935ed0",
+                "__typename": "VVisiterConveyCount"
+              },
+              "purchase_rec_visiter_count": {
+                "transVisiterId": "1de36063-d55d-4e19-9554-fb06bc935ed0",
+                "__typename": "VVisiterPurchaseRecVisiterCount"
+              },
+              "work_record_visiter_count": {
+                "transVisiterId": "1de36063-d55d-4e19-9554-fb06bc935ed0",
+                "__typename": "VVisiterWorkRecordVisiterCount"
+              },
+              "complaint_visiter_count": {
+                "transVisiterId": "1de36063-d55d-4e19-9554-fb06bc935ed0",
+                "__typename": "VVisiterComplaintVisiterCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.239772",
+              "remove": false,
+              "update_user": null,
+              "__typename": "TransVisiter"
+            }
+          ],
+          "__typename": "TransVisitersConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

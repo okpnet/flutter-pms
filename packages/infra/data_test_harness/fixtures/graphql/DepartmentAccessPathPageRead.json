@@ -1,0 +1,24 @@
+{
+  "operationName": "DepartmentAccessPathPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allInfoDepartmentAccessPaths": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null,
+            "__typename": "PageInfo"
+          },
+          "nodes": [],
+          "__typename": "InfoDepartmentAccessPathsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

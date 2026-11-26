@@ -1,0 +1,31 @@
+{
+  "operationName": "ManualTierPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allMstrDocumentTiers": {
+          "totalCount": 3,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiNWQxMTlkNDYtY2JmMC00MzBjLWE5MGMtZDQyNTE3ODQyN2NjIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrDocumentTierId": "5d119d46-cbf0-430c-a90c-d425178427cc",
+              "code": "DT-1",
+              "identifier": "M",
+              "tierNumber": 1,
+              "__typename": "MstrDocumentTier"
+            }
+          ],
+          "__typename": "MstrDocumentTiersConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

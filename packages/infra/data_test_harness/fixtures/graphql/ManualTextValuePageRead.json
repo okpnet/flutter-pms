@@ -1,0 +1,60 @@
+{
+  "operationName": "ManualTextValuePageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allSharedTextValues": {
+          "totalCount": 7,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMTcwZTlhYjEtY2RmMy00YzFmLWIwZGMtMDY1YjQ3NjE3MTFmIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "sharedTextValueId": "170e9ab1-cdf3-4c1f-b0dc-065b4761711f",
+              "sharedTextId": "c0a4328f-a744-4ce7-a3d0-3d57e154fc4a",
+              "sharedLanguageCodeId": "47498ce1-7b81-44e7-bc7c-00d5ebe156e7",
+              "textValue": "## 工程の管理\n\n作業指示に従って作業し、作業実績を登録します。",
+              "revision": 1,
+              "updateAt": "2026-11-26T09:31:01.372481",
+              "remove": false,
+              "update_user": {
+                "historyId": "b3b7237c-610f-406c-ad89-5ab73b93b419",
+                "infoStaffId": "ee642769-b3e8-41b1-ac3a-1aefa50b105d",
+                "infoCompanyId": "d140e817-a893-4cfe-9ffb-aae9e9d10153",
+                "code": "ADMIN",
+                "name": {
+                  "sharedAppellationsId": "78da3ddd-d06f-4555-b583-490efcc754d9",
+                  "sharedDictionaryBySharedDictionaryNameId": {
+                    "sharedDictionaryId": "207f767c-dd4d-4176-ac39-568d4387afac",
+                    "value": {
+                      "nodes": [],
+                      "__typename": "SharedDictionaryValuesConnection"
+                    },
+                    "__typename": "SharedDictionary"
+                  },
+                  "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                  "sharedDictionaryBySharedDictionaryNicknameId": null,
+                  "__typename": "SharedAppellation"
+                },
+                "sex": null,
+                "phone": null,
+                "symbol": "0001",
+                "privatePhone": null,
+                "__typename": "HistoryInfoStaff"
+              },
+              "__typename": "SharedTextValue"
+            }
+          ],
+          "__typename": "SharedTextValuesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

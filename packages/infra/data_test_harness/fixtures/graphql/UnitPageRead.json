@@ -1,0 +1,65 @@
+{
+  "operationName": "UnitPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allSharedUnits": {
+          "totalCount": 3,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiODViODhlYWUtMDY4NC00MjJkLWJkODYtNzYyMWY0ODRjNDZlIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "sharedUnitId": "85b88eae-0684-422d-bd86-7621f484c46e",
+              "labels": {
+                "sharedAppellationsId": "d2a0a3e5-a9b0-4bed-8758-2cfff78daec8",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "e85c5c7a-1802-4e9f-8e00-6b80de942fb7",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                "sharedDictionaryBySharedDictionaryNicknameId": null,
+                "__typename": "SharedAppellation"
+              },
+              "detailTexts": null,
+              "symbol": "0002",
+              "remarks": null,
+              "spec_measurement_count": {
+                "sharedUnitId": "85b88eae-0684-422d-bd86-7621f484c46e",
+                "__typename": "VUnitSpecMeasurementCount"
+              },
+              "item_size_kind_count": {
+                "sharedUnitId": "85b88eae-0684-422d-bd86-7621f484c46e",
+                "__typename": "VUnitItemSizeKindCount"
+              },
+              "item_lot_count": {
+                "sharedUnitId": "85b88eae-0684-422d-bd86-7621f484c46e",
+                "__typename": "VUnitItemLotCount"
+              },
+              "envelope_measurement_count": {
+                "sharedUnitId": "85b88eae-0684-422d-bd86-7621f484c46e",
+                "__typename": "VUnitEnvelopeMeasurementCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.100413",
+              "remove": false,
+              "update_user": null,
+              "__typename": "SharedUnit"
+            }
+          ],
+          "__typename": "SharedUnitsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

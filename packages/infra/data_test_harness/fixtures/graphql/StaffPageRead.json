@@ -1,0 +1,73 @@
+{
+  "operationName": "StaffPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allInfoStaffs": {
+          "totalCount": 8,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMzQ0YzNkZWEtMmE0Mi00NDgzLTliNWItZGI5ZGI0OGY5ODE5Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "infoStaffId": "344c3dea-2a42-4483-9b5b-db9db48f9819",
+              "infoCompanyId": "d140e817-a893-4cfe-9ffb-aae9e9d10153",
+              "code": "SUZUKI",
+              "labels": {
+                "sharedAppellationsId": "72ef41fb-bc7c-42fd-95c0-845fbc72d835",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "c4d5fe6b-a225-4c1b-92f6-96cdd17ebccd",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                "sharedDictionaryBySharedDictionaryNicknameId": null,
+                "__typename": "SharedAppellation"
+              },
+              "sex": null,
+              "phone": null,
+              "privatePhone": null,
+              "symbol": "0003",
+              "remarks": null,
+              "staff_access_permission_count": {
+                "infoStaffId": "344c3dea-2a42-4483-9b5b-db9db48f9819",
+                "__typename": "VStaffStaffAccessPermissionCount"
+              },
+              "staff_license_count": {
+                "infoStaffId": "344c3dea-2a42-4483-9b5b-db9db48f9819",
+                "__typename": "VStaffStaffLicenseCount"
+              },
+              "staff_capability_count": {
+                "infoStaffId": "344c3dea-2a42-4483-9b5b-db9db48f9819",
+                "__typename": "VStaffStaffCapabilityCount"
+              },
+              "sign_count": {
+                "infoStaffId": "344c3dea-2a42-4483-9b5b-db9db48f9819",
+                "__typename": "VStaffSignCount"
+              },
+              "assign_count": {
+                "infoStaffId": "344c3dea-2a42-4483-9b5b-db9db48f9819",
+                "__typename": "VStaffAssignCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.294051",
+              "remove": false,
+              "update_user": null,
+              "__typename": "InfoStaff"
+            }
+          ],
+          "__typename": "InfoStaffsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

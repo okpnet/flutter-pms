@@ -1,0 +1,29 @@
+{
+  "operationName": "ScanLotItemPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVVisiterItems": {
+          "totalCount": 8,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMWRlMzYwNjMtZDU1ZC00ZTE5LTk1NTQtZmIwNmJjOTM1ZWQwIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transVisiterId": "1de36063-d55d-4e19-9554-fb06bc935ed0",
+              "mstrItemId": "6af4e01d-052c-4642-b64a-c0c51b5d3675",
+              "__typename": "VVisiterItem"
+            }
+          ],
+          "__typename": "VVisiterItemsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "operationName": "AuditDetailPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allTransAuditDetails": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiNTI1MWJmY2ItNzNlYi00MzgzLThhMWQtNDcxZGNjZWZiMDE1Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transAuditDetailsId": "5251bfcb-73eb-4383-8a1d-471dccefb015",
+              "transAuditId": "9babc47f-8b50-4dd8-8035-1a6774461d7b",
+              "auditStdHistoryId": "f6195def-f156-4120-9f8b-a3c11f9e299c",
+              "auditStdId": "7ff56a5e-dc75-4ad7-9f0b-163f91fe3502",
+              "transAuditTeamId": "065546c8-dce9-469c-b8e4-ef7b2459268b",
+              "labels": {
+                "transLabelId": "85c520a4-f0ad-4241-a596-924aa9b79e51",
+                "value": {
+                  "nodes": [],
+                  "__typename": "TransLabelValuesConnection"
+                },
+                "__typename": "TransLabel"
+              },
+              "conclusionText": null,
+              "audit": {
+                "transAuditId": "9babc47f-8b50-4dd8-8035-1a6774461d7b",
+                "labels": {
+                  "transLabelId": "d974374a-8426-49cc-8205-6b1070a09697",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "TransLabelValuesConnection"
+                  },
+                  "__typename": "TransLabel"
+                },
+                "__typename": "TransAudit"
+              },
+              "team": {
+                "transAuditTeamId": "065546c8-dce9-469c-b8e4-ef7b2459268b",
+                "labels": {
+                  "transLabelId": "774c0cc4-d2be-4071-974c-3fbe57d7c1f6",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "TransLabelValuesConnection"
+                  },
+                  "__typename": "TransLabel"
+                },
+                "__typename": "TransAuditTeam"
+              },
+              "scheduledAt": "2026-11-29T09:00:00",
+              "expectedEndAt": "2026-11-29T17:00:00",
+              "performedDate": null,
+              "endedAt": null,
+              "symbol": "2611-0001",
+              "remarks": null,
+              "updateAt": "2026-11-26T09:31:01.43754",
+              "remove": false,
+              "__typename": "TransAuditDetail"
+            }
+          ],
+          "__typename": "TransAuditDetailsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "operationName": "ShelfInventoryStatusPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVShelfInventoryStatuses": {
+          "totalCount": 8,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMWRlMzYwNjMtZDU1ZC00ZTE5LTk1NTQtZmIwNmJjOTM1ZWQwIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transVisiterId": "1de36063-d55d-4e19-9554-fb06bc935ed0",
+              "parentTransVisiterId": "c52769e9-336b-4e0a-a7e1-7882f894cd1a",
+              "rootVisiterId": "c52769e9-336b-4e0a-a7e1-7882f894cd1a",
+              "transContainerId": "4887d176-1be3-4e7f-9e1f-882428f97966",
+              "mstrLocationId": "01fdac6e-4696-4c03-8574-e855a08b4b87",
+              "release": false,
+              "quantity": "3.00",
+              "receiptQuantity": "3.00",
+              "issueQuantity": "0",
+              "adjustmentQuantity": "0",
+              "lineCount": 0,
+              "splitCount": 0,
+              "openComplaintCount": 0,
+              "transPurchaseRecIds": [
+                "c78e6f57-6f83-4ddb-b8db-aa6e42f3f622"
+              ],
+              "purchaseRecCount": 1,
+              "transWorkRecordIds": [],
+              "workRecordCount": 0,
+              "consumedWorkRecordIds": [],
+              "consumedWorkRecordCount": 0,
+              "transConveyIds": [],
+              "conveyCount": 0,
+              "lastConveyAt": null,
+              "__typename": "VShelfInventoryStatus"
+            }
+          ],
+          "__typename": "VShelfInventoryStatusesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

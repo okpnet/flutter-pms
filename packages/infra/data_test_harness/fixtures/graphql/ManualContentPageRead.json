@@ -1,0 +1,61 @@
+{
+  "operationName": "ManualContentPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allMstrDocumentContents": {
+          "totalCount": 7,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMTY1ZjcyN2YtYTdiNi00YjQ2LTg2YzQtNWI0YTZmNTE2YjE1Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrDocumentContentId": "165f727f-a7b6-4b46-86c4-5b4a6f516b15",
+              "parent": {
+                "nodes": [
+                  {
+                    "mstrDocumentContentTreeId": "aeac0a9c-ddc6-4c2f-9bae-fc6d8d2dab0c",
+                    "parentMstrDocumentContentId": null,
+                    "__typename": "MstrDocumentContentTree"
+                  }
+                ],
+                "__typename": "MstrDocumentContentTreesConnection"
+              },
+              "mstrDocumentId": "ddd29fc7-6af3-491c-81f5-aad16f667e8d",
+              "code": "QM-04",
+              "titles": "12d1ee14-c7af-40c2-9345-9064dc202875",
+              "labels": {
+                "sharedAppellationsId": "12d1ee14-c7af-40c2-9345-9064dc202875",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "abf3502d-c413-4cc4-a8ff-98204c2a93a1",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "__typename": "SharedAppellation"
+              },
+              "contents": "f9503449-1ccd-41e0-a9f5-52818339b505",
+              "sequence": 4,
+              "revision": 1,
+              "symbol": "0005",
+              "updateAt": "2026-11-26T09:31:01.372481",
+              "remove": false,
+              "update_user": null,
+              "__typename": "MstrDocumentContent"
+            }
+          ],
+          "__typename": "MstrDocumentContentsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

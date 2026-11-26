@@ -1,0 +1,49 @@
+{
+  "operationName": "RegisterLotPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allVVisiterIssuables": {
+          "totalCount": 8,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMWRlMzYwNjMtZDU1ZC00ZTE5LTk1NTQtZmIwNmJjOTM1ZWQwIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transVisiterId": "1de36063-d55d-4e19-9554-fb06bc935ed0",
+              "symbol": "2611-0006",
+              "transContainerId": "4887d176-1be3-4e7f-9e1f-882428f97966",
+              "quantity": "3.00",
+              "release": false,
+              "issuable": false,
+              "blockReason": "hold",
+              "container": {
+                "transContainerId": "4887d176-1be3-4e7f-9e1f-882428f97966",
+                "code": "RACK-Q01",
+                "symbol": "2611-0002",
+                "labels": {
+                  "transLabelId": "caacaffc-ab6a-454a-b3db-9d924e3ebba9",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "TransLabelValuesConnection"
+                  },
+                  "__typename": "TransLabel"
+                },
+                "__typename": "TransContainer"
+              },
+              "__typename": "VVisiterIssuable"
+            }
+          ],
+          "__typename": "VVisiterIssuablesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

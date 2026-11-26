@@ -1,0 +1,23 @@
+{
+  "operationName": "ComplaintSupplyPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allTransComplaintSupplies": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null,
+            "__typename": "PageInfo"
+          },
+          "nodes": [],
+          "__typename": "TransComplaintSuppliesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "operationName": "StaffEffectiveAccessPathPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVStaffEffectiveAccessPaths": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null,
+            "__typename": "PageInfo"
+          },
+          "nodes": [],
+          "__typename": "VStaffEffectiveAccessPathsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

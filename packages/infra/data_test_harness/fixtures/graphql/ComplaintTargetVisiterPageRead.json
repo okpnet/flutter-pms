@@ -1,0 +1,42 @@
+{
+  "operationName": "ComplaintTargetVisiterPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVComplaintTargetVisiters": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMjYwODQ3Yzg2MTRmMzg0ZjI1MmU0OTIxMmFjODY3ZmUiXV0=",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "complaintTargetVisiterKey": "260847c8614f384f252e49212ac867fe",
+              "transComplaintId": "1f89202c-d69c-4b0d-801c-b9142cf2026b",
+              "targetKind": "visiter",
+              "targetLinkId": "8203003e-ff8a-4c11-bc45-9016d7740e44",
+              "transPurchaseRecId": null,
+              "transWorkRecordId": null,
+              "transSupplyDetailId": null,
+              "complaintQuantity": "5.00",
+              "transVisiterId": "597a6bc0-2b40-4746-9ff4-3e5a680df4e8",
+              "visiterQuantity": "5.00",
+              "release": false,
+              "transComplaintVisiterId": "8203003e-ff8a-4c11-bc45-9016d7740e44",
+              "linked": true,
+              "releaseAt": null,
+              "visiterStatus": "held",
+              "__typename": "VComplaintTargetVisiter"
+            }
+          ],
+          "__typename": "VComplaintTargetVisitersConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

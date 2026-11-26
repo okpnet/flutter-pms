@@ -1,0 +1,40 @@
+{
+  "operationName": "PurchaseDeliveryCompliancePageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVPurchaseDeliveryCompliances": {
+          "totalCount": 3,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJuYXR1cmFsIiwxXQ==",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "supplierId": "1c854d89-ba01-4189-97b8-bba5cb5ed87d",
+              "mstrItemKindId": "01182865-2338-48c0-a68b-9cc88df265c6",
+              "mstrItemId": "df0ddcf4-1c20-460c-b83b-a869973d2fd0",
+              "mstrItemProvisionIds": null,
+              "period": "2026-12-03",
+              "isReceived": false,
+              "purchaseDetailCount": "1",
+              "onTimeCount": "0",
+              "lateCount": "0",
+              "overdueCount": "0",
+              "pendingCount": "1",
+              "purchaseQuantity": "10.00",
+              "receivedQuantity": "0",
+              "__typename": "VPurchaseDeliveryCompliance"
+            }
+          ],
+          "__typename": "VPurchaseDeliveryCompliancesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

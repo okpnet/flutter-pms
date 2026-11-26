@@ -1,0 +1,35 @@
+{
+  "operationName": "ItemOnHandPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVItemOnHands": {
+          "totalCount": 3,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMWQ5ZmFlMTctYTgwYi00MTgzLWFhMTgtMGNhMWFjODI0YWJmIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "itemId": "1d9fae17-a80b-4183-aa18-0ca1ac824abf",
+              "onHandQuantity": "3.00",
+              "heldQuantity": "0",
+              "availableQuantity": "0",
+              "visiterCount": 1,
+              "heldVisiterCount": 0,
+              "externalQuantity": "3.00",
+              "externalVisiterCount": 1,
+              "__typename": "VItemOnHand"
+            }
+          ],
+          "__typename": "VItemOnHandsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

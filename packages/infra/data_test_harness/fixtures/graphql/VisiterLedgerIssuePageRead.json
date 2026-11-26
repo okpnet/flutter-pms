@@ -1,0 +1,23 @@
+{
+  "operationName": "VisiterLedgerIssuePageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVVisiterLedgerIssues": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null,
+            "__typename": "PageInfo"
+          },
+          "nodes": [],
+          "__typename": "VVisiterLedgerIssuesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

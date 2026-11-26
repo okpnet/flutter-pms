@@ -1,0 +1,40 @@
+{
+  "operationName": "SalesRecordPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVSalesRecords": {
+          "totalCount": 5,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJuYXR1cmFsIiwxXQ==",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "customerId": "5cdd74a9-79b6-4eec-acf6-28899ebba92e",
+              "mstrItemKindId": "0c983519-f896-4533-908a-a466a20734bc",
+              "mstrItemId": "b9ae86a6-18a4-48ae-8d38-d86d7c4a0e7c",
+              "mstrItemProvisionIds": null,
+              "deliveryDate": "2026-12-17",
+              "isShipped": false,
+              "orderDetailCount": "2",
+              "orderQuantity": "40.00",
+              "shippedQuantity": "0",
+              "orderAmount": "1920000.0000",
+              "shippedAmount": "0.00",
+              "settlementAmount": "0",
+              "totalAmount": "1920000.0000",
+              "__typename": "VSalesRecord"
+            }
+          ],
+          "__typename": "VSalesRecordsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "operationName": "VisiterOriginCheckPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVVisiterOriginChecks": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null,
+            "__typename": "PageInfo"
+          },
+          "nodes": [],
+          "__typename": "VVisiterOriginChecksConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

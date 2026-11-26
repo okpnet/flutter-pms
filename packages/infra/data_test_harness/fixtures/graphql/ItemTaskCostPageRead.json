@@ -1,0 +1,24 @@
+{
+  "operationName": "ItemTaskCostPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "mstrItemId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allMstrItemTaskCosts": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null,
+            "__typename": "PageInfo"
+          },
+          "nodes": [],
+          "__typename": "MstrItemTaskCostsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

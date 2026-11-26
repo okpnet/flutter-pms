@@ -1,0 +1,47 @@
+{
+  "operationName": "AuditAssignmentPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVAuditAssignments": {
+          "totalCount": 2,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiN2IxYjIyZjgtZWVkZS00Zjk5LWE0ZjAtN2ZkMDFmMDdjOGY5IiwiNTI1MWJmY2ItNzNlYi00MzgzLThhMWQtNDcxZGNjZWZiMDE1Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transAuditorId": "7b1b22f8-eede-4f99-a4f0-7fd01f07c8f9",
+              "staffId": "731487d2-5cda-46ab-8971-7b0b1aac226f",
+              "transAuditDetailsId": "5251bfcb-73eb-4383-8a1d-471dccefb015",
+              "transAuditId": "9babc47f-8b50-4dd8-8035-1a6774461d7b",
+              "transAuditTeamId": "065546c8-dce9-469c-b8e4-ef7b2459268b",
+              "auditStdId": "7ff56a5e-dc75-4ad7-9f0b-163f91fe3502",
+              "scheduledAt": "2026-11-29T09:00:00",
+              "expectedEndAt": "2026-11-29T17:00:00",
+              "performedDate": null,
+              "endedAt": null,
+              "isPlanned": true,
+              "isInProgress": false,
+              "isDone": false,
+              "isOverdue": false,
+              "itemCount": 0,
+              "answeredCount": 0,
+              "complaintCount": 0,
+              "statusLabelJa": "予定",
+              "statusLabelEn": "Planned",
+              "symbol": "2611-0001",
+              "__typename": "VAuditAssignment"
+            }
+          ],
+          "__typename": "VAuditAssignmentsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "operationName": "ContainerPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allTransContainers": {
+          "totalCount": 3,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMWZmMzliMTItY2ViMi00NzcwLWIxYjYtZmJlYzRiZmEzZWZiIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transContainerId": "1ff39b12-ceb2-4770-b1b6-fbec4bfa3efb",
+              "code": "RACK-H01",
+              "labels": {
+                "transLabelId": "f3c2e945-8470-49ee-b43f-0341d8c0cbdd",
+                "value": {
+                  "nodes": [],
+                  "__typename": "TransLabelValuesConnection"
+                },
+                "__typename": "TransLabel"
+              },
+              "mstrLocationId": "01fdac6e-4696-4c03-8574-e855a08b4b87",
+              "location": {
+                "mstrLocationId": "01fdac6e-4696-4c03-8574-e855a08b4b87",
+                "code": "LOC-MAIN",
+                "infoDepartmentId": null,
+                "department": null,
+                "controlCode": null,
+                "labels": {
+                  "sharedAppellationsId": "e4725f3c-6ab2-41c4-bad6-06f22ae2291f",
+                  "sharedDictionaryBySharedDictionaryNameId": {
+                    "sharedDictionaryId": "93edb842-95b2-4f8c-af11-5f2b3cbbac31",
+                    "value": {
+                      "nodes": [],
+                      "__typename": "SharedDictionaryValuesConnection"
+                    },
+                    "__typename": "SharedDictionary"
+                  },
+                  "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                  "sharedDictionaryBySharedDictionaryNicknameId": null,
+                  "__typename": "SharedAppellation"
+                },
+                "infoAddressId": null,
+                "address": null,
+                "available": true,
+                "symbol": "0001",
+                "remarks": null,
+                "updateAt": "2026-11-26T09:31:01.330278",
+                "remove": false,
+                "update_user": null,
+                "__typename": "MstrLocation"
+              },
+              "symbol": "2611-0003",
+              "remarks": "押さえた品・保管用(キャンセル後の品物)",
+              "visiter_count": {
+                "transContainerId": "1ff39b12-ceb2-4770-b1b6-fbec4bfa3efb",
+                "__typename": "VContainerVisiterCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.330278",
+              "remove": false,
+              "update_user": null,
+              "__typename": "TransContainer"
+            }
+          ],
+          "__typename": "TransContainersConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

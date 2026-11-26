@@ -1,0 +1,86 @@
+{
+  "operationName": "ComplaintPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allTransComplaints": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMWY4OTIwMmMtZDY5Yy00YjBkLTgwMWMtYjkxNDJjZjIwMjZiIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transComplaintId": "1f89202c-d69c-4b0d-801c-b9142cf2026b",
+              "occurentAt": "2026-11-26T09:31:01.239772",
+              "labels": {
+                "transLabelId": "c7797260-abe5-48dd-a3a9-f16abb3a8b37",
+                "value": {
+                  "nodes": [],
+                  "__typename": "TransLabelValuesConnection"
+                },
+                "__typename": "TransLabel"
+              },
+              "detailTexts": {
+                "transTextId": "dc622ff0-a83f-4885-b8b4-7255bd6fc375",
+                "value": {
+                  "nodes": [],
+                  "__typename": "TransTextValuesConnection"
+                },
+                "__typename": "TransText"
+              },
+              "reporterStaffHistoryId": "b3b7237c-610f-406c-ad89-5ab73b93b419",
+              "reporterStaffId": "ee642769-b3e8-41b1-ac3a-1aefa50b105d",
+              "approvals": null,
+              "symbol": "2611-0001",
+              "remarks": null,
+              "disposal_count": {
+                "transComplaintId": "1f89202c-d69c-4b0d-801c-b9142cf2026b",
+                "__typename": "VComplaintDisposalCount"
+              },
+              "complaint_stakeholder_count": {
+                "transComplaintId": "1f89202c-d69c-4b0d-801c-b9142cf2026b",
+                "__typename": "VComplaintComplaintStakeholderCount"
+              },
+              "complaint_receive_count": {
+                "transComplaintId": "1f89202c-d69c-4b0d-801c-b9142cf2026b",
+                "__typename": "VComplaintComplaintReceiveCount"
+              },
+              "complaint_process_count": {
+                "transComplaintId": "1f89202c-d69c-4b0d-801c-b9142cf2026b",
+                "__typename": "VComplaintComplaintProcessCount"
+              },
+              "complaint_order_count": {
+                "transComplaintId": "1f89202c-d69c-4b0d-801c-b9142cf2026b",
+                "__typename": "VComplaintComplaintOrderCount"
+              },
+              "complaint_file_count": {
+                "transComplaintId": "1f89202c-d69c-4b0d-801c-b9142cf2026b",
+                "__typename": "VComplaintComplaintFileCount"
+              },
+              "complaint_equipment_count": {
+                "transComplaintId": "1f89202c-d69c-4b0d-801c-b9142cf2026b",
+                "__typename": "VComplaintComplaintEquipmentCount"
+              },
+              "complaint_visiter_count": {
+                "transComplaintId": "1f89202c-d69c-4b0d-801c-b9142cf2026b",
+                "__typename": "VComplaintComplaintVisiterCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.239772",
+              "remove": false,
+              "update_user": null,
+              "__typename": "TransComplaint"
+            }
+          ],
+          "__typename": "TransComplaintsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

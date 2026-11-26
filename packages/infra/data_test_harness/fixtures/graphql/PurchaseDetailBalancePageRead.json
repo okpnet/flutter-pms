@@ -1,0 +1,43 @@
+{
+  "operationName": "PurchaseDetailBalancePageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVPurchaseDetailBalances": {
+          "totalCount": 3,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiNDU5OGQ2MmYtMDAyNS00ZDEyLTg3MGYtYmVhOTMwZTM2ZjAwIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transPurchaseDetailId": "4598d62f-0025-4d12-870f-bea930e36f00",
+              "symbol": "2611-0001",
+              "transPurchaseId": "1a9439aa-f65c-403d-a6ad-04fcf1d83855",
+              "itemId": "6af4e01d-052c-4642-b64a-c0c51b5d3675",
+              "stop": false,
+              "materialSupply": false,
+              "paidSupply": false,
+              "isOutsource": false,
+              "quantity": "30.00",
+              "cancelQuantity": "0.00",
+              "receivedQuantity": "30.00",
+              "returnedQuantity": "0",
+              "replacementQuantity": "0",
+              "remainingQuantity": "0.00",
+              "openQuantity": "0.00",
+              "cancelClosed": false,
+              "__typename": "VPurchaseDetailBalance"
+            }
+          ],
+          "__typename": "VPurchaseDetailBalancesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

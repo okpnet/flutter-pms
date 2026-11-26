@@ -1,0 +1,41 @@
+{
+  "operationName": "ManualPublicationPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVDocumentPublications": {
+          "totalCount": 2,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiYzA4MWMzZGQtZTA2OS00M2NmLWEyY2UtMThhNWM5NTZmNGFmIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrDocumentId": "c081c3dd-e069-43cf-a2ce-18a5c956f4af",
+              "controlNumber": "QP-001",
+              "versionCode": "1.0",
+              "transApprovalPatternId": "aee7ee35-939e-4bc5-a169-104535526c34",
+              "totalCount": 0,
+              "approvedCount": 0,
+              "published": true,
+              "pending": false,
+              "rejected": false,
+              "stampVisible": false,
+              "readable": true,
+              "approvedAt": null,
+              "stampLabelJa": "承認",
+              "stampLabelEn": "Approval",
+              "__typename": "VDocumentPublication"
+            }
+          ],
+          "__typename": "VDocumentPublicationsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

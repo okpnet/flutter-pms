@@ -1,0 +1,66 @@
+{
+  "operationName": "RegisterWorkPlanPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allTransWorkPlans": {
+          "totalCount": 2,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMDhmNGVjOTktYmQ0NS00ZWFmLWE2ZDctNGM0ZmU3ZDJkZTNlIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transWorkPlanId": "08f4ec99-bd45-4eaf-a6d7-4c4fe7d2de3e",
+              "transOperationsPlanId": "9ff99a87-becd-4509-90f5-bb6fb4707005",
+              "symbol": "2611-0001",
+              "sequence": 1,
+              "startAt": "2026-11-27T00:00:00",
+              "completionAt": "2026-11-28T00:00:00",
+              "task": {
+                "mstrTaskId": "03f70822-0745-45e0-8b37-aa43f5b220b6",
+                "labels": {
+                  "sharedAppellationsId": "63645049-41aa-4e97-802f-6e81668ec461",
+                  "sharedDictionaryBySharedDictionaryNameId": {
+                    "sharedDictionaryId": "86c4c2eb-1063-4311-94bf-9f7bc9c06576",
+                    "value": {
+                      "nodes": [],
+                      "__typename": "SharedDictionaryValuesConnection"
+                    },
+                    "__typename": "SharedDictionary"
+                  },
+                  "__typename": "SharedAppellation"
+                },
+                "__typename": "MstrTask"
+              },
+              "register": {
+                "nodes": [
+                  {
+                    "targetId": "08f4ec99-bd45-4eaf-a6d7-4c4fe7d2de3e",
+                    "quantity": "5.00",
+                    "doneQuantity": "15.00",
+                    "remainingQuantity": "0",
+                    "inProgress": false,
+                    "registrable": false,
+                    "stopped": false,
+                    "closed": false,
+                    "__typename": "VRegisterTarget"
+                  }
+                ],
+                "__typename": "VRegisterTargetsConnection"
+              },
+              "__typename": "TransWorkPlan"
+            }
+          ],
+          "__typename": "TransWorkPlansConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

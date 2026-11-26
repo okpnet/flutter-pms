@@ -1,0 +1,54 @@
+{
+  "operationName": "InspectSchPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allTransInspectSches": {
+          "totalCount": 2,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiNWM2ZTQyNmQtYjY4MC00MzViLWJkZDctZWUxOGRjZGRlMDVmIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transInspectSchId": "5c6e426d-b680-435b-bdd7-ee18dcdde05f",
+              "code": "SCH-LS01",
+              "labels": {
+                "transLabelId": "1723d538-48af-49e0-b1f8-4a6e2a4c3339",
+                "value": {
+                  "nodes": [],
+                  "__typename": "TransLabelValuesConnection"
+                },
+                "__typename": "TransLabel"
+              },
+              "equipmentHistoryId": "44d82d46-84b3-421d-83bc-d046a2877212",
+              "equipmentId": "76ecb265-d8af-47e7-817a-122c359088ee",
+              "requirementTexts": null,
+              "attentionTexts": null,
+              "recommendationTexts": null,
+              "inspectionOperationHistoryId": "ff68c8cd-f16d-4a94-a13c-80bcb844f5e9",
+              "inspectionOperationId": "de7c5284-3808-444b-bca2-f5f4e30eeb61",
+              "symbol": "2611-0001",
+              "remarks": null,
+              "inspect_sch_detail_count": {
+                "transInspectSchId": "5c6e426d-b680-435b-bdd7-ee18dcdde05f",
+                "__typename": "VInspectSchInspectSchDetailCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.239772",
+              "remove": false,
+              "update_user": null,
+              "__typename": "TransInspectSch"
+            }
+          ],
+          "__typename": "TransInspectSchesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

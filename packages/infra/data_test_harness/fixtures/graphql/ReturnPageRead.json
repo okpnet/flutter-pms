@@ -1,0 +1,23 @@
+{
+  "operationName": "ReturnPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allTransReturns": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null,
+            "__typename": "PageInfo"
+          },
+          "nodes": [],
+          "__typename": "TransReturnsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

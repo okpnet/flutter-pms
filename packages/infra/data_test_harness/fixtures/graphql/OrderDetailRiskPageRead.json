@@ -1,0 +1,25 @@
+{
+  "operationName": "OrderDetailRiskPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000",
+        "transOrderDetailId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allTransOrderDetailRisks": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null,
+            "__typename": "PageInfo"
+          },
+          "nodes": [],
+          "__typename": "TransOrderDetailRisksConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

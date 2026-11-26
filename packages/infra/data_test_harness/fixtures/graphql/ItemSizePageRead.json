@@ -1,0 +1,25 @@
+{
+  "operationName": "ItemSizePageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "mstrItemId": "00000000-0000-0000-0000-000000000000",
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allMstrItemActualSizes": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null,
+            "__typename": "PageInfo"
+          },
+          "nodes": [],
+          "__typename": "MstrItemActualSizesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "operationName": "ExternalPropertyPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVExternalProperties": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiNmU5YjJhMTktYjhmNi00MDFiLTg0YTYtNmNkNzFmZjM2MmI4Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transVisiterId": "6e9b2a19-b8f6-401b-84a6-6cd71ff362b8",
+              "symbol": "2611-000A",
+              "ownerStakeholderId": "5cdd74a9-79b6-4eec-acf6-28899ebba92e",
+              "itemId": "1d9fae17-a80b-4183-aa18-0ca1ac824abf",
+              "transContainerId": "7e066ce6-7c70-45d0-8c57-ae16e06d3382",
+              "mstrLocationId": "01fdac6e-4696-4c03-8574-e855a08b4b87",
+              "quantity": "3.00",
+              "release": true,
+              "openComplaintCount": 0,
+              "transSupplyDetailId": "d864a6f0-b75d-4098-88e3-f7e8ec9881b2",
+              "transOrderDetailId": null,
+              "effectiveAt": "2026-11-26T09:31:01.410447",
+              "__typename": "VExternalProperty"
+            }
+          ],
+          "__typename": "VExternalPropertiesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

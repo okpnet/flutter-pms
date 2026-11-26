@@ -1,0 +1,66 @@
+{
+  "operationName": "ApprovalOperationPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allMstrApprovalPatterns": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMTNjODAxMTgtMDkyNS00ZmJjLTliZTctYTliZTdhODNmMjlmIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrApprovalPatternId": "13c80118-0925-4fbc-9be7-a9be7a83f29f",
+              "labels": {
+                "sharedAppellationsId": "8ef05243-4f7c-463a-b8fd-450d1effa45a",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "8e076bb2-7ae4-45f9-b109-bc6878bcecf5",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                "sharedDictionaryBySharedDictionaryNicknameId": null,
+                "__typename": "SharedAppellation"
+              },
+              "pattern_detail": {
+                "totalCount": 0,
+                "pageInfo": {
+                  "hasNextPage": false,
+                  "endCursor": null,
+                  "__typename": "PageInfo"
+                },
+                "nodes": [],
+                "__typename": "MstrApprovalPatternDetailsConnection"
+              },
+              "symbol": "0001",
+              "remarks": "STANDARD-NO-APPROVAL",
+              "approval_pattern_count": {
+                "mstrApprovalPatternId": "13c80118-0925-4fbc-9be7-a9be7a83f29f",
+                "__typename": "VApprovalPatternApprovalPatternCount"
+              },
+              "approval_pattern_detail_count": {
+                "mstrApprovalPatternId": "13c80118-0925-4fbc-9be7-a9be7a83f29f",
+                "__typename": "VApprovalPatternApprovalPatternDetailCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.358914",
+              "remove": false,
+              "update_user": null,
+              "__typename": "MstrApprovalPattern"
+            }
+          ],
+          "__typename": "MstrApprovalPatternsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

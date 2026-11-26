@@ -1,0 +1,30 @@
+{
+  "operationName": "StaffHistoryLatestPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allHistoryInfoStaffs": {
+          "totalCount": 8,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMjQzNjA1YWUtOTM2Ni00MTIyLTg4OTAtOWViYmYwNTMwYTk1IiwiYzEzMmFjMmEtYmM1Zi00YmM0LWE5ZDctZDNlMTFiNzgxMjI3Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "historyId": "243605ae-9366-4122-8890-9ebbf0530a95",
+              "infoStaffId": "c132ac2a-bc5f-4bc4-a9d7-d3e11b781227",
+              "revision": 1,
+              "__typename": "HistoryInfoStaff"
+            }
+          ],
+          "__typename": "HistoryInfoStaffsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

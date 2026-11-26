@@ -1,0 +1,87 @@
+{
+  "operationName": "CompanyPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allInfoCompanies": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiZDE0MGU4MTctYTg5My00Y2ZlLTlmZmItYWFlOWU5ZDEwMTUzIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "infoCompanyId": "d140e817-a893-4cfe-9ffb-aae9e9d10153",
+              "labels": {
+                "sharedAppellationsId": "25e8dfb9-8bd3-4b29-89a4-6fed1bfe0b33",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "b02724de-8b8a-46d2-9a90-a88255c57456",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                "sharedDictionaryBySharedDictionaryNicknameId": null,
+                "__typename": "SharedAppellation"
+              },
+              "webPage": null,
+              "ceo_labels": null,
+              "provisions": {
+                "totalCount": 0,
+                "pageInfo": {
+                  "hasNextPage": false,
+                  "endCursor": null,
+                  "__typename": "PageInfo"
+                },
+                "nodes": [],
+                "__typename": "InfoProvisionsConnection"
+              },
+              "symbol": "0001",
+              "remarks": null,
+              "address": null,
+              "offices": {
+                "totalCount": 0,
+                "pageInfo": {
+                  "hasNextPage": false,
+                  "endCursor": null,
+                  "__typename": "PageInfo"
+                },
+                "nodes": [],
+                "__typename": "InfoOfficesConnection"
+              },
+              "staff_count": {
+                "infoCompanyId": "d140e817-a893-4cfe-9ffb-aae9e9d10153",
+                "__typename": "VCompanyStaffCount"
+              },
+              "provision_count": {
+                "infoCompanyId": "d140e817-a893-4cfe-9ffb-aae9e9d10153",
+                "__typename": "VCompanyProvisionCount"
+              },
+              "office_count": {
+                "infoCompanyId": "d140e817-a893-4cfe-9ffb-aae9e9d10153",
+                "__typename": "VCompanyOfficeCount"
+              },
+              "department_count": {
+                "infoCompanyId": "d140e817-a893-4cfe-9ffb-aae9e9d10153",
+                "__typename": "VCompanyDepartmentCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.100413",
+              "remove": false,
+              "update_user": null,
+              "__typename": "InfoCompany"
+            }
+          ],
+          "__typename": "InfoCompaniesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

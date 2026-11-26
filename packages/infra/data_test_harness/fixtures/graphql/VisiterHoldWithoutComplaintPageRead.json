@@ -1,0 +1,33 @@
+{
+  "operationName": "VisiterHoldWithoutComplaintPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVVisiterHoldWithoutComplaints": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMWRlMzYwNjMtZDU1ZC00ZTE5LTk1NTQtZmIwNmJjOTM1ZWQwIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transVisiterId": "1de36063-d55d-4e19-9554-fb06bc935ed0",
+              "transContainerId": "4887d176-1be3-4e7f-9e1f-882428f97966",
+              "mstrLocationId": "01fdac6e-4696-4c03-8574-e855a08b4b87",
+              "quantity": "3.00",
+              "holdAt": "2026-11-26T09:31:01.239772",
+              "updateUserId": null,
+              "__typename": "VVisiterHoldWithoutComplaint"
+            }
+          ],
+          "__typename": "VVisiterHoldWithoutComplaintsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

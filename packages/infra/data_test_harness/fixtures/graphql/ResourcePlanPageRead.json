@@ -1,0 +1,43 @@
+{
+  "operationName": "ResourcePlanPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allTransResourcePlans": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiOGFkYmVjM2ItYzhlMi00N2M2LWI1YTctZTUxNjgyOWRjYTk0Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transResourcePlanId": "8adbec3b-c8e2-47c6-b5a7-e516829dca94",
+              "transOrderDetailId": null,
+              "transUnrecognizedDetailId": null,
+              "parentTransOperationsPlanId": null,
+              "registerAt": "2026-11-26T09:31:01.239772",
+              "quantity": "5.00",
+              "inventoryResavation": "0.00",
+              "deadline": "2026-12-10T00:00:00",
+              "itemHistoryId": "1954d78e-4971-4e1b-8224-3235209da046",
+              "itemId": "1d9fae17-a80b-4183-aa18-0ca1ac824abf",
+              "symbol": "2611-0001",
+              "remarks": null,
+              "updateAt": "2026-11-26T09:31:01.239772",
+              "remove": false,
+              "update_user": null,
+              "__typename": "TransResourcePlan"
+            }
+          ],
+          "__typename": "TransResourcePlansConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

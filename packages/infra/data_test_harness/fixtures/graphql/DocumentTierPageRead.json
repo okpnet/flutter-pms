@@ -1,0 +1,58 @@
+{
+  "operationName": "DocumentTierPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allMstrDocumentTiers": {
+          "totalCount": 3,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiNWQxMTlkNDYtY2JmMC00MzBjLWE5MGMtZDQyNTE3ODQyN2NjIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrDocumentTierId": "5d119d46-cbf0-430c-a90c-d425178427cc",
+              "code": "DT-1",
+              "labels": {
+                "sharedAppellationsId": "68ef2c43-1b69-4f76-b92e-76dffa436b92",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "f6a77df5-dee5-49f3-8cf1-65548ae0fd50",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                "sharedDictionaryBySharedDictionaryNicknameId": null,
+                "__typename": "SharedAppellation"
+              },
+              "transFileId": null,
+              "file": null,
+              "attributiveNoun": "マニュアル",
+              "identifier": "M",
+              "tierNumber": 1,
+              "symbol": "0001",
+              "remarks": null,
+              "document_count": {
+                "mstrDocumentTierId": "5d119d46-cbf0-430c-a90c-d425178427cc",
+                "__typename": "VDocumentTierDocumentCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.372481",
+              "remove": false,
+              "update_user": null,
+              "__typename": "MstrDocumentTier"
+            }
+          ],
+          "__typename": "MstrDocumentTiersConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

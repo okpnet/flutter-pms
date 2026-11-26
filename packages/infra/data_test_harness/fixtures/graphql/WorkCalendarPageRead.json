@@ -1,0 +1,46 @@
+{
+  "operationName": "WorkCalendarPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allMstrWorkCalendars": {
+          "totalCount": 155,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMDE1N2QwOTQtZjU2Yi00OTAwLWJhOTgtNmVmMTU4ZjdmNjhlIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrWorkCalendarId": "0157d094-f56b-4900-ba98-6ef158f7f68e",
+              "workDate": "2026-12-31",
+              "mstrEquipmentId": null,
+              "startTime": "08:00:00",
+              "workInterval": {
+                "seconds": 0,
+                "minutes": 0,
+                "hours": 8,
+                "days": 0,
+                "months": 0,
+                "years": 0,
+                "__typename": "Interval"
+              },
+              "holiday": false,
+              "revision": 1,
+              "symbol": "0013",
+              "remarks": null,
+              "updateAt": "2026-11-26T09:31:01.100413",
+              "remove": false,
+              "__typename": "MstrWorkCalendar"
+            }
+          ],
+          "__typename": "MstrWorkCalendarsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "operationName": "ApprovalPatternStylePageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allMstrApprovalPatterns": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMTNjODAxMTgtMDkyNS00ZmJjLTliZTctYTliZTdhODNmMjlmIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrApprovalPatternId": "13c80118-0925-4fbc-9be7-a9be7a83f29f",
+              "symbol": "0001",
+              "stampStyle": null,
+              "labels": {
+                "sharedAppellationsId": "8ef05243-4f7c-463a-b8fd-450d1effa45a",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "8e076bb2-7ae4-45f9-b109-bc6878bcecf5",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "__typename": "SharedAppellation"
+              },
+              "__typename": "MstrApprovalPattern"
+            }
+          ],
+          "__typename": "MstrApprovalPatternsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

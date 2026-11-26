@@ -1,0 +1,24 @@
+{
+  "operationName": "ScanVisiterPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "transContainerId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allTransVisiters": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null,
+            "__typename": "PageInfo"
+          },
+          "nodes": [],
+          "__typename": "TransVisitersConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

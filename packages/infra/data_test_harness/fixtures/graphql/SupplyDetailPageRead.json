@@ -1,0 +1,40 @@
+{
+  "operationName": "SupplyDetailPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allTransSupplyDetails": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiZDg2NGE2ZjAtYjc1ZC00MDk4LTg4ZTMtZjdlOGVjOTg4MWIyIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transSupplyDetailId": "d864a6f0-b75d-4098-88e3-f7e8ec9881b2",
+              "transSupplyId": "3f7d364a-8fe2-43c2-bc53-da339d8ee130",
+              "itemId": "1d9fae17-a80b-4183-aa18-0ca1ac824abf",
+              "quantity": "5.00",
+              "unitPrice": null,
+              "scheduledAt": null,
+              "transOrderDetailId": "1ed4a16e-e539-4684-8988-8a335f181ef2",
+              "transPurchaseDetailId": null,
+              "transResourcePlanId": null,
+              "symbol": "2611-0001",
+              "remarks": null,
+              "updateAt": "2026-11-26T09:31:01.410447",
+              "remove": false,
+              "__typename": "TransSupplyDetail"
+            }
+          ],
+          "__typename": "TransSupplyDetailsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

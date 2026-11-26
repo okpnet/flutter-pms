@@ -1,0 +1,24 @@
+{
+  "operationName": "TaskEquipmentAvailablePageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "mstrTaskLocationId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allMstrEquipmentAvailables": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null,
+            "__typename": "PageInfo"
+          },
+          "nodes": [],
+          "__typename": "MstrEquipmentAvailablesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "operationName": "UnrecognizedPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allTransUnrecognizeds": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiNzJiZGUyMWItMGZlMS00ZjM2LTg5OTgtZWRkZGE4NTljOTcxIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transUnrecognizedId": "72bde21b-0fe1-4f36-8998-eddda859c971",
+              "controlCode1": "FC-001",
+              "controlCode2": null,
+              "controlCode3": null,
+              "decisionDate": "2026-11-26T00:00:00",
+              "deadline": "2027-01-10T00:00:00",
+              "expectedCompletionDate": null,
+              "plannedShippingDate": null,
+              "symbol": "2611-0001",
+              "remarks": "見込み生産",
+              "unrecognized_detail_count": {
+                "transUnrecognizedId": "72bde21b-0fe1-4f36-8998-eddda859c971",
+                "__typename": "VUnrecognizedUnrecognizedDetailCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.100413",
+              "remove": false,
+              "update_user": null,
+              "__typename": "TransUnrecognized"
+            }
+          ],
+          "__typename": "TransUnrecognizedsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

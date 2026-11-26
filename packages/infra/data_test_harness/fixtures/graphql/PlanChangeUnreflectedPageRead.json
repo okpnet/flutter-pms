@@ -1,0 +1,23 @@
+{
+  "operationName": "PlanChangeUnreflectedPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVPlanChangeUnreflecteds": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null,
+            "__typename": "PageInfo"
+          },
+          "nodes": [],
+          "__typename": "VPlanChangeUnreflectedsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

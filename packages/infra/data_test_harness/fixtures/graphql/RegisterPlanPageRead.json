@@ -1,0 +1,40 @@
+{
+  "operationName": "RegisterPlanPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allTransOperationsPlans": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiOWZmOTlhODctYmVjZC00NTA5LTkwZjUtYmI2ZmI0NzA3MDA1Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transOperationsPlanId": "9ff99a87-becd-4509-90f5-bb6fb4707005",
+              "symbol": "2611-0001",
+              "quantity": "5.00",
+              "deadline": "2026-12-10T00:00:00",
+              "stop": false,
+              "discontinue": false,
+              "resource_plan": {
+                "transResourcePlanId": "8adbec3b-c8e2-47c6-b5a7-e516829dca94",
+                "itemId": "1d9fae17-a80b-4183-aa18-0ca1ac824abf",
+                "transOrderDetailId": null,
+                "order_detail": null,
+                "__typename": "TransResourcePlan"
+              },
+              "__typename": "TransOperationsPlan"
+            }
+          ],
+          "__typename": "TransOperationsPlansConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

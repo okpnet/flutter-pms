@@ -1,0 +1,23 @@
+{
+  "operationName": "MrpPeggingPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allTransMrpPeggings": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null,
+            "__typename": "PageInfo"
+          },
+          "nodes": [],
+          "__typename": "TransMrpPeggingsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "operationName": "ScanContainerPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allTransContainers": {
+          "totalCount": 3,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMWZmMzliMTItY2ViMi00NzcwLWIxYjYtZmJlYzRiZmEzZWZiIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transContainerId": "1ff39b12-ceb2-4770-b1b6-fbec4bfa3efb",
+              "code": "RACK-H01",
+              "symbol": "2611-0003",
+              "mstrLocationId": "01fdac6e-4696-4c03-8574-e855a08b4b87",
+              "labels": {
+                "transLabelId": "f3c2e945-8470-49ee-b43f-0341d8c0cbdd",
+                "value": {
+                  "nodes": [],
+                  "__typename": "TransLabelValuesConnection"
+                },
+                "__typename": "TransLabel"
+              },
+              "__typename": "TransContainer"
+            }
+          ],
+          "__typename": "TransContainersConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

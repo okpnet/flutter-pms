@@ -1,0 +1,32 @@
+{
+  "operationName": "ScanInspectSchPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allTransInspectSches": {
+          "totalCount": 2,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiNWM2ZTQyNmQtYjY4MC00MzViLWJkZDctZWUxOGRjZGRlMDVmIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transInspectSchId": "5c6e426d-b680-435b-bdd7-ee18dcdde05f",
+              "code": "SCH-LS01",
+              "equipmentHistoryId": "44d82d46-84b3-421d-83bc-d046a2877212",
+              "equipmentId": "76ecb265-d8af-47e7-817a-122c359088ee",
+              "symbol": "2611-0001",
+              "__typename": "TransInspectSch"
+            }
+          ],
+          "__typename": "TransInspectSchesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

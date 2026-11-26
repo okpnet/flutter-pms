@@ -1,0 +1,37 @@
+{
+  "operationName": "RegisterRecordVisiterPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allTransWorkRecordVisiters": {
+          "totalCount": 5,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiNjVhZGFiNDEtMDM3Ni00NGVhLWI0YzUtODVjYWM4NmVjNTAwIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transWorkRecordVisiterId": "65adab41-0376-44ea-b4c5-85cac86ec500",
+              "transWorkRecordId": "5ba7e9f5-55b0-43ef-9c6c-ce33acea4ac9",
+              "transVisiterId": "fee907ef-d57e-4355-8716-241a76c984ad",
+              "visiter": {
+                "transVisiterId": "fee907ef-d57e-4355-8716-241a76c984ad",
+                "parentTransVisiterId": null,
+                "transContainerId": "7e066ce6-7c70-45d0-8c57-ae16e06d3382",
+                "quantity": "2.00",
+                "__typename": "TransVisiter"
+              },
+              "__typename": "TransWorkRecordVisiter"
+            }
+          ],
+          "__typename": "TransWorkRecordVisitersConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

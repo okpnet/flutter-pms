@@ -1,0 +1,61 @@
+{
+  "operationName": "ManualDocumentPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allMstrDocuments": {
+          "totalCount": 2,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiYzA4MWMzZGQtZTA2OS00M2NmLWEyY2UtMThhNWM5NTZmNGFmIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrDocumentId": "c081c3dd-e069-43cf-a2ce-18a5c956f4af",
+              "parent": {
+                "nodes": [
+                  {
+                    "mstrDocumentTreeId": "ef7c4ea5-c03d-4cc7-a3fd-e536b6149be1",
+                    "parentMstrDocumentId": null,
+                    "__typename": "MstrDocumentTree"
+                  }
+                ],
+                "__typename": "MstrDocumentTreesConnection"
+              },
+              "code": "DOC-QP",
+              "titles": "6fc29b68-5d9a-48b0-ab70-564b37a2c959",
+              "labels": {
+                "sharedAppellationsId": "6fc29b68-5d9a-48b0-ab70-564b37a2c959",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "d15c029a-0258-4e14-9717-fcfcd3699d50",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "__typename": "SharedAppellation"
+              },
+              "controlNumber": "QP-001",
+              "versionCode": "1.0",
+              "mstrDocumentTierId": "9956c2cf-5e77-4927-8400-75fc911815a3",
+              "revision": 1,
+              "symbol": "0002",
+              "updateAt": "2026-11-26T09:31:01.372481",
+              "remove": false,
+              "update_user": null,
+              "__typename": "MstrDocument"
+            }
+          ],
+          "__typename": "MstrDocumentsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

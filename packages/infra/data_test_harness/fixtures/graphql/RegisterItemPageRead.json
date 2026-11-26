@@ -1,0 +1,43 @@
+{
+  "operationName": "RegisterItemPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allMstrItems": {
+          "totalCount": 13,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMDFiNGZjNmQtMjc1NS00MDNiLThjZDAtMWE0ODM0MDExYmE1Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrItemId": "01b4fc6d-2755-403b-8cd0-1a4834011ba5",
+              "code": "EQ-PB01",
+              "symbol": "0009",
+              "labels": {
+                "sharedAppellationsId": "c9e211c3-d1b4-4c7a-b99f-5e5ba7bd71d7",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "3852f991-ef2c-4b6d-aeab-335fa1bd5465",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "__typename": "SharedAppellation"
+              },
+              "__typename": "MstrItem"
+            }
+          ],
+          "__typename": "MstrItemsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

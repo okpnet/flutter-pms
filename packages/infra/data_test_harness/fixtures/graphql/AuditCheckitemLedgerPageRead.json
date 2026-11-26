@@ -1,0 +1,54 @@
+{
+  "operationName": "AuditCheckitemLedgerPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allMstrAuditStdCheckitems": {
+          "totalCount": 2,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiNjNlYzg3MDMtMTc0Zi00ZWZhLTgxZTktODY1MGVhNGVhNGZlIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrAuditStdCheckitemId": "63ec8703-174f-4efa-81e9-8650ea4ea4fe",
+              "mstrAuditStdId": "7ff56a5e-dc75-4ad7-9f0b-163f91fe3502",
+              "code": "AS-I-02",
+              "controlCode": null,
+              "labels": {
+                "sharedAppellationsId": "d22ca9b4-282c-4a9c-aad9-9ee462d6e5c6",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "5e084abf-0919-48f2-acff-81510e4f0302",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                "sharedDictionaryBySharedDictionaryNicknameId": null,
+                "__typename": "SharedAppellation"
+              },
+              "detailTexts": null,
+              "typeClass": 1,
+              "formulaClass": 1,
+              "argClass": "{}",
+              "symbol": "0002",
+              "remarks": null,
+              "updateAt": "2026-11-26T09:31:01.43754",
+              "remove": false,
+              "__typename": "MstrAuditStdCheckitem"
+            }
+          ],
+          "__typename": "MstrAuditStdCheckitemsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

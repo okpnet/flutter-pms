@@ -1,0 +1,137 @@
+{
+  "operationName": "DocumentPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allMstrDocuments": {
+          "totalCount": 2,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiYzA4MWMzZGQtZTA2OS00M2NmLWEyY2UtMThhNWM5NTZmNGFmIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrDocumentId": "c081c3dd-e069-43cf-a2ce-18a5c956f4af",
+              "parent": {
+                "nodes": [
+                  {
+                    "mstrDocumentTreeId": "ef7c4ea5-c03d-4cc7-a3fd-e536b6149be1",
+                    "parentMstrDocumentId": null,
+                    "__typename": "MstrDocumentTree"
+                  }
+                ],
+                "__typename": "MstrDocumentTreesConnection"
+              },
+              "descendants": null,
+              "code": "DOC-QP",
+              "labels": {
+                "sharedAppellationsId": "6fc29b68-5d9a-48b0-ab70-564b37a2c959",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "d15c029a-0258-4e14-9717-fcfcd3699d50",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                "sharedDictionaryBySharedDictionaryNicknameId": null,
+                "__typename": "SharedAppellation"
+              },
+              "mstrDocumentTierId": "9956c2cf-5e77-4927-8400-75fc911815a3",
+              "tier": {
+                "mstrDocumentTierId": "9956c2cf-5e77-4927-8400-75fc911815a3",
+                "code": "DT-2",
+                "labels": {
+                  "sharedAppellationsId": "059d8876-dec8-4ac1-a9ee-822b1dd6fcca",
+                  "sharedDictionaryBySharedDictionaryNameId": {
+                    "sharedDictionaryId": "e0147714-f8a9-4533-839b-88eb52319ef0",
+                    "value": {
+                      "nodes": [],
+                      "__typename": "SharedDictionaryValuesConnection"
+                    },
+                    "__typename": "SharedDictionary"
+                  },
+                  "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                  "sharedDictionaryBySharedDictionaryNicknameId": null,
+                  "__typename": "SharedAppellation"
+                },
+                "transFileId": null,
+                "file": null,
+                "attributiveNoun": "手順書",
+                "identifier": "P",
+                "tierNumber": 2,
+                "symbol": "0002",
+                "remarks": null,
+                "document_count": {
+                  "mstrDocumentTierId": "9956c2cf-5e77-4927-8400-75fc911815a3",
+                  "__typename": "VDocumentTierDocumentCount"
+                },
+                "updateAt": "2026-11-26T09:31:01.372481",
+                "remove": false,
+                "update_user": null,
+                "__typename": "MstrDocumentTier"
+              },
+              "transFileId": null,
+              "file": null,
+              "controlNumber": "QP-001",
+              "versionCode": "1.0",
+              "transApprovalPatternId": "aee7ee35-939e-4bc5-a169-104535526c34",
+              "approval_pattern": {
+                "transApprovalPatternId": "aee7ee35-939e-4bc5-a169-104535526c34",
+                "mstrApprovalPatternId": "13c80118-0925-4fbc-9be7-a9be7a83f29f",
+                "pattern": {
+                  "mstrApprovalPatternId": "13c80118-0925-4fbc-9be7-a9be7a83f29f",
+                  "labels": {
+                    "sharedAppellationsId": "8ef05243-4f7c-463a-b8fd-450d1effa45a",
+                    "sharedDictionaryBySharedDictionaryNameId": {
+                      "sharedDictionaryId": "8e076bb2-7ae4-45f9-b109-bc6878bcecf5",
+                      "value": {
+                        "nodes": [],
+                        "__typename": "SharedDictionaryValuesConnection"
+                      },
+                      "__typename": "SharedDictionary"
+                    },
+                    "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                    "sharedDictionaryBySharedDictionaryNicknameId": null,
+                    "__typename": "SharedAppellation"
+                  },
+                  "symbol": "0001",
+                  "remarks": "STANDARD-NO-APPROVAL",
+                  "updateAt": "2026-11-26T09:31:01.358914",
+                  "remove": false,
+                  "update_user": null,
+                  "__typename": "MstrApprovalPattern"
+                },
+                "status": null,
+                "symbol": "2611-0002",
+                "remarks": null,
+                "updateAt": "2026-11-26T09:31:01.372481",
+                "remove": false,
+                "update_user": null,
+                "__typename": "TransApprovalPattern"
+              },
+              "symbol": "0002",
+              "remarks": null,
+              "document_content_count": {
+                "mstrDocumentId": "c081c3dd-e069-43cf-a2ce-18a5c956f4af",
+                "__typename": "VDocumentDocumentContentCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.372481",
+              "remove": false,
+              "update_user": null,
+              "__typename": "MstrDocument"
+            }
+          ],
+          "__typename": "MstrDocumentsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

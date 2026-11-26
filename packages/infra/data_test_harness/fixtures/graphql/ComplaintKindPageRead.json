@@ -1,0 +1,46 @@
+{
+  "operationName": "ComplaintKindPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVComplaintKinds": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiODIwMzAwM2UtZmY4YS00YzExLWJjNDUtOTAxNmQ3NzQwZTQ0Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "complaintKindId": "8203003e-ff8a-4c11-bc45-9016d7740e44",
+              "transComplaintId": "1f89202c-d69c-4b0d-801c-b9142cf2026b",
+              "symbol": "2611-0001",
+              "occurentAt": "2026-11-26T09:31:01.239772",
+              "titles": "c7797260-abe5-48dd-a3a9-f16abb3a8b37",
+              "details": "dc622ff0-a83f-4885-b8b4-7255bd6fc375",
+              "approvals": null,
+              "reporterStaffId": "ee642769-b3e8-41b1-ac3a-1aefa50b105d",
+              "remarks": null,
+              "kindSymbol": "2611-0001",
+              "kindName": "棚移動で発見された異常",
+              "isExternal": false,
+              "isClaim": false,
+              "stakeholderId": null,
+              "transOrderId": null,
+              "mstrEquipmentId": null,
+              "mstrTaskId": null,
+              "transPurchaseRecId": null,
+              "transVisiterId": "597a6bc0-2b40-4746-9ff4-3e5a680df4e8",
+              "__typename": "VComplaintKind"
+            }
+          ],
+          "__typename": "VComplaintKindsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

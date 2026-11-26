@@ -1,0 +1,40 @@
+{
+  "operationName": "ComplaintVisiterPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allTransComplaintVisiters": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiODIwMzAwM2UtZmY4YS00YzExLWJjNDUtOTAxNmQ3NzQwZTQ0Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transComplaintVisiterId": "8203003e-ff8a-4c11-bc45-9016d7740e44",
+              "transComplaintId": "1f89202c-d69c-4b0d-801c-b9142cf2026b",
+              "transVisiterId": "597a6bc0-2b40-4746-9ff4-3e5a680df4e8",
+              "quantity": "5.00",
+              "releaseAt": null,
+              "releaseStaffHistoryId": null,
+              "releaseStaffId": null,
+              "symbol": "2611-0001",
+              "remarks": null,
+              "updateAt": "2026-11-26T09:31:01.239772",
+              "remove": false,
+              "update_user": null,
+              "__typename": "TransComplaintVisiter"
+            }
+          ],
+          "__typename": "TransComplaintVisitersConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "operationName": "LocationPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allMstrLocations": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMDFmZGFjNmUtNDY5Ni00YzAzLTg1NzQtZTg1NWEwOGI0Yjg3Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrLocationId": "01fdac6e-4696-4c03-8574-e855a08b4b87",
+              "parent": {
+                "nodes": [],
+                "__typename": "MstrLocationTreesConnection"
+              },
+              "descendants": null,
+              "code": "LOC-MAIN",
+              "infoDepartmentId": null,
+              "department": null,
+              "controlCode": null,
+              "labels": {
+                "sharedAppellationsId": "e4725f3c-6ab2-41c4-bad6-06f22ae2291f",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "93edb842-95b2-4f8c-af11-5f2b3cbbac31",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                "sharedDictionaryBySharedDictionaryNicknameId": null,
+                "__typename": "SharedAppellation"
+              },
+              "infoAddressId": null,
+              "address": null,
+              "available": true,
+              "symbol": "0001",
+              "remarks": null,
+              "updateAt": "2026-11-26T09:31:01.330278",
+              "remove": false,
+              "update_user": null,
+              "__typename": "MstrLocation"
+            }
+          ],
+          "__typename": "MstrLocationsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "operationName": "InspectionKindPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allMstrInspectionKinds": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiZDBhNzBlZmQtODJiNC00ZDJkLTllNTktYjVhOWNmZjQ2YzcyIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrInspectionKindId": "d0a70efd-82b4-4d2d-9e59-b5a9cff46c72",
+              "code": "DAILY",
+              "labels": {
+                "sharedAppellationsId": "a282357c-c4b1-402b-bc2e-dc7698839a71",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "e10668ee-f007-4469-924f-2ca716bd4ccd",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                "sharedDictionaryBySharedDictionaryNicknameId": null,
+                "__typename": "SharedAppellation"
+              },
+              "symbol": "0001",
+              "remarks": null,
+              "updateAt": "2026-11-26T09:31:01.239772",
+              "remove": false,
+              "update_user": null,
+              "__typename": "MstrInspectionKind"
+            }
+          ],
+          "__typename": "MstrInspectionKindsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

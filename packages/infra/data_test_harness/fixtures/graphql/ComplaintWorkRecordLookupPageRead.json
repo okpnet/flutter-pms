@@ -1,0 +1,29 @@
+{
+  "operationName": "ComplaintWorkRecordLookupPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allTransWorkRecords": {
+          "totalCount": 3,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMDk5Yzc1ZjEtMjM2ZC00NWRlLWEwMzgtN2YyMGZjMDM2Zjc1Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transWorkRecordId": "099c75f1-236d-45de-a038-7f20fc036f75",
+              "symbol": "2611-0002",
+              "__typename": "TransWorkRecord"
+            }
+          ],
+          "__typename": "TransWorkRecordsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

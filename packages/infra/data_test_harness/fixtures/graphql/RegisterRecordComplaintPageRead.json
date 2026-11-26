@@ -1,0 +1,23 @@
+{
+  "operationName": "RegisterRecordComplaintPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allTransComplaintWorks": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null,
+            "__typename": "PageInfo"
+          },
+          "nodes": [],
+          "__typename": "TransComplaintWorksConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "operationName": "WorkPlanDeliveryCompliancePageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVWorkPlanDeliveryCompliances": {
+          "totalCount": 2,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMDhmNGVjOTktYmQ0NS00ZWFmLWE2ZDctNGM0ZmU3ZDJkZTNlIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transWorkPlanId": "08f4ec99-bd45-4eaf-a6d7-4c4fe7d2de3e",
+              "transOperationsPlanId": "9ff99a87-becd-4509-90f5-bb6fb4707005",
+              "mstrTaskId": "03f70822-0745-45e0-8b37-aa43f5b220b6",
+              "startAt": "2026-11-27T00:00:00",
+              "completionAt": "2026-11-28T00:00:00",
+              "deadline": "2026-12-10T00:00:00",
+              "transWorkRecordIds": [
+                "f820727f-d8eb-4fa6-87e1-22b9a825d989",
+                "099c75f1-236d-45de-a038-7f20fc036f75",
+                "5ba7e9f5-55b0-43ef-9c6c-ce33acea4ac9"
+              ],
+              "workRecordCount": "3",
+              "plannedQuantity": "5.00",
+              "workQuantity": "15.00",
+              "isCompleted": true,
+              "firstStartAt": "2026-11-23T09:31:01.410447",
+              "completedAt": "2026-11-25T11:31:01.410447",
+              "complianceStatus": "ON_TIME",
+              "__typename": "VWorkPlanDeliveryCompliance"
+            }
+          ],
+          "__typename": "VWorkPlanDeliveryCompliancesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

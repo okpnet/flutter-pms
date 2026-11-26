@@ -1,0 +1,35 @@
+{
+  "operationName": "MrpVisiterItemPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVMrpVisiterItems": {
+          "totalCount": 8,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMWRlMzYwNjMtZDU1ZC00ZTE5LTk1NTQtZmIwNmJjOTM1ZWQwIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transVisiterId": "1de36063-d55d-4e19-9554-fb06bc935ed0",
+              "itemId": "6af4e01d-052c-4642-b64a-c0c51b5d3675",
+              "itemCount": 1,
+              "finished": true,
+              "quantity": "3.00",
+              "release": false,
+              "openComplaintCount": 0,
+              "held": true,
+              "__typename": "VMrpVisiterItem"
+            }
+          ],
+          "__typename": "VMrpVisiterItemsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

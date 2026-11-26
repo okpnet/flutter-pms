@@ -1,0 +1,62 @@
+{
+  "operationName": "OrderPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allTransOrders": {
+          "totalCount": 6,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMDliNmFjY2ItMzc2Ni00OWZiLTlkMDEtNGZhYTNmN2EwMjY2Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transOrderId": "09b6accb-3766-49fb-9d01-4faa3f7a0266",
+              "orderNumber": "O-0006",
+              "customerOrderNumber": "TW-25-130",
+              "stakeholderHistoryId": "7cd78fde-c2cb-45fc-bfe2-abcfffc2d808",
+              "stakeholderId": "5cdd74a9-79b6-4eec-acf6-28899ebba92e",
+              "stakeholderContactHistoryId": null,
+              "stakeholderContactId": null,
+              "controlCode1": null,
+              "controlCode2": null,
+              "controlCode3": null,
+              "orderProcessingDate": "2026-11-26T00:00:00",
+              "deliveryDate": "2026-12-17T00:00:00",
+              "deadline": "2026-12-17T00:00:00",
+              "symbol": "2611-0006",
+              "remarks": null,
+              "shipping_order_count": {
+                "transOrderId": "09b6accb-3766-49fb-9d01-4faa3f7a0266",
+                "__typename": "VOrderShippingOrderCount"
+              },
+              "order_risk_count": {
+                "transOrderId": "09b6accb-3766-49fb-9d01-4faa3f7a0266",
+                "__typename": "VOrderOrderRiskCount"
+              },
+              "order_detail_count": {
+                "transOrderId": "09b6accb-3766-49fb-9d01-4faa3f7a0266",
+                "__typename": "VOrderOrderDetailCount"
+              },
+              "complaint_order_count": {
+                "transOrderId": "09b6accb-3766-49fb-9d01-4faa3f7a0266",
+                "__typename": "VOrderComplaintOrderCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.100413",
+              "remove": false,
+              "update_user": null,
+              "__typename": "TransOrder"
+            }
+          ],
+          "__typename": "TransOrdersConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

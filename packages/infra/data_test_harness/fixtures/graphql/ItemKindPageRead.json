@@ -1,0 +1,53 @@
+{
+  "operationName": "ItemKindPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allMstrItemKinds": {
+          "totalCount": 4,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMDExODI4NjUtMjMzOC00OGMwLWE2OGItOWNjODhkZjI2NWM2Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrItemKindId": "01182865-2338-48c0-a68b-9cc88df265c6",
+              "code": "MAT",
+              "labels": {
+                "sharedAppellationsId": "efc7d47c-f7c7-43ef-ba56-a0b9e6de3651",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "e99ce4dc-84f1-4add-84d3-fde522ea12aa",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                "sharedDictionaryBySharedDictionaryNicknameId": null,
+                "__typename": "SharedAppellation"
+              },
+              "symbol": "0003",
+              "remarks": null,
+              "item_count": {
+                "mstrItemKindId": "01182865-2338-48c0-a68b-9cc88df265c6",
+                "__typename": "VItemKindItemCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.100413",
+              "remove": false,
+              "update_user": null,
+              "__typename": "MstrItemKind"
+            }
+          ],
+          "__typename": "MstrItemKindsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

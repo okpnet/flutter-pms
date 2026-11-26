@@ -1,0 +1,31 @@
+{
+  "operationName": "ScanEquipmentPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allMstrEquipments": {
+          "totalCount": 6,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMGIwYTMyOGItNGYyOS00YmQ3LTk0YmYtMjRjMTUwNmZhZTljIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrEquipmentId": "0b0a328b-4f29-4bd7-94bf-24c1506fae9c",
+              "code": "AS01",
+              "symbol": "0005",
+              "mstrItemId": "56089bd3-cd17-470d-a4a8-d81b69f84275",
+              "__typename": "MstrEquipment"
+            }
+          ],
+          "__typename": "MstrEquipmentsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

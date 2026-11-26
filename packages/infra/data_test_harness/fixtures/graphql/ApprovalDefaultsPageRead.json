@@ -1,0 +1,38 @@
+{
+  "operationName": "ApprovalDefaultsPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allInfoApps": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiNjdhNDFjZGQtZTM1My00MjMzLWJjNDctMGM1MjI5ZjdiMDVmIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "infoAppId": "67a41cdd-e353-4233-bc47-0c5229f7b05f",
+              "documentApprovalPatternId": "13c80118-0925-4fbc-9be7-a9be7a83f29f",
+              "orderApprovalPatternId": null,
+              "purchaseApprovalPatternId": null,
+              "unrecognizedApprovalPatternId": null,
+              "shippingOrderApprovalPatternId": null,
+              "complaintApprovalPatternId": null,
+              "disposalApprovalPatternId": null,
+              "recurrencePreventionApprovalPatternId": null,
+              "updateAt": "2026-11-26T09:31:01.358914",
+              "remove": false,
+              "__typename": "InfoApp"
+            }
+          ],
+          "__typename": "InfoAppsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

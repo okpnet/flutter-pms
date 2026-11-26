@@ -1,0 +1,84 @@
+{
+  "operationName": "DepartmentPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allInfoDepartments": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiYTYyM2ExMzUtNzA0NS00Y2NhLThhNTYtZDVkYjQ5ZDI0ODRiIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "infoDepartmentId": "a623a135-7045-4cca-8a56-d5db49d2484b",
+              "infoCompanyId": "d140e817-a893-4cfe-9ffb-aae9e9d10153",
+              "parent": {
+                "nodes": [],
+                "__typename": "InfoDepartmentTreesConnection"
+              },
+              "descendants": null,
+              "infoOfficeId": null,
+              "office": null,
+              "code": "MFG",
+              "labels": {
+                "sharedAppellationsId": "61f0a1e1-3dc3-4865-972d-77b6162ee2a7",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "02df2f18-e96f-49bb-8b72-1ed8f2474485",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                "sharedDictionaryBySharedDictionaryNicknameId": null,
+                "__typename": "SharedAppellation"
+              },
+              "address": null,
+              "departmentKinds": {
+                "totalCount": 0,
+                "pageInfo": {
+                  "hasNextPage": false,
+                  "endCursor": null,
+                  "__typename": "PageInfo"
+                },
+                "nodes": [],
+                "__typename": "InfoDepartmentKindsConnection"
+              },
+              "symbol": "0001",
+              "remarks": null,
+              "assign_count": {
+                "infoDepartmentId": "a623a135-7045-4cca-8a56-d5db49d2484b",
+                "__typename": "VDepartmentAssignCount"
+              },
+              "prevention_detail_count": {
+                "infoDepartmentId": "a623a135-7045-4cca-8a56-d5db49d2484b",
+                "__typename": "VDepartmentPreventionDetailCount"
+              },
+              "department_kind_count": {
+                "infoDepartmentId": "a623a135-7045-4cca-8a56-d5db49d2484b",
+                "__typename": "VDepartmentDepartmentKindCount"
+              },
+              "department_access_path_count": {
+                "infoDepartmentId": "a623a135-7045-4cca-8a56-d5db49d2484b",
+                "__typename": "VDepartmentDepartmentAccessPathCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.308293",
+              "remove": false,
+              "update_user": null,
+              "__typename": "InfoDepartment"
+            }
+          ],
+          "__typename": "InfoDepartmentsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

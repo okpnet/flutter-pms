@@ -1,0 +1,30 @@
+{
+  "operationName": "ScanLocationHistoryPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allHistoryMstrLocations": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiZDY0Y2IzODItNjc1NC00OWU2LTlmYjAtY2E1ZjQ3ZWUzMDcxIiwiMDFmZGFjNmUtNDY5Ni00YzAzLTg1NzQtZTg1NWEwOGI0Yjg3Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "historyId": "d64cb382-6754-49e6-9fb0-ca5f47ee3071",
+              "mstrLocationId": "01fdac6e-4696-4c03-8574-e855a08b4b87",
+              "revision": 1,
+              "__typename": "HistoryMstrLocation"
+            }
+          ],
+          "__typename": "HistoryMstrLocationsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

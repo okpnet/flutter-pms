@@ -1,0 +1,24 @@
+{
+  "operationName": "ScanInspectSchDetailPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "transInspectSchId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allTransInspectSchDetails": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null,
+            "__typename": "PageInfo"
+          },
+          "nodes": [],
+          "__typename": "TransInspectSchDetailsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

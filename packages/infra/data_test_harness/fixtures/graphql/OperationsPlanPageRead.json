@@ -1,0 +1,43 @@
+{
+  "operationName": "OperationsPlanPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allTransOperationsPlans": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiOWZmOTlhODctYmVjZC00NTA5LTkwZjUtYmI2ZmI0NzA3MDA1Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transOperationsPlanId": "9ff99a87-becd-4509-90f5-bb6fb4707005",
+              "transResourcePlanId": "8adbec3b-c8e2-47c6-b5a7-e516829dca94",
+              "quantity": "5.00",
+              "deadline": "2026-12-10T00:00:00",
+              "stop": false,
+              "discontinue": false,
+              "symbol": "2611-0001",
+              "remarks": null,
+              "work_plan_count": {
+                "transOperationsPlanId": "9ff99a87-becd-4509-90f5-bb6fb4707005",
+                "__typename": "VOperationsPlanWorkPlanCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.239772",
+              "remove": false,
+              "update_user": null,
+              "__typename": "TransOperationsPlan"
+            }
+          ],
+          "__typename": "TransOperationsPlansConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

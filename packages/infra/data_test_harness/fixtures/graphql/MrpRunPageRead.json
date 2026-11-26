@@ -1,0 +1,23 @@
+{
+  "operationName": "MrpRunPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVMrpRuns": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null,
+            "__typename": "PageInfo"
+          },
+          "nodes": [],
+          "__typename": "VMrpRunsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

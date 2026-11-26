@@ -1,0 +1,23 @@
+{
+  "operationName": "ApprovalScopeLedgerPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allMstrApprovalScopePatterns": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null,
+            "__typename": "PageInfo"
+          },
+          "nodes": [],
+          "__typename": "MstrApprovalScopePatternsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "operationName": "ManualApprovalStylePageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allTransApprovalPatterns": {
+          "totalCount": 2,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiYWVlN2VlMzUtOTM5ZS00YmM1LWExNjktMTA0NTM1NTI2YzM0Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transApprovalPatternId": "aee7ee35-939e-4bc5-a169-104535526c34",
+              "mstrApprovalPatternId": "13c80118-0925-4fbc-9be7-a9be7a83f29f",
+              "pattern": {
+                "mstrApprovalPatternId": "13c80118-0925-4fbc-9be7-a9be7a83f29f",
+                "stampStyle": null,
+                "__typename": "MstrApprovalPattern"
+              },
+              "__typename": "TransApprovalPattern"
+            }
+          ],
+          "__typename": "TransApprovalPatternsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

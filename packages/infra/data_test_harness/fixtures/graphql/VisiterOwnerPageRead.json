@@ -1,0 +1,37 @@
+{
+  "operationName": "VisiterOwnerPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allTransVisiterOwners": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiYjViYjc0MzQtYjYxMS00ZGI5LTgxY2UtMjM1OTU5OWY0YzM3Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transVisiterOwnerId": "b5bb7434-b611-4db9-81ce-2359599f4c37",
+              "transVisiterId": "6e9b2a19-b8f6-401b-84a6-6cd71ff362b8",
+              "ownerStakeholderId": "5cdd74a9-79b6-4eec-acf6-28899ebba92e",
+              "transSupplyDetailId": "d864a6f0-b75d-4098-88e3-f7e8ec9881b2",
+              "transOrderDetailId": null,
+              "effectiveAt": "2026-11-26T09:31:01.410447",
+              "symbol": "2611-0002",
+              "remarks": null,
+              "updateAt": "2026-11-26T09:31:01.43034",
+              "remove": false,
+              "__typename": "TransVisiterOwner"
+            }
+          ],
+          "__typename": "TransVisiterOwnersConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

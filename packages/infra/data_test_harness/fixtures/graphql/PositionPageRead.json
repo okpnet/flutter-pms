@@ -1,0 +1,205 @@
+{
+  "operationName": "PositionPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allInfoPositions": {
+          "totalCount": 4,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMDgyYTNiOGYtMGEwMy00OWI1LTlkNGQtOWMyYjdhNGMxZTQ2Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "infoPositionId": "082a3b8f-0a03-49b5-9d4d-9c2b7a4c1e46",
+              "priority": 3,
+              "labels": {
+                "sharedAppellationsId": "57a75eb8-cce1-4893-ab16-9980a6f72257",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "ca61177d-001e-4326-8138-63cb08efcbb6",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                "sharedDictionaryBySharedDictionaryNicknameId": null,
+                "__typename": "SharedAppellation"
+              },
+              "symbol": "0003",
+              "remarks": null,
+              "approval_count": {
+                "infoPositionId": "082a3b8f-0a03-49b5-9d4d-9c2b7a4c1e46",
+                "__typename": "VPositionApprovalCount"
+              },
+              "assign_count": {
+                "infoPositionId": "082a3b8f-0a03-49b5-9d4d-9c2b7a4c1e46",
+                "__typename": "VPositionAssignCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.308293",
+              "remove": false,
+              "update_user": null,
+              "__typename": "InfoPosition"
+            }
+          ],
+          "__typename": "InfoPositionsConnection"
+        },
+        "__typename": "Query"
+      }
+    },
+    {
+      "variables": {
+        "first": 5,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allInfoPositions": {
+          "totalCount": 4,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiZmZiZTNiOTAtNWJlNi00NGMzLWI2ZTAtNGU2MDIzMjkxNmNhIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "infoPositionId": "082a3b8f-0a03-49b5-9d4d-9c2b7a4c1e46",
+              "priority": 3,
+              "labels": {
+                "sharedAppellationsId": "57a75eb8-cce1-4893-ab16-9980a6f72257",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "ca61177d-001e-4326-8138-63cb08efcbb6",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                "sharedDictionaryBySharedDictionaryNicknameId": null,
+                "__typename": "SharedAppellation"
+              },
+              "symbol": "0003",
+              "remarks": null,
+              "approval_count": {
+                "infoPositionId": "082a3b8f-0a03-49b5-9d4d-9c2b7a4c1e46",
+                "__typename": "VPositionApprovalCount"
+              },
+              "assign_count": {
+                "infoPositionId": "082a3b8f-0a03-49b5-9d4d-9c2b7a4c1e46",
+                "__typename": "VPositionAssignCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.308293",
+              "remove": false,
+              "update_user": null,
+              "__typename": "InfoPosition"
+            },
+            {
+              "infoPositionId": "329f8017-4fe7-407c-be34-346f9284cb99",
+              "priority": 4,
+              "labels": {
+                "sharedAppellationsId": "4be19c78-919c-43ee-82ef-e996f5557db0",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "7c17aaeb-bedc-4deb-b432-07a08a63d936",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                "sharedDictionaryBySharedDictionaryNicknameId": null,
+                "__typename": "SharedAppellation"
+              },
+              "symbol": "0004",
+              "remarks": null,
+              "approval_count": {
+                "infoPositionId": "329f8017-4fe7-407c-be34-346f9284cb99",
+                "__typename": "VPositionApprovalCount"
+              },
+              "assign_count": {
+                "infoPositionId": "329f8017-4fe7-407c-be34-346f9284cb99",
+                "__typename": "VPositionAssignCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.308293",
+              "remove": false,
+              "update_user": null,
+              "__typename": "InfoPosition"
+            },
+            {
+              "infoPositionId": "5f470f3d-77ed-46e0-bf41-ed5d05f46a19",
+              "priority": 2,
+              "labels": {
+                "sharedAppellationsId": "716e2721-2f2f-4b20-884b-bb6aedbd8703",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "9d0d85b3-abce-422c-b570-7032c5da3aa5",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                "sharedDictionaryBySharedDictionaryNicknameId": null,
+                "__typename": "SharedAppellation"
+              },
+              "symbol": "0002",
+              "remarks": null,
+              "approval_count": {
+                "infoPositionId": "5f470f3d-77ed-46e0-bf41-ed5d05f46a19",
+                "__typename": "VPositionApprovalCount"
+              },
+              "assign_count": {
+                "infoPositionId": "5f470f3d-77ed-46e0-bf41-ed5d05f46a19",
+                "__typename": "VPositionAssignCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.308293",
+              "remove": false,
+              "update_user": null,
+              "__typename": "InfoPosition"
+            },
+            {
+              "infoPositionId": "ffbe3b90-5be6-44c3-b6e0-4e60232916ca",
+              "priority": 1,
+              "labels": {
+                "sharedAppellationsId": "1d0509a8-ad6b-441f-bdcb-d4e4fba47d02",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "10e615a6-8911-46bb-86bf-338fe41004ac",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                "sharedDictionaryBySharedDictionaryNicknameId": null,
+                "__typename": "SharedAppellation"
+              },
+              "symbol": "0001",
+              "remarks": null,
+              "approval_count": {
+                "infoPositionId": "ffbe3b90-5be6-44c3-b6e0-4e60232916ca",
+                "__typename": "VPositionApprovalCount"
+              },
+              "assign_count": {
+                "infoPositionId": "ffbe3b90-5be6-44c3-b6e0-4e60232916ca",
+                "__typename": "VPositionAssignCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.308293",
+              "remove": false,
+              "update_user": null,
+              "__typename": "InfoPosition"
+            }
+          ],
+          "__typename": "InfoPositionsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

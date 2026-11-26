@@ -1,0 +1,25 @@
+{
+  "operationName": "ShippingOrderDetailRecordPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000",
+        "transShippingOrderDetailId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allTransShippingOrderDetailRecords": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null,
+            "__typename": "PageInfo"
+          },
+          "nodes": [],
+          "__typename": "TransShippingOrderDetailRecordsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "operationName": "EquipmentPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allMstrEquipments": {
+          "totalCount": 6,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMGIwYTMyOGItNGYyOS00YmQ3LTk0YmYtMjRjMTUwNmZhZTljIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrEquipmentId": "0b0a328b-4f29-4bd7-94bf-24c1506fae9c",
+              "mstrItemId": "56089bd3-cd17-470d-a4a8-d81b69f84275",
+              "item": {
+                "mstrItemId": "56089bd3-cd17-470d-a4a8-d81b69f84275",
+                "mstrItemKindId": "f91d82ed-bedf-4935-a1c8-e0a9dce0070f",
+                "kinds": {
+                  "mstrItemKindId": "f91d82ed-bedf-4935-a1c8-e0a9dce0070f",
+                  "code": "EQ",
+                  "labels": {
+                    "sharedAppellationsId": "824b63a5-efe9-4558-a824-edcf2c0b9f37",
+                    "sharedDictionaryBySharedDictionaryNameId": {
+                      "sharedDictionaryId": "2f5e63a5-8d2d-4e97-a867-fc0817b8a9bd",
+                      "value": {
+                        "nodes": [],
+                        "__typename": "SharedDictionaryValuesConnection"
+                      },
+                      "__typename": "SharedDictionary"
+                    },
+                    "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                    "sharedDictionaryBySharedDictionaryNicknameId": null,
+                    "__typename": "SharedAppellation"
+                  },
+                  "__typename": "MstrItemKind"
+                },
+                "code": "EQ-AS01",
+                "identification": null,
+                "controlCode": null,
+                "manufacture": null,
+                "labels": {
+                  "sharedAppellationsId": "28406129-6e0d-413c-8b03-2090c015e7b6",
+                  "sharedDictionaryBySharedDictionaryNameId": {
+                    "sharedDictionaryId": "f61089ec-6e6d-4169-b55c-027132c283f2",
+                    "value": {
+                      "nodes": [],
+                      "__typename": "SharedDictionaryValuesConnection"
+                    },
+                    "__typename": "SharedDictionary"
+                  },
+                  "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                  "sharedDictionaryBySharedDictionaryNicknameId": null,
+                  "__typename": "SharedAppellation"
+                },
+                "labelCode": null,
+                "catalogItem": false,
+                "detailTexts": null,
+                "unit": {
+                  "sharedUnitId": "a5445610-92e9-4741-a043-7d56efb85839",
+                  "labels": {
+                    "sharedAppellationsId": "ababb40f-575b-4c40-a328-884d1655b202",
+                    "sharedDictionaryBySharedDictionaryNameId": {
+                      "sharedDictionaryId": "5ba768cc-782e-40e2-ad8b-175c09b1f394",
+                      "value": {
+                        "nodes": [],
+                        "__typename": "SharedDictionaryValuesConnection"
+                      },
+                      "__typename": "SharedDictionary"
+                    },
+                    "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                    "sharedDictionaryBySharedDictionaryNicknameId": null,
+                    "__typename": "SharedAppellation"
+                  },
+                  "__typename": "SharedUnit"
+                },
+                "symbol": "000C",
+                "remarks": null,
+                "updateAt": "2026-11-26T09:31:01.100413",
+                "remove": false,
+                "update_user": null,
+                "__typename": "MstrItem"
+              },
+              "mstrEquipmentCategoryId": null,
+              "kinds": null,
+              "code": "AS01",
+              "controlCode": null,
+              "labelCode": null,
+              "mstrLocationId": null,
+              "locations": null,
+              "symbol": "0005",
+              "remarks": null,
+              "equipment_available_count": {
+                "mstrEquipmentId": "0b0a328b-4f29-4bd7-94bf-24c1506fae9c",
+                "__typename": "VEquipmentEquipmentAvailableCount"
+              },
+              "inspection_operation_count": {
+                "mstrEquipmentId": "0b0a328b-4f29-4bd7-94bf-24c1506fae9c",
+                "__typename": "VEquipmentInspectionOperationCount"
+              },
+              "equipment_provision_count": {
+                "mstrEquipmentId": "0b0a328b-4f29-4bd7-94bf-24c1506fae9c",
+                "__typename": "VEquipmentEquipmentProvisionCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.100413",
+              "remove": false,
+              "update_user": null,
+              "__typename": "MstrEquipment"
+            }
+          ],
+          "__typename": "MstrEquipmentsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

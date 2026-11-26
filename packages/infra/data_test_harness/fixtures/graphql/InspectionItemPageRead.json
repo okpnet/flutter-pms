@@ -1,0 +1,169 @@
+{
+  "operationName": "InspectionItemPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allMstrInspections": {
+          "totalCount": 2,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiOWJjOWQ5MDItZWUyZS00MWQyLTk1ODAtOTM2NmFmNGZlYzk1Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrInspectionId": "9bc9d902-ee2e-41d2-9580-9366af4fec95",
+              "code": "INS-LS01",
+              "labels": {
+                "sharedAppellationsId": "469576f1-bb4a-4c92-821e-051ec6c8c90f",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "ad83f80b-82f2-4a92-a0a2-f6d571e0e318",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                "sharedDictionaryBySharedDictionaryNicknameId": null,
+                "__typename": "SharedAppellation"
+              },
+              "kinds": {
+                "mstrInspectionKindId": "d0a70efd-82b4-4d2d-9e59-b5a9cff46c72",
+                "code": "DAILY",
+                "labels": {
+                  "sharedAppellationsId": "a282357c-c4b1-402b-bc2e-dc7698839a71",
+                  "sharedDictionaryBySharedDictionaryNameId": {
+                    "sharedDictionaryId": "e10668ee-f007-4469-924f-2ca716bd4ccd",
+                    "value": {
+                      "nodes": [],
+                      "__typename": "SharedDictionaryValuesConnection"
+                    },
+                    "__typename": "SharedDictionary"
+                  },
+                  "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                  "sharedDictionaryBySharedDictionaryNicknameId": null,
+                  "__typename": "SharedAppellation"
+                },
+                "symbol": "0001",
+                "remarks": null,
+                "updateAt": "2026-11-26T09:31:01.239772",
+                "remove": false,
+                "update_user": null,
+                "__typename": "MstrInspectionKind"
+              },
+              "baseDate": "2026-10-27T00:00:00",
+              "timeInterval": {
+                "seconds": 0,
+                "minutes": 0,
+                "hours": 0,
+                "days": 7,
+                "months": 0,
+                "years": 0,
+                "__typename": "Interval"
+              },
+              "externalInspection": null,
+              "formulas": {
+                "mstrInspectionFormulaId": "10b47f95-4fe1-409b-9cad-f4bcd978c4f5",
+                "formulaClass": 1,
+                "argClass": "{\"value\":0.5,\"operator\":\"<=\"}",
+                "typeClass": 1,
+                "formatClass": "0.00",
+                "symbol": "0001",
+                "remarks": null,
+                "updateAt": "2026-11-26T09:31:01.239772",
+                "remove": false,
+                "update_user": null,
+                "__typename": "MstrInspectionFormula"
+              },
+              "items": {
+                "mstrItemId": "a6529b3e-ade0-458f-91a8-0363530c8fe5",
+                "mstrItemKindId": "f91d82ed-bedf-4935-a1c8-e0a9dce0070f",
+                "kinds": {
+                  "mstrItemKindId": "f91d82ed-bedf-4935-a1c8-e0a9dce0070f",
+                  "code": "EQ",
+                  "labels": {
+                    "sharedAppellationsId": "824b63a5-efe9-4558-a824-edcf2c0b9f37",
+                    "sharedDictionaryBySharedDictionaryNameId": {
+                      "sharedDictionaryId": "2f5e63a5-8d2d-4e97-a867-fc0817b8a9bd",
+                      "value": {
+                        "nodes": [],
+                        "__typename": "SharedDictionaryValuesConnection"
+                      },
+                      "__typename": "SharedDictionary"
+                    },
+                    "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                    "sharedDictionaryBySharedDictionaryNicknameId": null,
+                    "__typename": "SharedAppellation"
+                  },
+                  "__typename": "MstrItemKind"
+                },
+                "code": "EQ-LS01",
+                "identification": null,
+                "controlCode": null,
+                "manufacture": null,
+                "labels": {
+                  "sharedAppellationsId": "801b7e18-3df2-4652-a947-3d921a09fce9",
+                  "sharedDictionaryBySharedDictionaryNameId": {
+                    "sharedDictionaryId": "43ca653f-4ad7-4312-9d7d-d5bbe66cce42",
+                    "value": {
+                      "nodes": [],
+                      "__typename": "SharedDictionaryValuesConnection"
+                    },
+                    "__typename": "SharedDictionary"
+                  },
+                  "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                  "sharedDictionaryBySharedDictionaryNicknameId": null,
+                  "__typename": "SharedAppellation"
+                },
+                "labelCode": null,
+                "catalogItem": false,
+                "detailTexts": null,
+                "unit": {
+                  "sharedUnitId": "a5445610-92e9-4741-a043-7d56efb85839",
+                  "labels": {
+                    "sharedAppellationsId": "ababb40f-575b-4c40-a328-884d1655b202",
+                    "sharedDictionaryBySharedDictionaryNameId": {
+                      "sharedDictionaryId": "5ba768cc-782e-40e2-ad8b-175c09b1f394",
+                      "value": {
+                        "nodes": [],
+                        "__typename": "SharedDictionaryValuesConnection"
+                      },
+                      "__typename": "SharedDictionary"
+                    },
+                    "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                    "sharedDictionaryBySharedDictionaryNicknameId": null,
+                    "__typename": "SharedAppellation"
+                  },
+                  "__typename": "SharedUnit"
+                },
+                "symbol": "0008",
+                "remarks": null,
+                "updateAt": "2026-11-26T09:31:01.100413",
+                "remove": false,
+                "update_user": null,
+                "__typename": "MstrItem"
+              },
+              "symbol": "0001",
+              "remarks": null,
+              "inspection_operation_task_count": {
+                "mstrInspectionId": "9bc9d902-ee2e-41d2-9580-9366af4fec95",
+                "__typename": "VInspectionInspectionOperationTaskCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.239772",
+              "remove": false,
+              "update_user": null,
+              "__typename": "MstrInspection"
+            }
+          ],
+          "__typename": "MstrInspectionsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

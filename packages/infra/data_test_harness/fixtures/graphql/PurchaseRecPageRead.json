@@ -1,0 +1,25 @@
+{
+  "operationName": "PurchaseRecPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000",
+        "transPurchaseDetailId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allTransPurchaseRecs": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null,
+            "__typename": "PageInfo"
+          },
+          "nodes": [],
+          "__typename": "TransPurchaseRecsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

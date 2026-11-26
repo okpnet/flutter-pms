@@ -1,0 +1,44 @@
+{
+  "operationName": "PlanChangeSettlementKindPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allMstrSettlementKinds": {
+          "totalCount": 2,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMWVlNjBjNzItOTg0OC00MWUwLTg3YmYtODE0ZDFmNjdhNGU0Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrSettlementKindId": "1ee60c72-9848-41e0-87bf-814d1f67a4e4",
+              "code": "SK-DELIVERY",
+              "symbol": "0002",
+              "delivery": true,
+              "labels": {
+                "sharedAppellationsId": "5230c17a-99cb-4c2f-aca2-24c717cd24b7",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "1930adf6-0a31-461e-95fb-f90ac37122cd",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "__typename": "SharedAppellation"
+              },
+              "__typename": "MstrSettlementKind"
+            }
+          ],
+          "__typename": "MstrSettlementKindsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

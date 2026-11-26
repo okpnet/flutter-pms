@@ -1,0 +1,42 @@
+{
+  "operationName": "OrderDetailBalancePageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVOrderDetailBalances": {
+          "totalCount": 6,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMDdlNjE1ODctM2M2OS00MzEyLWI0MzgtZDIwNzBjNjg4N2MxIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transOrderDetailId": "07e61587-3c69-4312-b438-d2070c6887c1",
+              "symbol": "2611-0005",
+              "transOrderId": "499887f2-c095-4ebe-b0e2-a2c095e1236c",
+              "itemId": "b9ae86a6-18a4-48ae-8d38-d86d7c4a0e7c",
+              "stop": false,
+              "customerProperty": false,
+              "quantity": "20.00",
+              "cancelQuantity": "0.00",
+              "shippedQuantity": "0",
+              "returnedQuantity": "0",
+              "replacementQuantity": "0",
+              "remainingQuantity": "20.00",
+              "openQuantity": "20.00",
+              "cancelClosed": false,
+              "settlementAmount": "0",
+              "__typename": "VOrderDetailBalance"
+            }
+          ],
+          "__typename": "VOrderDetailBalancesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

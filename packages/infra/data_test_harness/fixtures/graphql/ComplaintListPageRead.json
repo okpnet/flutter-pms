@@ -1,0 +1,64 @@
+{
+  "operationName": "ComplaintListPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allVComplaints": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMWY4OTIwMmMtZDY5Yy00YjBkLTgwMWMtYjkxNDJjZjIwMjZiIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transComplaintId": "1f89202c-d69c-4b0d-801c-b9142cf2026b",
+              "symbol": "2611-0001",
+              "occurentAt": "2026-11-26T09:31:01.239772",
+              "labels": {
+                "transLabelId": "c7797260-abe5-48dd-a3a9-f16abb3a8b37",
+                "value": {
+                  "nodes": [],
+                  "__typename": "TransLabelValuesConnection"
+                },
+                "__typename": "TransLabel"
+              },
+              "detailTexts": {
+                "transTextId": "dc622ff0-a83f-4885-b8b4-7255bd6fc375",
+                "value": {
+                  "nodes": [],
+                  "__typename": "TransTextValuesConnection"
+                },
+                "__typename": "TransText"
+              },
+              "reporterStaffId": "ee642769-b3e8-41b1-ac3a-1aefa50b105d",
+              "kindCount": 1,
+              "hasEquipment": false,
+              "hasProcess": false,
+              "hasWork": false,
+              "hasPurchaseRec": false,
+              "hasVisiter": true,
+              "hasOrder": false,
+              "hasStakeholder": false,
+              "isExternal": false,
+              "isClaim": false,
+              "kindNames": "棚移動で発見された異常",
+              "partyStakeholderId": null,
+              "partyCount": 0,
+              "targetSymbols": "2611-0004",
+              "party": null,
+              "remarks": null,
+              "__typename": "VComplaint"
+            }
+          ],
+          "__typename": "VComplaintsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

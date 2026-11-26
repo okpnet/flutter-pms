@@ -1,0 +1,35 @@
+{
+  "operationName": "InspectionStatusPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVInspectionStatuses": {
+          "totalCount": 4,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJuYXR1cmFsIiwxXQ==",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrEquipmentId": "76b3ac3c-5e98-4eb9-9f96-00e610bffab9",
+              "supplierId": null,
+              "isImplemented": false,
+              "result": null,
+              "scheduleDetailCount": "2",
+              "overdueCount": "1",
+              "nextScheduledStartDate": "2026-11-19T00:00:00",
+              "lastImplementDate": null,
+              "__typename": "VInspectionStatus"
+            }
+          ],
+          "__typename": "VInspectionStatusesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

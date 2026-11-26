@@ -1,0 +1,43 @@
+{
+  "operationName": "RegisterStakeholderPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allMstrStakeholders": {
+          "totalCount": 10,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMWM4NTRkODktYmEwMS00MTg5LTk3YjgtYmJhNWNiNWVkODdkIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrStakeholderId": "1c854d89-ba01-4189-97b8-bba5cb5ed87d",
+              "code": "S003",
+              "symbol": "0005",
+              "labels": {
+                "sharedAppellationsId": "52efa9e3-f777-4f77-b553-17152709b5f8",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "370d8190-463d-42c0-8b12-31a187adebfb",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "__typename": "SharedAppellation"
+              },
+              "__typename": "MstrStakeholder"
+            }
+          ],
+          "__typename": "MstrStakeholdersConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "operationName": "RegisterWorkRecordPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allTransWorkRecords": {
+          "totalCount": 3,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMDk5Yzc1ZjEtMjM2ZC00NWRlLWEwMzgtN2YyMGZjMDM2Zjc1Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transWorkRecordId": "099c75f1-236d-45de-a038-7f20fc036f75",
+              "transWorkPlanId": "08f4ec99-bd45-4eaf-a6d7-4c4fe7d2de3e",
+              "nthTime": 2,
+              "startAt": "2026-11-24T09:31:01.410447",
+              "stopAt": "2026-11-24T11:31:01.410447",
+              "qty": "3.00",
+              "symbol": "2611-0002",
+              "staffId": null,
+              "__typename": "TransWorkRecord"
+            }
+          ],
+          "__typename": "TransWorkRecordsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

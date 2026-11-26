@@ -1,0 +1,92 @@
+{
+  "operationName": "AuditPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allTransAudits": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiOWJhYmM0N2YtOGI1MC00ZGQ4LTgwMzUtMWE2Nzc0NDYxZDdiIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transAuditId": "9babc47f-8b50-4dd8-8035-1a6774461d7b",
+              "auditStdHistoryId": "f6195def-f156-4120-9f8b-a3c11f9e299c",
+              "auditStdId": "7ff56a5e-dc75-4ad7-9f0b-163f91fe3502",
+              "staffHistoryId": "b3b7237c-610f-406c-ad89-5ab73b93b419",
+              "staffId": "ee642769-b3e8-41b1-ac3a-1aefa50b105d",
+              "scheduledStartDate": "2026-11-29T09:00:00",
+              "expectedEndDate": "2026-11-29T17:00:00",
+              "labels": {
+                "transLabelId": "d974374a-8426-49cc-8205-6b1070a09697",
+                "value": {
+                  "nodes": [],
+                  "__typename": "TransLabelValuesConnection"
+                },
+                "__typename": "TransLabel"
+              },
+              "detailTexts": {
+                "transTextId": "9b4cb209-df75-408b-94b7-79e0a2b354d2",
+                "value": {
+                  "nodes": [],
+                  "__typename": "TransTextValuesConnection"
+                },
+                "__typename": "TransText"
+              },
+              "infoDepartmentId": null,
+              "department": null,
+              "mstrStakeholderId": null,
+              "stakeholder": null,
+              "symbol": "2611-0001",
+              "remarks": null,
+              "audit_team_count": {
+                "transAuditId": "9babc47f-8b50-4dd8-8035-1a6774461d7b",
+                "__typename": "VAuditAuditTeamCount"
+              },
+              "audit_member_count": {
+                "transAuditId": "9babc47f-8b50-4dd8-8035-1a6774461d7b",
+                "__typename": "VAuditAuditMemberCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.43754",
+              "remove": false,
+              "update_user": {
+                "historyId": "b3b7237c-610f-406c-ad89-5ab73b93b419",
+                "infoStaffId": "ee642769-b3e8-41b1-ac3a-1aefa50b105d",
+                "infoCompanyId": "d140e817-a893-4cfe-9ffb-aae9e9d10153",
+                "code": "ADMIN",
+                "name": {
+                  "sharedAppellationsId": "78da3ddd-d06f-4555-b583-490efcc754d9",
+                  "sharedDictionaryBySharedDictionaryNameId": {
+                    "sharedDictionaryId": "207f767c-dd4d-4176-ac39-568d4387afac",
+                    "value": {
+                      "nodes": [],
+                      "__typename": "SharedDictionaryValuesConnection"
+                    },
+                    "__typename": "SharedDictionary"
+                  },
+                  "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                  "sharedDictionaryBySharedDictionaryNicknameId": null,
+                  "__typename": "SharedAppellation"
+                },
+                "sex": null,
+                "phone": null,
+                "symbol": "0001",
+                "privatePhone": null,
+                "__typename": "HistoryInfoStaff"
+              },
+              "__typename": "TransAudit"
+            }
+          ],
+          "__typename": "TransAuditsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

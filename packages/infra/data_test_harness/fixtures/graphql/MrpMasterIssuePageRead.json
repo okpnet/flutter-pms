@@ -1,0 +1,55 @@
+{
+  "operationName": "MrpMasterIssuePageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allVMrpMasterIssues": {
+          "totalCount": 2,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiYzFhNDNlY2MxYTk0ZWM5ZWYxODEyOTI4OGI5N2QwMzQiXV0=",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "issueKey": "c1a43ecc1a94ec9ef18129288b97d034",
+              "itemId": "6af4e01d-052c-4642-b64a-c0c51b5d3675",
+              "item": {
+                "mstrItemId": "6af4e01d-052c-4642-b64a-c0c51b5d3675",
+                "code": "MT-SPCC",
+                "controlCode": null,
+                "symbol": "0006",
+                "labels": {
+                  "sharedAppellationsId": "f5d92179-2034-4a79-a0e8-752d1dc2f13b",
+                  "sharedDictionaryBySharedDictionaryNameId": {
+                    "sharedDictionaryId": "e9455084-d5e1-4f80-afc6-d71f22b477d6",
+                    "value": {
+                      "nodes": [],
+                      "__typename": "SharedDictionaryValuesConnection"
+                    },
+                    "__typename": "SharedDictionary"
+                  },
+                  "__typename": "SharedAppellation"
+                },
+                "__typename": "MstrItem"
+              },
+              "itemCode": null,
+              "issueCode": "VISITER_HOLD_NO_COMPLAINT",
+              "severity": 2,
+              "message": "仮止め(入出庫許可なし)の棚ビジターに異常が登録されていません(数量 3.00)。異常を登録してください",
+              "refTable": "trans_visiter",
+              "refId": "1de36063-d55d-4e19-9554-fb06bc935ed0",
+              "__typename": "VMrpMasterIssue"
+            }
+          ],
+          "__typename": "VMrpMasterIssuesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

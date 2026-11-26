@@ -1,0 +1,35 @@
+{
+  "operationName": "DocumentContentBodyPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allSharedTextValues": {
+          "totalCount": 7,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMTcwZTlhYjEtY2RmMy00YzFmLWIwZGMtMDY1YjQ3NjE3MTFmIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "sharedTextValueId": "170e9ab1-cdf3-4c1f-b0dc-065b4761711f",
+              "sharedTextId": "c0a4328f-a744-4ce7-a3d0-3d57e154fc4a",
+              "textValue": "## 工程の管理\n\n作業指示に従って作業し、作業実績を登録します。",
+              "language": {
+                "sharedLanguageCodeId": "47498ce1-7b81-44e7-bc7c-00d5ebe156e7",
+                "code": "ja",
+                "__typename": "SharedLanguageCode"
+              },
+              "__typename": "SharedTextValue"
+            }
+          ],
+          "__typename": "SharedTextValuesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

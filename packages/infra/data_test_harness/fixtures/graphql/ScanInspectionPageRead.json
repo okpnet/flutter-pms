@@ -1,0 +1,42 @@
+{
+  "operationName": "ScanInspectionPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allMstrInspections": {
+          "totalCount": 2,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiOWJjOWQ5MDItZWUyZS00MWQyLTk1ODAtOTM2NmFmNGZlYzk1Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrInspectionId": "9bc9d902-ee2e-41d2-9580-9366af4fec95",
+              "code": "INS-LS01",
+              "labels": {
+                "sharedAppellationsId": "469576f1-bb4a-4c92-821e-051ec6c8c90f",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "ad83f80b-82f2-4a92-a0a2-f6d571e0e318",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "__typename": "SharedAppellation"
+              },
+              "__typename": "MstrInspection"
+            }
+          ],
+          "__typename": "MstrInspectionsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

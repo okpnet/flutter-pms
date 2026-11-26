@@ -1,0 +1,58 @@
+{
+  "operationName": "OperationPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allMstrOperations": {
+          "totalCount": 3,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMjQ1MmNkNzAtNmEyYi00NzAwLWFhMDItZTY4YmVlNjU1NWY0Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrOperationId": "2452cd70-6a2b-4700-aa02-e68bee6555f4",
+              "controlCode": null,
+              "labels": {
+                "sharedAppellationsId": "937d7029-4f5d-494e-a2fe-8985b11c71c2",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "9c490d2a-034c-419f-83c4-99bd50305052",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                "sharedDictionaryBySharedDictionaryNicknameId": null,
+                "__typename": "SharedAppellation"
+              },
+              "detailTexts": null,
+              "symbol": "0003",
+              "remarks": null,
+              "operation_task_count": {
+                "mstrOperationId": "2452cd70-6a2b-4700-aa02-e68bee6555f4",
+                "__typename": "VOperationOperationTaskCount"
+              },
+              "item_operation_count": {
+                "mstrOperationId": "2452cd70-6a2b-4700-aa02-e68bee6555f4",
+                "__typename": "VOperationItemOperationCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.100413",
+              "remove": false,
+              "update_user": null,
+              "__typename": "MstrOperation"
+            }
+          ],
+          "__typename": "MstrOperationsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

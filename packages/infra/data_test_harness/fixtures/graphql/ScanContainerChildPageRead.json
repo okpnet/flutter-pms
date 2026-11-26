@@ -1,0 +1,23 @@
+{
+  "operationName": "ScanContainerChildPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allTransContainerTrees": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null,
+            "__typename": "PageInfo"
+          },
+          "nodes": [],
+          "__typename": "TransContainerTreesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

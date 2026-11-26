@@ -1,0 +1,29 @@
+{
+  "operationName": "ApprovalDefaultsLanguagePageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allSharedLanguageCodes": {
+          "totalCount": 2,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiNDc0OThjZTEtN2I4MS00NGU3LWJjN2MtMDBkNWViZTE1NmU3Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "sharedLanguageCodeId": "47498ce1-7b81-44e7-bc7c-00d5ebe156e7",
+              "code": "ja",
+              "__typename": "SharedLanguageCode"
+            }
+          ],
+          "__typename": "SharedLanguageCodesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

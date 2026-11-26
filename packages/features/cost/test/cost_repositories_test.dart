@@ -1,37 +1,27 @@
 import 'package:cost/cost.dart';
+import 'package:data_test_harness/data_test_harness.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:gql/ast.dart' show OperationDefinitionNode;
-import 'package:graphql/client.dart';
-
-/// 問い合わせを記録して、決めた応答を返す通路(サーバーには接続しない)。
-class _FakeLink extends Link {
-  final List<Request> requests = [];
-  Map<String, dynamic> Function(Request) respond = (_) => {};
-
-  @override
-  Stream<Response> request(Request request, [NextLink? forward]) {
-    requests.add(request);
-    return Stream.value(Response(data: respond(request), response: const {}));
-  }
-}
-
-String? _name(Request r) => r.operation.document.definitions.whereType<OperationDefinitionNode>().first.name?.value;
 
 Map<String, dynamic> _conn(String type, List<Map<String, dynamic>> nodes) => {
   '__typename': 'Query',
   'allV$type': {
     '__typename': 'V${type}Connection',
     'totalCount': nodes.length,
-    'pageInfo': {'__typename': 'PageInfo', 'hasNextPage': false, 'endCursor': null},
+    'pageInfo': {
+      '__typename': 'PageInfo',
+      'hasNextPage': false,
+      'endCursor': null,
+    },
     'nodes': nodes,
   },
 };
 
 void main() {
   test('標準原価・在庫評価額・ロットの評価額を、DB のビューの値のまま画面の行にする(計算しない)', () async {
-    final link = _FakeLink()
-      ..respond = (r) => switch (_name(r)) {
-        'CostItemUnitPageRead' => _conn('ItemUnitCosts', [
+    final link = ReplayLink()
+      ..on(
+        'CostItemUnitPageRead',
+        data: _conn('ItemUnitCosts', [
           {
             '__typename': 'VItemUnitCost',
             'itemId': 'i1',
@@ -45,7 +35,10 @@ void main() {
             'hasComponents': false,
           },
         ]),
-        'CostItemValuationPageRead' => _conn('ItemValuations', [
+      )
+      ..on(
+        'CostItemValuationPageRead',
+        data: _conn('ItemValuations', [
           {
             '__typename': 'VItemValuation',
             'itemId': 'i1',
@@ -57,7 +50,10 @@ void main() {
             'amount': '16040',
           },
         ]),
-        'CostWorkRecordPageRead' => _conn('WorkRecordCosts', [
+      )
+      ..on(
+        'CostWorkRecordPageRead',
+        data: _conn('WorkRecordCosts', [
           {
             '__typename': 'VWorkRecordCost',
             'transWorkRecordId': 'w1',
@@ -74,7 +70,10 @@ void main() {
             'unitCost': '8291.67',
           },
         ]),
-        _ => _conn('VisiterValuations', [
+      )
+      ..on(
+        'CostVisiterValuationPageRead',
+        data: _conn('VisiterValuations', [
           {
             '__typename': 'VVisiterValuation',
             'transVisiterId': 'v1',
@@ -91,8 +90,11 @@ void main() {
             'amount': '0',
           },
         ]),
-      };
-    final repos = {for (final r in costRepositories(GraphQLClient(link: link, cache: GraphQLCache()))) r.definition.key: r};
+      );
+    final repos = {
+      for (final r in costRepositories(ReplayGraphql.client(link)))
+        r.definition.key: r,
+    };
 
     final unit = (await repos['costunit']!.find(take: 10)).single;
     expect(unit.id, 'i1');
@@ -123,8 +125,9 @@ void main() {
   });
 
   test('1 件の取得は、主キーで絞る。書き込みは読み取り専用のため断る', () async {
-    final link = _FakeLink()..respond = (_) => _conn('ItemUnitCosts', const []);
-    final repo = costRepositories(GraphQLClient(link: link, cache: GraphQLCache())).first;
+    final link = ReplayLink()
+      ..on('CostItemUnitPageRead', data: _conn('ItemUnitCosts', const []));
+    final repo = costRepositories(ReplayGraphql.client(link)).first;
     expect(await repo.findById('i9'), isNull);
     expect(link.requests.single.variables['filter'], {
       'itemId': {'equalTo': 'i9'},

@@ -1,0 +1,48 @@
+{
+  "operationName": "PurchasePageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allTransPurchases": {
+          "totalCount": 3,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMDM1ZmQ4OGYtN2E0MC00MGE3LTgyYmItNzZmNWEzNTU1OTk4Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transPurchaseId": "035fd88f-7a40-40a7-82bb-76f5a3555998",
+              "stakeholderHistoryId": "e232e6f2-c29d-4763-b4cb-1a8c0a34040f",
+              "stakeholderId": "1c854d89-ba01-4189-97b8-bba5cb5ed87d",
+              "stakeholderContactHistoryId": null,
+              "stakeholderContactId": null,
+              "purchaseCtrl1": null,
+              "purchaseCtrl2": null,
+              "purchaseCtrl3": null,
+              "registerAt": "2026-11-19T00:00:00",
+              "purchaseOrderDate": "2026-11-19T00:00:00",
+              "deadline": "2026-12-03T00:00:00",
+              "symbol": "2611-0003",
+              "remarks": null,
+              "purchase_detail_count": {
+                "transPurchaseId": "035fd88f-7a40-40a7-82bb-76f5a3555998",
+                "__typename": "VPurchasePurchaseDetailCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.100413",
+              "remove": false,
+              "update_user": null,
+              "__typename": "TransPurchase"
+            }
+          ],
+          "__typename": "TransPurchasesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

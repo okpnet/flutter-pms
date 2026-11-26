@@ -1,0 +1,42 @@
+{
+  "operationName": "AuditPlanStdOptionPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allMstrAuditStds": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiN2ZmNTZhNWUtZGM3NS00YWQ3LTlmMGItMTYzZjkxZmUzNTAyIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrAuditStdId": "7ff56a5e-dc75-4ad7-9f0b-163f91fe3502",
+              "code": "AS-INTERNAL",
+              "labels": {
+                "sharedAppellationsId": "c6e65b79-4e18-46da-89e2-596bd40924ac",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "68746f97-099b-4aa7-8560-c4faebdb8b5d",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "__typename": "SharedAppellation"
+              },
+              "__typename": "MstrAuditStd"
+            }
+          ],
+          "__typename": "MstrAuditStdsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

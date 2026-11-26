@@ -1,0 +1,41 @@
+{
+  "operationName": "ApprovalStepPositionOptionPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allInfoPositions": {
+          "totalCount": 4,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMDgyYTNiOGYtMGEwMy00OWI1LTlkNGQtOWMyYjdhNGMxZTQ2Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "infoPositionId": "082a3b8f-0a03-49b5-9d4d-9c2b7a4c1e46",
+              "labels": {
+                "sharedAppellationsId": "57a75eb8-cce1-4893-ab16-9980a6f72257",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "ca61177d-001e-4326-8138-63cb08efcbb6",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "__typename": "SharedAppellation"
+              },
+              "__typename": "InfoPosition"
+            }
+          ],
+          "__typename": "InfoPositionsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

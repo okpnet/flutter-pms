@@ -1,0 +1,87 @@
+{
+  "operationName": "AssignPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allInfoAssigns": {
+          "totalCount": 4,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMGFmN2Y5ZGUtMmVkZC00NzM5LWI3ZjEtZmQzYzM0ZmU2YzUzIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "infoAssignId": "0af7f9de-2edd-4739-b7f1-fd3c34fe6c53",
+              "staff": {
+                "infoStaffId": "ac8b2c20-91fa-4a76-8af6-0eee5ce18291",
+                "infoCompanyId": "d140e817-a893-4cfe-9ffb-aae9e9d10153",
+                "code": "BUCHO",
+                "labels": {
+                  "sharedAppellationsId": "92e6467f-57ea-4828-807a-5a64639bfe17",
+                  "sharedDictionaryBySharedDictionaryNameId": {
+                    "sharedDictionaryId": "b028d107-a211-4906-b221-e7584e2fb7c3",
+                    "value": {
+                      "nodes": [],
+                      "__typename": "SharedDictionaryValuesConnection"
+                    },
+                    "__typename": "SharedDictionary"
+                  },
+                  "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                  "sharedDictionaryBySharedDictionaryNicknameId": null,
+                  "__typename": "SharedAppellation"
+                },
+                "sex": null,
+                "phone": null,
+                "privatePhone": null,
+                "symbol": "0008",
+                "remarks": null,
+                "staff_access_permission_count": {
+                  "infoStaffId": "ac8b2c20-91fa-4a76-8af6-0eee5ce18291",
+                  "__typename": "VStaffStaffAccessPermissionCount"
+                },
+                "staff_license_count": {
+                  "infoStaffId": "ac8b2c20-91fa-4a76-8af6-0eee5ce18291",
+                  "__typename": "VStaffStaffLicenseCount"
+                },
+                "staff_capability_count": {
+                  "infoStaffId": "ac8b2c20-91fa-4a76-8af6-0eee5ce18291",
+                  "__typename": "VStaffStaffCapabilityCount"
+                },
+                "sign_count": {
+                  "infoStaffId": "ac8b2c20-91fa-4a76-8af6-0eee5ce18291",
+                  "__typename": "VStaffSignCount"
+                },
+                "assign_count": {
+                  "infoStaffId": "ac8b2c20-91fa-4a76-8af6-0eee5ce18291",
+                  "__typename": "VStaffAssignCount"
+                },
+                "updateAt": "2026-11-26T09:31:01.308293",
+                "remove": false,
+                "update_user": null,
+                "__typename": "InfoStaff"
+              },
+              "infoPositionId": "329f8017-4fe7-407c-be34-346f9284cb99",
+              "infoOfficeId": null,
+              "infoDepartmentId": "a623a135-7045-4cca-8a56-d5db49d2484b",
+              "enable": true,
+              "priority": 1,
+              "symbol": "0004",
+              "remarks": null,
+              "updateAt": "2026-11-26T09:31:01.308293",
+              "remove": false,
+              "update_user": null,
+              "__typename": "InfoAssign"
+            }
+          ],
+          "__typename": "InfoAssignsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

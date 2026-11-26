@@ -1,0 +1,69 @@
+{
+  "operationName": "CustomerPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allMstrStakeholders": {
+          "totalCount": 2,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiNWNkZDc0YTktNzliNi00ZWVjLWFjZjYtMjg4OTllYmJhOTJlIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrStakeholderId": "5cdd74a9-79b6-4eec-acf6-28899ebba92e",
+              "isCustomer": true,
+              "isSupplier": false,
+              "isLogistics": false,
+              "code": "C001",
+              "controlCode": null,
+              "labels": {
+                "sharedAppellationsId": "012a3b10-0c76-4702-ab88-f261cbbd410c",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "0a496230-c454-488f-8611-1ba73ae5a710",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                "sharedDictionaryBySharedDictionaryNicknameId": null,
+                "__typename": "SharedAppellation"
+              },
+              "mail": null,
+              "address": null,
+              "mstrShippingKindId": null,
+              "shippingKinds": null,
+              "symbol": "0001",
+              "remarks": null,
+              "outsource_available_count": {
+                "mstrStakeholderId": "5cdd74a9-79b6-4eec-acf6-28899ebba92e",
+                "__typename": "VStakeholderOutsourceAvailableCount"
+              },
+              "stakeholder_provision_count": {
+                "mstrStakeholderId": "5cdd74a9-79b6-4eec-acf6-28899ebba92e",
+                "__typename": "VStakeholderStakeholderProvisionCount"
+              },
+              "stakeholder_contact_count": {
+                "mstrStakeholderId": "5cdd74a9-79b6-4eec-acf6-28899ebba92e",
+                "__typename": "VStakeholderStakeholderContactCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.100413",
+              "remove": false,
+              "update_user": null,
+              "__typename": "MstrStakeholder"
+            }
+          ],
+          "__typename": "MstrStakeholdersConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "operationName": "AppPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allInfoApps": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiNjdhNDFjZGQtZTM1My00MjMzLWJjNDctMGM1MjI5ZjdiMDVmIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "infoAppId": "67a41cdd-e353-4233-bc47-0c5229f7b05f",
+              "name": "Product Manufacturing System",
+              "symbol": "0001",
+              "__typename": "InfoApp"
+            }
+          ],
+          "__typename": "InfoAppsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "operationName": "WorkPlanDelayPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allTransWorkPlans": {
+          "totalCount": 2,
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "WyJjb21wbGV0aW9uX2F0X2FzYyIsWyIyMDI2LTExLTI4VDAwOjAwOjAwIiwiMDhmNGVjOTktYmQ0NS00ZWFmLWE2ZDctNGM0ZmU3ZDJkZTNlIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transWorkPlanId": "08f4ec99-bd45-4eaf-a6d7-4c4fe7d2de3e",
+              "transOperationsPlanId": "9ff99a87-becd-4509-90f5-bb6fb4707005",
+              "operations_plan": {
+                "transOperationsPlanId": "9ff99a87-becd-4509-90f5-bb6fb4707005",
+                "transResourcePlanId": "8adbec3b-c8e2-47c6-b5a7-e516829dca94",
+                "deadline": "2026-12-10T00:00:00",
+                "__typename": "TransOperationsPlan"
+              },
+              "mstrTaskId": "03f70822-0745-45e0-8b37-aa43f5b220b6",
+              "task": {
+                "mstrTaskId": "03f70822-0745-45e0-8b37-aa43f5b220b6",
+                "groups": null,
+                "code": "LASER",
+                "labels": {
+                  "sharedAppellationsId": "63645049-41aa-4e97-802f-6e81668ec461",
+                  "sharedDictionaryBySharedDictionaryNameId": {
+                    "sharedDictionaryId": "86c4c2eb-1063-4311-94bf-9f7bc9c06576",
+                    "value": {
+                      "nodes": [],
+                      "__typename": "SharedDictionaryValuesConnection"
+                    },
+                    "__typename": "SharedDictionary"
+                  },
+                  "sharedDictionaryBySharedDictionaryPronunciationId": null,
+                  "sharedDictionaryBySharedDictionaryNicknameId": null,
+                  "__typename": "SharedAppellation"
+                },
+                "detailTexts": null,
+                "class": 0,
+                "defaultTime": {
+                  "seconds": 0,
+                  "minutes": 0,
+                  "hours": 0,
+                  "days": 0,
+                  "months": 0,
+                  "years": 0,
+                  "__typename": "Interval"
+                },
+                "symbol": "0001",
+                "remarks": null,
+                "updateAt": "2026-11-26T09:31:01.100413",
+                "remove": false,
+                "update_user": null,
+                "__typename": "MstrTask"
+              },
+              "intervalPlan": null,
+              "startAt": "2026-11-27T00:00:00",
+              "completionAt": "2026-11-28T00:00:00",
+              "work_record_count": {
+                "transWorkPlanId": "08f4ec99-bd45-4eaf-a6d7-4c4fe7d2de3e",
+                "__typename": "VWorkPlanWorkRecordCount"
+              },
+              "product_rez_count": {
+                "transWorkPlanId": "08f4ec99-bd45-4eaf-a6d7-4c4fe7d2de3e",
+                "__typename": "VWorkPlanProductRezCount"
+              },
+              "updateAt": "2026-11-26T09:31:01.239772",
+              "remove": false,
+              "__typename": "TransWorkPlan"
+            }
+          ],
+          "__typename": "TransWorkPlansConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "operationName": "SupplyDetailBalancePageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVSupplyDetailBalances": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiZDg2NGE2ZjAtYjc1ZC00MDk4LTg4ZTMtZjdlOGVjOTg4MWIyIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transSupplyDetailId": "d864a6f0-b75d-4098-88e3-f7e8ec9881b2",
+              "symbol": "2611-0001",
+              "transSupplyId": "3f7d364a-8fe2-43c2-bc53-da339d8ee130",
+              "stakeholderId": "5cdd74a9-79b6-4eec-acf6-28899ebba92e",
+              "receive": true,
+              "counterpartOwns": true,
+              "companyOwns": false,
+              "paidSupply": false,
+              "paidBySwitch": false,
+              "unitPrice": null,
+              "paidAmount": null,
+              "itemId": "1d9fae17-a80b-4183-aa18-0ca1ac824abf",
+              "transOrderDetailId": "1ed4a16e-e539-4684-8988-8a335f181ef2",
+              "transPurchaseDetailId": null,
+              "transResourcePlanId": null,
+              "scheduledAt": null,
+              "quantity": "5.00",
+              "linkedLotQuantity": "5.00",
+              "linkedIssueQuantity": "0",
+              "remainingQuantity": "0.00",
+              "currentQuantity": "3.00",
+              "__typename": "VSupplyDetailBalance"
+            }
+          ],
+          "__typename": "VSupplyDetailBalancesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

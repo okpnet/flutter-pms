@@ -1,0 +1,23 @@
+{
+  "operationName": "ShippingOrderStatusPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allVShippingOrderStatuses": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null,
+            "__typename": "PageInfo"
+          },
+          "nodes": [],
+          "__typename": "VShippingOrderStatusesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

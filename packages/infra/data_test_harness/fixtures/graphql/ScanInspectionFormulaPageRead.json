@@ -1,0 +1,32 @@
+{
+  "operationName": "ScanInspectionFormulaPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1
+      },
+      "data": {
+        "allMstrInspectionFormulas": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiMTBiNDdmOTUtNGZlMS00MDliLTljYWQtZjRiY2Q5NzhjNGY1Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "mstrInspectionFormulaId": "10b47f95-4fe1-409b-9cad-f4bcd978c4f5",
+              "formulaClass": 1,
+              "argClass": "{\"value\":0.5,\"operator\":\"<=\"}",
+              "typeClass": 1,
+              "formatClass": "0.00",
+              "__typename": "MstrInspectionFormula"
+            }
+          ],
+          "__typename": "MstrInspectionFormulasConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

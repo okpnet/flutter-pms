@@ -1,0 +1,41 @@
+{
+  "operationName": "ApprovalStepDepartmentOptionPageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allInfoDepartments": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiYTYyM2ExMzUtNzA0NS00Y2NhLThhNTYtZDVkYjQ5ZDI0ODRiIl1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "infoDepartmentId": "a623a135-7045-4cca-8a56-d5db49d2484b",
+              "labels": {
+                "sharedAppellationsId": "61f0a1e1-3dc3-4865-972d-77b6162ee2a7",
+                "sharedDictionaryBySharedDictionaryNameId": {
+                  "sharedDictionaryId": "02df2f18-e96f-49bb-8b72-1ed8f2474485",
+                  "value": {
+                    "nodes": [],
+                    "__typename": "SharedDictionaryValuesConnection"
+                  },
+                  "__typename": "SharedDictionary"
+                },
+                "__typename": "SharedAppellation"
+              },
+              "__typename": "InfoDepartment"
+            }
+          ],
+          "__typename": "InfoDepartmentsConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}

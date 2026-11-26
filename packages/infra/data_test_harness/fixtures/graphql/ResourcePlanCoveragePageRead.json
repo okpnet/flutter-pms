@@ -1,0 +1,62 @@
+{
+  "operationName": "ResourcePlanCoveragePageRead",
+  "entries": [
+    {
+      "variables": {
+        "first": 1,
+        "languageCodeId": "00000000-0000-0000-0000-000000000000"
+      },
+      "data": {
+        "allVResourcePlanCoverages": {
+          "totalCount": 1,
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "WyJwcmltYXJ5X2tleV9hc2MiLFsiOGFkYmVjM2ItYzhlMi00N2M2LWI1YTctZTUxNjgyOWRjYTk0Il1d",
+            "__typename": "PageInfo"
+          },
+          "nodes": [
+            {
+              "transResourcePlanId": "8adbec3b-c8e2-47c6-b5a7-e516829dca94",
+              "itemId": "1d9fae17-a80b-4183-aa18-0ca1ac824abf",
+              "item": {
+                "mstrItemId": "1d9fae17-a80b-4183-aa18-0ca1ac824abf",
+                "code": "CS-110",
+                "controlCode": null,
+                "symbol": "0003",
+                "labels": {
+                  "sharedAppellationsId": "875db8ee-2166-45ac-96bd-240d1d35a27f",
+                  "sharedDictionaryBySharedDictionaryNameId": {
+                    "sharedDictionaryId": "8887d49f-6098-4fd4-9268-00acf8f7ae6d",
+                    "value": {
+                      "nodes": [],
+                      "__typename": "SharedDictionaryValuesConnection"
+                    },
+                    "__typename": "SharedDictionary"
+                  },
+                  "__typename": "SharedAppellation"
+                },
+                "__typename": "MstrItem"
+              },
+              "planKind": 3,
+              "transOrderDetailId": null,
+              "transUnrecognizedDetailId": null,
+              "parentTransOperationsPlanId": null,
+              "deadline": "2026-12-10T00:00:00",
+              "quantity": "5.00",
+              "inventoryResavation": "0.00",
+              "issued": "0",
+              "remaining": "5.00",
+              "reservedStock": "0",
+              "reservedPurchase": "0",
+              "reservedProduction": "0",
+              "shortage": "5.00",
+              "__typename": "VResourcePlanCoverage"
+            }
+          ],
+          "__typename": "VResourcePlanCoveragesConnection"
+        },
+        "__typename": "Query"
+      }
+    }
+  ]
+}
