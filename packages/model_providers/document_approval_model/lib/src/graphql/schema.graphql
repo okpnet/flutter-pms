@@ -294,6 +294,10 @@ type DocumentApprovePayload {
   transApproved: TransApproved
 }
 
+type DocumentRequestApprovalPayload {
+  integer: Int
+}
+
 type InfoApp {
   infoAppId: UUID!
   name: String!
@@ -343,6 +347,7 @@ type Mutation {
   updateMstrApprovalPatternByMstrApprovalPatternId(input: UpdateMstrApprovalPatternByMstrApprovalPatternIdInput!): UpdateMstrApprovalPatternPayload
   approvalApproveMany(input: ApprovalApproveManyInput!): ApprovalApproveManyPayload
   documentApprove(input: DocumentApproveInput!): DocumentApprovePayload
+  documentRequestApproval(input: DocumentRequestApprovalInput!): DocumentRequestApprovalPayload
 }
 
 type PageInfo {
@@ -552,6 +557,11 @@ input DocumentApproveInput {
   pPreapprovalId: UUID
   pApproved: Boolean
   pRemarks: String
+  pStaffId: UUID
+}
+
+input DocumentRequestApprovalInput {
+  pDocumentId: UUID
   pStaffId: UUID
 }
 

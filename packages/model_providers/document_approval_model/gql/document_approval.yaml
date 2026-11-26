@@ -270,3 +270,12 @@ ApprovalApproveManyPageCall:
     - error_code
     - error_message
     - approved_id
+
+# 承認の申請(DB 関数 document_request_approval。通知だけ。承認自体は document_approve)。
+# 文書の登録では通知せず、この操作で、まだ判断されていない最小の順位の段の該当者へ通知する(同じ段・同じ人には重複して作らない。冪等)。
+# 引数は pDocumentId(文書の ID)・pStaffId(省略時は JWT の staff_id)。戻り値は作った通知の件数(Int)。
+# errcode: OPR01 文書が無い / OPR03 承認の段が無い(承認不要)・すでに公開済み。
+DocumentRequestApprovalPageCall:
+  kind: function
+  mutation: documentRequestApproval
+  returns: integer

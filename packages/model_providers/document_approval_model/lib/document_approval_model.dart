@@ -19,4 +19,5 @@ export 'src/graphql/document_approval_content_page/document_approval_content_pag
 export 'src/graphql/document_approval_stamp_page/document_approval_stamp_page_read.graphql.dart';
 export 'src/graphql/document_approve_page/document_approve_page_call.graphql.dart';
 export 'src/graphql/document_publication_page/document_publication_page_read.graphql.dart';
+export 'src/graphql/document_request_approval_page/document_request_approval_page_call.graphql.dart';
 export 'src/graphql/schema.graphql.dart';
