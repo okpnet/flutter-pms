@@ -117,6 +117,26 @@ class AnnouncementsNotifier extends AsyncNotifier<List<Announcement>> {
     state = await AsyncValue.guard(() => ref.read(announcementGatewayProvider).mine());
   }
 
+  /// 未読をすべて既読にする。1 件ずつ既読にし、成功した分は一覧に反映する。1 件でも失敗したら、残りも試したあと例外にする
+  /// (失敗した通知は未読のまま残り、もう一度押せる)。
+  Future<void> markAllRead() async {
+    final current = state.value;
+    if (current == null) return;
+    final gateway = ref.read(announcementGatewayProvider);
+    final done = <String>{};
+    var failed = false;
+    for (final a in current.where((a) => !a.isRead)) {
+      try {
+        await gateway.markRead(a.id);
+        done.add(a.id);
+      } catch (_) {
+        failed = true;
+      }
+    }
+    state = AsyncData([for (final a in current) done.contains(a.id) ? a.copyWith(isRead: true) : a]);
+    if (failed) throw StateError('markAllRead failed');
+  }
+
   /// 既読にして、一覧に反映する。失敗は例外のまま(画面が表示する)。
   Future<void> markRead(String id) async {
     await ref.read(announcementGatewayProvider).markRead(id);
@@ -127,6 +147,9 @@ class AnnouncementsNotifier extends AsyncNotifier<List<Announcement>> {
 }
 
 final announcementsProvider = AsyncNotifierProvider<AnnouncementsNotifier, List<Announcement>>(AnnouncementsNotifier.new);
+
+/// 通知の一覧から戻る先(ダッシュボード)。アプリが違うパスのときは上書きする。
+final announcementHomePathProvider = Provider<String>((ref) => '/dashboard');
 
 /// 未読の件数。
 final unreadAnnouncementCountProvider = Provider<int>((ref) {

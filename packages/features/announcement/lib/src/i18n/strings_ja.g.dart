@@ -57,6 +57,18 @@ class AnnouncementStrings with BaseTranslations<AnnouncementLocale, Announcement
 	/// ja: '既読にできませんでした。'
 	String get markReadFailed => '既読にできませんでした。';
 
+	/// ja: 'すべて既読にする'
+	String get markAllRead => 'すべて既読にする';
+
+	/// ja: '既読にできなかった通知があります。もう一度お試しください。'
+	String get markAllReadFailed => '既読にできなかった通知があります。もう一度お試しください。';
+
+	/// ja: 'ダッシュボードへ戻る'
+	String get backToDashboard => 'ダッシュボードへ戻る';
+
+	/// ja: 'ほか ${n} 件'
+	String more({required Object n}) => 'ほか ${n} 件';
+
 	/// ja: '未読'
 	String get unread => '未読';
 
@@ -99,6 +111,10 @@ extension on AnnouncementStrings {
 			'unreadOnly' => '未読だけ',
 			'markRead' => '既読にする',
 			'markReadFailed' => '既読にできませんでした。',
+			'markAllRead' => 'すべて既読にする',
+			'markAllReadFailed' => '既読にできなかった通知があります。もう一度お試しください。',
+			'backToDashboard' => 'ダッシュボードへ戻る',
+			'more' => ({required Object n}) => 'ほか ${n} 件',
 			'unread' => '未読',
 			'target' => '対象',
 			'expires' => '期限',

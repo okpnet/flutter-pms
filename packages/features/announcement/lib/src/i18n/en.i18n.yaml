@@ -4,6 +4,10 @@ loadFailed: Could not load notifications.
 empty: No notifications.
 unreadOnly: Unread only
 markRead: Mark as read
+markAllRead: Mark all as read
+markAllReadFailed: Some notifications could not be marked as read. Please try again.
+backToDashboard: Back to dashboard
+more: '${n} more'
 markReadFailed: Could not mark as read.
 unread: Unread
 target: Target

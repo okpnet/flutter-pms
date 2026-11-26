@@ -1,6 +1,7 @@
 import 'package:app_shell/app_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../data/announcement_data.dart';
 import '../i18n/strings_provider.dart';
@@ -28,6 +29,16 @@ class _AnnouncementListPageState extends ConsumerState<AnnouncementListPage> {
     }
   }
 
+  Future<void> _markAllRead() async {
+    final s = ref.read(announcementStringsProvider);
+    try {
+      await ref.read(announcementsProvider.notifier).markAllRead();
+      if (mounted) setState(() => _error = null);
+    } catch (_) {
+      if (mounted) setState(() => _error = s.markAllReadFailed);
+    }
+  }
+
   static String _date(DateTime d) =>
       '${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
 
@@ -48,14 +59,30 @@ class _AnnouncementListPageState extends ConsumerState<AnnouncementListPage> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: FilterChip(
-                  key: const Key('announcement-unread-only'),
-                  label: Text(s.unreadOnly),
-                  selected: _unreadOnly,
-                  onSelected: (v) => setState(() => _unreadOnly = v),
-                ),
+              Wrap(
+                spacing: 8,
+                runSpacing: 4,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  TextButton.icon(
+                    key: const Key('announcement-back'),
+                    onPressed: () => context.go(ref.read(announcementHomePathProvider)),
+                    icon: const Icon(Icons.arrow_back),
+                    label: Text(s.backToDashboard),
+                  ),
+                  FilterChip(
+                    key: const Key('announcement-unread-only'),
+                    label: Text(s.unreadOnly),
+                    selected: _unreadOnly,
+                    onSelected: (v) => setState(() => _unreadOnly = v),
+                  ),
+                  if (all.any((a) => !a.isRead))
+                    TextButton(
+                      key: const Key('announcement-read-all'),
+                      onPressed: _markAllRead,
+                      child: Text(s.markAllRead),
+                    ),
+                ],
               ),
               if (_error != null)
                 Padding(

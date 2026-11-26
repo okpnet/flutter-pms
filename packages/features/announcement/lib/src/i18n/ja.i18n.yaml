@@ -6,6 +6,10 @@ empty: 通知はありません。
 unreadOnly: 未読だけ
 markRead: 既読にする
 markReadFailed: 既読にできませんでした。
+markAllRead: すべて既読にする
+markAllReadFailed: 既読にできなかった通知があります。もう一度お試しください。
+backToDashboard: ダッシュボードへ戻る
+more: 'ほか ${n} 件'
 unread: 未読
 target: 対象
 expires: 期限

@@ -44,6 +44,10 @@ class AnnouncementStringsEn extends AnnouncementStrings with BaseTranslations<An
 	@override String get empty => 'No notifications.';
 	@override String get unreadOnly => 'Unread only';
 	@override String get markRead => 'Mark as read';
+	@override String get markAllRead => 'Mark all as read';
+	@override String get markAllReadFailed => 'Some notifications could not be marked as read. Please try again.';
+	@override String get backToDashboard => 'Back to dashboard';
+	@override String more({required Object n}) => '${n} more';
 	@override String get markReadFailed => 'Could not mark as read.';
 	@override String get unread => 'Unread';
 	@override String get target => 'Target';
@@ -76,6 +80,10 @@ extension on AnnouncementStringsEn {
 			'empty' => 'No notifications.',
 			'unreadOnly' => 'Unread only',
 			'markRead' => 'Mark as read',
+			'markAllRead' => 'Mark all as read',
+			'markAllReadFailed' => 'Some notifications could not be marked as read. Please try again.',
+			'backToDashboard' => 'Back to dashboard',
+			'more' => ({required Object n}) => '${n} more',
 			'markReadFailed' => 'Could not mark as read.',
 			'unread' => 'Unread',
 			'target' => 'Target',
