@@ -2716,10 +2716,10 @@
      whose child entities are listed below the form. Routes: #/g/<screen>[/<tab>][/edit], #/g/e/<entity>/<id|new>[/<parentId>] */
   const DOM = window.OD_DOMAINS ?? { entities: [], screens: [], groups: [], menuGroups: [] };
   /* メニューの見せ方。品質共通・品質管理文書・品質管理は、「運用と改善」の 1 つにまとめる(画面の生成 tools/entity_gen/gen.js は、元の groups を使う)。
-     流れの順(異常 → 処置 → リスク → 監査 → 文書)に並べ、親の画面から開く画面(監査チーム・監査標準項目)は出さない。 */
+     流れの順(異常 → 処置 → リスク → 監査 → 文書)に並べ、親の画面から開く画面(監査チーム・監査標準項目)は出さない。文書階層・レポート・承認スタンプと PDF の設定は、メニューには出さず、管理者のユーザーメニューの「システムメニュー」から開く。 */
   const MENU_GROUPS = (() => {
     const OPS = ["qcommon", "qdoc", "quality"];
-    const HIDDEN = ["auditteam", "auditstdcheck"];
+    const HIDDEN = ["auditteam", "auditstdcheck", "doctier", "report"]; // 文書階層・レポートは、管理者のユーザーメニュー「システムメニュー」へ(アプリと同じ)
     const ORDER = ["complaint", "disposal", "recur", "observe", "qrisk", "risk", "auditstd", "audit", "doc", "report", "doctier"];
     const rank = (sid) => { const i = ORDER.indexOf(sid); return i < 0 ? ORDER.length : i; };
     const ops = DOM.groups.filter((g) => OPS.includes(g.id));

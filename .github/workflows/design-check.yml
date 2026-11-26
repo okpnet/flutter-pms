@@ -1,0 +1,48 @@
+# =====================================================================
+#  design-check.yml  画面案(tools/open-design)と、生成した画面の定義(Dart)のずれを調べる
+# =====================================================================
+#
+# ■ なぜ Actions で行うか
+#   生成のツール(tools/entity_gen/gen.js)は Node.js で動く。手元(Windows)には Node.js が無いため、
+#   GitHub が用意する仮想マシン(ランナー。Node.js を入れられる)で `node tools/entity_gen/gen.js --check` を実行する。
+#   --check は「書き出さず、コミット済みの内容と違うファイルだけ数える」モード。ずれがあると失敗(赤)になる。
+#   ずれを直すには、手元ではなく Node.js のある環境で `node tools/entity_gen/gen.js` を実行して再生成する。
+#
+# ■ 安全面(server-tests.yml と同じ方針)
+#   - 秘密は使わない。GITHUB_TOKEN は読み取りだけ。pull_request_target は使わない。
+#   - 使うアクションはコミットのハッシュで固定している。
+#
+# ■ いつ動かすか
+#   画面案・生成のツール・生成物のどれかを変えて main に push したときと、手動(Actions タブの「Run workflow」)。
+#   コミットのメッセージに [skip ci] を入れると動かない。
+
+name: design-check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "tools/open-design/**"
+      - "tools/entity_gen/**"
+      - ".github/workflows/design-check.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: ソースを取り出す
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Node.js を用意
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "22"
+
+      # 生成元(画面案)とコミット済みの生成物のずれを調べる。ずれがあると、ここで失敗する。
+      - name: 生成物のずれを調べる(gen.js --check)
+        run: node tools/entity_gen/gen.js --check
