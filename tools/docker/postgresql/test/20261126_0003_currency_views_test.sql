@@ -33,7 +33,7 @@ DECLARE
 BEGIN
     SELECT mstr_currency_id INTO v_jpy FROM tests.info_app WHERE remove IS FALSE ORDER BY update_at LIMIT 1;
     INSERT INTO tests.mstr_currency (code, names, currency_symbol, minor_unit, rate_auto)
-    VALUES ('USD', pg_temp.nm2('米ドル'), '$', 2, true) RETURNING mstr_currency_id INTO v_usd;
+    VALUES ('TUS', pg_temp.nm2('米ドル'), '$', 2, true) RETURNING mstr_currency_id INTO v_usd;
     INSERT INTO tests.trans_exchange_rate (mstr_currency_id, rate_month, rate) VALUES
         (v_usd, DATE '2026-10-01', 150), (v_usd, DATE '2026-11-01', 160);
 
@@ -103,7 +103,7 @@ BEGIN
     -- V6: 取引時の通貨は履歴のもの。顧客の通貨をあとで JPY に変えても、過去の出荷実績は USD のまま
     UPDATE tests.mstr_stakeholder SET mstr_currency_id = v_jpy WHERE mstr_stakeholder_id = v_cust;
     SELECT * INTO v_r FROM tests.v_shipping_record_amount WHERE trans_order_detail_id = v_od AND shipping_quantity = 4;
-    IF v_r.mstr_currency_id <> v_usd OR v_r.currency_code <> 'USD' THEN RAISE EXCEPTION 'V6 過去の取引の通貨が変わった (%)', v_r.currency_code; END IF;
+    IF v_r.mstr_currency_id <> v_usd OR v_r.currency_code <> 'TUS' THEN RAISE EXCEPTION 'V6 過去の取引の通貨が変わった (%)', v_r.currency_code; END IF;
 
     -- V5: 仕入先の単価と標準原価
     UPDATE tests.mstr_stakeholder SET mstr_currency_id = v_usd WHERE mstr_stakeholder_id = v_supp;
@@ -117,8 +117,8 @@ BEGIN
     IF v_x <> ROUND(2.50 * 160, (SELECT minor_unit FROM tests.mstr_currency WHERE mstr_currency_id = v_jpy)) THEN RAISE EXCEPTION 'V5 標準原価 (%)', v_x; END IF;
     IF v_r.provisional THEN RAISE EXCEPTION 'V5 レートがあるのに rate_missing'; END IF;
     -- レートが無い通貨の仕入先は、purchase_cost が 0 で rate_missing が true
-    INSERT INTO tests.mstr_currency (code, names, currency_symbol, minor_unit) VALUES ('EUR', pg_temp.nm2('ユーロ'), 'EUR', 2);
-    UPDATE tests.mstr_stakeholder SET mstr_currency_id = (SELECT mstr_currency_id FROM tests.mstr_currency WHERE code = 'EUR' AND remove IS FALSE) WHERE mstr_stakeholder_id = v_supp;
+    INSERT INTO tests.mstr_currency (code, names, currency_symbol, minor_unit) VALUES ('TEU', pg_temp.nm2('ユーロ'), 'TEU', 2);
+    UPDATE tests.mstr_stakeholder SET mstr_currency_id = (SELECT mstr_currency_id FROM tests.mstr_currency WHERE code = 'TEU' AND remove IS FALSE) WHERE mstr_stakeholder_id = v_supp;
     SELECT purchase_cost, rate_missing INTO v_x, v_r.provisional FROM tests.v_item_unit_cost WHERE item_id = v_item;
     IF v_x <> 0 OR NOT v_r.provisional THEN RAISE EXCEPTION 'V5 レートが無いとき (% %)', v_x, v_r.provisional; END IF;
 

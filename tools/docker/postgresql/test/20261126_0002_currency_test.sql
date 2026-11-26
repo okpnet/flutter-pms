@@ -49,14 +49,14 @@ BEGIN
 
     -- C2: 通貨マスタ(USD)・履歴・コードの一意・桁数の範囲
     INSERT INTO tests.mstr_currency (code, names, currency_symbol, minor_unit, rate_auto)
-    VALUES ('USD', pg_temp.nm2('米ドル'), '$', 2, true) RETURNING mstr_currency_id INTO v_usd;
+    VALUES ('TUS', pg_temp.nm2('米ドル'), '$', 2, true) RETURNING mstr_currency_id INTO v_usd;
     SELECT count(*) INTO v_n FROM tests.history_mstr_currency WHERE mstr_currency_id = v_usd;
     IF v_n <> 1 THEN RAISE EXCEPTION 'C2 履歴が 1 件でない (%)', v_n; END IF;
     UPDATE tests.mstr_currency SET currency_symbol = 'US$' WHERE mstr_currency_id = v_usd;
     SELECT count(*) INTO v_n FROM tests.history_mstr_currency WHERE mstr_currency_id = v_usd;
     IF v_n <> 2 THEN RAISE EXCEPTION 'C2 更新の履歴が増えない (%)', v_n; END IF;
     BEGIN
-        INSERT INTO tests.mstr_currency (code, names, currency_symbol, minor_unit) VALUES ('USD', pg_temp.nm2('重複'), '$', 2);
+        INSERT INTO tests.mstr_currency (code, names, currency_symbol, minor_unit) VALUES ('TUS', pg_temp.nm2('重複'), '$', 2);
         RAISE EXCEPTION 'C2 有効な通貨コードの重複が通った';
     EXCEPTION WHEN unique_violation THEN NULL; END;
     BEGIN
@@ -66,7 +66,7 @@ BEGIN
     -- 削除済みの通貨のコードは再利用できる
     UPDATE tests.mstr_currency SET remove = true WHERE mstr_currency_id = v_usd;
     INSERT INTO tests.mstr_currency (code, names, currency_symbol, minor_unit, rate_auto)
-    VALUES ('USD', pg_temp.nm2('米ドル(新)'), '$', 2, true) RETURNING mstr_currency_id INTO v_usd;
+    VALUES ('TUS', pg_temp.nm2('米ドル(新)'), '$', 2, true) RETURNING mstr_currency_id INTO v_usd;
 
     -- C3: レート
     IF tests.currency_rate_at(v_jpy, DATE '2026-11-15') <> 1 THEN RAISE EXCEPTION 'C3 基準通貨が 1 でない'; END IF;
