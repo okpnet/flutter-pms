@@ -243,6 +243,16 @@ jobs:
       - name: 本家スキーマを PostGraphile から取得
         run: dart run tools/gql_schema_pruner/bin/fetch_schema.dart --endpoint "$GRAPHQL_URL" --out .schema/schema.graphql
 
+      # 取得した本家スキーマを成果物にする(DB を変えたあと、手元に DB が無くても、モデルを生成できるようにする)。
+      # 手元で `gh run download <実行の ID> -n postgraphile-schema -D .schema` で、.schema/schema.graphql に置ける。
+      # スキーマは Git に入れない(大きいため)。内容は、DB の定義(06)だけから決まる公開してよいもの。
+      - name: 本家スキーマを保存
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: postgraphile-schema
+          path: .schema/schema.graphql
+          retention-days: 7
+
       # YAML → .graphql、本家 → 画面用スキーマ を作り直し、コミット済みのものと違えば「DB と Git がずれている」
       # として失敗にする(DB を変えたのに、モデルのスキーマを更新し忘れた、などを見つける)。
       # 失敗したら、手元で `melos run gql:schema` → `melos run gql` を行い、差分をコミットする。
