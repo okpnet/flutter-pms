@@ -27,7 +27,7 @@ query CurrencyRateLatestPageRead(
       minorUnit
       rateAuto
       isBase
-      rateMonth
+      rateDate
       rate
       autoFetched
       source

@@ -84,8 +84,8 @@ enum TransExchangeRatesOrderBy {
   TRANS_EXCHANGE_RATE_ID_DESC
   MSTR_CURRENCY_ID_ASC
   MSTR_CURRENCY_ID_DESC
-  RATE_MONTH_ASC
-  RATE_MONTH_DESC
+  RATE_DATE_ASC
+  RATE_DATE_DESC
   RATE_ASC
   RATE_DESC
   AUTO_FETCHED_ASC
@@ -122,8 +122,8 @@ enum VCurrencyRateLatestsOrderBy {
   RATE_AUTO_DESC
   IS_BASE_ASC
   IS_BASE_DESC
-  RATE_MONTH_ASC
-  RATE_MONTH_DESC
+  RATE_DATE_ASC
+  RATE_DATE_DESC
   RATE_ASC
   RATE_DESC
   AUTO_FETCHED_ASC
@@ -279,7 +279,7 @@ type SharedUnitsConnection {
 type TransExchangeRate {
   transExchangeRateId: UUID!
   mstrCurrencyId: UUID!
-  rateMonth: Date!
+  rateDate: Date!
   rate: BigFloat!
   autoFetched: Boolean!
   source: String
@@ -318,7 +318,7 @@ type VCurrencyRateLatest {
   minorUnit: Int
   rateAuto: Boolean
   isBase: Boolean
-  rateMonth: Date
+  rateDate: Date
   rate: BigFloat
   autoFetched: Boolean
   source: String
@@ -1118,7 +1118,7 @@ input StringFilter {
 input TransExchangeRateFilter {
   transExchangeRateId: UUIDFilter
   mstrCurrencyId: UUIDFilter
-  rateMonth: DateFilter
+  rateDate: DateFilter
   rate: BigFloatFilter
   autoFetched: BooleanFilter
   source: StringFilter
@@ -1138,7 +1138,7 @@ input TransExchangeRateFilter {
 
 input TransExchangeRateInput {
   mstrCurrencyId: UUID
-  rateMonth: Date!
+  rateDate: Date!
   rate: BigFloat!
   autoFetched: Boolean
   source: String
@@ -1190,7 +1190,7 @@ input VCurrencyRateLatestFilter {
   minorUnit: IntFilter
   rateAuto: BooleanFilter
   isBase: BooleanFilter
-  rateMonth: DateFilter
+  rateDate: DateFilter
   rate: BigFloatFilter
   autoFetched: BooleanFilter
   source: StringFilter

@@ -30,7 +30,7 @@ query CurrencyRatePageRead(
         mstrCurrencyId
       }
 
-      rateMonth
+      rateDate
       rate
       autoFetched
       source

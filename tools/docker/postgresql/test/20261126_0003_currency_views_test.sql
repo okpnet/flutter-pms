@@ -1,4 +1,4 @@
--- 20261126_0003 通貨の換算(金額のビュー)の SQL テスト(V1〜V6)
+-- 20261126_0003 通貨の換算(金額のビュー)の SQL テスト(V1〜V7)
 -- 実行: 06 → 07_dummy → 09 で作った DB に、20261126_0002_currency_ddl.sql・20261126_0003_currency_views_ddl.sql を当てたあと
 -- (06 に取り込んだあとは DDL は不要)。1 つのトランザクションで行い、最後に ROLLBACK する(DB は変わらない)。
 --   psql -v ON_ERROR_STOP=1 -d postgres -f 20261126_0003_currency_views_test.sql
@@ -34,7 +34,7 @@ BEGIN
     SELECT mstr_currency_id INTO v_jpy FROM tests.info_app WHERE remove IS FALSE ORDER BY update_at LIMIT 1;
     INSERT INTO tests.mstr_currency (code, names, currency_symbol, minor_unit, rate_auto)
     VALUES ('TUS', pg_temp.nm2('米ドル'), '$', 2, true) RETURNING mstr_currency_id INTO v_usd;
-    INSERT INTO tests.trans_exchange_rate (mstr_currency_id, rate_month, rate) VALUES
+    INSERT INTO tests.trans_exchange_rate (mstr_currency_id, rate_date, rate) VALUES
         (v_usd, DATE '2026-10-01', 150), (v_usd, DATE '2026-11-01', 160);
 
     -- 顧客(USD・検収日 25)・仕入先(USD・検収日 NULL)。既存の利害関係者を使う
@@ -57,13 +57,13 @@ BEGIN
     INSERT INTO tests.trans_shipping_order_detail_record (trans_shipping_order_detail_id, shipping_date, shipping_quantity) VALUES
         (v_sd, TIMESTAMP '2026-11-25 18:00', 4), (v_sd, TIMESTAMP '2026-11-26 09:00', 6);
 
-    -- V1: 4 個 = 4*5 + 1*(4/10) = 20.40(USD)。11/25(検収日)は 11 月のレート 160、11/26 は 12 月(レートが無いので 11 月で代用・仮)
+    -- V1: 4 個 = 4*5 + 1*(4/10) = 20.40(USD)。11/25 は検収日の基準日 11/25 でレート 160、11/26 は翌月の検収日 12/25(12 月のレートが無いので 11 月で代用・仮)
     SELECT * INTO v_r FROM tests.v_shipping_record_amount WHERE trans_order_detail_id = v_od AND shipping_quantity = 4;
     IF v_r.amount <> 20.40 THEN RAISE EXCEPTION 'V1 通貨の金額 (%)', v_r.amount; END IF;
-    IF v_r.rate_month <> DATE '2026-11-01' OR v_r.rate <> 160 OR v_r.provisional THEN RAISE EXCEPTION 'V1 検収日当日は 11 月 (% % %)', v_r.rate_month, v_r.rate, v_r.provisional; END IF;
+    IF v_r.rate_date <> DATE '2026-11-25' OR v_r.rate <> 160 OR v_r.provisional THEN RAISE EXCEPTION 'V1 検収日当日の基準日は当日 (% % %)', v_r.rate_date, v_r.rate, v_r.provisional; END IF;
     IF v_r.amount_base <> ROUND(20.40 * 160, (SELECT minor_unit FROM tests.mstr_currency WHERE mstr_currency_id = v_jpy)) THEN RAISE EXCEPTION 'V1 基準通貨の金額 (%)', v_r.amount_base; END IF;
     SELECT * INTO v_r FROM tests.v_shipping_record_amount WHERE trans_order_detail_id = v_od AND shipping_quantity = 6;
-    IF v_r.rate_month <> DATE '2026-12-01' OR v_r.rate <> 160 OR NOT v_r.provisional THEN RAISE EXCEPTION 'V1 検収日の翌日は翌月(仮) (% % %)', v_r.rate_month, v_r.rate, v_r.provisional; END IF;
+    IF v_r.rate_date <> DATE '2026-12-25' OR v_r.rate <> 160 OR NOT v_r.provisional THEN RAISE EXCEPTION 'V1 検収日の翌日は翌月の検収日(仮) (% % %)', v_r.rate_date, v_r.rate, v_r.provisional; END IF;
 
     -- 発注(仕入先の履歴つき。検収日 NULL)・明細(数量 5・単価 2.00)・受入実績(10/31 と 11/30)
     INSERT INTO tests.trans_purchase (stakeholder_history_id, stakeholder_id) VALUES (v_hist_s, v_supp) RETURNING trans_purchase_id INTO v_pur;
@@ -73,16 +73,16 @@ BEGIN
         (v_pd, TIMESTAMP '2026-10-31 12:00', 2), (v_pd, TIMESTAMP '2026-11-30 12:00', 3);
     -- V2: 検収日 NULL は常に当月
     SELECT * INTO v_r FROM tests.v_purchase_rec_amount WHERE trans_purchase_detail_id = v_pd AND received_quantity = 2;
-    IF v_r.rate_month <> DATE '2026-10-01' OR v_r.rate <> 150 OR v_r.provisional OR v_r.amount <> 4.00 THEN RAISE EXCEPTION 'V2 10 月 (% % % %)', v_r.rate_month, v_r.rate, v_r.provisional, v_r.amount; END IF;
+    IF v_r.rate_date <> DATE '2026-10-31' OR v_r.rate <> 150 OR v_r.provisional OR v_r.amount <> 4.00 THEN RAISE EXCEPTION 'V2 10 月 (% % % %)', v_r.rate_date, v_r.rate, v_r.provisional, v_r.amount; END IF;
     SELECT * INTO v_r FROM tests.v_purchase_rec_amount WHERE trans_purchase_detail_id = v_pd AND received_quantity = 3;
-    IF v_r.rate_month <> DATE '2026-11-01' OR v_r.rate <> 160 OR v_r.amount <> 6.00 THEN RAISE EXCEPTION 'V2 11 月 (% % %)', v_r.rate_month, v_r.rate, v_r.amount; END IF;
+    IF v_r.rate_date <> DATE '2026-11-30' OR v_r.rate <> 160 OR v_r.amount <> 6.00 THEN RAISE EXCEPTION 'V2 11 月 (% % %)', v_r.rate_date, v_r.rate, v_r.amount; END IF;
 
     -- V3: レートが無い(最初の月より前)とき amount_base は NULL
     INSERT INTO tests.trans_purchase_rec (trans_purchase_detail_id, receive_at, quantity) VALUES (v_pd, TIMESTAMP '2026-08-15 12:00', 1);
     SELECT * INTO v_r FROM tests.v_purchase_rec_amount WHERE trans_purchase_detail_id = v_pd AND received_quantity = 1;
     IF v_r.amount_base IS NOT NULL OR v_r.rate IS NOT NULL THEN RAISE EXCEPTION 'V3 レートが無いのに換算された'; END IF;
 
-    -- V4: 目安(最新の月のレート。今日の月以前で最新 = 11 月の 160)
+    -- V4: 目安(最新のレート。今日以前で適用開始日が最新 = 11/01 の 160)
     SELECT * INTO v_r FROM tests.v_order_detail_amount WHERE trans_order_detail_id = v_od;
     IF v_r.amount <> 51.00 THEN RAISE EXCEPTION 'V4 受注明細の通貨の金額 (%)', v_r.amount; END IF;
     IF v_r.rate <> 160 THEN RAISE EXCEPTION 'V4 受注明細のレート (%)', v_r.rate; END IF;
@@ -122,7 +122,14 @@ BEGIN
     SELECT purchase_cost, rate_missing INTO v_x, v_r.provisional FROM tests.v_item_unit_cost WHERE item_id = v_item;
     IF v_x <> 0 OR NOT v_r.provisional THEN RAISE EXCEPTION 'V5 レートが無いとき (% %)', v_x, v_r.provisional; END IF;
 
-    RAISE NOTICE 'V1〜V6 OK';
+    -- V7: 月の途中の日付で適用開始するレート。11/26 から 170 を適用する(終了日は持たない)
+    INSERT INTO tests.trans_exchange_rate (mstr_currency_id, rate_date, rate) VALUES (v_usd, DATE '2026-11-26', 170);
+    SELECT * INTO v_r FROM tests.v_shipping_record_amount WHERE trans_order_detail_id = v_od AND shipping_quantity = 4;
+    IF v_r.rate <> 160 THEN RAISE EXCEPTION 'V7 検収日の基準日 11/25 は、11/26 開始のレートの前 (%)', v_r.rate; END IF;
+    SELECT * INTO v_r FROM tests.v_shipping_record_amount WHERE trans_order_detail_id = v_od AND shipping_quantity = 6;
+    IF v_r.rate <> 170 OR NOT v_r.provisional THEN RAISE EXCEPTION 'V7 基準日 12/25 は 11/26 開始のレートを引き継ぐ(仮) (% %)', v_r.rate, v_r.provisional; END IF;
+
+    RAISE NOTICE 'V1〜V7 OK';
 END $$;
 
 ROLLBACK;

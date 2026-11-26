@@ -13,7 +13,7 @@ abstract class CurrencyRateLatestPageFilterSpec {
     'minorUnit': FlatFilterPath([], 'minorUnit'),
     'rateAuto': FlatFilterPath([], 'rateAuto'),
     'isBase': FlatFilterPath([], 'isBase'),
-    'rateMonth': FlatFilterPath([], 'rateMonth'),
+    'rateDate': FlatFilterPath([], 'rateDate'),
     'rate': FlatFilterPath([], 'rate'),
     'autoFetched': FlatFilterPath([], 'autoFetched'),
     'source': FlatFilterPath([], 'source'),

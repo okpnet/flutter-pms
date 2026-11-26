@@ -5,7 +5,7 @@
 
 mutation CurrencyRatePageCreate(
   $mstrCurrencyId: UUID
-  $rateMonth: Date!
+  $rateDate: Date!
   $rate: BigFloat!
   $autoFetched: Boolean
   $source: String
@@ -17,7 +17,7 @@ mutation CurrencyRatePageCreate(
     input: {
       transExchangeRate: {
         mstrCurrencyId: $mstrCurrencyId
-        rateMonth: $rateMonth
+        rateDate: $rateDate
         rate: $rate
         autoFetched: $autoFetched
         source: $source
@@ -30,7 +30,7 @@ mutation CurrencyRatePageCreate(
     transExchangeRate {
       transExchangeRateId
       mstrCurrencyId
-      rateMonth
+      rateDate
       rate
       autoFetched
       source

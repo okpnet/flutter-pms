@@ -10,7 +10,7 @@ abstract class CurrencyRatePageFilterSpec {
     'transExchangeRateId': FlatFilterPath([], 'transExchangeRateId'),
     'mstrCurrencyId': FlatFilterPath([], 'mstrCurrencyId'),
     'currency||mstrCurrencyId': FlatFilterPath([FilterStep('mstrCurrencyByMstrCurrencyId')], 'mstrCurrencyId'),
-    'rateMonth': FlatFilterPath([], 'rateMonth'),
+    'rateDate': FlatFilterPath([], 'rateDate'),
     'rate': FlatFilterPath([], 'rate'),
     'autoFetched': FlatFilterPath([], 'autoFetched'),
     'source': FlatFilterPath([], 'source'),

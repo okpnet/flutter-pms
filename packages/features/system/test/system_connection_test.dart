@@ -77,7 +77,7 @@ void main() {
           ),
         ),
       );
-      // 為替レート: 通貨・月・レートが必須。月は読める日付、レートは正の数
+      // 為替レート: 通貨・適用開始日・レートが必須。適用開始日は実在する日付(月だけは不可)、レートは正の数
       await expectLater(
         rate.save(const EntityRecord(id: '', values: {})),
         throwsA(isA<EntityValidationException>()),
@@ -88,15 +88,15 @@ void main() {
             id: '',
             values: {
               'mstr_currency_id': 'x',
-              'rate_month': '2026-13',
+              'rate_date': '2026-02-30',
               'rate': '150',
             },
           ),
         ),
         throwsA(
           isA<EntityValidationException>().having(
-            (e) => e.errors['rate_month'],
-            'rate_month',
+            (e) => e.errors['rate_date'],
+            'rate_date',
             EntityFieldError.invalidDate,
           ),
         ),
@@ -107,7 +107,7 @@ void main() {
             id: '',
             values: {
               'mstr_currency_id': 'x',
-              'rate_month': '2026-11-01',
+              'rate_date': '2026-11-01',
               'rate': '0',
             },
           ),

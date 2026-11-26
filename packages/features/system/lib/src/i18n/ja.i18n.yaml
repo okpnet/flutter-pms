@@ -28,7 +28,7 @@ entity:
     title: "為替レート"
     fields:
       f_mstr_currency_id: "通貨"
-      f_rate_month: "適用する月"
+      f_rate_date: "適用開始日"
       f_rate: "レート"
       f_auto_fetched: "自動取得"
       f_source: "取得元"

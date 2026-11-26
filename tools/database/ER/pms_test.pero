@@ -9,7 +9,7 @@
     "targetDb": "postgresql",
     "postPath": "C:\\Users\\隼人さん\\AppData\\Local\\Programs\\PERO\\post\\postgresql.post",
     "startQuery": "\\c test_avocado\nSET search_path TO tests, public;",
-    "endQuery": "-- [PERO 取り込みログ] 取り込めなかった要素\n-- 取り込まない文: DROP VIEW IF × 163\n-- 取り込まない文: DROP TRIGGER IF × 3\n-- 取り込まない文: 主キーと重複するユニークインデックス(取り込まない) × 263\n\n-- [追加] コードの部分一意索引(doc/query/20261115_0002_code_unique_indexes.sql)。削除済み(remove = true)のコードは再利用できる\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_stakeholder_ix_code_active ON tests.mstr_stakeholder (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_capability_ix_code_active ON tests.mstr_capability (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_license_ix_code_active ON tests.mstr_license (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_location_ix_code_active ON tests.mstr_location (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS info_staff_ix_code_active ON tests.info_staff (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS info_office_ix_code_active ON tests.info_office (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS info_department_ix_code_active ON tests.info_department (code) WHERE remove = false;\n-- [追加] 言語コードの一意制約を、大文字小文字を区別しない一意索引にする(doc/query/20261116_0003_language_code_unique_lower.sql)\nALTER TABLE tests.shared_language_code DROP CONSTRAINT IF EXISTS shared_language_code_ix1;\nDROP INDEX IF EXISTS tests.shared_language_code_ix1;\nCREATE UNIQUE INDEX shared_language_code_ix1 ON tests.shared_language_code (lower(code));\n\n-- [追加] 監査の実施記録の重複(削除済み remove = true は再登録できる)\nCREATE UNIQUE INDEX IF NOT EXISTS trans_audit_detail_check_items_ix_active ON tests.trans_audit_detail_check_items (trans_audit_details_id, audit_std_checkitem_id) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS trans_audit_complaint_ix_active ON tests.trans_audit_complaint (trans_complaint_id, trans_audit_detail_check_items_id) WHERE remove = false;\n\n-- [追加] 通貨・為替レート(doc: issue/20261126_0002.md)。削除済みの通貨のコードは再利用できる\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_currency_ix_code_active ON tests.mstr_currency (code) WHERE remove = false;\nCREATE INDEX IF NOT EXISTS trans_exchange_rate_ix_lookup ON tests.trans_exchange_rate (mstr_currency_id, rate_month DESC) WHERE remove = false;",
+    "endQuery": "-- [PERO 取り込みログ] 取り込めなかった要素\n-- 取り込まない文: DROP VIEW IF × 163\n-- 取り込まない文: DROP TRIGGER IF × 3\n-- 取り込まない文: 主キーと重複するユニークインデックス(取り込まない) × 263\n\n-- [追加] コードの部分一意索引(doc/query/20261115_0002_code_unique_indexes.sql)。削除済み(remove = true)のコードは再利用できる\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_stakeholder_ix_code_active ON tests.mstr_stakeholder (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_capability_ix_code_active ON tests.mstr_capability (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_license_ix_code_active ON tests.mstr_license (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_location_ix_code_active ON tests.mstr_location (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS info_staff_ix_code_active ON tests.info_staff (code) WHERE remove = false AND code IS NOT NULL;\nCREATE UNIQUE INDEX IF NOT EXISTS info_office_ix_code_active ON tests.info_office (code) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS info_department_ix_code_active ON tests.info_department (code) WHERE remove = false;\n-- [追加] 言語コードの一意制約を、大文字小文字を区別しない一意索引にする(doc/query/20261116_0003_language_code_unique_lower.sql)\nALTER TABLE tests.shared_language_code DROP CONSTRAINT IF EXISTS shared_language_code_ix1;\nDROP INDEX IF EXISTS tests.shared_language_code_ix1;\nCREATE UNIQUE INDEX shared_language_code_ix1 ON tests.shared_language_code (lower(code));\n\n-- [追加] 監査の実施記録の重複(削除済み remove = true は再登録できる)\nCREATE UNIQUE INDEX IF NOT EXISTS trans_audit_detail_check_items_ix_active ON tests.trans_audit_detail_check_items (trans_audit_details_id, audit_std_checkitem_id) WHERE remove = false;\nCREATE UNIQUE INDEX IF NOT EXISTS trans_audit_complaint_ix_active ON tests.trans_audit_complaint (trans_complaint_id, trans_audit_detail_check_items_id) WHERE remove = false;\n\n-- [追加] 通貨・為替レート(doc: issue/20261126_0002.md)。削除済みの通貨のコードは再利用できる\nCREATE UNIQUE INDEX IF NOT EXISTS mstr_currency_ix_code_active ON tests.mstr_currency (code) WHERE remove = false;\nCREATE INDEX IF NOT EXISTS trans_exchange_rate_ix_lookup ON tests.trans_exchange_rate (mstr_currency_id, rate_date DESC) WHERE remove = false;",
     "schema": "tests",
     "includeSchema": true
   },
@@ -11269,12 +11269,12 @@
         "sqlite": ""
       },
       "bodies": {
-        "postgresql": "CREATE OR REPLACE FUNCTION tests.currency_rate_at(p_currency_id uuid, p_date date) RETURNS numeric AS $$\n    SELECT CASE\n        WHEN p_currency_id IS NULL THEN NULL\n        WHEN p_currency_id = tests.currency_base_id() THEN 1::numeric\n        ELSE (\n            SELECT r.rate FROM tests.trans_exchange_rate AS r\n            WHERE r.mstr_currency_id = p_currency_id AND r.remove IS FALSE\n              AND r.rate_month <= date_trunc('month', p_date)::date\n            ORDER BY r.rate_month DESC, r.update_at DESC LIMIT 1\n        )\n    END\n$$ LANGUAGE sql STABLE;",
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.currency_rate_at(p_currency_id uuid, p_date date) RETURNS numeric AS $$\n    SELECT CASE\n        WHEN p_currency_id IS NULL THEN NULL\n        WHEN p_currency_id = tests.currency_base_id() THEN 1::numeric\n        ELSE (\n            SELECT r.rate FROM tests.trans_exchange_rate AS r\n            WHERE r.mstr_currency_id = p_currency_id AND r.remove IS FALSE\n              AND r.rate_date <= p_date\n            ORDER BY r.rate_date DESC, r.update_at DESC LIMIT 1\n        )\n    END\n$$ LANGUAGE sql STABLE;",
         "mysql": "",
         "sqlserver": "",
         "sqlite": ""
       },
-      "comment": "@omit\nその月以前で最新のレート(1 単位の通貨 = 基準通貨いくら)。基準通貨は 1。無ければ NULL",
+      "comment": "@omit\nその日以前で適用開始日が最新のレート(1 単位の通貨 = 基準通貨いくら)。基準通貨は 1。無ければ NULL",
       "args": "uuid, date",
       "dependsOnTableIds": [
         6228,
@@ -11294,12 +11294,12 @@
         "sqlite": ""
       },
       "bodies": {
-        "postgresql": "CREATE OR REPLACE FUNCTION tests.currency_rate_provisional(p_currency_id uuid, p_date date) RETURNS boolean AS $$\n    SELECT CASE\n        WHEN p_currency_id IS NULL THEN false\n        WHEN p_currency_id = tests.currency_base_id() THEN false\n        ELSE NOT EXISTS (\n            SELECT 1 FROM tests.trans_exchange_rate AS r\n            WHERE r.mstr_currency_id = p_currency_id AND r.remove IS FALSE\n              AND r.rate_month = date_trunc('month', p_date)::date\n        )\n    END\n$$ LANGUAGE sql STABLE;",
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.currency_rate_provisional(p_currency_id uuid, p_date date) RETURNS boolean AS $$\n    SELECT CASE\n        WHEN p_currency_id IS NULL THEN false\n        WHEN p_currency_id = tests.currency_base_id() THEN false\n        ELSE NOT EXISTS (\n            SELECT 1 FROM tests.trans_exchange_rate AS r\n            WHERE r.mstr_currency_id = p_currency_id AND r.remove IS FALSE\n              AND r.rate_date >= date_trunc('month', p_date)::date AND r.rate_date <= p_date\n        )\n    END\n$$ LANGUAGE sql STABLE;",
         "mysql": "",
         "sqlserver": "",
         "sqlite": ""
       },
-      "comment": "@omit\nその月のレートが登録されていない(別の月のレートで代用している)とき true。基準通貨は false",
+      "comment": "@omit\nその日の月に、その日以前の適用開始日のレートが登録されていない(前の月以前のレートで代用している)とき true。基準通貨は false",
       "args": "uuid, date",
       "dependsOnTableIds": [
         6228,
@@ -11310,7 +11310,7 @@
     {
       "id": 6243,
       "kind": "function",
-      "name": "acceptance_month",
+      "name": "acceptance_date",
       "external": false,
       "call": {
         "postgresql": "",
@@ -11319,12 +11319,29 @@
         "sqlite": ""
       },
       "bodies": {
-        "postgresql": "CREATE OR REPLACE FUNCTION tests.acceptance_month(p_acceptance_day smallint, p_date date) RETURNS date AS $$\n    SELECT CASE\n        WHEN p_date IS NULL THEN NULL\n        WHEN p_acceptance_day IS NULL THEN date_trunc('month', p_date)::date\n        WHEN extract(day FROM p_date)::int <= LEAST(\n            p_acceptance_day::int,\n            extract(day FROM (date_trunc('month', p_date) + interval '1 month' - interval '1 day'))::int\n        ) THEN date_trunc('month', p_date)::date\n        ELSE (date_trunc('month', p_date) + interval '1 month')::date\n    END\n$$ LANGUAGE sql IMMUTABLE;",
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.acceptance_date(p_acceptance_day smallint, p_date date) RETURNS date AS $$
+    SELECT CASE
+        WHEN p_date IS NULL THEN NULL
+        WHEN p_acceptance_day IS NULL THEN (date_trunc('month', p_date) + interval '1 month' - interval '1 day')::date
+        WHEN p_date <= date_trunc('month', p_date)::date + (LEAST(
+            p_acceptance_day::int,
+            extract(day FROM (date_trunc('month', p_date) + interval '1 month' - interval '1 day'))::int
+        ) - 1) THEN date_trunc('month', p_date)::date + (LEAST(
+            p_acceptance_day::int,
+            extract(day FROM (date_trunc('month', p_date) + interval '1 month' - interval '1 day'))::int
+        ) - 1)
+        ELSE (date_trunc('month', p_date) + interval '1 month')::date + (LEAST(
+            p_acceptance_day::int,
+            extract(day FROM (date_trunc('month', p_date) + interval '2 month' - interval '1 day'))::int
+        ) - 1)
+    END
+$$ LANGUAGE sql IMMUTABLE;
+",
         "mysql": "",
         "sqlserver": "",
         "sqlite": ""
       },
-      "comment": "@omit\n検収日を考慮した換算の月(月の初日)。検収日までは当月、後は翌月。NULL は月末(常に当月)。検収日が月の日数より大きいときは月末",
+      "comment": "@omit\nその取引が属する検収日(換算の基準日)。検収日までは当月の検収日、後は翌月の検収日。NULL は月末(常に当月)。検収日が月の日数より大きいときは月末",
       "args": "smallint, date",
       "dependsOnTableIds": [],
       "schema": "tests"
@@ -67804,7 +67821,7 @@
         "columns": []
       },
       "sql": {
-        "sql": "WITH RECURSIVE direct AS (\n    -- 品目ごとの直接の原価: 購入品 = 優先順位が最も小さい仕入先の単価、生産コスト = 工程ごとの原価の合計\n    SELECT\n        i.mstr_item_id\n        , COALESCE(sp.cost_base, 0) AS purchase_cost\n        , COALESCE((\n            SELECT SUM(c.cost) FROM tests.mstr_item_task_cost AS c\n            WHERE c.mstr_item_id = i.mstr_item_id AND c.remove IS FALSE\n        ), 0) AS production_cost\n        , EXISTS (SELECT 1 FROM tests.mstr_item_supplier AS s WHERE s.mstr_item_id = i.mstr_item_id AND s.remove IS FALSE) AS has_supplier\n        , (sp.cost_base IS NULL AND EXISTS (SELECT 1 FROM tests.mstr_item_supplier AS s WHERE s.mstr_item_id = i.mstr_item_id AND s.remove IS FALSE)) AS purchase_rate_missing\n    FROM tests.mstr_item AS i\n    LEFT JOIN LATERAL (\n        -- 仕入先の単価を、仕入先の通貨から基準通貨へ換算する(最新の月のレート。レートが無ければ NULL)\n        SELECT tests.currency_to_base(s.cost, st.mstr_currency_id, CURRENT_DATE) AS cost_base\n        FROM tests.mstr_item_supplier AS s\n        INNER JOIN tests.mstr_stakeholder AS st ON st.mstr_stakeholder_id = s.mstr_stakeholder_id\n        WHERE s.mstr_item_id = i.mstr_item_id AND s.remove IS FALSE\n        ORDER BY s.priority, s.cost LIMIT 1\n    ) AS sp ON TRUE\n    WHERE i.remove IS FALSE\n),\nbom (root_id, item_id, qty, path) AS (\n    -- 部品表(品目体系)を、品目ごとに下へ展開する(循環は止める)\n    SELECT d.mstr_item_id, d.mstr_item_id, 1::numeric, ARRAY[d.mstr_item_id] FROM direct AS d\n    UNION ALL\n    SELECT b.root_id, tr.mstr_item_id, b.qty * tr.quantity, b.path || tr.mstr_item_id\n    FROM bom AS b\n    INNER JOIN tests.mstr_item_tree AS tr ON tr.parent_mstr_item_id = b.item_id AND tr.remove IS FALSE\n    WHERE NOT (tr.mstr_item_id = ANY (b.path)) AND array_length(b.path, 1) < 30\n)\nSELECT\n    i.mstr_item_id AS item_id\n    , i.symbol AS item_symbol\n    , i.code AS item_code\n    , d.purchase_cost\n    , d.production_cost\n    , COALESCE(SUM(b.qty * (cd.purchase_cost + cd.production_cost)) FILTER (WHERE b.item_id <> b.root_id), 0)::numeric(14,2) AS component_cost\n    , (d.purchase_cost + d.production_cost\n        + COALESCE(SUM(b.qty * (cd.purchase_cost + cd.production_cost)) FILTER (WHERE b.item_id <> b.root_id), 0))::numeric(14,2) AS unit_cost\n    , d.has_supplier\n    , (COUNT(*) FILTER (WHERE b.item_id <> b.root_id) > 0) AS has_components\n    , BOOL_OR(cd.purchase_rate_missing) AS rate_missing\nFROM tests.mstr_item AS i\nINNER JOIN direct AS d ON d.mstr_item_id = i.mstr_item_id\nINNER JOIN bom AS b ON b.root_id = i.mstr_item_id\nINNER JOIN direct AS cd ON cd.mstr_item_id = b.item_id\nWHERE i.remove IS FALSE\nGROUP BY i.mstr_item_id, i.symbol, i.code, d.purchase_cost, d.production_cost, d.has_supplier"
+        "sql": "WITH RECURSIVE direct AS (\n    -- 品目ごとの直接の原価: 購入品 = 優先順位が最も小さい仕入先の単価、生産コスト = 工程ごとの原価の合計\n    SELECT\n        i.mstr_item_id\n        , COALESCE(sp.cost_base, 0) AS purchase_cost\n        , COALESCE((\n            SELECT SUM(c.cost) FROM tests.mstr_item_task_cost AS c\n            WHERE c.mstr_item_id = i.mstr_item_id AND c.remove IS FALSE\n        ), 0) AS production_cost\n        , EXISTS (SELECT 1 FROM tests.mstr_item_supplier AS s WHERE s.mstr_item_id = i.mstr_item_id AND s.remove IS FALSE) AS has_supplier\n        , (sp.cost_base IS NULL AND EXISTS (SELECT 1 FROM tests.mstr_item_supplier AS s WHERE s.mstr_item_id = i.mstr_item_id AND s.remove IS FALSE)) AS purchase_rate_missing\n    FROM tests.mstr_item AS i\n    LEFT JOIN LATERAL (\n        -- 仕入先の単価を、仕入先の通貨から基準通貨へ換算する(最新のレート。レートが無ければ NULL)\n        SELECT tests.currency_to_base(s.cost, st.mstr_currency_id, CURRENT_DATE) AS cost_base\n        FROM tests.mstr_item_supplier AS s\n        INNER JOIN tests.mstr_stakeholder AS st ON st.mstr_stakeholder_id = s.mstr_stakeholder_id\n        WHERE s.mstr_item_id = i.mstr_item_id AND s.remove IS FALSE\n        ORDER BY s.priority, s.cost LIMIT 1\n    ) AS sp ON TRUE\n    WHERE i.remove IS FALSE\n),\nbom (root_id, item_id, qty, path) AS (\n    -- 部品表(品目体系)を、品目ごとに下へ展開する(循環は止める)\n    SELECT d.mstr_item_id, d.mstr_item_id, 1::numeric, ARRAY[d.mstr_item_id] FROM direct AS d\n    UNION ALL\n    SELECT b.root_id, tr.mstr_item_id, b.qty * tr.quantity, b.path || tr.mstr_item_id\n    FROM bom AS b\n    INNER JOIN tests.mstr_item_tree AS tr ON tr.parent_mstr_item_id = b.item_id AND tr.remove IS FALSE\n    WHERE NOT (tr.mstr_item_id = ANY (b.path)) AND array_length(b.path, 1) < 30\n)\nSELECT\n    i.mstr_item_id AS item_id\n    , i.symbol AS item_symbol\n    , i.code AS item_code\n    , d.purchase_cost\n    , d.production_cost\n    , COALESCE(SUM(b.qty * (cd.purchase_cost + cd.production_cost)) FILTER (WHERE b.item_id <> b.root_id), 0)::numeric(14,2) AS component_cost\n    , (d.purchase_cost + d.production_cost\n        + COALESCE(SUM(b.qty * (cd.purchase_cost + cd.production_cost)) FILTER (WHERE b.item_id <> b.root_id), 0))::numeric(14,2) AS unit_cost\n    , d.has_supplier\n    , (COUNT(*) FILTER (WHERE b.item_id <> b.root_id) > 0) AS has_components\n    , BOOL_OR(cd.purchase_rate_missing) AS rate_missing\nFROM tests.mstr_item AS i\nINNER JOIN direct AS d ON d.mstr_item_id = i.mstr_item_id\nINNER JOIN bom AS b ON b.root_id = i.mstr_item_id\nINNER JOIN direct AS cd ON cd.mstr_item_id = b.item_id\nWHERE i.remove IS FALSE\nGROUP BY i.mstr_item_id, i.symbol, i.code, d.purchase_cost, d.production_cost, d.has_supplier"
       },
       "preQuery": "",
       "postQuery": "COMMENT ON COLUMN tests.v_item_unit_cost.item_id IS '品目ID';\nCOMMENT ON COLUMN tests.v_item_unit_cost.item_symbol IS '品目のシンボル';\nCOMMENT ON COLUMN tests.v_item_unit_cost.item_code IS '品目コード';\nCOMMENT ON COLUMN tests.v_item_unit_cost.purchase_cost IS '購入品の単価(優先順位が最も小さい仕入先。仕入先が無いときは 0)';\nCOMMENT ON COLUMN tests.v_item_unit_cost.production_cost IS '生産コスト(品目の工程ごとの原価の合計)';\nCOMMENT ON COLUMN tests.v_item_unit_cost.component_cost IS '下位の部品の原価(部品表を展開した 数量 × (購入品 + 生産コスト) の合計)';\nCOMMENT ON COLUMN tests.v_item_unit_cost.unit_cost IS '標準原価(購入品 + 生産コスト + 下位の部品)';\nCOMMENT ON COLUMN tests.v_item_unit_cost.has_supplier IS '仕入先がある';\nCOMMENT ON COLUMN tests.v_item_unit_cost.has_components IS '部品表に下位の部品がある';\nCOMMENT ON COLUMN tests.v_item_unit_cost.rate_missing IS '仕入先の単価を換算するレートが無い(購入品の単価を 0 として計算している)';"
@@ -68321,9 +68338,9 @@
     {
       "id": 6228,
       "kind": "table",
-      "logicalName": "為替レート(月ごとの概算。追記のみ)",
+      "logicalName": "為替レート(適用開始日ごとの概算。追記のみ)",
       "physicalName": "trans_exchange_rate",
-      "comment": "為替レート(月ごとの概算。追記のみ)",
+      "comment": "為替レート(適用開始日ごとの概算。追記のみ)",
       "locked": false,
       "columns": [
         {
@@ -68360,8 +68377,8 @@
         },
         {
           "id": 6224,
-          "logicalName": "適用する月(月の初日)",
-          "physicalName": "rate_month",
+          "logicalName": "適用開始日(この日以後、次のレートが出るまで適用する。終了日は持たない)",
+          "physicalName": "rate_date",
           "typeId": "date",
           "length": null,
           "precision": null,
@@ -68372,7 +68389,7 @@
           "defaultValue": "",
           "defaultMethodId": null,
           "defaultExpression": "",
-          "comment": "適用する月(月の初日)"
+          "comment": "適用開始日(この日以後、次のレートが出るまで適用する。終了日は持たない)"
         },
         {
           "id": 6225,
@@ -68441,12 +68458,6 @@
           "nameMode": "manual",
           "name": "trans_exchange_rate_ck_rate",
           "expression": "rate > 0"
-        },
-        {
-          "id": 6231,
-          "nameMode": "manual",
-          "name": "trans_exchange_rate_ck_month",
-          "expression": "rate_month = date_trunc('month', rate_month)::date"
         }
       ],
       "preQuery": "",
@@ -68503,7 +68514,7 @@
       "kind": "view",
       "logicalName": "",
       "physicalName": "v_currency_rate_latest",
-      "comment": "@primaryKey mstr_currency_id\n@foreignKey (mstr_currency_id) references mstr_currency (mstr_currency_id)\n通貨ごとの最新のレート(月ごとの概算)",
+      "comment": "@primaryKey mstr_currency_id\n@foreignKey (mstr_currency_id) references mstr_currency (mstr_currency_id)\n通貨ごとの最新のレート(適用開始日ごとの概算)",
       "locked": false,
       "viewType": "sql",
       "join": {
@@ -68517,17 +68528,17 @@
         "columns": []
       },
       "sql": {
-        "sql": "SELECT DISTINCT ON (c.mstr_currency_id)\n       c.mstr_currency_id\n     , c.code\n     , c.currency_symbol\n     , c.minor_unit\n     , c.rate_auto\n     , (c.mstr_currency_id = tests.currency_base_id()) AS is_base\n     , r.rate_month\n     , CASE WHEN c.mstr_currency_id = tests.currency_base_id() THEN 1::numeric ELSE r.rate END AS rate\n     , r.auto_fetched\n     , r.source\n     , c.symbol\nFROM tests.mstr_currency AS c\nLEFT JOIN tests.trans_exchange_rate AS r\n       ON r.mstr_currency_id = c.mstr_currency_id AND r.remove IS FALSE\nWHERE c.remove IS FALSE\nORDER BY c.mstr_currency_id, r.rate_month DESC NULLS LAST, r.update_at DESC"
+        "sql": "SELECT DISTINCT ON (c.mstr_currency_id)\n       c.mstr_currency_id\n     , c.code\n     , c.currency_symbol\n     , c.minor_unit\n     , c.rate_auto\n     , (c.mstr_currency_id = tests.currency_base_id()) AS is_base\n     , r.rate_date\n     , CASE WHEN c.mstr_currency_id = tests.currency_base_id() THEN 1::numeric ELSE r.rate END AS rate\n     , r.auto_fetched\n     , r.source\n     , c.symbol\nFROM tests.mstr_currency AS c\nLEFT JOIN tests.trans_exchange_rate AS r\n       ON r.mstr_currency_id = c.mstr_currency_id AND r.remove IS FALSE\nWHERE c.remove IS FALSE\nORDER BY c.mstr_currency_id, r.rate_date DESC NULLS LAST, r.update_at DESC"
       },
       "preQuery": "",
-      "postQuery": "COMMENT ON COLUMN tests.v_currency_rate_latest.mstr_currency_id IS '通貨ID';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.code IS '通貨コード';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.currency_symbol IS '通貨記号';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.minor_unit IS '小数の桁数';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.rate_auto IS '自動取得の対象';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.is_base IS '基準通貨';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.rate_month IS '最新のレートの月';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.rate IS '最新のレート(基準通貨は 1)';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.auto_fetched IS '自動取得';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.source IS '取得元';"
+      "postQuery": "COMMENT ON COLUMN tests.v_currency_rate_latest.mstr_currency_id IS '通貨ID';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.code IS '通貨コード';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.currency_symbol IS '通貨記号';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.minor_unit IS '小数の桁数';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.rate_auto IS '自動取得の対象';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.is_base IS '基準通貨';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.rate_date IS '最新のレートの適用開始日';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.rate IS '最新のレート(基準通貨は 1)';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.auto_fetched IS '自動取得';\nCOMMENT ON COLUMN tests.v_currency_rate_latest.source IS '取得元';"
     },
     {
       "id": 6267,
       "kind": "view",
       "logicalName": "",
       "physicalName": "v_shipping_record_amount",
-      "comment": "@primaryKey trans_shipping_order_detail_record_id\n@foreignKey (customer_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n@foreignKey (mstr_currency_id) references mstr_currency (mstr_currency_id)\n出荷実績の金額(顧客の通貨のまま)と、検収月のレートで換算した基準通貨の金額。provisional は、その月のレートが無く別の月で代用したとき true。レートが無いときは amount_base が NULL",
+      "comment": "@primaryKey trans_shipping_order_detail_record_id\n@foreignKey (customer_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n@foreignKey (mstr_currency_id) references mstr_currency (mstr_currency_id)\n出荷実績の金額(顧客の通貨のまま)と、検収日のレートで換算した基準通貨の金額。provisional は、その月に適用するレートが無く前の月以前で代用したとき true。レートが無いときは amount_base が NULL",
       "locked": false,
       "viewType": "sql",
       "join": {
@@ -68541,17 +68552,17 @@
         "columns": []
       },
       "sql": {
-        "sql": "SELECT\n    r.trans_shipping_order_detail_record_id\n    , o.stakeholder_id AS customer_id\n    , od.trans_order_detail_id\n    , od.item_id\n    , r.shipping_date\n    , r.shipping_quantity\n    , h.mstr_currency_id\n    , cu.code AS currency_code\n    , cu.currency_symbol\n    , tests.acceptance_month(h.acceptance_day, r.shipping_date::date) AS rate_month\n    , ROUND(COALESCE(r.shipping_quantity, 0) * COALESCE(od.fixed_price, od.unit_price, 0) + COALESCE(od.price_adjustment, 0) * COALESCE(COALESCE(r.shipping_quantity, 0) / NULLIF(od.quantity, 0), 0), 2) AS amount\n    , tests.currency_rate_at(h.mstr_currency_id, tests.acceptance_month(h.acceptance_day, r.shipping_date::date)) AS rate\n    , tests.currency_rate_provisional(h.mstr_currency_id, tests.acceptance_month(h.acceptance_day, r.shipping_date::date)) AS provisional\n    , tests.currency_to_base(ROUND(COALESCE(r.shipping_quantity, 0) * COALESCE(od.fixed_price, od.unit_price, 0) + COALESCE(od.price_adjustment, 0) * COALESCE(COALESCE(r.shipping_quantity, 0) / NULLIF(od.quantity, 0), 0), 2), h.mstr_currency_id, tests.acceptance_month(h.acceptance_day, r.shipping_date::date)) AS amount_base\n    , r.symbol\nFROM tests.trans_shipping_order_detail_record AS r\nINNER JOIN tests.trans_shipping_order_detail AS sd ON sd.trans_shipping_order_detail_id = r.trans_shipping_order_detail_id\nINNER JOIN tests.trans_order_detail AS od ON od.trans_order_detail_id = sd.trans_order_detail_id\nINNER JOIN tests.trans_order AS o ON o.trans_order_id = od.trans_order_id\nINNER JOIN tests.history_mstr_stakeholder AS h ON h.history_id = o.stakeholder_history_id AND h.mstr_stakeholder_id = o.stakeholder_id\nINNER JOIN tests.mstr_currency AS cu ON cu.mstr_currency_id = h.mstr_currency_id\nWHERE r.remove IS FALSE"
+        "sql": "SELECT\n    r.trans_shipping_order_detail_record_id\n    , o.stakeholder_id AS customer_id\n    , od.trans_order_detail_id\n    , od.item_id\n    , r.shipping_date\n    , r.shipping_quantity\n    , h.mstr_currency_id\n    , cu.code AS currency_code\n    , cu.currency_symbol\n    , tests.acceptance_date(h.acceptance_day, r.shipping_date::date) AS rate_date\n    , ROUND(COALESCE(r.shipping_quantity, 0) * COALESCE(od.fixed_price, od.unit_price, 0) + COALESCE(od.price_adjustment, 0) * COALESCE(COALESCE(r.shipping_quantity, 0) / NULLIF(od.quantity, 0), 0), 2) AS amount\n    , tests.currency_rate_at(h.mstr_currency_id, tests.acceptance_date(h.acceptance_day, r.shipping_date::date)) AS rate\n    , tests.currency_rate_provisional(h.mstr_currency_id, tests.acceptance_date(h.acceptance_day, r.shipping_date::date)) AS provisional\n    , tests.currency_to_base(ROUND(COALESCE(r.shipping_quantity, 0) * COALESCE(od.fixed_price, od.unit_price, 0) + COALESCE(od.price_adjustment, 0) * COALESCE(COALESCE(r.shipping_quantity, 0) / NULLIF(od.quantity, 0), 0), 2), h.mstr_currency_id, tests.acceptance_date(h.acceptance_day, r.shipping_date::date)) AS amount_base\n    , r.symbol\nFROM tests.trans_shipping_order_detail_record AS r\nINNER JOIN tests.trans_shipping_order_detail AS sd ON sd.trans_shipping_order_detail_id = r.trans_shipping_order_detail_id\nINNER JOIN tests.trans_order_detail AS od ON od.trans_order_detail_id = sd.trans_order_detail_id\nINNER JOIN tests.trans_order AS o ON o.trans_order_id = od.trans_order_id\nINNER JOIN tests.history_mstr_stakeholder AS h ON h.history_id = o.stakeholder_history_id AND h.mstr_stakeholder_id = o.stakeholder_id\nINNER JOIN tests.mstr_currency AS cu ON cu.mstr_currency_id = h.mstr_currency_id\nWHERE r.remove IS FALSE"
       },
       "preQuery": "",
-      "postQuery": "COMMENT ON COLUMN tests.v_shipping_record_amount.mstr_currency_id IS '取引の通貨ID';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.currency_code IS '通貨コード';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.currency_symbol IS '通貨記号';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.amount IS '金額(取引の通貨のまま)';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.rate IS '換算のレート(1 単位 = 基準通貨いくら。無ければ NULL)';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.provisional IS '仮(その月のレートが無く、別の月のレートで代用している)';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.amount_base IS '基準通貨の金額(レートが無ければ NULL)';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.rate_month IS '換算の月(顧客の検収日を考慮)';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.customer_id IS '顧客ID';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.shipping_date IS '出荷日時';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.shipping_quantity IS '出荷数量';"
+      "postQuery": "COMMENT ON COLUMN tests.v_shipping_record_amount.mstr_currency_id IS '取引の通貨ID';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.currency_code IS '通貨コード';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.currency_symbol IS '通貨記号';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.amount IS '金額(取引の通貨のまま)';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.rate IS '換算のレート(1 単位 = 基準通貨いくら。無ければ NULL)';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.provisional IS '仮(その月のレートが無く、別の月のレートで代用している)';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.amount_base IS '基準通貨の金額(レートが無ければ NULL)';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.rate_date IS '換算の基準日(顧客の検収日を考慮)';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.customer_id IS '顧客ID';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.shipping_date IS '出荷日時';\nCOMMENT ON COLUMN tests.v_shipping_record_amount.shipping_quantity IS '出荷数量';"
     },
     {
       "id": 6268,
       "kind": "view",
       "logicalName": "",
       "physicalName": "v_purchase_rec_amount",
-      "comment": "@primaryKey trans_purchase_rec_id\n@foreignKey (supplier_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n@foreignKey (mstr_currency_id) references mstr_currency (mstr_currency_id)\n受入実績の金額(仕入先の通貨のまま)と、検収月のレートで換算した基準通貨の金額。provisional は、その月のレートが無く別の月で代用したとき true。レートが無いときは amount_base が NULL",
+      "comment": "@primaryKey trans_purchase_rec_id\n@foreignKey (supplier_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n@foreignKey (mstr_currency_id) references mstr_currency (mstr_currency_id)\n受入実績の金額(仕入先の通貨のまま)と、検収日のレートで換算した基準通貨の金額。provisional は、その月に適用するレートが無く前の月以前で代用したとき true。レートが無いときは amount_base が NULL",
       "locked": false,
       "viewType": "sql",
       "join": {
@@ -68565,17 +68576,17 @@
         "columns": []
       },
       "sql": {
-        "sql": "SELECT\n    r.trans_purchase_rec_id\n    , p.stakeholder_id AS supplier_id\n    , pd.trans_purchase_detail_id\n    , pd.item_id\n    , r.receive_at\n    , r.quantity AS received_quantity\n    , h.mstr_currency_id\n    , cu.code AS currency_code\n    , cu.currency_symbol\n    , tests.acceptance_month(h.acceptance_day, r.receive_at::date) AS rate_month\n    , ROUND(COALESCE(r.quantity, 0) * COALESCE(pd.fixed_price, pd.unit_price, 0) + COALESCE(pd.price_adjustment, 0) * COALESCE(COALESCE(r.quantity, 0) / NULLIF(pd.quantity, 0), 0), 2) AS amount\n    , tests.currency_rate_at(h.mstr_currency_id, tests.acceptance_month(h.acceptance_day, r.receive_at::date)) AS rate\n    , tests.currency_rate_provisional(h.mstr_currency_id, tests.acceptance_month(h.acceptance_day, r.receive_at::date)) AS provisional\n    , tests.currency_to_base(ROUND(COALESCE(r.quantity, 0) * COALESCE(pd.fixed_price, pd.unit_price, 0) + COALESCE(pd.price_adjustment, 0) * COALESCE(COALESCE(r.quantity, 0) / NULLIF(pd.quantity, 0), 0), 2), h.mstr_currency_id, tests.acceptance_month(h.acceptance_day, r.receive_at::date)) AS amount_base\n    , r.symbol\nFROM tests.trans_purchase_rec AS r\nINNER JOIN tests.trans_purchase_detail AS pd ON pd.trans_purchase_detail_id = r.trans_purchase_detail_id\nINNER JOIN tests.trans_purchase AS p ON p.trans_purchase_id = pd.trans_purchase_id\nINNER JOIN tests.history_mstr_stakeholder AS h ON h.history_id = p.stakeholder_history_id AND h.mstr_stakeholder_id = p.stakeholder_id\nINNER JOIN tests.mstr_currency AS cu ON cu.mstr_currency_id = h.mstr_currency_id\nWHERE r.remove IS FALSE"
+        "sql": "SELECT\n    r.trans_purchase_rec_id\n    , p.stakeholder_id AS supplier_id\n    , pd.trans_purchase_detail_id\n    , pd.item_id\n    , r.receive_at\n    , r.quantity AS received_quantity\n    , h.mstr_currency_id\n    , cu.code AS currency_code\n    , cu.currency_symbol\n    , tests.acceptance_date(h.acceptance_day, r.receive_at::date) AS rate_date\n    , ROUND(COALESCE(r.quantity, 0) * COALESCE(pd.fixed_price, pd.unit_price, 0) + COALESCE(pd.price_adjustment, 0) * COALESCE(COALESCE(r.quantity, 0) / NULLIF(pd.quantity, 0), 0), 2) AS amount\n    , tests.currency_rate_at(h.mstr_currency_id, tests.acceptance_date(h.acceptance_day, r.receive_at::date)) AS rate\n    , tests.currency_rate_provisional(h.mstr_currency_id, tests.acceptance_date(h.acceptance_day, r.receive_at::date)) AS provisional\n    , tests.currency_to_base(ROUND(COALESCE(r.quantity, 0) * COALESCE(pd.fixed_price, pd.unit_price, 0) + COALESCE(pd.price_adjustment, 0) * COALESCE(COALESCE(r.quantity, 0) / NULLIF(pd.quantity, 0), 0), 2), h.mstr_currency_id, tests.acceptance_date(h.acceptance_day, r.receive_at::date)) AS amount_base\n    , r.symbol\nFROM tests.trans_purchase_rec AS r\nINNER JOIN tests.trans_purchase_detail AS pd ON pd.trans_purchase_detail_id = r.trans_purchase_detail_id\nINNER JOIN tests.trans_purchase AS p ON p.trans_purchase_id = pd.trans_purchase_id\nINNER JOIN tests.history_mstr_stakeholder AS h ON h.history_id = p.stakeholder_history_id AND h.mstr_stakeholder_id = p.stakeholder_id\nINNER JOIN tests.mstr_currency AS cu ON cu.mstr_currency_id = h.mstr_currency_id\nWHERE r.remove IS FALSE"
       },
       "preQuery": "",
-      "postQuery": "COMMENT ON COLUMN tests.v_purchase_rec_amount.mstr_currency_id IS '取引の通貨ID';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.currency_code IS '通貨コード';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.currency_symbol IS '通貨記号';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.amount IS '金額(取引の通貨のまま)';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.rate IS '換算のレート(1 単位 = 基準通貨いくら。無ければ NULL)';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.provisional IS '仮(その月のレートが無く、別の月のレートで代用している)';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.amount_base IS '基準通貨の金額(レートが無ければ NULL)';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.rate_month IS '換算の月(仕入先の検収日を考慮)';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.supplier_id IS '仕入先ID';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.receive_at IS '受入日時';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.received_quantity IS '受入数量';"
+      "postQuery": "COMMENT ON COLUMN tests.v_purchase_rec_amount.mstr_currency_id IS '取引の通貨ID';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.currency_code IS '通貨コード';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.currency_symbol IS '通貨記号';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.amount IS '金額(取引の通貨のまま)';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.rate IS '換算のレート(1 単位 = 基準通貨いくら。無ければ NULL)';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.provisional IS '仮(その月のレートが無く、別の月のレートで代用している)';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.amount_base IS '基準通貨の金額(レートが無ければ NULL)';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.rate_date IS '換算の基準日(仕入先の検収日を考慮)';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.supplier_id IS '仕入先ID';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.receive_at IS '受入日時';\nCOMMENT ON COLUMN tests.v_purchase_rec_amount.received_quantity IS '受入数量';"
     },
     {
       "id": 6269,
       "kind": "view",
       "logicalName": "",
       "physicalName": "v_order_detail_amount",
-      "comment": "@primaryKey trans_order_detail_id\n@foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)\n@foreignKey (customer_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n@foreignKey (mstr_currency_id) references mstr_currency (mstr_currency_id)\n受注明細の金額(キャンセルを除く。顧客の通貨のまま)と、最新の月のレートで換算した基準通貨の目安の金額。固定しない",
+      "comment": "@primaryKey trans_order_detail_id\n@foreignKey (trans_order_detail_id) references trans_order_detail (trans_order_detail_id)\n@foreignKey (customer_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n@foreignKey (mstr_currency_id) references mstr_currency (mstr_currency_id)\n受注明細の金額(キャンセルを除く。顧客の通貨のまま)と、最新のレートで換算した基準通貨の目安の金額。固定しない",
       "locked": false,
       "viewType": "sql",
       "join": {
@@ -68599,7 +68610,7 @@
       "kind": "view",
       "logicalName": "",
       "physicalName": "v_purchase_detail_amount",
-      "comment": "@primaryKey trans_purchase_detail_id\n@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)\n@foreignKey (supplier_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n@foreignKey (mstr_currency_id) references mstr_currency (mstr_currency_id)\n発注明細の金額(仕入先の通貨のまま)と、最新の月のレートで換算した基準通貨の目安の金額。固定しない",
+      "comment": "@primaryKey trans_purchase_detail_id\n@foreignKey (trans_purchase_detail_id) references trans_purchase_detail (trans_purchase_detail_id)\n@foreignKey (supplier_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n@foreignKey (mstr_currency_id) references mstr_currency (mstr_currency_id)\n発注明細の金額(仕入先の通貨のまま)と、最新のレートで換算した基準通貨の目安の金額。固定しない",
       "locked": false,
       "viewType": "sql",
       "join": {
@@ -68623,7 +68634,7 @@
       "kind": "view",
       "logicalName": "",
       "physicalName": "v_item_supplier_cost",
-      "comment": "@primaryKey mstr_item_supplier_id\n@foreignKey (mstr_item_supplier_id) references mstr_item_supplier (mstr_item_supplier_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n@foreignKey (supplier_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (mstr_currency_id) references mstr_currency (mstr_currency_id)\n仕入先ごとの単価(仕入先の通貨のまま)と、最新の月のレートで換算した基準通貨の目安の単価。外注の単価も同じ",
+      "comment": "@primaryKey mstr_item_supplier_id\n@foreignKey (mstr_item_supplier_id) references mstr_item_supplier (mstr_item_supplier_id)\n@foreignKey (item_id) references mstr_item (mstr_item_id)\n@foreignKey (supplier_id) references mstr_stakeholder (mstr_stakeholder_id)\n@foreignKey (mstr_currency_id) references mstr_currency (mstr_currency_id)\n仕入先ごとの単価(仕入先の通貨のまま)と、最新のレートで換算した基準通貨の目安の単価。外注の単価も同じ",
       "locked": false,
       "viewType": "sql",
       "join": {

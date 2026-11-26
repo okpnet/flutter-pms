@@ -151,13 +151,13 @@ BEGIN
     INSERT INTO tests.mstr_currency (code, names, currency_symbol, minor_unit, rate_auto)
     VALUES ('USD', pg_temp.nm('米ドル', 'US dollar'), '$', 2, true) RETURNING mstr_currency_id INTO c;
     INSERT INTO _id VALUES ('CUR_USD', c);
-    INSERT INTO tests.trans_exchange_rate (mstr_currency_id, rate_month, rate, auto_fetched, remarks) VALUES
+    INSERT INTO tests.trans_exchange_rate (mstr_currency_id, rate_date, rate, auto_fetched, remarks) VALUES
         (c, date_trunc('month', now())::date, 150.00, false, 'ダミー'),
         (c, (date_trunc('month', now()) - interval '1 month')::date, 148.00, false, 'ダミー');
     INSERT INTO tests.mstr_currency (code, names, currency_symbol, minor_unit, rate_auto)
     VALUES ('EUR', pg_temp.nm('ユーロ', 'Euro'), 'EUR', 2, true) RETURNING mstr_currency_id INTO c;
     INSERT INTO _id VALUES ('CUR_EUR', c);
-    INSERT INTO tests.trans_exchange_rate (mstr_currency_id, rate_month, rate, auto_fetched, remarks) VALUES
+    INSERT INTO tests.trans_exchange_rate (mstr_currency_id, rate_date, rate, auto_fetched, remarks) VALUES
         (c, date_trunc('month', now())::date, 162.00, false, 'ダミー'),
         (c, (date_trunc('month', now()) - interval '1 month')::date, 160.00, false, 'ダミー');
 END $$;

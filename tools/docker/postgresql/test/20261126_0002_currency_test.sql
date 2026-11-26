@@ -4,13 +4,13 @@
 --   psql -v ON_ERROR_STOP=1 -d postgres -f 20261126_0002_currency_test.sql
 -- C1 列の追加(通貨は NOT NULL・検収日は 1〜31 か NULL)
 -- C2 通貨マスタ: 履歴・有効なコードの一意・小数の桁数の範囲
--- C3 レートの引き当て: 基準通貨は 1・その月以前で最新・仮・追記(あとの行が有効)・取り消し
--- C4 検収日を考慮した換算の月
+-- C3 レートの引き当て: 基準通貨は 1・その日以前で適用開始日が最新・仮・追記(あとの行が有効)・取り消し・月の途中から適用
+-- C4 検収日(換算の基準日)
 -- C5 基準通貨への換算(丸め・レートが無いと NULL)
 -- C6 基準通貨の変更の保護(レートがあれば CUR01)
 -- C7 利害関係者の履歴に通貨・検収日が残る
 -- C8 v_currency_rate_latest
--- C9 為替レートの CHECK(月の初日・正の値)
+-- C9 為替レートの CHECK(月の途中の日付が通る・正の値)
 \getenv db_test_svr DB_TEST_SVR
 \connect :"db_test_svr"
 SET search_path TO tests, public;
@@ -72,7 +72,7 @@ BEGIN
     IF tests.currency_rate_at(v_jpy, DATE '2026-11-15') <> 1 THEN RAISE EXCEPTION 'C3 基準通貨が 1 でない'; END IF;
     IF tests.currency_rate_provisional(v_jpy, DATE '2026-11-15') THEN RAISE EXCEPTION 'C3 基準通貨が仮'; END IF;
     IF tests.currency_rate_at(v_usd, DATE '2026-11-15') IS NOT NULL THEN RAISE EXCEPTION 'C3 レートが無いのに値がある'; END IF;
-    INSERT INTO tests.trans_exchange_rate (mstr_currency_id, rate_month, rate, auto_fetched, source) VALUES
+    INSERT INTO tests.trans_exchange_rate (mstr_currency_id, rate_date, rate, auto_fetched, source) VALUES
         (v_usd, DATE '2026-09-01', 150.0, false, NULL),
         (v_usd, DATE '2026-11-01', 155.5, true, 'test');
     v_r := tests.currency_rate_at(v_usd, DATE '2026-10-15');
@@ -86,7 +86,7 @@ BEGIN
     -- 追記: 同じ月のあとの行が有効(同じトランザクションでは now() が同じなので、更新日時を入れるトリガーを止めて、日時を指定する)
     SET CONSTRAINTS ALL IMMEDIATE;
     ALTER TABLE tests.trans_exchange_rate DISABLE TRIGGER trg_01_updatetimes_trans_exchange_rate;
-    INSERT INTO tests.trans_exchange_rate (trans_exchange_rate_id, mstr_currency_id, rate_month, rate, update_at)
+    INSERT INTO tests.trans_exchange_rate (trans_exchange_rate_id, mstr_currency_id, rate_date, rate, update_at)
     VALUES (gen_random_uuid(), v_usd, DATE '2026-11-01', 156.0, now() + interval '1 hour');
     ALTER TABLE tests.trans_exchange_rate ENABLE TRIGGER trg_01_updatetimes_trans_exchange_rate;
     IF tests.currency_rate_at(v_usd, DATE '2026-11-30') <> 156.0 THEN RAISE EXCEPTION 'C3 追記のあとの行が有効でない'; END IF;
@@ -94,14 +94,29 @@ BEGIN
     UPDATE tests.trans_exchange_rate SET remove = true WHERE mstr_currency_id = v_usd AND rate = 156.0;
     IF tests.currency_rate_at(v_usd, DATE '2026-11-30') <> 155.5 THEN RAISE EXCEPTION 'C3 取り消しが効かない'; END IF;
 
-    -- C4: 検収日の月
-    IF tests.acceptance_month(25::smallint, DATE '2026-11-25') <> DATE '2026-11-01' THEN RAISE EXCEPTION 'C4 検収日当日は当月'; END IF;
-    IF tests.acceptance_month(25::smallint, DATE '2026-11-26') <> DATE '2026-12-01' THEN RAISE EXCEPTION 'C4 検収日の翌日は翌月'; END IF;
-    IF tests.acceptance_month(25::smallint, DATE '2026-12-31') <> DATE '2027-01-01' THEN RAISE EXCEPTION 'C4 年またぎ'; END IF;
-    IF tests.acceptance_month(NULL, DATE '2026-11-30') <> DATE '2026-11-01' THEN RAISE EXCEPTION 'C4 NULL は月末(当月)'; END IF;
-    IF tests.acceptance_month(31::smallint, DATE '2027-02-28') <> DATE '2027-02-01' THEN RAISE EXCEPTION 'C4 31 日は 2 月末まで当月'; END IF;
-    IF tests.acceptance_month(30::smallint, DATE '2028-02-29') <> DATE '2028-02-01' THEN RAISE EXCEPTION 'C4 うるう年'; END IF;
-    IF tests.acceptance_month(1::smallint, DATE '2026-11-02') <> DATE '2026-12-01' THEN RAISE EXCEPTION 'C4 1 日検収'; END IF;
+    -- 月の途中から適用する(終了日は持たない): 11/20 から 157。11/19 までは 155.5、11/20 以後は 157。月の途中の登録でも、その月の仮は外れる
+    INSERT INTO tests.trans_exchange_rate (mstr_currency_id, rate_date, rate) VALUES (v_usd, DATE '2026-11-20', 157.0);
+    IF tests.currency_rate_at(v_usd, DATE '2026-11-19') <> 155.5 THEN RAISE EXCEPTION 'C3 適用開始日の前日は前のレート'; END IF;
+    IF tests.currency_rate_at(v_usd, DATE '2026-11-20') <> 157.0 THEN RAISE EXCEPTION 'C3 適用開始日当日から新しいレート'; END IF;
+    IF tests.currency_rate_at(v_usd, DATE '2026-12-31') <> 157.0 THEN RAISE EXCEPTION 'C3 次のレートが出るまで続く'; END IF;
+    INSERT INTO tests.trans_exchange_rate (mstr_currency_id, rate_date, rate) VALUES (v_usd, DATE '2026-12-20', 160.0);
+    IF tests.currency_rate_at(v_usd, DATE '2026-12-10') <> 157.0 OR NOT tests.currency_rate_provisional(v_usd, DATE '2026-12-10') THEN RAISE EXCEPTION 'C3 12/20 開始の前は 11 月のレートで仮'; END IF;
+    IF tests.currency_rate_at(v_usd, DATE '2026-12-20') <> 160.0 OR tests.currency_rate_provisional(v_usd, DATE '2026-12-20') THEN RAISE EXCEPTION 'C3 12/20 から 12 月のレート'; END IF;
+    UPDATE tests.trans_exchange_rate SET remove = true WHERE mstr_currency_id = v_usd AND rate IN (157.0, 160.0);
+
+    -- C4: 検収日(換算の基準日)
+    IF tests.acceptance_date(25::smallint, DATE '2026-11-25') <> DATE '2026-11-25' THEN RAISE EXCEPTION 'C4 検収日当日は当日'; END IF;
+    IF tests.acceptance_date(25::smallint, DATE '2026-11-01') <> DATE '2026-11-25' THEN RAISE EXCEPTION 'C4 月初は当月の検収日'; END IF;
+    IF tests.acceptance_date(25::smallint, DATE '2026-11-26') <> DATE '2026-12-25' THEN RAISE EXCEPTION 'C4 検収日の翌日は翌月の検収日'; END IF;
+    IF tests.acceptance_date(25::smallint, DATE '2026-12-31') <> DATE '2027-01-25' THEN RAISE EXCEPTION 'C4 年またぎ'; END IF;
+    IF tests.acceptance_date(NULL, DATE '2026-11-30') <> DATE '2026-11-30' THEN RAISE EXCEPTION 'C4 NULL は月末(当月)'; END IF;
+    IF tests.acceptance_date(NULL, DATE '2026-11-10') <> DATE '2026-11-30' THEN RAISE EXCEPTION 'C4 NULL は月末(月の途中)'; END IF;
+    IF tests.acceptance_date(31::smallint, DATE '2027-02-28') <> DATE '2027-02-28' THEN RAISE EXCEPTION 'C4 31 日は 2 月末まで当月'; END IF;
+    IF tests.acceptance_date(31::smallint, DATE '2026-12-31') <> DATE '2026-12-31' THEN RAISE EXCEPTION 'C4 31 日の月'; END IF;
+    IF tests.acceptance_date(30::smallint, DATE '2028-02-29') <> DATE '2028-02-29' THEN RAISE EXCEPTION 'C4 うるう年'; END IF;
+    IF tests.acceptance_date(1::smallint, DATE '2026-11-02') <> DATE '2026-12-01' THEN RAISE EXCEPTION 'C4 1 日検収'; END IF;
+    IF tests.acceptance_date(30::smallint, DATE '2026-01-31') <> DATE '2026-02-28' THEN RAISE EXCEPTION 'C4 翌月の日数が少ない(30 日 → 2 月末)'; END IF;
+    IF tests.acceptance_date(25::smallint, NULL) IS NOT NULL THEN RAISE EXCEPTION 'C4 日付が NULL'; END IF;
 
     -- C5: 換算
     IF tests.currency_to_base(100.5, v_usd, DATE '2026-11-10') <> ROUND(100.5 * 155.5, (SELECT minor_unit FROM tests.mstr_currency WHERE mstr_currency_id = v_jpy)) THEN
@@ -126,19 +141,17 @@ BEGIN
     IF v_rev1 <> v_rev2 THEN RAISE EXCEPTION 'C7 同じ値で履歴が増えた'; END IF;
 
     -- C8: ビュー
-    SELECT rate, rate_month INTO v_r, v_d FROM tests.v_currency_rate_latest WHERE mstr_currency_id = v_usd;
+    SELECT rate, rate_date INTO v_r, v_d FROM tests.v_currency_rate_latest WHERE mstr_currency_id = v_usd;
     IF v_r <> 155.5 OR v_d <> DATE '2026-11-01' THEN RAISE EXCEPTION 'C8 最新のレート (% %)', v_r, v_d; END IF;
     SELECT rate INTO v_r FROM tests.v_currency_rate_latest WHERE mstr_currency_id = v_jpy;
     IF v_r <> 1 THEN RAISE EXCEPTION 'C8 基準通貨のレートは 1'; END IF;
     IF (SELECT count(*) FROM tests.v_currency_rate_latest WHERE mstr_currency_id = v_usd) <> 1 THEN RAISE EXCEPTION 'C8 1 通貨 1 行でない'; END IF;
 
     -- C9: CHECK
+    INSERT INTO tests.trans_exchange_rate (mstr_currency_id, rate_date, rate) VALUES (v_usd, DATE '2026-12-15', 150); -- 月の途中の日付が通る
+    UPDATE tests.trans_exchange_rate SET remove = true WHERE mstr_currency_id = v_usd AND rate_date = DATE '2026-12-15';
     BEGIN
-        INSERT INTO tests.trans_exchange_rate (mstr_currency_id, rate_month, rate) VALUES (v_usd, DATE '2026-12-15', 150);
-        RAISE EXCEPTION 'C9 月の初日でない日付が通った';
-    EXCEPTION WHEN check_violation THEN NULL; END;
-    BEGIN
-        INSERT INTO tests.trans_exchange_rate (mstr_currency_id, rate_month, rate) VALUES (v_usd, DATE '2026-12-01', 0);
+        INSERT INTO tests.trans_exchange_rate (mstr_currency_id, rate_date, rate) VALUES (v_usd, DATE '2026-12-01', 0);
         RAISE EXCEPTION 'C9 レート 0 が通った';
     EXCEPTION WHEN check_violation THEN NULL; END;
 

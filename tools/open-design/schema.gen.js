@@ -204,7 +204,7 @@ window.OD_SCHEMA = {
     }
    ],
    [
-    "rate_month",
+    "rate_date",
     "適用する月",
     "d",
     {}

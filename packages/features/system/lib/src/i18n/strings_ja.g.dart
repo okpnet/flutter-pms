@@ -176,8 +176,8 @@ class SystemStrings$entity$exchangerate$fields$ja {
 	/// ja: '通貨'
 	String get f_mstr_currency_id => '通貨';
 
-	/// ja: '適用する月'
-	String get f_rate_month => '適用する月';
+	/// ja: '適用開始日'
+	String get f_rate_date => '適用開始日';
 
 	/// ja: 'レート'
 	String get f_rate => 'レート';
@@ -219,7 +219,7 @@ extension on SystemStrings {
 			'entity.currency.fields.f_remarks' => '備考',
 			'entity.exchangerate.title' => '為替レート',
 			'entity.exchangerate.fields.f_mstr_currency_id' => '通貨',
-			'entity.exchangerate.fields.f_rate_month' => '適用する月',
+			'entity.exchangerate.fields.f_rate_date' => '適用開始日',
 			'entity.exchangerate.fields.f_rate' => 'レート',
 			'entity.exchangerate.fields.f_auto_fetched' => '自動取得',
 			'entity.exchangerate.fields.f_source' => '取得元',

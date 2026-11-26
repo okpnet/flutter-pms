@@ -596,15 +596,18 @@ class _ExchangeRateRepository implements IEntityRepository {
   Future<AuditUser?> _updater() async =>
       auditUser == null ? null : auditUser!();
 
-  /// `yyyy-MM-dd` または `yyyy-MM` の月の初日(`yyyy-MM-01`)。読めなければ null。
-  static String? _monthStart(String text) {
+  /// `yyyy-MM-dd`(区切りは `/` も可)の日付。実在しない日付・読めないときは null。
+  static String? _dateOf(String text) {
     final m = RegExp(
-      r'^(\d{4})[-/](\d{1,2})(?:[-/]\d{1,2})?$',
+      r'^(\d{4})[-/](\d{1,2})[-/](\d{1,2})$',
     ).firstMatch(text.trim());
     if (m == null) return null;
-    final month = int.parse(m.group(2)!);
-    if (month < 1 || month > 12) return null;
-    return '${m.group(1)}-${month.toString().padLeft(2, '0')}-01';
+    final y = int.parse(m.group(1)!);
+    final mo = int.parse(m.group(2)!);
+    final d = int.parse(m.group(3)!);
+    final parsed = DateTime.utc(y, mo, d);
+    if (parsed.year != y || parsed.month != mo || parsed.day != d) return null;
+    return '$y-${mo.toString().padLeft(2, '0')}-${d.toString().padLeft(2, '0')}';
   }
 
   @override
@@ -614,11 +617,11 @@ class _ExchangeRateRepository implements IEntityRepository {
     if (t('mstr_currency_id').isEmpty) {
       errors['mstr_currency_id'] = EntityFieldError.required;
     }
-    final month = _monthStart(t('rate_month'));
-    if (t('rate_month').isEmpty) {
-      errors['rate_month'] = EntityFieldError.required;
-    } else if (month == null) {
-      errors['rate_month'] = EntityFieldError.invalidDate;
+    final rateDate = _dateOf(t('rate_date'));
+    if (t('rate_date').isEmpty) {
+      errors['rate_date'] = EntityFieldError.required;
+    } else if (rateDate == null) {
+      errors['rate_date'] = EntityFieldError.invalidDate;
     }
     final rate = double.tryParse(t('rate'));
     if (t('rate').isEmpty) {
@@ -633,7 +636,7 @@ class _ExchangeRateRepository implements IEntityRepository {
       Options$Mutation$CurrencyRatePageCreate(
         variables: Variables$Mutation$CurrencyRatePageCreate.fromJson({
           'mstrCurrencyId': t('mstr_currency_id'),
-          'rateMonth': month,
+          'rateDate': rateDate,
           'rate': t('rate'),
           'autoFetched': t('auto_fetched') == 'はい',
           if (t('source').isNotEmpty) 'source': t('source'),
@@ -678,7 +681,7 @@ class _ExchangeRateRepository implements IEntityRepository {
     id: n.transExchangeRateId,
     values: {
       'mstr_currency_id': _text(n.mstrCurrencyId),
-      'rate_month': _text(n.rateMonth),
+      'rate_date': _text(n.rateDate),
       'rate': _text(n.rate),
       'auto_fetched': n.autoFetched == true ? 'はい' : 'いいえ',
       'source': _text(n.source),

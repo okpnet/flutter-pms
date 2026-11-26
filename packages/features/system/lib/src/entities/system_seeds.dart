@@ -106,7 +106,7 @@ const Map<String, List<EntityRecord>> systemSeeds = {
       id: '9ee0e262-0000-4000-8000-000000000001',
       values: {
         'mstr_currency_id': 'ddf28636-0000-4000-8000-000000000002',
-        'rate_month': '2026-11-01',
+        'rate_date': '2026-11-01',
         'rate': '150',
         'auto_fetched': 'はい',
         'source': '',
@@ -117,7 +117,7 @@ const Map<String, List<EntityRecord>> systemSeeds = {
       id: '9ee0e262-0000-4000-8000-000000000002',
       values: {
         'mstr_currency_id': 'ddf28636-0000-4000-8000-000000000003',
-        'rate_month': '2026-11-01',
+        'rate_date': '2026-11-01',
         'rate': '162',
         'auto_fetched': 'いいえ',
         'source': '',

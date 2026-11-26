@@ -56,7 +56,7 @@ const List<EntityDefinition> systemDefinitions = [
         kind: FieldKind.reference,
         reference: 'currency',
       ),
-      FieldDefinition(key: 'rate_month', kind: FieldKind.date),
+      FieldDefinition(key: 'rate_date', kind: FieldKind.date),
       FieldDefinition(key: 'rate', kind: FieldKind.number),
       FieldDefinition(
         key: 'auto_fetched',

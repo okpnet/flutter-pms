@@ -92,7 +92,7 @@ CurrencyRateLatestPage:
     - minor_unit
     - rate_auto
     - is_base
-    - rate_month
+    - rate_date
     - rate
     - auto_fetched
     - source
@@ -118,7 +118,7 @@ CurrencyRatePage:
       pick:
         - code
         - currency_symbol
-    - rate_month
+    - rate_date
     - rate
     - auto_fetched
     - source
@@ -137,7 +137,7 @@ CurrencyRatePageCreate:
   from: trans_exchange_rate
   columns:
     - mstr_currency_id
-    - rate_month
+    - rate_date
     - rate
     - auto_fetched
     - source
