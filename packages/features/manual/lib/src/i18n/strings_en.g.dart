@@ -52,6 +52,7 @@ class ManualStringsEn extends ManualStrings with BaseTranslations<ManualLocale, 
 	@override late final _ManualStrings$pdf$en pdf = _ManualStrings$pdf$en._(_root);
 	@override late final _ManualStrings$approval$en approval = _ManualStrings$approval$en._(_root);
 	@override late final _ManualStrings$errors$en errors = _ManualStrings$errors$en._(_root);
+	@override late final _ManualStrings$ledger$en ledger = _ManualStrings$ledger$en._(_root);
 }
 
 // Path: view
@@ -208,6 +209,9 @@ class _ManualStrings$approval$en extends ManualStrings$approval$ja {
 	@override String get unreadable => 'This document is pending approval and is not published.';
 	@override String get stamps => 'Approval';
 	@override String get rootOnly => 'Approval is recorded on the root document.';
+	@override String get request => 'Request approval';
+	@override String get requested => 'Approval requested ({count} notifications).';
+	@override String get requestedNone => 'Approval was already requested (no new notifications).';
 }
 
 // Path: errors
@@ -220,10 +224,30 @@ class _ManualStrings$errors$en extends ManualStrings$errors$ja {
 	@override String get titleRequired => 'Enter a page name.';
 	@override String get titleDuplicate => 'A page with the same name exists.';
 	@override String get notFound => 'Page not found.';
-	@override String get notAdmin => 'Only administrators can edit.';
+	@override String get notEditor => 'You do not have permission to edit.';
 	@override String get controlNumberRequired => 'Enter a control number.';
 	@override String get rootTierMissing => 'No document tier is registered. Register a document tier in the quality documents first.';
 	@override String get approvalPatternMissing => 'The approval pattern for documents is not set. Set the standard approval pattern for documents under Company > Approval (when no approval is needed, choose a pattern without approval steps).';
+	@override String get requestUnavailable => 'Cannot request approval (not required, or already published).';
+}
+
+// Path: ledger
+class _ManualStrings$ledger$en extends ManualStrings$ledger$ja {
+	_ManualStrings$ledger$en._(ManualStringsEn root) : this._root = root, super.internal(root);
+
+	final ManualStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Documents';
+	@override String get heading => 'Documents';
+	@override String get addRoot => 'New';
+	@override String get controlNumber => 'Control No.';
+	@override String get name => 'Name';
+	@override String get version => 'Version';
+	@override String get status => 'Status';
+	@override String get updatedAt => 'Updated';
+	@override String get empty => 'No documents.';
+	@override String count({required Object n}) => '${n} items';
 }
 
 // Path: edit.toolbar
@@ -353,13 +377,27 @@ extension on ManualStringsEn {
 			'approval.unreadable' => 'This document is pending approval and is not published.',
 			'approval.stamps' => 'Approval',
 			'approval.rootOnly' => 'Approval is recorded on the root document.',
+			'approval.request' => 'Request approval',
+			'approval.requested' => 'Approval requested ({count} notifications).',
+			'approval.requestedNone' => 'Approval was already requested (no new notifications).',
 			'errors.titleRequired' => 'Enter a page name.',
 			'errors.titleDuplicate' => 'A page with the same name exists.',
 			'errors.notFound' => 'Page not found.',
-			'errors.notAdmin' => 'Only administrators can edit.',
+			'errors.notEditor' => 'You do not have permission to edit.',
 			'errors.controlNumberRequired' => 'Enter a control number.',
 			'errors.rootTierMissing' => 'No document tier is registered. Register a document tier in the quality documents first.',
 			'errors.approvalPatternMissing' => 'The approval pattern for documents is not set. Set the standard approval pattern for documents under Company > Approval (when no approval is needed, choose a pattern without approval steps).',
+			'errors.requestUnavailable' => 'Cannot request approval (not required, or already published).',
+			'ledger.title' => 'Documents',
+			'ledger.heading' => 'Documents',
+			'ledger.addRoot' => 'New',
+			'ledger.controlNumber' => 'Control No.',
+			'ledger.name' => 'Name',
+			'ledger.version' => 'Version',
+			'ledger.status' => 'Status',
+			'ledger.updatedAt' => 'Updated',
+			'ledger.empty' => 'No documents.',
+			'ledger.count' => ({required Object n}) => '${n} items',
 			_ => null,
 		};
 	}

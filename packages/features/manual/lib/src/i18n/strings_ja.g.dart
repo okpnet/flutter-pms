@@ -60,6 +60,7 @@ class ManualStrings with BaseTranslations<ManualLocale, ManualStrings> {
 	late final ManualStrings$pdf$ja pdf = ManualStrings$pdf$ja.internal(_root);
 	late final ManualStrings$approval$ja approval = ManualStrings$approval$ja.internal(_root);
 	late final ManualStrings$errors$ja errors = ManualStrings$errors$ja.internal(_root);
+	late final ManualStrings$ledger$ja ledger = ManualStrings$ledger$ja.internal(_root);
 }
 
 // Path: view
@@ -383,6 +384,15 @@ class ManualStrings$approval$ja {
 
 	/// ja: '承認はルートの文書にあります。'
 	String get rootOnly => '承認はルートの文書にあります。';
+
+	/// ja: '承認を申請'
+	String get request => '承認を申請';
+
+	/// ja: '承認を申請しました({count} 件の通知)。'
+	String get requested => '承認を申請しました({count} 件の通知)。';
+
+	/// ja: '承認を申請済みです(新しい通知はありません)。'
+	String get requestedNone => '承認を申請済みです(新しい通知はありません)。';
 }
 
 // Path: errors
@@ -402,8 +412,8 @@ class ManualStrings$errors$ja {
 	/// ja: 'ページが見つかりません。'
 	String get notFound => 'ページが見つかりません。';
 
-	/// ja: '管理者だけが編集できます。'
-	String get notAdmin => '管理者だけが編集できます。';
+	/// ja: '編集の権限がありません。'
+	String get notEditor => '編集の権限がありません。';
 
 	/// ja: '管理番号を入力してください。'
 	String get controlNumberRequired => '管理番号を入力してください。';
@@ -413,6 +423,48 @@ class ManualStrings$errors$ja {
 
 	/// ja: '文書の承認パターンが設定されていません。会社情報の「承認」で、文書の標準の承認パターンを設定してください(承認が要らないときは、承認の段が無いパターンを選びます)。'
 	String get approvalPatternMissing => '文書の承認パターンが設定されていません。会社情報の「承認」で、文書の標準の承認パターンを設定してください(承認が要らないときは、承認の段が無いパターンを選びます)。';
+
+	/// ja: '承認を申請できません(承認が不要、またはすでに公開されています)。'
+	String get requestUnavailable => '承認を申請できません(承認が不要、またはすでに公開されています)。';
+}
+
+// Path: ledger
+class ManualStrings$ledger$ja {
+	ManualStrings$ledger$ja.internal(this._root);
+
+	final ManualStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '文書'
+	String get title => '文書';
+
+	/// ja: '文書の一覧'
+	String get heading => '文書の一覧';
+
+	/// ja: '新規'
+	String get addRoot => '新規';
+
+	/// ja: '管理番号'
+	String get controlNumber => '管理番号';
+
+	/// ja: '名称'
+	String get name => '名称';
+
+	/// ja: '版'
+	String get version => '版';
+
+	/// ja: '状態'
+	String get status => '状態';
+
+	/// ja: '更新日'
+	String get updatedAt => '更新日';
+
+	/// ja: '文書がありません。'
+	String get empty => '文書がありません。';
+
+	/// ja: '${n} 件'
+	String count({required Object n}) => '${n} 件';
 }
 
 // Path: edit.toolbar
@@ -564,13 +616,27 @@ extension on ManualStrings {
 			'approval.unreadable' => 'この文書は承認待ちのため、公開されていません。',
 			'approval.stamps' => '承認',
 			'approval.rootOnly' => '承認はルートの文書にあります。',
+			'approval.request' => '承認を申請',
+			'approval.requested' => '承認を申請しました({count} 件の通知)。',
+			'approval.requestedNone' => '承認を申請済みです(新しい通知はありません)。',
 			'errors.titleRequired' => 'ページ名を入力してください。',
 			'errors.titleDuplicate' => '同じ名前のページがあります。',
 			'errors.notFound' => 'ページが見つかりません。',
-			'errors.notAdmin' => '管理者だけが編集できます。',
+			'errors.notEditor' => '編集の権限がありません。',
 			'errors.controlNumberRequired' => '管理番号を入力してください。',
 			'errors.rootTierMissing' => '文書レベルが登録されていません。先に文書レベルを登録してください。',
 			'errors.approvalPatternMissing' => '文書の承認パターンが設定されていません。会社情報の「承認」で、文書の標準の承認パターンを設定してください(承認が要らないときは、承認の段が無いパターンを選びます)。',
+			'errors.requestUnavailable' => '承認を申請できません(承認が不要、またはすでに公開されています)。',
+			'ledger.title' => '文書',
+			'ledger.heading' => '文書の一覧',
+			'ledger.addRoot' => '新規',
+			'ledger.controlNumber' => '管理番号',
+			'ledger.name' => '名称',
+			'ledger.version' => '版',
+			'ledger.status' => '状態',
+			'ledger.updatedAt' => '更新日',
+			'ledger.empty' => '文書がありません。',
+			'ledger.count' => ({required Object n}) => '${n} 件',
 			_ => null,
 		};
 	}

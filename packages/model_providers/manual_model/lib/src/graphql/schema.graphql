@@ -350,6 +350,10 @@ type CreateMstrDocumentTreePayload {
   mstrDocumentTree: MstrDocumentTree
 }
 
+type DocumentRequestApprovalPayload {
+  integer: Int
+}
+
 type HistoryInfoStaff {
   historyId: UUID!
   infoStaffId: UUID!
@@ -488,6 +492,7 @@ type Mutation {
   createMstrDocumentContent(input: CreateMstrDocumentContentInput!): CreateMstrDocumentContentPayload
   createMstrDocumentContentTree(input: CreateMstrDocumentContentTreeInput!): CreateMstrDocumentContentTreePayload
   createMstrDocumentTree(input: CreateMstrDocumentTreeInput!): CreateMstrDocumentTreePayload
+  documentRequestApproval(input: DocumentRequestApprovalInput!): DocumentRequestApprovalPayload
   sharedAppellationSave(input: SharedAppellationSaveInput!): SharedAppellationSavePayload
   sharedTextSave(input: SharedTextSaveInput!): SharedTextSavePayload
 }
@@ -674,6 +679,11 @@ input DatetimeFilter {
   lessThanOrEqualTo: Datetime
   greaterThan: Datetime
   greaterThanOrEqualTo: Datetime
+}
+
+input DocumentRequestApprovalInput {
+  pDocumentId: UUID
+  pStaffId: UUID
 }
 
 input HistoryInfoStaffFilter {

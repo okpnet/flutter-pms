@@ -2,7 +2,6 @@ import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../i18n/strings_provider.dart';
 import 'document_settings_destinations.dart';
 import 'document_settings_page.dart';
 import 'document_settings_paths.dart';
@@ -29,15 +28,7 @@ class DocumentSettingsModule implements FeatureModule, MenuContributor {
   void registerHandlers(CommandHandlerRegistry registry, Ref ref) {}
 
   @override
-  List<MenuEntry> menuEntries(WidgetRef ref) {
-    final s = ref.watch(documentSettingsStringsProvider);
-    return [
-      MenuEntry(
-        groupId: operationsMenuGroupId,
-        groupLabel: operationsMenuGroupLabel(ref.watch(localeProvider).languageCode),
-        label: s.menuLabel,
-        destination: const DocumentSettingsDestination(),
-      ),
-    ];
-  }
+  List<MenuEntry> menuEntries(WidgetRef ref) =>
+      // 文書のメニューには出さない(管理者の設定の入口から開く。パス `/auth/admin/document-settings` と画面は残す)
+      const [];
 }

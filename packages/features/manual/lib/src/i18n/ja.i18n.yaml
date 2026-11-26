@@ -107,11 +107,26 @@ approval:
   unreadable: この文書は承認待ちのため、公開されていません。
   stamps: 承認
   rootOnly: 承認はルートの文書にあります。
+  request: 承認を申請
+  requested: 承認を申請しました({count} 件の通知)。
+  requestedNone: 承認を申請済みです(新しい通知はありません)。
 errors:
   titleRequired: ページ名を入力してください。
   titleDuplicate: 同じ名前のページがあります。
   notFound: ページが見つかりません。
-  notAdmin: 管理者だけが編集できます。
+  notEditor: 編集の権限がありません。
   controlNumberRequired: 管理番号を入力してください。
   rootTierMissing: 文書レベルが登録されていません。先に文書レベルを登録してください。
   approvalPatternMissing: 文書の承認パターンが設定されていません。会社情報の「承認」で、文書の標準の承認パターンを設定してください(承認が要らないときは、承認の段が無いパターンを選びます)。
+  requestUnavailable: 承認を申請できません(承認が不要、またはすでに公開されています)。
+ledger:
+  title: 文書
+  heading: 文書の一覧
+  addRoot: 新規
+  controlNumber: 管理番号
+  name: 名称
+  version: 版
+  status: 状態
+  updatedAt: 更新日
+  empty: 文書がありません。
+  count: '${n} 件'

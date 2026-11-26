@@ -2,7 +2,7 @@
 ///
 /// - [ManualModule]: アプリへ組み込む口(メニューはルートのページごとに 1 項目)
 /// - [manualRepositoryProvider] / [IManualRepository]: 取得元の差し込み口(既定はメモリ上のサンプル)
-/// - [manualIsAdminProvider]: 管理者か(既定は閲覧のみ。アプリが認証の結果で差し替える)
+/// - [manualCanEditProvider]: 管理者か(既定は閲覧のみ。アプリが認証の結果で差し替える)
 /// - [manualEditorNameProvider]: 更新者として記録する名前(既定はログインユーザーの表示名)
 /// 他の機能が使う遷移先の型は `manual_api.dart` を読み込む。
 library;
@@ -15,7 +15,7 @@ export 'src/data/manual_seed.dart' show manualSeedPages;
 export 'src/data/manual_providers.dart'
     show
         manualEditorNameProvider,
-        manualIsAdminProvider,
+        manualCanEditProvider,
         manualProvider,
         manualRepositoryProvider,
         ManualState;

@@ -18,9 +18,10 @@ void main() {
       ),
     );
     final keys = [for (final e in entries) (e.destination as EntityListDestination).entityKey];
-    expect(keys, containsAll(['doctier', 'report']));
+    expect(keys, isNot(contains('doctier')));
+    expect(keys, isNot(contains('report')));
     expect(keys, isNot(contains('doc')));
     expect(keys, isNot(contains('doccontent')));
-    expect(entries.map((e) => e.groupId).toSet(), {operationsMenuGroupId});
+    expect(entries.map((e) => e.groupId).toSet().difference({operationsMenuGroupId}), isEmpty);
   });
 }

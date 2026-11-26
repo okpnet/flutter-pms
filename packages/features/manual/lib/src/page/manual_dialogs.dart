@@ -12,10 +12,11 @@ String manualErrorText(ManualStrings s, ManualError e) => switch (e) {
   ManualError.titleRequired => s.errors.titleRequired,
   ManualError.titleDuplicate => s.errors.titleDuplicate,
   ManualError.notFound => s.errors.notFound,
-  ManualError.notAdmin => s.errors.notAdmin,
+  ManualError.notEditor => s.errors.notEditor,
   ManualError.controlNumberRequired => s.errors.controlNumberRequired,
   ManualError.rootTierMissing => s.errors.rootTierMissing,
   ManualError.approvalPatternMissing => s.errors.approvalPatternMissing,
+  ManualError.requestUnavailable => s.errors.requestUnavailable,
 };
 
 /// 新しいページ名を入れて作成する。作成したページを返す(取り消しは null)。

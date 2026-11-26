@@ -5,6 +5,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:markdown_pdf/markdown_pdf.dart';
 
+import 'manual_repository.dart' show ManualError, ManualException;
+
 /// 文書(ルートのページ)の公開・承認の状態。DB のビュー(`v_document_publication`・`v_document_approval_stamp`)の値。
 /// 公開の判定とスタンプの文字は DB のビューが持つため、画面・PDF はここの値をそのまま使う(判定を持たない)。
 class ManualApproval {
@@ -47,6 +49,10 @@ class ManualApproval {
 abstract interface class IManualApprovalSource {
   /// ルートのページ [rootPageId] の承認の状態。
   Future<ManualApproval> of(String rootPageId);
+
+  /// ルートのページ [rootPageId] の承認を申請する(承認する人への通知を作る。冪等)。作った通知の件数を返す。
+  /// 承認の段が無い・すでに公開済みのときは `ManualException(ManualError.requestUnavailable)`。
+  Future<int> request(String rootPageId);
 }
 
 /// 承認を持たない取得元(既定。すべて公開・スタンプなし)。
@@ -55,6 +61,9 @@ class NoManualApprovalSource implements IManualApprovalSource {
 
   @override
   Future<ManualApproval> of(String rootPageId) async => ManualApproval.none;
+
+  @override
+  Future<int> request(String rootPageId) async => throw const ManualException(ManualError.requestUnavailable);
 }
 
 /// メモリ上の取得元(example・テスト用)。
@@ -63,8 +72,21 @@ class InMemoryManualApprovalSource implements IManualApprovalSource {
 
   final Map<String, ManualApproval> byRoot;
 
+  /// 申請した文書の ID(テストで確かめる)。
+  final List<String> requested = [];
+
   @override
   Future<ManualApproval> of(String rootPageId) async => byRoot[rootPageId] ?? ManualApproval.none;
+
+  /// 承認待ちの文書だけ申請できる。同じ文書の 2 回目は通知を増やさない(0 件)。
+  @override
+  Future<int> request(String rootPageId) async {
+    final a = byRoot[rootPageId] ?? ManualApproval.none;
+    if (!a.pending) throw const ManualException(ManualError.requestUnavailable);
+    if (requested.contains(rootPageId)) return 0;
+    requested.add(rootPageId);
+    return a.steps.length;
+  }
 }
 
 final manualApprovalSourceProvider = Provider<IManualApprovalSource>((ref) => const NoManualApprovalSource());

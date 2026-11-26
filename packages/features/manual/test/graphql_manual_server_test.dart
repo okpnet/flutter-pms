@@ -49,7 +49,7 @@ void main() {
         title: 'テスト文書 $stamp',
         md: '',
         updatedBy: 'test',
-        isAdmin: true,
+        canEdit: true,
         controlNumber: 'TEST-$stamp',
       );
     } on ManualException catch (e) {
@@ -61,26 +61,26 @@ void main() {
     expect(root.isRoot, isTrue);
     expect(root.title, 'テスト文書 $stamp');
 
-    final child = await repo.create(parentId: root.id, title: '章 $stamp', md: '# 初版', updatedBy: 'test', isAdmin: true);
+    final child = await repo.create(parentId: root.id, title: '章 $stamp', md: '# 初版', updatedBy: 'test', canEdit: true);
     expect(child.parentId, root.id);
     expect(child.md, '# 初版');
     expect(child.rev, 1);
 
-    final grand = await repo.create(parentId: child.id, title: '節 $stamp', md: '節の本文', updatedBy: 'test', isAdmin: true);
+    final grand = await repo.create(parentId: child.id, title: '節 $stamp', md: '節の本文', updatedBy: 'test', canEdit: true);
     expect(grand.parentId, child.id);
 
-    final saved = await repo.update(child.id, title: child.title, md: '# 第 2 版\n\n[[節 $stamp]]', updatedBy: 'test', isAdmin: true);
+    final saved = await repo.update(child.id, title: child.title, md: '# 第 2 版\n\n[[節 $stamp]]', updatedBy: 'test', canEdit: true);
     expect(saved.md, '# 第 2 版\n\n[[節 $stamp]]');
     expect(saved.rev, 2);
     expect(saved.history.map((h) => h.rev), [1]);
     expect(saved.history.single.md, '# 初版');
 
     // ページ名を変えると、ほかのページのリンクが追従する
-    await repo.update(grand.id, title: '節 $stamp 改', md: '節の本文', updatedBy: 'test', isAdmin: true);
+    await repo.update(grand.id, title: '節 $stamp 改', md: '節の本文', updatedBy: 'test', canEdit: true);
     final pages = await repo.list();
     expect(pages.firstWhere((p) => p.id == child.id).md, '# 第 2 版\n\n[[節 $stamp 改]]');
 
-    final restored = await repo.restore(child.id, 1, updatedBy: 'test', isAdmin: true);
+    final restored = await repo.restore(child.id, 1, updatedBy: 'test', canEdit: true);
     expect(restored.md, '# 初版');
 
     // 公開・承認の状態(承認の設定が無ければ承認なし = 公開)

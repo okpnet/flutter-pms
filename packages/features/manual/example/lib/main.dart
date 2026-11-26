@@ -28,13 +28,13 @@ ManualPageRecord _secondRoot() => ManualPageRecord(
 
 /// マニュアル(Wiki)を単体で確認するアプリ。本番(pms_app)と同じ配線で、この機能だけを載せる。
 ///
-/// [isAdmin] が true のとき、編集・子ページの追加・ルートの追加・履歴の復元ができる
+/// [canEdit] が true のとき、編集・子ページの追加・ルートの追加・履歴の復元ができる
 /// (false は閲覧のみ)。取得元はメモリ上のサンプル(ルートが 2 つ)。
 class ExampleApp extends StatelessWidget {
-  const ExampleApp({super.key, required this.logger, this.isAdmin = true});
+  const ExampleApp({super.key, required this.logger, this.canEdit = true});
 
   final ILoggerProvider logger;
-  final bool isAdmin;
+  final bool canEdit;
 
   @override
   Widget build(BuildContext context) => FeatureHost(
@@ -49,7 +49,7 @@ class ExampleApp extends StatelessWidget {
     logger: logger,
     overrides: [
       themeLoggerProvider.overrideWithValue(logger),
-      manualIsAdminProvider.overrideWithValue(isAdmin),
+      manualCanEditProvider.overrideWithValue(canEdit),
       manualEditorNameProvider.overrideWithValue('鈴木 一郎'),
       manualApprovalSourceProvider.overrideWithValue(
         InMemoryManualApprovalSource({

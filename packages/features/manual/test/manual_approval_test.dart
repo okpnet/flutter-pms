@@ -51,7 +51,7 @@ Widget _app(
   return ProviderScope(
     overrides: [
       manualRepositoryProvider.overrideWithValue(InMemoryManualRepository()),
-      manualIsAdminProvider.overrideWithValue(false),
+      manualCanEditProvider.overrideWithValue(false),
       manualEditorNameProvider.overrideWithValue('テスト'),
       manualApprovalSourceProvider.overrideWithValue(InMemoryManualApprovalSource(approvals)),
       manualPdfFontsProvider.overrideWith((ref) async => PdfFonts(

@@ -239,8 +239,8 @@ void main() {
   test('管理者でなければ書けない', () async {
     final r = _repo(_FakeServer());
     expect(
-      r.update('c1', title: 'P1', md: 'x', updatedBy: '', isAdmin: false),
-      throwsA(isA<ManualException>().having((e) => e.error, 'error', ManualError.notAdmin)),
+      r.update('c1', title: 'P1', md: 'x', updatedBy: '', canEdit: false),
+      throwsA(isA<ManualException>().having((e) => e.error, 'error', ManualError.notEditor)),
     );
   });
 
@@ -248,10 +248,10 @@ void main() {
     final s = _FakeServer();
     final r = _repo(s, audit: true);
     expect(
-      r.create(parentId: null, title: '新しい文書', md: '', updatedBy: '', isAdmin: true, controlNumber: ' '),
+      r.create(parentId: null, title: '新しい文書', md: '', updatedBy: '', canEdit: true, controlNumber: ' '),
       throwsA(isA<ManualException>().having((e) => e.error, 'error', ManualError.controlNumberRequired)),
     );
-    final page = await r.create(parentId: null, title: '新しい文書', md: '', updatedBy: '', isAdmin: true, controlNumber: 'QM-002');
+    final page = await r.create(parentId: null, title: '新しい文書', md: '', updatedBy: '', canEdit: true, controlNumber: 'QM-002');
     expect(page.isRoot, isTrue);
     expect(page.title, 'new'); // 仮のサーバーが返す名称
     final doc = s.calls('ManualDocumentPageCreate').single.variables;
@@ -271,7 +271,7 @@ void main() {
 
   test('子のページの作成: 本文 → 文書コンテンツ(属する文書・並び)→ ツリー(親のページ)', () async {
     final s = _FakeServer();
-    final page = await _repo(s).create(parentId: 'c1', title: '孫', md: '# 本文', updatedBy: '', isAdmin: true);
+    final page = await _repo(s).create(parentId: 'c1', title: '孫', md: '# 本文', updatedBy: '', canEdit: true);
     expect(page.parentId, 'c1');
     final c = s.calls('ManualContentPageCreate').single.variables;
     expect(c['mstrDocumentId'], 'd1'); // 親をたどったルートの文書
@@ -285,7 +285,7 @@ void main() {
 
   test('ルート直下の子のページ: 親のページはルートの文書で、ツリーの親は付けない', () async {
     final s = _FakeServer();
-    await _repo(s).create(parentId: 'd1', title: '章', md: '', updatedBy: '', isAdmin: true);
+    await _repo(s).create(parentId: 'd1', title: '章', md: '', updatedBy: '', canEdit: true);
     expect(s.calls('ManualContentPageCreate').single.variables['mstrDocumentId'], 'd1');
     expect(s.calls('ManualContentTreePageCreate').single.variables.containsKey('parentMstrDocumentContentId'), isFalse);
   });
@@ -293,18 +293,18 @@ void main() {
   test('同じ名前・空の名前は作れない', () async {
     final r = _repo(_FakeServer());
     expect(
-      r.create(parentId: 'd1', title: 'P1', md: '', updatedBy: '', isAdmin: true),
+      r.create(parentId: 'd1', title: 'P1', md: '', updatedBy: '', canEdit: true),
       throwsA(isA<ManualException>().having((e) => e.error, 'error', ManualError.titleDuplicate)),
     );
     expect(
-      r.create(parentId: 'd1', title: '  ', md: '', updatedBy: '', isAdmin: true),
+      r.create(parentId: 'd1', title: '  ', md: '', updatedBy: '', canEdit: true),
       throwsA(isA<ManualException>().having((e) => e.error, 'error', ManualError.titleRequired)),
     );
   });
 
   test('本文の保存: 言語 ja の値だけを、そのページの共有テキストに入れ替える(JSON の文字列)', () async {
     final s = _FakeServer();
-    final saved = await _repo(s).update('c1', title: 'P1', md: '新しい本文', updatedBy: '', isAdmin: true);
+    final saved = await _repo(s).update('c1', title: 'P1', md: '新しい本文', updatedBy: '', canEdit: true);
     final call = s.calls('ManualTextSavePageCall').single.variables;
     expect(call['pTextId'], 't1');
     expect(jsonDecode(call['pValues'] as String), {'ja': '新しい本文'});
@@ -315,13 +315,13 @@ void main() {
 
   test('変更が無いときは何も書かない', () async {
     final s = _FakeServer();
-    await _repo(s).update('c1', title: 'P1', md: 'body1 [[P2]]', updatedBy: '', isAdmin: true);
+    await _repo(s).update('c1', title: 'P1', md: 'body1 [[P2]]', updatedBy: '', canEdit: true);
     expect(s.requests.where((r) => r.operation.document.definitions.whereType<OperationDefinitionNode>().first.name!.value.contains('Save')), isEmpty);
   });
 
   test('ページ名の変更: 呼称を入れ替え、ほかのページのリンクも追従させる', () async {
     final s = _FakeServer();
-    await _repo(s).update('c1', title: 'P1x', md: 'body1 [[P2]]', updatedBy: '', isAdmin: true);
+    await _repo(s).update('c1', title: 'P1x', md: 'body1 [[P2]]', updatedBy: '', canEdit: true);
     final name = s.calls('ManualAppellationSavePageCall').single.variables;
     expect(name['pAppellationId'], 'ta-c1');
     expect(jsonDecode(name['pName'] as String), {'ja': 'P1x'});
@@ -333,7 +333,7 @@ void main() {
 
   test('ルートの文書は、ページ名だけを変える(本文は書かない)', () async {
     final s = _FakeServer();
-    await _repo(s).update('d1', title: 'QM2', md: '無視される', updatedBy: '', isAdmin: true);
+    await _repo(s).update('d1', title: 'QM2', md: '無視される', updatedBy: '', canEdit: true);
     expect(s.calls('ManualTextSavePageCall'), isEmpty);
     final name = s.calls('ManualAppellationSavePageCall').single.variables;
     expect(name['pAppellationId'], 'ta1');
@@ -341,11 +341,11 @@ void main() {
 
   test('履歴の復元: その版の本文を、新しい版として保存する', () async {
     final s = _FakeServer();
-    final saved = await _repo(s).restore('c1', 2, updatedBy: '', isAdmin: true);
+    final saved = await _repo(s).restore('c1', 2, updatedBy: '', canEdit: true);
     expect(jsonDecode(s.calls('ManualTextSavePageCall').single.variables['pValues'] as String), {'ja': 'v2'});
     expect(saved.md, 'v2');
     expect(
-      _repo(s).restore('c1', 99, updatedBy: '', isAdmin: true),
+      _repo(s).restore('c1', 99, updatedBy: '', canEdit: true),
       throwsA(isA<ManualException>().having((e) => e.error, 'error', ManualError.notFound)),
     );
   });

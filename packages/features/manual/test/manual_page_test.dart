@@ -19,7 +19,7 @@ Widget _app({
   return ProviderScope(
     overrides: [
       manualRepositoryProvider.overrideWithValue(r),
-      manualIsAdminProvider.overrideWithValue(admin),
+      manualCanEditProvider.overrideWithValue(admin),
       manualEditorNameProvider.overrideWithValue('テスト管理者'),
     ],
     child: MaterialApp.router(routerConfig: router),
@@ -35,7 +35,7 @@ Future<void> _pump(WidgetTester tester, Widget app) async {
 
 void main() {
   testWidgets('閲覧のみ: 目次・本文・被リンクが出て、編集の操作は出ない', (tester) async {
-    await _pump(tester, _app(admin: false));
+    await _pump(tester, _app(admin: false, initial: '/manual?id=m1'));
     expect(find.text('品質マニュアル'), findsWidgets); // 見出しと目次
     expect(find.byKey(const Key('manual-readonly')), findsOneWidget);
     expect(find.byKey(const Key('manual-edit')), findsNothing);
@@ -53,7 +53,7 @@ void main() {
   });
 
   testWidgets('検索はページ名・本文で絞り込む', (tester) async {
-    await _pump(tester, _app(admin: false));
+    await _pump(tester, _app(admin: false, initial: '/manual?id=m1'));
     await tester.enterText(find.byKey(const Key('manual-search')), 'コンテナ');
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('manual-toc-m42')), findsOneWidget);
@@ -259,14 +259,14 @@ void main() {
     expect(all, contains('## 品質方針と目標'));
   });
 
-  testWidgets('メニューはルートごとの項目(ルートが増えると項目も増える)', (tester) async {
+  testWidgets('メニューは「文書」(台帳)の 1 項目', (tester) async {
     final repo = InMemoryManualRepository();
     late WidgetRef captured;
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
           manualRepositoryProvider.overrideWithValue(repo),
-          manualIsAdminProvider.overrideWithValue(true),
+          manualCanEditProvider.overrideWithValue(true),
         ],
         child: Consumer(
           builder: (context, ref, _) {
@@ -280,13 +280,14 @@ void main() {
     await tester.pumpAndSettle();
     List<String> labels() =>
         const ManualModule().menuEntries(captured).map((e) => e.label).toList();
-    expect(labels(), ['品質マニュアル']);
+    // メニューは「文書」(台帳)の 1 項目。ルートが増えても項目は増えない(ルートごとの入口は台帳にある)
+    expect(labels(), ['文書']);
     await captured.read(manualProvider.notifier).create(parentId: null, title: '安全マニュアル');
     await tester.pumpAndSettle();
-    expect(labels(), ['品質マニュアル', '安全マニュアル']);
-    final e = const ManualModule().menuEntries(captured).last;
+    expect(labels(), ['文書']);
+    final e = const ManualModule().menuEntries(captured).single;
     expect(e.groupId, operationsMenuGroupId);
-    expect(e.destination, isA<ManualDestination>().having((d) => d.pageId, 'pageId', isNotNull));
+    expect(e.destination, isA<ManualDestination>().having((d) => d.pageId, 'pageId', isNull));
   });
 
   test('遷移先はパスに変換でき、他の遷移先は引き受けない', () {

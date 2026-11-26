@@ -107,11 +107,26 @@ approval:
   unreadable: This document is pending approval and is not published.
   stamps: Approval
   rootOnly: Approval is recorded on the root document.
+  request: Request approval
+  requested: Approval requested ({count} notifications).
+  requestedNone: Approval was already requested (no new notifications).
 errors:
   titleRequired: Enter a page name.
   titleDuplicate: A page with the same name exists.
   notFound: Page not found.
-  notAdmin: Only administrators can edit.
+  notEditor: You do not have permission to edit.
   controlNumberRequired: Enter a control number.
   rootTierMissing: No document tier is registered. Register a document tier in the quality documents first.
   approvalPatternMissing: The approval pattern for documents is not set. Set the standard approval pattern for documents under Company > Approval (when no approval is needed, choose a pattern without approval steps).
+  requestUnavailable: Cannot request approval (not required, or already published).
+ledger:
+  title: Documents
+  heading: Documents
+  addRoot: New
+  controlNumber: Control No.
+  name: Name
+  version: Version
+  status: Status
+  updatedAt: Updated
+  empty: No documents.
+  count: '${n} items'

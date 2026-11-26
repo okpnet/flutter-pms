@@ -112,33 +112,33 @@ void main() {
 
     test('管理者でなければ作成・更新・復元できない', () async {
       expect(
-        (await failure(repo.create(parentId: null, title: 'N', md: '', updatedBy: 'u', isAdmin: false))).error,
-        ManualError.notAdmin,
+        (await failure(repo.create(parentId: null, title: 'N', md: '', updatedBy: 'u', canEdit: false))).error,
+        ManualError.notEditor,
       );
       expect(
-        (await failure(repo.update('a', title: 'A', md: 'y', updatedBy: 'u', isAdmin: false))).error,
-        ManualError.notAdmin,
+        (await failure(repo.update('a', title: 'A', md: 'y', updatedBy: 'u', canEdit: false))).error,
+        ManualError.notEditor,
       );
     });
 
     test('ルートを複数作れる。名前は必須・重複不可', () async {
-      final r = await repo.create(parentId: null, title: '新ルート', md: '', updatedBy: 'u', isAdmin: true);
+      final r = await repo.create(parentId: null, title: '新ルート', md: '', updatedBy: 'u', canEdit: true);
       expect(r.isRoot, isTrue);
       expect((await repo.list()).where((p) => p.isRoot), hasLength(2));
       expect(
-        (await failure(repo.create(parentId: null, title: ' ', md: '', updatedBy: 'u', isAdmin: true))).error,
+        (await failure(repo.create(parentId: null, title: ' ', md: '', updatedBy: 'u', canEdit: true))).error,
         ManualError.titleRequired,
       );
       expect(
-        (await failure(repo.create(parentId: 'a', title: 'B', md: '', updatedBy: 'u', isAdmin: true))).error,
+        (await failure(repo.create(parentId: 'a', title: 'B', md: '', updatedBy: 'u', canEdit: true))).error,
         ManualError.titleDuplicate,
       );
     });
 
     test('保存: 変更があれば改訂を上げ、直前の版を履歴へ。変更なしは何もしない', () async {
-      final same = await repo.update('a', title: 'A', md: 'x', updatedBy: 'u', isAdmin: true);
+      final same = await repo.update('a', title: 'A', md: 'x', updatedBy: 'u', canEdit: true);
       expect(same.rev, 1);
-      final saved = await repo.update('a', title: 'A', md: 'y', updatedBy: 'u2', isAdmin: true);
+      final saved = await repo.update('a', title: 'A', md: 'y', updatedBy: 'u2', canEdit: true);
       expect(saved.rev, 2);
       expect(saved.updatedBy, 'u2');
       expect(saved.history.single.md, 'x');
@@ -146,7 +146,7 @@ void main() {
 
     test('履歴は最新 10 件まで', () async {
       for (var i = 0; i < 12; i++) {
-        await repo.update('a', title: 'A', md: 'v$i', updatedBy: 'u', isAdmin: true);
+        await repo.update('a', title: 'A', md: 'v$i', updatedBy: 'u', canEdit: true);
       }
       final a = (await repo.list()).firstWhere((p) => p.id == 'a');
       expect(a.rev, 13);
@@ -155,20 +155,20 @@ void main() {
     });
 
     test('ページ名を変えると、ほかのページのリンクが追従する(改訂は上げない)', () async {
-      await repo.update('a', title: 'AA', md: 'x', updatedBy: 'u', isAdmin: true);
+      await repo.update('a', title: 'AA', md: 'x', updatedBy: 'u', canEdit: true);
       final b = (await repo.list()).firstWhere((p) => p.id == 'b');
       expect(b.md, '[[AA]]');
       expect(b.rev, 1);
     });
 
     test('復元: 戻す前の版も履歴に残る', () async {
-      await repo.update('a', title: 'A', md: 'y', updatedBy: 'u', isAdmin: true);
-      final restored = await repo.restore('a', 1, updatedBy: 'u', isAdmin: true);
+      await repo.update('a', title: 'A', md: 'y', updatedBy: 'u', canEdit: true);
+      final restored = await repo.restore('a', 1, updatedBy: 'u', canEdit: true);
       expect(restored.md, 'x');
       expect(restored.rev, 3);
       expect(restored.history.map((h) => h.md), ['y', 'x']);
       expect(
-        (await failure(repo.restore('a', 99, updatedBy: 'u', isAdmin: true))).error,
+        (await failure(repo.restore('a', 99, updatedBy: 'u', canEdit: true))).error,
         ManualError.notFound,
       );
     });

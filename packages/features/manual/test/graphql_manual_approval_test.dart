@@ -200,13 +200,13 @@ void main() {
       ProviderScope(
         overrides: [
           manualRepositoryProvider.overrideWithValue(repo),
-          manualIsAdminProvider.overrideWithValue(true),
+          manualCanEditProvider.overrideWithValue(true),
         ],
         child: MaterialApp.router(routerConfig: router),
       ),
     );
     await tester.pumpAndSettle();
-    await tester.tap(find.byKey(const Key('manual-add-root')));
+    await tester.tap(find.byKey(const Key('manual-ledger-add')));
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('manual-create-control-number')), findsOneWidget);
     await tester.enterText(find.byKey(const Key('manual-create-name')), '新しい文書');
@@ -228,7 +228,7 @@ void main() {
       ProviderScope(
         overrides: [
           manualRepositoryProvider.overrideWithValue(repo),
-          manualIsAdminProvider.overrideWithValue(true),
+          manualCanEditProvider.overrideWithValue(true),
         ],
         child: MaterialApp.router(routerConfig: router),
       ),
@@ -274,7 +274,7 @@ class _RequiresNumberRepository implements IManualRepository {
     required String title,
     required String md,
     required String updatedBy,
-    required bool isAdmin,
+    required bool canEdit,
     String? controlNumber,
   }) async {
     if (parentId == null && (controlNumber ?? '').isEmpty) {
@@ -296,9 +296,9 @@ class _RequiresNumberRepository implements IManualRepository {
   }
 
   @override
-  Future<ManualPageRecord> update(String id, {required String title, required String md, required String updatedBy, required bool isAdmin}) =>
+  Future<ManualPageRecord> update(String id, {required String title, required String md, required String updatedBy, required bool canEdit}) =>
       throw UnimplementedError();
 
   @override
-  Future<ManualPageRecord> restore(String id, int rev, {required String updatedBy, required bool isAdmin}) => throw UnimplementedError();
+  Future<ManualPageRecord> restore(String id, int rev, {required String updatedBy, required bool canEdit}) => throw UnimplementedError();
 }

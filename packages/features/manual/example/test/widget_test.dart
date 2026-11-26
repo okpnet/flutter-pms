@@ -4,11 +4,11 @@ import 'package:logger_provider/logger_provider.dart';
 import 'package:manual_example/main.dart';
 
 void main() {
-  Future<void> boot(WidgetTester tester, {bool isAdmin = true}) async {
+  Future<void> boot(WidgetTester tester, {bool canEdit = true}) async {
     await tester.binding.setSurfaceSize(const Size(1280, 1000));
     addTearDown(() => tester.binding.setSurfaceSize(null));
     await tester.pumpWidget(
-      ExampleApp(logger: const NoopLoggerProvider(), isAdmin: isAdmin),
+      ExampleApp(logger: const NoopLoggerProvider(), canEdit: canEdit),
     );
     await tester.pumpAndSettle();
   }
@@ -50,7 +50,7 @@ void main() {
   });
 
   testWidgets('管理者でなければ、閲覧のみ(編集の状態を求めても閲覧になる)', (tester) async {
-    await boot(tester, isAdmin: false);
+    await boot(tester, canEdit: false);
     await tester.tap(find.text('工程管理(編集の状態)'));
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('manual-edit-title')), findsNothing);

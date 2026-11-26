@@ -176,8 +176,8 @@ class GraphqlManualRepository implements IManualRepository {
 
   // ---- 書き込み ----
 
-  void _guard(bool isAdmin) {
-    if (!isAdmin) throw const ManualException(ManualError.notAdmin);
+  void _guard(bool canEdit) {
+    if (!canEdit) throw const ManualException(ManualError.notEditor);
   }
 
   void _checkTitle(List<ManualPageRecord> pages, String title, {String? exceptId}) {
@@ -244,10 +244,10 @@ class GraphqlManualRepository implements IManualRepository {
     required String title,
     required String md,
     required String updatedBy,
-    required bool isAdmin,
+    required bool canEdit,
     String? controlNumber,
   }) async {
-    _guard(isAdmin);
+    _guard(canEdit);
     final name = title.trim();
     final pages = await list();
     _checkTitle(pages, name);
@@ -326,9 +326,9 @@ class GraphqlManualRepository implements IManualRepository {
     required String title,
     required String md,
     required String updatedBy,
-    required bool isAdmin,
+    required bool canEdit,
   }) async {
-    _guard(isAdmin);
+    _guard(canEdit);
     final pages = await list();
     final old = pages.where((p) => p.id == id).firstOrNull;
     if (old == null) throw const ManualException(ManualError.notFound);
@@ -357,14 +357,14 @@ class GraphqlManualRepository implements IManualRepository {
     String id,
     int rev, {
     required String updatedBy,
-    required bool isAdmin,
+    required bool canEdit,
   }) async {
-    _guard(isAdmin);
+    _guard(canEdit);
     final pages = await list();
     final page = pages.where((p) => p.id == id).firstOrNull;
     if (page == null) throw const ManualException(ManualError.notFound);
     final version = page.history.where((h) => h.rev == rev).firstOrNull;
     if (version == null) throw const ManualException(ManualError.notFound);
-    return update(id, title: page.title, md: version.md, updatedBy: updatedBy, isAdmin: isAdmin);
+    return update(id, title: page.title, md: version.md, updatedBy: updatedBy, canEdit: canEdit);
   }
 }

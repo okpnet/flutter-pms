@@ -21,6 +21,7 @@ export 'src/graphql/manual_document_page/manual_document_page_read.graphql.dart'
 export 'src/graphql/manual_document_tree_page/manual_document_tree_page_create.graphql.dart';
 export 'src/graphql/manual_language_page/manual_language_page_read.graphql.dart';
 export 'src/graphql/manual_publication_page/manual_publication_page_read.graphql.dart';
+export 'src/graphql/manual_request_approval_page/manual_request_approval_page_call.graphql.dart';
 export 'src/graphql/manual_text_history_page/manual_text_history_page_read.graphql.dart';
 export 'src/graphql/manual_text_save_page/manual_text_save_page_call.graphql.dart';
 export 'src/graphql/manual_text_value_page/manual_text_value_page_read.graphql.dart';

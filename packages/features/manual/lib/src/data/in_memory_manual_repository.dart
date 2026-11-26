@@ -24,8 +24,8 @@ class InMemoryManualRepository implements IManualRepository {
   @override
   Future<List<ManualPageRecord>> list() async => List.unmodifiable(_pages);
 
-  void _guard(bool isAdmin) {
-    if (!isAdmin) throw const ManualException(ManualError.notAdmin);
+  void _guard(bool canEdit) {
+    if (!canEdit) throw const ManualException(ManualError.notEditor);
   }
 
   int _indexOf(String id) {
@@ -48,10 +48,10 @@ class InMemoryManualRepository implements IManualRepository {
     required String title,
     required String md,
     required String updatedBy,
-    required bool isAdmin,
+    required bool canEdit,
     String? controlNumber,
   }) async {
-    _guard(isAdmin);
+    _guard(canEdit);
     if (parentId != null) _indexOf(parentId);
     _checkTitle(title);
     final siblings = _pages.where((p) => p.parentId == parentId);
@@ -78,9 +78,9 @@ class InMemoryManualRepository implements IManualRepository {
     required String title,
     required String md,
     required String updatedBy,
-    required bool isAdmin,
+    required bool canEdit,
   }) async {
-    _guard(isAdmin);
+    _guard(canEdit);
     final i = _indexOf(id);
     final old = _pages[i];
     final newTitle = title.trim();
@@ -125,9 +125,9 @@ class InMemoryManualRepository implements IManualRepository {
     String id,
     int rev, {
     required String updatedBy,
-    required bool isAdmin,
+    required bool canEdit,
   }) async {
-    _guard(isAdmin);
+    _guard(canEdit);
     final page = _pages[_indexOf(id)];
     final version = page.history.where((h) => h.rev == rev).firstOrNull;
     if (version == null) throw const ManualException(ManualError.notFound);
@@ -136,7 +136,7 @@ class InMemoryManualRepository implements IManualRepository {
       title: version.title,
       md: version.md,
       updatedBy: updatedBy,
-      isAdmin: isAdmin,
+      canEdit: canEdit,
     );
   }
 }

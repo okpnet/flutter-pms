@@ -13,7 +13,7 @@ final manualRepositoryProvider = Provider<IManualRepository>(
 
 /// 現在のユーザーが管理者か。既定は閲覧のみ(false)。アプリが認証の結果で差し替える。
 /// 編集・子ページの追加・履歴の復元・未作成リンクからのページ作成は、管理者だけ。
-final manualIsAdminProvider = Provider<bool>((ref) => false);
+final manualCanEditProvider = Provider<bool>((ref) => false);
 
 /// 更新者として記録する名前。既定はログインユーザーの表示名(無ければ空)。
 final manualEditorNameProvider = Provider<String>(
@@ -46,7 +46,7 @@ class ManualNotifier extends Notifier<ManualState> {
     if (ref.mounted) state = ManualState(pages: pages, loaded: true);
   }
 
-  bool get _admin => ref.read(manualIsAdminProvider);
+  bool get _admin => ref.read(manualCanEditProvider);
   String get _by => ref.read(manualEditorNameProvider);
 
   Future<ManualPageRecord> create({
@@ -62,7 +62,7 @@ class ManualNotifier extends Notifier<ManualState> {
           title: title,
           md: md,
           updatedBy: _by,
-          isAdmin: _admin,
+          canEdit: _admin,
           controlNumber: controlNumber,
         );
     await reload();
@@ -76,7 +76,7 @@ class ManualNotifier extends Notifier<ManualState> {
   }) async {
     final page = await ref
         .read(manualRepositoryProvider)
-        .update(id, title: title, md: md, updatedBy: _by, isAdmin: _admin);
+        .update(id, title: title, md: md, updatedBy: _by, canEdit: _admin);
     await reload();
     return page;
   }
@@ -84,7 +84,7 @@ class ManualNotifier extends Notifier<ManualState> {
   Future<ManualPageRecord> restore(String id, int rev) async {
     final page = await ref
         .read(manualRepositoryProvider)
-        .restore(id, rev, updatedBy: _by, isAdmin: _admin);
+        .restore(id, rev, updatedBy: _by, canEdit: _admin);
     await reload();
     return page;
   }

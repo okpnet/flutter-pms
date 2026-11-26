@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:approval_stamp/approval_stamp.dart';
+import 'package:graphql/client.dart' show OperationException;
 import 'package:manual_model/manual_model.dart';
 
 import '../data/manual_approval.dart';
+import '../data/manual_repository.dart' show ManualError, ManualException;
 import 'graphql_manual_client.dart';
 
 /// 文書(ルートのページ)の公開・承認の状態の GraphQL 版の取得元。
@@ -69,6 +71,27 @@ class GraphqlManualApprovalSource implements IManualApprovalSource {
       versionCode: '${p['versionCode'] ?? ''}',
       stampStyleOverride: styleOverride,
     );
+  }
+
+  @override
+  Future<int> request(String rootPageId) async {
+    try {
+      final staff = await api.staff();
+      final data = await api.run(documentNodeMutationManualRequestApprovalPageCall, {
+        'pDocumentId': rootPageId,
+        if (staff != null) 'pStaffId': staff.staffId,
+      }, mutation: true);
+      final out = (data['documentRequestApproval'] as Map?)?['integer'];
+      return (out as num?)?.toInt() ?? 0;
+    } on OperationException catch (e) {
+      // GraphQL のエラーには errcode が含まれないため、RAISE の文で見分ける
+      final msg = e.graphqlErrors.map((x) => x.message).join(' ');
+      if (msg.contains('申請できません') || msg.contains('すでに公開')) {
+        throw const ManualException(ManualError.requestUnavailable);
+      }
+      if (msg.contains('文書が見つかりません')) throw const ManualException(ManualError.notFound);
+      rethrow;
+    }
   }
 
   /// 承認の実行([transApprovalPatternId])の元の承認パターンの `stamp_style`(JSON のオブジェクト)。無い・読めないときは null。

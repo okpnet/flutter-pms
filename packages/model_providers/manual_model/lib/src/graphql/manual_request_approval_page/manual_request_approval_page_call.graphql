@@ -1,0 +1,18 @@
+# manual_request_approval_page画面 - Call(DBの関数の呼び出し)
+#
+# 画面仕様: gql/*.yaml #ManualRequestApprovalPageCall
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation ManualRequestApprovalPageCall(
+  $pDocumentId: UUID
+  $pStaffId: UUID
+) {
+  documentRequestApproval(
+    input: {
+      pDocumentId: $pDocumentId
+      pStaffId: $pStaffId
+    }
+  ) {
+    integer
+  }
+}

@@ -12,7 +12,7 @@ enum ManualError {
   notFound,
 
   /// 管理者でないため、編集できない。
-  notAdmin,
+  notEditor,
 
   /// ルートの文書の管理番号が空(管理番号は利用者が決める)。
   controlNumberRequired,
@@ -22,6 +22,9 @@ enum ManualError {
 
   /// 文書の承認パターンが設定されていない(`info_app.document_approval_pattern_id`。承認不要でも、段が 0 件のパターンを設定する)。
   approvalPatternMissing,
+
+  /// 承認を申請できない(承認の段が無い = 承認不要、またはすでに公開済み)。
+  requestUnavailable,
 }
 
 class ManualException implements Exception {
@@ -34,7 +37,7 @@ class ManualException implements Exception {
 
 /// マニュアルの取得元。メモリ上([InMemoryManualRepository])のほか、GraphQL 版を差し替えられる。
 ///
-/// 編集の権限は呼び出し側(画面)が見るが、取得元も [isAdmin] を受け取って守る(二重の確認)。
+/// 編集の権限は呼び出し側(画面)が見るが、取得元も [canEdit] を受け取って守る(二重の確認)。
 ///
 /// パターン: Strategy(保存先の差し替え)
 abstract interface class IManualRepository {
@@ -54,7 +57,7 @@ abstract interface class IManualRepository {
     required String title,
     required String md,
     required String updatedBy,
-    required bool isAdmin,
+    required bool canEdit,
     String? controlNumber,
   });
 
@@ -65,7 +68,7 @@ abstract interface class IManualRepository {
     required String title,
     required String md,
     required String updatedBy,
-    required bool isAdmin,
+    required bool canEdit,
   });
 
   /// 履歴の [rev] の版に戻す(戻す前の版も履歴に残る)。
@@ -73,6 +76,6 @@ abstract interface class IManualRepository {
     String id,
     int rev, {
     required String updatedBy,
-    required bool isAdmin,
+    required bool canEdit,
   });
 }

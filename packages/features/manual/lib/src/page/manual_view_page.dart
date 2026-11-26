@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../data/manual_approval.dart';
+import '../data/manual_pdf_service.dart';
 import '../data/manual_providers.dart';
+import '../data/manual_repository.dart';
 import '../i18n/strings_provider.dart';
 import '../model/manual_page_record.dart';
 import '../model/manual_wiki.dart';
@@ -47,6 +50,21 @@ class _ManualViewPageState extends ConsumerState<ManualViewPage> {
 
   void _open(String id) => context.go(ManualPaths.pageOf(id));
 
+  /// 承認を申請する(承認する人へ通知)。結果は画面の下のメッセージで示し、承認の状態を読み直す。
+  Future<void> _requestApproval(String rootId) async {
+    final s = ref.read(manualStringsProvider);
+    final messenger = ScaffoldMessenger.of(context);
+    try {
+      final n = await ref.read(manualApprovalSourceProvider).request(rootId);
+      ref.invalidate(manualApprovalProvider(rootId));
+      messenger.showSnackBar(
+        SnackBar(content: Text(n == 0 ? s.approval.requestedNone : s.approval.requested.replaceAll('{count}', '$n'))),
+      );
+    } on ManualException catch (e) {
+      messenger.showSnackBar(SnackBar(content: Text(manualErrorText(s, e.error))));
+    }
+  }
+
   Future<void> _addChild(ManualPageRecord parent) async {
     final s = ref.read(manualStringsProvider);
     final page = await showManualCreateDialog(
@@ -89,7 +107,7 @@ class _ManualViewPageState extends ConsumerState<ManualViewPage> {
   Widget build(BuildContext context) {
     final s = ref.watch(manualStringsProvider);
     final state = ref.watch(manualProvider);
-    final admin = ref.watch(manualIsAdminProvider);
+    final admin = ref.watch(manualCanEditProvider);
     final wiki = state.wiki;
     final page = widget.pageId != null
         ? wiki.byId(widget.pageId)
@@ -118,6 +136,8 @@ class _ManualViewPageState extends ConsumerState<ManualViewPage> {
     }
 
     final editing = _editing && admin;
+    final root = ManualPdfService.rootOf(wiki, page.id) as ManualPageRecord?;
+    final rootApproval = root == null ? null : ref.watch(manualApprovalProvider(root.id)).value;
     return ScreenScaffold(
       title: page.title,
       breadcrumbs: [
@@ -155,6 +175,13 @@ class _ManualViewPageState extends ConsumerState<ManualViewPage> {
             label: Text(s.view.history),
           ),
         ],
+        if (admin && !editing && rootApproval?.pending == true)
+          FilledButton.tonalIcon(
+            key: const Key('manual-request-approval'),
+            onPressed: () => _requestApproval(root!.id),
+            icon: const Icon(Icons.send_outlined),
+            label: Text(s.approval.request),
+          ),
         if (!editing)
           OutlinedButton.icon(
             key: const Key('manual-pdf'),

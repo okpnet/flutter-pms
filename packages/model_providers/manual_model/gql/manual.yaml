@@ -335,3 +335,11 @@ ManualApprovalStylePage:
       columns:
         - mstr_approval_pattern_id
         - stamp_style
+
+# 承認の申請(DB 関数 document_request_approval。通知だけ。承認自体は document_approve)。
+# 画面(manual)が、文書の「承認を申請」の操作で呼ぶ。document_approval_model の同じ関数のモデルとは別の名前(トップノードの名前は全パッケージで一意)。
+# 戻り値は作った通知の件数。errcode: OPR01 文書が無い / OPR03 承認の段が無い(承認不要)・すでに公開済み。
+ManualRequestApprovalPageCall:
+  kind: function
+  mutation: documentRequestApproval
+  returns: integer
