@@ -230,6 +230,7 @@ const List<EntityDefinition> itemDefinitions = [
         required: false,
         ge: 0,
         needUnless: 'asking',
+        money: true,
       ),
       FieldDefinition(
         key: 'asking',
@@ -249,7 +250,7 @@ const List<EntityDefinition> itemDefinitions = [
         kind: FieldKind.reference,
         reference: 'taskres',
       ),
-      FieldDefinition(key: 'cost', kind: FieldKind.number, ge: 0),
+      FieldDefinition(key: 'cost', kind: FieldKind.number, ge: 0, money: true),
       FieldDefinition(
         key: 'remarks',
         kind: FieldKind.multiline,

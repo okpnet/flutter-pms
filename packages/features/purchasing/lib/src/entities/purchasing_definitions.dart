@@ -34,16 +34,18 @@ const List<EntityDefinition> purchasingDefinitions = [
     owner: 'unrec',
     fields: [
       FieldDefinition(key: 'quantity', kind: FieldKind.number, required: false),
-      FieldDefinition(key: 'unit_price', kind: FieldKind.number),
+      FieldDefinition(key: 'unit_price', kind: FieldKind.number, money: true),
       FieldDefinition(
         key: 'price_adjustment',
         kind: FieldKind.number,
         required: false,
+        money: true,
       ),
       FieldDefinition(
         key: 'fixed_price',
         kind: FieldKind.number,
         required: false,
+        money: true,
       ),
       FieldDefinition(
         key: 'material_supply',
@@ -94,12 +96,14 @@ const List<EntityDefinition> purchasingDefinitions = [
         kind: FieldKind.number,
         required: false,
         readOnly: true,
+        money: true,
       ),
       FieldDefinition(
         key: 'received_amount',
         kind: FieldKind.number,
         required: false,
         readOnly: true,
+        money: true,
       ),
       FieldDefinition(
         key: 'remarks',
@@ -132,16 +136,18 @@ const List<EntityDefinition> purchasingDefinitions = [
         options: ['はい', 'いいえ'],
       ),
       FieldDefinition(key: 'quantity', kind: FieldKind.number, required: false),
-      FieldDefinition(key: 'unit_price', kind: FieldKind.number),
+      FieldDefinition(key: 'unit_price', kind: FieldKind.number, money: true),
       FieldDefinition(
         key: 'price_adjustment',
         kind: FieldKind.number,
         required: false,
+        money: true,
       ),
       FieldDefinition(
         key: 'fixed_price',
         kind: FieldKind.number,
         required: false,
+        money: true,
       ),
       FieldDefinition(
         key: 'material_supply',

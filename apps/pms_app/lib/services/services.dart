@@ -12,3 +12,4 @@ export 'files/pocketbase_entity_file_transfer.dart';
 export 'manual/manual_overrides.dart';
 export 'approval/approval_overrides.dart';
 export 'announcement/announcement_overrides.dart';
+export 'money/money_overrides.dart';

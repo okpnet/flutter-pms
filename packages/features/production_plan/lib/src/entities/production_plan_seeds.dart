@@ -3,38 +3,211 @@ import 'package:entity_screens/entity_screens.dart';
 
 /// 生産計画のサンプルデータ(架空の値)。参照は参照先の id(UUID の文字列)。
 const Map<String, List<EntityRecord>> productionPlanSeeds = {
-    'resplan': [
-      EntityRecord(id: '5518c986-0000-4000-8000-000000000001', values: {'trans_order_detail_id': '44b192d6-0000-4000-8000-000000000001', 'trans_unrecognized_detail_id': 'a1bcd19d-0000-4000-8000-000000000001', 'parent_trans_operations_plan_id': 'c32b4dd4-0000-4000-8000-000000000001', 'register_at': '2026-10-01', 'quantity': '10', 'inventory_resavation': '10', 'deadline': '2026-10-10', 'item_id': '9f3833e6-0000-4000-8000-000000000001', 'remarks': '', 'item': '9f3833e6-0000-4000-8000-000000000001'}),
-      EntityRecord(id: '5518c986-0000-4000-8000-000000000002', values: {'trans_order_detail_id': '44b192d6-0000-4000-8000-000000000001', 'trans_unrecognized_detail_id': 'a1bcd19d-0000-4000-8000-000000000001', 'parent_trans_operations_plan_id': 'c32b4dd4-0000-4000-8000-000000000001', 'register_at': '2026-11-01', 'quantity': '20', 'inventory_resavation': '20', 'deadline': '2026-10-11', 'item_id': '9f3833e6-0000-4000-8000-000000000001', 'remarks': '', 'item': '9f3833e6-0000-4000-8000-000000000002'}),
-    ],
-    'opsplan': [
-      EntityRecord(id: 'c32b4dd4-0000-4000-8000-000000000001', values: {'quantity': '200', 'deadline': '2026-11-10', 'remarks': '', 'stop': '', 'discontinue': ''}, parentId: '5518c986-0000-4000-8000-000000000001'),
-      EntityRecord(id: 'c32b4dd4-0000-4000-8000-000000000002', values: {'quantity': '400', 'deadline': '2026-11-05', 'remarks': '', 'stop': '', 'discontinue': ''}, parentId: '5518c986-0000-4000-8000-000000000001'),
-    ],
-    'workplan': [
-      EntityRecord(id: '92f13413-0000-4000-8000-000000000001', values: {'mstr_task_id': 'f448886c-0000-4000-8000-000000000002', 'sequence': '10', 'trans_purchase_detail_id': 'e66a7505-0000-4000-8000-000000000001', 'interval_plan': '10', 'start_at': '2026-10-21', 'completion_at': '2026-10-25', 'remarks': ''}, parentId: 'c32b4dd4-0000-4000-8000-000000000001'),
-      EntityRecord(id: '92f13413-0000-4000-8000-000000000002', values: {'mstr_task_id': 'f448886c-0000-4000-8000-000000000004', 'sequence': '20', 'trans_purchase_detail_id': 'e66a7505-0000-4000-8000-000000000001', 'interval_plan': '20', 'start_at': '2026-10-26', 'completion_at': '2026-10-30', 'remarks': ''}, parentId: 'c32b4dd4-0000-4000-8000-000000000001'),
-    ],
-    'prodrez': [
-      EntityRecord(id: '1402345d-0000-4000-8000-000000000001', values: {'trans_work_plan_id': '92f13413-0000-4000-8000-000000000001', 'remarks': ''}),
-    ],
-    'purrez': [
-      EntityRecord(id: '95407e7d-0000-4000-8000-000000000001', values: {'trans_purchase_detail_id': 'e66a7505-0000-4000-8000-000000000001', 'remarks': ''}),
-    ],
-    'mrppending': [
-      EntityRecord(id: '1f9d538d-0000-4000-8000-000000000001', values: {'item': '9f3833e6-0000-4000-8000-000000000001', 'is_purchase': '1', 'is_production': '', 'is_outsource': '', 'is_plan': '', 'is_exception': '', 'is_supply_request': '', 'is_new': '1', 'is_change': '', 'is_cancel': '', 'is_option': '', 'quantity': '100', 'need_at': '2026-11-10', 'release_at': '2026-10-30', 'due_at': '2026-11-12', 'late': '1', 'message': '納期が必要日に間に合いません', 'symbol': 'PS-0001'}),
-      EntityRecord(id: '1f9d538d-0000-4000-8000-000000000002', values: {'item': '9f3833e6-0000-4000-8000-000000000002', 'is_purchase': '', 'is_production': '1', 'is_outsource': '', 'is_plan': '', 'is_exception': '', 'is_supply_request': '', 'is_new': '1', 'is_change': '', 'is_cancel': '', 'is_option': '', 'quantity': '20', 'need_at': '2026-11-15', 'release_at': '2026-11-01', 'due_at': '2026-11-14', 'late': '', 'message': '', 'symbol': 'PS-0002'}),
-    ],
-    'mrppurchase': [
-      EntityRecord(id: '09428581-0000-4000-8000-000000000001', values: {'kind': 'PURCHASE_NEW', 'supplier': '9c2cec53-0000-4000-8000-000000000004', 'release_date': '2026-10-30', 'due_date': '2026-11-12', 'line_count': '3', 'amount': '125000', 'late_count': '1', 'pending_count': '2'}),
-    ],
-    'mrpissue': [
-      EntityRecord(id: '5f642559-0000-4000-8000-000000000001', values: {'item': '9f3833e6-0000-4000-8000-000000000003', 'issue_code': 'NO_SUPPLIER', 'severity': 'ERROR', 'message': '仕入先が登録されていません', 'ref_table': 'mstr_item_supplier'}),
-    ],
-    'mrpcoverage': [
-      EntityRecord(id: 'a1f3bde8-0000-4000-8000-000000000001', values: {'item': '9f3833e6-0000-4000-8000-000000000001', 'plan_kind': 'PURCHASE', 'deadline': '2026-11-10', 'quantity': '100', 'reserved_stock': '40', 'reserved_purchase': '50', 'reserved_production': '0', 'shortage': '10'}),
-    ],
-    'stockrez': [
-      EntityRecord(id: '09b2094e-0000-4000-8000-000000000001', values: {'purdetail': 'e66a7505-0000-4000-8000-000000000001', 'opsplan': '', 'stock': '05c9f11f-0000-4000-8000-000000000001', 'date': '2026-11-05', 'qty': '20', 'remarks': ''}),
-    ],
+  'resplan': [
+    EntityRecord(
+      id: '5518c986-0000-4000-8000-000000000001',
+      values: {
+        'trans_order_detail_id': '44b192d6-0000-4000-8000-000000000001',
+        'trans_unrecognized_detail_id': 'a1bcd19d-0000-4000-8000-000000000001',
+        'parent_trans_operations_plan_id':
+            'c32b4dd4-0000-4000-8000-000000000001',
+        'register_at': '2026-10-01',
+        'quantity': '10',
+        'inventory_resavation': '10',
+        'deadline': '2026-10-10',
+        'item_id': '9f3833e6-0000-4000-8000-000000000001',
+        'remarks': '',
+        'item': '9f3833e6-0000-4000-8000-000000000001',
+      },
+    ),
+    EntityRecord(
+      id: '5518c986-0000-4000-8000-000000000002',
+      values: {
+        'trans_order_detail_id': '44b192d6-0000-4000-8000-000000000001',
+        'trans_unrecognized_detail_id': 'a1bcd19d-0000-4000-8000-000000000001',
+        'parent_trans_operations_plan_id':
+            'c32b4dd4-0000-4000-8000-000000000001',
+        'register_at': '2026-11-01',
+        'quantity': '20',
+        'inventory_resavation': '20',
+        'deadline': '2026-10-11',
+        'item_id': '9f3833e6-0000-4000-8000-000000000001',
+        'remarks': '',
+        'item': '9f3833e6-0000-4000-8000-000000000002',
+      },
+    ),
+  ],
+  'opsplan': [
+    EntityRecord(
+      id: 'c32b4dd4-0000-4000-8000-000000000001',
+      values: {
+        'quantity': '200',
+        'deadline': '2026-11-10',
+        'remarks': '',
+        'stop': '',
+        'discontinue': '',
+      },
+      parentId: '5518c986-0000-4000-8000-000000000001',
+    ),
+    EntityRecord(
+      id: 'c32b4dd4-0000-4000-8000-000000000002',
+      values: {
+        'quantity': '400',
+        'deadline': '2026-11-05',
+        'remarks': '',
+        'stop': '',
+        'discontinue': '',
+      },
+      parentId: '5518c986-0000-4000-8000-000000000001',
+    ),
+  ],
+  'workplan': [
+    EntityRecord(
+      id: '92f13413-0000-4000-8000-000000000001',
+      values: {
+        'mstr_task_id': 'f448886c-0000-4000-8000-000000000002',
+        'sequence': '10',
+        'trans_purchase_detail_id': 'e66a7505-0000-4000-8000-000000000001',
+        'interval_plan': '10',
+        'start_at': '2026-10-21',
+        'completion_at': '2026-10-25',
+        'remarks': '',
+      },
+      parentId: 'c32b4dd4-0000-4000-8000-000000000001',
+    ),
+    EntityRecord(
+      id: '92f13413-0000-4000-8000-000000000002',
+      values: {
+        'mstr_task_id': 'f448886c-0000-4000-8000-000000000004',
+        'sequence': '20',
+        'trans_purchase_detail_id': 'e66a7505-0000-4000-8000-000000000001',
+        'interval_plan': '20',
+        'start_at': '2026-10-26',
+        'completion_at': '2026-10-30',
+        'remarks': '',
+      },
+      parentId: 'c32b4dd4-0000-4000-8000-000000000001',
+    ),
+  ],
+  'prodrez': [
+    EntityRecord(
+      id: '1402345d-0000-4000-8000-000000000001',
+      values: {
+        'trans_work_plan_id': '92f13413-0000-4000-8000-000000000001',
+        'remarks': '',
+      },
+    ),
+  ],
+  'purrez': [
+    EntityRecord(
+      id: '95407e7d-0000-4000-8000-000000000001',
+      values: {
+        'trans_purchase_detail_id': 'e66a7505-0000-4000-8000-000000000001',
+        'remarks': '',
+      },
+    ),
+  ],
+  'mrppending': [
+    EntityRecord(
+      id: '1f9d538d-0000-4000-8000-000000000001',
+      values: {
+        'item': '9f3833e6-0000-4000-8000-000000000001',
+        'is_purchase': '1',
+        'is_production': '',
+        'is_outsource': '',
+        'is_plan': '',
+        'is_exception': '',
+        'is_supply_request': '',
+        'is_new': '1',
+        'is_change': '',
+        'is_cancel': '',
+        'is_option': '',
+        'quantity': '100',
+        'need_at': '2026-11-10',
+        'release_at': '2026-10-30',
+        'due_at': '2026-11-12',
+        'late': '1',
+        'message': '納期が必要日に間に合いません',
+        'symbol': 'PS-0001',
+      },
+    ),
+    EntityRecord(
+      id: '1f9d538d-0000-4000-8000-000000000002',
+      values: {
+        'item': '9f3833e6-0000-4000-8000-000000000002',
+        'is_purchase': '',
+        'is_production': '1',
+        'is_outsource': '',
+        'is_plan': '',
+        'is_exception': '',
+        'is_supply_request': '',
+        'is_new': '1',
+        'is_change': '',
+        'is_cancel': '',
+        'is_option': '',
+        'quantity': '20',
+        'need_at': '2026-11-15',
+        'release_at': '2026-11-01',
+        'due_at': '2026-11-14',
+        'late': '',
+        'message': '',
+        'symbol': 'PS-0002',
+      },
+    ),
+  ],
+  'mrppurchase': [
+    EntityRecord(
+      id: '09428581-0000-4000-8000-000000000001',
+      values: {
+        'kind': 'PURCHASE_NEW',
+        'supplier': '9c2cec53-0000-4000-8000-000000000004',
+        'release_date': '2026-10-30',
+        'due_date': '2026-11-12',
+        'line_count': '3',
+        'amount': '125000',
+        'late_count': '1',
+        'pending_count': '2',
+      },
+    ),
+  ],
+  'mrpissue': [
+    EntityRecord(
+      id: '5f642559-0000-4000-8000-000000000001',
+      values: {
+        'item': '9f3833e6-0000-4000-8000-000000000003',
+        'issue_code': 'NO_SUPPLIER',
+        'severity': 'ERROR',
+        'message': '仕入先が登録されていません',
+        'ref_table': 'mstr_item_supplier',
+      },
+    ),
+  ],
+  'mrpcoverage': [
+    EntityRecord(
+      id: 'a1f3bde8-0000-4000-8000-000000000001',
+      values: {
+        'item': '9f3833e6-0000-4000-8000-000000000001',
+        'plan_kind': 'PURCHASE',
+        'deadline': '2026-11-10',
+        'quantity': '100',
+        'reserved_stock': '40',
+        'reserved_purchase': '50',
+        'reserved_production': '0',
+        'shortage': '10',
+      },
+    ),
+  ],
+  'stockrez': [
+    EntityRecord(
+      id: '09b2094e-0000-4000-8000-000000000001',
+      values: {
+        'purdetail': 'e66a7505-0000-4000-8000-000000000001',
+        'opsplan': '',
+        'stock': '05c9f11f-0000-4000-8000-000000000001',
+        'date': '2026-11-05',
+        'qty': '20',
+        'remarks': '',
+      },
+    ),
+  ],
 };

@@ -9,6 +9,7 @@ import 'command_bus_provider.dart';
 import 'feature_module.dart';
 import 'locale_provider.dart';
 import 'menu.dart';
+import 'money_format_provider.dart';
 
 /// 実体の台帳へ。[entityKey] は実体のキー(例: `unit`)。
 ///
@@ -500,5 +501,7 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
     strings: ref.watch(entityScreenStringsProvider),
     fileTransfer: ref.watch(entityFileTransferProvider),
     groupLabel: menuGroupLabel(ref),
+    money: ref.watch(moneyFormatProvider),
+    languageCode: ref.watch(localeProvider).languageCode,
   );
 }

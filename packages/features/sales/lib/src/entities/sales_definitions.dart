@@ -42,16 +42,18 @@ const List<EntityDefinition> salesDefinitions = [
         reference: 'item',
       ),
       FieldDefinition(key: 'quantity', kind: FieldKind.number, required: false),
-      FieldDefinition(key: 'unit_price', kind: FieldKind.number),
+      FieldDefinition(key: 'unit_price', kind: FieldKind.number, money: true),
       FieldDefinition(
         key: 'price_adjustment',
         kind: FieldKind.number,
         required: false,
+        money: true,
       ),
       FieldDefinition(
         key: 'fixed_price',
         kind: FieldKind.number,
         required: false,
+        money: true,
       ),
       FieldDefinition(
         key: 'master_error_count',
@@ -94,6 +96,7 @@ const List<EntityDefinition> salesDefinitions = [
         kind: FieldKind.number,
         required: false,
         readOnly: true,
+        money: true,
       ),
       FieldDefinition(
         key: 'delivery_date',

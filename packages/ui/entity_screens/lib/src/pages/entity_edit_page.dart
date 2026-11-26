@@ -648,7 +648,13 @@ class _EntityEditPageState extends State<EntityEditPage> {
           keyboardType: f.kind == FieldKind.number
               ? const TextInputType.numberWithOptions(decimal: true)
               : null,
-          decoration: InputDecoration(errorText: _error(f.key)),
+          decoration: InputDecoration(
+            errorText: _error(f.key),
+            // 金額は、通貨の記号を入力欄の前か後ろに付ける(値には含めない)
+            prefixText: f.money ? _scope.money.affixesOf(_scope.languageCode).prefix : null,
+            suffixText: f.money ? _scope.money.affixesOf(_scope.languageCode).suffix : null,
+          ),
+          textAlign: f.money ? TextAlign.end : TextAlign.start,
         );
       case FieldKind.date:
         return TextField(
@@ -765,6 +771,7 @@ class _EntityEditPageState extends State<EntityEditPage> {
       FieldKind.condition => raw.isEmpty ? raw : ConditionValue.displayOf(raw),
       FieldKind.flag => raw == flagOn ? _scope.strings.yes : _scope.strings.no,
       FieldKind.file => EntityFile.tryParse(raw)?.label ?? '',
+      FieldKind.number when f.money => _scope.money.format(raw, languageCode: _scope.languageCode),
       _ => raw,
     };
     return InputDecorator(
@@ -1033,6 +1040,8 @@ class _ChildSectionState extends State<_ChildSection> {
                       scope.labels,
                       data.names,
                       onDownload: (file) => scope.downloadFile(context, file),
+                      money: scope.money,
+                      languageCode: scope.languageCode,
                     ),
                     items: data.records,
                     rowKey: (r) => r.id,
@@ -1212,6 +1221,8 @@ class _ReverseSectionState extends State<_ReverseSection> {
                     scope.labels,
                     data.names,
                     onDownload: (file) => scope.downloadFile(context, file),
+                    money: scope.money,
+                    languageCode: scope.languageCode,
                   ),
                 ];
                 return SizedBox(

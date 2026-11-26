@@ -30,5 +30,6 @@ export 'src/feature_module.dart';
 export 'src/go_router_destination_navigator.dart';
 export 'src/locale_provider.dart';
 export 'src/menu.dart';
+export 'src/money_format_provider.dart';
 export 'src/ui_settings.dart';
 export 'src/extra_field_labels.dart';

@@ -10,6 +10,7 @@ export 'src/catalog.dart';
 export 'src/condition.dart';
 export 'src/definition.dart';
 export 'src/file_transfer.dart';
+export 'src/money_format.dart';
 export 'src/i18n/strings.g.dart' show EntityScreenStrings, EntityScreenLocale;
 export 'src/pages/entity_edit_page.dart';
 export 'src/pages/entity_list_page.dart';

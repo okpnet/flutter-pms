@@ -344,12 +344,14 @@ class _EntityListPageState extends State<EntityListPage> {
     if (fields.isEmpty) return null;
     final scope = widget.scope;
     final theme = Theme.of(context);
-    String sum(String key) {
+    String sum(FieldDefinition f) {
+      final key = f.key;
       var total = 0.0;
       for (final r in records) {
         total += double.tryParse(r.valueOf(key)) ?? 0;
       }
-      return total == total.roundToDouble() ? '${total.round()}' : total.toStringAsFixed(2);
+      final text = total == total.roundToDouble() ? '${total.round()}' : total.toStringAsFixed(2);
+      return f.money ? scope.money.format(text, languageCode: scope.languageCode) : text;
     }
 
     return Container(
@@ -364,7 +366,7 @@ class _EntityListPageState extends State<EntityListPage> {
         children: [
           for (final f in fields)
             Text(
-              scope.strings.listTotal(label: scope.labels.field(widget.entityKey, f.key), value: sum(f.key)),
+              scope.strings.listTotal(label: scope.labels.field(widget.entityKey, f.key), value: sum(f)),
               style: theme.textTheme.titleSmall,
             ),
         ],
@@ -412,6 +414,8 @@ class _EntityListPageState extends State<EntityListPage> {
         yes: loaded.definition.compactFlags ? '✓' : scope.strings.yes,
         no: loaded.definition.compactFlags ? '' : scope.strings.no,
         onDownload: (file) => scope.downloadFile(context, file),
+        money: scope.money,
+        languageCode: scope.languageCode,
       ),
     ];
     final hasActions =

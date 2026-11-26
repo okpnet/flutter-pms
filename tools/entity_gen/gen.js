@@ -117,6 +117,19 @@ const REVERSE = {
 
 /* ------------------------------------------------------------------ 内部形式への変換 */
 /** 画面案の種類 → 項目の種類。c(計算項目)は読み取り専用の数値にする(値は DB のビュー・GraphQL の集計で返す。サンプルは空)。 */
+// 金額の項目(通貨の単位を付けて出す。FieldDefinition.money)。実体のキー → 項目のキー。数量の単位(shared_unit)とは別。
+// 値は変えず、表示だけ。通貨の記号・位置は設定(info_app.settings の currency。言語ごと)。一覧は packages/ui/entity_screens/doc/contents/money_fields.md
+const MONEY = {
+  orderdetail: ['unit_price', 'price_adjustment', 'fixed_price', 'settlement_amount'],
+  purdetail: ['unit_price', 'price_adjustment', 'fixed_price'],
+  unrecdetail: ['unit_price', 'price_adjustment', 'fixed_price'],
+  purchase: ['purchase_amount', 'received_amount'],
+  actlotdeliver: ['settlement_amount'],
+  itemtaskcost: ['cost'],
+  itemsupplier: ['cost'],
+  mrppurchase: ['amount'],
+};
+
 const KIND = { t: 'text', x: 'multiline', n: 'number', d: 'date', s: 'choice', r: 'reference', b: 'flag', c: 'number', f: 'file' };
 
 const byLabel = (key) => DOM.entities.find((x) => x.key === key)?.label ?? key;
@@ -507,6 +520,7 @@ function defsDart(pkg, list) {
           if (fl.maxFrom) a.push(`maxFrom: [${fl.maxFrom.map((m) => `LimitSource(source: ${dq(m.source)}, field: ${dq(m.field)})`).join(', ')}]`);
           if (fl.needUnless) a.push(`needUnless: ${dq(fl.needUnless)}`);
           if (fl.lockedBy) a.push(`lockedBy: ${dq(fl.lockedBy)}`);
+          if (MONEY[e.key]?.includes(fl.key)) a.push('money: true');
           return `        FieldDefinition(${a.join(', ')}),`;
         })
         .join('\n');

@@ -193,6 +193,8 @@ class _EntityNestedPageState extends State<EntityNestedPage> {
       yes: s.yes,
       no: s.no,
       onDownload: (file) => scope.downloadFile(context, file),
+      money: scope.money,
+      languageCode: scope.languageCode,
     );
 
     return ListView(

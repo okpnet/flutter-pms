@@ -116,6 +116,7 @@ Future<List<Override>> exampleOverrides(
     // 実物と同じ差し込み(管理者の判定: マニュアルの編集・承認スタンプ・PDF の設定、承認一覧、ダッシュボードの通知)
     ...manualOverrides(sampleApprovalSource: ExampleManualApprovalSource(announcements)),
     ...approvalOverrides(),
+    ...moneyOverrides(),
     entityFileTransferProvider.overrideWith(PocketBaseEntityFileTransfer.new),
     ...graphqlOverrides(),
     // 通知(メモリ上の見本。題名・本文は、DB に言語別で持つ値と同じ形)。ダッシュボードの未読通知・通知の一覧を確かめる

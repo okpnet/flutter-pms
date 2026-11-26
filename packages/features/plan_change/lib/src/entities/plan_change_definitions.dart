@@ -576,6 +576,7 @@ const List<EntityDefinition> planChangeDefinitions = [
         kind: FieldKind.number,
         required: false,
         ge: 0,
+        money: true,
       ),
       FieldDefinition(
         key: 'order_detail',

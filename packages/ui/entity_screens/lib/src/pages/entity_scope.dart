@@ -6,6 +6,7 @@ import '../catalog.dart';
 import '../definition.dart';
 import '../file_transfer.dart';
 import '../i18n/strings.g.dart';
+import '../money_format.dart';
 import '../record.dart';
 
 /// 実体の画面が共通で使うもの(登録簿・表示名・共通の文字列)。
@@ -16,6 +17,8 @@ class EntityScope {
     required this.strings,
     this.fileTransfer = const UnsupportedEntityFileTransfer(),
     this.groupLabel = '',
+    this.money = MoneyFormat.standard,
+    this.languageCode = 'ja',
   });
 
   final EntityCatalog catalog;
@@ -27,6 +30,10 @@ class EntityScope {
 
   /// 画面の見出しの上に出す、メニューのグループの名前(例: 会社情報)。空のときは出さない。
   final String groupLabel;
+
+  /// 金額(`FieldDefinition.money`)の通貨の表示と、表示の言語。
+  final MoneyFormat money;
+  final String languageCode;
 
   /// 見出しの右の「○ 時点」(今日の日付)。
   String get asOfText {
@@ -79,6 +86,8 @@ List<ColumnDefinition<EntityRecord>> columnsOf(
   String yes = 'はい',
   String no = 'いいえ',
   Future<void> Function(EntityFile file)? onDownload,
+  MoneyFormat money = MoneyFormat.standard,
+  String languageCode = 'ja',
 }) => [
   for (final f in definition.fields)
     if (f.inList)
@@ -92,7 +101,13 @@ List<ColumnDefinition<EntityRecord>> columnsOf(
           _ => ColumnType.string,
         },
         // ファイルの列は、ファイル名を押すとダウンロードする(並べ替え・絞り込みはファイル名)
-        renderer: f.kind == FieldKind.file && onDownload != null
+        // 金額の列は、並べ替え・絞り込みは数値のまま、表示だけ通貨の単位つき(右揃え)
+        renderer: f.money && f.kind == FieldKind.number
+            ? BuilderCellRenderer<EntityRecord>((context, cell) => Align(
+                alignment: Alignment.centerRight,
+                child: Text(money.format(cell.item.valueOf(f.key), languageCode: languageCode), overflow: TextOverflow.ellipsis),
+              ))
+            : f.kind == FieldKind.file && onDownload != null
             ? BuilderCellRenderer<EntityRecord>((context, cell) {
                 final file = EntityFile.tryParse(cell.item.valueOf(f.key));
                 if (file == null) return const SizedBox.shrink();

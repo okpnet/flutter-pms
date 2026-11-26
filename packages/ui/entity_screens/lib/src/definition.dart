@@ -106,6 +106,7 @@ class FieldDefinition {
     this.needUnless,
     this.lockedBy,
     this.total = false,
+    this.money = false,
   }) : assert(
          kind != FieldKind.reference || reference != null,
          'reference には参照先の実体キーが必要',
@@ -177,6 +178,10 @@ class FieldDefinition {
   /// 台帳の下に、表示している行の合計を出す(数値の項目。DB のビューの値の総計。例: 在庫評価額)。
   final bool total;
 
+  /// 金額の項目(数値)。台帳・編集・合計に、通貨の単位(`MoneyFormat`)を付けて出す。値は変えない(表示だけ。換算しない)。
+  /// 数量の単位(`shared_unit`)とは別。
+  final bool money;
+
   Map<String, Object?> toJson() => {
     'key': key,
     'kind': kind.name,
@@ -198,6 +203,7 @@ class FieldDefinition {
     'needUnless': needUnless,
     'lockedBy': lockedBy,
     if (total) 'total': total,
+    if (money) 'money': money,
   };
 }
 
