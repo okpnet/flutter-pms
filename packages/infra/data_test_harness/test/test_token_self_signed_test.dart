@@ -25,9 +25,8 @@ void main() {
 
       final parts = token.value.substring('Bearer '.length).split('.');
       expect(parts, hasLength(3));
-      Map<String, dynamic> decode(String s) => jsonDecode(
-        utf8.decode(base64Url.decode(base64Url.normalize(s))),
-      );
+      Map<String, dynamic> decode(String s) =>
+          jsonDecode(utf8.decode(base64Url.decode(base64Url.normalize(s))));
       expect(decode(parts[0]), {'alg': 'HS256', 'typ': 'JWT'});
       final claims = decode(parts[1]);
       expect(claims['role'], 'pms_user');
@@ -46,6 +45,8 @@ void main() {
           .replaceAll('=', '');
       expect(parts[2], expected);
     },
-    skip: configured ? false : '--dart-define で PMS_TEST_JWT_SECRET・PMS_TEST_STAFF_ID を渡したときだけ',
+    skip: configured
+        ? false
+        : '--dart-define で PMS_TEST_JWT_SECRET・PMS_TEST_STAFF_ID を渡したときだけ',
   );
 }

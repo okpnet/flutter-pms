@@ -16,6 +16,8 @@ dependencies:
   flutter_test:
     sdk: flutter
   crypto: ^3.0.7
+  gql: ^1.0.1
+  graphql: ^5.2.3
   data_strategist:
     path: ../../foundation/data_strategist
   pms_graphql:

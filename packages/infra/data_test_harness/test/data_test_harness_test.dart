@@ -42,7 +42,10 @@ void main() {
       );
       expect(server, isNotNull);
       expect(server!.url, reachable);
-      expect(server.toJson(), {'authenticated': TestToken.isConfigured, 'url': reachable});
+      expect(server.toJson(), {
+        'authenticated': TestToken.isConfigured,
+        'url': reachable,
+      });
     });
 
     test('どれにも接続できなければnull', () async {

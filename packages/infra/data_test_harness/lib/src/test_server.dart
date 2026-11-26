@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:graphql/client.dart';
+
 import 'package:pms_graphql/pms_graphql.dart';
 
+import 'replay_graphql.dart';
 import 'test_token.dart';
 
 /// 検証用GraphQLサーバー(PostGraphile)への接続。テストの接続先はここだけが持つ。
@@ -14,7 +17,34 @@ class TestServer {
     this.authenticated = false,
     this.staffId,
     Map<String, String> headers = const {},
-  }) : provider = GraphQLClientProvider(url, headers: headers, timeLimit: 20);
+  }) : provider = GraphQLClientProvider(
+         url,
+         headers: headers,
+         timeLimit: 20,
+         graphQLClient: _recordingClient(url, headers),
+       );
+
+  /// 応答の記録先のフォルダ。`--dart-define=PMS_RECORD_DIR=...`(または同名の環境変数)を渡したときだけ、
+  /// 実サーバーの応答を JSON で記録する([RecordingLink])。記録は [ReplayLink.loadDirectory] で再生できる。
+  static const _recordDir = String.fromEnvironment('PMS_RECORD_DIR');
+
+  static GraphQLClient? _recordingClient(
+    String url,
+    Map<String, String> headers,
+  ) {
+    final dir = _recordDir.isNotEmpty
+        ? _recordDir
+        : (Platform.environment['PMS_RECORD_DIR'] ?? '');
+    if (dir.isEmpty) return null; // 既定(記録しない)は、プロバイダーが通常のクライアントを作る
+    return ReplayGraphql.client(
+      RecordingLink(
+        HttpLink(url, defaultHeaders: headers),
+        Directory(dir).absolute,
+      ),
+      timeLimit: 20,
+      lenient: false, // 実サーバーの応答は、本番と同じ厳しさで受け取る
+    );
+  }
 
   /// 先に接続できた方を使う候補。`--dart-define=PMS_TEST_GRAPHQL_URL=...`があればそれを先頭に加える。
   static const candidateUrls = <String>[

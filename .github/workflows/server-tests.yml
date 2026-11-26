@@ -228,11 +228,10 @@ jobs:
       - name: 本家スキーマを PostGraphile から取得
         run: dart run tools/gql_schema_pruner/bin/fetch_schema.dart --endpoint "$GRAPHQL_URL" --out .schema/schema.graphql
 
-      # YAML → .graphql、本家 → 画面用スキーマ を作り直し、コミット済みのものと違えば「DB と Git がずれている」。
-      # 初めのうちは、既にずれているかもしれないので、失敗しても全体は止めない(continue-on-error)。
-      # ずれが無くなったら、continue-on-error の行を消して、必須の確認にする。
+      # YAML → .graphql、本家 → 画面用スキーマ を作り直し、コミット済みのものと違えば「DB と Git がずれている」
+      # として失敗にする(DB を変えたのに、モデルのスキーマを更新し忘れた、などを見つける)。
+      # 失敗したら、手元で `melos run gql:schema` → `melos run gql` を行い、差分をコミットする。
       - name: コミット済みの .graphql・スキーマとのずれを調べる
-        continue-on-error: true
         run: |
           melos run gql:yaml
           melos run gql:prune

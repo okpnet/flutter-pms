@@ -6,6 +6,7 @@ library;
 
 export 'src/faulty_graphql_server.dart';
 export 'src/recording_data_repository.dart';
+export 'src/replay_graphql.dart';
 export 'src/server_test.dart';
 export 'src/test_server.dart';
 export 'src/test_token.dart';
