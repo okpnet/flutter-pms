@@ -1,0 +1,161 @@
+# yaml-language-server: $schema=../../schema.json
+
+# 通貨(mstr_currency)と為替レート(trans_exchange_rate)。設計は issue/20261126_0002.md
+# 金額は取引の通貨のまま保存し、基準通貨への換算は DB のビューが行う(画面・Dart で換算しない)。
+# レートは月ごとの概算で、追記のみ(直すときは新しい行を足す。取り消しは remove = true の更新 = CurrencyRatePageRemove)。
+
+CurrencyPage:
+  kind: read
+  from: mstr_currency
+  filter: true
+  requiredWhere:
+    - languageCode
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - mstr_currency_id
+    - code
+    - name: labels
+      as: labels
+      arrayType: toFirstOne
+      using: names
+      pick:
+        - name
+        - pronunciation
+        - nickname
+      <<: *AppellationLabelsReadFields
+    - currency_symbol
+    - minor_unit
+    - rate_auto
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 通貨の更新(平らな列だけ。渡した列だけが変わる。名称(names)の ID は、共通関数で作る・変える)。論理削除は CurrencyPageRemove(remove = true)
+CurrencyPageEdit:
+  kind: edit
+  from: mstr_currency
+  requiredWhere:
+    - mstr_currency_id
+  generateRfe: true
+  withUpdater: true
+  columns:
+    - mstr_currency_id
+    - code
+    - names
+    - currency_symbol
+    - minor_unit
+    - rate_auto
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove
+
+# 通貨の登録。記号(symbol)は DB が採番する
+CurrencyPageCreate:
+  kind: create
+  from: mstr_currency
+  columns:
+    - code
+    - names
+    - currency_symbol
+    - minor_unit
+    - rate_auto
+    - remarks
+    - update_user_id
+    - update_user_history_id
+
+# 呼称(名称・読み・略称)の登録・更新(p_appellation_id が無ければ新規)。共通関数。返った ID を、本体の names に渡す
+CurrencyAppellationSavePageCall:
+  kind: function
+  mutation: sharedAppellationSave
+  returns: sharedAppellation
+  columns:
+    - shared_appellations_id
+
+# 通貨ごとの最新のレート(ビュー。基準通貨のレートは 1)
+CurrencyRateLatestPage:
+  kind: read
+  from: v_currency_rate_latest
+  filter: true
+  columns:
+    - mstr_currency_id
+    - code
+    - currency_symbol
+    - minor_unit
+    - rate_auto
+    - is_base
+    - rate_month
+    - rate
+    - auto_fetched
+    - source
+    - symbol
+
+# 為替レート(月ごとの概算。追記のみ)
+CurrencyRatePage:
+  kind: read
+  from: trans_exchange_rate
+  filter: true
+  defaultWhere:
+    - column: remove
+      operator: "="
+      value: false
+  columns:
+    - trans_exchange_rate_id
+    - mstr_currency_id
+    - name: currency
+      as: currency
+      arrayType: toFirstOne
+      using: mstr_currency_id
+      from: mstr_currency
+      pick:
+        - code
+        - currency_symbol
+    - rate_month
+    - rate
+    - auto_fetched
+    - source
+    - symbol
+    - remarks
+    - update_at
+    - name: update_user
+      as: update_user
+      using: [update_user_history_id,update_user_id]
+      arrayType: toFirstOne
+      <<: *UpdateStaffReadFields
+
+# 為替レートの登録(手入力・自動取得)。追記のみ。直すときは同じ通貨・月の行を足す(あとの行が有効)
+CurrencyRatePageCreate:
+  kind: create
+  from: trans_exchange_rate
+  columns:
+    - mstr_currency_id
+    - rate_month
+    - rate
+    - auto_fetched
+    - source
+    - remarks
+    - update_user_id
+    - update_user_history_id
+
+# 為替レートの取り消し(remove = true の更新だけ。ほかの列は変えない)
+CurrencyRatePageEdit:
+  kind: edit
+  from: trans_exchange_rate
+  requiredWhere:
+    - trans_exchange_rate_id
+  generateRfe: true
+  withUpdater: true
+  columns:
+    - trans_exchange_rate_id
+    - remarks
+    - update_user_id
+    - update_user_history_id
+    - remove

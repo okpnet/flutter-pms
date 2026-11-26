@@ -1,0 +1,22 @@
+# currency_page画面 - RFE(編集フォームへのプリロード用の読み込み専用クエリ)
+#
+# 画面仕様: gql/*.yaml #CurrencyPageEdit(generateRfe: true)
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+query CurrencyPageRfe(
+  $mstrCurrencyId: UUID!
+) {
+  mstrCurrencyByMstrCurrencyId(mstrCurrencyId: $mstrCurrencyId) {
+    mstrCurrencyId
+    code
+    names
+    currencySymbol
+    minorUnit
+    rateAuto
+    remarks
+    updateUserId
+    updateUserHistoryId
+    remove
+    updateAt
+  }
+}

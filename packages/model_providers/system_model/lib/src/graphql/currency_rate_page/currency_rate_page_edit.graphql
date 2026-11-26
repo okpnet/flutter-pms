@@ -1,0 +1,27 @@
+# currency_rate_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #CurrencyRatePageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation CurrencyRatePageEdit(
+  $transExchangeRateId: UUID!
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  updateTransExchangeRateByTransExchangeRateId(
+    input: {
+      transExchangeRateId: $transExchangeRateId
+      transExchangeRatePatch: {
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    transExchangeRate {
+      transExchangeRateId
+      remarks
+    }
+  }
+}

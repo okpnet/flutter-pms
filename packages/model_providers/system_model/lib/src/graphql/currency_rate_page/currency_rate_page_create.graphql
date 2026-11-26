@@ -1,0 +1,42 @@
+# currency_rate_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #CurrencyRatePageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation CurrencyRatePageCreate(
+  $mstrCurrencyId: UUID
+  $rateMonth: Date!
+  $rate: BigFloat!
+  $autoFetched: Boolean
+  $source: String
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  createTransExchangeRate(
+    input: {
+      transExchangeRate: {
+        mstrCurrencyId: $mstrCurrencyId
+        rateMonth: $rateMonth
+        rate: $rate
+        autoFetched: $autoFetched
+        source: $source
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    transExchangeRate {
+      transExchangeRateId
+      mstrCurrencyId
+      rateMonth
+      rate
+      autoFetched
+      source
+      remarks
+      updateUserId
+      updateUserHistoryId
+    }
+  }
+}

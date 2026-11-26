@@ -1,0 +1,42 @@
+# currency_page画面 - Edit(ミューテーション)
+#
+# 画面仕様: gql/*.yaml #CurrencyPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation CurrencyPageEdit(
+  $mstrCurrencyId: UUID!
+  $code: String
+  $names: UUID
+  $currencySymbol: String
+  $minorUnit: Int
+  $rateAuto: Boolean
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  updateMstrCurrencyByMstrCurrencyId(
+    input: {
+      mstrCurrencyId: $mstrCurrencyId
+      mstrCurrencyPatch: {
+        code: $code
+        names: $names
+        currencySymbol: $currencySymbol
+        minorUnit: $minorUnit
+        rateAuto: $rateAuto
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    mstrCurrency {
+      mstrCurrencyId
+      code
+      names
+      currencySymbol
+      minorUnit
+      rateAuto
+      remarks
+    }
+  }
+}

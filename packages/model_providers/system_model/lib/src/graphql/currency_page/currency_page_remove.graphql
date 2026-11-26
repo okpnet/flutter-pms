@@ -1,0 +1,23 @@
+# currency_page画面 - Remove(論理削除のミューテーション)
+#
+# 画面仕様: gql/*.yaml #CurrencyPageEdit
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation CurrencyPageRemove(
+  $mstrCurrencyId: UUID!
+  $remove: Boolean!
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  updateMstrCurrencyByMstrCurrencyId(
+    input: {
+      mstrCurrencyId: $mstrCurrencyId
+      mstrCurrencyPatch: { remove: $remove, updateUserId: $updateUserId, updateUserHistoryId: $updateUserHistoryId }
+    }
+  ) {
+    mstrCurrency {
+      mstrCurrencyId
+      remove
+    }
+  }
+}

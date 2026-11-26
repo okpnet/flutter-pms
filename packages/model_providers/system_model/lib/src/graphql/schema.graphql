@@ -6,15 +6,51 @@ schema {
   mutation: Mutation
 }
 
+scalar BigFloat
+
 scalar BigInt
 
 scalar Cursor
+
+scalar Date
 
 scalar Datetime
 
 scalar JSON
 
 scalar UUID
+
+enum MstrCurrenciesOrderBy {
+  NATURAL
+  MSTR_CURRENCY_ID_ASC
+  MSTR_CURRENCY_ID_DESC
+  CODE_ASC
+  CODE_DESC
+  NAMES_ASC
+  NAMES_DESC
+  CURRENCY_SYMBOL_ASC
+  CURRENCY_SYMBOL_DESC
+  MINOR_UNIT_ASC
+  MINOR_UNIT_DESC
+  RATE_AUTO_ASC
+  RATE_AUTO_DESC
+  REVISION_ASC
+  REVISION_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
 
 enum SharedUnitsOrderBy {
   NATURAL
@@ -42,8 +78,74 @@ enum SharedUnitsOrderBy {
   PRIMARY_KEY_DESC
 }
 
+enum TransExchangeRatesOrderBy {
+  NATURAL
+  TRANS_EXCHANGE_RATE_ID_ASC
+  TRANS_EXCHANGE_RATE_ID_DESC
+  MSTR_CURRENCY_ID_ASC
+  MSTR_CURRENCY_ID_DESC
+  RATE_MONTH_ASC
+  RATE_MONTH_DESC
+  RATE_ASC
+  RATE_DESC
+  AUTO_FETCHED_ASC
+  AUTO_FETCHED_DESC
+  SOURCE_ASC
+  SOURCE_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  REMARKS_ASC
+  REMARKS_DESC
+  UPDATE_AT_ASC
+  UPDATE_AT_DESC
+  UPDATE_USER_ID_ASC
+  UPDATE_USER_ID_DESC
+  UPDATE_USER_HISTORY_ID_ASC
+  UPDATE_USER_HISTORY_ID_DESC
+  REMOVE_ASC
+  REMOVE_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum VCurrencyRateLatestsOrderBy {
+  NATURAL
+  MSTR_CURRENCY_ID_ASC
+  MSTR_CURRENCY_ID_DESC
+  CODE_ASC
+  CODE_DESC
+  CURRENCY_SYMBOL_ASC
+  CURRENCY_SYMBOL_DESC
+  MINOR_UNIT_ASC
+  MINOR_UNIT_DESC
+  RATE_AUTO_ASC
+  RATE_AUTO_DESC
+  IS_BASE_ASC
+  IS_BASE_DESC
+  RATE_MONTH_ASC
+  RATE_MONTH_DESC
+  RATE_ASC
+  RATE_DESC
+  AUTO_FETCHED_ASC
+  AUTO_FETCHED_DESC
+  SOURCE_ASC
+  SOURCE_DESC
+  SYMBOL_ASC
+  SYMBOL_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+type CreateMstrCurrencyPayload {
+  mstrCurrency: MstrCurrency
+}
+
 type CreateSharedUnitPayload {
   sharedUnit: SharedUnit
+}
+
+type CreateTransExchangeRatePayload {
+  transExchangeRate: TransExchangeRate
 }
 
 type HistoryInfoStaff {
@@ -58,9 +160,36 @@ type HistoryInfoStaff {
   sharedAppellationByNames: SharedAppellation
 }
 
+type MstrCurrenciesConnection {
+  nodes: [MstrCurrency]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type MstrCurrency {
+  mstrCurrencyId: UUID!
+  code: String!
+  names: UUID!
+  currencySymbol: String!
+  minorUnit: Int!
+  rateAuto: Boolean!
+  symbol: String
+  remarks: String
+  updateAt: Datetime
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+  remove: Boolean
+  sharedAppellationByNames: SharedAppellation
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
+}
+
 type Mutation {
+  createMstrCurrency(input: CreateMstrCurrencyInput!): CreateMstrCurrencyPayload
   createSharedUnit(input: CreateSharedUnitInput!): CreateSharedUnitPayload
+  createTransExchangeRate(input: CreateTransExchangeRateInput!): CreateTransExchangeRatePayload
+  updateMstrCurrencyByMstrCurrencyId(input: UpdateMstrCurrencyByMstrCurrencyIdInput!): UpdateMstrCurrencyPayload
   updateSharedUnitBySharedUnitId(input: UpdateSharedUnitBySharedUnitIdInput!): UpdateSharedUnitPayload
+  updateTransExchangeRateByTransExchangeRateId(input: UpdateTransExchangeRateByTransExchangeRateIdInput!): UpdateTransExchangeRatePayload
   sharedAppellationSave(input: SharedAppellationSaveInput!): SharedAppellationSavePayload
   sharedTextSave(input: SharedTextSaveInput!): SharedTextSavePayload
 }
@@ -71,8 +200,13 @@ type PageInfo {
 }
 
 type Query {
+  allMstrCurrencies(first: Int, offset: Int, orderBy: [MstrCurrenciesOrderBy!] = [PRIMARY_KEY_ASC], filter: MstrCurrencyFilter): MstrCurrenciesConnection
   allSharedUnits(first: Int, offset: Int, orderBy: [SharedUnitsOrderBy!] = [PRIMARY_KEY_ASC], filter: SharedUnitFilter): SharedUnitsConnection
+  allTransExchangeRates(first: Int, offset: Int, orderBy: [TransExchangeRatesOrderBy!] = [PRIMARY_KEY_ASC], filter: TransExchangeRateFilter): TransExchangeRatesConnection
+  allVCurrencyRateLatests(first: Int, offset: Int, orderBy: [VCurrencyRateLatestsOrderBy!] = [PRIMARY_KEY_ASC], filter: VCurrencyRateLatestFilter): VCurrencyRateLatestsConnection
+  mstrCurrencyByMstrCurrencyId(mstrCurrencyId: UUID!): MstrCurrency
   sharedUnitBySharedUnitId(sharedUnitId: UUID!): SharedUnit
+  transExchangeRateByTransExchangeRateId(transExchangeRateId: UUID!): TransExchangeRate
 }
 
 type SharedAppellation {
@@ -142,8 +276,59 @@ type SharedUnitsConnection {
   totalCount: Int!
 }
 
+type TransExchangeRate {
+  transExchangeRateId: UUID!
+  mstrCurrencyId: UUID!
+  rateMonth: Date!
+  rate: BigFloat!
+  autoFetched: Boolean!
+  source: String
+  symbol: String
+  remarks: String
+  updateAt: Datetime
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+  remove: Boolean
+  mstrCurrencyByMstrCurrencyId: MstrCurrency
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
+}
+
+type TransExchangeRatesConnection {
+  nodes: [TransExchangeRate]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type UpdateMstrCurrencyPayload {
+  mstrCurrency: MstrCurrency
+}
+
 type UpdateSharedUnitPayload {
   sharedUnit: SharedUnit
+}
+
+type UpdateTransExchangeRatePayload {
+  transExchangeRate: TransExchangeRate
+}
+
+type VCurrencyRateLatest {
+  mstrCurrencyId: UUID!
+  code: String
+  currencySymbol: String
+  minorUnit: Int
+  rateAuto: Boolean
+  isBase: Boolean
+  rateMonth: Date
+  rate: BigFloat
+  autoFetched: Boolean
+  source: String
+  symbol: String
+}
+
+type VCurrencyRateLatestsConnection {
+  nodes: [VCurrencyRateLatest]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type VUnitEnvelopeMeasurementCount {
@@ -160,6 +345,20 @@ type VUnitItemSizeKindCount {
 
 type VUnitSpecMeasurementCount {
   sharedUnitId: UUID
+}
+
+input BigFloatFilter {
+  isNull: Boolean
+  equalTo: BigFloat
+  notEqualTo: BigFloat
+  distinctFrom: BigFloat
+  notDistinctFrom: BigFloat
+  in: [BigFloat!]
+  notIn: [BigFloat!]
+  lessThan: BigFloat
+  lessThanOrEqualTo: BigFloat
+  greaterThan: BigFloat
+  greaterThanOrEqualTo: BigFloat
 }
 
 input BigIntFilter {
@@ -190,8 +389,30 @@ input BooleanFilter {
   greaterThanOrEqualTo: Boolean
 }
 
+input CreateMstrCurrencyInput {
+  mstrCurrency: MstrCurrencyInput!
+}
+
 input CreateSharedUnitInput {
   sharedUnit: SharedUnitInput!
+}
+
+input CreateTransExchangeRateInput {
+  transExchangeRate: TransExchangeRateInput!
+}
+
+input DateFilter {
+  isNull: Boolean
+  equalTo: Date
+  notEqualTo: Date
+  distinctFrom: Date
+  notDistinctFrom: Date
+  in: [Date!]
+  notIn: [Date!]
+  lessThan: Date
+  lessThanOrEqualTo: Date
+  greaterThan: Date
+  greaterThanOrEqualTo: Date
 }
 
 input DatetimeFilter {
@@ -534,6 +755,61 @@ input IntFilter {
   greaterThanOrEqualTo: Int
 }
 
+input MstrCurrencyFilter {
+  mstrCurrencyId: UUIDFilter
+  code: StringFilter
+  names: UUIDFilter
+  currencySymbol: StringFilter
+  minorUnit: IntFilter
+  rateAuto: BooleanFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historyMstrCurrenciesByMstrCurrencyIdExist: Boolean
+  transExchangeRatesByMstrCurrencyIdExist: Boolean
+  mstrStakeholdersByMstrCurrencyIdExist: Boolean
+  infoAppsByMstrCurrencyIdExist: Boolean
+  vCurrencyRateLatestByMstrCurrencyIdExists: Boolean
+  vItemSupplierCostsByMstrCurrencyIdExist: Boolean
+  vOrderDetailAmountsByMstrCurrencyIdExist: Boolean
+  vPurchaseDetailAmountsByMstrCurrencyIdExist: Boolean
+  vPurchaseRecAmountsByMstrCurrencyIdExist: Boolean
+  vShippingRecordAmountsByMstrCurrencyIdExist: Boolean
+  sharedAppellationByNames: SharedAppellationFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrCurrencyFilter!]
+  or: [MstrCurrencyFilter!]
+  not: MstrCurrencyFilter
+}
+
+input MstrCurrencyInput {
+  code: String!
+  names: UUID
+  currencySymbol: String!
+  minorUnit: Int
+  rateAuto: Boolean
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
+input MstrCurrencyPatch {
+  code: String
+  names: UUID
+  currencySymbol: String
+  minorUnit: Int
+  rateAuto: Boolean
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+  remove: Boolean
+}
+
 input SharedAppellationFilter {
   sharedAppellationsId: UUIDFilter
   sharedDictionaryNameId: UUIDFilter
@@ -839,6 +1115,45 @@ input StringFilter {
   greaterThanOrEqualToInsensitive: String
 }
 
+input TransExchangeRateFilter {
+  transExchangeRateId: UUIDFilter
+  mstrCurrencyId: UUIDFilter
+  rateMonth: DateFilter
+  rate: BigFloatFilter
+  autoFetched: BooleanFilter
+  source: StringFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  mstrCurrencyByMstrCurrencyId: MstrCurrencyFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [TransExchangeRateFilter!]
+  or: [TransExchangeRateFilter!]
+  not: TransExchangeRateFilter
+}
+
+input TransExchangeRateInput {
+  mstrCurrencyId: UUID
+  rateMonth: Date!
+  rate: BigFloat!
+  autoFetched: Boolean
+  source: String
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+}
+
+input TransExchangeRatePatch {
+  remarks: String
+  updateUserId: UUID
+  updateUserHistoryId: UUID
+  remove: Boolean
+}
+
 input UUIDFilter {
   isNull: Boolean
   equalTo: UUID
@@ -853,9 +1168,37 @@ input UUIDFilter {
   greaterThanOrEqualTo: UUID
 }
 
+input UpdateMstrCurrencyByMstrCurrencyIdInput {
+  mstrCurrencyPatch: MstrCurrencyPatch!
+  mstrCurrencyId: UUID!
+}
+
 input UpdateSharedUnitBySharedUnitIdInput {
   sharedUnitPatch: SharedUnitPatch!
   sharedUnitId: UUID!
+}
+
+input UpdateTransExchangeRateByTransExchangeRateIdInput {
+  transExchangeRatePatch: TransExchangeRatePatch!
+  transExchangeRateId: UUID!
+}
+
+input VCurrencyRateLatestFilter {
+  mstrCurrencyId: UUIDFilter
+  code: StringFilter
+  currencySymbol: StringFilter
+  minorUnit: IntFilter
+  rateAuto: BooleanFilter
+  isBase: BooleanFilter
+  rateMonth: DateFilter
+  rate: BigFloatFilter
+  autoFetched: BooleanFilter
+  source: StringFilter
+  symbol: StringFilter
+  mstrCurrencyByMstrCurrencyIdExists: Boolean
+  and: [VCurrencyRateLatestFilter!]
+  or: [VCurrencyRateLatestFilter!]
+  not: VCurrencyRateLatestFilter
 }
 
 input VUnitEnvelopeMeasurementCountFilter {

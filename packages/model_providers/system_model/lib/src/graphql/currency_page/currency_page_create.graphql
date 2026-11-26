@@ -1,0 +1,42 @@
+# currency_page画面 - Create(登録のミューテーション)
+#
+# 画面仕様: gql/*.yaml #CurrencyPageCreate
+# このファイルはtool/view_graphql(build_runner)が生成した。直接編集しない。
+
+mutation CurrencyPageCreate(
+  $code: String!
+  $names: UUID
+  $currencySymbol: String!
+  $minorUnit: Int
+  $rateAuto: Boolean
+  $remarks: String
+  $updateUserId: UUID
+  $updateUserHistoryId: UUID
+) {
+  createMstrCurrency(
+    input: {
+      mstrCurrency: {
+        code: $code
+        names: $names
+        currencySymbol: $currencySymbol
+        minorUnit: $minorUnit
+        rateAuto: $rateAuto
+        remarks: $remarks
+        updateUserId: $updateUserId
+        updateUserHistoryId: $updateUserHistoryId
+      }
+    }
+  ) {
+    mstrCurrency {
+      mstrCurrencyId
+      code
+      names
+      currencySymbol
+      minorUnit
+      rateAuto
+      remarks
+      updateUserId
+      updateUserHistoryId
+    }
+  }
+}
