@@ -10,6 +10,8 @@ import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:logger_provider/logger_provider.dart';
 import 'package:maintenance/maintenance.dart';
+import 'package:manual/manual.dart'
+    show ApprovalStepInfo, InMemoryManualApprovalSource, ManualApproval;
 import 'package:page_mediator_extension/page_mediator_extension.dart';
 import 'package:pbapi/pbapi.dart';
 import 'package:theme_lib/theme_lib.dart' show themeLoggerProvider;
@@ -89,6 +91,7 @@ Future<List<Override>> exampleOverrides(
     store: InMemoryBackstageStore(),
     launch: const BackstageLaunch(pocketbaseUrl: virtualPocketbaseUrl),
   );
+  final announcements = InMemoryAnnouncementGateway(_sampleAnnouncements());
   return [
     loggerProvider.overrideWithValue(logger),
     commandBusProvider.overrideWith(createFeatureCommandBus),
@@ -111,12 +114,12 @@ Future<List<Override>> exampleOverrides(
     ...dashboardOverrides(),
     ...userSummaryOverrides(),
     // 実物と同じ差し込み(管理者の判定: マニュアルの編集・承認スタンプ・PDF の設定、承認一覧、ダッシュボードの通知)
-    ...manualOverrides(),
+    ...manualOverrides(sampleApprovalSource: ExampleManualApprovalSource(announcements)),
     ...approvalOverrides(),
     entityFileTransferProvider.overrideWith(PocketBaseEntityFileTransfer.new),
     ...graphqlOverrides(),
     // 通知(メモリ上の見本。題名・本文は、DB に言語別で持つ値と同じ形)。ダッシュボードの未読通知・通知の一覧を確かめる
-    announcementGatewayProvider.overrideWithValue(InMemoryAnnouncementGateway(_sampleAnnouncements())),
+    announcementGatewayProvider.overrideWithValue(announcements),
     pbConnectionProvider.overrideWithValue(connection),
     tokenStoreProvider.overrideWithValue(store),
     filePickerGatewayProvider.overrideWithValue(picker ?? VirtualFilePicker()),
@@ -136,6 +139,51 @@ Future<List<Override>> exampleOverrides(
       (ref) => ref.watch(appCoreStringsProvider).app.title,
     ),
   ];
+}
+
+/// 評価用の承認の取得元(DB の `document_request_approval` の動きを真似る)。品質マニュアル(`m1`)は承認待ちで、
+/// 申請すると承認する人への通知(`approval`)を [announcements] に 1 件作る。同じ文書を続けて申請しても、通知は増えない(冪等)。
+///
+/// パターン: Fake(テストダブル)
+class ExampleManualApprovalSource extends InMemoryManualApprovalSource {
+  ExampleManualApprovalSource(this.announcements)
+    : super({
+        'm1': const ManualApproval(
+          published: false,
+          pending: true,
+          statusLabel: '承認待ち',
+          controlNumber: 'QM-001',
+          versionCode: 'A',
+          steps: [
+            ApprovalStepInfo(
+              approved: false,
+              rejected: false,
+              pending: true,
+              stampLabelJa: '承認待ち',
+              stampLabelEn: 'Pending',
+              priority: 1,
+            ),
+          ],
+        ),
+      });
+
+  final InMemoryAnnouncementGateway announcements;
+
+  @override
+  Future<int> request(String rootPageId) async {
+    final n = await super.request(rootPageId);
+    if (n > 0) {
+      announcements.items.add(
+        Announcement(
+          id: 'req-${announcements.items.length + 1}',
+          title: '承認の申請があります',
+          category: 'approval',
+          at: DateTime.now(),
+        ),
+      );
+    }
+    return n;
+  }
 }
 
 /// 見本の通知(接続なしで、ダッシュボードの未読通知・通知の一覧を確かめるため)。

@@ -24,6 +24,8 @@ dependencies:
     path: ../../packages/features/auth_files
   backstage:
     path: ../../packages/features/backstage
+  manual:
+    path: ../../packages/features/manual
   maintenance:
     path: ../../packages/features/maintenance
   feature_shared:
