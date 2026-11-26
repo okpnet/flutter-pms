@@ -1,10 +1,18 @@
-# Bulk access settings (hand-written; not overwritten by generation)
+# Access settings (hand-written; not overwritten by generation)
 bulk:
-  title: Bulk access settings
+  title: Access settings
   back: Back
   hint: Pick a department or a staff member, check "Allow" and "Write" for each access path, and save them together. A staff member's permissions add to those of their departments (permissions inherited from departments are not changed here).
   scopeDepartment: Department
   scopeStaff: Staff
+  scopeEffective: Effective
+  hintEffective: Pick a staff member to see the permissions actually in effect, including those inherited from departments (read-only here; change them under "Department" or "Staff").
+  fromDepartment: From department
+  ledgers: Ledgers
+  ledgerAccessPath: Access paths
+  ledgerDepartment: Department access paths
+  ledgerStaff: Staff access paths
+  ledgerEffective: Effective access paths
   targetDepartment: Select a department
   targetStaff: Select a staff member
   pickTarget: Select a department or a staff member.

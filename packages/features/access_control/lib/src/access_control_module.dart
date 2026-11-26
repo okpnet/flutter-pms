@@ -54,7 +54,8 @@ class AccessControlModule extends EntityFeatureModule {
     _ => super.locationOf(destination),
   };
 
-  /// 先頭に、アクセス権の一括設定を置く(台帳は、その下)。
+  /// メニューは「アクセス権設定」の 1 項目だけ。台帳(アクセスパス・部署・担当者・実効)は、その画面の下の「台帳」から開く
+  /// (画面とルートは残る)。
   @override
   List<MenuEntry> menuEntries(WidgetRef ref) => [
     MenuEntry(
@@ -63,7 +64,6 @@ class AccessControlModule extends EntityFeatureModule {
       label: ref.watch(accessControlStringsProvider).bulk.title,
       destination: const AccessBulkDestination(),
     ),
-    ...super.menuEntries(ref),
   ];
 
   @override

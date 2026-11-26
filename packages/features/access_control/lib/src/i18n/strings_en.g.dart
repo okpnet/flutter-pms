@@ -50,11 +50,19 @@ class _AccessControlStrings$bulk$en extends AccessControlStrings$bulk$ja {
 	final AccessControlStringsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Bulk access settings';
+	@override String get title => 'Access settings';
 	@override String get back => 'Back';
 	@override String get hint => 'Pick a department or a staff member, check "Allow" and "Write" for each access path, and save them together. A staff member\'s permissions add to those of their departments (permissions inherited from departments are not changed here).';
 	@override String get scopeDepartment => 'Department';
 	@override String get scopeStaff => 'Staff';
+	@override String get scopeEffective => 'Effective';
+	@override String get hintEffective => 'Pick a staff member to see the permissions actually in effect, including those inherited from departments (read-only here; change them under "Department" or "Staff").';
+	@override String get fromDepartment => 'From department';
+	@override String get ledgers => 'Ledgers';
+	@override String get ledgerAccessPath => 'Access paths';
+	@override String get ledgerDepartment => 'Department access paths';
+	@override String get ledgerStaff => 'Staff access paths';
+	@override String get ledgerEffective => 'Effective access paths';
 	@override String get targetDepartment => 'Select a department';
 	@override String get targetStaff => 'Select a staff member';
 	@override String get pickTarget => 'Select a department or a staff member.';
@@ -202,11 +210,19 @@ class _AccessControlStrings$entity$effectiveaccesspath$fields$en extends AccessC
 extension on AccessControlStringsEn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'bulk.title' => 'Bulk access settings',
+			'bulk.title' => 'Access settings',
 			'bulk.back' => 'Back',
 			'bulk.hint' => 'Pick a department or a staff member, check "Allow" and "Write" for each access path, and save them together. A staff member\'s permissions add to those of their departments (permissions inherited from departments are not changed here).',
 			'bulk.scopeDepartment' => 'Department',
 			'bulk.scopeStaff' => 'Staff',
+			'bulk.scopeEffective' => 'Effective',
+			'bulk.hintEffective' => 'Pick a staff member to see the permissions actually in effect, including those inherited from departments (read-only here; change them under "Department" or "Staff").',
+			'bulk.fromDepartment' => 'From department',
+			'bulk.ledgers' => 'Ledgers',
+			'bulk.ledgerAccessPath' => 'Access paths',
+			'bulk.ledgerDepartment' => 'Department access paths',
+			'bulk.ledgerStaff' => 'Staff access paths',
+			'bulk.ledgerEffective' => 'Effective access paths',
 			'bulk.targetDepartment' => 'Select a department',
 			'bulk.targetStaff' => 'Select a staff member',
 			'bulk.pickTarget' => 'Select a department or a staff member.',

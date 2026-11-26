@@ -48,8 +48,8 @@ class AccessControlStrings$bulk$ja {
 
 	// Translations
 
-	/// ja: 'アクセス権の一括設定'
-	String get title => 'アクセス権の一括設定';
+	/// ja: 'アクセス権設定'
+	String get title => 'アクセス権設定';
 
 	/// ja: '戻る'
 	String get back => '戻る';
@@ -62,6 +62,30 @@ class AccessControlStrings$bulk$ja {
 
 	/// ja: '担当者'
 	String get scopeStaff => '担当者';
+
+	/// ja: '実効'
+	String get scopeEffective => '実効';
+
+	/// ja: '担当者を選ぶと、部署から受け継ぐ分を含めた、実際に使える権限を表示します(ここでは変更できません。変えるときは「部署」または「担当者」で設定します)。'
+	String get hintEffective => '担当者を選ぶと、部署から受け継ぐ分を含めた、実際に使える権限を表示します(ここでは変更できません。変えるときは「部署」または「担当者」で設定します)。';
+
+	/// ja: '部署から'
+	String get fromDepartment => '部署から';
+
+	/// ja: '台帳'
+	String get ledgers => '台帳';
+
+	/// ja: 'アクセスパス'
+	String get ledgerAccessPath => 'アクセスパス';
+
+	/// ja: '部署のアクセスパス'
+	String get ledgerDepartment => '部署のアクセスパス';
+
+	/// ja: '担当者のアクセスパス'
+	String get ledgerStaff => '担当者のアクセスパス';
+
+	/// ja: '実効アクセスパス'
+	String get ledgerEffective => '実効アクセスパス';
 
 	/// ja: '部署を選ぶ'
 	String get targetDepartment => '部署を選ぶ';
@@ -291,11 +315,19 @@ class AccessControlStrings$entity$effectiveaccesspath$fields$ja {
 extension on AccessControlStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'bulk.title' => 'アクセス権の一括設定',
+			'bulk.title' => 'アクセス権設定',
 			'bulk.back' => '戻る',
 			'bulk.hint' => '部署または担当者を選び、アクセスパスごとに「許可」と「書き込み」をチェックして、まとめて保存します。担当者の許可は、所属する部署の権限に足すためのものです(部署から受け継ぐ権限は、ここでは変わりません)。',
 			'bulk.scopeDepartment' => '部署',
 			'bulk.scopeStaff' => '担当者',
+			'bulk.scopeEffective' => '実効',
+			'bulk.hintEffective' => '担当者を選ぶと、部署から受け継ぐ分を含めた、実際に使える権限を表示します(ここでは変更できません。変えるときは「部署」または「担当者」で設定します)。',
+			'bulk.fromDepartment' => '部署から',
+			'bulk.ledgers' => '台帳',
+			'bulk.ledgerAccessPath' => 'アクセスパス',
+			'bulk.ledgerDepartment' => '部署のアクセスパス',
+			'bulk.ledgerStaff' => '担当者のアクセスパス',
+			'bulk.ledgerEffective' => '実効アクセスパス',
 			'bulk.targetDepartment' => '部署を選ぶ',
 			'bulk.targetStaff' => '担当者を選ぶ',
 			'bulk.pickTarget' => '部署または担当者を選んでください。',

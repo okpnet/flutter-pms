@@ -1,10 +1,18 @@
-# アクセス権の一括設定(手書き。この行より上は、生成で書き換えない)
+# アクセス権設定(手書き。この行より上は、生成で書き換えない)
 bulk:
-  title: アクセス権の一括設定
+  title: アクセス権設定
   back: 戻る
   hint: 部署または担当者を選び、アクセスパスごとに「許可」と「書き込み」をチェックして、まとめて保存します。担当者の許可は、所属する部署の権限に足すためのものです(部署から受け継ぐ権限は、ここでは変わりません)。
   scopeDepartment: 部署
   scopeStaff: 担当者
+  scopeEffective: 実効
+  hintEffective: 担当者を選ぶと、部署から受け継ぐ分を含めた、実際に使える権限を表示します(ここでは変更できません。変えるときは「部署」または「担当者」で設定します)。
+  fromDepartment: 部署から
+  ledgers: 台帳
+  ledgerAccessPath: アクセスパス
+  ledgerDepartment: 部署のアクセスパス
+  ledgerStaff: 担当者のアクセスパス
+  ledgerEffective: 実効アクセスパス
   targetDepartment: 部署を選ぶ
   targetStaff: 担当者を選ぶ
   pickTarget: 部署または担当者を選んでください。
