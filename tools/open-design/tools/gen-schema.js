@@ -74,7 +74,7 @@ function loadSql() {
 
 /* ---------- 画面（エンティティ）と YAML ページの対応 ---------- */
 const PAGE = {
-  unit: "UnitPage", itemkind: "ItemKindPage", hscode: "HsCodeReadFields", item: "ItemPage", itemsizekind: "ItemSizeKindPage", itemsize: "ItemSizePage",
+  unit: "UnitPage", currency: "CurrencyPage", exchangerate: "CurrencyRatePage", itemkind: "ItemKindPage", hscode: "HsCodeReadFields", item: "ItemPage", itemsizekind: "ItemSizeKindPage", itemsize: "ItemSizePage",
   itemop: "ItemOperationPage", itemoptask: "ItemOperationTaskPage", task: "TaskPage", taskres: "TaskResourcePage", operation: "OperationPage",
   shipkind: "ShippingKindReadFields", customer: "CustomerPage", order: "OrderPage", orderdetail: "OrderDetailPage", supplier: "SupplierPage",
   unrec: "UnrecognizedPage", unrecdetail: "UnrecognizedDetailPage", purchase: "PurchasePage", purdetail: "PurchaseDetailPage", purchaserec: "PurchaseRecPage",

@@ -1445,6 +1445,10 @@ type MstrAuditStdsConnection {
   totalCount: Int!
 }
 
+type MstrCurrency {
+  mstrCurrencyId: UUID!
+}
+
 type MstrReport {
   mstrReportId: UUID!
   transFileId: UUID
@@ -1487,6 +1491,8 @@ type MstrStakeholder {
   controlCode: String
   mail: String
   mstrShippingKindId: UUID
+  mstrCurrencyId: UUID!
+  acceptanceDay: Int
   symbol: String
   remarks: String
   updateAt: Datetime
@@ -1494,6 +1500,7 @@ type MstrStakeholder {
   sharedAppellationByNames: SharedAppellation
   infoAddressByInfoAddressId: InfoAddress
   mstrShippingKindByMstrShippingKindId: MstrShippingKind
+  mstrCurrencyByMstrCurrencyId: MstrCurrency
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
   vStakeholderOutsourceAvailableCountByMstrStakeholderId: VStakeholderOutsourceAvailableCount
   vStakeholderStakeholderContactCountByMstrStakeholderId: VStakeholderStakeholderContactCount
@@ -3608,6 +3615,36 @@ input MstrAuditStdPatch {
   sharedTextToDetails: MstrAuditStdFk1Input
 }
 
+input MstrCurrencyFilter {
+  mstrCurrencyId: UUIDFilter
+  code: StringFilter
+  names: UUIDFilter
+  currencySymbol: StringFilter
+  minorUnit: IntFilter
+  rateAuto: BooleanFilter
+  revision: IntFilter
+  symbol: StringFilter
+  remarks: StringFilter
+  updateAt: DatetimeFilter
+  updateUserId: UUIDFilter
+  updateUserHistoryId: UUIDFilter
+  remove: BooleanFilter
+  historyMstrCurrenciesByMstrCurrencyIdExist: Boolean
+  transExchangeRatesByMstrCurrencyIdExist: Boolean
+  mstrStakeholdersByMstrCurrencyIdExist: Boolean
+  infoAppsByMstrCurrencyIdExist: Boolean
+  vCurrencyRateLatestByMstrCurrencyIdExists: Boolean
+  vItemSupplierCostsByMstrCurrencyIdExist: Boolean
+  vOrderDetailAmountsByMstrCurrencyIdExist: Boolean
+  vPurchaseDetailAmountsByMstrCurrencyIdExist: Boolean
+  vPurchaseRecAmountsByMstrCurrencyIdExist: Boolean
+  vShippingRecordAmountsByMstrCurrencyIdExist: Boolean
+  historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
+  and: [MstrCurrencyFilter!]
+  or: [MstrCurrencyFilter!]
+  not: MstrCurrencyFilter
+}
+
 input MstrReportFilter {
   mstrReportId: UUIDFilter
   transFileId: UUIDFilter
@@ -3726,6 +3763,7 @@ input MstrStakeholderFilter {
   infoAddressByInfoAddressIdExists: Boolean
   mstrShippingKindByMstrShippingKindId: MstrShippingKindFilter
   mstrShippingKindByMstrShippingKindIdExists: Boolean
+  mstrCurrencyByMstrCurrencyId: MstrCurrencyFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
   and: [MstrStakeholderFilter!]

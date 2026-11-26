@@ -350,6 +350,8 @@ query SupplierPageRfe(
       remarks
     }
 
+    mstrCurrencyId
+    acceptanceDay
     remarks
     updateUserId
     updateUserHistoryId

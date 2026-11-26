@@ -64,6 +64,8 @@ mutation CustomerPageEdit(
   $shippingKindsCode: String
   $shippingKindsNames: UUID
   $shippingKindsRemarks: String
+  $mstrCurrencyId: UUID
+  $acceptanceDay: Int
 ) {
   updateMstrStakeholderByMstrStakeholderId(
     input: {
@@ -314,6 +316,8 @@ mutation CustomerPageEdit(
           }
         }
 
+        mstrCurrencyId: $mstrCurrencyId
+        acceptanceDay: $acceptanceDay
         remarks: $remarks
       }
     }
@@ -660,6 +664,8 @@ mutation CustomerPageEdit(
         remarks
       }
 
+      mstrCurrencyId
+      acceptanceDay
       remarks
     }
   }

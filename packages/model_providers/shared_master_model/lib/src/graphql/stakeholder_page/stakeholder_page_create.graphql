@@ -11,6 +11,8 @@ mutation StakeholderPageCreate(
   $isSupplier: Boolean
   $isLogistics: Boolean
   $mail: String
+  $mstrCurrencyId: UUID
+  $acceptanceDay: Int
   $remarks: String
   $updateUserId: UUID
   $updateUserHistoryId: UUID
@@ -25,6 +27,8 @@ mutation StakeholderPageCreate(
         isSupplier: $isSupplier
         isLogistics: $isLogistics
         mail: $mail
+        mstrCurrencyId: $mstrCurrencyId
+        acceptanceDay: $acceptanceDay
         remarks: $remarks
         updateUserId: $updateUserId
         updateUserHistoryId: $updateUserHistoryId
@@ -40,6 +44,8 @@ mutation StakeholderPageCreate(
       isSupplier
       isLogistics
       mail
+      mstrCurrencyId
+      acceptanceDay
       remarks
       updateUserId
       updateUserHistoryId

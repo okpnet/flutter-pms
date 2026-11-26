@@ -60,6 +60,8 @@ entity:
       f_is_logistics: "配送サービサー"
       f_mail: "メール"
       f_mstr_shipping_kind_id: "配送区分"
+      f_mstr_currency_id: "取引の通貨"
+      f_acceptance_day: "検収日"
       f_remarks: "備考"
     reverse:
       itemsupplier: "品目仕入先"

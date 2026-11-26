@@ -800,6 +800,13 @@ query AuditPageRfe(
         }
       }
 
+      mstrCurrencyId
+
+      currency: mstrCurrencyByMstrCurrencyId {
+        mstrCurrencyId
+      }
+
+      acceptanceDay
       symbol
       remarks
 

@@ -281,6 +281,13 @@ query SupplierPageRead(
         }
       }
 
+      mstrCurrencyId
+
+      currency: mstrCurrencyByMstrCurrencyId {
+        mstrCurrencyId
+      }
+
+      acceptanceDay
       symbol
       remarks
 

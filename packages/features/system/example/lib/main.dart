@@ -23,7 +23,11 @@ class ExampleApp extends StatelessWidget {
   Widget build(BuildContext context) => FeatureHost(
     title: 'システム (example)',
     modules: const [SystemModule()],
-    entries: const [FeatureHostEntry('単位', EntityListDestination('unit'))],
+    entries: const [
+      FeatureHostEntry('単位', EntityListDestination('unit')),
+      FeatureHostEntry('通貨', EntityListDestination('currency')),
+      FeatureHostEntry('為替レート', EntityListDestination('exchangerate')),
+    ],
     logger: logger,
     // flgtable_lib / theme_lib が使うテーマ側のロガー
     overrides: [themeLoggerProvider.overrideWithValue(logger)],

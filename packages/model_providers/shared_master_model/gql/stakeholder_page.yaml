@@ -29,6 +29,8 @@ StakeholderPageEdit:
     - is_supplier
     - is_logistics
     - mail
+    - mstr_currency_id
+    - acceptance_day
     - remarks
     - update_user_id
     - update_user_history_id
@@ -46,6 +48,8 @@ StakeholderPageCreate:
     - is_supplier
     - is_logistics
     - mail
+    - mstr_currency_id
+    - acceptance_day
     - remarks
     - update_user_id
     - update_user_history_id

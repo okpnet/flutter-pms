@@ -867,6 +867,13 @@ mutation AuditPageEdit(
           }
         }
 
+        mstrCurrencyId
+
+        currency: mstrCurrencyByMstrCurrencyId {
+          mstrCurrencyId
+        }
+
+        acceptanceDay
         symbol
         remarks
 

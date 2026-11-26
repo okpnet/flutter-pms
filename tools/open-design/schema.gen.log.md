@@ -1,10 +1,12 @@
 # schema.gen ログ
 
-生成: 59 / 76 画面
+生成: 61 / 78 画面
 
 ## 置換した画面
 
 - `unit` UnitPage ⇄ shared_unit (単位): 単位名称／読み／略称／詳細／記号／備考　〔置換で外れた旧項目: 種類〕
+- `currency` CurrencyPage ⇄ mstr_currency (通貨マスタ): 通貨コード／通貨名称／読み／略称／通貨記号／小数の桁数／レートの自動取得の対象／備考
+- `exchangerate` CurrencyRatePage ⇄ trans_exchange_rate (為替レート(月ごとの概算。追記のみ)): 通貨／適用する月／レート／自動取得／取得元／備考
 - `itemkind` ItemKindPage ⇄ mstr_item_kind (品目区分マスタ): 品目コード／品目区分名称／読み／略称／備考
 - `hscode` HsCodeReadFields ⇄ mstr_item_hcdcs (HSコードマスタ): コード／品目／国／備考　〔置換で外れた旧項目: 品名〕
 - `item` ItemPage ⇄ mstr_item (品目マスタ): 品目コード／識別コード／管理コード／表示コード／品目名称／読み／略称／品目種類／購入品／詳細／個別単位／備考
@@ -15,10 +17,10 @@
 - `taskres` TaskResourcePage ⇄ mstr_task_location (工程場所マスタ): 組織情報／優先順位／備考　〔置換で外れた旧項目: 場所、設備〕
 - `operation` OperationPage ⇄ mstr_operation (工程運用マスタ): 管理コード／運用名称／読み／略称／詳細／備考
 - `shipkind` ShippingKindReadFields ⇄ mstr_shipping_kind (配送区分マスタ): 配送区分コード／配送区分名称／読み／略称／備考
-- `customer` CustomerPage ⇄ mstr_stakeholder (利害関係者マスタ): 利害関係者コード／管理コード／名称／読み／略称／顧客／外部供給者／配送サービサー／メール／配送区分／備考　〔置換で外れた旧項目: 地域〕
+- `customer` CustomerPage ⇄ mstr_stakeholder (利害関係者マスタ): 利害関係者コード／管理コード／名称／読み／略称／顧客／外部供給者／配送サービサー／メール／配送区分／取引の通貨／検収日／備考　〔置換で外れた旧項目: 地域〕
 - `order` OrderPage ⇄ trans_order (受注): 注文番号／顧客発注番号／顧客／受注日／納期／完了期限／備考　〔置換で外れた旧項目: 配送区分〕
 - `orderdetail` OrderDetailPage ⇄ trans_order_detail (受注明細): 品目／数量／単価／価格調整／確定単価／個別納期／個別完了期限／備考／製品顧客所有　〔置換で外れた旧項目: 単位〕
-- `supplier` SupplierPage ⇄ mstr_stakeholder (利害関係者マスタ): 利害関係者コード／管理コード／名称／読み／略称／顧客／外部供給者／配送サービサー／メール／配送区分／備考　〔置換で外れた旧項目: 地域〕
+- `supplier` SupplierPage ⇄ mstr_stakeholder (利害関係者マスタ): 利害関係者コード／管理コード／名称／読み／略称／顧客／外部供給者／配送サービサー／メール／配送区分／取引の通貨／検収日／備考　〔置換で外れた旧項目: 地域〕
 - `unrec` UnrecognizedPage ⇄ trans_unrecognized (非計上): 決定日／納期／完了予定日／出荷予定日／備考　〔置換で外れた旧項目: 非計上発注番号、サプライヤー、非計上の理由〕
 - `unrecdetail` UnrecognizedDetailPage ⇄ trans_unrecognized_detail (非計上明細): 数量／単価／価格調整／確定単価／資材支給区分／有償支給区分／個別納期／品目／備考　〔置換で外れた旧項目: 単位〕
 - `purchase` PurchasePage ⇄ trans_purchase (発注): 発注先／登録日／発注日／発注期限／備考　〔置換で外れた旧項目: 発注番号〕
@@ -81,6 +83,13 @@
 - `ScanInspectionFormulaPage` barcode_entry_model/scan.yaml: 未解決のエイリアス _count → 読み飛ばし
 - `ScanStaffHistoryPage` barcode_entry_model/scan.yaml: 未解決のエイリアス _count → 読み飛ばし
 - `ScanLocationHistoryPage` barcode_entry_model/scan.yaml: 未解決のエイリアス _count → 読み飛ばし
+- `ScanStaffPage` barcode_entry_model/scan.yaml: 未解決のエイリアス _count → 読み飛ばし
+- `ScanContentsPage` barcode_entry_model/scan.yaml: 未解決のエイリアス _count → 読み飛ばし
+- `ScanLotItemPage` barcode_entry_model/scan.yaml: 未解決のエイリアス _count → 読み飛ばし
+- `ScanContainerChildPage` barcode_entry_model/scan.yaml: 未解決のエイリアス _count → 読み飛ばし
+- `ApprovalPatternStylePage` document_approval_model/document_approval.yaml: 未解決のエイリアス _count → 読み飛ばし
+- `StaffHistoryLatestPage` organization_model/staff.yaml: 未解決のエイリアス _count → 読み飛ばし
+- `exchangerate` 為替レート: コード/名前の列が見つからない（先頭列を代表表示にします）
 - `itemsize` 大きさ: コード/名前の列が見つからない（先頭列を代表表示にします）
 - `taskres` 工程場所: コード/名前の列が見つからない（先頭列を代表表示にします）
 - `order` trans_order.control_code1: SQL に列が無い → スキップ
@@ -156,14 +165,19 @@
 - `container` 列 場所(mstr_location_id) → mstr_location: 参照先の画面が無い → 非表示
 - `invapply` 列 受払実績(convey_id) → trans_convey: 参照先の画面が無い → 非表示
 - `certificate` 列 ファイル(trans_file_id) → trans_file: 参照先の画面が無い → 非表示
+- `certificate` 列 ファイル(trans_file_id) → trans_file: 参照先の画面が無い → 非表示
 - `workrec` 列 設備(equipment_id) → mstr_equipment: 参照先の画面が無い → 非表示
 - `disposal` 列 approvals(approvals): 承認/参加者名の結合表示 → 非表示
 - `recur` 列 approvals(approvals): 承認/参加者名の結合表示 → 非表示
 - `doctier` 列 ファイル(trans_file_id) → trans_file: 参照先の画面が無い → 非表示
+- `doctier` 列 ファイル(trans_file_id) → trans_file: 参照先の画面が無い → 非表示
 - `doc` 列 文書(mstr_document_id) → mstr_document_tree: 参照先の画面が無い → 非表示
+- `doc` 列 ファイル(trans_file_id) → trans_file: 参照先の画面が無い → 非表示
 - `doc` 列 ファイル(trans_file_id) → trans_file: 参照先の画面が無い → 非表示
 - `doc` 列 承認実行パターン(trans_approval_pattern_id) → trans_approval_pattern: 参照先の画面が無い → 非表示
 - `doc` 列 承認実行パターン(trans_approval_pattern_id) → trans_approval_pattern: 参照先の画面が無い → 非表示
+- `doccontent` 列 コンテンツ(mstr_document_content_id) → mstr_document_content_tree: 参照先の画面が無い → 非表示
+- `doccontent` 列 ファイル(trans_file_id) → trans_file: 参照先の画面が無い → 非表示
 - `doccontent` 列 ファイル(trans_file_id) → trans_file: 参照先の画面が無い → 非表示
 - `report` 列 ファイル(trans_file_id) → trans_file: 参照先の画面が無い → 非表示
 - `report` 列 アクセスパス(info_access_path_id) → info_access_path: 参照先の画面が無い → 非表示

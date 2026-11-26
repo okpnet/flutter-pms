@@ -59,6 +59,8 @@ class SystemStrings$entity$ja {
 
 	// Translations
 	late final SystemStrings$entity$unit$ja unit = SystemStrings$entity$unit$ja.internal(_root);
+	late final SystemStrings$entity$currency$ja currency = SystemStrings$entity$currency$ja.internal(_root);
+	late final SystemStrings$entity$exchangerate$ja exchangerate = SystemStrings$entity$exchangerate$ja.internal(_root);
 }
 
 // Path: entity.unit
@@ -73,6 +75,34 @@ class SystemStrings$entity$unit$ja {
 	String get title => '単位';
 
 	late final SystemStrings$entity$unit$fields$ja fields = SystemStrings$entity$unit$fields$ja.internal(_root);
+}
+
+// Path: entity.currency
+class SystemStrings$entity$currency$ja {
+	SystemStrings$entity$currency$ja.internal(this._root);
+
+	final SystemStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '通貨'
+	String get title => '通貨';
+
+	late final SystemStrings$entity$currency$fields$ja fields = SystemStrings$entity$currency$fields$ja.internal(_root);
+}
+
+// Path: entity.exchangerate
+class SystemStrings$entity$exchangerate$ja {
+	SystemStrings$entity$exchangerate$ja.internal(this._root);
+
+	final SystemStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '為替レート'
+	String get title => '為替レート';
+
+	late final SystemStrings$entity$exchangerate$fields$ja fields = SystemStrings$entity$exchangerate$fields$ja.internal(_root);
 }
 
 // Path: entity.unit.fields
@@ -102,6 +132,66 @@ class SystemStrings$entity$unit$fields$ja {
 	String get f_remarks => '備考';
 }
 
+// Path: entity.currency.fields
+class SystemStrings$entity$currency$fields$ja {
+	SystemStrings$entity$currency$fields$ja.internal(this._root);
+
+	final SystemStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '通貨コード'
+	String get f_code => '通貨コード';
+
+	/// ja: '通貨名称'
+	String get f_name => '通貨名称';
+
+	/// ja: '読み'
+	String get f_pronunciation => '読み';
+
+	/// ja: '略称'
+	String get f_nickname => '略称';
+
+	/// ja: '通貨記号'
+	String get f_currency_symbol => '通貨記号';
+
+	/// ja: '小数の桁数'
+	String get f_minor_unit => '小数の桁数';
+
+	/// ja: 'レートの自動取得の対象'
+	String get f_rate_auto => 'レートの自動取得の対象';
+
+	/// ja: '備考'
+	String get f_remarks => '備考';
+}
+
+// Path: entity.exchangerate.fields
+class SystemStrings$entity$exchangerate$fields$ja {
+	SystemStrings$entity$exchangerate$fields$ja.internal(this._root);
+
+	final SystemStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '通貨'
+	String get f_mstr_currency_id => '通貨';
+
+	/// ja: '適用する月'
+	String get f_rate_month => '適用する月';
+
+	/// ja: 'レート'
+	String get f_rate => 'レート';
+
+	/// ja: '自動取得'
+	String get f_auto_fetched => '自動取得';
+
+	/// ja: '取得元'
+	String get f_source => '取得元';
+
+	/// ja: '備考'
+	String get f_remarks => '備考';
+}
+
 /// The flat map containing all translations for locale <ja>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -118,6 +208,22 @@ extension on SystemStrings {
 			'entity.unit.fields.f_detail' => '詳細',
 			'entity.unit.fields.f_symbol' => '記号',
 			'entity.unit.fields.f_remarks' => '備考',
+			'entity.currency.title' => '通貨',
+			'entity.currency.fields.f_code' => '通貨コード',
+			'entity.currency.fields.f_name' => '通貨名称',
+			'entity.currency.fields.f_pronunciation' => '読み',
+			'entity.currency.fields.f_nickname' => '略称',
+			'entity.currency.fields.f_currency_symbol' => '通貨記号',
+			'entity.currency.fields.f_minor_unit' => '小数の桁数',
+			'entity.currency.fields.f_rate_auto' => 'レートの自動取得の対象',
+			'entity.currency.fields.f_remarks' => '備考',
+			'entity.exchangerate.title' => '為替レート',
+			'entity.exchangerate.fields.f_mstr_currency_id' => '通貨',
+			'entity.exchangerate.fields.f_rate_month' => '適用する月',
+			'entity.exchangerate.fields.f_rate' => 'レート',
+			'entity.exchangerate.fields.f_auto_fetched' => '自動取得',
+			'entity.exchangerate.fields.f_source' => '取得元',
+			'entity.exchangerate.fields.f_remarks' => '備考',
 			_ => null,
 		};
 	}

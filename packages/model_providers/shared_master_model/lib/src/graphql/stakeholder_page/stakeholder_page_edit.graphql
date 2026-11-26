@@ -12,6 +12,8 @@ mutation StakeholderPageEdit(
   $isSupplier: Boolean
   $isLogistics: Boolean
   $mail: String
+  $mstrCurrencyId: UUID
+  $acceptanceDay: Int
   $remarks: String
   $updateUserId: UUID
   $updateUserHistoryId: UUID
@@ -27,6 +29,8 @@ mutation StakeholderPageEdit(
         isSupplier: $isSupplier
         isLogistics: $isLogistics
         mail: $mail
+        mstrCurrencyId: $mstrCurrencyId
+        acceptanceDay: $acceptanceDay
         remarks: $remarks
         updateUserId: $updateUserId
         updateUserHistoryId: $updateUserHistoryId
@@ -42,6 +46,8 @@ mutation StakeholderPageEdit(
       isSupplier
       isLogistics
       mail
+      mstrCurrencyId
+      acceptanceDay
       remarks
     }
   }

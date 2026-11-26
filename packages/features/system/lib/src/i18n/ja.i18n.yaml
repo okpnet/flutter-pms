@@ -13,3 +13,23 @@ entity:
       f_detail: "詳細"
       f_symbol: "記号"
       f_remarks: "備考"
+  currency:
+    title: "通貨"
+    fields:
+      f_code: "通貨コード"
+      f_name: "通貨名称"
+      f_pronunciation: "読み"
+      f_nickname: "略称"
+      f_currency_symbol: "通貨記号"
+      f_minor_unit: "小数の桁数"
+      f_rate_auto: "レートの自動取得の対象"
+      f_remarks: "備考"
+  exchangerate:
+    title: "為替レート"
+    fields:
+      f_mstr_currency_id: "通貨"
+      f_rate_month: "適用する月"
+      f_rate: "レート"
+      f_auto_fetched: "自動取得"
+      f_source: "取得元"
+      f_remarks: "備考"

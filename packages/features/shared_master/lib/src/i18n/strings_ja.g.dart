@@ -306,6 +306,12 @@ class SharedMasterStrings$entity$stakeholder$fields$ja {
 	/// ja: '配送区分'
 	String get f_mstr_shipping_kind_id => '配送区分';
 
+	/// ja: '取引の通貨'
+	String get f_mstr_currency_id => '取引の通貨';
+
+	/// ja: '検収日'
+	String get f_acceptance_day => '検収日';
+
 	/// ja: '備考'
 	String get f_remarks => '備考';
 }
@@ -398,6 +404,8 @@ extension on SharedMasterStrings {
 			'entity.stakeholder.fields.f_is_logistics' => '配送サービサー',
 			'entity.stakeholder.fields.f_mail' => 'メール',
 			'entity.stakeholder.fields.f_mstr_shipping_kind_id' => '配送区分',
+			'entity.stakeholder.fields.f_mstr_currency_id' => '取引の通貨',
+			'entity.stakeholder.fields.f_acceptance_day' => '検収日',
 			'entity.stakeholder.fields.f_remarks' => '備考',
 			'entity.stakeholder.reverse.itemsupplier' => '品目仕入先',
 			'entity.stakeholder.reverse.audit' => '監査',

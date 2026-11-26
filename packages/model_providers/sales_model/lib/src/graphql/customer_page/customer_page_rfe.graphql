@@ -350,6 +350,8 @@ query CustomerPageRfe(
       remarks
     }
 
+    mstrCurrencyId
+    acceptanceDay
     remarks
     updateUserId
     updateUserHistoryId

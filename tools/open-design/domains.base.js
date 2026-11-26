@@ -24,6 +24,10 @@
     /* ---- システム ---- */
     { key: "unit", label: "単位", fields: [["name", "単位名"], ["abbr", "記号"], ["kind", "種類", "s", { opts: ["長さ", "質量", "体積", "個数", "時間"] }]],
       rows: [["キログラム", "kg", "質量"], ["グラム", "g", "質量"], ["ミリメートル", "mm", "長さ"], ["個", "pcs", "個数"], ["リットル", "L", "体積"]] },
+    { key: "currency", label: "通貨", fields: [["code", "通貨コード"], ["name", "通貨名"], ["symbol", "通貨記号"]],
+      rows: [["JPY", "日本円", "円"], ["USD", "米ドル", "$"], ["EUR", "ユーロ", "EUR"]] },
+    { key: "exchangerate", label: "為替レート", fields: [["cur", "通貨", "r", { ref: "currency" }], ["month", "適用月", "d"], ["rate", "レート", "n"]],
+      rows: [["currency2", "2026-11-01", "150"], ["currency3", "2026-11-01", "162"]] },
 
     /* ---- 品目 ---- */
     { key: "itemkind", label: "品目区分", fields: [["name", "区分名"], ["code", "区分コード"], ["desc", "説明", "x", { req: false }]],
@@ -206,6 +210,8 @@
 
   const screens = [
     { id: "unit", label: "単位", icon: "box", tabs: [["main", "単位台帳", "unit"]] },
+    { id: "currency", label: "通貨", icon: "database", tabs: [["main", "通貨台帳", "currency"]] },
+    { id: "exchangerate", label: "為替レート", icon: "database", tabs: [["main", "為替レート", "exchangerate"]] },
     { id: "itemkind", label: "品目区分", icon: "list", tabs: [["main", "品目区分", "itemkind"]] },
     { id: "item", label: "品目", icon: "box", tabs: [["main", "品目体系", "item"], ["size", "大きさ区分", "itemsizekind"], ["hs", "HSコード", "hscode"]] },
     { id: "task", label: "工程", icon: "production", tabs: [["main", "工程体系", "task"]] },
@@ -242,7 +248,7 @@
   ];
 
   const groups = [
-    { id: "system", label: "システム", icon: "database", screens: ["unit"] },
+    { id: "system", label: "システム", icon: "database", screens: ["unit", "currency", "exchangerate"] },
     { id: "item", label: "品目", icon: "box", screens: ["itemkind", "item"] },
     { id: "process", label: "工程", icon: "production", screens: ["task", "taskgroup", "operation"] },
     { id: "sales", label: "営業", icon: "orders", screens: ["shipkind", "customer", "order"] },

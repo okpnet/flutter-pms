@@ -36,6 +36,9 @@ Map<String, dynamic>? _party(String name) => {
   'isCustomer': true,
   'isSupplier': false,
   'isLogistics': false,
+  'mstrCurrencyId': 'cur1',
+  'currency': null,
+  'acceptanceDay': null,
   'code': 'C1',
   'controlCode': null,
   'labels': {

@@ -185,6 +185,20 @@ class _StakeholderRepository implements IEntityRepository {
             'いいえ' => false,
             _ => null,
           };
+    // 検収日(月の日。1〜31。空は NULL = 月末)
+    final dayText = t('acceptance_day');
+    final acceptanceDay = dayText.isEmpty ? null : int.tryParse(dayText);
+    if (dayText.isNotEmpty &&
+        (acceptanceDay == null || acceptanceDay < 1 || acceptanceDay > 31)) {
+      throw const EntityValidationException({
+        'acceptance_day': EntityFieldError.invalidNumber,
+      });
+    }
+    if (t('mstr_currency_id').isEmpty) {
+      throw const EntityValidationException({
+        'mstr_currency_id': EntityFieldError.required,
+      });
+    }
     final isCustomer = flag('is_customer');
     final isSupplier = flag('is_supplier');
     final isLogistics = flag('is_logistics');
@@ -200,6 +214,8 @@ class _StakeholderRepository implements IEntityRepository {
             'isSupplier': ?isSupplier,
             'isLogistics': ?isLogistics,
             if (t('mail').isNotEmpty) 'mail': t('mail'),
+            'mstrCurrencyId': t('mstr_currency_id'),
+            'acceptanceDay': ?acceptanceDay,
             if (t('remarks').isNotEmpty) 'remarks': t('remarks'),
             if (au != null) 'updateUserId': au.staffId,
             if (au != null) 'updateUserHistoryId': au.staffHistoryId,
@@ -221,6 +237,10 @@ class _StakeholderRepository implements IEntityRepository {
         'isSupplier': ?isSupplier,
         'isLogistics': ?isLogistics,
         if (changed('mail')) 'mail': clearable('mail'),
+        if (changed('mstr_currency_id'))
+          'mstrCurrencyId': t('mstr_currency_id'),
+        // 検収日は、空にしたときは NULL(月末)にする
+        if (changed('acceptance_day')) 'acceptanceDay': acceptanceDay,
         if (changed('remarks')) 'remarks': clearable('remarks'),
       };
       if (patch.isNotEmpty) {
@@ -286,6 +306,8 @@ class _StakeholderRepository implements IEntityRepository {
         'is_logistics': _yesNo(n.isLogistics),
         'mail': _text(n.mail),
         'mstr_shipping_kind_id': _text(n.mstrShippingKindId),
+        'mstr_currency_id': _text(n.mstrCurrencyId),
+        'acceptance_day': _text(n.acceptanceDay),
         'remarks': _text(n.remarks),
       },
     );

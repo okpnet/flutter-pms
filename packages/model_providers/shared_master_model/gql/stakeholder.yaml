@@ -38,6 +38,17 @@ StakeholderReadFields: &StakeholderReadFields
       as: shippingKinds
       using:  mstr_shipping_kind_id
       <<: *ShippingKindReadFields
+    # 取引の通貨と検収日(issue/20261126_0002.md)。金額は相手先の通貨のまま保存し、基準通貨への換算はビューが行う
+    - mstr_currency_id
+    - name: currency
+      as: currency
+      arrayType: toFirstOne
+      using: mstr_currency_id
+      from: mstr_currency
+      pick:
+        - code
+        - currency_symbol
+    - acceptance_day
     - symbol
     - remarks
     # 子のレコード数(要件0056。DBのビュー 3本)
@@ -106,6 +117,8 @@ StakeholderEditFields:  &StakeholderEditFields
       arrayType: toFirstOne
       using:  mstr_shipping_kind_id
       <<: *ShippingKindEditFields
+    - mstr_currency_id
+    - acceptance_day
     - remarks
     - update_user_id
     - update_user_history_id

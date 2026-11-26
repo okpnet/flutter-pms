@@ -298,6 +298,13 @@ query ShippingTodayPageRead(
             }
           }
 
+          mstrCurrencyId
+
+          currency: mstrCurrencyByMstrCurrencyId {
+            mstrCurrencyId
+          }
+
+          acceptanceDay
           symbol
           remarks
 

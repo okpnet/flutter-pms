@@ -93,6 +93,176 @@ window.OD_SCHEMA = {
    ]
   ]
  },
+ "currency": {
+  "label": "通貨",
+  "fields": [
+   [
+    "code",
+    "通貨コード",
+    "t",
+    {}
+   ],
+   [
+    "name",
+    "通貨名称",
+    "t",
+    {}
+   ],
+   [
+    "pronunciation",
+    "読み",
+    "t",
+    {
+     "req": false
+    }
+   ],
+   [
+    "nickname",
+    "略称",
+    "t",
+    {
+     "req": false
+    }
+   ],
+   [
+    "currency_symbol",
+    "通貨記号",
+    "t",
+    {}
+   ],
+   [
+    "minor_unit",
+    "小数の桁数",
+    "n",
+    {
+     "req": false
+    }
+   ],
+   [
+    "rate_auto",
+    "レートの自動取得の対象",
+    "s",
+    {
+     "req": false,
+     "opts": [
+      "はい",
+      "いいえ"
+     ]
+    }
+   ],
+   [
+    "remarks",
+    "備考",
+    "x",
+    {
+     "req": false
+    }
+   ]
+  ],
+  "rows": [
+   [
+    "JPY",
+    "日本円",
+    "",
+    "",
+    "円",
+    "10",
+    "はい",
+    ""
+   ],
+   [
+    "USD",
+    "米ドル",
+    "",
+    "",
+    "$",
+    "20",
+    "いいえ",
+    ""
+   ],
+   [
+    "EUR",
+    "ユーロ",
+    "",
+    "",
+    "EUR",
+    "30",
+    "はい",
+    ""
+   ]
+  ]
+ },
+ "exchangerate": {
+  "label": "為替レート",
+  "fields": [
+   [
+    "mstr_currency_id",
+    "通貨",
+    "r",
+    {
+     "ref": "currency"
+    }
+   ],
+   [
+    "rate_month",
+    "適用する月",
+    "d",
+    {}
+   ],
+   [
+    "rate",
+    "レート",
+    "n",
+    {}
+   ],
+   [
+    "auto_fetched",
+    "自動取得",
+    "s",
+    {
+     "req": false,
+     "opts": [
+      "はい",
+      "いいえ"
+     ]
+    }
+   ],
+   [
+    "source",
+    "取得元",
+    "t",
+    {
+     "req": false
+    }
+   ],
+   [
+    "remarks",
+    "備考",
+    "x",
+    {
+     "req": false
+    }
+   ]
+  ],
+  "rows": [
+   [
+    "currency2",
+    "2026-11-01",
+    "150",
+    "はい",
+    "",
+    ""
+   ],
+   [
+    "currency3",
+    "2026-11-01",
+    "162",
+    "いいえ",
+    "",
+    ""
+   ]
+  ]
+ },
  "itemkind": {
   "label": "品目区分",
   "fields": [
@@ -992,6 +1162,22 @@ window.OD_SCHEMA = {
     }
    ],
    [
+    "mstr_currency_id",
+    "取引の通貨",
+    "r",
+    {
+     "ref": "currency"
+    }
+   ],
+   [
+    "acceptance_day",
+    "検収日",
+    "n",
+    {
+     "req": false
+    }
+   ],
+   [
     "remarks",
     "備考",
     "x",
@@ -1012,6 +1198,8 @@ window.OD_SCHEMA = {
     "はい",
     "",
     "shipkind1",
+    "currency1",
+    "10",
     ""
    ],
    [
@@ -1025,6 +1213,8 @@ window.OD_SCHEMA = {
     "いいえ",
     "",
     "shipkind1",
+    "currency1",
+    "20",
     ""
    ],
    [
@@ -1038,6 +1228,8 @@ window.OD_SCHEMA = {
     "はい",
     "",
     "shipkind1",
+    "currency1",
+    "30",
     ""
    ]
   ]
@@ -1332,6 +1524,22 @@ window.OD_SCHEMA = {
     }
    ],
    [
+    "mstr_currency_id",
+    "取引の通貨",
+    "r",
+    {
+     "ref": "currency"
+    }
+   ],
+   [
+    "acceptance_day",
+    "検収日",
+    "n",
+    {
+     "req": false
+    }
+   ],
+   [
     "remarks",
     "備考",
     "x",
@@ -1352,6 +1560,8 @@ window.OD_SCHEMA = {
     "はい",
     "",
     "shipkind1",
+    "currency1",
+    "10",
     ""
    ],
    [
@@ -1365,6 +1575,8 @@ window.OD_SCHEMA = {
     "いいえ",
     "",
     "shipkind1",
+    "currency1",
+    "20",
     ""
    ]
   ]

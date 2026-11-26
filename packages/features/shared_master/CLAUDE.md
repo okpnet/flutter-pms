@@ -45,9 +45,10 @@
 
 | 実体 | キー | 構造 | 項目数 | 参照先 |
 |---|---|---|---|---|
-| 利害関係者 | `stakeholder` | テーブル構造 | 11 | `shipkind` |
+| 利害関係者 | `stakeholder` | テーブル構造 | 13 | `shipkind`, `currency` |
 | 担当者 | `contact` | 子の台帳(親: 利害関係者) | 4 |  |
 <!-- entity_gen:end -->
+
 
 
 
