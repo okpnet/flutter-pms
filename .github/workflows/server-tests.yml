@@ -247,9 +247,31 @@ jobs:
       #    --dart-define=… はテストのプロセスに値を渡す指定。
       # ---------------------------------------------------------------
       - name: サーバーを使うテスト(*_model)
+        env:
+          # 実サーバーの応答を、このフォルダに JSON で記録する(次の手順で成果物として保存する)。
+          # 記録の内容は 07_dummy のダミーデータだけ。クローズドのテストの「再生」に使う。
+          PMS_RECORD_DIR: ${{ runner.temp }}/recorded-responses
         run: |
           melos exec --scope="*_model" --dir-exists=test -- \
             flutter test --dart-define=PMS_TEST_GRAPHQL_URL="$GRAPHQL_URL"
+
+      # ---------------------------------------------------------------
+      # 10. 記録した応答を「成果物(artifact)」として保存する
+      #     Actions の実行の画面から、zip でダウンロードできる(14 日間だけ残る)。
+      #     手元で `gh run download <実行の ID> -n recorded-responses` でも取れる。
+      #     取った JSON は、packages/infra/data_test_harness/fixtures/graphql/ に置き、
+      #     ReplayLink().loadDirectory(...) で再生する。
+      #     公開リポジトリでは、成果物は GitHub のユーザーなら誰でも取れる。中身はダミーデータだけ。
+      #     if: success() … テストが全部通ったときだけ保存する(失敗した実行の中途半端な記録を残さない)
+      # ---------------------------------------------------------------
+      - name: 記録した応答を保存
+        if: success()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: recorded-responses
+          path: ${{ runner.temp }}/recorded-responses
+          if-no-files-found: error   # 1つも記録されなかったら失敗にする(記録の仕組みの故障に気づくため)
+          retention-days: 14
 
       # ---------------------------------------------------------------
       # 失敗したときだけ、PostGraphile のログを表示する(原因調べ用)
