@@ -240,6 +240,9 @@ input HistoryInfoStaffFilter {
   mstrItemsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrItemsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrShippingKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrCurrenciesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrCurrenciesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transExchangeRatesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrStakeholdersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrStakeholderContactsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrStakeholderContactsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -555,6 +558,7 @@ input SharedAppellationFilter {
   mstrManufacturersByNamesExist: Boolean
   mstrItemsByNamesExist: Boolean
   mstrShippingKindsByNamesExist: Boolean
+  mstrCurrenciesByNamesExist: Boolean
   mstrStakeholdersByNamesExist: Boolean
   mstrStakeholderContactsByOfficeNamesExist: Boolean
   mstrStakeholderContactsByDepartmentNamesExist: Boolean

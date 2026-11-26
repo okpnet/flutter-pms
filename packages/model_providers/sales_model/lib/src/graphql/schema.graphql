@@ -40,6 +40,10 @@ enum MstrStakeholdersOrderBy {
   INFO_ADDRESS_ID_DESC
   MSTR_SHIPPING_KIND_ID_ASC
   MSTR_SHIPPING_KIND_ID_DESC
+  MSTR_CURRENCY_ID_ASC
+  MSTR_CURRENCY_ID_DESC
+  ACCEPTANCE_DAY_ASC
+  ACCEPTANCE_DAY_DESC
   REVISION_ASC
   REVISION_DESC
   SYMBOL_ASC
@@ -1053,6 +1057,9 @@ input HistoryInfoStaffFilter {
   mstrItemsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrItemsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrShippingKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrCurrenciesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrCurrenciesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transExchangeRatesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrStakeholdersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrStakeholderContactsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrStakeholderContactsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -1342,6 +1349,8 @@ input HistoryMstrStakeholderFilter {
   mail: StringFilter
   infoAddressId: UUIDFilter
   mstrShippingKindId: UUIDFilter
+  mstrCurrencyId: UUIDFilter
+  acceptanceDay: IntFilter
   revision: IntFilter
   symbol: StringFilter
   remarks: StringFilter
@@ -1474,6 +1483,8 @@ input MstrStakeholderFilter {
   mail: StringFilter
   infoAddressId: UUIDFilter
   mstrShippingKindId: UUIDFilter
+  mstrCurrencyId: UUIDFilter
+  acceptanceDay: IntFilter
   revision: IntFilter
   symbol: StringFilter
   remarks: StringFilter
@@ -1493,14 +1504,19 @@ input MstrStakeholderFilter {
   vComplaintKindsByStakeholderIdExist: Boolean
   vExternalPropertiesByOwnerStakeholderIdExist: Boolean
   vInspectionStatusesBySupplierIdExist: Boolean
+  vItemSupplierCostsBySupplierIdExist: Boolean
   vMrpPendingSuggestionsByStakeholderIdExist: Boolean
   vMrpPurchasePlansByStakeholderIdExist: Boolean
   vMrpSuggestionsByStakeholderIdExist: Boolean
+  vOrderDetailAmountsByCustomerIdExist: Boolean
   vPurchaseAmountsBySupplierIdExist: Boolean
   vPurchaseDeliveryCompliancesBySupplierIdExist: Boolean
+  vPurchaseDetailAmountsBySupplierIdExist: Boolean
+  vPurchaseRecAmountsBySupplierIdExist: Boolean
   vSalesRecordsByCustomerIdExist: Boolean
   vShippingDeliveryCompliancesByCustomerIdExist: Boolean
   vShippingOrderStatusesByCustomerIdExist: Boolean
+  vShippingRecordAmountsByCustomerIdExist: Boolean
   vStakeholderOutsourceAvailableCountByMstrStakeholderId: VStakeholderOutsourceAvailableCountFilter
   vStakeholderOutsourceAvailableCountByMstrStakeholderIdExists: Boolean
   vStakeholderStakeholderContactCountByMstrStakeholderId: VStakeholderStakeholderContactCountFilter
@@ -1618,6 +1634,7 @@ input SharedAppellationFilter {
   mstrManufacturersByNamesExist: Boolean
   mstrItemsByNamesExist: Boolean
   mstrShippingKindsByNamesExist: Boolean
+  mstrCurrenciesByNamesExist: Boolean
   mstrStakeholdersByNamesExist: Boolean
   mstrStakeholderContactsByOfficeNamesExist: Boolean
   mstrStakeholderContactsByDepartmentNamesExist: Boolean
@@ -1853,6 +1870,7 @@ input TransOrderDetailFilter {
   vExternalPropertiesByTransOrderDetailIdExist: Boolean
   vMrpPendingSuggestionsByTransOrderDetailIdExist: Boolean
   vMrpSuggestionsByTransOrderDetailIdExist: Boolean
+  vOrderDetailAmountByTransOrderDetailIdExists: Boolean
   vOrderDetailBalanceByTransOrderDetailId: VOrderDetailBalanceFilter
   vOrderDetailBalanceByTransOrderDetailIdExists: Boolean
   vOrderDetailOrderDetailRiskCountByTransOrderDetailId: VOrderDetailOrderDetailRiskCountFilter
@@ -1865,6 +1883,7 @@ input TransOrderDetailFilter {
   vPlanChangesByRootTransOrderDetailIdExist: Boolean
   vPlanChangeUnreflectedsByTransOrderDetailIdExist: Boolean
   vResourcePlanCoveragesByTransOrderDetailIdExist: Boolean
+  vShippingRecordAmountsByTransOrderDetailIdExist: Boolean
   vSupplyDetailBalancesByTransOrderDetailIdExist: Boolean
   vWorkPlanRegistrablesByTransOrderDetailIdExist: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaffFilter

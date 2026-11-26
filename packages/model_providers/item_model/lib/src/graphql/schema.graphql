@@ -1289,6 +1289,9 @@ input HistoryInfoStaffFilter {
   mstrItemsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrItemsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrShippingKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrCurrenciesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrCurrenciesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transExchangeRatesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrStakeholdersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrStakeholderContactsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrStakeholderContactsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -1795,6 +1798,7 @@ input MstrItemFilter {
   vItemItemProvisionCountByMstrItemId: VItemItemProvisionCountFilter
   vItemItemProvisionCountByMstrItemIdExists: Boolean
   vItemOnHandByItemIdExists: Boolean
+  vItemSupplierCostsByItemIdExist: Boolean
   vItemUnitCostByItemIdExists: Boolean
   vItemValuationByItemIdExists: Boolean
   vMrpMasterIssuesByItemIdExist: Boolean
@@ -1802,18 +1806,22 @@ input MstrItemFilter {
   vMrpSuggestionsByItemIdExist: Boolean
   vMrpVisiterItemsByItemIdExist: Boolean
   vOperationsPlanUnreservedsByMstrItemIdExist: Boolean
+  vOrderDetailAmountsByItemIdExist: Boolean
   vOrderDetailBalancesByItemIdExist: Boolean
   vOrderDetailPlanningsByItemIdExist: Boolean
   vPlanChangesByItemIdExist: Boolean
   vPurchaseAmountsByMstrItemIdExist: Boolean
   vPurchaseDeliveryCompliancesByMstrItemIdExist: Boolean
+  vPurchaseDetailAmountsByItemIdExist: Boolean
   vPurchaseDetailBalancesByItemIdExist: Boolean
   vPurchaseDetailUnreservedsByMstrItemIdExist: Boolean
+  vPurchaseRecAmountsByItemIdExist: Boolean
   vRegisterTargetsByItemIdExist: Boolean
   vResourcePlanCoveragesByItemIdExist: Boolean
   vSalesRecordsByMstrItemIdExist: Boolean
   vShippingDeliveryCompliancesByMstrItemIdExist: Boolean
   vShippingOrderStatusesByMstrItemIdExist: Boolean
+  vShippingRecordAmountsByItemIdExist: Boolean
   vStockStatusesByMstrItemIdExist: Boolean
   vSupplyDetailBalancesByItemIdExist: Boolean
   vVisiterItemsByMstrItemIdExist: Boolean
@@ -2511,6 +2519,7 @@ input SharedAppellationFilter {
   mstrManufacturersByNamesExist: Boolean
   mstrItemsByNamesExist: Boolean
   mstrShippingKindsByNamesExist: Boolean
+  mstrCurrenciesByNamesExist: Boolean
   mstrStakeholdersByNamesExist: Boolean
   mstrStakeholderContactsByOfficeNamesExist: Boolean
   mstrStakeholderContactsByDepartmentNamesExist: Boolean

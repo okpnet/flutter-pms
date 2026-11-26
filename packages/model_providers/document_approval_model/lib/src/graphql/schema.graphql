@@ -40,6 +40,8 @@ enum InfoAppsOrderBy {
   DISPOSAL_APPROVAL_PATTERN_ID_DESC
   RECURRENCE_PREVENTION_APPROVAL_PATTERN_ID_ASC
   RECURRENCE_PREVENTION_APPROVAL_PATTERN_ID_DESC
+  MSTR_CURRENCY_ID_ASC
+  MSTR_CURRENCY_ID_DESC
   REVISION_ASC
   REVISION_DESC
   SYMBOL_ASC
@@ -578,6 +580,7 @@ input InfoAppFilter {
   complaintApprovalPatternId: UUIDFilter
   disposalApprovalPatternId: UUIDFilter
   recurrencePreventionApprovalPatternId: UUIDFilter
+  mstrCurrencyId: UUIDFilter
   revision: IntFilter
   symbol: StringFilter
   remarks: StringFilter
@@ -775,6 +778,7 @@ input SharedAppellationFilter {
   mstrManufacturersByNamesExist: Boolean
   mstrItemsByNamesExist: Boolean
   mstrShippingKindsByNamesExist: Boolean
+  mstrCurrenciesByNamesExist: Boolean
   mstrStakeholdersByNamesExist: Boolean
   mstrStakeholderContactsByOfficeNamesExist: Boolean
   mstrStakeholderContactsByDepartmentNamesExist: Boolean

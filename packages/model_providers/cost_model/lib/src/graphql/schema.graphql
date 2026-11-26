@@ -31,6 +31,8 @@ enum VItemUnitCostsOrderBy {
   HAS_SUPPLIER_DESC
   HAS_COMPONENTS_ASC
   HAS_COMPONENTS_DESC
+  RATE_MISSING_ASC
+  RATE_MISSING_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -309,6 +311,7 @@ input VItemUnitCostFilter {
   unitCost: BigFloatFilter
   hasSupplier: BooleanFilter
   hasComponents: BooleanFilter
+  rateMissing: BooleanFilter
   mstrItemByItemIdExists: Boolean
   and: [VItemUnitCostFilter!]
   or: [VItemUnitCostFilter!]

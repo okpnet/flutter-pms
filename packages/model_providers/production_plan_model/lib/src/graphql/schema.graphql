@@ -1439,6 +1439,9 @@ input HistoryInfoStaffFilter {
   mstrItemsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrItemsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrShippingKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  mstrCurrenciesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrCurrenciesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transExchangeRatesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrStakeholdersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrStakeholderContactsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrStakeholderContactsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -1792,6 +1795,8 @@ input HistoryMstrStakeholderFilter {
   mail: StringFilter
   infoAddressId: UUIDFilter
   mstrShippingKindId: UUIDFilter
+  mstrCurrencyId: UUIDFilter
+  acceptanceDay: IntFilter
   revision: IntFilter
   symbol: StringFilter
   remarks: StringFilter
@@ -2002,6 +2007,7 @@ input MstrItemFilter {
   vItemItemOperationTaskCountByMstrItemIdExists: Boolean
   vItemItemProvisionCountByMstrItemIdExists: Boolean
   vItemOnHandByItemIdExists: Boolean
+  vItemSupplierCostsByItemIdExist: Boolean
   vItemUnitCostByItemIdExists: Boolean
   vItemValuationByItemIdExists: Boolean
   vMrpMasterIssuesByItemIdExist: Boolean
@@ -2009,18 +2015,22 @@ input MstrItemFilter {
   vMrpSuggestionsByItemIdExist: Boolean
   vMrpVisiterItemsByItemIdExist: Boolean
   vOperationsPlanUnreservedsByMstrItemIdExist: Boolean
+  vOrderDetailAmountsByItemIdExist: Boolean
   vOrderDetailBalancesByItemIdExist: Boolean
   vOrderDetailPlanningsByItemIdExist: Boolean
   vPlanChangesByItemIdExist: Boolean
   vPurchaseAmountsByMstrItemIdExist: Boolean
   vPurchaseDeliveryCompliancesByMstrItemIdExist: Boolean
+  vPurchaseDetailAmountsByItemIdExist: Boolean
   vPurchaseDetailBalancesByItemIdExist: Boolean
   vPurchaseDetailUnreservedsByMstrItemIdExist: Boolean
+  vPurchaseRecAmountsByItemIdExist: Boolean
   vRegisterTargetsByItemIdExist: Boolean
   vResourcePlanCoveragesByItemIdExist: Boolean
   vSalesRecordsByMstrItemIdExist: Boolean
   vShippingDeliveryCompliancesByMstrItemIdExist: Boolean
   vShippingOrderStatusesByMstrItemIdExist: Boolean
+  vShippingRecordAmountsByItemIdExist: Boolean
   vStockStatusesByMstrItemIdExist: Boolean
   vSupplyDetailBalancesByItemIdExist: Boolean
   vVisiterItemsByMstrItemIdExist: Boolean
@@ -2068,6 +2078,8 @@ input MstrStakeholderFilter {
   mail: StringFilter
   infoAddressId: UUIDFilter
   mstrShippingKindId: UUIDFilter
+  mstrCurrencyId: UUIDFilter
+  acceptanceDay: IntFilter
   revision: IntFilter
   symbol: StringFilter
   remarks: StringFilter
@@ -2087,14 +2099,19 @@ input MstrStakeholderFilter {
   vComplaintKindsByStakeholderIdExist: Boolean
   vExternalPropertiesByOwnerStakeholderIdExist: Boolean
   vInspectionStatusesBySupplierIdExist: Boolean
+  vItemSupplierCostsBySupplierIdExist: Boolean
   vMrpPendingSuggestionsByStakeholderIdExist: Boolean
   vMrpPurchasePlansByStakeholderIdExist: Boolean
   vMrpSuggestionsByStakeholderIdExist: Boolean
+  vOrderDetailAmountsByCustomerIdExist: Boolean
   vPurchaseAmountsBySupplierIdExist: Boolean
   vPurchaseDeliveryCompliancesBySupplierIdExist: Boolean
+  vPurchaseDetailAmountsBySupplierIdExist: Boolean
+  vPurchaseRecAmountsBySupplierIdExist: Boolean
   vSalesRecordsByCustomerIdExist: Boolean
   vShippingDeliveryCompliancesByCustomerIdExist: Boolean
   vShippingOrderStatusesByCustomerIdExist: Boolean
+  vShippingRecordAmountsByCustomerIdExist: Boolean
   vStakeholderOutsourceAvailableCountByMstrStakeholderIdExists: Boolean
   vStakeholderStakeholderContactCountByMstrStakeholderIdExists: Boolean
   vStakeholderStakeholderProvisionCountByMstrStakeholderIdExists: Boolean
@@ -2220,6 +2237,7 @@ input SharedAppellationFilter {
   mstrManufacturersByNamesExist: Boolean
   mstrItemsByNamesExist: Boolean
   mstrShippingKindsByNamesExist: Boolean
+  mstrCurrenciesByNamesExist: Boolean
   mstrStakeholdersByNamesExist: Boolean
   mstrStakeholderContactsByOfficeNamesExist: Boolean
   mstrStakeholderContactsByDepartmentNamesExist: Boolean
@@ -2609,6 +2627,7 @@ input TransOrderDetailFilter {
   vExternalPropertiesByTransOrderDetailIdExist: Boolean
   vMrpPendingSuggestionsByTransOrderDetailIdExist: Boolean
   vMrpSuggestionsByTransOrderDetailIdExist: Boolean
+  vOrderDetailAmountByTransOrderDetailIdExists: Boolean
   vOrderDetailBalanceByTransOrderDetailIdExists: Boolean
   vOrderDetailOrderDetailRiskCountByTransOrderDetailIdExists: Boolean
   vOrderDetailPlanByTransOrderDetailIdExists: Boolean
@@ -2618,6 +2637,7 @@ input TransOrderDetailFilter {
   vPlanChangesByRootTransOrderDetailIdExist: Boolean
   vPlanChangeUnreflectedsByTransOrderDetailIdExist: Boolean
   vResourcePlanCoveragesByTransOrderDetailIdExist: Boolean
+  vShippingRecordAmountsByTransOrderDetailIdExist: Boolean
   vSupplyDetailBalancesByTransOrderDetailIdExist: Boolean
   vWorkPlanRegistrablesByTransOrderDetailIdExist: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserIdExists: Boolean
@@ -2685,10 +2705,12 @@ input TransPurchaseDetailFilter {
   vMrpSuggestionsByTransPurchaseDetailIdExist: Boolean
   vPlanChangesByTransPurchaseDetailIdExist: Boolean
   vPlanChangeUnreflectedsByTransPurchaseDetailIdExist: Boolean
+  vPurchaseDetailAmountByTransPurchaseDetailIdExists: Boolean
   vPurchaseDetailBalanceByTransPurchaseDetailIdExists: Boolean
   vPurchaseDetailPurchaseRecCountByTransPurchaseDetailIdExists: Boolean
   vPurchaseDetailPurchaseRezCountByTransPurchaseDetailIdExists: Boolean
   vPurchaseDetailUnreservedByTransPurchaseDetailIdExists: Boolean
+  vPurchaseRecAmountsByTransPurchaseDetailIdExist: Boolean
   vRegisterTargetsByTransPurchaseDetailIdExist: Boolean
   vSupplyDetailBalancesByTransPurchaseDetailIdExist: Boolean
   transResourcePlanByTransResourcePlanIdExists: Boolean
