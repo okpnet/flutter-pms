@@ -205,7 +205,7 @@ window.OD_SCHEMA = {
    ],
    [
     "rate_date",
-    "適用する月",
+    "適用開始日",
     "d",
     {}
    ],

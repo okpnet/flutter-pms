@@ -6,7 +6,7 @@
 
 - `unit` UnitPage ⇄ shared_unit (単位): 単位名称／読み／略称／詳細／記号／備考　〔置換で外れた旧項目: 種類〕
 - `currency` CurrencyPage ⇄ mstr_currency (通貨マスタ): 通貨コード／通貨名称／読み／略称／通貨記号／小数の桁数／レートの自動取得の対象／備考
-- `exchangerate` CurrencyRatePage ⇄ trans_exchange_rate (為替レート(月ごとの概算。追記のみ)): 通貨／適用する月／レート／自動取得／取得元／備考
+- `exchangerate` CurrencyRatePage ⇄ trans_exchange_rate (為替レート(適用開始日ごとの概算。追記のみ)): 通貨／適用開始日／レート／自動取得／取得元／備考
 - `itemkind` ItemKindPage ⇄ mstr_item_kind (品目区分マスタ): 品目コード／品目区分名称／読み／略称／備考
 - `hscode` HsCodeReadFields ⇄ mstr_item_hcdcs (HSコードマスタ): コード／品目／国／備考　〔置換で外れた旧項目: 品名〕
 - `item` ItemPage ⇄ mstr_item (品目マスタ): 品目コード／識別コード／管理コード／表示コード／品目名称／読み／略称／品目種類／購入品／詳細／個別単位／備考
