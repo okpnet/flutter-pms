@@ -1,4 +1,17 @@
 # System strings (English). Keys missing here fall back to the base language (ja).
+exchange:
+  fetch: "Fetch rates"
+  title: "Fetch exchange rates"
+  running: "Fetching…"
+  registered: "Registered: {count}"
+  skipped: "Skipped (already registered): {count}"
+  failed: "Currencies not fetched (you can enter them by hand)"
+  notProvided: "Not provided by any source"
+  sourcesUnavailable: "Cannot reach the sources"
+  sourceErrors: "Sources that could not be reached"
+  nothingToDo: "No currency is set for automatic fetching (the currency's 'automatic rate fetching' setting)."
+  note: "The source is kept in the rate's source column. Rates are informational estimates and are not used for settlement or accounting."
+  close: "Close"
 menu:
   group: "System"
 entity:

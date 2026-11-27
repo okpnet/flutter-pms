@@ -1,3 +1,16 @@
+exchange:
+  fetch: "自動取得"
+  title: "為替レートの自動取得"
+  running: "取得しています…"
+  registered: "登録: {count} 件"
+  skipped: "登録済みのため省略: {count} 件"
+  failed: "取得できなかった通貨(手入力で補えます)"
+  notProvided: "取得元に無い通貨"
+  sourcesUnavailable: "取得元に接続できません"
+  sourceErrors: "接続できなかった取得元"
+  nothingToDo: "自動取得の対象の通貨がありません(通貨の「レートの自動取得の対象」)。"
+  note: "出典は為替レートの出典の列に残します。レートは情報提供用の概算で、決済・会計には使いません。"
+  close: "閉じる"
 # --- 生成(tools/entity_gen/gen.js)。この行より下は直接編集しない ---
 # システムの実体と項目の表示名(日本語。基準言語)。
 # 項目名は DB のコメント(schema.graphql)に合わせる。コメントが無いものは仮(doc/log に記録)。

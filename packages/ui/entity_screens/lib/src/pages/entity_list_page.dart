@@ -24,6 +24,7 @@ class EntityListPage extends StatefulWidget {
     this.showCreate = true,
     this.onAction,
     this.twoModes = false,
+    this.headerActions,
   });
 
   final String entityKey;
@@ -47,6 +48,9 @@ class EntityListPage extends StatefulWidget {
   /// 閲覧と編集の 2 つのモードにするか(画面案)。true のとき、はじめは閲覧(新規・行を開く操作は無い)で、
   /// 「編集」を押すと編集モード(新規・行を開く)になる。誤って編集の画面へ進まないため。選択画面は false(行を選ぶ)。
   final bool twoModes;
+
+  /// 見出しの右(「編集」「新規」の左)に出す、専用の操作(例: 為替レートの「自動取得」)。完了したら呼び出し側が [reload] を呼ぶと、台帳を読み込み直す。
+  final List<Widget> Function(BuildContext context, VoidCallback reload)? headerActions;
 
   /// 行のボタン([EntityDefinition.rowActions])を押したときの処理。null のときはボタンを出さない。
   final Future<void> Function(RowAction action, EntityRecord record)? onAction;
@@ -263,6 +267,8 @@ class _EntityListPageState extends State<EntityListPage> {
                                 ),
                                 const SizedBox(width: 12),
                               ],
+                              if (widget.headerActions != null)
+                                for (final w in widget.headerActions!(context, _reload)) ...[w, const SizedBox(width: 8)],
                               if (widget.twoModes &&
                                   !loaded.definition.viewOnly)
                                 OutlinedButton.icon(

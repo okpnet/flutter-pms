@@ -38,8 +38,30 @@ class SystemStringsEn extends SystemStrings with BaseTranslations<SystemLocale, 
 	SystemStringsEn $copyWith({TranslationMetadata<SystemLocale, SystemStrings>? meta}) => SystemStringsEn(meta: meta ?? this.$meta);
 
 	// Translations
+	@override late final _SystemStrings$exchange$en exchange = _SystemStrings$exchange$en._(_root);
 	@override late final _SystemStrings$menu$en menu = _SystemStrings$menu$en._(_root);
 	@override late final _SystemStrings$entity$en entity = _SystemStrings$entity$en._(_root);
+}
+
+// Path: exchange
+class _SystemStrings$exchange$en extends SystemStrings$exchange$ja {
+	_SystemStrings$exchange$en._(SystemStringsEn root) : this._root = root, super.internal(root);
+
+	final SystemStringsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get fetch => 'Fetch rates';
+	@override String get title => 'Fetch exchange rates';
+	@override String get running => 'Fetching…';
+	@override String get registered => 'Registered: {count}';
+	@override String get skipped => 'Skipped (already registered): {count}';
+	@override String get failed => 'Currencies not fetched (you can enter them by hand)';
+	@override String get notProvided => 'Not provided by any source';
+	@override String get sourcesUnavailable => 'Cannot reach the sources';
+	@override String get sourceErrors => 'Sources that could not be reached';
+	@override String get nothingToDo => 'No currency is set for automatic fetching (the currency\'s \'automatic rate fetching\' setting).';
+	@override String get note => 'The source is kept in the rate\'s source column. Rates are informational estimates and are not used for settlement or accounting.';
+	@override String get close => 'Close';
 }
 
 // Path: menu
@@ -96,6 +118,18 @@ class _SystemStrings$entity$unit$fields$en extends SystemStrings$entity$unit$fie
 extension on SystemStringsEn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'exchange.fetch' => 'Fetch rates',
+			'exchange.title' => 'Fetch exchange rates',
+			'exchange.running' => 'Fetching…',
+			'exchange.registered' => 'Registered: {count}',
+			'exchange.skipped' => 'Skipped (already registered): {count}',
+			'exchange.failed' => 'Currencies not fetched (you can enter them by hand)',
+			'exchange.notProvided' => 'Not provided by any source',
+			'exchange.sourcesUnavailable' => 'Cannot reach the sources',
+			'exchange.sourceErrors' => 'Sources that could not be reached',
+			'exchange.nothingToDo' => 'No currency is set for automatic fetching (the currency\'s \'automatic rate fetching\' setting).',
+			'exchange.note' => 'The source is kept in the rate\'s source column. Rates are informational estimates and are not used for settlement or accounting.',
+			'exchange.close' => 'Close',
 			'menu.group' => 'System',
 			'entity.unit.title' => 'Units',
 			'entity.unit.fields.f_name' => 'Unit name',

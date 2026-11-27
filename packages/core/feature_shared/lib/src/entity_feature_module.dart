@@ -161,6 +161,9 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
   /// 例: 会社情報(`company`)は、表ではなく、概要の画面を出す。画面の中で [entityScope] を使える。
   Widget? customListPage(WidgetRef ref, String key) => null;
 
+  /// 台帳の見出しの右に出す専用の操作(例: 為替レートの「自動取得」)。既定は無し。[reload] で台帳を読み込み直す。
+  List<Widget> listHeaderActions(WidgetRef ref, String key, BuildContext context, VoidCallback reload) => const [];
+
   /// 実体の画面が使う共通のもの(登録簿・表示名・文字列)。専用の画面([customListPage])が使う。
   EntityScope entityScope(WidgetRef ref) => _scope(ref);
 
@@ -379,6 +382,7 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
         showCreate: !definitions.any((d) => d.key == key && d.viewOnly),
         twoModes: true,
         onReparent: reparentHandler(ref, key),
+        headerActions: (context, reload) => listHeaderActions(ref, key, context, reload),
         onOpen: (r) => bus.execute(EntityEditDestination(key, id: r.id)),
         onCreate: () async {
           final custom = createDestination(ref, key, filter);

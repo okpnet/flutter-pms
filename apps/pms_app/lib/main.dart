@@ -47,6 +47,7 @@ Future<void> main() async {
         ...announcementOverrides(),
         //金額の通貨の表示(設定の currency。無ければ日本円)
         ...moneyOverrides(),
+        ...exchangeOverrides(),
         //ファイルの項目の出し入れ(PocketBase の共有ファイル)
         entityFileTransferProvider.overrideWith(PocketBaseEntityFileTransfer.new),
         //画面の取得元(GRAPHQL_URL を指定したときだけ GraphQL 版)

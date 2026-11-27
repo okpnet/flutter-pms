@@ -43,6 +43,7 @@
 1.  通貨(`currency`)・為替レート(`exchangerate`)の台帳は、システムメニュー(管理者のユーザーメニュー。`SystemModule.menuEntries` が `systemMenuGroupId` へ移す。手書きの印つき)。パス `/e/currency`・`/e/exchangerate`(アクセスパス・機能コード `YC`・`YE`)。開く権限はアクセス権に従う(管理者は常に可)。
 1.  通貨の台帳は、基準通貨・最新のレート・レートの適用開始日を読み取り専用で出す(DB のビュー `v_currency_rate_latest`)。為替レートは追記のみ(適用開始日 = 年月日。直すときは新しい行を足して前の行を取り消す)。モデルは `system_model/gql/currency.yaml`。
 1.  `baseCurrencyId(GraphQLClient)`(`system.dart` で公開): 基準通貨の通貨 ID(`v_currency_rate_latest` の `is_base` の行)。アプリが、利害関係者の新規登録の通貨の初期値(`entityNewDefaultsProvider`)に使う。取り出せないときは null。
+1.  自動取得(`lib/src/exchange/`): 取得元は `IExchangeRateSource`(Strategy。`EcbRateSource`・`FrankfurterRateSource`)で、`RateSheet`(基準の通貨 1 単位 = 各通貨いくら。`crossRate` で基準通貨へ換算)を返す。`ExchangeRateFetcher` が優先順位の順に試し(Chain of Responsibility)、`ExchangeRateImporter` が登録簿をとおして追記する(GraphQL でもメモリ上でも同じ)。設定は `ExchangeSettings`(`info_app.settings` の `exchange`。取得元は 3 件まで。`currencies` で通貨を取得元に指定)。ボタンは `EntityFeatureModule.listHeaderActions` で為替レートの台帳の見出しに出す(`ExchangeFetchButton`)。実行できる人は `exchangeFetchAllowedProvider`(アプリが管理者かどうかで上書き)、通信は `exchangeTextFetcherProvider`(`https` だけ。テストで差し替える)。
 1.  設計・換算の規則はルートの `CLAUDE.md` の「海外取引(通貨・為替)」。
 
 ## 取得元(GraphQL 版)

@@ -127,6 +127,7 @@ Future<List<Override>> exampleOverrides(
     ),
     ...approvalOverrides(),
     ...moneyOverrides(),
+    ...exchangeOverrides(),
     entityFileTransferProvider.overrideWith(PocketBaseEntityFileTransfer.new),
     ...graphqlOverrides(),
     // 通知(メモリ上の見本。題名・本文は、DB に言語別で持つ値と同じ形)。ダッシュボードの未読通知・通知の一覧を確かめる

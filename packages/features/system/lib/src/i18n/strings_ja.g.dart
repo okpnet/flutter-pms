@@ -35,8 +35,54 @@ class SystemStrings with BaseTranslations<SystemLocale, SystemStrings> {
 	SystemStrings $copyWith({TranslationMetadata<SystemLocale, SystemStrings>? meta}) => SystemStrings(meta: meta ?? this.$meta);
 
 	// Translations
+	late final SystemStrings$exchange$ja exchange = SystemStrings$exchange$ja.internal(_root);
 	late final SystemStrings$menu$ja menu = SystemStrings$menu$ja.internal(_root);
 	late final SystemStrings$entity$ja entity = SystemStrings$entity$ja.internal(_root);
+}
+
+// Path: exchange
+class SystemStrings$exchange$ja {
+	SystemStrings$exchange$ja.internal(this._root);
+
+	final SystemStrings _root; // ignore: unused_field
+
+	// Translations
+
+	/// ja: '自動取得'
+	String get fetch => '自動取得';
+
+	/// ja: '為替レートの自動取得'
+	String get title => '為替レートの自動取得';
+
+	/// ja: '取得しています…'
+	String get running => '取得しています…';
+
+	/// ja: '登録: {count} 件'
+	String get registered => '登録: {count} 件';
+
+	/// ja: '登録済みのため省略: {count} 件'
+	String get skipped => '登録済みのため省略: {count} 件';
+
+	/// ja: '取得できなかった通貨(手入力で補えます)'
+	String get failed => '取得できなかった通貨(手入力で補えます)';
+
+	/// ja: '取得元に無い通貨'
+	String get notProvided => '取得元に無い通貨';
+
+	/// ja: '取得元に接続できません'
+	String get sourcesUnavailable => '取得元に接続できません';
+
+	/// ja: '接続できなかった取得元'
+	String get sourceErrors => '接続できなかった取得元';
+
+	/// ja: '自動取得の対象の通貨がありません(通貨の「レートの自動取得の対象」)。'
+	String get nothingToDo => '自動取得の対象の通貨がありません(通貨の「レートの自動取得の対象」)。';
+
+	/// ja: '出典は為替レートの出典の列に残します。レートは情報提供用の概算で、決済・会計には使いません。'
+	String get note => '出典は為替レートの出典の列に残します。レートは情報提供用の概算で、決済・会計には使いません。';
+
+	/// ja: '閉じる'
+	String get close => '閉じる';
 }
 
 // Path: menu
@@ -209,6 +255,18 @@ class SystemStrings$entity$exchangerate$fields$ja {
 extension on SystemStrings {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'exchange.fetch' => '自動取得',
+			'exchange.title' => '為替レートの自動取得',
+			'exchange.running' => '取得しています…',
+			'exchange.registered' => '登録: {count} 件',
+			'exchange.skipped' => '登録済みのため省略: {count} 件',
+			'exchange.failed' => '取得できなかった通貨(手入力で補えます)',
+			'exchange.notProvided' => '取得元に無い通貨',
+			'exchange.sourcesUnavailable' => '取得元に接続できません',
+			'exchange.sourceErrors' => '接続できなかった取得元',
+			'exchange.nothingToDo' => '自動取得の対象の通貨がありません(通貨の「レートの自動取得の対象」)。',
+			'exchange.note' => '出典は為替レートの出典の列に残します。レートは情報提供用の概算で、決済・会計には使いません。',
+			'exchange.close' => '閉じる',
 			'menu.group' => 'システム',
 			'entity.unit.title' => '単位',
 			'entity.unit.fields.f_name' => '単位名称',
