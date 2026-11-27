@@ -1,3 +1,4 @@
+// 手書き(tools/entity_gen/gen.js は上書きしない): 生成の雛形から、手で書き足している
 import 'package:entity_screens/entity_screens.dart';
 import 'package:feature_shared/feature_shared.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -30,4 +31,22 @@ class SystemModule extends EntityFeatureModule {
   @override
   String menuGroupLabel(WidgetRef ref) =>
       SystemLabels(ref.watch(systemStringsProvider)).menuGroup;
+
+  /// 通貨・為替レートは、システムメニュー(管理者のユーザーメニュー)へ移す。サイドバーには出さない。
+  /// 開く権限は、アクセス権(アクセスパス `/e/currency`・`/e/exchangerate`。管理者は常に可)に従う。
+  static const _systemMenu = {'currency', 'exchangerate'};
+
+  @override
+  List<MenuEntry> menuEntries(WidgetRef ref) => [
+    for (final e in super.menuEntries(ref))
+      if (e.destination case EntityListDestination(:final entityKey) when _systemMenu.contains(entityKey))
+        MenuEntry(
+          groupId: systemMenuGroupId,
+          groupLabel: systemMenuGroupLabel(ref.watch(localeProvider).languageCode),
+          label: e.label,
+          destination: e.destination,
+        )
+      else
+        e,
+  ];
 }

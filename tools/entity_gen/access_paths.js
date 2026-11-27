@@ -131,6 +131,8 @@ const EN = {
   stockstatus: 'Stock status',
   stakeholder: 'Stakeholder',
   unit: 'Unit',
+  currency: 'Currency',
+  exchangerate: 'Exchange rate',
   container: 'Container',
   invapply: 'Inventory allocation',
   invreq: 'Inventory allocation request',

@@ -49,6 +49,8 @@ const menuIconNames = <String, String>{
   'supplier': 'briefcase',
   'task': 'production',
   'taskgroup': 'list',
+  'currency': 'database',
+  'exchangerate': 'database',
   'unit': 'box',
   'unrec': 'orders',
   'workrec': 'wrench',

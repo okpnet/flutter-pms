@@ -186,6 +186,14 @@ features:
         code: U
         page: YU
         label: 単位
+      - screen: currency
+        code: C
+        page: YC
+        label: 通貨
+      - screen: exchangerate
+        code: E
+        page: YE
+        label: 為替レート
   - feature: item
     code: I
     label: 品目

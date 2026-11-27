@@ -98,6 +98,8 @@ usecase_path,name_ja,name_en,feature,public
 /e/shipplan,出荷予定,Shipping plan,sales,false
 /e/stakeholder,利害関係者,Stakeholder,shared_master,false
 /e/unit,単位,Unit,system,false
+/e/currency,通貨,Currency,system,false
+/e/exchangerate,為替レート,Exchange rate,system,false
 /e/container,コンテナ,Container,work_record,false
 /e/invapply,引き当て,Inventory allocation,work_record,false
 /e/invreq,引き当て予約,Inventory allocation request,work_record,false
