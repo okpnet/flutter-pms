@@ -57,6 +57,9 @@ entity:
       f_remaining_quantity: "残"
       f_open_quantity: "発注残(停止中は0)"
       f_cancel_closed: "全部キャンセル済み"
+      f_currency_symbol: "通貨記号"
+      f_amount_base: "基準通貨の金額(目安)"
+      f_rate_provisional: "レートが仮"
       f_reserve: "引当予約"
   purchaserec:
     title: "受入実績"

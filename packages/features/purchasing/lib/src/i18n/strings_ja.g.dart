@@ -327,6 +327,15 @@ class PurchasingStrings$entity$purdetail$fields$ja {
 	/// ja: '全部キャンセル済み'
 	String get f_cancel_closed => '全部キャンセル済み';
 
+	/// ja: '通貨記号'
+	String get f_currency_symbol => '通貨記号';
+
+	/// ja: '基準通貨の金額(目安)'
+	String get f_amount_base => '基準通貨の金額(目安)';
+
+	/// ja: 'レートが仮'
+	String get f_rate_provisional => 'レートが仮';
+
 	/// ja: '引当予約'
 	String get f_reserve => '引当予約';
 }
@@ -350,9 +359,6 @@ class PurchasingStrings$entity$purchaserec$fields$ja {
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
-
-	/// ja: '異常を登録'
-	String get f_reserve => '異常を登録';
 }
 
 // Path: entity.purchaseline.fields
@@ -440,13 +446,15 @@ extension on PurchasingStrings {
 			'entity.purdetail.fields.f_remaining_quantity' => '残',
 			'entity.purdetail.fields.f_open_quantity' => '発注残(停止中は0)',
 			'entity.purdetail.fields.f_cancel_closed' => '全部キャンセル済み',
+			'entity.purdetail.fields.f_currency_symbol' => '通貨記号',
+			'entity.purdetail.fields.f_amount_base' => '基準通貨の金額(目安)',
+			'entity.purdetail.fields.f_rate_provisional' => 'レートが仮',
 			'entity.purdetail.fields.f_reserve' => '引当予約',
 			'entity.purchaserec.title' => '受入実績',
 			'entity.purchaserec.fields.f_trans_purchase_detail_id' => '発注明細',
 			'entity.purchaserec.fields.f_receive_at' => '受入日時',
 			'entity.purchaserec.fields.f_quantity' => '数量',
 			'entity.purchaserec.fields.f_remarks' => '備考',
-			'entity.purchaserec.fields.f_reserve' => '異常を登録',
 			'entity.purchaseline.title' => '受入明細',
 			'entity.purchaseline.fields.f_item' => '品目',
 			'entity.purchaseline.fields.f_qty' => '受入数量',

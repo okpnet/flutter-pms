@@ -112,6 +112,17 @@ PurchaseDetailPage: &PurchaseDetailPage
         - received_quantity
         - returned_quantity
         - replacement_quantity
+    # 取引の通貨と基準通貨の金額(DBのビュー v_purchase_detail_amount。仕入先の履歴の通貨・最新のレートでの目安。換算は DB)
+    - name: amount
+      arrayType: toFirstOne
+      as: amount
+      using: trans_purchase_detail_id
+      from: v_purchase_detail_amount
+      columns:
+        - trans_purchase_detail_id
+        - currency_symbol
+        - amount_base
+        - provisional
     # 子のレコード数(要件0056。DBのビュー 2本)
     - name: purchase_rez_count
       arrayType: toFirstOne

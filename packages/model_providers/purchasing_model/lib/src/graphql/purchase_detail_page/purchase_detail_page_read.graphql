@@ -52,6 +52,13 @@ query PurchaseDetailPageRead(
         replacementQuantity
       }
 
+      amount: vPurchaseDetailAmountByTransPurchaseDetailId {
+        transPurchaseDetailId
+        currencySymbol
+        amountBase
+        provisional
+      }
+
       purchase_rez_count: vPurchaseDetailPurchaseRezCountByTransPurchaseDetailId {
         transPurchaseDetailId
       }

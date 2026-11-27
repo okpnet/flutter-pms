@@ -661,6 +661,7 @@ type TransPurchaseDetail {
   updateUserHistoryId: UUID
   remove: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
+  vPurchaseDetailAmountByTransPurchaseDetailId: VPurchaseDetailAmount
   vPurchaseDetailBalanceByTransPurchaseDetailId: VPurchaseDetailBalance
   vPurchaseDetailPurchaseRecCountByTransPurchaseDetailId: VPurchaseDetailPurchaseRecCount
   vPurchaseDetailPurchaseRezCountByTransPurchaseDetailId: VPurchaseDetailPurchaseRezCount
@@ -827,6 +828,13 @@ type VPurchaseDeliveryCompliancesConnection {
   nodes: [VPurchaseDeliveryCompliance]!
   pageInfo: PageInfo!
   totalCount: Int!
+}
+
+type VPurchaseDetailAmount {
+  transPurchaseDetailId: UUID!
+  currencySymbol: String
+  provisional: Boolean
+  amountBase: BigFloat
 }
 
 type VPurchaseDetailBalance {
@@ -1875,6 +1883,7 @@ input TransPurchaseDetailFilter {
   vMrpSuggestionsByTransPurchaseDetailIdExist: Boolean
   vPlanChangesByTransPurchaseDetailIdExist: Boolean
   vPlanChangeUnreflectedsByTransPurchaseDetailIdExist: Boolean
+  vPurchaseDetailAmountByTransPurchaseDetailId: VPurchaseDetailAmountFilter
   vPurchaseDetailAmountByTransPurchaseDetailIdExists: Boolean
   vPurchaseDetailBalanceByTransPurchaseDetailId: VPurchaseDetailBalanceFilter
   vPurchaseDetailBalanceByTransPurchaseDetailIdExists: Boolean
@@ -2241,6 +2250,27 @@ input VPurchaseDeliveryComplianceFilter {
   and: [VPurchaseDeliveryComplianceFilter!]
   or: [VPurchaseDeliveryComplianceFilter!]
   not: VPurchaseDeliveryComplianceFilter
+}
+
+input VPurchaseDetailAmountFilter {
+  transPurchaseDetailId: UUIDFilter
+  supplierId: UUIDFilter
+  itemId: UUIDFilter
+  mstrCurrencyId: UUIDFilter
+  currencyCode: StringFilter
+  currencySymbol: StringFilter
+  amount: BigFloatFilter
+  rate: BigFloatFilter
+  provisional: BooleanFilter
+  amountBase: BigFloatFilter
+  symbol: StringFilter
+  transPurchaseDetailByTransPurchaseDetailIdExists: Boolean
+  mstrStakeholderBySupplierIdExists: Boolean
+  mstrItemByItemIdExists: Boolean
+  mstrCurrencyByMstrCurrencyIdExists: Boolean
+  and: [VPurchaseDetailAmountFilter!]
+  or: [VPurchaseDetailAmountFilter!]
+  not: VPurchaseDetailAmountFilter
 }
 
 input VPurchaseDetailBalanceFilter {

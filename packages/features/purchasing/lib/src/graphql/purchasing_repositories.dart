@@ -410,6 +410,7 @@ class _PurchaseDetailRepository extends _ReadOnlyRepository {
     Query$PurchaseDetailPageRead$allTransPurchaseDetails$nodes n,
   ) {
     final b = n.balance;
+    final a = n.amount;
     final restocking = n.restockingPurchase;
     return EntityRecord(
       id: n.transPurchaseDetailId,
@@ -437,6 +438,10 @@ class _PurchaseDetailRepository extends _ReadOnlyRepository {
         'remaining_quantity': _ReadOnlyRepository.number(b?.remainingQuantity),
         'open_quantity': _ReadOnlyRepository.number(b?.openQuantity),
         'cancel_closed': _ReadOnlyRepository.flag(b?.cancelClosed),
+        // 取引の通貨(仕入先の履歴の通貨)の記号と、基準通貨の金額(最新のレートでの目安)・レートが仮か。DB のビュー(v_purchase_detail_amount)の値
+        'currency_symbol': _ReadOnlyRepository.text(a?.currencySymbol),
+        'amount_base': _ReadOnlyRepository.number(a?.amountBase),
+        'rate_provisional': _ReadOnlyRepository.flag(a?.provisional),
       },
     );
   }

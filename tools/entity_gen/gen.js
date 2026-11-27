@@ -131,7 +131,7 @@ const MONEY = {
 };
 
 // 金額の項目の通貨を、行ごとに持つ(FieldDefinition.currencyKey)。実体のキー → 通貨の記号を持つ項目(読み取り専用・非表示)。対象の項目は MONEY のうち、この実体のもの
-const CURRENCY_KEY = { orderdetail: 'currency_symbol' };
+const CURRENCY_KEY = { orderdetail: 'currency_symbol', purdetail: 'currency_symbol' };
 
 const KIND = { t: 'text', x: 'multiline', n: 'number', d: 'date', s: 'choice', r: 'reference', b: 'flag', c: 'number', f: 'file' };
 
@@ -281,6 +281,10 @@ const FIELD_ADDITIONS = {
     { after: 'received_quantity', field: { key: 'remaining_quantity', label: '残', kind: 'number', required: false, readOnly: true }, sample: empty },
     { after: 'remaining_quantity', field: { key: 'open_quantity', label: '発注残(停止中は0)', kind: 'number', required: false, readOnly: true }, sample: empty },
     { after: 'open_quantity', field: { key: 'cancel_closed', label: '全部キャンセル済み', kind: 'flag', required: false, readOnly: true }, sample: empty },
+    /* 取引の通貨(仕入先の履歴の通貨。v_purchase_detail_amount)。金額の項目は、この行の通貨の記号で出す。基準通貨の金額は、最新のレートでの目安 */
+    { after: 'cancel_closed', field: { key: 'currency_symbol', label: '通貨記号', kind: 'text', required: false, readOnly: true, hidden: true, inList: false }, sample: empty },
+    { after: 'currency_symbol', field: { key: 'amount_base', label: '基準通貨の金額(目安)', kind: 'number', required: false, readOnly: true }, sample: empty },
+    { after: 'amount_base', field: { key: 'rate_provisional', label: 'レートが仮', kind: 'flag', required: false, readOnly: true }, sample: empty },
   ],
   unrecdetail: [
     { after: 'unit_price', field: { key: 'price_adjustment', label: '価格調整', kind: 'number', required: false }, sample: empty },

@@ -55,6 +55,9 @@ entity:
       f_remaining_quantity: "Remaining"
       f_open_quantity: "Open quantity (0 while stopped)"
       f_cancel_closed: "Fully canceled"
+      f_currency_symbol: "Currency symbol"
+      f_amount_base: "Amount in base currency (estimate)"
+      f_rate_provisional: "Provisional rate"
       f_reserve: "Allocation reservation"
   purchaserec:
     title: "Receipts"

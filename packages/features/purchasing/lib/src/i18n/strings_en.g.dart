@@ -228,6 +228,9 @@ class _PurchasingStrings$entity$purdetail$fields$en extends PurchasingStrings$en
 	@override String get f_remaining_quantity => 'Remaining';
 	@override String get f_open_quantity => 'Open quantity (0 while stopped)';
 	@override String get f_cancel_closed => 'Fully canceled';
+	@override String get f_currency_symbol => 'Currency symbol';
+	@override String get f_amount_base => 'Amount in base currency (estimate)';
+	@override String get f_rate_provisional => 'Provisional rate';
 	@override String get f_reserve => 'Allocation reservation';
 }
 
@@ -319,6 +322,9 @@ extension on PurchasingStringsEn {
 			'entity.purdetail.fields.f_remaining_quantity' => 'Remaining',
 			'entity.purdetail.fields.f_open_quantity' => 'Open quantity (0 while stopped)',
 			'entity.purdetail.fields.f_cancel_closed' => 'Fully canceled',
+			'entity.purdetail.fields.f_currency_symbol' => 'Currency symbol',
+			'entity.purdetail.fields.f_amount_base' => 'Amount in base currency (estimate)',
+			'entity.purdetail.fields.f_rate_provisional' => 'Provisional rate',
 			'entity.purdetail.fields.f_reserve' => 'Allocation reservation',
 			'entity.purchaserec.title' => 'Receipts',
 			'entity.purchaserec.fields.f_trans_purchase_detail_id' => 'Purchase order line',
