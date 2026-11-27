@@ -156,6 +156,20 @@ DB のビュー(`06_cteate_test.sql`)が計算し、アプリ(`packages/features
 1.  **支給品は 0 円**: 投入した材料のロットが、社外の所有物(`external_owned`)または譲渡で自社の物になった(`transferred`)ときは 0 円。購入品 + 支給品で作った品目は、購入品 + 工程の原価(支給品は 0 円)。
 1.  **材料の対応の限界**: 1 つの作業実績が複数の材料を投入し、複数のロットを作るとき、どの材料のロットがどの作ったロットになったかの個別の対応は残らない(作業実績単位でしか分からない。トレースは作業実績をたどれば、投入した材料のすべてが分かる)。材料の対応を残したい場合は、作業実績を分けて登録する(例: 材料 A1 だけで B1、A2 だけで B2 を作るなら、作業実績を 2 つに分ける。納入が遅延して A1・A2 を別々に払い出すときは、払出の行が別々に残る)。
 
+## 海外取引(通貨・為替)
+
+生産管理に必要なのは、**通貨の違う金額を、集計で基準通貨に換算すること**だけ。決済・請求・差損益・締め日・支払条件は対象外(会計側)。DB の正は `06_cteate_test.sql`(PERO から出力)。
+
+1.  **金額は相手先の通貨のまま保存する**。受注・発注の両方。取引の表には通貨の列を足さない。取引の通貨は、受注・発注が参照する利害関係者の履歴(履歴 ID + ID)の `mstr_currency_id` から引く(取引時の通貨が残る)。基準通貨への換算は**DB のビューだけ**で行う(画面・Dart で換算しない。丸めは基準通貨の `minor_unit` で四捨五入)。
+1.  **通貨マスタ**(`mstr_currency`・`history_mstr_currency`): `code`(ISO 4217。有効な行で一意)・`names`(呼称)・`currency_symbol`・`minor_unit`(小数の桁数 0〜4)・`rate_auto`(自動取得の対象)。**基準通貨**は `info_app.mstr_currency_id`(NOT NULL)。レートが 1 件でもあれば基準通貨は変えられない(`CUR01`)。
+1.  **利害関係者**(マスタと履歴の両方): `mstr_currency_id`(NOT NULL。DB の既定値では入れず、アプリが新規登録の初期値に基準通貨を入れる)・`acceptance_day`(検収日。1〜31。NULL は月末)。
+1.  **為替レート**(`trans_exchange_rate`。追記のみ): `rate_date`(**適用開始日。年月日**)・`rate`(1 単位 = 基準通貨いくら、> 0)・`auto_fetched`・`source`。**適用終了日は持たない**(次のレートが出るまで続く。期間の重なり・抜けが起きず、列を加工せずに索引で引ける)。直すときは新しい行を足し(同じ日は、あとから登録した有効な行が使われる)、取り消しは `remove = true`。
+1.  **どのレートで換算するか**: 出荷実績・受入実績の金額は、相手先の**検収日のレート**(`acceptance_date(検収日, 日付)` = その取引が属する検収日。検収日までは当月の検収日、後は翌月の検収日。NULL は月末。月の日数より大きいときは月末)で、「その日以前で適用開始日が最新のレート」(`currency_rate_at`)を使う。受注・発注の金額・外注の工程単価・標準原価は目安で、**最新のレート**で換算する(固定しない)。自社の工程の時間単価は自社の費用で、換算しない。
+1.  **仮のレート**: その日の月に、その日以前の適用開始日のレートが 1 件も無く、前の月以前のレートで代用しているとき `provisional = true`(`currency_rate_provisional`)。レートが全く無いとき、換算額は NULL(標準原価は `rate_missing` = 購入品の単価を 0 で計算)。
+1.  **ビュー**: `v_currency_rate_latest`(通貨ごとの最新のレート)・`v_shipping_record_amount`・`v_purchase_rec_amount`(検収日のレート)・`v_order_detail_amount`・`v_purchase_detail_amount`・`v_item_supplier_cost`(最新のレート)。列は、通貨(`mstr_currency_id`・`currency_code`・`currency_symbol`)・通貨のままの金額・`rate`・`provisional`・基準通貨の金額(`amount_base`・`cost_base`)。補助の関数(`currency_rate_at`・`currency_rate_provisional`・`acceptance_date`・`currency_to_base`・`currency_base_id`)は `@omit`。
+1.  **画面**: 通貨・為替レートの台帳は `system`(管理者のユーザーメニュー「システムメニュー」。パス `/e/currency`・`/e/exchangerate`。開く権限はアクセス権に従い、管理者は常に可)。通貨の台帳は、基準通貨・最新のレート・レートの適用開始日を読み取り専用で出す。金額の項目(`FieldDefinition.money`)は、`currencyKey`(同じ行の通貨の記号の項目)があれば**行の通貨の記号**で出す(位置は設定の言語ごと)。受注明細・発注明細は、取引の通貨の記号(非表示)・基準通貨の金額(目安)・レートが仮か(真偽の列)を持つ。新規の利害関係者の通貨の初期値は、アプリが `entityNewDefaultsProvider`(`feature_shared`)で基準通貨を入れる(`system` の `baseCurrencyId`)。
+1.  **未実施**: 為替レートの「自動取得」ボタン(取得元は設定 `info_app.settings` の `exchange`。無料・認証不要・公的なレートで、利用の条件を確認してから)。レート登録を管理者だけにするか。確定した月のレートを後から登録できないようにする仕組み(確定した出荷・受入の換算額が動くため)。品目仕入先(`itemsupplier`)の GraphQL 版の取得元(`v_item_supplier_cost`)。出荷実績・受入実績の金額の画面。
+
 ## 受注・発注まわりの GraphQL モデルと画面の仕様(キャンセル・停止・返品・精算・支給・所有)
 
 画面ごとの `.graphql`(`packages/model_providers`)と、画面(`packages/features`)を作るときの決定事項。DB の正は `06_cteate_test.sql`(MRP・棚ビジターの関数・操作の関数を含む)・`12`・`13` で、PostGraphile v4 が生成する型をそのまま使い、独自のスキーマプラグインは使わない。業務の決定事項は上の「受注・発注まわりの仕様」。

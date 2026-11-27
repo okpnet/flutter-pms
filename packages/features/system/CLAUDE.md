@@ -38,6 +38,13 @@
 
 
 
+## 通貨・為替レート
+
+1.  通貨(`currency`)・為替レート(`exchangerate`)の台帳は、システムメニュー(管理者のユーザーメニュー。`SystemModule.menuEntries` が `systemMenuGroupId` へ移す。手書きの印つき)。パス `/e/currency`・`/e/exchangerate`(アクセスパス・機能コード `YC`・`YE`)。開く権限はアクセス権に従う(管理者は常に可)。
+1.  通貨の台帳は、基準通貨・最新のレート・レートの適用開始日を読み取り専用で出す(DB のビュー `v_currency_rate_latest`)。為替レートは追記のみ(適用開始日 = 年月日。直すときは新しい行を足して前の行を取り消す)。モデルは `system_model/gql/currency.yaml`。
+1.  `baseCurrencyId(GraphQLClient)`(`system.dart` で公開): 基準通貨の通貨 ID(`v_currency_rate_latest` の `is_base` の行)。アプリが、利害関係者の新規登録の通貨の初期値(`entityNewDefaultsProvider`)に使う。取り出せないときは null。
+1.  設計・換算の規則はルートの `CLAUDE.md` の「海外取引(通貨・為替)」。
+
 ## 取得元(GraphQL 版)
 `lib/src/graphql/system_repositories.dart` の `systemRepositories(GraphQLClient, {AuditUserSource? auditUser})` が、単位(`unit`)の取得元を作る。アプリ(`pms_app` の `graphql_overrides.dart`)が `entityRepositoryOverridesProvider` に渡すと、サンプルの代わりに使われる(`GRAPHQL_URL` を指定したときだけ)。
 1.  読み込み: 名称・読み・略称は多言語の辞書(`shared_appellation`)、詳細は多言語の文章(`shared_text`。先頭の文)で、言語コード `ja` の値を読む。
