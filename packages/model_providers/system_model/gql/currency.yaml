@@ -29,6 +29,17 @@ CurrencyPage:
     - currency_symbol
     - minor_unit
     - rate_auto
+    # 最新のレート(DBのビュー v_currency_rate_latest。基準通貨は rate = 1・rate_date なし)
+    - name: latest
+      arrayType: toFirstOne
+      as: latest
+      using: mstr_currency_id
+      from: v_currency_rate_latest
+      columns:
+        - mstr_currency_id
+        - is_base
+        - rate
+        - rate_date
     - symbol
     - remarks
     - update_at

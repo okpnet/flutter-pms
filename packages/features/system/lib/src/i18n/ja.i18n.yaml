@@ -23,6 +23,9 @@ entity:
       f_currency_symbol: "通貨記号"
       f_minor_unit: "小数の桁数"
       f_rate_auto: "レートの自動取得の対象"
+      f_is_base: "基準通貨"
+      f_latest_rate: "最新のレート"
+      f_latest_rate_date: "レートの適用開始日"
       f_remarks: "備考"
   exchangerate:
     title: "為替レート"

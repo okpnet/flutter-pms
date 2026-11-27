@@ -228,6 +228,12 @@ for (const e of htmlEntities) {
 }
 const empty = () => '';
 const FIELD_ADDITIONS = {
+  /* 通貨の最新のレート(v_currency_rate_latest。基準通貨は 1・適用開始日なし)。読み取り専用。レートの登録は為替レートの画面 */
+  currency: [
+    { after: 'rate_auto', field: { key: 'is_base', label: '基準通貨', kind: 'flag', required: false, readOnly: true }, sample: empty },
+    { after: 'is_base', field: { key: 'latest_rate', label: '最新のレート', kind: 'number', required: false, readOnly: true }, sample: empty },
+    { after: 'latest_rate', field: { key: 'latest_rate_date', label: 'レートの適用開始日', kind: 'date', required: false, readOnly: true }, sample: empty },
+  ],
   /* 共有ファイル(DB の trans_file_id。実体は PocketBase にあり、DB は ID だけを持つ。値は {id, name, mediaType} の JSON)。ファイルの項目 */
   certificate: [{ after: 'class', field: { key: 'file', label: 'ファイル', kind: 'file', required: false }, sample: empty }],
   doctier: [{ after: 'tier_number', field: { key: 'file', label: 'ファイル', kind: 'file', required: false }, sample: empty }],

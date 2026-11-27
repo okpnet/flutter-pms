@@ -65,6 +65,14 @@ query CurrencyPageRead(
       currencySymbol
       minorUnit
       rateAuto
+
+      latest: vCurrencyRateLatestByMstrCurrencyId {
+        mstrCurrencyId
+        isBase
+        rate
+        rateDate
+      }
+
       symbol
       remarks
       updateAt

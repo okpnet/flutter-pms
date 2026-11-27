@@ -500,6 +500,7 @@ class _CurrencyRepository implements IEntityRepository {
 
   EntityRecord _record(Query$CurrencyPageRead$allMstrCurrencies$nodes n) {
     final labels = n.labels;
+    final latest = n.latest;
     return EntityRecord(
       id: n.mstrCurrencyId,
       values: {
@@ -512,6 +513,10 @@ class _CurrencyRepository implements IEntityRepository {
         'currency_symbol': _text(n.currencySymbol),
         'minor_unit': _text(n.minorUnit),
         'rate_auto': n.rateAuto == true ? 'はい' : 'いいえ',
+        // 最新のレート(DB のビュー v_currency_rate_latest)。基準通貨は 1 で適用開始日なし。レートの登録は為替レートの画面
+        'is_base': latest?.isBase == true ? '1' : '',
+        'latest_rate': _text(latest?.rate),
+        'latest_rate_date': _text(latest?.rateDate),
         'remarks': _text(n.remarks),
       },
     );

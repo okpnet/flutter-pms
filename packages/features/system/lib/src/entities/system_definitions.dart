@@ -42,6 +42,24 @@ const List<EntityDefinition> systemDefinitions = [
         options: ['はい', 'いいえ'],
       ),
       FieldDefinition(
+        key: 'is_base',
+        kind: FieldKind.flag,
+        required: false,
+        readOnly: true,
+      ),
+      FieldDefinition(
+        key: 'latest_rate',
+        kind: FieldKind.number,
+        required: false,
+        readOnly: true,
+      ),
+      FieldDefinition(
+        key: 'latest_rate_date',
+        kind: FieldKind.date,
+        required: false,
+        readOnly: true,
+      ),
+      FieldDefinition(
         key: 'remarks',
         kind: FieldKind.multiline,
         required: false,

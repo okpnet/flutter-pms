@@ -181,6 +181,7 @@ type MstrCurrency {
   remove: Boolean
   sharedAppellationByNames: SharedAppellation
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
+  vCurrencyRateLatestByMstrCurrencyId: VCurrencyRateLatest
 }
 
 type Mutation {
@@ -773,6 +774,7 @@ input MstrCurrencyFilter {
   transExchangeRatesByMstrCurrencyIdExist: Boolean
   mstrStakeholdersByMstrCurrencyIdExist: Boolean
   infoAppsByMstrCurrencyIdExist: Boolean
+  vCurrencyRateLatestByMstrCurrencyId: VCurrencyRateLatestFilter
   vCurrencyRateLatestByMstrCurrencyIdExists: Boolean
   vItemSupplierCostsByMstrCurrencyIdExist: Boolean
   vOrderDetailAmountsByMstrCurrencyIdExist: Boolean

@@ -161,6 +161,15 @@ class SystemStrings$entity$currency$fields$ja {
 	/// ja: 'レートの自動取得の対象'
 	String get f_rate_auto => 'レートの自動取得の対象';
 
+	/// ja: '基準通貨'
+	String get f_is_base => '基準通貨';
+
+	/// ja: '最新のレート'
+	String get f_latest_rate => '最新のレート';
+
+	/// ja: 'レートの適用開始日'
+	String get f_latest_rate_date => 'レートの適用開始日';
+
 	/// ja: '備考'
 	String get f_remarks => '備考';
 }
@@ -216,6 +225,9 @@ extension on SystemStrings {
 			'entity.currency.fields.f_currency_symbol' => '通貨記号',
 			'entity.currency.fields.f_minor_unit' => '小数の桁数',
 			'entity.currency.fields.f_rate_auto' => 'レートの自動取得の対象',
+			'entity.currency.fields.f_is_base' => '基準通貨',
+			'entity.currency.fields.f_latest_rate' => '最新のレート',
+			'entity.currency.fields.f_latest_rate_date' => 'レートの適用開始日',
 			'entity.currency.fields.f_remarks' => '備考',
 			'entity.exchangerate.title' => '為替レート',
 			'entity.exchangerate.fields.f_mstr_currency_id' => '通貨',
