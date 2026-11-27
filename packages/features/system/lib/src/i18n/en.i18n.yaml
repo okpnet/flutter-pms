@@ -5,6 +5,7 @@ exchange:
   running: "Fetching…"
   registered: "Registered: {count}"
   skipped: "Skipped (already registered): {count}"
+  locked: "Skipped (closed period): {count}"
   failed: "Currencies not fetched (you can enter them by hand)"
   notProvided: "Not provided by any source"
   sourcesUnavailable: "Cannot reach the sources"
@@ -12,6 +13,15 @@ exchange:
   nothingToDo: "No currency is set for automatic fetching (the currency's 'automatic rate fetching' setting)."
   note: "The source is kept in the rate's source column. Rates are informational estimates and are not used for settlement or accounting."
   close: "Close"
+  lockedUntil: "Closed through {date}"
+  notLocked: "No period is closed"
+  lock: "Close period"
+  lockTitle: "Close exchange rates"
+  lockBody: "Rates through {date} will be closed. After that, rates on or before this date cannot be registered, changed or cancelled, and this cannot be undone."
+  lockConfirm: "Close"
+  lockCancel: "Cancel"
+  lockFailed: "Could not close the period."
+  lockDone: "Closed."
 menu:
   group: "System"
 entity:

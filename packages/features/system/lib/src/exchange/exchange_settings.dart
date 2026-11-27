@@ -3,6 +3,15 @@ import 'exchange_rate_source.dart';
 import 'frankfurter_rate_source.dart';
 import 'text_fetcher.dart';
 
+/// `yyyy-MM-dd` が実在する日付か(`2026-13-45` のような日付を通さない)。
+bool _isRealDate(String text) {
+  final y = int.parse(text.substring(0, 4));
+  final m = int.parse(text.substring(5, 7));
+  final d = int.parse(text.substring(8, 10));
+  final date = DateTime.utc(y, m, d);
+  return date.year == y && date.month == m && date.day == d;
+}
+
 /// 取得元 1 件の設定。
 class ExchangeSourceConfig {
   const ExchangeSourceConfig({
@@ -54,10 +63,14 @@ class ExchangeSourceConfig {
 /// 標準は、ECB の日次ファイル → Frankfurter(提供元 `ecb`)。日本銀行(`boj`)などは、`providers` で指定して足す。
 /// 例: `{"sources":[{"provider":"ecb"},{"provider":"frankfurter","providers":"boj","currencies":["USD"]}]}`
 class ExchangeSettings {
-  const ExchangeSettings({required this.sources});
+  const ExchangeSettings({required this.sources, this.lockedUntil});
 
   /// 取得元の数の上限。
   static const maxSources = 3;
+
+  /// 為替レートの確定日(`yyyy-MM-dd`。この日以前のレートは、登録・変更・取り消しできない。DB が止める)。無いときは確定していない。
+  /// 前へ戻せない・未来の日付は不可(DB が止める)。
+  final String? lockedUntil;
 
   static const standard = ExchangeSettings(
     sources: [
@@ -68,15 +81,32 @@ class ExchangeSettings {
 
   final List<ExchangeSourceConfig> sources;
 
+  /// 確定日の日付(無い・読めないときは null)。
+  DateTime? get lockedDate =>
+      lockedUntil == null ? null : DateTime.tryParse(lockedUntil!);
+
   /// 通貨 [code] が、どれかの取得元に指定されているか。
   bool isPinned(String code) =>
       sources.any((s) => s.currencies.contains(code.toUpperCase()));
 
   /// JSON から作る。無い・読めないときは標準。読めない取得元は外し、[maxSources] 件までにする。
   factory ExchangeSettings.fromJson(Object? json) {
-    if (json is! Map || json['sources'] is! List) return standard;
+    if (json is! Map) return standard;
+    final locked = json['lockedUntil'];
+    final lockedUntil =
+        locked is String &&
+            RegExp(r'^\d{4}-\d{2}-\d{2}$').hasMatch(locked) &&
+            _isRealDate(locked)
+        ? locked
+        : null;
+    final sourcesJson = json['sources'];
+    if (sourcesJson is! List)
+      return ExchangeSettings(
+        sources: standard.sources,
+        lockedUntil: lockedUntil,
+      );
     final list = <ExchangeSourceConfig>[];
-    for (final item in json['sources'] as List) {
+    for (final item in sourcesJson) {
       if (item is! Map || item['provider'] is! String) continue;
       final provider = item['provider'] as String;
       if (provider != 'ecb' && provider != 'frankfurter') continue;
@@ -102,10 +132,14 @@ class ExchangeSettings {
       );
       if (list.length == maxSources) break;
     }
-    return list.isEmpty ? standard : ExchangeSettings(sources: list);
+    return ExchangeSettings(
+      sources: list.isEmpty ? standard.sources : list,
+      lockedUntil: lockedUntil,
+    );
   }
 
   Map<String, Object?> toJson() => {
     'sources': [for (final s in sources) s.toJson()],
+    if (lockedUntil != null) 'lockedUntil': lockedUntil,
   };
 }

@@ -63,6 +63,9 @@ class SystemStrings$exchange$ja {
 	/// ja: '登録済みのため省略: {count} 件'
 	String get skipped => '登録済みのため省略: {count} 件';
 
+	/// ja: '確定済みの期間のため省略: {count} 件'
+	String get locked => '確定済みの期間のため省略: {count} 件';
+
 	/// ja: '取得できなかった通貨(手入力で補えます)'
 	String get failed => '取得できなかった通貨(手入力で補えます)';
 
@@ -83,6 +86,33 @@ class SystemStrings$exchange$ja {
 
 	/// ja: '閉じる'
 	String get close => '閉じる';
+
+	/// ja: '確定済み: {date} まで'
+	String get lockedUntil => '確定済み: {date} まで';
+
+	/// ja: '確定している期間はありません'
+	String get notLocked => '確定している期間はありません';
+
+	/// ja: '確定する'
+	String get lock => '確定する';
+
+	/// ja: '為替レートの確定'
+	String get lockTitle => '為替レートの確定';
+
+	/// ja: '{date} までのレートを確定します。確定すると、この日以前のレートは登録・変更・取り消しできず、元に戻せません。'
+	String get lockBody => '{date} までのレートを確定します。確定すると、この日以前のレートは登録・変更・取り消しできず、元に戻せません。';
+
+	/// ja: '確定する'
+	String get lockConfirm => '確定する';
+
+	/// ja: 'やめる'
+	String get lockCancel => 'やめる';
+
+	/// ja: '確定できませんでした。'
+	String get lockFailed => '確定できませんでした。';
+
+	/// ja: '確定しました。'
+	String get lockDone => '確定しました。';
 }
 
 // Path: menu
@@ -260,6 +290,7 @@ extension on SystemStrings {
 			'exchange.running' => '取得しています…',
 			'exchange.registered' => '登録: {count} 件',
 			'exchange.skipped' => '登録済みのため省略: {count} 件',
+			'exchange.locked' => '確定済みの期間のため省略: {count} 件',
 			'exchange.failed' => '取得できなかった通貨(手入力で補えます)',
 			'exchange.notProvided' => '取得元に無い通貨',
 			'exchange.sourcesUnavailable' => '取得元に接続できません',
@@ -267,6 +298,15 @@ extension on SystemStrings {
 			'exchange.nothingToDo' => '自動取得の対象の通貨がありません(通貨の「レートの自動取得の対象」)。',
 			'exchange.note' => '出典は為替レートの出典の列に残します。レートは情報提供用の概算で、決済・会計には使いません。',
 			'exchange.close' => '閉じる',
+			'exchange.lockedUntil' => '確定済み: {date} まで',
+			'exchange.notLocked' => '確定している期間はありません',
+			'exchange.lock' => '確定する',
+			'exchange.lockTitle' => '為替レートの確定',
+			'exchange.lockBody' => '{date} までのレートを確定します。確定すると、この日以前のレートは登録・変更・取り消しできず、元に戻せません。',
+			'exchange.lockConfirm' => '確定する',
+			'exchange.lockCancel' => 'やめる',
+			'exchange.lockFailed' => '確定できませんでした。',
+			'exchange.lockDone' => '確定しました。',
 			'menu.group' => 'システム',
 			'entity.unit.title' => '単位',
 			'entity.unit.fields.f_name' => '単位名称',

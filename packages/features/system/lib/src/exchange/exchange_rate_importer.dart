@@ -9,6 +9,7 @@ class ImportResult {
     required this.skipped,
     required this.failures,
     required this.sourceErrors,
+    this.locked = const [],
   });
 
   /// 登録したレート(通貨コード・日付)。
@@ -16,6 +17,9 @@ class ImportResult {
 
   /// すでに同じ通貨・同じ適用開始日のレートがあり、登録しなかった通貨コード(追記のみのため、重ねて足さない)。
   final List<String> skipped;
+
+  /// 確定済みの期間(確定日以前)のレートで、登録しなかった通貨コード(確定後は登録できない。DB が止める)。
+  final List<String> locked;
   final List<FetchFailure> failures;
   final Map<String, String> sourceErrors;
 }
@@ -29,6 +33,7 @@ class ExchangeRateImporter {
     required this.catalog,
     required this.fetcher,
     this.defaultBaseCode = 'JPY',
+    this.lockedUntil,
   });
 
   final EntityCatalog catalog;
@@ -36,6 +41,9 @@ class ExchangeRateImporter {
 
   /// 基準通貨が台帳から分からないときの通貨コード(標準は日本円)。
   final String defaultBaseCode;
+
+  /// 為替レートの確定日(`yyyy-MM-dd`)。この日以前の日付のレートは登録しない。無いときは確定していない。
+  final String? lockedUntil;
 
   Future<ImportResult> run() async {
     final currencyRepo = catalog.repository('currency')!;
@@ -61,8 +69,13 @@ class ExchangeRateImporter {
     final existing = await rateRepo.find(take: 100000);
     final registered = <({String code, String date})>[];
     final skipped = <String>[];
+    final locked = <String>[];
     for (final r in result.rates) {
       final currency = byCode[r.code]!;
+      if (lockedUntil != null && r.date.compareTo(lockedUntil!) <= 0) {
+        locked.add(r.code);
+        continue;
+      }
       final duplicate = existing.any(
         (e) =>
             e.valueOf('mstr_currency_id') == currency.id &&
@@ -89,6 +102,7 @@ class ExchangeRateImporter {
     return ImportResult(
       registered: registered,
       skipped: skipped,
+      locked: locked,
       failures: result.failures,
       sourceErrors: result.sourceErrors,
     );

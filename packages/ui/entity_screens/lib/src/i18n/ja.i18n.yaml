@@ -92,3 +92,4 @@ validation:
   hasChildren: 配下があるため削除できません
   referenced: 他で使用中のため削除できません
   duplicate: 重複しています
+  periodLocked: 確定済みの期間のため、登録・変更できません

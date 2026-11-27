@@ -447,6 +447,7 @@ class _EntityEditPageState extends State<EntityEditPage> {
     EntityFieldError.uploadFailed => s.file.uploadFailed,
     EntityFieldError.parentCycle => s.validation.parentCycle,
     EntityFieldError.duplicate => s.validation.duplicate,
+    EntityFieldError.periodLocked => s.validation.periodLocked,
   };
 
   /// 見出しに入れる名前。「○○情報の編集」の「情報」が重ならないよう、名前が「情報」で終わるときは除く。

@@ -194,6 +194,7 @@ class _EntityScreenStrings$validation$en extends EntityScreenStrings$validation$
 	@override String get hasChildren => 'It has child items and cannot be deleted';
 	@override String get referenced => 'It is in use and cannot be deleted';
 	@override String get duplicate => 'Already exists';
+	@override String get periodLocked => 'This period is closed, so it cannot be registered or changed';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -290,6 +291,7 @@ extension on EntityScreenStringsEn {
 			'validation.hasChildren' => 'It has child items and cannot be deleted',
 			'validation.referenced' => 'It is in use and cannot be deleted',
 			'validation.duplicate' => 'Already exists',
+			'validation.periodLocked' => 'This period is closed, so it cannot be registered or changed',
 			_ => null,
 		};
 	}

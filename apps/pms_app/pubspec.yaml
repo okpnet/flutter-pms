@@ -80,6 +80,8 @@ dependencies:
     path: ../../packages/features/manual
   document_settings:
     path: ../../packages/features/document_settings
+  approval_stamp:
+    path: ../../packages/foundation/approval_stamp
   approval:
     path: ../../packages/features/approval
   announcement:

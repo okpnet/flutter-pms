@@ -652,7 +652,7 @@ class _ExchangeRateRepository implements IEntityRepository {
       ),
     );
     final e = result.exception;
-    if (e != null) throw e;
+    if (e != null) throw _rateLockedOr(e);
     final created =
         result.parsedData?.createTransExchangeRate?.transExchangeRate;
     if (created == null) throw StateError('為替レートを登録できませんでした');
@@ -675,10 +675,21 @@ class _ExchangeRateRepository implements IEntityRepository {
       ),
     );
     final e = result.exception;
-    if (e != null) throw e;
+    if (e != null) throw _rateLockedOr(e);
   }
 
   static String _text(Object? v) => v == null ? '' : '$v';
+
+  /// 確定済みの期間のレート(DB が `CUR02` で止める。GraphQL には errcode が含まれないため、文で見分ける)は、検証エラーにする。
+  static Object _rateLockedOr(Object e) {
+    if (e is OperationException &&
+        e.graphqlErrors.any((x) => x.message.contains('確定済みの期間'))) {
+      return const EntityValidationException({
+        'rate_date': EntityFieldError.periodLocked,
+      });
+    }
+    return e;
+  }
 
   EntityRecord _record(
     Query$CurrencyRatePageRead$allTransExchangeRates$nodes n,
@@ -707,7 +718,7 @@ class _ExchangeRateRepository implements IEntityRepository {
       ),
     );
     final e = result.exception;
-    if (e != null) throw e;
+    if (e != null) throw _rateLockedOr(e);
     return [
       for (final n
           in result.parsedData?.allTransExchangeRates?.nodes ??

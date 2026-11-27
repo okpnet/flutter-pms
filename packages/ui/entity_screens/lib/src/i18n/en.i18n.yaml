@@ -91,3 +91,4 @@ validation:
   hasChildren: It has child items and cannot be deleted
   referenced: It is in use and cannot be deleted
   duplicate: Already exists
+  periodLocked: This period is closed, so it cannot be registered or changed

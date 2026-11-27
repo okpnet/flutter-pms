@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'entities/system_definitions.dart';
 import 'exchange/exchange_fetch_button.dart';
+import 'exchange/exchange_lock_control.dart';
 import 'entities/system_labels.dart';
 import 'entities/system_seeds.dart';
 import 'i18n/strings_provider.dart';
@@ -42,7 +43,12 @@ class SystemModule extends EntityFeatureModule {
     String key,
     BuildContext context,
     VoidCallback reload,
-  ) => key == 'exchangerate' ? [ExchangeFetchButton(reload: reload)] : const [];
+  ) => key == 'exchangerate'
+      ? [
+          ExchangeLockControl(reload: reload),
+          ExchangeFetchButton(reload: reload),
+        ]
+      : const [];
 
   static const _systemMenu = {'currency', 'exchangerate'};
 

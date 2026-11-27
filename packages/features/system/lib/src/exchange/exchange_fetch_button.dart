@@ -29,6 +29,7 @@ class _ExchangeFetchButtonState extends ConsumerState<ExchangeFetchButton> {
     try {
       final importer = ExchangeRateImporter(
         catalog: ref.read(entityCatalogProvider),
+        lockedUntil: ref.read(exchangeSettingsProvider).lockedUntil,
         fetcher: ExchangeRateFetcher.fromSettings(
           ref.read(exchangeSettingsProvider),
           fetcher: ref.read(exchangeTextFetcherProvider),
@@ -92,6 +93,11 @@ class ExchangeFetchResultDialog extends ConsumerWidget {
               Text(
                 '${count(s.registered, result.registered.length)}(${[for (final r in result.registered) r.code].join('・')})',
                 key: const ValueKey('exchange-registered'),
+              ),
+            if (result.locked.isNotEmpty)
+              Text(
+                '${count(s.locked, result.locked.length)}(${result.locked.join('・')})',
+                key: const ValueKey('exchange-locked'),
               ),
             if (result.skipped.isNotEmpty)
               Text(

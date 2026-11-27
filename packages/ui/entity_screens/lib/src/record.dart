@@ -78,6 +78,9 @@ enum EntityFieldError {
 
   /// 重複を認めない項目の組([EntityDefinition.uniqueKeys])が、ほかの1件と同じ。
   duplicate,
+
+  /// 確定済みの期間(為替レートの確定日以前)のため、登録・変更・取り消しできない。
+  periodLocked,
 }
 
 /// 入力の検証に失敗したときの例外。項目のキー(親は `_parent`)ごとのエラーを持つ。

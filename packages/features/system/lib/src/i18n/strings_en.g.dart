@@ -55,6 +55,7 @@ class _SystemStrings$exchange$en extends SystemStrings$exchange$ja {
 	@override String get running => 'Fetching…';
 	@override String get registered => 'Registered: {count}';
 	@override String get skipped => 'Skipped (already registered): {count}';
+	@override String get locked => 'Skipped (closed period): {count}';
 	@override String get failed => 'Currencies not fetched (you can enter them by hand)';
 	@override String get notProvided => 'Not provided by any source';
 	@override String get sourcesUnavailable => 'Cannot reach the sources';
@@ -62,6 +63,15 @@ class _SystemStrings$exchange$en extends SystemStrings$exchange$ja {
 	@override String get nothingToDo => 'No currency is set for automatic fetching (the currency\'s \'automatic rate fetching\' setting).';
 	@override String get note => 'The source is kept in the rate\'s source column. Rates are informational estimates and are not used for settlement or accounting.';
 	@override String get close => 'Close';
+	@override String get lockedUntil => 'Closed through {date}';
+	@override String get notLocked => 'No period is closed';
+	@override String get lock => 'Close period';
+	@override String get lockTitle => 'Close exchange rates';
+	@override String get lockBody => 'Rates through {date} will be closed. After that, rates on or before this date cannot be registered, changed or cancelled, and this cannot be undone.';
+	@override String get lockConfirm => 'Close';
+	@override String get lockCancel => 'Cancel';
+	@override String get lockFailed => 'Could not close the period.';
+	@override String get lockDone => 'Closed.';
 }
 
 // Path: menu
@@ -123,6 +133,7 @@ extension on SystemStringsEn {
 			'exchange.running' => 'Fetching…',
 			'exchange.registered' => 'Registered: {count}',
 			'exchange.skipped' => 'Skipped (already registered): {count}',
+			'exchange.locked' => 'Skipped (closed period): {count}',
 			'exchange.failed' => 'Currencies not fetched (you can enter them by hand)',
 			'exchange.notProvided' => 'Not provided by any source',
 			'exchange.sourcesUnavailable' => 'Cannot reach the sources',
@@ -130,6 +141,15 @@ extension on SystemStringsEn {
 			'exchange.nothingToDo' => 'No currency is set for automatic fetching (the currency\'s \'automatic rate fetching\' setting).',
 			'exchange.note' => 'The source is kept in the rate\'s source column. Rates are informational estimates and are not used for settlement or accounting.',
 			'exchange.close' => 'Close',
+			'exchange.lockedUntil' => 'Closed through {date}',
+			'exchange.notLocked' => 'No period is closed',
+			'exchange.lock' => 'Close period',
+			'exchange.lockTitle' => 'Close exchange rates',
+			'exchange.lockBody' => 'Rates through {date} will be closed. After that, rates on or before this date cannot be registered, changed or cancelled, and this cannot be undone.',
+			'exchange.lockConfirm' => 'Close',
+			'exchange.lockCancel' => 'Cancel',
+			'exchange.lockFailed' => 'Could not close the period.',
+			'exchange.lockDone' => 'Closed.',
 			'menu.group' => 'System',
 			'entity.unit.title' => 'Units',
 			'entity.unit.fields.f_name' => 'Unit name',

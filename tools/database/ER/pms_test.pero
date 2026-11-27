@@ -11485,6 +11485,79 @@ $$ LANGUAGE sql IMMUTABLE;
         6228
       ],
       "schema": "tests"
+    },
+    {
+      "id": 6280,
+      "kind": "function",
+      "name": "exchange_rate_locked_until",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.exchange_rate_locked_until() RETURNS date AS $$\r\n    SELECT NULLIF(a.settings #>> '{exchange,lockedUntil}', '')::date\r\n    FROM tests.info_app AS a\r\n    WHERE a.remove IS FALSE\r\n    ORDER BY a.update_at\r\n    LIMIT 1\r\n$$ LANGUAGE sql STABLE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "@omit\n為替レートの確定日(info_app.settings の exchange.lockedUntil)。無ければ NULL。この日以前のレートは登録・変更・取り消しできない",
+      "args": "",
+      "dependsOnTableIds": [
+        2855
+      ],
+      "schema": "tests"
+    },
+    {
+      "id": 6281,
+      "kind": "trigger",
+      "name": "trg_exchange_rate_lock_guard",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_exchange_rate_lock_guard() RETURNS trigger AS\r\n$BODY$\r\nDECLARE\r\n    v_locked date := tests.exchange_rate_locked_until();\r\nBEGIN\r\n    IF v_locked IS NULL THEN\r\n        RETURN NEW;\r\n    END IF;\r\n    IF TG_OP = 'INSERT' THEN\r\n        IF NEW.rate_date <= v_locked THEN\r\n            RAISE EXCEPTION '確定済みの期間(% まで)のレートは登録できません', v_locked USING ERRCODE = 'CUR02';\r\n        END IF;\r\n    ELSIF OLD.rate_date <= v_locked\r\n          AND (NEW.rate IS DISTINCT FROM OLD.rate\r\n               OR NEW.rate_date IS DISTINCT FROM OLD.rate_date\r\n               OR NEW.remove IS DISTINCT FROM OLD.remove\r\n               OR NEW.mstr_currency_id IS DISTINCT FROM OLD.mstr_currency_id) THEN\r\n        RAISE EXCEPTION '確定済みの期間(% まで)のレートは変更・取り消しできません', v_locked USING ERRCODE = 'CUR02';\r\n    ELSIF NEW.rate_date <= v_locked AND NEW.rate_date IS DISTINCT FROM OLD.rate_date THEN\r\n        RAISE EXCEPTION '確定済みの期間(% まで)へレートの日付を変えられません', v_locked USING ERRCODE = 'CUR02';\r\n    END IF;\r\n    RETURN NEW;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "@omit\n確定済みの期間のレートの登録・変更・取り消しの保護。CUR02",
+      "args": "",
+      "dependsOnTableIds": [
+        6228,
+        2855
+      ],
+      "schema": "tests"
+    },
+    {
+      "id": 6282,
+      "kind": "trigger",
+      "name": "trg_exchange_lock_settings_guard",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_exchange_lock_settings_guard() RETURNS trigger AS\r\n$BODY$\r\nDECLARE\r\n    v_old text := OLD.settings #>> '{exchange,lockedUntil}';\r\n    v_new text := NEW.settings #>> '{exchange,lockedUntil}';\r\n    v_old_d date;\r\n    v_new_d date;\r\nBEGIN\r\n    IF v_new IS NOT DISTINCT FROM v_old THEN\r\n        RETURN NEW;\r\n    END IF;\r\n    IF COALESCE(v_new, '') <> '' THEN\r\n        BEGIN\r\n            v_new_d := v_new::date;\r\n        EXCEPTION WHEN others THEN\r\n            RAISE EXCEPTION '確定日の形式が正しくありません (%)', v_new USING ERRCODE = 'CUR04';\r\n        END;\r\n        IF v_new_d > CURRENT_DATE THEN\r\n            RAISE EXCEPTION '未来の日付は確定できません (%)', v_new USING ERRCODE = 'CUR04';\r\n        END IF;\r\n    END IF;\r\n    IF COALESCE(v_old, '') <> '' THEN\r\n        v_old_d := v_old::date;\r\n        IF v_new_d IS NULL OR v_new_d < v_old_d THEN\r\n            RAISE EXCEPTION '確定日は前へ戻せません (% → %)', v_old, COALESCE(v_new, '') USING ERRCODE = 'CUR03';\r\n        END IF;\r\n    END IF;\r\n    RETURN NEW;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "@omit\n為替レートの確定日(info_app.settings の exchange.lockedUntil)の保護。前へ戻せない(CUR03)・未来や不正な日付は不可(CUR04)",
+      "args": "",
+      "dependsOnTableIds": [
+        2855
+      ],
+      "schema": "tests"
     }
   ],
   "commonColumnPatterns": [
@@ -51427,6 +51500,27 @@ $$ LANGUAGE sql IMMUTABLE;
           "when": "",
           "args": "",
           "updateColumnIds": []
+        },
+        {
+          "id": 6284,
+          "source": "public",
+          "methodId": 6282,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_00_exchange_lock_settings_guard",
+          "timing": "BEFORE",
+          "events": [
+            "UPDATE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
         }
       ]
     },
@@ -68501,6 +68595,28 @@ $$ LANGUAGE sql IMMUTABLE;
           "timing": "BEFORE",
           "events": [
             "INSERT"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        },
+        {
+          "id": 6283,
+          "source": "public",
+          "methodId": 6281,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_00_exchange_rate_lock_guard",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT",
+            "UPDATE"
           ],
           "forEach": "ROW",
           "when": "",

@@ -366,6 +366,9 @@ class EntityScreenStrings$validation$ja {
 
 	/// ja: '重複しています'
 	String get duplicate => '重複しています';
+
+	/// ja: '確定済みの期間のため、登録・変更できません'
+	String get periodLocked => '確定済みの期間のため、登録・変更できません';
 }
 
 /// The flat map containing all translations for locale <ja>.
@@ -462,6 +465,7 @@ extension on EntityScreenStrings {
 			'validation.hasChildren' => '配下があるため削除できません',
 			'validation.referenced' => '他で使用中のため削除できません',
 			'validation.duplicate' => '重複しています',
+			'validation.periodLocked' => '確定済みの期間のため、登録・変更できません',
 			_ => null,
 		};
 	}
