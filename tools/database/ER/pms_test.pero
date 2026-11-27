@@ -11558,6 +11558,30 @@ $$ LANGUAGE sql IMMUTABLE;
         2855
       ],
       "schema": "tests"
+    },
+    {
+      "id": 6285,
+      "kind": "trigger",
+      "name": "trg_00_admin_only_table",
+      "external": false,
+      "call": {
+        "postgresql": "",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "bodies": {
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.trg_00_admin_only_table() RETURNS trigger AS\r\n$BODY$\r\n-- 表の登録・変更は、管理者(ロール pms_admin)だけが行える。一般ユーザー(ロール pms_user のメンバーで、管理者でない)が行おうとしたら止める。\r\n-- DB の所有者・初期化のスクリプト(pms_user のメンバーでない)は止めない。\r\nDECLARE\r\n    v_user boolean;\r\n    v_admin boolean;\r\nBEGIN\r\n    SELECT COALESCE(bool_or(pg_has_role(current_user, r.oid, 'member')) FILTER (WHERE r.rolname = 'pms_user'), false),\r\n           COALESCE(bool_or(pg_has_role(current_user, r.oid, 'member')) FILTER (WHERE r.rolname = 'pms_admin'), false)\r\n    INTO v_user, v_admin FROM pg_roles AS r WHERE r.rolname IN ('pms_user', 'pms_admin');\r\n    IF v_user AND NOT v_admin THEN\r\n        RAISE EXCEPTION '管理者だけが登録・変更できる表です (%)', TG_TABLE_NAME USING ERRCODE = 'ADM01';\r\n    END IF;\r\n    RETURN NEW;\r\nEND\r\n$BODY$\r\nLANGUAGE plpgsql VOLATILE;",
+        "mysql": "",
+        "sqlserver": "",
+        "sqlite": ""
+      },
+      "comment": "@omit\n管理者(ロール pms_admin)だけが登録・変更できる表の保護(ADM01)",
+      "args": "",
+      "dependsOnTableIds": [
+        
+      ],
+      "schema": "tests"
     }
   ],
   "commonColumnPatterns": [
@@ -68613,6 +68637,28 @@ $$ LANGUAGE sql IMMUTABLE;
           },
           "nameMode": "manual",
           "name": "trg_00_exchange_rate_lock_guard",
+          "timing": "BEFORE",
+          "events": [
+            "INSERT",
+            "UPDATE"
+          ],
+          "forEach": "ROW",
+          "when": "",
+          "args": "",
+          "updateColumnIds": []
+        },
+        {
+          "id": 6286,
+          "source": "public",
+          "methodId": 6285,
+          "inlineBodies": {
+            "postgresql": "",
+            "mysql": "",
+            "sqlserver": "",
+            "sqlite": ""
+          },
+          "nameMode": "manual",
+          "name": "trg_00_admin_only_exchange_rate",
           "timing": "BEFORE",
           "events": [
             "INSERT",

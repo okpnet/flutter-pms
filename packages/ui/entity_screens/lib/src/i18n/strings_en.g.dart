@@ -81,6 +81,8 @@ class EntityScreenStringsEn extends EntityScreenStrings with BaseTranslations<En
 	@override late final _EntityScreenStrings$failure$en failure = _EntityScreenStrings$failure$en._(_root);
 	@override late final _EntityScreenStrings$condition$en condition = _EntityScreenStrings$condition$en._(_root);
 	@override String get yes => 'Yes';
+	@override String get provisionalMark => ' (prov.)';
+	@override String get provisionalSome => ' (partly prov.)';
 	@override String get no => 'No';
 	@override late final _EntityScreenStrings$nested$en nested = _EntityScreenStrings$nested$en._(_root);
 	@override late final _EntityScreenStrings$validation$en validation = _EntityScreenStrings$validation$en._(_root);
@@ -267,6 +269,8 @@ extension on EntityScreenStringsEn {
 			'condition.yes' => 'Yes',
 			'condition.no' => 'No',
 			'yes' => 'Yes',
+			'provisionalMark' => ' (prov.)',
+			'provisionalSome' => ' (partly prov.)',
 			'no' => 'No',
 			'nested.edit' => 'Edit mode',
 			'nested.done' => 'Back to view',

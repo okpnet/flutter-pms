@@ -29,7 +29,13 @@ void main() {
   });
 
   test('閉包を引く版も同じ判定', () async {
-    const closure = {('a', 'a'), ('a', 'b'), ('a', 'c'), ('b', 'b'), ('b', 'c')};
+    const closure = {
+      ('a', 'a'),
+      ('a', 'b'),
+      ('a', 'c'),
+      ('b', 'b'),
+      ('b', 'c'),
+    };
     final g = TreeCycleGuard((a, d) async => closure.contains((a, d)));
     await expectLater(
       g.ensureAllowed(id: 'a', newParentId: 'c'),

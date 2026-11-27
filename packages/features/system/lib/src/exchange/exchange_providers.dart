@@ -13,7 +13,8 @@ final exchangeTextFetcherProvider = Provider<TextFetcher>(
   (ref) => httpsTextFetcher,
 );
 
-/// 自動取得を実行できるか。アプリが、管理者かどうかで上書きする(既定は実行できる)。
+/// 為替レートの操作(登録・変更・自動取得・確定)ができるか(管理者)。アプリが、管理者かどうかで上書きする(既定はできる)。
+/// DB も、管理者でない一般ユーザーの登録・変更を止める(`ADM01`)。
 final exchangeFetchAllowedProvider = Provider<bool>((ref) => true);
 
 /// 為替レートの確定日(`yyyy-MM-dd`)を保存する窓口。null のときは、確定の操作を出さない(既定)。

@@ -108,6 +108,7 @@ class FieldDefinition {
     this.total = false,
     this.money = false,
     this.currencyKey,
+    this.provisionalKey,
   }) : assert(
          kind != FieldKind.reference || reference != null,
          'reference には参照先の実体キーが必要',
@@ -187,6 +188,10 @@ class FieldDefinition {
   /// 無いとき・空のときは、設定の通貨(`MoneyFormat`)。台帳の合計は、行の通貨がすべて同じときだけ記号を付ける。
   final String? currencyKey;
 
+  /// 金額の項目([money])が、仮のレートで換算した値かを示す真偽の項目のキー(同じ行。例: `rate_provisional`)。
+  /// オンの行は、値に「(仮)」を付ける(一部の行だけが仮のとき、その行だけ)。台帳の合計は、表示している行に 1 つでも仮の行があれば「(一部仮)」を付ける。
+  final String? provisionalKey;
+
   Map<String, Object?> toJson() => {
     'key': key,
     'kind': kind.name,
@@ -210,6 +215,7 @@ class FieldDefinition {
     if (total) 'total': total,
     if (money) 'money': money,
     if (currencyKey != null) 'currencyKey': currencyKey,
+    if (provisionalKey != null) 'provisionalKey': provisionalKey,
   };
 }
 

@@ -1071,6 +1071,7 @@ class _ChildSectionState extends State<_ChildSection> {
                       onDownload: (file) => scope.downloadFile(context, file),
                       money: scope.money,
                       languageCode: scope.languageCode,
+                      provisionalMark: scope.strings.provisionalMark,
                     ),
                     items: data.records,
                     rowKey: (r) => r.id,
@@ -1262,6 +1263,7 @@ class _ReverseSectionState extends State<_ReverseSection> {
                     onDownload: (file) => scope.downloadFile(context, file),
                     money: scope.money,
                     languageCode: scope.languageCode,
+                    provisionalMark: scope.strings.provisionalMark,
                   ),
                 ];
                 return SizedBox(

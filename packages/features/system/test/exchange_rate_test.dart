@@ -35,7 +35,9 @@ class _Stub {
 
   Future<String> call(Uri url) async {
     calls.add(url);
-    final hit = routes.entries.where((e) => url.toString().startsWith(e.key)).firstOrNull;
+    final hit = routes.entries
+        .where((e) => url.toString().startsWith(e.key))
+        .firstOrNull;
     if (hit == null) throw const ExchangeRateSourceException('HTTP 404');
     final v = hit.value;
     if (v is Exception) throw v;
@@ -46,7 +48,11 @@ class _Stub {
 void main() {
   group('RateSheet', () {
     test('ユーロ基準の表から、円への交差レートを作る(JPY/EUR ÷ 通貨/EUR)。基準自身は 1', () {
-      final s = RateSheet(base: 'EUR', date: '2026-11-26', rates: {'USD': 1.0975, 'JPY': 174.79});
+      final s = RateSheet(
+        base: 'EUR',
+        date: '2026-11-26',
+        rates: {'USD': 1.0975, 'JPY': 174.79},
+      );
       expect(s.crossRate('USD', 'JPY'), closeTo(174.79 / 1.0975, 1e-9));
       expect(s.crossRate('EUR', 'JPY'), 174.79);
       expect(s.crossRate('JPY', 'EUR'), closeTo(1 / 174.79, 1e-12));
@@ -69,13 +75,23 @@ void main() {
     });
 
     test('Frankfurter: 提供元を指定して取り、いちばん新しい日付を表の日付にする', () async {
-      final f = _Stub({'https://api.frankfurter.dev/v2/rates': _frankfurterJson});
-      final sheet = await FrankfurterRateSource(providers: 'boj', fetcher: f.call).fetch();
+      final f = _Stub({
+        'https://api.frankfurter.dev/v2/rates': _frankfurterJson,
+      });
+      final sheet = await FrankfurterRateSource(
+        providers: 'boj',
+        fetcher: f.call,
+      ).fetch();
       expect(sheet.date, '2026-11-26');
       expect(sheet.rates['CNY'], 7.9);
-      expect(f.calls.single.queryParameters, {'base': 'EUR', 'providers': 'boj'});
+      expect(f.calls.single.queryParameters, {
+        'base': 'EUR',
+        'providers': 'boj',
+      });
       await expectLater(
-        FrankfurterRateSource(fetcher: _Stub({'https://': 'not json'}).call).fetch(),
+        FrankfurterRateSource(
+          fetcher: _Stub({'https://': 'not json'}).call,
+        ).fetch(),
         throwsA(isA<ExchangeRateSourceException>()),
       );
       await expectLater(
@@ -99,7 +115,11 @@ void main() {
         },
       ]) {
         final s = ExchangeSettings.fromJson(j);
-        expect([for (final c in s.sources) c.provider], ['ecb', 'frankfurter'], reason: '$j');
+        expect(
+          [for (final c in s.sources) c.provider],
+          ['ecb', 'frankfurter'],
+          reason: '$j',
+        );
       }
     });
 
@@ -127,11 +147,20 @@ void main() {
 
   group('ExchangeRateFetcher(優先順位)', () {
     test('先の取得元で取れた通貨は、あとの取得元に取りに行かない。円(基準)は取りに行かない', () async {
-      final f = _Stub({'https://www.ecb.europa.eu/': _ecbXml, 'https://api.frankfurter.dev/': _frankfurterJson});
-      final fetcher = ExchangeRateFetcher.fromSettings(ExchangeSettings.standard, fetcher: f.call);
+      final f = _Stub({
+        'https://www.ecb.europa.eu/': _ecbXml,
+        'https://api.frankfurter.dev/': _frankfurterJson,
+      });
+      final fetcher = ExchangeRateFetcher.fromSettings(
+        ExchangeSettings.standard,
+        fetcher: f.call,
+      );
       final r = await fetcher.fetch(['USD', 'JPY', 'GBP'], baseCode: 'JPY');
       expect({for (final x in r.rates) x.code}, {'USD', 'GBP'});
-      expect(r.rates.firstWhere((x) => x.code == 'USD').rate, closeTo(174.79 / 1.0975, 1e-9));
+      expect(
+        r.rates.firstWhere((x) => x.code == 'USD').rate,
+        closeTo(174.79 / 1.0975, 1e-9),
+      );
       expect(r.rates.first.date, '2026-11-26');
       expect(r.rates.first.source, 'ECB(EUR 基準から換算)');
       expect(r.failures, isEmpty);
@@ -143,7 +172,10 @@ void main() {
         'https://www.ecb.europa.eu/': const ExchangeRateSourceException('down'),
         'https://api.frankfurter.dev/': _frankfurterJson,
       });
-      final fetcher = ExchangeRateFetcher.fromSettings(ExchangeSettings.standard, fetcher: f.call);
+      final fetcher = ExchangeRateFetcher.fromSettings(
+        ExchangeSettings.standard,
+        fetcher: f.call,
+      );
       final r = await fetcher.fetch(['USD', 'CNY'], baseCode: 'JPY');
       expect({for (final x in r.rates) x.code}, {'USD', 'CNY'});
       expect(r.rates.first.source, startsWith('Frankfurter/ecb'));
@@ -151,7 +183,10 @@ void main() {
     });
 
     test('どの取得元にも無い通貨は失敗(取得の対象外)。すべて接続できないときは「接続できない」', () async {
-      final f = _Stub({'https://www.ecb.europa.eu/': _ecbXml, 'https://api.frankfurter.dev/': _frankfurterJson});
+      final f = _Stub({
+        'https://www.ecb.europa.eu/': _ecbXml,
+        'https://api.frankfurter.dev/': _frankfurterJson,
+      });
       final r = await ExchangeRateFetcher.fromSettings(
         ExchangeSettings.standard,
         fetcher: f.call,
@@ -179,10 +214,22 @@ void main() {
           },
         ],
       });
-      final f = _Stub({'https://www.ecb.europa.eu/': _ecbXml, 'https://api.frankfurter.dev/': _frankfurterJson});
-      final r = await ExchangeRateFetcher.fromSettings(settings, fetcher: f.call).fetch(['USD', 'GBP'], baseCode: 'JPY');
-      expect(r.rates.firstWhere((x) => x.code == 'USD').source, startsWith('Frankfurter/boj'));
-      expect(r.rates.firstWhere((x) => x.code == 'GBP').source, startsWith('ECB'));
+      final f = _Stub({
+        'https://www.ecb.europa.eu/': _ecbXml,
+        'https://api.frankfurter.dev/': _frankfurterJson,
+      });
+      final r = await ExchangeRateFetcher.fromSettings(
+        settings,
+        fetcher: f.call,
+      ).fetch(['USD', 'GBP'], baseCode: 'JPY');
+      expect(
+        r.rates.firstWhere((x) => x.code == 'USD').source,
+        startsWith('Frankfurter/boj'),
+      );
+      expect(
+        r.rates.firstWhere((x) => x.code == 'GBP').source,
+        startsWith('ECB'),
+      );
     });
   });
 
@@ -190,9 +237,20 @@ void main() {
     EntityCatalog catalog() {
       final currency = systemDefinitions.firstWhere((d) => d.key == 'currency');
       final rate = systemDefinitions.firstWhere((d) => d.key == 'exchangerate');
-      EntityRecord cur(String id, String code, String auto, {String base = ''}) => EntityRecord(
+      EntityRecord cur(
+        String id,
+        String code,
+        String auto, {
+        String base = '',
+      }) => EntityRecord(
         id: id,
-        values: {'code': code, 'name': code, 'currency_symbol': code, 'rate_auto': auto, 'is_base': base},
+        values: {
+          'code': code,
+          'name': code,
+          'currency_symbol': code,
+          'rate_auto': auto,
+          'is_base': base,
+        },
       );
       return EntityCatalog()
         ..register(
@@ -208,7 +266,11 @@ void main() {
           InMemoryEntityRepository(rate, [
             const EntityRecord(
               id: 'r1',
-              values: {'mstr_currency_id': 'c-usd', 'rate_date': '2026-11-26', 'rate': '150'},
+              values: {
+                'mstr_currency_id': 'c-usd',
+                'rate_date': '2026-11-26',
+                'rate': '150',
+              },
             ),
           ]),
         );
@@ -216,10 +278,16 @@ void main() {
 
     test('自動取得の対象だけを取り、追記する(同じ通貨・同じ日はスキップ)。取れない通貨は失敗の一覧', () async {
       final c = catalog();
-      final f = _Stub({'https://www.ecb.europa.eu/': _ecbXml, 'https://api.frankfurter.dev/': _frankfurterJson});
+      final f = _Stub({
+        'https://www.ecb.europa.eu/': _ecbXml,
+        'https://api.frankfurter.dev/': _frankfurterJson,
+      });
       final importer = ExchangeRateImporter(
         catalog: c,
-        fetcher: ExchangeRateFetcher.fromSettings(ExchangeSettings.standard, fetcher: f.call),
+        fetcher: ExchangeRateFetcher.fromSettings(
+          ExchangeSettings.standard,
+          fetcher: f.call,
+        ),
       );
       final r = await importer.run();
       expect(r.registered.map((x) => x.code), ['GBP']);
@@ -227,11 +295,16 @@ void main() {
       expect(r.failures.map((x) => x.code), ['RUB']);
       final rows = await c.repository('exchangerate')!.find(take: 100);
       expect(rows.length, 2);
-      final added = rows.firstWhere((x) => x.valueOf('mstr_currency_id') == 'c-gbp');
+      final added = rows.firstWhere(
+        (x) => x.valueOf('mstr_currency_id') == 'c-gbp',
+      );
       expect(added.valueOf('auto_fetched'), 'はい');
       expect(added.valueOf('rate_date'), '2026-11-26');
       expect(added.valueOf('source'), 'ECB(EUR 基準から換算)');
-      expect(double.parse(added.valueOf('rate')), closeTo(174.79 / 0.83755, 1e-6));
+      expect(
+        double.parse(added.valueOf('rate')),
+        closeTo(174.79 / 0.83755, 1e-6),
+      );
       // 2 回目は、すべて既存のため登録しない
       final again = await importer.run();
       expect(again.registered, isEmpty);
@@ -242,7 +315,10 @@ void main() {
       final c = catalog();
       final importer = ExchangeRateImporter(
         catalog: c,
-        fetcher: ExchangeRateFetcher.fromSettings(ExchangeSettings.standard, fetcher: _Stub({}).call),
+        fetcher: ExchangeRateFetcher.fromSettings(
+          ExchangeSettings.standard,
+          fetcher: _Stub({}).call,
+        ),
       );
       final r = await importer.run();
       expect(r.registered, isEmpty);

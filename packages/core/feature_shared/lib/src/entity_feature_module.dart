@@ -161,6 +161,9 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
   /// 例: 会社情報(`company`)は、表ではなく、概要の画面を出す。画面の中で [entityScope] を使える。
   Widget? customListPage(WidgetRef ref, String key) => null;
 
+  /// 台帳を編集できるか(既定は編集できる)。false のときは閲覧だけ(編集の切り替えを出さない)。例: 為替レートは管理者だけ。
+  bool listCanEdit(WidgetRef ref, String key) => true;
+
   /// 台帳の見出しの右に出す専用の操作(例: 為替レートの「自動取得」)。既定は無し。[reload] で台帳を読み込み直す。
   List<Widget> listHeaderActions(WidgetRef ref, String key, BuildContext context, VoidCallback reload) => const [];
 
@@ -383,6 +386,7 @@ abstract class EntityFeatureModule implements FeatureModule, MenuContributor {
         twoModes: true,
         onReparent: reparentHandler(ref, key),
         headerActions: (context, reload) => listHeaderActions(ref, key, context, reload),
+        canEdit: listCanEdit(ref, key),
         onOpen: (r) => bus.execute(EntityEditDestination(key, id: r.id)),
         onCreate: () async {
           final custom = createDestination(ref, key, filter);

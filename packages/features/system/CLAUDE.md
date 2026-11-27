@@ -44,6 +44,7 @@
 1.  通貨の台帳は、基準通貨・最新のレート・レートの適用開始日を読み取り専用で出す(DB のビュー `v_currency_rate_latest`)。為替レートは追記のみ(適用開始日 = 年月日。直すときは新しい行を足して前の行を取り消す)。モデルは `system_model/gql/currency.yaml`。
 1.  `baseCurrencyId(GraphQLClient)`(`system.dart` で公開): 基準通貨の通貨 ID(`v_currency_rate_latest` の `is_base` の行)。アプリが、利害関係者の新規登録の通貨の初期値(`entityNewDefaultsProvider`)に使う。取り出せないときは null。
 1.  自動取得(`lib/src/exchange/`): 取得元は `IExchangeRateSource`(Strategy。`EcbRateSource`・`FrankfurterRateSource`)で、`RateSheet`(基準の通貨 1 単位 = 各通貨いくら。`crossRate` で基準通貨へ換算)を返す。`ExchangeRateFetcher` が優先順位の順に試し(Chain of Responsibility)、`ExchangeRateImporter` が登録簿をとおして追記する(GraphQL でもメモリ上でも同じ)。設定は `ExchangeSettings`(`info_app.settings` の `exchange`。取得元は 3 件まで。`currencies` で通貨を取得元に指定)。ボタンは `EntityFeatureModule.listHeaderActions` で為替レートの台帳の見出しに出す(`ExchangeFetchButton`)。実行できる人は `exchangeFetchAllowedProvider`(アプリが管理者かどうかで上書き)、通信は `exchangeTextFetcherProvider`(`https` だけ。テストで差し替える)。
+1.  為替レートの登録・変更・取り消しは管理者だけ(DB は `trg_00_admin_only_exchange_rate`)。台帳は `EntityFeatureModule.listCanEdit`(`SystemModule` は `exchangeFetchAllowedProvider` = 管理者かどうか)で、管理者でない人には閲覧だけ。
 1.  確定(`ExchangeLockControl`): 台帳の見出しに、確定の状態と「確定する」(`exchangeFetchAllowedProvider` が真の人と、保存の窓口 `exchangeLockSaverProvider` があるときだけ)。確定日は設定 `exchange.lockedUntil`(`ExchangeSettings.lockedUntil`)。確定済みの期間のレートの登録・取り消しで DB が返すエラー(文に「確定済みの期間」)は、日付の検証エラー(`EntityFieldError.periodLocked`)にする。自動取得は確定日以前の日付を登録せず、結果の「確定済みのため省略」に出す。
 1.  設計・換算の規則はルートの `CLAUDE.md` の「海外取引(通貨・為替)」。
 

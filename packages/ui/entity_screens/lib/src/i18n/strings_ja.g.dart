@@ -157,6 +157,12 @@ class EntityScreenStrings with BaseTranslations<EntityScreenLocale, EntityScreen
 	/// ja: 'はい'
 	String get yes => 'はい';
 
+	/// ja: '(仮)'
+	String get provisionalMark => '(仮)';
+
+	/// ja: '(一部仮)'
+	String get provisionalSome => '(一部仮)';
+
 	/// ja: 'いいえ'
 	String get no => 'いいえ';
 
@@ -441,6 +447,8 @@ extension on EntityScreenStrings {
 			'condition.yes' => 'Yes',
 			'condition.no' => 'No',
 			'yes' => 'はい',
+			'provisionalMark' => '(仮)',
+			'provisionalSome' => '(一部仮)',
 			'no' => 'いいえ',
 			'nested.edit' => '編集モード',
 			'nested.done' => '閲覧に戻る',

@@ -66,6 +66,8 @@ condition:
   yes: Yes
   no: No
 yes: はい
+provisionalMark: (仮)
+provisionalSome: (一部仮)
 no: いいえ
 nested:
   edit: 編集モード

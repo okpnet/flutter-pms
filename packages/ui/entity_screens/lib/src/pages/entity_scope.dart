@@ -88,6 +88,7 @@ List<ColumnDefinition<EntityRecord>> columnsOf(
   Future<void> Function(EntityFile file)? onDownload,
   MoneyFormat money = MoneyFormat.standard,
   String languageCode = 'ja',
+  String provisionalMark = '(仮)',
 }) => [
   for (final f in definition.fields)
     if (f.inList)
@@ -107,13 +108,8 @@ List<ColumnDefinition<EntityRecord>> columnsOf(
                 (context, cell) => Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    money.format(
-                      cell.item.valueOf(f.key),
-                      languageCode: languageCode,
-                      symbol: f.currencyKey == null
-                          ? null
-                          : cell.item.valueOf(f.currencyKey!),
-                    ),
+                    '${money.format(cell.item.valueOf(f.key), languageCode: languageCode, symbol: f.currencyKey == null ? null : cell.item.valueOf(f.currencyKey!))}'
+                    '${f.provisionalKey != null && cell.item.valueOf(f.provisionalKey!) == flagOn ? provisionalMark : ''}',
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),

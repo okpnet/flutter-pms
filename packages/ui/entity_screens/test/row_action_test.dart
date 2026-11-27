@@ -89,7 +89,9 @@ void main() {
     // 行ごとのボタンは無い。行を選ぶまで、メニューは押せない
     expect(find.byKey(const ValueKey('action:reserve:s2')), findsNothing);
     expect(
-      tester.widget<OutlinedButton>(find.byKey(const ValueKey('actionMenu'))).onPressed,
+      tester
+          .widget<OutlinedButton>(find.byKey(const ValueKey('actionMenu')))
+          .onPressed,
       isNull,
     );
     expect(find.text('行を選ぶと、その行に使える操作を選べます。'), findsOneWidget);
@@ -174,7 +176,9 @@ void main() {
     await select(tester, 'R2');
     // 使える操作が無い行では、メニューを押せない
     expect(
-      tester.widget<OutlinedButton>(find.byKey(const ValueKey('actionMenu'))).onPressed,
+      tester
+          .widget<OutlinedButton>(find.byKey(const ValueKey('actionMenu')))
+          .onPressed,
       isNull,
     );
     expect(def.rowActions.single.toJson()['whenAny'], ['is_a']);

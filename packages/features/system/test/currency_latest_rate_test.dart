@@ -6,7 +6,8 @@ import 'package:system/src/entities/system_definitions.dart';
 /// レートの登録は為替レートの画面(適用開始日 = 年月日)で行う。
 void main() {
   final currency = systemDefinitions.firstWhere((d) => d.key == 'currency');
-  FieldDefinition field(String key) => currency.fields.firstWhere((f) => f.key == key);
+  FieldDefinition field(String key) =>
+      currency.fields.firstWhere((f) => f.key == key);
 
   test('最新のレート・基準通貨・適用開始日は、読み取り専用', () {
     expect(field('latest_rate').kind, FieldKind.number);
@@ -20,6 +21,9 @@ void main() {
 
   test('為替レートの適用開始日は年月日(日付)', () {
     final rate = systemDefinitions.firstWhere((d) => d.key == 'exchangerate');
-    expect(rate.fields.firstWhere((f) => f.key == 'rate_date').kind, FieldKind.date);
+    expect(
+      rate.fields.firstWhere((f) => f.key == 'rate_date').kind,
+      FieldKind.date,
+    );
   });
 }

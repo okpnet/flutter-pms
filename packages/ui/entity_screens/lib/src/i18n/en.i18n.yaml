@@ -65,6 +65,8 @@ condition:
   yes: Yes
   no: No
 yes: "Yes"
+provisionalMark: " (prov.)"
+provisionalSome: " (partly prov.)"
 no: "No"
 nested:
   edit: Edit mode

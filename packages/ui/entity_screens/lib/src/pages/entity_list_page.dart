@@ -25,6 +25,7 @@ class EntityListPage extends StatefulWidget {
     this.onAction,
     this.twoModes = false,
     this.headerActions,
+    this.canEdit = true,
   });
 
   final String entityKey;
@@ -50,7 +51,11 @@ class EntityListPage extends StatefulWidget {
   final bool twoModes;
 
   /// 見出しの右(「編集」「新規」の左)に出す、専用の操作(例: 為替レートの「自動取得」)。完了したら呼び出し側が [reload] を呼ぶと、台帳を読み込み直す。
-  final List<Widget> Function(BuildContext context, VoidCallback reload)? headerActions;
+  final List<Widget> Function(BuildContext context, VoidCallback reload)?
+  headerActions;
+
+  /// 編集できるか(編集の切り替えボタンを出すか)。false のときは、閲覧だけ(新規・行を開く操作は出ない。例: 管理者だけが登録できる為替レート)。
+  final bool canEdit;
 
   /// 行のボタン([EntityDefinition.rowActions])を押したときの処理。null のときはボタンを出さない。
   final Future<void> Function(RowAction action, EntityRecord record)? onAction;
@@ -268,9 +273,13 @@ class _EntityListPageState extends State<EntityListPage> {
                                 const SizedBox(width: 12),
                               ],
                               if (widget.headerActions != null)
-                                for (final w in widget.headerActions!(context, _reload)) ...[w, const SizedBox(width: 8)],
+                                for (final w in widget.headerActions!(
+                                  context,
+                                  _reload,
+                                )) ...[w, const SizedBox(width: 8)],
                               if (widget.twoModes &&
-                                  !loaded.definition.viewOnly)
+                                  !loaded.definition.viewOnly &&
+                                  widget.canEdit)
                                 OutlinedButton.icon(
                                   key: const ValueKey('listEditMode'),
                                   icon: Icon(
@@ -375,11 +384,11 @@ class _EntityListPageState extends State<EntityListPage> {
           ..remove('');
         if (set.length == 1) symbol = set.first;
       }
-      return scope.money.format(
-        text,
-        languageCode: scope.languageCode,
-        symbol: symbol,
-      );
+      // 表示している行に仮のレートの行があれば、「(一部仮)」を付ける
+      final some =
+          f.provisionalKey != null &&
+          records.any((r) => r.valueOf(f.provisionalKey!) == flagOn);
+      return '${scope.money.format(text, languageCode: scope.languageCode, symbol: symbol)}${some ? scope.strings.provisionalSome : ''}';
     }
 
     return Container(
@@ -449,6 +458,7 @@ class _EntityListPageState extends State<EntityListPage> {
         onDownload: (file) => scope.downloadFile(context, file),
         money: scope.money,
         languageCode: scope.languageCode,
+        provisionalMark: scope.strings.provisionalMark,
       ),
     ];
     final hasActions =

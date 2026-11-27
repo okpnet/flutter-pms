@@ -120,8 +120,8 @@ const REVERSE = {
 // 金額の項目(通貨の単位を付けて出す。FieldDefinition.money)。実体のキー → 項目のキー。数量の単位(shared_unit)とは別。
 // 値は変えず、表示だけ。通貨の記号・位置は設定(info_app.settings の currency。言語ごと)。一覧は packages/ui/entity_screens/doc/contents/money_fields.md
 const MONEY = {
-  orderdetail: ['unit_price', 'price_adjustment', 'fixed_price', 'settlement_amount'],
-  purdetail: ['unit_price', 'price_adjustment', 'fixed_price'],
+  orderdetail: ['unit_price', 'price_adjustment', 'fixed_price', 'settlement_amount', 'amount_base'],
+  purdetail: ['unit_price', 'price_adjustment', 'fixed_price', 'amount_base'],
   unrecdetail: ['unit_price', 'price_adjustment', 'fixed_price'],
   purchase: ['purchase_amount', 'received_amount'],
   actlotdeliver: ['settlement_amount'],
@@ -132,6 +132,8 @@ const MONEY = {
 
 // 金額の項目の通貨を、行ごとに持つ(FieldDefinition.currencyKey)。実体のキー → 通貨の記号を持つ項目(読み取り専用・非表示)。対象の項目は MONEY のうち、この実体のもの
 const CURRENCY_KEY = { orderdetail: 'currency_symbol', purdetail: 'currency_symbol' };
+// 基準通貨の金額(目安)が、仮のレートで換算した値かを示す真偽の項目(FieldDefinition.provisionalKey)。実体のキー → 金額の項目のキー
+const PROVISIONAL_KEY = { orderdetail: ['amount_base'], purdetail: ['amount_base'] };
 
 const KIND = { t: 'text', x: 'multiline', n: 'number', d: 'date', s: 'choice', r: 'reference', b: 'flag', c: 'number', f: 'file' };
 
@@ -538,7 +540,8 @@ function defsDart(pkg, list) {
           if (fl.needUnless) a.push(`needUnless: ${dq(fl.needUnless)}`);
           if (fl.lockedBy) a.push(`lockedBy: ${dq(fl.lockedBy)}`);
           if (MONEY[e.key]?.includes(fl.key)) a.push('money: true');
-          if (MONEY[e.key]?.includes(fl.key) && CURRENCY_KEY[e.key]) a.push(`currencyKey: ${dq(CURRENCY_KEY[e.key])}`);
+          if (MONEY[e.key]?.includes(fl.key) && CURRENCY_KEY[e.key] && fl.key !== 'amount_base') a.push(`currencyKey: ${dq(CURRENCY_KEY[e.key])}`);
+          if (PROVISIONAL_KEY[e.key]?.includes(fl.key)) a.push(`provisionalKey: ${dq('rate_provisional')}`);
           return `        FieldDefinition(${a.join(', ')}),`;
         })
         .join('\n');

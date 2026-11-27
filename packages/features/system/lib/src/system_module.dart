@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'entities/system_definitions.dart';
 import 'exchange/exchange_fetch_button.dart';
+import 'exchange/exchange_providers.dart';
 import 'exchange/exchange_lock_control.dart';
 import 'entities/system_labels.dart';
 import 'entities/system_seeds.dart';
@@ -37,6 +38,11 @@ class SystemModule extends EntityFeatureModule {
 
   /// 通貨・為替レートは、システムメニュー(管理者のユーザーメニュー)へ移す。サイドバーには出さない。
   /// 開く権限は、アクセス権(アクセスパス `/e/currency`・`/e/exchangerate`。管理者は常に可)に従う。
+  /// 為替レートの登録・変更は管理者だけ(DB も止める)。管理者でない人には、閲覧だけ。
+  @override
+  bool listCanEdit(WidgetRef ref, String key) =>
+      key != 'exchangerate' || ref.watch(exchangeFetchAllowedProvider);
+
   @override
   List<Widget> listHeaderActions(
     WidgetRef ref,

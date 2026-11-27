@@ -222,6 +222,8 @@ const List<EntityDefinition> purchasingDefinitions = [
         kind: FieldKind.number,
         required: false,
         readOnly: true,
+        money: true,
+        provisionalKey: 'rate_provisional',
       ),
       FieldDefinition(
         key: 'rate_provisional',
