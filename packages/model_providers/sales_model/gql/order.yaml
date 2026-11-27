@@ -142,6 +142,17 @@ OrderDetailPage: &OrderDetailPage
         - returned_quantity
         - replacement_quantity
         - settlement_amount
+    # 取引の通貨と基準通貨の金額(DBのビュー v_order_detail_amount。顧客の履歴の通貨・最新のレートでの目安。換算は DB)
+    - name: amount
+      arrayType: toFirstOne
+      as: amount
+      using: trans_order_detail_id
+      from: v_order_detail_amount
+      columns:
+        - trans_order_detail_id
+        - currency_symbol
+        - amount_base
+        - provisional
     # MRP用のマスタ不備の件数(計算列)
     - master_error_count
     # 子のレコード数(要件0056。DBのビュー 2本)

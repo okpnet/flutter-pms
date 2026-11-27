@@ -649,6 +649,7 @@ type TransOrderDetail {
   updateUserHistoryId: UUID
   remove: Boolean
   historyInfoStaffByUpdateUserHistoryIdAndUpdateUserId: HistoryInfoStaff
+  vOrderDetailAmountByTransOrderDetailId: VOrderDetailAmount
   vOrderDetailBalanceByTransOrderDetailId: VOrderDetailBalance
   vOrderDetailOrderDetailRiskCountByTransOrderDetailId: VOrderDetailOrderDetailRiskCount
   vOrderDetailShippingOrderDetailCountByTransOrderDetailId: VOrderDetailShippingOrderDetailCount
@@ -806,6 +807,13 @@ type UpdateTransShippingOrderPayload {
 
 type VOrderComplaintOrderCount {
   transOrderId: UUID
+}
+
+type VOrderDetailAmount {
+  transOrderDetailId: UUID!
+  currencySymbol: String
+  provisional: Boolean
+  amountBase: BigFloat
 }
 
 type VOrderDetailBalance {
@@ -1910,6 +1918,7 @@ input TransOrderDetailFilter {
   vExternalPropertiesByTransOrderDetailIdExist: Boolean
   vMrpPendingSuggestionsByTransOrderDetailIdExist: Boolean
   vMrpSuggestionsByTransOrderDetailIdExist: Boolean
+  vOrderDetailAmountByTransOrderDetailId: VOrderDetailAmountFilter
   vOrderDetailAmountByTransOrderDetailIdExists: Boolean
   vOrderDetailBalanceByTransOrderDetailId: VOrderDetailBalanceFilter
   vOrderDetailBalanceByTransOrderDetailIdExists: Boolean
@@ -2305,6 +2314,27 @@ input VOrderComplaintOrderCountFilter {
   and: [VOrderComplaintOrderCountFilter!]
   or: [VOrderComplaintOrderCountFilter!]
   not: VOrderComplaintOrderCountFilter
+}
+
+input VOrderDetailAmountFilter {
+  transOrderDetailId: UUIDFilter
+  customerId: UUIDFilter
+  itemId: UUIDFilter
+  mstrCurrencyId: UUIDFilter
+  currencyCode: StringFilter
+  currencySymbol: StringFilter
+  amount: BigFloatFilter
+  rate: BigFloatFilter
+  provisional: BooleanFilter
+  amountBase: BigFloatFilter
+  symbol: StringFilter
+  transOrderDetailByTransOrderDetailIdExists: Boolean
+  mstrStakeholderByCustomerIdExists: Boolean
+  mstrItemByItemIdExists: Boolean
+  mstrCurrencyByMstrCurrencyIdExists: Boolean
+  and: [VOrderDetailAmountFilter!]
+  or: [VOrderDetailAmountFilter!]
+  not: VOrderDetailAmountFilter
 }
 
 input VOrderDetailBalanceFilter {

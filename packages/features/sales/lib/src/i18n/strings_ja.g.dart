@@ -161,9 +161,6 @@ class SalesStrings$entity$order$fields$ja {
 
 	/// ja: '備考'
 	String get f_remarks => '備考';
-
-	/// ja: 'クレームを登録'
-	String get f_reserve => 'クレームを登録';
 }
 
 // Path: entity.orderdetail.fields
@@ -209,6 +206,15 @@ class SalesStrings$entity$orderdetail$fields$ja {
 
 	/// ja: '精算額'
 	String get f_settlement_amount => '精算額';
+
+	/// ja: '通貨記号'
+	String get f_currency_symbol => '通貨記号';
+
+	/// ja: '基準通貨の金額(目安)'
+	String get f_amount_base => '基準通貨の金額(目安)';
+
+	/// ja: 'レートが仮'
+	String get f_rate_provisional => 'レートが仮';
 
 	/// ja: '個別納期'
 	String get f_delivery_date => '個別納期';
@@ -292,7 +298,6 @@ extension on SalesStrings {
 			'entity.order.fields.f_delivery_date' => '納期',
 			'entity.order.fields.f_deadline' => '完了期限',
 			'entity.order.fields.f_remarks' => '備考',
-			'entity.order.fields.f_reserve' => 'クレームを登録',
 			'entity.orderdetail.title' => '受注明細',
 			'entity.orderdetail.fields.f_item_id' => '品目',
 			'entity.orderdetail.fields.f_quantity' => '数量',
@@ -306,6 +311,9 @@ extension on SalesStrings {
 			'entity.orderdetail.fields.f_open_quantity' => '受注残(停止中は0)',
 			'entity.orderdetail.fields.f_cancel_closed' => '全部キャンセル済み',
 			'entity.orderdetail.fields.f_settlement_amount' => '精算額',
+			'entity.orderdetail.fields.f_currency_symbol' => '通貨記号',
+			'entity.orderdetail.fields.f_amount_base' => '基準通貨の金額(目安)',
+			'entity.orderdetail.fields.f_rate_provisional' => 'レートが仮',
 			'entity.orderdetail.fields.f_delivery_date' => '個別納期',
 			'entity.orderdetail.fields.f_deadline' => '個別完了期限',
 			'entity.orderdetail.fields.f_remarks' => '備考',

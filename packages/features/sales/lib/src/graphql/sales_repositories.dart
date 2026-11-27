@@ -439,6 +439,7 @@ class _OrderDetailRepository extends _ReadOnlyRepository {
 
   EntityRecord _record(Query$OrderDetailPageRead$allTransOrderDetails$nodes n) {
     final b = n.balance;
+    final a = n.amount;
     return EntityRecord(
       id: n.transOrderDetailId,
       parentId: n.transOrderId,
@@ -460,6 +461,10 @@ class _OrderDetailRepository extends _ReadOnlyRepository {
         'open_quantity': _ReadOnlyRepository.number(b?.openQuantity),
         'cancel_closed': _ReadOnlyRepository.flag(b?.cancelClosed),
         'settlement_amount': _ReadOnlyRepository.number(b?.settlementAmount),
+        // 取引の通貨(顧客の履歴の通貨)の記号と、基準通貨の金額(最新のレートでの目安)・レートが仮か。DB のビュー(v_order_detail_amount)の値
+        'currency_symbol': _ReadOnlyRepository.text(a?.currencySymbol),
+        'amount_base': _ReadOnlyRepository.number(a?.amountBase),
+        'rate_provisional': _ReadOnlyRepository.flag(a?.provisional),
       },
     );
   }

@@ -51,6 +51,13 @@ query OrderDetailPageRead(
         settlementAmount
       }
 
+      amount: vOrderDetailAmountByTransOrderDetailId {
+        transOrderDetailId
+        currencySymbol
+        amountBase
+        provisional
+      }
+
       masterErrorCount
 
       shipping_order_detail_count: vOrderDetailShippingOrderDetailCountByTransOrderDetailId {

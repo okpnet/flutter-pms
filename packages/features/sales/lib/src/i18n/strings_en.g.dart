@@ -155,6 +155,9 @@ class _SalesStrings$entity$orderdetail$fields$en extends SalesStrings$entity$ord
 	@override String get f_open_quantity => 'Open quantity (0 while stopped)';
 	@override String get f_cancel_closed => 'Fully canceled';
 	@override String get f_settlement_amount => 'Settlement amount';
+	@override String get f_currency_symbol => 'Currency symbol';
+	@override String get f_amount_base => 'Amount in base currency (estimate)';
+	@override String get f_rate_provisional => 'Provisional rate';
 	@override String get f_delivery_date => 'Line delivery date';
 	@override String get f_deadline => 'Line completion deadline';
 	@override String get f_remarks => 'Remarks';
@@ -221,6 +224,9 @@ extension on SalesStringsEn {
 			'entity.orderdetail.fields.f_open_quantity' => 'Open quantity (0 while stopped)',
 			'entity.orderdetail.fields.f_cancel_closed' => 'Fully canceled',
 			'entity.orderdetail.fields.f_settlement_amount' => 'Settlement amount',
+			'entity.orderdetail.fields.f_currency_symbol' => 'Currency symbol',
+			'entity.orderdetail.fields.f_amount_base' => 'Amount in base currency (estimate)',
+			'entity.orderdetail.fields.f_rate_provisional' => 'Provisional rate',
 			'entity.orderdetail.fields.f_delivery_date' => 'Line delivery date',
 			'entity.orderdetail.fields.f_deadline' => 'Line completion deadline',
 			'entity.orderdetail.fields.f_remarks' => 'Remarks',

@@ -130,6 +130,9 @@ const MONEY = {
   mrppurchase: ['amount'],
 };
 
+// 金額の項目の通貨を、行ごとに持つ(FieldDefinition.currencyKey)。実体のキー → 通貨の記号を持つ項目(読み取り専用・非表示)。対象の項目は MONEY のうち、この実体のもの
+const CURRENCY_KEY = { orderdetail: 'currency_symbol' };
+
 const KIND = { t: 'text', x: 'multiline', n: 'number', d: 'date', s: 'choice', r: 'reference', b: 'flag', c: 'number', f: 'file' };
 
 const byLabel = (key) => DOM.entities.find((x) => x.key === key)?.label ?? key;
@@ -265,6 +268,10 @@ const FIELD_ADDITIONS = {
     { after: 'remaining_quantity', field: { key: 'open_quantity', label: '受注残(停止中は0)', kind: 'number', required: false, readOnly: true }, sample: empty },
     { after: 'open_quantity', field: { key: 'cancel_closed', label: '全部キャンセル済み', kind: 'flag', required: false, readOnly: true }, sample: empty },
     { after: 'cancel_closed', field: { key: 'settlement_amount', label: '精算額', kind: 'number', required: false, readOnly: true }, sample: empty },
+    /* 取引の通貨(顧客の履歴の通貨。v_order_detail_amount)。金額の項目は、この行の通貨の記号で出す。基準通貨の金額は、最新のレートでの目安(換算は DB のビュー) */
+    { after: 'settlement_amount', field: { key: 'currency_symbol', label: '通貨記号', kind: 'text', required: false, readOnly: true, hidden: true, inList: false }, sample: empty },
+    { after: 'currency_symbol', field: { key: 'amount_base', label: '基準通貨の金額(目安)', kind: 'number', required: false, readOnly: true }, sample: empty },
+    { after: 'amount_base', field: { key: 'rate_provisional', label: 'レートが仮', kind: 'flag', required: false, readOnly: true }, sample: empty },
   ],
   /* 発注明細: キャンセル・停止は操作の DB 関数(purchase_detail_cancel・purchase_detail_set_stop)。残は v_purchase_detail_balance の列 */
   purdetail: [
@@ -521,6 +528,7 @@ function defsDart(pkg, list) {
           if (fl.needUnless) a.push(`needUnless: ${dq(fl.needUnless)}`);
           if (fl.lockedBy) a.push(`lockedBy: ${dq(fl.lockedBy)}`);
           if (MONEY[e.key]?.includes(fl.key)) a.push('money: true');
+          if (MONEY[e.key]?.includes(fl.key) && CURRENCY_KEY[e.key]) a.push(`currencyKey: ${dq(CURRENCY_KEY[e.key])}`);
           return `        FieldDefinition(${a.join(', ')}),`;
         })
         .join('\n');
