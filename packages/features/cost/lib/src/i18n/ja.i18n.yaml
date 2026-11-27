@@ -18,6 +18,7 @@ entity:
       f_unit_cost: "標準原価"
       f_has_supplier: "仕入先有"
       f_has_components: "子部品有"
+      f_rate_missing: "レートなし(購入単価を 0 で計算)"
   costvaluation:
     title: "在庫評価額の一覧"
     fields:

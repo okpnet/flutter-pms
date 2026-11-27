@@ -57,6 +57,12 @@ const List<EntityDefinition> costDefinitions = [
         required: false,
         readOnly: true,
       ),
+      FieldDefinition(
+        key: 'rate_missing',
+        kind: FieldKind.flag,
+        required: false,
+        readOnly: true,
+      ),
     ],
   ),
   // 品目別の在庫評価額(1 行 = 品目)

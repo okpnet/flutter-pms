@@ -139,6 +139,7 @@ type VItemUnitCost {
   unitCost: BigFloat
   hasSupplier: Boolean
   hasComponents: Boolean
+  rateMissing: Boolean
 }
 
 type VItemUnitCostsConnection {

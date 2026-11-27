@@ -30,6 +30,7 @@ query CostItemUnitPageRead(
       unitCost
       hasSupplier
       hasComponents
+      rateMissing
     }
   }
 }

@@ -136,6 +136,7 @@ class _CostStrings$entity$costunit$fields$en extends CostStrings$entity$costunit
 	@override String get f_unit_cost => 'Standard cost';
 	@override String get f_has_supplier => 'Has supplier';
 	@override String get f_has_components => 'Has components';
+	@override String get f_rate_missing => 'No exchange rate (purchase cost counted as 0)';
 }
 
 // Path: entity.costvaluation.fields
@@ -210,6 +211,7 @@ extension on CostStringsEn {
 			'entity.costunit.fields.f_unit_cost' => 'Standard cost',
 			'entity.costunit.fields.f_has_supplier' => 'Has supplier',
 			'entity.costunit.fields.f_has_components' => 'Has components',
+			'entity.costunit.fields.f_rate_missing' => 'No exchange rate (purchase cost counted as 0)',
 			'entity.costvaluation.title' => 'Inventory valuation',
 			'entity.costvaluation.fields.f_item' => 'Item',
 			'entity.costvaluation.fields.f_quantity' => 'Stock quantity',

@@ -16,6 +16,7 @@ entity:
       f_unit_cost: "Standard cost"
       f_has_supplier: "Has supplier"
       f_has_components: "Has components"
+      f_rate_missing: "No exchange rate (purchase cost counted as 0)"
   costvaluation:
     title: "Inventory valuation"
     fields:

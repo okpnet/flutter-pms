@@ -14,6 +14,7 @@ const Map<String, List<EntityRecord>> costSeeds = {
         'unit_cost': '200',
         'has_supplier': '1',
         'has_components': '',
+        'rate_missing': '',
       },
     ),
     EntityRecord(
@@ -26,6 +27,7 @@ const Map<String, List<EntityRecord>> costSeeds = {
         'unit_cost': '470',
         'has_supplier': '',
         'has_components': '1',
+        'rate_missing': '',
       },
     ),
   ],

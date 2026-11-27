@@ -21,6 +21,7 @@ CostItemUnitPage:
     - unit_cost
     - has_supplier
     - has_components
+    - rate_missing
 
 # 品目別の在庫評価額(v_item_valuation。1 行 = 品目)
 CostItemValuationPage:

@@ -29,6 +29,8 @@ List<IEntityRepository> costRepositories(GraphQLClient client) => [
       'unit_cost': _number(n['unitCost']),
       'has_supplier': _flag(n['hasSupplier']),
       'has_components': _flag(n['hasComponents']),
+      // 仕入先の単価を換算するレートが無い(購入品の単価を 0 で計算している)。DB のビューの値
+      'rate_missing': _flag(n['rateMissing']),
     },
     orderBy: 'ITEM_CODE_ASC',
   ),

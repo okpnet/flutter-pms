@@ -167,6 +167,9 @@ class CostStrings$entity$costunit$fields$ja {
 
 	/// ja: '子部品有'
 	String get f_has_components => '子部品有';
+
+	/// ja: 'レートなし(購入単価を 0 で計算)'
+	String get f_rate_missing => 'レートなし(購入単価を 0 で計算)';
 }
 
 // Path: entity.costvaluation.fields
@@ -291,6 +294,7 @@ extension on CostStrings {
 			'entity.costunit.fields.f_unit_cost' => '標準原価',
 			'entity.costunit.fields.f_has_supplier' => '仕入先有',
 			'entity.costunit.fields.f_has_components' => '子部品有',
+			'entity.costunit.fields.f_rate_missing' => 'レートなし(購入単価を 0 で計算)',
 			'entity.costvaluation.title' => '在庫評価額の一覧',
 			'entity.costvaluation.fields.f_item' => '品目',
 			'entity.costvaluation.fields.f_quantity' => '現在庫の数量',
