@@ -24,6 +24,7 @@ cd apps\pms_app; flutter run -d windows          # アプリ起動
 tools\init\test_admin_init.bat                   # テスト環境: アプリからログインできる管理者を用意する(本番は admin_init.bat。tools\init\README.md)
 tools\init\test_user_init.bat                    # テスト環境: ダミーの担当者を PocketBase のユーザーにする(本番は user_init.bat -File users.csv)
 cd tools/config_user_generator; dart run bin/config_user_generator.dart   # 裏設定の入口のハッシュを作る(下記)。設定ファイルの暗号化は tools/config_generator(--help)
+dart run tools/doc_gen/bin/doc_gen.dart       # SRS・SDD(doc/ とライブラリの doc/)を更新する。ルートで実行。使われていないライブラリは一覧に出る(issue/20261128_0001.md)
 ```
 
 裏設定の入口(ログインページの特定のユーザーIDとパスワード)のハッシュは、`tools\config_user_generator` で上のコマンドを実行して作る(ユーザーIDとパスワードは標準入力。反復回数は引数で変えられる。例 `... config_user_generator.dart 200000`。`--help` で使い方)。出力の `{"entry": {...}}` を `apps\pms_app\assets\backstage.json` に貼り、アプリを再起動する。ID・パスワードをソース・アセットに書かない。詳細は [packages/features/backstage/README.md](packages/features/backstage/README.md)。

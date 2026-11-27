@@ -1,5 +1,5 @@
 name: undo_redo
-description: "A new Flutter package project."
+description: "元に戻す・やり直す(Undo/Redo)。コマンドと、コマンド・値・対象を保持するスタック(Command パターン)。"
 version: 0.0.4
 homepage:
 

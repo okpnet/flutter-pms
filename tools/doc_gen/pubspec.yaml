@@ -1,0 +1,6 @@
+name: doc_gen
+description: 各ライブラリの doc/SRS.md(ソフトウェア要求仕様)・doc/SDD.md(ソフトウェア設計記述)と、使われていないライブラリの一覧を、ソース・pubspec・CLAUDE.md・テストから生成する(開発時のみ使うツール)。
+publish_to: none
+
+environment:
+  sdk: ^3.12.2

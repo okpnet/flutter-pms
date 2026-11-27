@@ -1,5 +1,5 @@
 name: view_responsiveness
-description: "A new Flutter package project."
+description: "レスポンシブデザインの部品。画面幅の区分(モバイル・タブレット・PC)・グリッド・セルの配置と、区分の通知(ResponsiveScope)。"
 version: 0.0.4
 homepage:
 
