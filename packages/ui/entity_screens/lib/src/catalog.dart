@@ -100,9 +100,15 @@ class EntityCatalog {
           final target = id.isEmpty ? null : _repositories[f.reference];
           final found = target == null ? null : await target.findById(id);
           if (found == null) continue;
-          final head = await labelOf(target!.definition, found, depth: depth + 1);
+          final head = await labelOf(
+            target!.definition,
+            found,
+            depth: depth + 1,
+          );
           final rest = displayLabel(definition, record);
-          return rest == record.id || head.isEmpty ? (head.isEmpty ? rest : head) : '$head $rest';
+          return rest == record.id || head.isEmpty
+              ? (head.isEmpty ? rest : head)
+              : '$head $rest';
         }
       }
       return displayLabel(definition, record);

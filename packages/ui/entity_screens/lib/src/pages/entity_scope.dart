@@ -103,10 +103,21 @@ List<ColumnDefinition<EntityRecord>> columnsOf(
         // ファイルの列は、ファイル名を押すとダウンロードする(並べ替え・絞り込みはファイル名)
         // 金額の列は、並べ替え・絞り込みは数値のまま、表示だけ通貨の単位つき(右揃え)
         renderer: f.money && f.kind == FieldKind.number
-            ? BuilderCellRenderer<EntityRecord>((context, cell) => Align(
-                alignment: Alignment.centerRight,
-                child: Text(money.format(cell.item.valueOf(f.key), languageCode: languageCode), overflow: TextOverflow.ellipsis),
-              ))
+            ? BuilderCellRenderer<EntityRecord>(
+                (context, cell) => Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    money.format(
+                      cell.item.valueOf(f.key),
+                      languageCode: languageCode,
+                      symbol: f.currencyKey == null
+                          ? null
+                          : cell.item.valueOf(f.currencyKey!),
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              )
             : f.kind == FieldKind.file && onDownload != null
             ? BuilderCellRenderer<EntityRecord>((context, cell) {
                 final file = EntityFile.tryParse(cell.item.valueOf(f.key));

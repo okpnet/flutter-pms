@@ -14,8 +14,13 @@ class MoneyStyle {
   final String symbol;
   final MoneyPosition position;
 
-  factory MoneyStyle.fromJson(Map<String, Object?> json, {required MoneyStyle fallback}) => MoneyStyle(
-    symbol: json['symbol'] is String && (json['symbol'] as String).isNotEmpty ? json['symbol'] as String : fallback.symbol,
+  factory MoneyStyle.fromJson(
+    Map<String, Object?> json, {
+    required MoneyStyle fallback,
+  }) => MoneyStyle(
+    symbol: json['symbol'] is String && (json['symbol'] as String).isNotEmpty
+        ? json['symbol'] as String
+        : fallback.symbol,
     position: switch (json['position']) {
       'prefix' => MoneyPosition.prefix,
       'suffix' => MoneyPosition.suffix,
@@ -23,7 +28,10 @@ class MoneyStyle {
     },
   );
 
-  Map<String, Object?> toJson() => {'symbol': symbol, 'position': position.name};
+  Map<String, Object?> toJson() => {
+    'symbol': symbol,
+    'position': position.name,
+  };
 }
 
 /// 金額(`FieldDefinition.money`)の表示。**表示だけ**を変え、値は変えない(換算・複数通貨は扱わない。金額は取引の通貨のまま保存する)。
@@ -34,7 +42,11 @@ class MoneyStyle {
 ///
 /// パターン: Value Object(表示の規則。計算しない)
 class MoneyFormat {
-  const MoneyFormat({this.code = 'JPY', this.base = _yen, this.byLanguage = _standardByLanguage});
+  const MoneyFormat({
+    this.code = 'JPY',
+    this.base = _yen,
+    this.byLanguage = _standardByLanguage,
+  });
 
   static const _yen = MoneyStyle(symbol: '円', position: MoneyPosition.suffix);
   static const _standardByLanguage = <String, MoneyStyle>{
@@ -53,28 +65,38 @@ class MoneyFormat {
   /// 言語コード(小文字。`ja`・`en`)ごとの記号と位置。
   final Map<String, MoneyStyle> byLanguage;
 
-  MoneyStyle styleOf(String languageCode) => byLanguage[languageCode.toLowerCase()] ?? base;
+  MoneyStyle styleOf(String languageCode) =>
+      byLanguage[languageCode.toLowerCase()] ?? base;
 
   /// 数値の文字 [value] を、桁区切りと通貨記号つきの文字にする。数値として読めない・空のときは、そのまま返す。
   /// 小数は、入っている桁のまま(切り捨て・丸めをしない)。
-  String format(String value, {String languageCode = 'ja'}) {
+  String format(String value, {String languageCode = 'ja', String? symbol}) {
     final text = value.trim();
     if (text.isEmpty || double.tryParse(text) == null) return value;
     final style = styleOf(languageCode);
+    final mark = _symbolOf(style, symbol);
     final number = _group(text);
     return switch (style.position) {
-      MoneyPosition.prefix => '${style.symbol}$number',
-      MoneyPosition.suffix => '$number ${style.symbol}',
+      MoneyPosition.prefix => '$mark$number',
+      MoneyPosition.suffix => '$number $mark',
     };
   }
 
   /// 編集の入力欄に付ける記号(前・後ろの片方だけが入る)。
-  ({String? prefix, String? suffix}) affixesOf(String languageCode) {
+  ({String? prefix, String? suffix}) affixesOf(
+    String languageCode, {
+    String? symbol,
+  }) {
     final style = styleOf(languageCode);
+    final mark = _symbolOf(style, symbol);
     return style.position == MoneyPosition.prefix
-        ? (prefix: style.symbol, suffix: null)
-        : (prefix: null, suffix: style.symbol);
+        ? (prefix: mark, suffix: null)
+        : (prefix: null, suffix: mark);
   }
+
+  /// 行の通貨の記号(取引の通貨。DB の通貨マスタの記号)があればそれ、無ければ設定の記号。位置は設定(言語ごと)に従う。
+  static String _symbolOf(MoneyStyle style, String? symbol) =>
+      symbol != null && symbol.trim().isNotEmpty ? symbol.trim() : style.symbol;
 
   static String _group(String text) {
     final negative = text.startsWith('-');
@@ -109,7 +131,9 @@ class MoneyFormat {
       }
     }
     return MoneyFormat(
-      code: json['code'] is String && (json['code'] as String).isNotEmpty ? json['code'] as String : 'JPY',
+      code: json['code'] is String && (json['code'] as String).isNotEmpty
+          ? json['code'] as String
+          : 'JPY',
       base: base,
       byLanguage: byLanguage,
     );

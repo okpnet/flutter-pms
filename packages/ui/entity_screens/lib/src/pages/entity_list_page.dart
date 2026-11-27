@@ -231,7 +231,11 @@ class _EntityListPageState extends State<EntityListPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 SizedBox(
-                  height: _cardHeight(constraints.maxHeight, records.length, extra: _hasTotal(loaded.definition) ? 44 : 0),
+                  height: _cardHeight(
+                    constraints.maxHeight,
+                    records.length,
+                    extra: _hasTotal(loaded.definition) ? 44 : 0,
+                  ),
                   child: Card(
                     margin: EdgeInsets.zero,
                     clipBehavior: Clip.antiAlias,
@@ -336,11 +340,15 @@ class _EntityListPageState extends State<EntityListPage> {
     onChanged: (v) => setState(() => _query = v),
   );
 
-  bool _hasTotal(EntityDefinition definition) => definition.fields.any((f) => f.total && f.kind == FieldKind.number);
+  bool _hasTotal(EntityDefinition definition) =>
+      definition.fields.any((f) => f.total && f.kind == FieldKind.number);
 
   /// 合計を出す項目(`FieldDefinition.total`)の、表示している行の合計。無いときは null。
   Widget? _totalBand(EntityDefinition definition, List<EntityRecord> records) {
-    final fields = [for (final f in definition.fields) if (f.total && f.kind == FieldKind.number) f];
+    final fields = [
+      for (final f in definition.fields)
+        if (f.total && f.kind == FieldKind.number) f,
+    ];
     if (fields.isEmpty) return null;
     final scope = widget.scope;
     final theme = Theme.of(context);
@@ -350,15 +358,31 @@ class _EntityListPageState extends State<EntityListPage> {
       for (final r in records) {
         total += double.tryParse(r.valueOf(key)) ?? 0;
       }
-      final text = total == total.roundToDouble() ? '${total.round()}' : total.toStringAsFixed(2);
-      return f.money ? scope.money.format(text, languageCode: scope.languageCode) : text;
+      final text = total == total.roundToDouble()
+          ? '${total.round()}'
+          : total.toStringAsFixed(2);
+      if (!f.money) return text;
+      // 行の通貨がすべて同じときだけ、その記号を付ける(通貨が混ざるときは設定の記号。換算しない)
+      String? symbol;
+      if (f.currencyKey != null) {
+        final set = {for (final r in records) r.valueOf(f.currencyKey!)}
+          ..remove('');
+        if (set.length == 1) symbol = set.first;
+      }
+      return scope.money.format(
+        text,
+        languageCode: scope.languageCode,
+        symbol: symbol,
+      );
     }
 
     return Container(
       key: const ValueKey('listTotal'),
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      decoration: BoxDecoration(border: Border(top: BorderSide(color: theme.dividerColor))),
+      decoration: BoxDecoration(
+        border: Border(top: BorderSide(color: theme.dividerColor)),
+      ),
       // 合計は右端にまとめる(表の数値の列は右揃えのため、値の位置をそろえる)
       child: Wrap(
         alignment: WrapAlignment.end,
@@ -366,7 +390,10 @@ class _EntityListPageState extends State<EntityListPage> {
         children: [
           for (final f in fields)
             Text(
-              scope.strings.listTotal(label: scope.labels.field(widget.entityKey, f.key), value: sum(f)),
+              scope.strings.listTotal(
+                label: scope.labels.field(widget.entityKey, f.key),
+                value: sum(f),
+              ),
               style: theme.textTheme.titleSmall,
             ),
         ],

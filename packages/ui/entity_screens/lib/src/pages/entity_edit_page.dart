@@ -52,10 +52,16 @@ class EntityEditPage extends StatefulWidget {
   onOpenChild;
 
   /// 関連する実体([ReverseList.editable])の編集を開く。[id] が null なら新規([initialValues] が初期値)。null のときは、関連する実体を開けない。
-  final Future<void> Function(String entityKey, String? id, Map<String, String> initialValues)? onOpenRelated;
+  final Future<void> Function(
+    String entityKey,
+    String? id,
+    Map<String, String> initialValues,
+  )?
+  onOpenRelated;
 
   /// 編集画面の下(関連する一覧のあと)に出す、専用の部分。[id] はこの 1 件の id(新規のときは呼ばれない)。null を返すと何も出さない。
-  final Widget? Function(BuildContext context, String entityKey, String id)? sectionBuilder;
+  final Widget? Function(BuildContext context, String entityKey, String id)?
+  sectionBuilder;
 
   @override
   State<EntityEditPage> createState() => _EntityEditPageState();
@@ -535,7 +541,8 @@ class _EntityEditPageState extends State<EntityEditPage> {
                 onOpen: widget.onOpenChild,
                 onOpenRelated: widget.onOpenRelated,
               ),
-          if (!_isNew) ?widget.sectionBuilder?.call(context, widget.entityKey, widget.id!),
+          if (!_isNew)
+            ?widget.sectionBuilder?.call(context, widget.entityKey, widget.id!),
           if (!_isNew)
             for (final child in scope.catalog.childrenOf(widget.entityKey))
               if (child.inlineInOwner)
@@ -565,7 +572,8 @@ class _EntityEditPageState extends State<EntityEditPage> {
     ];
     return LayoutBuilder(
       builder: (context, c) {
-        final twoColumns = MediaBreakPoint.of(c.maxWidth) != MediaBreakPoint.mobile;
+        final twoColumns =
+            MediaBreakPoint.of(c.maxWidth) != MediaBreakPoint.mobile;
         final colWidth = twoColumns ? (c.maxWidth - 24) / 2 : c.maxWidth;
         return Wrap(
           spacing: 24,
@@ -626,6 +634,14 @@ class _EntityEditPageState extends State<EntityEditPage> {
     );
   }
 
+  /// 金額の項目の、この行の通貨の記号(`FieldDefinition.currencyKey` の項目の値。読み込んだ行の値。無いときは null = 設定の記号)。
+  String? _currencyOf(FieldDefinition f) {
+    final key = f.currencyKey;
+    if (key == null) return null;
+    final v = _original?.valueOf(key) ?? widget.initialValues[key] ?? '';
+    return v.isEmpty ? null : v;
+  }
+
   String? _error(String key) {
     final e = _errors[key];
     return e == null
@@ -651,8 +667,16 @@ class _EntityEditPageState extends State<EntityEditPage> {
           decoration: InputDecoration(
             errorText: _error(f.key),
             // 金額は、通貨の記号を入力欄の前か後ろに付ける(値には含めない)
-            prefixText: f.money ? _scope.money.affixesOf(_scope.languageCode).prefix : null,
-            suffixText: f.money ? _scope.money.affixesOf(_scope.languageCode).suffix : null,
+            prefixText: f.money
+                ? _scope.money
+                      .affixesOf(_scope.languageCode, symbol: _currencyOf(f))
+                      .prefix
+                : null,
+            suffixText: f.money
+                ? _scope.money
+                      .affixesOf(_scope.languageCode, symbol: _currencyOf(f))
+                      .suffix
+                : null,
           ),
           textAlign: f.money ? TextAlign.end : TextAlign.start,
         );
@@ -771,7 +795,11 @@ class _EntityEditPageState extends State<EntityEditPage> {
       FieldKind.condition => raw.isEmpty ? raw : ConditionValue.displayOf(raw),
       FieldKind.flag => raw == flagOn ? _scope.strings.yes : _scope.strings.no,
       FieldKind.file => EntityFile.tryParse(raw)?.label ?? '',
-      FieldKind.number when f.money => _scope.money.format(raw, languageCode: _scope.languageCode),
+      FieldKind.number when f.money => _scope.money.format(
+        raw,
+        languageCode: _scope.languageCode,
+        symbol: _currencyOf(f),
+      ),
       _ => raw,
     };
     return InputDecorator(
@@ -1080,7 +1108,12 @@ class _ReverseSection extends StatefulWidget {
     this.onOpenRelated,
   });
 
-  final Future<void> Function(String entityKey, String? id, Map<String, String> initialValues)? onOpenRelated;
+  final Future<void> Function(
+    String entityKey,
+    String? id,
+    Map<String, String> initialValues,
+  )?
+  onOpenRelated;
   final String entityKey;
   final ReverseList reverse;
   final String targetId;
@@ -1132,7 +1165,9 @@ class _ReverseSectionState extends State<_ReverseSection> {
   }
 
   Future<void> _add() async {
-    await widget.onOpenRelated!(widget.reverse.entity, null, {widget.reverse.field: widget.targetId});
+    await widget.onOpenRelated!(widget.reverse.entity, null, {
+      widget.reverse.field: widget.targetId,
+    });
     _reload();
   }
 
@@ -1168,7 +1203,10 @@ class _ReverseSectionState extends State<_ReverseSection> {
               children: [
                 Expanded(
                   child: Text(
-                    scope.labels.reverse(widget.entityKey, widget.reverse.entity),
+                    scope.labels.reverse(
+                      widget.entityKey,
+                      widget.reverse.entity,
+                    ),
                     style: theme.textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.w700,
                     ),

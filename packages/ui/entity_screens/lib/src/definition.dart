@@ -107,6 +107,7 @@ class FieldDefinition {
     this.lockedBy,
     this.total = false,
     this.money = false,
+    this.currencyKey,
   }) : assert(
          kind != FieldKind.reference || reference != null,
          'reference には参照先の実体キーが必要',
@@ -182,6 +183,10 @@ class FieldDefinition {
   /// 数量の単位(`shared_unit`)とは別。
   final bool money;
 
+  /// 金額の項目([money])の通貨の記号を持つ、同じ行の項目のキー(取引の通貨。例: `currency_symbol`)。値があるときは、その記号で出す(位置は設定の言語ごと)。
+  /// 無いとき・空のときは、設定の通貨(`MoneyFormat`)。台帳の合計は、行の通貨がすべて同じときだけ記号を付ける。
+  final String? currencyKey;
+
   Map<String, Object?> toJson() => {
     'key': key,
     'kind': kind.name,
@@ -204,13 +209,18 @@ class FieldDefinition {
     'lockedBy': lockedBy,
     if (total) 'total': total,
     if (money) 'money': money,
+    if (currencyKey != null) 'currencyKey': currencyKey,
   };
 }
 
 /// 他の実体から、この実体の1件を参照している一覧(例: 力量を持つ作業者)。
 /// 読み取り専用で、編集画面の下に出す。
 class ReverseList {
-  const ReverseList({required this.entity, required this.field, this.editable = false});
+  const ReverseList({
+    required this.entity,
+    required this.field,
+    this.editable = false,
+  });
 
   /// 参照している側の実体のキー。
   final String entity;
@@ -222,7 +232,11 @@ class ReverseList {
   /// (所有する子ではない関連する実体を、親の画面から追加・編集するため。例: 監査標準の項目)。
   final bool editable;
 
-  Map<String, Object?> toJson() => {'entity': entity, 'field': field, if (editable) 'editable': true};
+  Map<String, Object?> toJson() => {
+    'entity': entity,
+    'field': field,
+    if (editable) 'editable': true,
+  };
 }
 
 /// 所有する子の台帳を、親の表の各行に子の表を入れた「表の中の表」で出す指定。
