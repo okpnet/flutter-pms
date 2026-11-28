@@ -1583,8 +1583,6 @@ input HistoryInfoStaffFilter {
   historyMstrItemsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrShippingKindsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrCurrenciesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
-  historyMstrCurrenciesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
-  transExchangeRatesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrStakeholdersByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   mstrStakeholderContactsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   historyMstrStakeholderContactsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
@@ -1851,6 +1849,8 @@ input HistoryInfoStaffFilter {
   transAuditDetailsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transAuditDetailCheckItemsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   transAuditComplaintsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  historyMstrCurrenciesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
+  transExchangeRatesByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   vMrpPendingSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
   vMrpRunsByStaffHistoryIdAndStaffIdExist: Boolean
   vMrpSuggestionsByUpdateUserHistoryIdAndUpdateUserIdExist: Boolean
