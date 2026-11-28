@@ -59,4 +59,28 @@ void main() {
     expect(text, contains('(画面: /auth/login)'));
     expect(find.text('No.1 に保存しました'), findsOneWidget);
   });
+
+  testWidgets('パネル: アプリの起動前(ルーターが無い間)は、ルーターを作らず、落ちない', (tester) async {
+    final container = ProviderContainer();
+    addTearDown(container.dispose);
+    final key = GlobalKey();
+    await tester.pumpWidget(
+      UncontrolledProviderScope(
+        container: container,
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: Stack(
+            children: [
+              RepaintBoundary(key: key, child: const SizedBox()),
+              Positioned.fill(child: ChecksPanel(store: null, captureKey: key)),
+            ],
+          ),
+        ),
+      ),
+    );
+    await tester.pump(const Duration(seconds: 2));
+    expect(find.text('評価'), findsOneWidget);
+    expect(container.exists(rootRouterProvider), isFalse);
+    expect(tester.takeException(), isNull);
+  });
 }

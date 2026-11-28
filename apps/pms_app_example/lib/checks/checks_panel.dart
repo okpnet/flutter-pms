@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
@@ -30,7 +31,8 @@ class ChecksPanel extends ConsumerStatefulWidget {
 class _ChecksPanelState extends ConsumerState<ChecksPanel> {
   bool _open = false;
   String _location = '';
-  late final Listenable _delegate;
+  Listenable? _delegate;
+  Timer? _wait;
   List<CheckItem> _candidates = [];
   bool _showAll = false;
   CheckItem? _selected;
@@ -46,16 +48,16 @@ class _ChecksPanelState extends ConsumerState<ChecksPanel> {
   void initState() {
     super.initState();
     HardwareKeyboard.instance.addHandler(_onKey);
-    final router = ref.read(rootRouterProvider);
-    _delegate = router.routerDelegate;
-    _delegate.addListener(_onRoute);
-    _onRoute();
+    _attach();
+    // アプリが起動を終えて、ルーターができてから追従する(その前に読むと、起動の途中でルーターを作ってしまう)
+    _wait = Timer.periodic(const Duration(milliseconds: 500), (_) => _attach());
   }
 
   @override
   void dispose() {
     HardwareKeyboard.instance.removeHandler(_onKey);
-    _delegate.removeListener(_onRoute);
+    _wait?.cancel();
+    _delegate?.removeListener(_onRoute);
     _comment.dispose();
     _place.dispose();
     _criterion.dispose();
@@ -73,8 +75,26 @@ class _ChecksPanelState extends ConsumerState<ChecksPanel> {
     return false;
   }
 
+  void _attach() {
+    if (_delegate != null) return;
+    if (!ref.exists(rootRouterProvider)) return;
+    try {
+      final d = ref.read(rootRouterProvider).routerDelegate;
+      _delegate = d..addListener(_onRoute);
+      _wait?.cancel();
+      _onRoute();
+    } on Object {
+      // まだ使えない(次の周期で再び試す)
+    }
+  }
+
   void _onRoute() {
-    final loc = ref.read(rootRouterProvider).state.uri.toString();
+    final String loc;
+    try {
+      loc = ref.read(rootRouterProvider).state.uri.toString();
+    } on Object {
+      return;
+    }
     if (loc == _location) return;
     _location = loc;
     _reload(keepSelection: false);
