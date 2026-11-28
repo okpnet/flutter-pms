@@ -113,7 +113,7 @@
 
 1. 通常のテスト: `melos run test`(サーバーを使うテストは `--exclude-tags server` で除外)。取得元は `data_test_harness` の代役(`RecordingDataRepository`・`ReplayLink`)。
 1. GitHub Actions: `server-tests`(使い捨ての PostgreSQL・PostGraphile で、06・07・09 を流し、DB の関数の SQL テストと `*_model` のテストを実行)、`design-check`(`gen.js --check`。生成物と生成元のずれ)。
-1. 見た目・挙動の評価は利用者が行う(`issue/app_checks.csv`)。
+1. 見た目・挙動の評価は利用者が行う(`issue/checks/`)。
 
 ## 9. 配備・環境
 

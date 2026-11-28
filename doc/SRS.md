@@ -178,7 +178,7 @@
 | NFR-06 性能 | 重い計算(MRP・換算・原価)は DB で行い、クライアントは値を表示する。換算は、列を加工せず索引で引ける形にする |
 | NFR-07 可用性 | メンテナンス中・セッション切れは、通信の前に確認して、専用のページへ向ける |
 | NFR-08 データの整合 | 履歴を持つマスタは更新のたびに版を残す。記録は追記のみ。主キーは DB のトリガーが採番する |
-| NFR-09 テスト | ① 手元の代役(DB なし。`ReplayLink` ほか) ② GitHub Actions の使い捨ての PostgreSQL・PostGraphile(`server-tests`)③ 本番。挙動・見た目の評価は利用者が行う(`issue/app_checks.csv`) |
+| NFR-09 テスト | ① 手元の代役(DB なし。`ReplayLink` ほか) ② GitHub Actions の使い捨ての PostgreSQL・PostGraphile(`server-tests`)③ 本番。挙動・見た目の評価は利用者が行う(`issue/checks/`) |
 | NFR-10 運用 | 設定の優先順位は、裏設定の既定 < DB(`info_app.settings`)< 端末のローカル設定(表示の好みだけ) |
 
 ## 5. データ要求
