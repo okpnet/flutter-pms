@@ -11319,24 +11319,7 @@
         "sqlite": ""
       },
       "bodies": {
-        "postgresql": "CREATE OR REPLACE FUNCTION tests.acceptance_date(p_acceptance_day smallint, p_date date) RETURNS date AS $$
-    SELECT CASE
-        WHEN p_date IS NULL THEN NULL
-        WHEN p_acceptance_day IS NULL THEN (date_trunc('month', p_date) + interval '1 month' - interval '1 day')::date
-        WHEN p_date <= date_trunc('month', p_date)::date + (LEAST(
-            p_acceptance_day::int,
-            extract(day FROM (date_trunc('month', p_date) + interval '1 month' - interval '1 day'))::int
-        ) - 1) THEN date_trunc('month', p_date)::date + (LEAST(
-            p_acceptance_day::int,
-            extract(day FROM (date_trunc('month', p_date) + interval '1 month' - interval '1 day'))::int
-        ) - 1)
-        ELSE (date_trunc('month', p_date) + interval '1 month')::date + (LEAST(
-            p_acceptance_day::int,
-            extract(day FROM (date_trunc('month', p_date) + interval '2 month' - interval '1 day'))::int
-        ) - 1)
-    END
-$$ LANGUAGE sql IMMUTABLE;
-",
+        "postgresql": "CREATE OR REPLACE FUNCTION tests.acceptance_date(p_acceptance_day smallint, p_date date) RETURNS date AS $$\r\n    SELECT CASE\r\n        WHEN p_date IS NULL THEN NULL\r\n        WHEN p_acceptance_day IS NULL THEN (date_trunc('month', p_date) + interval '1 month' - interval '1 day')::date\r\n        WHEN p_date <= date_trunc('month', p_date)::date + (LEAST(\r\n            p_acceptance_day::int,\r\n            extract(day FROM (date_trunc('month', p_date) + interval '1 month' - interval '1 day'))::int\r\n        ) - 1) THEN date_trunc('month', p_date)::date + (LEAST(\r\n            p_acceptance_day::int,\r\n            extract(day FROM (date_trunc('month', p_date) + interval '1 month' - interval '1 day'))::int\r\n        ) - 1)\r\n        ELSE (date_trunc('month', p_date) + interval '1 month')::date + (LEAST(\r\n            p_acceptance_day::int,\r\n            extract(day FROM (date_trunc('month', p_date) + interval '2 month' - interval '1 day'))::int\r\n        ) - 1)\r\n    END\r\n$$ LANGUAGE sql IMMUTABLE;\r\n",
         "mysql": "",
         "sqlserver": "",
         "sqlite": ""
