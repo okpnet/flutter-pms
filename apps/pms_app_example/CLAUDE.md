@@ -14,8 +14,11 @@ cd apps\pms_app_example; flutter run -d windows
 ```
 右下の検証パネルで、接続断・メンテナンス・セッション切れを再現する。仮想のユーザー: `admin` / `admin-pass`(管理者)、`sato` / `sato-pass`(受注だけ許可)。
 
+## 評価パネル(画面の確認項目)
+右端の「評価」タブ(Ctrl+Shift+E)。画面の外側(`main.dart` の `Stack` の上。パネル専用の `MaterialApp` で包み、アプリのテーマ・ルーターには触れない)に置き、いまの画面のパス(`rootRouterProvider`)に合う確認項目(`issue/checks/NNNN.md`。前書きの `パス`)の基準・履歴を見ながら、状態・コメント・画面の画像を履歴へ**追記**する(`lib/checks/checks_store.dart` が読み書き、`checks_panel.dart` が画面)。書き換えるのは前書きの `状態` の行だけ。画像は `RepaintBoundary` で撮り `issue/checks/img/` に保存する。保存先は実行場所から探す(`--dart-define=CHECKS_DIR=…` で指定)。書式は `issue/checks/README.md`。パネルは評価用で、`pms_app` には入れない。
+
 ## テスト(評価)
-`flutter test`(サーバーに接続しない)。`test/navigation_session_test.dart`(遷移・セッション切れ・接続断・メンテナンス)、`test/shell_evaluation_test.dart`(テーマ・ログインユーザー・ファイル・権限・メニュー)。評価の結果と指摘は `doc/contents/evaluation.md`(Issue は `issue/202611.md#D_20261117_0002`)。画面の見た目の確認は利用者が行う。
+`flutter test`(サーバーに接続しない)。`test/navigation_session_test.dart`(遷移・セッション切れ・接続断・メンテナンス)、`test/shell_evaluation_test.dart`(テーマ・ログインユーザー・ファイル・権限・メニュー)、`test/checks_store_test.dart`・`test/checks_panel_test.dart`(評価パネル)。評価の結果と指摘は `doc/contents/evaluation.md`(Issue は `issue/202611.md#D_20261117_0002`)。画面の見た目の確認は利用者が行う。
 
 ## 規則: プロジェクト間をまたぐ指示
 指示や実装が、プロジェクト(アプリ・ライブラリ)をまたいで行われるときの`issue`・`doc/log`の扱い。
