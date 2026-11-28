@@ -16,5 +16,6 @@ abstract class CostItemUnitPageFilterSpec {
     'unitCost': FlatFilterPath([], 'unitCost'),
     'hasSupplier': FlatFilterPath([], 'hasSupplier'),
     'hasComponents': FlatFilterPath([], 'hasComponents'),
+    'rateMissing': FlatFilterPath([], 'rateMissing'),
   });
 }

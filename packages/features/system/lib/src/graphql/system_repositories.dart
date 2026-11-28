@@ -36,7 +36,7 @@ List<IEntityRepository> systemRepositories(
   return [
     _UnitRepository(_unitDefinition, client, language, auditUser),
     _CurrencyRepository(_definition('currency'), client, language, auditUser),
-    _ExchangeRateRepository(_definition('exchangerate'), client, auditUser),
+    _ExchangeRateRepository(_definition('exchangerate'), client, language, auditUser),
   ];
 }
 
@@ -591,11 +591,17 @@ Never _throwMappedCurrency(OperationException e) {
 /// 更新は「新しい行を足し、前の行を取り消す(remove = true)」。削除は取り消し(remove = true)。
 /// 適用する月は、月の初日に正規化して送る(DB の CHECK)。
 class _ExchangeRateRepository implements IEntityRepository {
-  _ExchangeRateRepository(this.definition, this.client, this.auditUser);
+  _ExchangeRateRepository(
+    this.definition,
+    this.client,
+    this.language,
+    this.auditUser,
+  );
 
   @override
   final EntityDefinition definition;
   final GraphQLClient client;
+  final _LanguageCode language;
   final AuditUserSource? auditUser;
 
   Future<AuditUser?> _updater() async =>
@@ -710,6 +716,7 @@ class _ExchangeRateRepository implements IEntityRepository {
     final result = await client.query$CurrencyRatePageRead(
       Options$Query$CurrencyRatePageRead(
         variables: Variables$Query$CurrencyRatePageRead.fromJson({
+          'languageCodeId': await language.id,
           'first': first,
           'offset': offset,
           if (filter.isNotEmpty) 'filter': filter,

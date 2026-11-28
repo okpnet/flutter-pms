@@ -179,5 +179,87 @@ void main() {
       }
       expect(await unit.findById(id), isNull);
     });
+
+    serverTest('通貨と為替レート: 基準通貨を引ける。通貨・レートを登録し、取り消せる(管理者)', (server) async {
+      final client = server.provider.client;
+      final repos = systemRepositories(client);
+      final currency = repos.firstWhere((r) => r.definition.key == 'currency');
+      final rate = repos.firstWhere((r) => r.definition.key == 'exchangerate');
+
+      // 基準通貨(ダミーは JPY)と、最新のレート(通貨の台帳に読み取り専用で出る)
+      expect(await baseCurrencyId(client), isNotNull);
+      final all = await currency.find(take: 50);
+      final base = all.firstWhere((r) => r.valueOf('is_base') == '1');
+      expect(base.valueOf('code'), isNotEmpty);
+
+      // 試験用の通貨(3 文字の大文字。ダミーと重ならないように時刻から作る)
+      final n = DateTime.now().millisecondsSinceEpoch;
+      final code = String.fromCharCodes([
+        65 + n % 26,
+        65 + (n ~/ 26) % 26,
+        65 + (n ~/ 676) % 26,
+      ]);
+      String? currencyId;
+      String? rateId;
+      try {
+        final created = await currency.save(
+          EntityRecord(
+            id: '',
+            values: {
+              'code': code,
+              'name': '試験通貨$n',
+              'currency_symbol': 'T',
+              'minor_unit': '2',
+              'rate_auto': '',
+              'remarks': '書き込みテスト',
+            },
+          ),
+        );
+        currencyId = created.id;
+        expect(created.valueOf('code'), code);
+        expect(created.valueOf('name'), startsWith('試験通貨'));
+
+        // 同じコードの登録は、重複の検証エラー
+        await expectLater(
+          currency.save(
+            const EntityRecord(
+              id: '',
+              values: {
+                'code': 'JPY',
+                'name': '重複',
+                'currency_symbol': '¥',
+                'minor_unit': '0',
+              },
+            ),
+          ),
+          throwsA(isA<EntityValidationException>()),
+        );
+
+        // レートは追記のみ。将来の日付なら、確定日に当たらない
+        final added = await rate.save(
+          EntityRecord(
+            id: '',
+            values: {
+              'mstr_currency_id': currencyId,
+              'rate_date': '2099-01-01',
+              'rate': '1.5',
+              'remarks': '書き込みテスト',
+            },
+          ),
+        );
+        rateId = added.id;
+        expect(added.valueOf('mstr_currency_id'), currencyId);
+        expect(double.parse(added.valueOf('rate')), 1.5);
+
+        // 通貨の台帳の最新のレートに載る
+        final latest = (await currency.findById(currencyId))!;
+        expect(latest.valueOf('latest_rate'), isNotEmpty);
+      } finally {
+        if (rateId != null) await rate.remove(rateId);
+        if (currencyId != null) await currency.remove(currencyId);
+      }
+      expect(await rate.findById(rateId), isNull);
+      expect(await currency.findById(currencyId), isNull);
+    });
   });
 }

@@ -35,8 +35,13 @@ void main() {
       final repo = sharedMasterRepositories(server.provider.client).single;
       final code = 'TST-${DateTime.now().millisecondsSinceEpoch}';
       String? id;
+      // 通貨は必須(DB の既定値は無い)。登録済みの利害関係者の通貨を借りる
+      final currencyId = (await repo.find(take: 1)).first.valueOf('mstr_currency_id');
+      expect(currencyId, isNotEmpty);
       try {
         final created = await repo.save(EntityRecord(id: '', values: {
+          'mstr_currency_id': currencyId,
+          'acceptance_day': '25',
           'code': code,
           'control_code': 'C1',
           'name': '試験商事',
@@ -53,6 +58,8 @@ void main() {
         expect(created.valueOf('is_customer'), 'はい');
         expect(created.valueOf('is_logistics'), 'はい');
         expect(created.valueOf('mail'), 'a@example.com');
+        expect(created.valueOf('mstr_currency_id'), currencyId);
+        expect(created.valueOf('acceptance_day'), '25');
 
         // 名称だけを変える(画面は全項目を送る。ほかは変わらない)
         final renamed = await repo.save(created.copyWith(values: {...created.values, 'name': '試験商事(更新)'}));
@@ -74,7 +81,7 @@ void main() {
 
         // 同じコードの登録は、重複の検証エラー(DB の関数が止める)
         await expectLater(
-          repo.save(EntityRecord(id: '', values: {'code': code, 'name': '重複'})),
+          repo.save(EntityRecord(id: '', values: {'mstr_currency_id': currencyId, 'code': code, 'name': '重複'})),
           throwsA(isA<EntityValidationException>().having((e) => e.errors['code'], 'code', EntityFieldError.duplicate)),
         );
       } finally {
